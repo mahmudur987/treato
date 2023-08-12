@@ -5,11 +5,26 @@ import hairRemoval from "../../../assets/images/recommendImages/hairRemoval.png"
 import fingernail from "../../../assets/images/recommendImages/fingernail.png";
 import skincare from "../../../assets/images/recommendImages/skincare.png";
 import scrollRight from "../../../assets/images/recommendImages/scrollRight.png";
-import RecommendedSalons from "./RecommendedSalons";
 
 export default function RecommendedSection() {
   const rmdBoxRef = useRef(null);
   const trSalonBoxRef = useRef(null);
+
+  //  service objects 
+  const services = [
+    { icon: hair, title: 'Hair' },
+    { icon: hairRemoval, title: 'Hair removal' },
+    { icon: fingernail, title: 'Nail care' },
+    { icon: skincare, title: 'Facial & skincare' },
+    { icon: hair, title: 'Hair' },
+    { icon: hairRemoval, title: 'Hair removal' },
+    { icon: fingernail, title: 'Nail care' },
+    { icon: skincare, title: 'Facial & skincare' },
+    { icon: hair, title: 'Hair' },
+    { icon: hairRemoval, title: 'Hair removal' },
+    { icon: fingernail, title: 'Nail care' },
+    { icon: skincare, title: 'Facial & skincare' },
+  ];
 
   const handle_rmdScrollRight = () => {
     if (rmdBoxRef.current) {
@@ -28,78 +43,85 @@ export default function RecommendedSection() {
     }
   };
   return (
-    <div className={styles["container"]}>
+    <section id="#recommended" className={styles["container"]}>
       {/* Recommended for you */}
       <div className={styles["recommended"]}>
         <h2 className={styles["rmdHeading"]}>Recommended for you</h2>
         <div className={styles["rmdWrapper"]}>
+          {/* <div className={styles["rmdBox"]} ref={rmdBoxRef}>
+            <a className={styles["rmdItem"]}>
+              <img src={hair} />
+              <h4>Hair</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={hairRemoval} />
+              <h4>Hair removal</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={fingernail} />
+              <h4>Nail care</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={skincare} />
+              <h4>facial & skincare</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={hair} />
+              <h4>Hair</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={hairRemoval} />
+              <h4>Hair removal</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={fingernail} />
+              <h4>Nail care</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={skincare} />
+              <h4>facial & skincare</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={hair} />
+              <h4>Hair</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={hairRemoval} />
+              <h4>Hair removal</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={fingernail} />
+              <h4>Nail care</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={skincare} />
+              <h4>facial & skincare</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={hair} />
+              <h4>Hair</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={hairRemoval} />
+              <h4>Hair removal</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={fingernail} />
+              <h4>Nail care</h4>
+            </a>
+            <a className={styles["rmdItem"]}>
+              <img src={skincare} />
+              <h4>facial & skincare</h4>
+            </a>
+          </div> */}
           <div className={styles["rmdBox"]} ref={rmdBoxRef}>
-            <a className={styles["rmdItem"]}>
-              <img src={hair} />
-              <h4>Hair</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={hairRemoval} />
-              <h4>Hair removal</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={fingernail} />
-              <h4>Nail care</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={skincare} />
-              <h4>facial & skincare</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={hair} />
-              <h4>Hair</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={hairRemoval} />
-              <h4>Hair removal</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={fingernail} />
-              <h4>Nail care</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={skincare} />
-              <h4>facial & skincare</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={hair} />
-              <h4>Hair</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={hairRemoval} />
-              <h4>Hair removal</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={fingernail} />
-              <h4>Nail care</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={skincare} />
-              <h4>facial & skincare</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={hair} />
-              <h4>Hair</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={hairRemoval} />
-              <h4>Hair removal</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={fingernail} />
-              <h4>Nail care</h4>
-            </a>
-            <a className={styles["rmdItem"]}>
-              <img src={skincare} />
-              <h4>facial & skincare</h4>
-            </a>
-          </div>
-
+      {services.map((service, index) => (
+        <a key={index} className={styles["rmdItem"]}>
+          <img src={service.icon} alt={service.title} />
+          <h4>{service.title}</h4>
+        </a>
+      ))}
+    </div>
           {/* scroll arrow */}
 
           <img
@@ -110,10 +132,6 @@ export default function RecommendedSection() {
         </div>
       </div>
 
-      {/* Top-rated Hair Salons */}
-      <RecommendedSalons heading={"Top-rated Hair Salons"} />
-      {/* Partner with us */}
-      {/* <RecommendedSalons heading={"Partner with us"} /> */}
-    </div>
+    </section>
   );
 }

@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
+.container {
+  padding: 0rem 6rem;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0rem;
+}
+
+.TestisHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+}
+.TestisText {
+  font-size: 28px;
+}
+.TestisHeading img {
+  display: none;
+}
+.Testis {
+  width: 100%;
+  overflow-x: scroll;
+  margin-top: 2rem;
+  display: flex;
+  gap: 12px;
+  /* height: 324px; */
+}
+.Testis::-webkit-scrollbar {
+  display: none;
+}
+
+.TestisItem {
+  min-width: 280px;
+  height: 300px;
+  padding: 36px 16px 36px 16px;
+  border-radius: 4px;
+  background: var(--light-color);
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  font-size: var(--fonts-large);
+}
+.TestisItem img {
+  width: 16px;
+  height: 16px;
+}
+.TestisItem > p {
+  min-height: 118px;
+  font-size: var(--font-medium);
+}
+.stars {
+  display: flex;
+  gap: 8px;
+}
+.testisProfile {
+  display: flex;
+  flex-direction: row;
+}
+.testisProfile img {
+  width: 40px;
+  height: 42px;
+}
+.profileDetails {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+}
+
+.profileName,
+.profileLocation {
+  font-size: var(--font-small);
+}
+
+@media only screen and (max-width: 1025px) {
+  .TestisItem {
+    min-width: 245px;
+    height: 245px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .container {
+    padding: 0rem 2rem;
+  }
+  .TestisHeading img {
+    display: block;
+    height: 24px;
+    width: 24px;
+  }
+  .TestisText {
+    font-size: 24px;
+  }
+}

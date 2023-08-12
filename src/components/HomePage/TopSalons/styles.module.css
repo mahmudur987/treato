@@ -1,14 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
 
 .container {
-  /* min-height: 80vh; */
   font-family: "Lato", sans-serif;
-  padding: 2rem 6rem;
+  padding: 0rem 6rem;
+  padding-bottom: 2rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
 }
 
 /* recommended for you css */
@@ -43,7 +41,11 @@
   width: 0px;
   border: 2px solid var(--light-color);
 }
-
+.trHeading{
+  font-size: 28px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+}
 .rmdItem {
   display: flex;
   flex-direction: column;
