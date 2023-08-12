@@ -6,6 +6,8 @@ import AppDownloadInfo from "../../components/HomePage/AppDownloadInfo/AppDownlo
 import TopSalons from "../../components/HomePage/TopSalons/TopSalons";
 import PartnerBanner from "../../components/HomePage/PartnerBanner/PartnerBanner";
 import Testimonials from "../../components/HomePage/Testimonials/Testimonials";
+import Contactus from "../../components/HomePage/Contactus/Contactus";
+import LatestBlog from "../../components/HomePage/LatestBlog/LatestBlog";
 
 export default function Home(props) {
   return (
@@ -13,11 +15,12 @@ export default function Home(props) {
       <HeroSection />
       <RecommendedSection />
       <TopSalons heading={"Top-rated Hair Salons"} />
-
+      <LatestBlog />
       <AppDownloadInfo />
       <TopSalons heading={"Popular near you"} />
-      <PartnerBanner/>
-      <Testimonials/>
+      <PartnerBanner />
+      <Testimonials />
+      <Contactus />
     </div>
   );
 }

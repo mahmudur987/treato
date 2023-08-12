@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styles from "./hero.module.css";
-import AppStoreImg from "../../../assets/images/AppStore.png";
-import PlayStoreImg from "../../../assets/images/PlayStore.png";
-import searchImg from "../../../assets/images/search.png";
-import mapPinImg from "../../../assets/images/mapPin.png";
-import searchblueImg from "../../../assets/images/search_blue.png";
-import Frame from "../../../assets/images/Frame1.png";
-import closeButton from "../../../assets/images/x-circle.png";
-import mapPinBlue from "../../../assets/images/mapPinBlue.png";
+import AppStoreImg from "../../../assets/images/HeroSectionImages/AppStore.png";
+import PlayStoreImg from "../../../assets/images/HeroSectionImages/PlayStore.png";
+import searchImg from "../../../assets/images/HeroSectionImages/search.png";
+import mapPinImg from "../../../assets/images/HeroSectionImages/mapPin.png";
+import searchblueImg from "../../../assets/images/HeroSectionImages/search_blue.png";
+import Frame from "../../../assets/images/HeroSectionImages/Frame1.png";
+import closeButton from "../../../assets/images/HeroSectionImages/x-circle.png";
+import mapPinBlue from "../../../assets/images/HeroSectionImages/mapPinBlue.png";
 
 export default function HeroSection(props) {
   const [show_TrtResults, setShow_TrtResults] = useState(false);
