@@ -277,6 +277,7 @@
   }
   .storeLinks {
     width: 90%;
+    margin-top: 2rem;
     justify-content: space-around;
   }
   .storeLinks a img {
