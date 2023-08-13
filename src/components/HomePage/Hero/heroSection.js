@@ -4,27 +4,55 @@ import AppStoreImg from "../../../assets/images/HeroSectionImages/AppStore.png";
 import PlayStoreImg from "../../../assets/images/HeroSectionImages/PlayStore.png";
 import searchImg from "../../../assets/images/HeroSectionImages/search.png";
 import mapPinImg from "../../../assets/images/HeroSectionImages/mapPin.png";
-import searchblueImg from "../../../assets/images/HeroSectionImages/search_blue.png";
-import Frame from "../../../assets/images/HeroSectionImages/Frame1.png";
 import closeButton from "../../../assets/images/HeroSectionImages/x-circle.png";
 import mapPinBlue from "../../../assets/images/HeroSectionImages/mapPinBlue.png";
+import LocationModal_Mobo from "./Search_MoboModal/Search_MoboModal";
+import Locations from "./SearchContent/Locations";
+import Treatments from "./SearchContent/Treatments";
+import Venues from "./SearchContent/Venues";
 
 export default function HeroSection(props) {
-  const [show_TrtResults, setShow_TrtResults] = useState(false);
-  const [show_locResults, setShow_locResultsBox] = useState(false);
+  // Short letter abbreviations used in few classNames
+  // trt: Treatment
+  // vn: Venues
+  // loc: Location
+  const [locationInputValue, setLocationInputValue] = useState("");
+  const [treatmentInputValue, setTreatmentInputValue] = useState("");
+  const [Trt_DesktopModal, setTrt_DesktopModal] = useState(false);
+  const [Trt_MoboModal, setTrt_MoboModal] = useState(false);
 
-  const handle_openTrtResultBox = () => {
-    setShow_TrtResults(true);
-  };
-  const handle_closeTrtResultBox = () => {
-    setShow_TrtResults(false);
-  };
+  const [loc_DesktopModal, setloc_DesktopModal] = useState(false);
+  const [loc_MoboModal, setloc_MoboModal] = useState(false);
 
-  const handle_openlocResultBox = () => {
-    setShow_locResultsBox(true);
+  // functions to open/Close desktop search modal
+  const handle_openTrt_Modal = () => {
+    if (window.innerWidth >= 770) {
+      setTrt_DesktopModal(true);
+    } else {
+      setTrt_MoboModal(true);
+      document.body.style.overflow = "hidden";
+    }
   };
-  const handle_closelocResultBox = () => {
-    setShow_locResultsBox(false);
+  const handle_closeTrt_Modal = () => {
+    setTreatmentInputValue("");
+    setTrt_DesktopModal(false);
+    setTrt_MoboModal(false);
+    document.body.style.overflow = "auto";
+  };
+  // functions to open/Close desktop location modal
+  const handle_openloc_Modal = () => {
+    if (window.innerWidth >= 770) {
+      setloc_DesktopModal(true);
+    } else {
+      setloc_MoboModal(true);
+      document.body.style.overflow = "hidden";
+    }
+  };
+  const handle_closeloc_Modal = () => {
+    setLocationInputValue("");
+    setloc_DesktopModal(false);
+    setloc_MoboModal(false);
+    document.body.style.overflow = "auto";
   };
 
   return (
@@ -43,96 +71,30 @@ export default function HeroSection(props) {
           <input
             className={styles["treatmentInput"]}
             placeholder="Search treatments or venues"
-            onClick={handle_openTrtResultBox}
+            value={treatmentInputValue}
+            onChange={(e) => setTreatmentInputValue(e.target.value)}
+            onClick={handle_openTrt_Modal}
           />
 
-          {/* Treatment search results box*/}
+          {/* Treatment search Desktop box/Modal*/}
 
           <div
             className={`${styles["treatmentsResults"]} ${
-              show_TrtResults ? "" : styles["hidden"]
+              Trt_DesktopModal ? "" : styles["hidden"]
             }`}
           >
-            {/* treatments */}
-            <div className={styles["treatmentsSection"]}>
-              <h3>Treatments</h3>
-              <div className={styles["trt_results"]}>
-                <div className={styles["trt_resultItem"]}>
-                  <div>
-                    <img src={searchblueImg} />
-                  </div>
-                  <p>hair extension</p>
-                </div>
-                <div className={styles["trt_resultItem"]}>
-                  <div>
-                    <img src={searchblueImg} />
-                  </div>
-                  <p>hair extension</p>
-                </div>
-                <div className={styles["trt_resultItem"]}>
-                  <div>
-                    <img src={searchblueImg} />
-                  </div>
-                  <p>hair extension</p>
-                </div>
-                <div className={styles["trt_resultItem"]}>
-                  <div>
-                    <img src={searchblueImg} />
-                  </div>
-                  <p>hair extension</p>
-                </div>
-              </div>
-            </div>
-
+            {/* treatments Content*/}
+            <Treatments />
             {/* Venues */}
-            <div className={styles["venuesSection"]}>
-              <h3>Venues</h3>
-              <div className={styles["vn_results"]}>
-                <div className={styles["vn_resultItem"]}>
-                  <div className={styles["vn_itemImage"]}>
-                    <img src={Frame} />
-                  </div>
-                  <div className={styles["vn_itemdetails"]}>
-                    <p>WDI Hair Labs</p>
-                    <small>25th Cross Road,koramangala</small>
-                  </div>
-                </div>
-                <div className={styles["vn_resultItem"]}>
-                  <div className={styles["vn_itemImage"]}>
-                    <img src={Frame} />
-                  </div>
-                  <div className={styles["vn_itemdetails"]}>
-                    <p>WDI Hair Labs</p>
-                    <small>25th Cross Road,koramangala</small>
-                  </div>
-                </div>
-                <div className={styles["vn_resultItem"]}>
-                  <div className={styles["vn_itemImage"]}>
-                    <img src={Frame} />
-                  </div>
-                  <div className={styles["vn_itemdetails"]}>
-                    <p>WDI Hair Labs</p>
-                    <small>25th Cross Road,koramangala</small>
-                  </div>
-                </div>
-                <div className={styles["vn_resultItem"]}>
-                  <div className={styles["vn_itemImage"]}>
-                    <img src={Frame} />
-                  </div>
-                  <div className={styles["vn_itemdetails"]}>
-                    <p>WDI Hair Labs</p>
-                    <small>25th Cross Road,koramangala</small>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Venues />
           </div>
+
           <img
             src={closeButton}
             className={`${styles["close_trtBox"]} ${
-              show_TrtResults ? "" : styles["hidden"]
+              Trt_DesktopModal ? "" : styles["hidden"]
             }`}
-            onClick={handle_closeTrtResultBox}
+            onClick={handle_closeTrt_Modal}
           />
         </div>
 
@@ -141,73 +103,34 @@ export default function HeroSection(props) {
         {/* search location */}
         <div className={styles["searchlocation"]}>
           <div className={styles["inputIcon"]}>
-            <img src={mapPinImg} />
+            <img src={mapPinImg} alt="mapPinImg" />
           </div>
           <input
             className={styles["locationInput"]}
             placeholder="Search by location"
-            onClick={handle_openlocResultBox}
+            onClick={handle_openloc_Modal}
+            value={locationInputValue}
+            onChange={(e) => setLocationInputValue(e.target.value)}
           />
           <img
-            className={`${styles["close_trtBox"]} ${show_locResults ? "" : styles["hidden"]}`}
-            onClick={handle_closelocResultBox}
+            className={`${styles["close_trtBox"]} ${
+              loc_DesktopModal ? "" : styles["hidden"]
+            }`}
+            onClick={handle_closeloc_Modal}
             src={closeButton}
+            alt="closeButton"
           />
 
           <button className={styles["goSearch"]}>Go</button>
 
-          {/* current location result box */}
+          {/*  location Desktop box/Modal */}
 
           <div
             className={`${styles["locationResults"]} ${
-              show_locResults ? "" : styles["hidden"]
+              loc_DesktopModal ? "" : styles["hidden"]
             }`}
           >
-            <div className={styles["locHeading"]}>
-              <img src={mapPinBlue} />
-              <h4>Current Location</h4>
-            </div>
-            <div className={styles["locResults"]}>
-              <div className={styles["locResultItem"]}>
-                <p>Benaluru, karnataka, India</p>
-              </div>
-              <div className={styles["locResultItem"]}>
-                <p>
-                  Kempegowda International Airport Bengaluru (BLR), KIAL Road,
-                  Devanahalli, Bengaluru, Karnataka, India
-                </p>
-              </div>
-              <div className={styles["locResultItem"]}>
-                <p>Benaluru, karnataka, India</p>
-              </div>
-              <div className={styles["locResultItem"]}>
-                <p>Benaluru, karnataka, India</p>
-              </div>
-              <div className={styles["locResultItem"]}>
-                <p>
-                  Kempegowda International Airport Bengaluru (BLR), KIAL Road,
-                  Devanahalli, Bengaluru, Karnataka, India
-                </p>
-              </div>{" "}
-              <div className={styles["locResultItem"]}>
-                <p>
-                  Kempegowda International Airport Bengaluru (BLR), KIAL Road,
-                  Devanahalli, Bengaluru, Karnataka, India
-                </p>
-              </div>{" "}
-              <div className={styles["locResultItem"]}>
-                <p>
-                  Kempegowda International Airport Bengaluru (BLR), KIAL Road,
-                  Devanahalli, Bengaluru, Karnataka, India
-                </p>
-              </div>{" "}
-              <div className={styles["locResultItem"]}>
-                <p>
-                  Kempegowda International Airport Bengaluru (BLR), KIAL Road,
-                  Devanahalli, Bengaluru, Karnataka, India
-                </p>
-              </div>
-            </div>
+            <Locations />
           </div>
         </div>
 
@@ -215,12 +138,33 @@ export default function HeroSection(props) {
 
         <button className={styles["moboSearchBtn"]}>Search</button>
       </div>
+      {/* Location mobile Modal */}
+
+      {Trt_MoboModal && (
+        <LocationModal_Mobo
+          handle_close={handle_closeTrt_Modal}
+          setShow_Modal={setloc_MoboModal}
+          show_Modal={loc_MoboModal}
+          title="Treatment or venue"
+          placeholderText="Treatments or venues"
+        />
+      )}
+      {loc_MoboModal && (
+        <LocationModal_Mobo
+          handle_close={handle_closeloc_Modal}
+          setShow_Modal={setloc_MoboModal}
+          show_Modal={loc_MoboModal}
+          title="Search by location"
+          placeholderText="Current location"
+        />
+      )}
+
       <div className={styles["storeLinks"]}>
         <a>
-          <img src={AppStoreImg} />
+          <img src={AppStoreImg} alt="AppStoreImg" />
         </a>
         <a>
-          <img src={PlayStoreImg} />
+          <img src={PlayStoreImg} alt="PlayStoreImg" />
         </a>
       </div>
     </div>

@@ -213,7 +213,7 @@
 .locResultItem:hover {
   background-color: var(--light-color);
 }
-.moboSearchBtn{
+.moboSearchBtn {
   display: none;
 }
 /* media queries */
@@ -242,6 +242,7 @@
     /* gap: 12px; */
     justify-content: space-around;
     padding: 0.3rem;
+    border-radius: 4px;
   }
   .centerLine {
     display: none;
@@ -253,9 +254,8 @@
     border: 1px solid var(--light-color);
   }
   .searchlocation input,
-  .searchTreatment input{
+  .searchTreatment input {
     flex: 1;
-
   }
   .close_trtBox {
     display: none;
@@ -266,23 +266,28 @@
   .inputIcon img {
     height: 16px;
   }
-  .moboSearchBtn{
+  .moboSearchBtn {
     display: block;
     background-color: var(--black-color);
     text-align: center;
     height: 48px;
     color: white;
     border-radius: 4px;
-    cursor:pointer
+    cursor: pointer;
   }
-  .storeLinks{
+  .storeLinks {
     width: 90%;
     justify-content: space-around;
   }
-  .storeLinks a img{
+  .storeLinks a img {
     width: 142px;
   }
-  .treatmentsResults,.locationResults{
+  .treatmentsResults,
+  .locationResults {
     display: none;
   }
+  .locationResults {
+    height: auto;
+  }
+
 }
