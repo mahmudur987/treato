@@ -1,0 +1,139 @@
+.card {
+  color: var(--black-color);
+  block-size: border-box;
+  font-family: "Lato", sans-serif;
+  width: auto;
+
+}
+.cardImage {
+  height: 256px;
+  width: 100%;
+  flex-shrink: 0;
+}
+.Name {
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%;
+  letter-spacing: 0.24px;
+}
+.ratings{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.rating,
+.location,
+.meter,
+.serviceName,
+.timing {
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.16px;
+}
+.location {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.Ellipse {
+  width: 4px;
+  height: 4px;
+}
+.timing {
+  color: var(--grey-color);
+  font-size: 14px;
+  letter-spacing: 0.14px;
+}
+.service {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.servicesWrapper,
+.salonDetails {
+  margin: 1.25rem 1rem;
+}
+.servicesWrapper {
+  display: flex;
+  max-height: 172px;
+  flex-direction: column;
+  overflow-y: scroll;
+  gap: 16px;
+  border-top: 1px solid var(--grey-color);
+  border-bottom: 1px solid var(--grey-color);
+}
+.servicesWrapper::-webkit-scrollbar {
+  display: none;
+}
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 0rem 1rem;
+  gap:12px;
+}
+.buttons img {
+  height: 16px;
+  width: 16px;
+  margin-left: 0.625rem;
+}
+.viewDetails,
+.viewMap {
+  padding: 1rem 1.25rem;
+  background: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  width: 188px;
+  font-size: var(--fonts-large);
+}
+.viewDetails {
+  border-radius: 4px;
+  border: 1px solid var(--black-color);
+}
+.viewMap {
+  border-radius: 4px;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+@media only screen and (max-width: 1025px) {
+  .card {
+    width: 350px;
+  }
+  .buttons button {
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .card {
+    width: 100%;
+  }
+  .salonDetails,
+  .servicesWrapper,
+  .buttons {
+    margin: 1.25rem 0;
+  }
+  .Name{
+    font-size: var(--fonts-large);
+  }
+  .buttons button {
+    width: 153px;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.16px;
+    padding: 1rem 0.25rem
+  }
+}
