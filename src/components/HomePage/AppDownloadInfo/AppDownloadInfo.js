@@ -11,19 +11,19 @@ import Playstore from "../../../assets/images/HeroSectionImages/PlayStore.png"
 const AppDownloadInfo = () => {
   return (
     <section className={styles['container']}>
-        <div className={styles["bannerWrapper"]}>
-            <div className={styles["bannerDetails"]}>
-                <small>Available on <img src={AppleLogo}/><img src={GoogleLogo}/></small>
-                <h1>Download the Treato app today</h1>
-                <p>Get unforgettable beauty and wellness experiences at your fingertips with the Treato mobile app.</p>
-            <div className={styles["socialLinks"]}>
-                <a className={styles["Appstore"]}><img src={Appstore}/></a>
-                <a className={styles["googlePlay"]}><img src={Playstore}/></a>
-            </div >
-            </div>
-            <div className={styles["bannerImage"]}>
-            </div>
+      <div className={styles["bannerWrapper"]}>
+        <div className={styles["bannerDetails"]}>
+          <small>Available on <img src={AppleLogo} /><img src={GoogleLogo} /></small>
+          <h1>Download the Treato app today</h1>
+          <p>Get unforgettable beauty and wellness experiences at your fingertips with the Treato mobile app.</p>
+          <div className={styles["socialLinks"]}>
+            <a className={styles["Appstore"]}><img src={Appstore} /></a>
+            <a className={styles["googlePlay"]}><img src={Playstore} /></a>
+          </div >
         </div>
+        <div className={styles["bannerImage"]}>
+        </div>
+      </div>
     </section>
   )
 }

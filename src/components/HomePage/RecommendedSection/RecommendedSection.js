@@ -49,13 +49,13 @@ export default function RecommendedSection() {
         <h2 className={styles["rmdHeading"]}>Recommended for you</h2>
         <div className={styles["rmdWrapper"]}>
           <div className={styles["rmdBox"]} ref={rmdBoxRef}>
-      {services.map((service, index) => (
-        <a key={index} className={styles["rmdItem"]}>
-          <img src={service.icon} alt={service.title} />
-          <h4>{service.title}</h4>
-        </a>
-      ))}
-    </div>
+            {services.map((service, index) => (
+              <a key={index} className={styles["rmdItem"]}>
+                <img src={service.icon} alt={service.title} />
+                <h4>{service.title}</h4>
+              </a>
+            ))}
+          </div>
           {/* scroll arrow */}
 
           <img
