@@ -1,25 +1,24 @@
 import React, { useState } from "react";
-import styles from "./ModalDesktop.module.css";
+import styles from "./SalonFilterModalMobile.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../../../redux/slices/filterModals/filterModal";
 import { Close } from "../../../../assets/images/SalonsPageImages";
-import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
+import { closeModal } from "../../../../redux/slices/filterModals/filterModal";
 import SecondaryButton from "../../../Buttons/SecondayButton/SecondaryButton";
-import { salonContent } from "../../../../pages/Salons/SalonsContent";
+import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
 import { updateSalonContent } from "../../../../redux/slices/salons";
 
-const ModalDesktop = () => {
-  const [selectedSortOption, setSelectedSortOption] = useState("");
-  const [selectedVenueType, setSelectedVenueType] = useState("");
+const SalonFilterModalMobile = () => {
+  const modal = useSelector((state) => state.modal);
   const salonsState = useSelector((state) => state.salons);
 
-  // handle Close Modal
+  const [selectedSortOption, setSelectedSortOption] = useState("");
+  const [selectedVenueType, setSelectedVenueType] = useState("");
+
   const dispatch = useDispatch();
   const handleCloseModal = () => {
     document.body.style.overflow = "auto";
     dispatch(closeModal());
   };
-
   const handleInnerBoxClick = (event) => {
     event.stopPropagation();
   };
@@ -29,15 +28,12 @@ const ModalDesktop = () => {
   const minPrice = 0;
   const maxPrice = 14999;
   const amountIncrease = Math.round((maxPrice - minPrice) / 100);
-
   const handlePercentageChange = (event) => {
     const newPercentage = parseInt(event.target.value);
     setPercentage(newPercentage);
   };
-
   const calculatedPrice = minPrice + percentage * amountIncrease;
 
-  //handling recommended salon function
 
   const handleApplyFilter = () => {
     // Filter salonContent based on the selected sort option
@@ -82,16 +78,17 @@ const ModalDesktop = () => {
     dispatch(closeModal());
   };
 
+
   return (
     <div className={styles.Modal} onClick={handleCloseModal}>
       <div className={styles.innerBox} onClick={handleInnerBoxClick}>
-        <div className={styles.header}>
-          <h3>Filter</h3>
-          <img src={Close} alt="close" onClick={handleCloseModal} />
-        </div>
-        <div className={styles.filterOptions}>
+        {modal.modalContent == "sortBy" && (
           <div className={styles.sortBy}>
-            <h4>Sort By</h4>
+            <div className={styles.header}>
+              <h4>Sort By</h4>
+              <img src={Close} alt="close" onClick={handleCloseModal} />
+            </div>
+
             <label>
               <input
                 type="radio"
@@ -123,9 +120,16 @@ const ModalDesktop = () => {
               Ratings (High to Low)
             </label>
           </div>
+        )}
+
+        {modal.modalContent == "price" && (
           <div className={styles.Price}>
+            <div className={styles.header}>
+              <h4>Maximum Price</h4>
+              <img src={Close} alt="close" onClick={handleCloseModal} />
+            </div>
             <div className={styles.PriceInfo}>
-              <h4>Price</h4>
+              <h4>Set maximum price</h4>
               <span>₹{calculatedPrice}</span>
             </div>
             <input
@@ -137,44 +141,68 @@ const ModalDesktop = () => {
               onChange={handlePercentageChange}
             />
           </div>
+        )}
+
+        {modal.modalContent == "venue" && (
           <div className={styles.venueType}>
-            <h4>Venue type</h4>
+            <div className={styles.header}>
+              <h4>Venue type</h4>
+              <img src={Close} alt="close" onClick={handleCloseModal} />
+            </div>
             <div className={styles.venueButtons}>
-              <button
+              <label
                 className={`${styles.everyone} ${
                   selectedVenueType === "everyone" ? styles.active : ""
                 }`}
-                onClick={() => setSelectedVenueType("everyone")}
               >
+                <input
+                  type="radio"
+                  name="venueType"
+                  value="everyone"
+                  checked={selectedVenueType === "everyone"}
+                  onChange={() => setSelectedVenueType("everyone")}
+                />
                 Everyone
-              </button>
-              <button
+              </label>
+              <label
                 className={`${styles.female} ${
                   selectedVenueType === "female" ? styles.active : ""
                 }`}
-                onClick={() => setSelectedVenueType("female")}
               >
+                <input
+                  type="radio"
+                  name="venueType"
+                  value="female"
+                  checked={selectedVenueType === "female"}
+                  onChange={() => setSelectedVenueType("female")}
+                />
                 Female only
-              </button>
-              <button
+              </label>
+              <label
                 className={`${styles.male} ${
                   selectedVenueType === "male" ? styles.active : ""
                 }`}
-                onClick={() => setSelectedVenueType("male")}
               >
+                <input
+                  type="radio"
+                  name="venueType"
+                  value="male"
+                  checked={selectedVenueType === "male"}
+                  onChange={() => setSelectedVenueType("male")}
+                />
                 Male only
-              </button>
+              </label>
             </div>
           </div>
-        </div>
+        )}
         <div className={styles.buttons}>
           <SecondaryButton
-            children={"Cancel"}
-            className={styles.cancel}
+            children={"Reset"}
+            className={styles.reset}
             func={handleCloseModal}
           />
           <div onClick={handleApplyFilter}>
-            <PrimaryButton children={"Apply"} className={styles.apply} />
+          <PrimaryButton children={"Apply"} className={styles.apply}/>
           </div>
         </div>
       </div>
@@ -182,4 +210,4 @@ const ModalDesktop = () => {
   );
 };
 
-export default ModalDesktop;
+export default SalonFilterModalMobile;

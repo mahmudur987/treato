@@ -15,15 +15,16 @@ import Pagination from "../../components/pagination/Pagination";
 import { salonContent } from "./SalonsContent.js";
 import { resetSalonContent } from "../../redux/slices/salons";
 const Salons = () => {
-
-    const salonsState = useSelector((state) => state.salons);
-    // console.log(salonsState);
+  const salonsState = useSelector((state) => state.salons);
+  // console.log(salonsState);
   const dispatch = useDispatch();
-  const handleOpenModal = () => {
-    dispatch(resetSalonContent())
+
+  const handleOpenModal = (modalContent) => {
+    dispatch(resetSalonContent());
     window.scrollTo(0, 0); // Scroll to the top
     document.body.style.overflow = "hidden";
-    dispatch(openModal()); // Pass your modal content as payload
+    dispatch(openModal(modalContent));
+    setCurrentPage(1);
   };
 
   const ITEMS_PER_PAGE = 6;
@@ -44,6 +45,9 @@ const Salons = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  const showingStart = startIndex + 1;
+  const showingEnd = endIndex <= items.length ? endIndex : items.length;
+  let showing = showingStart - showingEnd;
 
   return (
     <div className={styles.container}>
@@ -54,19 +58,31 @@ const Salons = () => {
           <img src={filter} alt="filter" />
         </button>
 
-        <button className={styles.filter}>
+        <button
+          className={styles.filter}
+          onClick={()=>handleOpenModal("sortBy")}
+        >
           Sort <img src={chevronDown} alt="chevronDown" />
         </button>
-        <button className={styles.filter}>
+        <button className={styles.filter}   onClick={()=>handleOpenModal("price")}>
           Price <img src={chevronDown} alt="chevronDown" />
         </button>
-        <button className={styles.filter}>
+        <button className={styles.filter}  onClick={()=>handleOpenModal("venue")}>
           Venue Type <img src={chevronDown} alt="chevronDown" />
         </button>
       </div>
       <div className={styles.venueInfo}>
-        <h4>Showing 12 of 137 venues</h4>
-        <button className={styles.filterDesk} onClick={handleOpenModal}>
+        <h4>
+          Showing{" "}
+          {salonsState.salonContent.length > 6
+            ? 6
+            : salonsState.salonContent.length}{" "}
+          of {salonsState.salonContent.length} venues
+        </h4>
+        <button
+          className={styles.filterDesk}
+          onClick={()=>handleOpenModal("all")}
+        >
           <img
             src={filterDeskIcon}
             alt="filterDeskIcon"
@@ -78,7 +94,7 @@ const Salons = () => {
 
       <div className={styles.salonsWrapper}>
         {visibleItems.map((item, index) => (
-        //   <Salon key={index} salonData={salonContent[index]} />
+          //   <Salon key={index} salonData={salonContent[index]} />
           <Salon key={index} salonData={salonsState.salonContent[index]} />
         ))}
       </div>

@@ -13,6 +13,7 @@
   flex-direction: row;
   padding: 1.25rem;
   transition: all ease-in-out 1s;
+  z-index: 100;
   /* position: fixed; */
 }
 .container {

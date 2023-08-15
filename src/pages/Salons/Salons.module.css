@@ -25,6 +25,9 @@
   margin: 2rem 0rem;
   overflow-x: scroll;
 }
+.venueInfo::-webkit-scrollbar{
+  display: none;
+}
 .venueInfo h4{
     color: var(--black-color);
   font-family: "lato", sans-serif;
@@ -61,7 +64,7 @@
 }
 .filter {
   display: flex;
-  padding: 10px 10px 10px 16px;
+  padding: 0rem .5rem;
   align-items: center;
   border-radius: 100px;
   border: 1px solid var(--grey-color);
@@ -81,6 +84,10 @@
     display: flex;
     gap: 8px;
     cursor: pointer;
+    overflow-x: scroll;
+  }
+  .mobo_filters::-webkit-scrollbar{
+    display: none;
   }
   .mobo_filters button{
     cursor: pointer;

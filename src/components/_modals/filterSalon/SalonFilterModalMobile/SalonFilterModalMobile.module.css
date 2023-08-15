@@ -3,23 +3,26 @@
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.38);
-  z-index: 11;
+  z-index: 101;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   box-sizing: border-box;
   font-family: "Lato", sans-serif;
 }
 .innerBox {
-  width: 424px;
-  margin: auto;
+  width: 100%;
+  min-height: 100px;
+  /* margin: auto; */
   /* z-index: 1; */
   background-color: white;
   z-index: 12;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
-  min-height: 600px;
+  gap: 36px;
+  /* justify-content:flex-end; */
+  /* align-items: flex-end; */
+  /* min-height: 600px; */
   border-radius: 4px;
   padding: 1.25rem;
   font-size: var(--font-medium);
@@ -27,21 +30,10 @@
 
 .header {
   width: 100%;
-  /* text-align: center; */
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-}
-
-.header img {
-  position: absolute;
-  right: 20px;
-}
-.filterOptions {
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
 }
 .sortBy {
   display: flex;
@@ -49,11 +41,31 @@
   width: 100%;
   gap: 16px;
 }
-.sortBy label {
+
+.header img {
+  position: absolute;
+  right: 0px;
+  cursor: pointer;
+}
+
+/* no need */
+.filterOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.sortBy label,
+.venueButtons label {
   display: flex;
   flex-direction: row;
   width: 100%;
   gap: 16px;
+  font-size: var(--font-medium);
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+}
+.Price .header{
+  margin-bottom: 2rem;
 }
 .Price,
 .venueType {
@@ -72,32 +84,32 @@
 }
 .venueButtons {
   display: flex;
-  gap: 8px;
+  gap: 16px;
+  flex-direction: column;
 }
 .everyone,
 .female,
 .male {
-  font-size: 12px;
   font-style: normal;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  padding: 12px 20px;
-  border-radius: 100px;
-  border: 1px solid var(--grey-color);
+  display: flex;
+  flex-direction: row;
   background: none;
   cursor: pointer;
+  gap: 8px;
 }
 
-.everyone:hover,.active,.female:hover,.male:hover {
-    color: white;
-  background: var(--secondary-colour, #0d69d7);
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  /* gap: 16px; */
+  margin: 1rem 0rem 0rem;
 }
-.buttons{
-    display: flex;
-    justify-content: flex-end;
-    gap: 16px;
+.reset,
+.apply {
+  width: 150px;
+  padding: 14px;
+  width: 140px;
+  padding: 12px;
 }
-
 @media only screen and (max-width: 600px) {
-    
 }

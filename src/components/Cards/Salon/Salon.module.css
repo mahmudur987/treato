@@ -90,7 +90,7 @@
 }
 .viewDetails,
 .viewMap {
-  padding: 1rem 1.25rem;
+  padding: .8rem;
   background: #fff;
   display: flex;
   flex-direction: row;
@@ -129,7 +129,7 @@
   .salonDetails,
   .servicesWrapper,
   .buttons {
-    margin: 1.25rem 0;
+    margin: 1.25rem .5rem;
     justify-content: space-around;
     gap: 0px;
   }
