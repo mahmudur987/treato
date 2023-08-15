@@ -11,7 +11,7 @@ const Salon = ({ salonData }) => {
           {salonData.rating} <img src={salonData.star} alt="star" /> ({salonData.ratingsCount} ratings)
         </h4>
         <h4 className={styles.location}>
-          {salonData.location} <img src={salonData.ellipse} alt="Ellipse" className={styles.Ellipse} /><span className={styles.meter}>{salonData.distance}</span>
+          {salonData.location} <img src={salonData.ellipse} alt="Ellipse" className={styles.Ellipse} /><span className={styles.meter}>{salonData.distance} {salonData.unit}</span>
         </h4>
       </div>
       <div className={styles.servicesWrapper}>
@@ -21,7 +21,7 @@ const Salon = ({ salonData }) => {
               <h4 className={styles.serviceName}>{service.name}</h4>
               <small className={styles.timing}>{service.timing}</small>
             </div>
-            <div className={styles.pricing}>{service.price}</div>
+            <div className={styles.pricing}>₹{service.price}</div>
           </div>
         ))}
       </div>

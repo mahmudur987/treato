@@ -1,0 +1,103 @@
+.Modal {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.38);
+  z-index: 11;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+.innerBox {
+  width: 424px;
+  margin: auto;
+  /* z-index: 1; */
+  background-color: white;
+  z-index: 12;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: 600px;
+  border-radius: 4px;
+  padding: 1.25rem;
+  font-size: var(--font-medium);
+}
+
+.header {
+  width: 100%;
+  /* text-align: center; */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header img {
+  position: absolute;
+  right: 20px;
+}
+.filterOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.sortBy {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+}
+.sortBy label {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 16px;
+}
+.Price,
+.venueType {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.Price input {
+  width: 100%;
+  height: 1px;
+  background-color: var(--primary-color);
+}
+.PriceInfo {
+  display: flex;
+  justify-content: space-between;
+}
+.venueButtons {
+  display: flex;
+  gap: 8px;
+}
+.everyone,
+.female,
+.male {
+  font-size: 12px;
+  font-style: normal;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 100px;
+  border: 1px solid var(--grey-color);
+  background: none;
+  cursor: pointer;
+}
+
+.everyone:hover,.active,.female:hover,.male:hover {
+    color: white;
+  background: var(--secondary-colour, #0d69d7);
+}
+.buttons{
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+}
+
+@media only screen and (max-width: 600px) {
+    
+}

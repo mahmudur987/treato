@@ -3,7 +3,8 @@
   block-size: border-box;
   font-family: "Lato", sans-serif;
   width: auto;
-
+  border-radius: 4px;
+  border: 1px solid var(--grey-color);
 }
 .cardImage {
   height: 256px;
@@ -65,7 +66,7 @@
 }
 .servicesWrapper {
   display: flex;
-  max-height: 172px;
+  height: 168px;
   flex-direction: column;
   overflow-y: scroll;
   gap: 16px;
@@ -80,6 +81,7 @@
   justify-content: space-between;
   margin: 0rem 1rem;
   gap:12px;
+  margin-bottom: .5rem;
 }
 .buttons img {
   height: 16px;
@@ -98,7 +100,7 @@
   font-weight: 600;
   cursor: pointer;
   width: 188px;
-  font-size: var(--fonts-large);
+  font-size: var(--font-medium);
 }
 .viewDetails {
   border-radius: 4px;
@@ -116,6 +118,9 @@
   .buttons button {
     font-size: 12px;
   }
+  .Name{
+    font-size: var(--fonts-large);
+  }
 }
 @media only screen and (max-width: 600px) {
   .card {
@@ -125,6 +130,8 @@
   .servicesWrapper,
   .buttons {
     margin: 1.25rem 0;
+    justify-content: space-around;
+    gap: 0px;
   }
   .Name{
     font-size: var(--fonts-large);
