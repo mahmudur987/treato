@@ -8,6 +8,7 @@ import user2 from "../../../assets/images/HomeLatestBlogs/user2.png";
 import chevronLeft from "../../../assets/images/HomeLatestBlogs/chevronLeft.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import BlogCard from "../../Cards/Blog/BlogCard";
 const LatestBlog = () => {
   const responsive = {
     superLargeDesktop: {
@@ -69,53 +70,23 @@ const LatestBlog = () => {
       </div>
       <div className={styles["blogWrapper"]}>
         {blogData.map((blog) => (
-          <div className={styles["blog"]} key={blog.id}>
-            <img className={styles["blogImage"]} src={blog.image} />
-            <div className={styles["blogDetails"]}>
-              <div className={styles["postedByContainer"]}>
-                <div className={styles["userInfo"]}>
-                  <img className={styles["userImg"]} src={blog.userImg} />
-                  <span className={styles["userName"]}>{blog.author}</span>
-                </div>
-                <a href="#" className={styles["more"]}>
-                  <img src={moreHorizontal} alt="more" />
-                </a>
-              </div>
-              <h1 className={styles["blogTitle"]}>{blog.title}</h1>
-              <p className={styles["blogDescription"]}>{blog.description}</p>
-            </div>
-          </div>
+          <BlogCard blog={blog} />
         ))}
       </div>
 
-<div className={styles["blogWrapper_mobo"]}>
-      <Carousel
-        responsive={responsive}
-        showDots={true}
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
-      >
-        {blogData.map((blog) => (
-          <div className={styles["blog"]} key={blog.id}>
-            <img className={styles["blogImage"]} src={blog.image} />
-            <div className={styles["blogDetails"]}>
-              <div className={styles["postedByContainer"]}>
-                <div className={styles["userInfo"]}>
-                  <img className={styles["userImg"]} src={blog.userImg} />
-                  <span className={styles["userName"]}>{blog.author}</span>
-                </div>
-                <a href="#" className={styles["more"]}>
-                  <img src={moreHorizontal} alt="more" />
-                </a>
-              </div>
-              <h1 className={styles["blogTitle"]}>{blog.title}</h1>
-              <p className={styles["blogDescription"]}>{blog.description}</p>
-            </div>
-          </div>
-        ))}
-      </Carousel>
-</div>
+      <div className={styles["blogWrapper_mobo"]}>
+        <Carousel
+          responsive={responsive}
+          showDots={true}
+          removeArrowOnDeviceType={["tablet", "mobile"]}
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item-padding-40-px"
+        >
+          {blogData.map((blog) => (
+            <BlogCard blog={blog} />
+          ))}
+        </Carousel>
+      </div>
     </div>
   );
 };
