@@ -121,7 +121,7 @@
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0px 4px 16px 0px #00000014;
-  max-height: 685px;
+  max-height: 600px;
 }
 .treatmentsResults::-webkit-scrollbar,
 .locationResults::-webkit-scrollbar {
@@ -192,6 +192,7 @@
 }
 .locationResults {
   height: 411px;
+  right:2px;
 }
 .locHeading {
   display: flex;
