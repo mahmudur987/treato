@@ -42,8 +42,11 @@ export default function RecommendedSection() {
       });
     }
   };
+
+  // Calculate if the content is overflowing
+  const isRmdContentOverflowing = services.length>7?true:false
   return (
-    <section id="#recommended" className={styles["container"]}>
+    <section id="recommended" className={styles["container"]}>
       {/* Recommended for you */}
       <div className={styles["recommended"]}>
         <h2 className={styles["rmdHeading"]}>Recommended for you</h2>
@@ -58,11 +61,13 @@ export default function RecommendedSection() {
           </div>
           {/* scroll arrow */}
 
+          {isRmdContentOverflowing && (
           <img
             src={scrollRight}
             className={styles["scrollRight"]}
             onClick={handle_rmdScrollRight}
           />
+        )}
         </div>
       </div>
 

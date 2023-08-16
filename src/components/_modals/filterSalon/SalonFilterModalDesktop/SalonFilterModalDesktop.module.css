@@ -42,7 +42,7 @@
 .filterOptions {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 74px;
 }
 .sortBy {
   display: flex;

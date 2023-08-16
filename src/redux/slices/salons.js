@@ -4,6 +4,7 @@ import { salonContent } from "../../pages/Salons/SalonsContent";
 
 const initialState = {
   salonContent: salonContent,
+  filterContent: salonContent,
 };
 
 const salons = createSlice({
@@ -11,10 +12,10 @@ const salons = createSlice({
   initialState,
   reducers: {
    updateSalonContent: (state, action) => {
-      state.salonContent = action.payload;
+      state.filterContent = action.payload;
     },
     resetSalonContent: (state) => {
-        state.salonContent = salonContent;
+        state.filterContent = salonContent;
       },
   },
 });

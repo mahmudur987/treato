@@ -29,7 +29,13 @@
   align-items: center;
   flex-direction: row;
 }
-
+.navWrapper_search{
+  display: flex;
+  height: 48px;
+  align-items: center;
+  flex-direction: row;
+  width: auto !important;
+}
 .logo img {
   height: 40px;
   width: 109px;

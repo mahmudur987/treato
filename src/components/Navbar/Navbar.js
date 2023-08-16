@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styles from "./Navbar.module.css";
+import { useLocation } from "react-router-dom";
 import menuLogo from "../../assets/images/NavbarImages/menu.png";
 import TreatoLogo from "../../assets/images/NavbarImages/Treato.png";
 import briefcase from "../../assets/images/NavbarImages/briefcase.png";
@@ -14,11 +15,13 @@ import profileDefault from "../../assets/images/NavbarImages/profileDefault.png"
 import history from "../../assets/images/NavbarImages/history.png";
 import mask2 from "../../assets/images/NavbarImages/Mask2.png";
 import mask from "../../assets/images/NavbarImages/Mask.png";
+import MainSearchBar from "../Input/mainSearchBar/MainSearchBar";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
-
+  const [isMainSearchBar, setisMainSearchBar] = useState(false);
+  const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -28,31 +31,47 @@ export default function Navbar() {
     setIsDesktopMenuOpen(!isDesktopMenuOpen);
   };
 
+  useEffect(() => {
+    if (location.pathname === "/salons") {
+      setisMainSearchBar(true);
+    }
+    else{
+      setisMainSearchBar(false);
+    }
+  }, [location.pathname]);
+
   return (
     <header
       className={`${styles.header} ${isMobileMenuOpen ? styles.menuopen : ""}`}
     >
       <div className={styles.container}>
-        <div className={styles.navWrapper}>
+        <div className={`${isMainSearchBar?styles.navWrapper_search:styles.navWrapper}`}>
           <nav className={styles.navigation}>
             <ul>
               <li className={styles.logo}>
-                <a href="#">
+                <a href="/">
                   <img src={TreatoLogo} />
                 </a>
               </li>
-              <li>
-                <a href="#">Blog</a>
-              </li>
-              <li>
-                <a href="#">Career</a>
-              </li>
-              <li>
-                <a href="#">Contact Us</a>
-              </li>
+              {!isMainSearchBar && (
+                <>
+                  <li>
+                    <a href="#">Blog</a>
+                  </li>
+                  <li>
+                    <a href="#">Career</a>
+                  </li>
+                  <li>
+                    <a href="#">Contact Us</a>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
         </div>
+
+        {isMainSearchBar && <MainSearchBar place={"navbar"} />}
+
         <div className={styles.buttons}>
           <button
             className={styles.menuButton}
@@ -75,11 +94,8 @@ export default function Navbar() {
           )}
         </div>
       </div>
-      {/* Desktop dropBox */}
-      {/* <div className={styles.desktop}>
 
-</div> */}
-
+      {/* Profile dropBox */}
       {isMobileMenuOpen && (
         <nav
           //   className={styles.mobileNavDropBox}
