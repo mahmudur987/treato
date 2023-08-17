@@ -42,7 +42,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`${styles.header} ${isMobileMenuOpen ? styles.menuopen : ""}`}
+      className={`${styles.header} ${isMobileMenuOpen ? styles.menuopen : ""} page-section`}
     >
       <div className={styles.container}>
         <div className={`${isMainSearchBar?styles.navWrapper_search:styles.navWrapper}`}>
