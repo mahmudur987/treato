@@ -1,12 +1,6 @@
 import React from 'react'
 import styles from "./AppDownloadInfo.module.css";
-import AppleLogo from "../../../assets/images/appDownloadImages/AppleBlack.png"
-import GoogleLogo from "../../../assets/images/appDownloadImages/logo-google.png"
-// import AppDownload_mobobg from "../../../assets/images/appDownloadImages/AppDownload_mobobg.png"
-import Appstore from "../../../assets/images/HeroSectionImages/AppStore.png"
-import Playstore from "../../../assets/images/HeroSectionImages/PlayStore.png"
-
-
+import { AppStore_black, AppleLogo, GoogleLogo, PlayStore_black } from '../../../assets/images/icons';
 
 const AppDownloadInfo = () => {
   return (
@@ -17,8 +11,8 @@ const AppDownloadInfo = () => {
           <h1>Download the Treato app today</h1>
           <p>Get unforgettable beauty and wellness experiences at your fingertips with the Treato mobile app.</p>
           <div className={styles["socialLinks"]}>
-            <a className={styles["Appstore"]}><img src={Appstore} /></a>
-            <a className={styles["googlePlay"]}><img src={Playstore} /></a>
+            <a className={styles["Appstore"]}><img src={AppStore_black} alt="AppStore_black"/></a>
+            <a className={styles["googlePlay"]}><img src={PlayStore_black} alt="PlayStore_black"/></a>
           </div >
         </div>
         <div className={styles["bannerImage"]}>

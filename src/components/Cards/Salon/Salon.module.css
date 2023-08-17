@@ -4,7 +4,8 @@
   font-family: "Lato", sans-serif;
   width: auto;
   border-radius: 4px;
-  border: 1px solid var(--grey-color);
+  border: 1px solid #EBEDF0;
+  
 }
 .cardImage {
   height: 256px;
@@ -62,7 +63,7 @@
 
 .servicesWrapper,
 .salonDetails {
-  margin: 1.25rem 1rem;
+  margin: 1rem;
 }
 .servicesWrapper {
   display: flex;
@@ -70,8 +71,8 @@
   flex-direction: column;
   overflow-y: scroll;
   gap: 16px;
-  border-top: 1px solid var(--grey-color);
-  border-bottom: 1px solid var(--grey-color);
+  border-top: 1px solid #EBEDF0;
+  border-bottom: 1px solid #EBEDF0;
 }
 .servicesWrapper::-webkit-scrollbar {
   display: none;
@@ -111,6 +112,27 @@
   color: var(--primary-color);
   border: 1px solid var(--primary-color);
 }
+/* home Page salon card css */
+.card_Home,.cardImage_Home{
+  width: 312px;
+}
+.cardImage_Home{
+height: 192px;
+}
+.Name_Home{
+  font-size: var(--font-medium);
+}
+.salonDetails_Home{
+  display: flex;
+  flex-direction: column;
+  margin: .5rem 1rem;
+  gap: 8px;
+}
+
+
+
+
+
 @media only screen and (max-width: 1025px) {
   .card {
     width: 350px;

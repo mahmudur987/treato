@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from "../hero.module.css";
-import Frame from "../../../../assets/images/HeroSectionImages/Frame1.png";
+import { Frame1 } from '../../../../assets/images/HeroSectionImages';
 
 const Venues = () => {
       //  venue items
@@ -15,7 +15,7 @@ const Venues = () => {
       {venues.map((venue) => (
         <div key={venue.id} className={styles["vn_resultItem"]}>
           <div className={styles["vn_itemImage"]}>
-            <img src={Frame} alt="Venue" />
+            <img src={Frame1} alt="Venue" />
           </div>
           <div className={styles["vn_itemdetails"]}>
             <p>{venue.name}</p>

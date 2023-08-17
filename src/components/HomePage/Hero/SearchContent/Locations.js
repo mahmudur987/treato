@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "../hero.module.css";
-
-import mapPinBlue from "../../../../assets/images/HeroSectionImages/mapPinBlue.png";
+import { mapPinBlue } from "../../../../assets/images/icons";
 
 const Locations = () => {
   //  location items

@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import styles from "./hero.module.css";
-import AppStoreImg from "../../../assets/images/HeroSectionImages/AppStore.png";
-import PlayStoreImg from "../../../assets/images/HeroSectionImages/PlayStore.png";
-import searchImg from "../../../assets/images/HeroSectionImages/search.png";
-import mapPinImg from "../../../assets/images/HeroSectionImages/mapPin.png";
-import closeButton from "../../../assets/images/HeroSectionImages/x-circle.png";
-import LocationModal_Mobo from "./Search_MoboModal/Search_MoboModal";
-import Locations from "./SearchContent/Locations";
-import Treatments from "./SearchContent/Treatments";
-import Venues from "./SearchContent/Venues";
 import MainSearchBar from "../../Input/mainSearchBar/MainSearchBar";
+import { AppStore_black, PlayStore_black } from "../../../assets/images/icons";
 
 export default function HeroSection(props) {
  
@@ -24,10 +16,10 @@ export default function HeroSection(props) {
 
       <div className={styles["storeLinks"]}>
         <a>
-          <img src={AppStoreImg} alt="AppStoreImg" />
+          <img src={AppStore_black} alt="AppStoreImg" />
         </a>
         <a>
-          <img src={PlayStoreImg} alt="PlayStoreImg" />
+          <img src={PlayStore_black} alt="PlayStoreImg" />
         </a>
       </div>
     </div>

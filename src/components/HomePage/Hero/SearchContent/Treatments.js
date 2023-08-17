@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from "../hero.module.css";
-import searchblueImg from "../../../../assets/images/HeroSectionImages/search_blue.png";
+import { search_Blue } from '../../../../assets/images/icons';
 
 const Treatments = () => {
   // treatment items
@@ -20,7 +20,7 @@ const Treatments = () => {
       {treatments.map((treatment) => (
         <div key={treatment.id} className={styles["trt_resultItem"]}>
           <div>
-            <img src={searchblueImg} alt="Treatment" />
+            <img src={search_Blue} alt="Treatment" />
           </div>
           <p>{treatment.name}</p>
         </div>
