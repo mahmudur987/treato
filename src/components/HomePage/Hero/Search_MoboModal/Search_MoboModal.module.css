@@ -8,15 +8,17 @@
   flex-direction: column;
   box-sizing: border-box;
   padding: 2rem;
+  top: 0;
+  left: 0;
+  z-index: 100;
 }
-.modalContent::-webkit-scrollbar{
-    display: none;
+.modalContent::-webkit-scrollbar {
+  display: none;
 }
 .modalContent {
-height: 70%;
-overflow-y: scroll;
-padding-top: 1rem;
-
+  height: 70%;
+  overflow-y: scroll;
+  padding-top: 1rem;
 }
 .modalNav {
   display: flex;
@@ -30,10 +32,9 @@ padding-top: 1rem;
   font-size: var(--font-small);
   font-weight: 600;
   font-family: "Poppins", sans-serif;
-
 }
-.modalHeader h2{
-margin:1rem 0rem
+.modalHeader h2 {
+  margin: 1rem 0rem;
 }
 .inputWrapper {
   position: relative;
@@ -42,7 +43,6 @@ margin:1rem 0rem
   align-items: center;
   border: 1px solid var(--light-color);
   border-radius: 4px;
-
 }
 .loc_Input {
   width: 100%;
@@ -50,7 +50,6 @@ margin:1rem 0rem
   padding-left: 2rem;
   border-radius: 4px;
   border: 1px solid var(--light-color);
-
 }
 .loc_Icon,
 .closeInput {
@@ -64,4 +63,3 @@ margin:1rem 0rem
 .closeInput {
   right: 10px;
 }
-

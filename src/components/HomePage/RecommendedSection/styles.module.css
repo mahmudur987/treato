@@ -18,6 +18,14 @@
   box-shadow: 0px 4px 16px 0px #00000014;
   padding: 0.75rem;
 }
+/* .rmdWrapper ul{
+  display: flex;
+  gap: 66px;
+} */
+/* .rmdWrapper ul li{
+  
+} */
+
 .rmdBox {
   /* height: 184px; */
   display: flex;
@@ -71,6 +79,9 @@ font-weight: 600;
   height: 36px;
   cursor: pointer;
 }
+.scroll_left{
+  transform: scaleX(-1);
+}
 
 /* top-rated hair salons css */
 .top-ratedSalons {
@@ -112,10 +123,14 @@ font-weight: 600;
 
 /* media queries */
 
-@media only screen and (max-width: 600px) {
-  .container {
+@media only screen and (max-width: 770px) {
+  .container{
     padding: 2rem;
   }
+}
+
+@media only screen and (max-width: 600px) {
+
   .rmdHeading {
     font-size: var(--fonts-large);
   }
@@ -157,5 +172,11 @@ font-weight: 600;
     display: block;
     height: 24px;
     width: 24px;
+  }
+  .scroll_left,.scroll_right{
+    display: none;
+  }
+  .rmdWrapper{
+    padding: 0;
   }
 }

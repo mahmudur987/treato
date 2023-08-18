@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./LatestBlog.module.css";
-import moreHorizontal from "../../../assets/images/HomeLatestBlogs/moreHorizontal.png";
 import BlogImg1 from "../../../assets/images/HomeLatestBlogs/BlogImg1.png";
 import BlogImg2 from "../../../assets/images/HomeLatestBlogs/BlogImg2.png";
 import user1 from "../../../assets/images/HomeLatestBlogs/user1.png";

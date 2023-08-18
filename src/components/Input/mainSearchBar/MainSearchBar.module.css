@@ -1,3 +1,9 @@
 .navbarInputWrapper{
     margin-top: 0rem;
 }
+
+@media only screen and (max-width: 770px) {
+    .navbarInputWrapper{
+      display: none;
+    }
+  }

@@ -117,6 +117,11 @@ a {
     min-width:350px;
   }
 }
+@media only screen and (max-width: 770px) {
+  .container{
+    padding: 2rem;
+  }
+}
 @media only screen and (max-width: 600px) {
     .container{
         padding: 2rem;

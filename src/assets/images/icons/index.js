@@ -27,3 +27,5 @@ export { default as mapPinBlue } from "./mapPinBlue.svg";
 export { default as search_Blue } from "./search_blue.svg";
 export { default as AppleLogo } from "./AppleLogo.svg";
 export { default as GoogleLogo } from "./GoogleLogo.svg";
+export { default as scrollright } from "./ScrollRight.svg";
+
