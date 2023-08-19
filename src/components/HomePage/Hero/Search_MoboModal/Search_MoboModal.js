@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import styles from "./Search_MoboModal.module.css";
-import arrowLeft from "../../../../assets/images/HeroSectionImages/arrow-left.png";
-import closeIcon from "../../../../assets/images/HeroSectionImages/x-circle.png";
-import xpng from "../../../../assets/images/HeroSectionImages/x.png";
-import mapPin from "../../../../assets/images/HeroSectionImages/mapPin.png";
 import Locations from "../SearchContent/Locations";
 import Treatments from "../SearchContent/Treatments";
 import Venues from "../SearchContent/Venues";
+import { arrowleft, closeIcon, mapPin, search, x } from "../../../../assets/images/icons";
 
 const Search_MoboModal = (props) => {
   const {
@@ -15,6 +12,7 @@ const Search_MoboModal = (props) => {
     show_Modal,
     title,
     placeholderText,
+    icon,
   } = props;
 
   const [inputValue, setInputValue] = useState("");
@@ -26,13 +24,13 @@ const Search_MoboModal = (props) => {
     <div className={styles["container"]}>
       <div className={styles["modalNav"]}>
         <img
-          src={arrowLeft}
+          src={arrowleft}
           className={styles["arrowLeft"]}
           onClick={handle_close}
           alt="arrowLeft"
         />
         <img
-          src={xpng}
+          src={x}
           className={styles["closeModal"]}
           onClick={handle_close}
           alt="closeModal"
@@ -42,10 +40,10 @@ const Search_MoboModal = (props) => {
         <h2>{title}</h2>
         <div className={styles["inputWrapper"]}>
           <img
-            src={mapPin}
+            src={icon}
             className={styles["loc_Icon"]}
             onClick={handle_close}
-            alt="mapPin"
+            alt="search"
           />
           <input className={styles["loc_Input"]} onChange={handleInputChange} placeholder={placeholderText}/>
           <img

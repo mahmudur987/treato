@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import styles from "../../HomePage/Hero/hero.module.css";
 import navstyles from "./MainSearchBar.module.css";
-import searchImg from "../../../assets/images/HeroSectionImages/search.png";
-import mapPinImg from "../../../assets/images/HeroSectionImages/mapPin.png";
-import closeButton from "../../../assets/images/HeroSectionImages/x-circle.png";
 import Treatments from "../../HomePage/Hero/SearchContent/Treatments";
 import Venues from "../../HomePage/Hero/SearchContent/Venues";
 import Locations from "../../HomePage/Hero/SearchContent/Locations";
 import Search_MoboModal from "../../HomePage/Hero/Search_MoboModal/Search_MoboModal";
-const MainSearchBar = ({place}) => {
+import { closeIcon, mapPin, search } from "../../../assets/images/icons";
+const MainSearchBar = ({ place }) => {
   // Short letter abbreviations used in few classNames
   // trt: Treatment
   // vn: Venues
@@ -52,11 +50,15 @@ const MainSearchBar = ({place}) => {
 
   return (
     <>
-      <div className={`${styles.inputWrapper} ${place === 'navbar' ? navstyles.navbarInputWrapper : ''}`}>
+      <div
+        className={`${styles.inputWrapper} ${
+          place === "navbar" ? navstyles.navbarInputWrapper : ""
+        }`}
+      >
         {/* search Treatments */}
         <div className={styles["searchTreatment"]}>
           <div className={styles["inputIcon"]}>
-            <img src={searchImg} alt="searchImg" />
+            <img src={search} alt="search" />
           </div>
           <input
             className={styles["treatmentInput"]}
@@ -79,12 +81,12 @@ const MainSearchBar = ({place}) => {
           </div>
 
           <img
-            src={closeButton}
+            src={closeIcon}
             className={`${styles["close_trtBox"]} ${
               Trt_DesktopModal ? "" : styles["hidden"]
             }`}
             onClick={handle_closeTrt_Modal}
-            alt="closeButton"
+            alt="closeIcon"
           />
         </div>
 
@@ -93,7 +95,7 @@ const MainSearchBar = ({place}) => {
         {/* search location */}
         <div className={styles["searchlocation"]}>
           <div className={styles["inputIcon"]}>
-            <img src={mapPinImg} alt="mapPinImg" />
+            <img src={mapPin} alt="mapPinImg" />
           </div>
           <input
             className={styles["locationInput"]}
@@ -107,8 +109,8 @@ const MainSearchBar = ({place}) => {
               loc_DesktopModal ? "" : styles["hidden"]
             }`}
             onClick={handle_closeloc_Modal}
-            src={closeButton}
-            alt="closeButton"
+            src={closeIcon}
+            alt="closeIcon"
           />
 
           <button className={styles["goSearch"]}>Go</button>
@@ -133,6 +135,7 @@ const MainSearchBar = ({place}) => {
           show_Modal={loc_MoboModal}
           title="Treatment or venue"
           placeholderText="Treatments or venues"
+          icon={search}
         />
       )}
       {loc_MoboModal && (
@@ -142,6 +145,7 @@ const MainSearchBar = ({place}) => {
           show_Modal={loc_MoboModal}
           title="Search by location"
           placeholderText="Current location"
+          icon={mapPin}
         />
       )}
     </>
