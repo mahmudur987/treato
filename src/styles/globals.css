@@ -19,6 +19,7 @@
 
   --navbar-height: 90px;
   --page-padding-x: 1rem;
+  --z-index-modal: 5000
 }
 
 @media only screen and (min-width: 1100px) {
