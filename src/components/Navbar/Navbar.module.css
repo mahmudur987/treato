@@ -182,7 +182,15 @@
     gap: 10px;
   }
 }
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 770px) {
+.buttons button{
+  padding: .5rem;
+}
+.navigation li{
+  font-size: var(--font-small);
+}
+}
+@media only screen and (max-width: 600px) {
   .partnerButton,
   .signupButton {
     display: none;

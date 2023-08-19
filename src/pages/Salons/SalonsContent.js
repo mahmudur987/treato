@@ -17,6 +17,7 @@ export const salonContent = [
         { name: "Hair cut ladies", timing: "1 hr 15 mins", price: "399" },
       ],
       recommended:true,
+      niche:"Facial and Makeup",
       venueType:"everyone",
     },
     {
@@ -37,6 +38,7 @@ export const salonContent = [
         { name: "Hair cut ladies", timing: "1 hr 15 mins", price: "199" },
       ],
       recommended:true,
+      niche:"Massage parlour",
       venueType:"female",
     },
     {
@@ -57,6 +59,7 @@ export const salonContent = [
         { name: "Hair cut ladies", timing: "1 hr 15 mins", price: "1199" },
       ],
       recommended:true,
+      niche:"Facial and Makeup",
       venueType:"male",
     },
     {
@@ -77,6 +80,7 @@ export const salonContent = [
         { name: "Hair cut ladies", timing: "1 hr 15 mins", price: "99" },
       ],
       recommended:false,
+      niche:"Unisex spa",
       venueType:"everyone",
     },
     {
@@ -97,6 +101,7 @@ export const salonContent = [
         { name: "Hair cut ladies", timing: "1 hr 15 mins", price: "99" },
       ],
       recommended:false,
+      niche:"Facial and Makeup",
       venueType:"everyone",
     },
     {
@@ -117,6 +122,7 @@ export const salonContent = [
         { name: "Hair cut ladies", timing: "1 hr 15 mins", price: "99" },
       ],
       recommended:false,
+      niche:"Facial and Makeup",
       venueType:"everyone",
     },
     {
@@ -137,6 +143,7 @@ export const salonContent = [
         { name: "Hair cut ladies", timing: "1 hr 15 mins", price: "99" },
       ],
       recommended:false,
+      niche:"Hair straightening",
       venueType:"everyone",
     },
     {
@@ -157,6 +164,7 @@ export const salonContent = [
         { name: "Hair cut ladies", timing: "1 hr 15 mins", price: "99" },
       ],
       recommended:false,
+      niche:"Nail salon",
       venueType:"everyone",
     },
     {
@@ -177,6 +185,7 @@ export const salonContent = [
         { name: "Hair cut ladies", timing: "1 hr 15 mins", price: "99" },
       ],
       recommended:false,
+      niche:"Hair color",
       venueType:"everyone",
     },
     {
@@ -197,6 +206,7 @@ export const salonContent = [
         { name: "Hair cut ladies", timing: "1 hr 15 mins", price: "99" },
       ],
       recommended:false,
-      venueType:"everyone",
+      niche:"Hair color",
+      venueType:"female",
     },
   ];

@@ -1,28 +1,17 @@
 import React, { useState,useEffect } from "react";
 import styles from "./Navbar.module.css";
 import { useLocation } from "react-router-dom";
-import menuLogo from "../../assets/images/NavbarImages/menu.png";
-import TreatoLogo from "../../assets/images/NavbarImages/Treato.png";
-import briefcase from "../../assets/images/NavbarImages/briefcase.png";
-import chevrondown from "../../assets/images/NavbarImages/chevron-down.png";
-import chevronright from "../../assets/images/NavbarImages/chevron-right.png";
-import download from "../../assets/images/NavbarImages/download.png";
-import notetext from "../../assets/images/NavbarImages/note-text.png";
-import signin from "../../assets/images/NavbarImages/sign-in.png";
-import signout from "../../assets/images/NavbarImages/signout.png";
-import xpng from "../../assets/images/NavbarImages/x.png";
-import profileDefault from "../../assets/images/NavbarImages/profileDefault.png";
-import history from "../../assets/images/NavbarImages/history.png";
 import mask2 from "../../assets/images/NavbarImages/Mask2.png";
 import mask from "../../assets/images/NavbarImages/Mask.png";
 import MainSearchBar from "../Input/mainSearchBar/MainSearchBar";
+import { TreatoLogo, briefcase, chevrondown, chevronright, download, history, menuLogo, notetext, signin, signout, x } from "../../assets/images/icons";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
   const [isMainSearchBar, setisMainSearchBar] = useState(false);
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -77,7 +66,7 @@ export default function Navbar() {
             className={styles.menuButton}
             onClick={handleMobileMenuToggle}
           >
-            {!isMobileMenuOpen ? <img src={menuLogo} /> : <img src={xpng} />}
+            {!isMobileMenuOpen ? <img src={menuLogo} /> : <img src={x} />}
           </button>
           <button className={styles.partnerButton}>Become a Partner</button>
           {!isLoggedIn ? (
