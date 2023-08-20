@@ -15,6 +15,7 @@ export { default as briefcase } from "./briefcase.svg";
 export { default as notetext } from "./notetext.svg";
 export { default as x } from "./x.svg";
 export { default as arrowleft } from "./arrow-left.svg";
+export { default as arrowright } from "./arrow-right.svg";
 export { default as history } from "./history.svg";
 export { default as signout } from "./signout.svg";
 export { default as user } from "./user.svg";
