@@ -1,7 +1,13 @@
 import React from "react";
 import Hero_Signup from "../../assets/images/AuthImages/Hero_Signup.png";
-import styles from "./AuthLayout.module.css"
-const AuthLayout = ({ children }) => {
+import styles from "./AuthPage.module.css";
+import { useNavigate } from "react-router-dom";
+import { arrowleft } from "../../assets/images/icons";
+const AuthPage = ({ children }) => {
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate(-1); // Go back to the previous page
+  };
   return (
     <div className={styles.container}>
       {/* Left side common content */}
@@ -11,10 +17,15 @@ const AuthLayout = ({ children }) => {
 
       {/* Right side content */}
       <div className={styles.AuthContent}>
+        <img
+          src={arrowleft}
+          className={styles.arrowLeft}
+          onClick={handleBack}
+        />
         {children} {/* Dynamically rendered content */}
       </div>
     </div>
   );
 };
 
-export default AuthLayout;
+export default AuthPage;

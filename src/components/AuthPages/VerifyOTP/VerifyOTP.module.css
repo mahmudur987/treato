@@ -1,0 +1,65 @@
+.container,
+.submitWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: "Lato", sans-serif;
+}
+.heading{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.VerifyOTP {
+  font-size: 28px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+}
+.enterOTPText {
+  font-size: 20px;
+  font-weight: 400;
+}
+.OTPWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+.OTPWrapper input {
+  width: 64px !important;
+}
+.OTPinput {
+  height: 50px;
+  font-size: 28px;
+  border: none;
+  text-align: center;
+  border-bottom: 1px solid var(--black-color);
+}
+.OTPinput:focus {
+  outline: none;
+}
+.submitWrapper {
+  gap: 8px;
+}
+.submitOTP {
+  width: 400px;
+}
+.OTPtimer {
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+@media only screen and (max-width: 768px) {
+.OTPWrapper input{
+    width: 40px !important;
+}
+.submitOTP{
+    width: 100%;
+}
+.VerifyOTP{
+    font-size: 24px;
+}
+.enterOTPText{
+    font-size: var(--font-small);
+    width: 200%;
+}
+}

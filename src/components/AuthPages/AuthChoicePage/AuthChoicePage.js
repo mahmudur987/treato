@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate  } from "react-router-dom"; // Import useNavigate
 import { chooseRole } from "../../../redux/slices/authChoice";
 import { briefcase, user, arrowright, arrowleft } from "../../../assets/images/icons";
-import AuthLayout from "../AuthLayout";
-import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
-import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
+import AuthPage from "../../../pages/AuthPages/AuthPage";
+import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
+import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 const AuthChoicePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Use the useNavigate hook
@@ -15,14 +15,11 @@ const AuthChoicePage = () => {
     dispatch(chooseRole({ role }));
     navigate("/create-account"); // Navigate to Create Account page
   };
-  const handleBack = () => {
-    navigate(-1); // Go back to the previous page
-  };
+
 
   return (
-    <AuthLayout>
+    <AuthPage>
       <div className={styles.container}>
-        <img src={arrowleft} className={styles.arrowleft} onClick={handleBack}/>
         <h1 className={styles.heading}>Create your Treato account</h1>
         <div className={styles.choiceButtons}>
           <PrimaryButton
@@ -66,7 +63,7 @@ const AuthChoicePage = () => {
           Already have an account? <a className={styles.link} href="/login">Sign in</a>
         </h4>
       </div>
-    </AuthLayout>
+    </AuthPage>
   );
 };
 

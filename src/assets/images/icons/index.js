@@ -29,4 +29,10 @@ export { default as search_Blue } from "./search_blue.svg";
 export { default as AppleLogo } from "./AppleLogo.svg";
 export { default as GoogleLogo } from "./GoogleLogo.svg";
 export { default as scrollright } from "./ScrollRight.svg";
+export { default as Facebook_Logo } from "./Facebook_Logo.svg";
+export { default as Google_Logo } from "./Google_Logo.svg";
+export { default as eyeline } from "./eyeline.svg";
+export { default as SuccessCircle } from "./SuccessCircle.svg";
+
+
 

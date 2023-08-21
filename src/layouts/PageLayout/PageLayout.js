@@ -12,7 +12,8 @@ export default function PageLayout({ children }) {
   const isSpecialPage =
     location.pathname === "/auth-choice" ||
     location.pathname === "/create-account" ||
-    location.pathname === "/login";
+    location.pathname === "/login" ||
+    location.pathname === "/verify-otp" 
   return (
     <div>
       {!isSpecialPage && <Navbar />}

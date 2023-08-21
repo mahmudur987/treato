@@ -20,7 +20,9 @@
   align-items: center;
   gap: 36px;
 }
-
+.arrowLeft{
+ display: none;
+}
 @media only screen and (max-width: 768px) {
   .AuthContent {
     padding: 1rem;
@@ -33,5 +35,11 @@
       }
     .AuthImage {
       display: none;
+    }
+    .arrowLeft{
+      display: block;
+      position: absolute;
+      top: 5%;
+      left:2%;
     }
 }
