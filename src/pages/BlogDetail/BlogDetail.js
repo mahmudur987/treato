@@ -13,6 +13,13 @@ import { getFormattedDate } from '../../utils/utils'
 import BlogImg from '../../assets/images/ContactusImages/contactusBanner.png'
 import Title from '../../components/Typography/Title/Title'
 
+import BlogImg1 from "../../assets/images/HomeLatestBlogs/BlogImg1.png";
+import BlogImg2 from "../../assets/images/HomeLatestBlogs/BlogImg2.png";
+import user1 from "../../assets/images/HomeLatestBlogs/user1.png";
+import user2 from "../../assets/images/HomeLatestBlogs/user2.png";
+import BlogCard from '../../components/Cards/Blog/BlogCard'
+import Carousel from "react-multi-carousel";
+
 const detail = {
    title: 'Revitalizing Locks: The Ultimate Guide to Hair Rejuvenation Treatment',
    image: image,
@@ -47,6 +54,56 @@ const popularBlogs = [
       duration: '9-min read'
    },
 ]
+const responsive = {
+   superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5,
+   },
+   desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+   },
+   tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+   },
+   mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+   },
+};
+
+const tempData = [
+   {
+      id: 1,
+      author: "Preeti Ajgaonkar",
+      title:
+         "The Science of Skincare: Decoding Niacinamide for Acne-Prone Skin",
+      description:
+         "Acne can be a frustrating and stubborn skin concern that affects people of all ages. If you've q...",
+      image: BlogImg1,
+      userImg: user1,
+   },
+   {
+      id: 2,
+      author: "Anshul Sharma",
+      title: "How Ashwagandha Can Transform Your Stress Levels and Skin Health",
+      description:
+         "In this article, we uncover the power of adaptogens and take a closer look at ashwagandha—a herb known fo...",
+      image: BlogImg2,
+      userImg: user2,
+   },
+   {
+      id: 3,
+      author: "Preeti Ajgaonkar",
+      title: "How Ashwagandha Can Transform Your Stress Levels and Skin Health",
+      description:
+         "In this article, we uncover the power of adaptogens and take a closer look at ashwagandha—a herb known fo...",
+      image: BlogImg1,
+      userImg: user1,
+   },
+];
 
 export default function BlogDetail(props) {
 
@@ -130,6 +187,8 @@ export default function BlogDetail(props) {
                      <img src={CopyLink} alt='CopyLink' />
                   </div>
                </div>
+
+
             </div>
             <div className={styles['section-right']}>
                <h3>
@@ -148,6 +207,27 @@ export default function BlogDetail(props) {
                         </div>
                      )
                   })}
+               </div>
+            </div>
+
+            <div className={styles['blog-section-container']}>
+
+               <Title className={styles['header']}>
+                  Related Blogs
+               </Title>
+               <div className={styles['blogs-container']}>
+                  <Carousel
+                     responsive={responsive}
+                     showDots={true}
+                     removeArrowOnDeviceType={["tablet", "mobile"]}
+                     dotListClass="custom-dot-list-style"
+                     itemClass="carousel-item-padding-40-px"
+                  >
+
+                     {tempData.map((blog) => (
+                        <BlogCard blog={blog} key={blog.id} />
+                     ))}
+                  </Carousel>
                </div>
             </div>
          </div>
