@@ -6,6 +6,7 @@ import AuthChoicePage from "./components/AuthPages/AuthChoicePage/AuthChoicePage
 import CreateAccountPage from "./components/AuthPages/CreateAccountPage/CreateAccountPage";
 import LoginPage from "./components/AuthPages/LoginPage/LoginPage";
 import VerifyOTP from "./components/AuthPages/VerifyOTP/VarifyOTP";
+import ForgotPassword from "./components/AuthPages/ForgotPassword/ForgotPassword";
 import PageLayout from './layouts/PageLayout/PageLayout';
 import BlogDetail from './pages/BlogDetail/BlogDetail';
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/auth-choice" exact element={<AuthChoicePage />} />
         <Route path="/create-account" element={<CreateAccountPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path='/blogs/:id' element={<BlogDetail />} />
       </Routes>

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate  } from "react-router-dom"; // Import useNavigate
 import { chooseRole } from "../../../redux/slices/authChoice";
 import { briefcase, user, arrowright, arrowleft } from "../../../assets/images/icons";
-import AuthPage from "../../../pages/AuthPages/AuthPage";
+import AuthPage from "../../../pages/AuthPage/AuthPage";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 const AuthChoicePage = () => {

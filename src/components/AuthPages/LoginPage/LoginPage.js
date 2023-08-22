@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import styles from "./LoginPage.module.css";
-import AuthPage from "../../../pages/AuthPages/AuthPage";
+import AuthPage from "../../../pages/AuthPage/AuthPage";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import {
@@ -126,6 +126,7 @@ const LoginPage = () => {
                 {formErrors.password && (
                   <p className={styles.error}>{formErrors.password}</p>
                 )}
+              <a href="/forgot-password" className={styles.forgotPassword}>forgot Pasword?</a>
               </div>
             </>
           )}

@@ -58,7 +58,7 @@ font-weight: 600;
   justify-content: center;
   align-items: center;
   /* height: 136px; */
-  min-width: 115px;
+  min-width: 125px;
   transition: all ease-in-out 0.3s;
   cursor: pointer;
   border-radius: 4px;

@@ -14,7 +14,8 @@ export default function PageLayout({ children }) {
     location.pathname === "/auth-choice" ||
     location.pathname === "/create-account" ||
     location.pathname === "/login" ||
-    location.pathname === "/verify-otp" 
+    location.pathname === "/verify-otp" ||
+    location.pathname === "/forgot-password" 
   return (
     <div>
       {!isSpecialPage && <Navbar />}

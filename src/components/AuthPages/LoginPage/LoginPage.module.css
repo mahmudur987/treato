@@ -151,6 +151,15 @@ label {
 .arrowLeft {
   display: none;
 }
+.forgotPassword {
+  font-size: var(--font-small);
+  color: var(--primary-color);
+  width: 100%;
+  display: inline-block;
+  text-align: end;
+  font-weight: 400;
+  font-family: "Lato", sans-serif;
+}
 
 @media only screen and (max-width: 768px) {
   .container {

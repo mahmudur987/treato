@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import styles from "./CreateAccountPage.module.css";
-import AuthPage from "../../../pages/AuthPages/AuthPage";
+import AuthPage from "../../../pages/AuthPage/AuthPage";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import {

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import AuthPage from "../../../pages/AuthPages/AuthPage";
+import AuthPage from "../../../pages/AuthPage/AuthPage";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import styles from "./VerifyOTP.module.css";
 const VerifyOTP = () => {
