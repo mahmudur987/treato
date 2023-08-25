@@ -1,0 +1,147 @@
+.container {
+  padding: 2rem 6rem;
+  /* height: 100vh; */
+  font-family: "Lato", sans-serif;
+}
+.heading {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 56px;
+  text-align: center;
+}
+.contactWrapper {
+  height: 554px;
+  display: flex;
+  margin-top: 3rem;
+}
+.Image,
+.formContainer {
+  width: 50%;
+  height: 100%;
+}
+.Image img {
+  width: 100%;
+  height: 100%;
+}
+.formContainer {
+  width: 424px;
+  margin: auto;
+  /* border: 1px solid; */
+  display: flex;
+  flex-direction: column;
+}
+.formHeader{
+    height: 20%;
+}
+.formFields{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.formHeader > h1 {
+  font-size: 28px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  line-height: 42px;
+}
+.formHeader > p {
+  font-size: 20px;
+}
+.nameFields {
+  display: flex;
+}
+.firstname,
+.lastname {
+  width: 50%;
+}
+.firstname input,
+.lastname input {
+  height: 48px;
+  width: 90%;
+}
+.emailField input {
+  height: 48px;
+}
+.messageField textarea {
+  height: 144px;
+  resize:none
+}
+.firstname input,
+.lastname input,
+.messageField textarea,
+.emailField input {
+  border: 1px solid var(--light-color);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  line-height: 24px;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+  font-size: var(--font-medium);
+}
+.checkboxField label {
+  flex-direction: row;
+}
+.privacyPolicy {
+  color: var(--primary-color);
+}
+.submitButton {
+  background: #08080b;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: var(--font-medium);
+  cursor: pointer;
+}
+.checkboxText{
+    margin-left: .4rem;
+}
+
+@media only screen and (max-width: 1025px) {
+    .container {
+        padding: 2rem;
+        height: 100vh;
+      }
+    .formContainer{
+        width: 50%;
+        box-sizing: border-box;
+        padding: 0rem 1rem;
+    }
+    .formHeader > p {
+        font-size: var(--font-medium);
+      }
+    }
+    @media only screen and (max-width: 770px) {
+      .container{
+        padding: 2rem;
+      }
+      .heading{
+        font-size: 48px;
+    }
+    }
+    @media only screen and (max-width: 600px) {
+        .Image{
+            display: none;
+        }
+        .formContainer{
+            width: 100%;
+            padding: 0rem;
+        }
+        .heading{
+            font-size: 28px;
+        }
+        .formHeader >h1,.formHeader>p,label{
+            font-size: var(--font-medium);
+        }
+        .checkboxText{
+font-size: var(--font-small);
+font-weight: 400;
+        }
+    }

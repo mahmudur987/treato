@@ -1,0 +1,115 @@
+.Modal {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.38);
+  z-index: 101;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+.innerBox {
+  width: 100%;
+  min-height: 100px;
+  /* margin: auto; */
+  /* z-index: 1; */
+  background-color: white;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  /* justify-content:flex-end; */
+  /* align-items: flex-end; */
+  /* min-height: 600px; */
+  border-radius: 4px;
+  padding: 1.25rem;
+  font-size: var(--font-medium);
+}
+
+.header {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sortBy {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 16px;
+}
+
+.header img {
+  position: absolute;
+  right: 0px;
+  cursor: pointer;
+}
+
+/* no need */
+.filterOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.sortBy label,
+.venueButtons label {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 16px;
+  font-size: var(--font-medium);
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+}
+.Price .header{
+  margin-bottom: 2rem;
+}
+.Price,
+.venueType {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.Price input {
+  width: 100%;
+  height: 1px;
+  background-color: var(--primary-color);
+}
+.PriceInfo {
+  display: flex;
+  justify-content: space-between;
+}
+.venueButtons {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+.everyone,
+.female,
+.male {
+  font-style: normal;
+  display: flex;
+  flex-direction: row;
+  background: none;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  /* gap: 16px; */
+  margin: 1rem 0rem 0rem;
+}
+.reset,
+.apply {
+  width: 150px;
+  padding: 14px;
+  width: 140px;
+  padding: 12px;
+}
+@media only screen and (max-width: 600px) {
+}

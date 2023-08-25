@@ -1,0 +1,149 @@
+.container,
+.stores,
+.footerLinks,
+.legalLinks,
+.social {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-family: "lato", sans-serif;
+  gap: 16px;
+}
+.container {
+  background: #202026;
+  gap: 64px;
+  padding: 2.375rem 6rem;
+}
+.contentWrapper,
+.head {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.head .logo {
+  height: 48px;
+  width: 98px;
+  object-fit: contain;
+}
+.contentWrapper {
+  justify-content: space-between;
+}
+.searchWrapper {
+  padding-left: 15%;
+}
+.searchWrapper,
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.searchWrapper,
+.searchButton {
+  height: 48px;
+}
+.inputWrapper {
+  border-radius: 200px;
+  padding: 0px 0px 0px 24px;
+  min-width:500px;
+  border: 1px solid var(--grey-color);
+}
+.searchIcon {
+    width: 20px;
+    height: 20px;
+}
+.searchInput {
+    width: 100%;
+    color: #c2c2c2;
+    background: none;
+  border: none;
+  height: 48px;
+
+}
+.searchInput:focus {
+  border: none;
+  outline: none;
+}
+.searchButton {
+  padding: 12px 24px;
+  border-radius: 200px;
+  background: #fff;
+  border: none;
+  font-size: var(--font-medium);
+  font-style: normal;
+  font-weight: 700;
+  cursor: pointer;
+}
+.heading {
+  font-size: var(--font-medium);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.16px;
+  color: #dce6e9;
+}
+a {
+  font-weight: 500;
+  font-size: var(--fonts-large);
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.16px;
+  font-style: normal;
+}
+.downloads,
+.footerLinks .links,
+.legalLinks .links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.copyright {
+  text-align: center;
+  border-top: 1px solid #929292;
+  padding-top: 1.5rem;
+}
+.sociallinks{
+    display: flex;
+    gap: 16px;
+}
+.sociallinks img,.downloads img{
+    cursor: pointer;
+}
+@media only screen and (max-width: 1000px) {
+ 
+  .searchWrapper {
+    padding-left: 10px;
+  }
+
+  .inputWrapper {
+    min-width:350px;
+  }
+}
+@media only screen and (max-width: 770px) {
+  .container{
+    padding: 2rem;
+  }
+}
+@media only screen and (max-width: 600px) {
+    .container{
+        padding: 2rem;
+        gap: 48px;
+    }
+ .contentWrapper {
+    flex-direction: column;
+    /* gap:48px */
+  }
+  .searchWrapper{
+    display: none;
+  }
+  .footerLinks,.legalLinks{
+    border-bottom: 1px solid #929292;
+  }
+  .social{
+    border-bottom: none;
+  }
+  .copyright{
+    border-top: 1px solid #929292;
+  }
+  .store,.footerLinks,.legalLinks,.social{
+    padding: 1.5rem 0;
+  }
+}

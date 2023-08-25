@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
+
+.container {
+  font-family: "Lato", sans-serif;
+  padding: 0rem 6rem;
+  padding-bottom: 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* recommended for you css */
+
+.rmdWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  box-shadow: 0px 4px 16px 0px #00000014;
+  padding: 0.75rem;
+}
+.rmdBox {
+  /* height: 184px; */
+  display: flex;
+  gap: 56px;
+  overflow-x: scroll;
+}
+
+.rmdBox::-webkit-scrollbar,
+.trWrapper::-webkit-scrollbar {
+  background-color: var(--light-color);
+  width: 0px;
+  height: 0px;
+}
+.rmdBox::-webkit-scrollbar-thumb,
+.trWrapper::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color);
+  border-radius: 8px;
+  opacity: 0;
+  height: 0px;
+  width: 0px;
+  border: 2px solid var(--light-color);
+}
+.trHeading {
+  font-size: 24px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+}
+.rmdItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 136px; */
+  min-width: 95px;
+  max-width: 95px;
+  transition: all ease-in-out 0.3s;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0.75rem 0 0.75rem 0;
+}
+.rmdItem:hover {
+  background: #edf2f7;
+}
+.rmdItem img {
+  height: 48px;
+  width: 48px;
+}
+.rmdItem h4 {
+  text-align: center;
+  font-weight: 400;
+}
+.scrollRight {
+  height: 36px;
+  cursor: pointer;
+}
+
+/* top-rated hair salons css */
+.top-ratedSalons {
+  position: relative;
+  margin-top: 2rem;
+}
+.trWrapper {
+  display: flex;
+  gap: 28px;
+  overflow-x: scroll;
+  margin-top: 2rem;
+}
+.trItem {
+  height: 280px;
+  width: 312px;
+  border: 1px solid #eaeff2;
+  border-radius: 4px;
+}
+.trItemImg {
+  height: 178px;
+  width: 312px;
+}
+.trItemDetails {
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.trScrollRight {
+  position: absolute;
+  right: 1%;
+  top: 50%;
+  height: 48px;
+  cursor: pointer;
+}
+.trScrollRight_mobo {
+  display: none;
+}
+/* media queries */
+
+.scroll_left {
+  transform: scale(-1);
+  position: absolute;
+  top: 50%;
+  left: 1%;
+}
+.scroll_right{
+  position: absolute;
+  top: 50%;
+  right: 1%;
+}
+
+@media only screen and (max-width: 770px) {
+  .container {
+    padding: 2rem;
+  }
+  .rmdHeading {
+    font-size: var(--fonts-large);
+  }
+  .rmdWrapper {
+    margin-top: 1.5rem;
+    height: 184px;
+    flex-wrap: wrap;
+    height: 240px;
+  }
+  .rmdBox {
+    height: 100%;
+    width: 100%;
+    gap: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  .rmdItem {
+    height: 84px;
+  }
+  .rmdItem img {
+    width: 24px;
+    height: 24px;
+  }
+  .rmdItem h4 {
+    font-size: var(--font-small);
+    font-weight: 100;
+  }
+  .scrollRight {
+    display: none;
+  }
+  .trScrollRight {
+    display: none;
+  }
+  .trHeadWrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+  .trScrollRight_mobo {
+    display: block;
+    height: 24px;
+    width: 24px;
+  }
+}

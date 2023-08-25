@@ -1,0 +1,242 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  flex-direction: row;
+  padding: 1.25rem;
+  transition: all ease-in-out 1s;
+  z-index: 100;
+  /* position: fixed; */
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+}
+.navWrapper {
+  display: flex;
+  width: 495px;
+  height: 48px;
+  align-items: center;
+  flex-direction: row;
+}
+.navWrapper_search {
+  display: flex;
+  height: 48px;
+  align-items: center;
+  flex-direction: row;
+  width: auto !important;
+}
+.logo img {
+  height: 40px;
+  width: 109px;
+  object-fit: contain;
+}
+.navigation {
+  height: 100%;
+  width: 100%;
+}
+.navigation ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.navigation li {
+  font-size: var(--font-medium);
+  font-weight: 500;
+}
+
+.navigation a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.buttons {
+  display: flex;
+}
+.buttons button {
+  padding: 1rem 1.5rem;
+  margin-left: 15px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.partnerButton {
+  border: 1px solid #08080b;
+  background: none;
+  color: var(--dark-color);
+}
+.signupButton,
+.signinButton {
+  background-color: var(--black-color);
+  color: white;
+  font-size: var(--font-medium);
+}
+.signinButton {
+  background: none;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  text-align: center;
+  color: var(--black-color);
+  font-size: var(--font-small);
+  font-weight: 400;
+  border: 1px solid #08080b;
+  height: 48px;
+}
+.signinButton img {
+  height: 24px;
+  width: 24px;
+  /* margin-top: 1rem; */
+}
+.menuButton {
+  display: none;
+}
+
+.mobileNavDropBox {
+  width: 90%;
+  font-family: "Lato", sans-serif;
+}
+
+.mobileNavDropBox ul {
+  list-style: none;
+}
+.mobileNavDropBox ul li {
+  /* display: flex; */
+  margin: 1rem 0;
+  cursor: pointer;
+  padding: 0.5rem 0rem;
+  /* justify-content: space-between; */
+}
+.mobileNavDropBox ul li:hover {
+  background-color: var(--light-color);
+}
+.mobileNavDropBox ul li a {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.listtext {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.signout {
+  color: #de2929;
+}
+.navUserInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.navUserInfo img {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+}
+.userName {
+  font-size: var(--font-medium);
+  font-weight: 600;
+}
+.userEmail {
+  font-size: var(--font-small);
+  color: #6d747a;
+  font-weight: 400;
+}
+
+.deskDropBox {
+  position: absolute !important;
+  width: 300px;
+  right: 5%;
+  top: 100%;
+  background: white;
+  border-radius: 4px;
+  padding: 1rem;
+  z-index: 11;
+  box-shadow: 0px 4px 24px 0px #0000001f;
+}
+@media only screen and (max-width: 1024px) {
+  .navWrapper {
+    width: auto;
+  }
+  .navigation ul {
+    gap: 10px;
+  }
+}
+@media only screen and (max-width: 770px) {
+.buttons button{
+  padding: .5rem;
+}
+.navigation li{
+  font-size: var(--font-small);
+}
+}
+@media only screen and (max-width: 600px) {
+  .partnerButton,
+  .signupButton {
+    display: none;
+  }
+  .navigation ul li {
+    display: none;
+  }
+  .logo {
+    height: 29px;
+    width: 73px;
+    display: block !important;
+  }
+  .logo img {
+    height: 100%;
+    width: 100%;
+  }
+  .buttons button {
+    padding: 0;
+  }
+  .menuButton {
+    display: block;
+    height: 24px;
+    width: 24px;
+    border: none;
+    background: none;
+    padding: 0;
+  }
+  .menuButton img {
+    height: 100%;
+    width: 100%;
+    /* object-fit: contain; */
+  }
+  .header {
+    flex-direction: column;
+    padding: 0.5rem 0rem;
+  }
+  .menuopen {
+    position: relative;
+    transition: all ease-in-out 1s;
+  }
+  .container {
+    width: 90%;
+    /* justify-content: center; */
+  }
+  .signinButton {
+    display: none;
+  }
+}
+/* Add responsive styles as needed */

@@ -1,15 +1,43 @@
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
 /* change colors, its just a template */
-:root {
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
-
-  --font-small: 14px;
-  --font-medium: 16px;
-  --fonts-large: 18px;
-}
 
 * {
   margin: 0;
   padding: 0;
+}
+
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --black-color: #08090a;
+  --light-color: #f3f3f3;
+  --grey-color: #6d747a;
+  --font-small: 14px;
+  --font-medium: 16px;
+  --fonts-large: 18px;
+
+  --navbar-height: 90px;
+  --page-padding-x: 1rem;
+  --z-index-modal: 5000
+}
+
+@media only screen and (min-width: 1100px) {
+  :root {
+    --page-padding-x: 60px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  :root {
+    --navbar-height: 64px;
+  }
+}
+.page-section {
+  padding-left: var(--page-padding-x) !important;
+  padding-right: var(--page-padding-x) !important;
+}
+
+.page-container {
+  margin-top: var(--navbar-height);
 }
