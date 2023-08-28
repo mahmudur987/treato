@@ -48,10 +48,10 @@ export default function Navbar() {
                     <a href="#">Blog</a>
                   </li>
                   <li>
-                    <a href="#">Career</a>
+                    <a href="#">Lookbook</a>
                   </li>
                   <li>
-                    <a href="#">Contact Us</a>
+                    <a href="#">Contact us</a>
                   </li>
                 </>
               )}
@@ -68,9 +68,9 @@ export default function Navbar() {
           >
             {!isMobileMenuOpen ? <img src={menuLogo} /> : <img src={x} />}
           </button>
-          <button className={styles.partnerButton}>Become a Partner</button>
+          <button className={styles.partnerButton}>Become a partner</button>
           {!isLoggedIn ? (
-            <button className={styles.signupButton}>Sign Up</button>
+            <button className={styles.signupButton}>Sign up</button>
           ) : (
             <button
               className={styles.signinButton}

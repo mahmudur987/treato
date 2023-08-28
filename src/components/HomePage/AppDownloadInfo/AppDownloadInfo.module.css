@@ -6,15 +6,15 @@
   padding: 6rem;
   box-sizing: border-box;
 }
-a{
+a {
   cursor: pointer;
 }
 .bannerWrapper {
   display: flex;
-  height:624px;
+  height: 624px;
   align-items: center;
   background-image: url("../../../assets/images/appDownloadImages/AppDownloadDesktopbg.png");
-  background-position:right;
+  background-position: right;
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -22,61 +22,70 @@ a{
   width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: flex-end;
   height: 342px;
 }
-.bannerDetails h1{
-  font-size: 64px;
+.bannerDetails .textWrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  width: 80%;
+  height: 100%;
+}
+.bannerDetails h1 {
+  font-size: 56px;
   line-height: 64px;
   font-family: "Poppins", sans-serif;
-
 }
-.bannerDetails small{
+.bannerDetails small {
   font-size: var(--font-medium);
   display: flex;
   align-items: center;
   gap: 8px;
-
 }
-.bannerDetails small img{
-  height:24pxx;
-  width:24px;
-
+.bannerDetails small img {
+  height: 24px;
+  width: 24px;
 }
-.bannerDetails small p{
+.bannerDetails small p {
   line-height: 32px;
   font-size: var(--fonts-large);
 }
+
+.bannerDetails .desc {
+  font-weight: 600;
+  font-size: 20px;
+}
 .bannerImage {
-  display:none;
+  display: none;
 }
-.socialLinks{
+.socialLinks {
   display: flex;
- gap: 20px;
+  gap: 20px;
 }
-.socialLinks a{
-height:52px;
+.socialLinks a {
+  height: 52px;
 }
 
 /* media queries */
 @media only screen and (max-width: 1025px) {
-.bannerDetails h1{
-  font-size: 46px;
-  line-height: 46px;
-}
-.socialLinks a img{
-width: 120px;
-}
+  .bannerDetails h1 {
+    font-size: 46px;
+    line-height: 46px;
+  }
+  .socialLinks a img {
+    width: 120px;
+  }
 }
 @media only screen and (max-width: 770px) {
-  .container{
+  .container {
     padding: 2rem;
   }
 }
 @media only screen and (max-width: 600px) {
-
-  .bannerWrapper{
+  .bannerWrapper {
     flex-direction: column;
     background-image: none;
   }
@@ -84,23 +93,29 @@ width: 120px;
     height: 50%;
     width: 100%;
   }
- 
-  .bannerDetails small img{
+
+  .bannerDetails small img {
     height: 24px;
     width: 24px;
   }
-  .bannerDetails h1{
+  .bannerDetails h1 {
     font-size: 26px;
     line-height: 40px;
   }
   .bannerImage {
-    display:block;
+    display: block;
     height: 50%;
     width: 100%;
-    background-image: url('../../../assets/images/appDownloadImages/AppDownload_mobobg.png');
+    background-image: url("../../../assets/images/appDownloadImages/AppDownload_mobobg.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
   }
-
+  .bannerDetails .textWrapper{
+    width: 100%;
+  }
+  .bannerDetails .desc{
+    font-size: var(--fonts-large);
+    font-weight: 400;
+  }
 }

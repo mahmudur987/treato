@@ -19,7 +19,7 @@ const Footer = () => {
     { icon: linkedin, alt: "linkedin" },
     { icon: twitter, alt: "twitter" },
   ];
-  const legalLinks = ["Privacy Policy", "Terms of Service", "Terms of Use"];
+  const legalLinks = ["Privacy policy", "Terms of service", "Terms of use"];
   return (
     <div className={styles.container}>
       <div className={styles.head}>

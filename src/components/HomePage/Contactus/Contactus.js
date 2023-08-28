@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Contactus.module.css";
+import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton.js";
+
 import contactUsBanner from "../../../assets/images/ContactusImages/contactusBanner.png";
 
 const Contactus = () => {
@@ -54,6 +56,7 @@ const Contactus = () => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
+                  placeholder="First name"
                 />
               </label>
               <label className={styles["lastname"]}>
@@ -63,6 +66,8 @@ const Contactus = () => {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
+                  placeholder="Last name"
+
                 />
               </label>
             </div>
@@ -74,6 +79,8 @@ const Contactus = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  placeholder="e.g. person@gmail.com"
+
                 />
               </label>
             </div>
@@ -84,6 +91,7 @@ const Contactus = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
+                  placeholder="Leave us a message..."
                 />
               </label>
               <div className={styles["checkboxField"]}>
@@ -101,9 +109,7 @@ const Contactus = () => {
                 </label>
               </div>
             </div>
-            <button type="submitButton" className={styles["submitButton"]}>
-              Get in touch
-            </button>
+            <PrimaryButton type="submitButton" children={"Get in touch"} className={styles.apply} />
           </form>
         </div>
       </div>
