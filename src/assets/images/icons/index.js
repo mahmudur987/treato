@@ -33,6 +33,11 @@ export { default as Facebook_Logo } from "./Facebook_Logo.svg";
 export { default as Google_Logo } from "./Google_Logo.svg";
 export { default as eyeline } from "./eyeline.svg";
 export { default as SuccessCircle } from "./SuccessCircle.svg";
-
-
+export { default as chevronUpBlue } from "./chevronUpBlue.svg";
+export { default as chevronDownBlue } from "./chevronDownBlue.svg";
+export { default as moreVertical } from "./moreVertical.svg";
+export { default as cross } from "./cross.svg";
+export { default as clock } from "./clock.svg";
+export { default as checkCircleFill } from "./checkCircleFill.svg";
+export { default as ellipse } from "./ellipse.svg";
 

@@ -11,7 +11,7 @@ export default function Navbar() {
   const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
   const [isMainSearchBar, setisMainSearchBar] = useState(false);
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -107,7 +107,7 @@ export default function Navbar() {
                   <a href="#">
                     <div className={styles.listtext}>
                       <img src={history} alt="history" />
-                      <a href="#">Appointment History</a>
+                      <a href="/my-appointments/upcoming">Appointment History</a>
                     </div>
                     <div className={styles.chevronright}>
                       <img src={chevronright} slt="chevronright" />

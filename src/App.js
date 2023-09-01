@@ -9,6 +9,7 @@ import VerifyOTP from "./components/AuthPages/VerifyOTP/VarifyOTP";
 import ForgotPassword from "./components/AuthPages/ForgotPassword/ForgotPassword";
 import PageLayout from './layouts/PageLayout/PageLayout';
 import BlogDetail from './pages/BlogDetail/BlogDetail';
+import MyAppointments from "./pages/MyAppointments/MyAppointments";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path='/blogs/:id' element={<BlogDetail />} />
+        <Route path='/my-appointments/*' element={<MyAppointments/>} />
       </Routes>
     </PageLayout>
   );
