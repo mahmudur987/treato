@@ -11,8 +11,26 @@ const Completed = () => {
       bookedOn: "Wed, 12 Apr at 10:39 PM",
       professional: "Nayanika",
       paymentIcon: "checkCircleFill",
-      paymentStatus: "Due",
+      paymentStatus: "Amount Paid",
       amount: "₹2,277.64",
+      onSite:false,
+      services : [
+        {
+          quantity: 1,
+          serviceName: "Hair cut girls",
+          servicePeriod: "45 mins",
+          servicePrice: "₹399",
+          professional: "Nayanika",
+        },
+        {
+            quantity: 1,
+            serviceName: "Hair cut girls",
+            servicePeriod: "45 mins",
+            servicePrice: "₹399",
+            professional: "Nayanika",
+          },
+        // Add more objects as needed
+      ],
     },
     {
       name: "Geetanjali Hair and Beauty",
@@ -23,6 +41,24 @@ const Completed = () => {
       paymentIcon: "checkCircleFill",
       paymentStatus: "Amount Paid",
       amount: "₹1,177.64",
+      onSite:true,
+      services : [
+        {
+          quantity: 1,
+          serviceName: "Hair cut girls",
+          servicePeriod: "45 mins",
+          servicePrice: "₹399",
+          professional: "Nayanika",
+        },
+        {
+            quantity: 1,
+            serviceName: "Hair cut girls",
+            servicePeriod: "45 mins",
+            servicePrice: "₹399",
+            professional: "Nayanika",
+          },
+        // Add more objects as needed
+      ],
     },
   ];
   

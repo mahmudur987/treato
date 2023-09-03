@@ -37,7 +37,8 @@
 }
 .modal-close-icon{
   position: absolute;
+  height: 20px;
   right: 12px;
-  top: 12px;
+  top: 20px;
   cursor: pointer;
 }

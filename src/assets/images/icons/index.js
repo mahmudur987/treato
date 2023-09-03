@@ -8,6 +8,7 @@ export { default as search } from "./search.svg";
 export { default as Treato } from "./Treato.svg";
 export { default as TreatoLogo } from "./TreatoLogo.svg";
 export { default as chevronright } from "./chevronright.svg";
+export { default as chevronLeft } from "./chevronLeft.svg";
 export { default as chevrondown } from "./chevrondown.svg";
 export { default as download } from "./download.svg";
 export { default as signin } from "./signin.svg";
@@ -40,4 +41,5 @@ export { default as cross } from "./cross.svg";
 export { default as clock } from "./clock.svg";
 export { default as checkCircleFill } from "./checkCircleFill.svg";
 export { default as ellipse } from "./ellipse.svg";
+export { default as star_line } from "./star_line.svg";
 
