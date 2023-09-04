@@ -4,10 +4,13 @@ import { ellipse, star_line } from "../../../../assets/images/icons";
 import { frame1 } from "../../../../assets/images/Appointments";
 import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../../Buttons/SecondaryButton/SecondaryButton";
+import { closeModal } from "../../../../redux/slices/modal";
+import { useDispatch } from "react-redux";
 const WriteReview = () => {
   const [textareaValue, setTextareaValue] = useState("");
   const [titleValue, settitleValue] = useState("");
   const [rating, setRating] = useState(0);
+  const dispatch = useDispatch();
 
   const handleStarClick = (value) => {
     setRating(value);
@@ -17,6 +20,10 @@ const WriteReview = () => {
     const { value } = event.target;
     setTextareaValue(value);
   };
+
+  function handleClose() {
+    dispatch(closeModal());
+  }
   return (
     <div className={styles.WriteReview}>
       <h1 className={styles.modalTitle}>Write a review</h1>
@@ -40,10 +47,12 @@ const WriteReview = () => {
                 {[1, 2, 3, 4, 5].map((value) => (
                   <span
                     key={value}
-                    className={`${styles.star} ${value <= rating ? styles.staractive : ''}`}
+                    className={`${styles.star} ${
+                      value <= rating ? styles.staractive : ""
+                    }`}
                     onClick={() => handleStarClick(value)}
                   >
-                    <img src={star_line} alt="star_line"/>
+                    <img src={star_line} alt="star_line" />
                   </span>
                 ))}
               </div>
@@ -76,7 +85,7 @@ const WriteReview = () => {
         </div>
       </div>
       <div className={styles.button}>
-        <SecondaryButton children={"Cancel"} />
+        <SecondaryButton children={"Cancel"} onClick={handleClose} />
         <PrimaryButton children={"Submit"} />
       </div>
     </div>

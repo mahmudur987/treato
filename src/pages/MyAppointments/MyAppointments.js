@@ -5,9 +5,11 @@ import Upcoming from "../../components/MyAppointments/Upcoming/Upcoming";
 import Cancelled from "../../components/MyAppointments/Cancelled/Cancelled";
 import { Link, NavLink, Route, Routes } from "react-router-dom";
 import Completed from "../../components/MyAppointments/Completed/Completed";
+import ModalManager from "../../components/_modals/ModalManager";
 const MyAppointments = () => {
   return (
     <div className={styles.MyAppointments}>
+      <ModalManager />
       <h3 className={styles.title}>My Appointments</h3>
       <div className={styles.navWrapper}>
 

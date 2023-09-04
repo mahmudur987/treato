@@ -92,7 +92,13 @@ const CancelAppointment = () => {
           </div>
         </div>
       </div>
-      <PrimaryButton children={"Cancel Appointment"} />
+      <div className={styles.bottomSection}>
+        <PrimaryButton children={"Cancel Appointment"} />
+        <p>
+          Free cancellation till 4 hours before the start time, post that
+          additional charge(s) applicable. <a href="#">Cancellation Policy.</a>
+        </p>
+      </div>
     </div>
   );
 };

@@ -40,33 +40,45 @@ function SamplePrevArrow(props) {
   );
 }
 const RescheduleAppointment = () => {
+
+  const [slidesToShow, setSlidesToShow] = useState(4); // Default value for mobile
+
+  useEffect(() => {
+    // Check the window width and update slidesToShow accordingly
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        // Desktop
+        setSlidesToShow(5);
+      } else {
+        // Mobile
+        setSlidesToShow(4);
+      }
+    };
+
+    // Initial check on component mount
+    handleResize();
+
+    // Add a listener for window resize events
+    window.addEventListener('resize', handleResize);
+
+    // Remove the listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
+
+
+
   var settings = {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: slidesToShow,
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-  };
-  const responsive = {
-    superLargeDesktop: {
-      // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
   };
   const dateData = [
     { day: "Mon", date: "14" },

@@ -4,7 +4,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 24px;
 }
 .modalTitle {
   text-align: center;
@@ -93,4 +93,19 @@ input:focus {
 }
 .staractive img {
   filter: invert(100%);
+}
+
+@media only screen and (max-width: 600px) {
+    .WriteReview{
+        width: 100%;
+    }
+    .line{
+        margin: 1rem 0;
+    }
+    .ReviewWrapper{
+        gap: 16px;
+    }
+    .textarea{
+        height: 88px;
+    }
 }

@@ -1,10 +1,22 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Navbar.module.css";
 import { useLocation } from "react-router-dom";
 import mask2 from "../../assets/images/NavbarImages/Mask2.png";
 import mask from "../../assets/images/NavbarImages/Mask.png";
 import MainSearchBar from "../Input/mainSearchBar/MainSearchBar";
-import { TreatoLogo, briefcase, chevrondown, chevronright, download, history, menuLogo, notetext, signin, signout, x } from "../../assets/images/icons";
+import {
+  TreatoLogo,
+  briefcase,
+  chevrondown,
+  chevronright,
+  download,
+  history,
+  menuLogo,
+  notetext,
+  signin,
+  signout,
+  x,
+} from "../../assets/images/icons";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,18 +35,23 @@ export default function Navbar() {
   useEffect(() => {
     if (location.pathname === "/salons") {
       setisMainSearchBar(true);
-    }
-    else{
+    } else {
       setisMainSearchBar(false);
     }
   }, [location.pathname]);
 
   return (
     <header
-      className={`${styles.header} ${isMobileMenuOpen ? styles.menuopen : ""} page-section`}
+      className={`${styles.header} ${
+        isMobileMenuOpen ? styles.menuopen : ""
+      } page-section`}
     >
       <div className={styles.container}>
-        <div className={`${isMainSearchBar?styles.navWrapper_search:styles.navWrapper}`}>
+        <div
+          className={`${
+            isMainSearchBar ? styles.navWrapper_search : styles.navWrapper
+          }`}
+        >
           <nav className={styles.navigation}>
             <ul>
               <li className={styles.logo}>
@@ -104,10 +121,10 @@ export default function Navbar() {
                 </div>
 
                 <li>
-                  <a href="#">
+                  <a href="/my-appointments/upcoming">
                     <div className={styles.listtext}>
                       <img src={history} alt="history" />
-                      <a href="/my-appointments/upcoming">Appointment History</a>
+                      Appointment History
                     </div>
                     <div className={styles.chevronright}>
                       <img src={chevronright} slt="chevronright" />

@@ -28,7 +28,6 @@ const AppointmentCard = ({ salon, cardType }) => {
 
   return (
     <div className={`${styles.salonCard} ${styles.salonCardUnique}`}>
-      <ModalManager />
       {/* salon information */}
       <div className={styles.salonInfo}>
         <div className={styles.infos}>
@@ -80,12 +79,33 @@ const AppointmentCard = ({ salon, cardType }) => {
           className={`${
             cardType == "Completed" ? styles.writeReview : styles.d_none
           }`}
-          onClick={ () => handleModal("WriteReview")}
+          onClick={() => handleModal("WriteReview")}
         >
           Write a review
         </div>
       </div>
       <hr className={styles.line} />
+      {/* mobile view salons timing  */}
+      <div className={styles.timing_mobo}>
+        <img src={clock} alt="clock" />
+        {salon.dateTime}
+        <button
+          onClick={() => settoggleDetails(!toggleDetails)}
+          className={styles.toggledetails}
+        >
+          {!toggleDetails && (
+            <>
+              View details <img src={chevronDownBlue} alt="chevronUpBlue" />
+            </>
+          )}
+          {toggleDetails && (
+            <>
+              Hide details <img src={chevronUpBlue} alt="chevronUpBlue" />
+            </>
+          )}
+        </button>
+      </div>
+
       {/* services Details */}
       {toggleDetails && (
         <>
@@ -176,6 +196,14 @@ const AppointmentCard = ({ salon, cardType }) => {
             <span className={styles.amount}>{salon.amount}</span>
             {salon.onSite ? "(on-site payment)" : ""}
           </h4>
+        </div>
+        <div
+          className={`${
+            cardType != "Upcoming" ? styles.writeReview_mobo : styles.d_none
+          }`}
+          onClick={() => handleModal("WriteReview")}
+        >
+          Write a review
         </div>
         <div className={styles.buttons}>
           <PrimaryButton

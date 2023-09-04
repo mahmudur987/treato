@@ -79,7 +79,7 @@
   color: var(--primary-color);
 }
 
-.writeReview{
+.writeReview,.writeReview_mobo{
 font-family: "Poppins";
 font-size: var(--font-medium);
 font-weight: 600;
@@ -87,7 +87,9 @@ text-decoration-line: underline;
 cursor:pointer;
 }
 
-
+.writeReview_mobo{
+  display: none;
+}
 
 .detailSection {
   display: flex;
@@ -170,4 +172,61 @@ cursor:pointer;
 }
 .pro_Avatar {
   border-radius: 50%;
+}
+.timing_mobo{
+  align-items: center;
+  font-size: var(--font-medium);
+  gap: 8px;
+  font-family: "Lato";
+  margin-bottom: 1rem;
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+.status{
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.salon{
+  gap:0px;
+}
+.timing{
+  display: none;
+}
+.timing_mobo{
+display: flex;
+}
+.salonCard{
+  padding: 0;
+  border: none;
+}
+.infos >img{
+  height: 48px;
+  width: 48px;
+}
+.line{
+  margin: 1rem 0;
+}
+.detailSection,.others{
+  flex-direction: column;
+  gap: 16px;
+}
+.buttons{
+  flex-direction: row-reverse;
+}
+.salon,
+.buttons,.buttons button{
+  width: 100%;
+} 
+.writeReview{
+  display: none;
+}
+.writeReview_mobo{
+  display: block;
+  padding: 1rem 0;
+  border-top: 1px solid var(--Grey-40);
+  border-bottom: 1px solid var(--Grey-40);
+
+}
 }

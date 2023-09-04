@@ -63,7 +63,7 @@ const Completed = () => {
   ];
   
   return (
-    <div className={styles.UpcomingWrapper}>
+    <div className={styles.CompletedWrapper}>
       {salonData.map((salon,index)=>(
         <AppointmentCard salon={salon} key={index} cardType="Completed"/>
       ))}

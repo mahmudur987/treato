@@ -4,7 +4,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 24px;
 }
 .modalTitle {
   text-align: center;
@@ -76,4 +76,36 @@
 }
 .textarea::-webkit-scrollbar {
   display: none;
+}
+.bottomSection{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.bottomSection p{
+    color: var(--Grey-10);
+}
+.bottomSection p a{
+    font-size: var(--font-medium);
+    color: var(--primary-color);
+}
+@media only screen and (max-width: 600px) {
+    .CancelAppointment{
+        width: 100%;
+    }
+    .reasonWrapper{
+        gap: 16px;
+    }
+    .line{
+        margin: 1rem 0;
+    }
+    .bottomSection p{
+        font-size: var(--font-small);
+    }
+    .bottomSection p a{
+        font-size: var(--font-small);
+    }
+    .textarea{
+        height: 88px;
+    }
 }

@@ -232,7 +232,7 @@
     transition: all ease-in-out 1s;
   }
   .container {
-    width: 90%;
+    width: 100%;
     /* justify-content: center; */
   }
   .signinButton {

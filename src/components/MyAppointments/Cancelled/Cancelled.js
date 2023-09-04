@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from "./Cancelled.module.css";
 import AppointmentCard from "../../Cards/AppointmentCard/AppointmentCard";
 const Cancelled = () => {
-  const [toggleoptions, settoggleoptions] = useState(false);
   const salonData = [
     {
       name: "She Hair and Beauty",
@@ -56,7 +55,7 @@ const Cancelled = () => {
   ];
   
   return (
-    <div className={styles.UpcomingWrapper}>
+    <div className={styles.CancelledWrapper}>
       {salonData.map((salon,index)=>(
         <AppointmentCard salon={salon} key={index} cardType="Cancelled"/>
       ))}

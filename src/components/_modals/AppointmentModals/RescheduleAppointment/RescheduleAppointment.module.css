@@ -2,7 +2,7 @@
   width: 440px;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 24px;
   font-family: "Lato", sans-serif;
 }
 .modalTitle {
@@ -78,7 +78,7 @@
 .availableDate:last-child {
   margin-right: 0; /* Remove right margin for the last child */
 }
-.line{
+.line {
   height: 1px;
   background: var(--Grey-40);
   margin: 1.5rem 0;
@@ -124,4 +124,22 @@
   width: 85%;
   margin: auto;
   overflow: visible;
+}
+
+@media only screen and (max-width: 600px) {
+  .RescheduleModal {
+    width: 100%;
+  }
+  .line {
+    margin: 1rem 0;
+  }
+  .dateContainer,
+  .timeSlotsWrapper {
+    gap: 16px;
+  }
+  .timeSlot {
+    width: 100px;
+    flex-direction: row;
+    padding: 0.625rem 1rem;
+  }
 }
