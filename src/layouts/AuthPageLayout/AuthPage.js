@@ -1,5 +1,4 @@
 import React from "react";
-import Hero_Signup from "../../assets/images/AuthImages/Hero_Signup.png";
 import styles from "./AuthPage.module.css";
 import { useNavigate } from "react-router-dom";
 import { arrowleft } from "../../assets/images/icons";
@@ -12,7 +11,6 @@ const AuthPage = ({ children }) => {
     <div className={styles.container}>
       {/* Left side common content */}
       <div className={styles.AuthImage}>
-        <img src={Hero_Signup} alt="Hero_Signup" />
       </div>
 
       {/* Right side content */}

@@ -10,12 +10,16 @@ export default function PageLayout({ children }) {
   const showModal = useSelector((state) => state.modal.showModal);
   const isMobileView = useSelector((state) => state.modal.isMobileView);
   const location = useLocation();
+  // remove Navbar and footer  if any of the below  routes 
   const isSpecialPage =
     location.pathname === "/auth-choice" ||
     location.pathname === "/create-account" ||
     location.pathname === "/login" ||
     location.pathname === "/verify-otp" ||
-    location.pathname === "/forgot-password" 
+    location.pathname === "/forgot-password";
+  // remove footer  if the current route is "/myappointments "
+  const isMyAppointmentsRoute =
+    location.pathname.startsWith("/my-appointments");
   return (
     <div>
       {!isSpecialPage && <Navbar />}
@@ -23,7 +27,7 @@ export default function PageLayout({ children }) {
       {showModal && !isMobileView && <SalonFilterModalDesktop />}
       {showModal && isMobileView && <SalonFilterModalMobile />}
       {children}
-      {!isSpecialPage && <Footer />}
+      {!isMyAppointmentsRoute && !isSpecialPage && <Footer />}
     </div>
   );
 }

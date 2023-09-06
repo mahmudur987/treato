@@ -5,10 +5,10 @@
   gap: 24px;
   font-family: "Lato", sans-serif;
 }
-.heading{
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 .VerifyOTP {
   font-size: 28px;
@@ -45,21 +45,30 @@
 }
 .OTPtimer {
   font-family: "Lato", sans-serif;
-  font-size: 16px;
+  font-size: var(--font-medium);
   font-weight: 400;
 }
+.OTPtimer .countdown {
+  color: var(--Grey-10);
+  font-size: var(--font-medium);
+}
+.resendOTP {
+  color: var(--primary-color);
+  font-size: var(--font-medium);
+  display: none;
+}
 @media only screen and (max-width: 768px) {
-.OTPWrapper input{
+  .OTPWrapper input {
     width: 40px !important;
-}
-.submitOTP{
+  }
+  .submitOTP {
     width: 100%;
-}
-.VerifyOTP{
+  }
+  .VerifyOTP {
     font-size: 24px;
-}
-.enterOTPText{
+  }
+  .enterOTPText {
     font-size: var(--font-small);
     width: 200%;
-}
+  }
 }

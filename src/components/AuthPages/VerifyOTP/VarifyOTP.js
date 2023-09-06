@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import AuthPage from "../../../pages/AuthPage/AuthPage";
+import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import styles from "./VerifyOTP.module.css";
+import { Link } from "react-router-dom";
 const VerifyOTP = () => {
   const [otp, setOTP] = useState(["", "", "", ""]);
   const inputRefs = useRef([]);
@@ -43,20 +44,26 @@ const VerifyOTP = () => {
           {otp.map((digit, index) => (
             <input
               key={index}
-              type="number"
+              type="text"
               maxLength={1}
               value={digit}
+              onInput={(e) => {
+                // Use a regular expression to remove non-numeric characters
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+              }}
               onChange={(e) => handleInputChange(index, e.target.value)}
               onKeyDown={(e) => handleInputKeyDown(e, index)}
               ref={(inputRef) => (inputRefs.current[index] = inputRef)}
               style={{ width: "30px", marginRight: "10px" }}
               className={styles.OTPinput}
+              inputMode="numeric" // Specify numeric input mode
+              pattern="[0-9]*" // Allow only numeric input
             />
           ))}
         </div>
         <div className={styles.submitWrapper}>
           <PrimaryButton className={styles.submitOTP}>Submit</PrimaryButton>
-          <p className={styles.OTPtimer}>Didn’t receive OTP? Resend in 04:59</p>
+          <p className={styles.OTPtimer}>Didn’t receive OTP? <span className={styles.countdown}>Resend in 04:59</span> <Link className={styles.resendOTP}>Resend OTP</Link></p>
         </div>
       </div>
     </AuthPage>

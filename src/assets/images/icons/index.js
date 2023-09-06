@@ -5,6 +5,7 @@ export { default as facebook } from "./facebook.svg";
 export { default as twitter } from "./twitter.svg";
 export { default as linkedin } from "./linkedin.svg";
 export { default as search } from "./search.svg";
+export { default as searchGrey } from "./searchGrey.svg";
 export { default as Treato } from "./Treato.svg";
 export { default as TreatoLogo } from "./TreatoLogo.svg";
 export { default as chevronright } from "./chevronright.svg";

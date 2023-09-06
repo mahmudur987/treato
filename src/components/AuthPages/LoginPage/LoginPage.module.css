@@ -76,7 +76,7 @@ label {
   color: var(--primary-color);
   font-family: "Lato", sans-serif;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
 }
 .socialButtons {
   display: flex;
@@ -110,7 +110,7 @@ label {
 .continueWith span {
   height: 1px;
   width: 24%;
-  background-color: #ced4da;
+  background-color: var(Grey-10);
 }
 .google,
 .facebook {
@@ -139,7 +139,7 @@ label {
 .passwordError,
 .error {
   width: 100%;
-  color: #de2929;
+  color: var(--Error-Red);
   font-size: 14px;
   font-style: normal;
   font-family: "Lato", sans-serif;

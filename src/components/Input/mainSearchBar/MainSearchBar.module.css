@@ -3,7 +3,7 @@
 }
 .blueButton {
   background-color: var(--primary-color);
-  color: white;
+  color: var(--White);
 }
 @media only screen and (max-width: 770px) {
   .navbarInputWrapper {

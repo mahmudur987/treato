@@ -35,7 +35,7 @@ const Contactus = () => {
     console.log(formData);
   };
   return (
-    <section className={styles["container"]}>
+    <section className={styles["container"]} id="contactUs">
       <h1 className={styles["heading"]}>Contact us</h1>
       <div className={styles["contactWrapper"]}>
         <div className={styles["Image"]}>

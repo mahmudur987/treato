@@ -5,7 +5,7 @@
 .social {
   display: flex;
   flex-direction: column;
-  color: #fff;
+  color: var(--White);
   font-family: "lato", sans-serif;
   gap: 16px;
 }
@@ -44,20 +44,22 @@
 .inputWrapper {
   border-radius: 200px;
   padding: 0px 0px 0px 24px;
-  min-width:500px;
+  min-width: 500px;
   border: 1px solid var(--grey-color);
 }
 .searchIcon {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 .searchInput {
-    width: 100%;
-    color: #c2c2c2;
-    background: none;
+  width: 100%;
+  color: var(--Grey-50);
+  background: none;
   border: none;
   height: 48px;
-
+}
+.searchInput::placeholder{
+  color:var(--Grey-40)
 }
 .searchInput:focus {
   border: none;
@@ -66,7 +68,7 @@
 .searchButton {
   padding: 12px 24px;
   border-radius: 200px;
-  background: #fff;
+  background: var(--White);
   border: none;
   font-size: var(--font-medium);
   font-style: normal;
@@ -79,7 +81,7 @@
   font-weight: 600;
   line-height: 150%; /* 24px */
   letter-spacing: 0.16px;
-  color: #dce6e9;
+  color: var(--Grey-50);
 }
 a {
   font-weight: 500;
@@ -100,50 +102,54 @@ a {
   border-top: 1px solid #929292;
   padding-top: 1.5rem;
 }
-.sociallinks{
-    display: flex;
-    gap: 16px;
+.sociallinks {
+  display: flex;
+  gap: 16px;
 }
-.sociallinks img,.downloads img{
-    cursor: pointer;
+.sociallinks img,
+.downloads img {
+  cursor: pointer;
 }
 @media only screen and (max-width: 1000px) {
- 
   .searchWrapper {
     padding-left: 10px;
   }
 
   .inputWrapper {
-    min-width:350px;
+    min-width: 350px;
   }
 }
 @media only screen and (max-width: 770px) {
-  .container{
+  .container {
     padding: 2rem;
   }
 }
 @media only screen and (max-width: 600px) {
-    .container{
-        padding: 2rem 1rem;
-        gap: 48px;
-    }
- .contentWrapper {
+  .container {
+    padding: 2rem 1rem;
+    gap: 48px;
+  }
+  .contentWrapper {
     flex-direction: column;
     /* gap:48px */
   }
-  .searchWrapper{
+  .searchWrapper {
     display: none;
   }
-  .footerLinks,.legalLinks{
+  .footerLinks,
+  .legalLinks {
     border-bottom: 1px solid #929292;
   }
-  .social{
+  .social {
     border-bottom: none;
   }
-  .copyright{
+  .copyright {
     border-top: 1px solid #929292;
   }
-  .store,.footerLinks,.legalLinks,.social{
+  .store,
+  .footerLinks,
+  .legalLinks,
+  .social {
     padding: 1.5rem 0;
   }
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import styles from "./CreateAccountPage.module.css";
-import AuthPage from "../../../pages/AuthPage/AuthPage";
+import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import {
@@ -11,6 +11,7 @@ import {
   eyeline,
   arrowleft,
 } from "../../../assets/images/icons";
+import { Link } from "react-router-dom";
 
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -180,7 +181,7 @@ const CreateAccountPage = () => {
               Create Account
             </PrimaryButton>
             <p className={styles.alreadyHaveAccount}>
-              Already have an account? <a href="/login">Log in</a>
+              Already have an account? <Link to="/login">Log in</Link>
             </p>
           </div>
         </form>

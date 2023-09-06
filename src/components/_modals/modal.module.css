@@ -31,7 +31,7 @@
 }
 
 .modal-wrapper{
-  background-color: white;
+  background-color: var(--White);
   padding: 1rem;
   position: relative;
 }

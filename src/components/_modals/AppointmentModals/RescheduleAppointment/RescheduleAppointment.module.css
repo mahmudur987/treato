@@ -113,12 +113,11 @@
 .calendarWrapper button:hover {
   background: none;
 }
-.calendarWrapper button::before {
-  color: black;
+
+.calendarWrapper button::before,.calendarWrapper button::before:hover {
+  color: var(--black-color);
 }
-.calendarWrapper button::before:hover {
-  color: black;
-}
+
 .calendarWrapper > div {
   justify-content: left;
   width: 85%;

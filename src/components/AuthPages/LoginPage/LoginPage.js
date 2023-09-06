@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import styles from "./LoginPage.module.css";
-import AuthPage from "../../../pages/AuthPage/AuthPage";
+import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import {
@@ -11,6 +11,7 @@ import {
   eyeline,
   arrowleft,
 } from "../../../assets/images/icons";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -65,15 +66,13 @@ const LoginPage = () => {
     // Your logic here for submitting the form data
   };
 
-
   return (
     <AuthPage>
       <div className={styles.container}>
- 
         <div className={styles.heading}>
-        <h3 className={styles.letGetStarted}>Welcome back!</h3>
+          <h3 className={styles.letGetStarted}>Welcome back!</h3>
           <p className={styles.createText}>
-          Sign in to your account to view & book salons
+            Sign in to your account to view & book salons
           </p>
         </div>
         <form className={styles.form} onSubmit={handleFormSubmit}>
@@ -126,7 +125,9 @@ const LoginPage = () => {
                 {formErrors.password && (
                   <p className={styles.error}>{formErrors.password}</p>
                 )}
-              <a href="/forgot-password" className={styles.forgotPassword}>forgot Pasword?</a>
+                <Link to="/forgot-password" className={styles.forgotPassword}>
+                  forgot Pasword?
+                </Link>
               </div>
             </>
           )}
@@ -146,7 +147,14 @@ const LoginPage = () => {
             </div>
           )}
           <div className={styles.actions}>
-            <PrimaryButton className={styles.action}>Sign in</PrimaryButton>
+            {!showEmailPassword ? (
+              <Link to="/verify-otp">
+                {/* sign in button if user (Sign in using OTP)  */}
+                <PrimaryButton className={styles.action}>Sign in</PrimaryButton>
+              </Link>
+            ) : (
+              <PrimaryButton className={styles.action}>Sign in</PrimaryButton>
+            )}
 
             {showEmailPassword && (
               <div onClick={handleOTPForm}>
@@ -157,7 +165,7 @@ const LoginPage = () => {
             )}
             <p className={styles.alreadyHaveAccount}>
               Don’t have an account?{" "}
-              <a href="/create-account">Create account</a>
+              <Link to="/create-account">Create account</Link>
             </p>
           </div>
         </form>

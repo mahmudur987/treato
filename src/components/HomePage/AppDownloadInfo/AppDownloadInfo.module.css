@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
 .container {
-  height: 100vh;
   font-family: "Lato", sans-serif;
   padding: 6rem;
   box-sizing: border-box;
@@ -11,22 +10,21 @@ a {
 }
 .bannerWrapper {
   display: flex;
-  height: 624px;
   align-items: center;
-  background-image: url("../../../assets/images/appDownloadImages/AppDownloadDesktopbg.png");
+  /* background-image: url("../../../assets/images/appDownloadImages/AppDownloadBg.png");
   background-position: right;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: contain; */
 }
 .bannerDetails {
   width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   height: 342px;
 }
-.bannerDetails .textWrapper{
+.bannerDetails .textWrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -59,7 +57,12 @@ a {
   font-size: 20px;
 }
 .bannerImage {
-  display: none;
+  width: 50%;
+}
+.bannerImage img {
+  height: fit-content;
+  width: 100%;
+  object-fit: contain;
 }
 .socialLinks {
   display: flex;
@@ -106,15 +109,15 @@ a {
     display: block;
     height: 50%;
     width: 100%;
-    background-image: url("../../../assets/images/appDownloadImages/AppDownload_mobobg.png");
+    /* background-image: url("../../../assets/images/appDownloadImages/AppDownloadBg.png");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: contain; */
   }
-  .bannerDetails .textWrapper{
+  .bannerDetails .textWrapper {
     width: 100%;
   }
-  .bannerDetails .desc{
+  .bannerDetails .desc {
     font-size: var(--fonts-large);
     font-weight: 400;
   }

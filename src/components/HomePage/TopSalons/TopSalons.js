@@ -46,17 +46,17 @@ const TopSalons = (props) => {
   };
 
   const scrollLeft = () => {
-    carouselRef.current.scrollBy({ left: -200, behavior: "smooth" });
+    carouselRef?.current.scrollBy({ left: -200, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    carouselRef.current.scrollBy({ left: 200, behavior: "smooth" });
+    carouselRef?.current.scrollBy({ left: 200, behavior: "smooth" });
   };
   useEffect(() => {
-    carouselRef.current.addEventListener("scroll", handleScroll);
+    carouselRef?.current.addEventListener("scroll", handleScroll);
     handleScroll(); // Call handleScroll initially to set initial arrow visibility
     return () => {
-      carouselRef.current.removeEventListener("scroll", handleScroll);
+      carouselRef?.current?.removeEventListener("scroll", handleScroll);
     };
   }, []);
 

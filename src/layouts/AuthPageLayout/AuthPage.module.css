@@ -10,9 +10,11 @@
   width: 50%;
   height: 100%;
 }
-.AuthImage img {
-  height: 100%;
-  width: 100%;
+.AuthImage{
+  background-image: url("../../assets/images/AuthImages/Hero_Signup.png");
+  background-size: cover;
+  background-position:center;
+  background-repeat: no-repeat;
 }
 .AuthContent {
   display: flex;

@@ -50,15 +50,16 @@
 }
 .nameFields {
   display: flex;
+  gap:16px
 }
 .firstname,
 .lastname {
-  width: 50%;
+  width: 100%;
 }
 .firstname input,
 .lastname input {
   height: 48px;
-  width: 90%;
+  width: 100%;
 }
 .emailField input {
   height: 48px;
@@ -71,7 +72,7 @@
 .lastname input,
 .messageField textarea,
 .emailField input {
-  border: 1px solid var(--light-color);
+  border: 1px solid var(--Grey-30);
   border-radius: 4px;
   margin-top: 0.5rem;
   padding-left: 1rem;
@@ -99,7 +100,7 @@ label {
   background: #08080b;
   padding: 1rem 1.5rem;
   width: 100%;
-  color: #ffffff;
+  color: var(--White);
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: var(--font-medium);

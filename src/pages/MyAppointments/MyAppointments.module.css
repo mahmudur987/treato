@@ -24,10 +24,6 @@
   margin: 2rem 0;
   border-bottom: 1px  solid var(--Grey-40);
 }
-.active {
-  color: aquamarine;
-  text-decoration: underline;
-}
 
 .contents {
   width: 65%;

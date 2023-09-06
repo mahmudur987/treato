@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Navbar.module.css";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import mask2 from "../../assets/images/NavbarImages/Mask2.png";
 import mask from "../../assets/images/NavbarImages/Mask.png";
 import MainSearchBar from "../Input/mainSearchBar/MainSearchBar";
@@ -17,6 +17,8 @@ import {
   signout,
   x,
 } from "../../assets/images/icons";
+import PrimaryButton from "../Buttons/PrimaryButton/PrimaryButton";
+import SecondaryButton from "../Buttons/SecondaryButton/SecondaryButton";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -24,8 +26,31 @@ export default function Navbar() {
   const [isMainSearchBar, setisMainSearchBar] = useState(false);
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+
+  const scrollToSection = (navigate, sectionId) => {
+    navigate("/"); // Navigate to the home page
+    setIsMobileMenuOpen(false);
+
+    setTimeout(() => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        window.scrollTo({
+          top: section.offsetTop - 50,
+          behavior: "smooth",
+        });
+      }
+    }, 450); // Delay the scroll to ensure the navigation has completed
+  };
+
   const handleMobileMenuToggle = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+      setIsMobileMenuOpen(!isMobileMenuOpen);
+    }, 100);
   };
   const handleDesktopMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -55,20 +80,20 @@ export default function Navbar() {
           <nav className={styles.navigation}>
             <ul>
               <li className={styles.logo}>
-                <a href="/">
+                <Link to="/">
                   <img src={TreatoLogo} />
-                </a>
+                </Link>
               </li>
               {!isMainSearchBar && (
                 <>
                   <li>
-                    <a href="#">Blog</a>
+                    <Link to="/blogs/1">Blog</Link>
                   </li>
                   <li>
-                    <a href="#">Lookbook</a>
+                    <Link to="#">Lookbook</Link>
                   </li>
-                  <li>
-                    <a href="#">Contact us</a>
+                  <li onClick={() => scrollToSection(navigate, "contactUs")}>
+                    <Link to="#">Contact us</Link>
                   </li>
                 </>
               )}
@@ -85,18 +110,25 @@ export default function Navbar() {
           >
             {!isMobileMenuOpen ? <img src={menuLogo} /> : <img src={x} />}
           </button>
-          <button className={styles.partnerButton}>Become a partner</button>
+          <SecondaryButton
+            className={styles.partnerButton}
+            onClick={() => scrollToSection(navigate, "partnerSection")}
+            children={"Become a partner"}
+          />
           {!isLoggedIn ? (
-            <button className={styles.signupButton}>Sign up</button>
+            <PrimaryButton
+              children={"Sign up"}
+              className={styles.signupButton}
+            />
           ) : (
-            <button
+            <SecondaryButton
               className={styles.signinButton}
               onClick={handleDesktopMenuToggle}
             >
               <img src={mask} alt="mask" />
               Shreya
               <img src={chevrondown} alt="chevrondown" />
-            </button>
+            </SecondaryButton>
           )}
         </div>
       </div>
@@ -104,7 +136,6 @@ export default function Navbar() {
       {/* Profile dropBox */}
       {isMobileMenuOpen && (
         <nav
-          //   className={styles.mobileNavDropBox}
           className={`${styles.mobileNavDropBox} ${
             isDesktopMenuOpen ? styles.deskDropBox : ""
           }`}
@@ -149,10 +180,10 @@ export default function Navbar() {
 
             {!isLoggedIn && (
               <li>
-                <a href="#">
+                <a href="/create-account">
                   <div className={styles.listtext}>
                     <img src={signin} alt="signin" />
-                    <a href="#">Sign Up / Sign In</a>
+                    Sign Up / Sign In
                   </div>
                   <div className={styles.chevronright}>
                     <img src={chevronright} slt="chevronright" />
@@ -162,22 +193,20 @@ export default function Navbar() {
             )}
             {!isDesktopMenuOpen && (
               <>
-                <li>
-                  <a>
-                    <div className={styles.listtext}>
-                      <img src={briefcase} alt="briefcase" />
-                      <a href="#">Become a Partner</a>
-                    </div>
-                    <div className={styles.chevronright}>
-                      <img src={chevronright} slt="chevronright" />
-                    </div>
-                  </a>
+                <li onClick={() => scrollToSection(navigate, "partnerSection")}>
+                  <div className={styles.listtext}>
+                    <img src={briefcase} alt="briefcase" />
+                    Become a Partner
+                  </div>
+                  <div className={styles.chevronright}>
+                    <img src={chevronright} slt="chevronright" />
+                  </div>
                 </li>
                 <li>
-                  <a>
+                  <a href="/blogs/1">
                     <div className={styles.listtext}>
                       <img src={notetext} alt="notetext" />
-                      <a href="#">Blog</a>
+                      Blog
                     </div>
                     <div className={styles.chevronright}>
                       <img src={chevronright} slt="chevronright" />
@@ -185,10 +214,10 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a href="/">
                     <div className={styles.listtext}>
                       <img src={download} alt="download" />
-                      <a href="#">Download app</a>
+                      Download app
                     </div>
                     <div className={styles.chevronright}>
                       <img src={chevronright} slt="chevronright" />
@@ -200,12 +229,10 @@ export default function Navbar() {
 
             {isLoggedIn && (
               <li>
-                <a href="#">
-                  <div className={styles.listtext}>
+                <a href="/login">
+                  <div className={`${styles.listtext} ${styles.signout}`}>
                     <img src={signout} alt="signout" />
-                    <a href="#" className={styles.signout}>
-                      signout
-                    </a>
+                    signout
                   </div>
                   <div className={styles.chevronright}>
                     <img src={chevronright} slt="chevronright" />
