@@ -58,7 +58,7 @@ font-weight: 600;
   justify-content: center;
   align-items: center;
   /* height: 136px; */
-  min-width: 115px;
+  min-width: 125px;
   transition: all ease-in-out 0.3s;
   cursor: pointer;
   border-radius: 4px;
@@ -125,7 +125,7 @@ font-weight: 600;
 
 @media only screen and (max-width: 770px) {
   .container{
-    padding: 2rem;
+    padding: 2rem 1rem;
   }
 }
 

@@ -31,13 +31,28 @@
 }
 
 .modal-wrapper{
-  background-color: white;
+  background-color: var(--White);
   padding: 1rem;
   position: relative;
 }
 .modal-close-icon{
   position: absolute;
+  height: 20px;
   right: 12px;
-  top: 12px;
+  top: 20px;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .container{
+    box-sizing: border-box;
+  }
+  .modal-wrapper{
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    box-sizing: border-box;
+    border-radius: 12px 12px 0px 0px;
+  }
+
 }

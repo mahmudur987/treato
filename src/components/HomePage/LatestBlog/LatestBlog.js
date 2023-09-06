@@ -8,6 +8,7 @@ import chevronLeft from "../../../assets/images/HomeLatestBlogs/chevronLeft.png"
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import BlogCard from "../../Cards/Blog/BlogCard";
+import { Link } from "react-router-dom";
 const LatestBlog = () => {
   const responsive = {
     superLargeDesktop: {
@@ -63,9 +64,9 @@ const LatestBlog = () => {
     <div className={styles["container"]}>
       <div className={styles["header"]}>
         <h3 className={styles["headerText"]}> latest from our blog</h3>
-        <a href="#" className={styles["headerViewAll"]}>
+        <Link to="/blogs/1" className={styles["headerViewAll"]}>
           View all <img src={chevronLeft} />
-        </a>
+        </Link>
       </div>
       <div className={styles["blogWrapper"]}>
         {blogData.map((blog) => (

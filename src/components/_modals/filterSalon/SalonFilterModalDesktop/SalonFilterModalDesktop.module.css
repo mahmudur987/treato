@@ -14,7 +14,7 @@
   width: 424px;
   margin: auto;
   /* z-index: 1; */
-  background-color: white;
+  background-color: var(--White);
   z-index: 12;
   display: flex;
   justify-content: space-between;
@@ -90,7 +90,7 @@
 }
 
 .everyone:hover,.active,.female:hover,.male:hover {
-    color: white;
+    color: var(--White);
   background: var(--secondary-colour, #0d69d7);
 }
 .buttons{
