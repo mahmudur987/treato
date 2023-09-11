@@ -1,0 +1,12 @@
+.acc_mob_back{
+    display: none;
+}
+@media only screen and (max-width:767px){
+    .acc_mob_back{
+        display: block;
+        margin-bottom: 24px;
+    }
+    .acc_mob_back>img{
+        cursor: pointer;
+    }
+}

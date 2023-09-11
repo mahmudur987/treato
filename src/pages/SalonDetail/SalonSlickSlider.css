@@ -1,0 +1,79 @@
+.salon_slick .slick-slider{
+    width: 101.5%;
+    border-radius: 5px;
+}
+
+.salon_slick .slick-next::before,.salon_slick .slick-prev::before,.salon_slick .slick-next:hover,.salon_slick .slick-prev:hover{
+    content: '' !important;
+}
+
+.salon_slick .slick-prev:hover,.salon_slick .slick-prev:focus,.salon_slick .slick-next:hover,.salon_slick .slick-next:focus {
+    background-color: white;
+    width: 48px;
+    height: 48px; 
+    border-radius: 50%;
+    background-image: url(../../assets/images/SalonDetail/arrow-right.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.salon_slick .slick-prev:hover,.salon_slick .slick-prev:focus{
+    background-image: url(../../assets/images/SalonDetail/arrow-left.svg);
+}
+
+.salon_slick .slick-next{
+    right: 3% !important;
+    z-index: 9999 !important;
+    background-color: white;
+    width: 48px;
+    height: 48px; 
+    border-radius: 50%;
+    background-image: url(../../assets/images/SalonDetail/arrow-right.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.salon_slick .slick-prev{
+    left: 3% !important;
+    z-index: 9999 !important;
+    background-color: white;
+    width: 48px;
+    height: 48px; 
+    border-radius: 50%;
+    background-image: url(../../assets/images/SalonDetail/arrow-left.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+@media only screen and (max-width:767px){
+    .salon_slick .slick-prev:hover,.salon_slick .slick-prev:focus,.salon_slick .slick-next:hover,.salon_slick .slick-next:focus {
+        background-color: white;
+        width: 24px;
+        height: 24px; 
+        background-image: url(../../assets/images/SalonDetail/mobile-arrow-right.svg);
+    }
+    
+    .salon_slick .slick-prev:hover,.salon_slick .slick-prev:focus{
+        height: 24px; 
+        background-image: url(../../assets/images/SalonDetail/mobile-arrow-right.svg);
+        transform: rotateZ(-180deg);
+    }
+    
+    .salon_slick .slick-next{
+        width: 24px;
+        height: 24px; 
+        height: 24px; 
+        background-image: url(../../assets/images/SalonDetail/mobile-arrow-right.svg);
+    }
+    
+    .salon_slick .slick-prev{
+        left: 3% !important;
+        z-index: 9999 !important;
+        background-color: white;
+        width: 24px;
+        height: 24px; 
+        height: 24px; 
+        background-image: url(../../assets/images/SalonDetail/mobile-arrow-right.svg);
+        transform: rotateZ(-180deg);
+    }
+}
