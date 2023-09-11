@@ -1,9 +1,12 @@
-.navbarInputWrapper{
-    margin-top: 0rem;
+.navbarInputWrapper {
+  margin-top: 0rem;
 }
-
+.blueButton {
+  background-color: var(--primary-color);
+  color: var(--White);
+}
 @media only screen and (max-width: 770px) {
-    .navbarInputWrapper{
-      display: none;
-    }
+  .navbarInputWrapper {
+    display: none;
   }
+}

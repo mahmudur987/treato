@@ -82,12 +82,12 @@
 }
 @media only screen and (max-width: 770px) {
   .container{
-    padding: 2rem;
+    padding: 2rem 1rem;
   }
 }
 @media only screen and (max-width: 600px) {
   .container {
-    padding: 0rem 2rem;
+    padding: 0rem 1rem;
   }
   .TestisHeading img {
     display: block;

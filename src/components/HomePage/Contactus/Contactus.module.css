@@ -30,14 +30,14 @@
   display: flex;
   flex-direction: column;
 }
-.formHeader{
-    height: 20%;
+.formHeader {
+  height: 20%;
 }
-.formFields{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.formFields {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .formHeader > h1 {
   font-size: 28px;
@@ -50,32 +50,37 @@
 }
 .nameFields {
   display: flex;
+  gap:16px
 }
 .firstname,
 .lastname {
-  width: 50%;
+  width: 100%;
 }
 .firstname input,
 .lastname input {
   height: 48px;
-  width: 90%;
+  width: 100%;
 }
 .emailField input {
   height: 48px;
 }
 .messageField textarea {
   height: 144px;
-  resize:none
+  resize: none;
 }
 .firstname input,
 .lastname input,
 .messageField textarea,
 .emailField input {
-  border: 1px solid var(--light-color);
+  border: 1px solid var(--Grey-30);
   border-radius: 4px;
   margin-top: 0.5rem;
+  padding-left: 1rem;
+  box-sizing: border-box;
 }
-
+.messageField textarea {
+  padding-top: 1rem;
+}
 label {
   display: flex;
   flex-direction: column;
@@ -89,59 +94,72 @@ label {
 }
 .privacyPolicy {
   color: var(--primary-color);
+  font-size: var(--font-small);
 }
 .submitButton {
   background: #08080b;
   padding: 1rem 1.5rem;
   width: 100%;
-  color: #ffffff;
+  color: var(--White);
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: var(--font-medium);
   cursor: pointer;
+  border-radius: 4px;
 }
-.checkboxText{
-    margin-left: .4rem;
+.checkboxText {
+  margin-left: 0.4rem;
+  font-size: var(--font-small);
 }
-
+.formHeader > p {
+  width: 85%;
+  font-weight: 600;
+  font-size: var(--fonts-large);
+}
 @media only screen and (max-width: 1025px) {
-    .container {
-        padding: 2rem;
-        height: 100vh;
-      }
-    .formContainer{
-        width: 50%;
-        box-sizing: border-box;
-        padding: 0rem 1rem;
-    }
-    .formHeader > p {
-        font-size: var(--font-medium);
-      }
-    }
-    @media only screen and (max-width: 770px) {
-      .container{
-        padding: 2rem;
-      }
-      .heading{
-        font-size: 48px;
-    }
-    }
-    @media only screen and (max-width: 600px) {
-        .Image{
-            display: none;
-        }
-        .formContainer{
-            width: 100%;
-            padding: 0rem;
-        }
-        .heading{
-            font-size: 28px;
-        }
-        .formHeader >h1,.formHeader>p,label{
-            font-size: var(--font-medium);
-        }
-        .checkboxText{
-font-size: var(--font-small);
-font-weight: 400;
-        }
-    }
+  .container {
+    padding: 2rem;
+    height: 100vh;
+  }
+  .formContainer {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 0rem 1rem;
+  }
+  .formHeader > p {
+    font-size: var(--font-medium);
+  }
+}
+@media only screen and (max-width: 770px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+  .heading {
+    font-size: 48px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .Image {
+    display: none;
+  }
+  .formContainer {
+    width: 100%;
+    padding: 0rem;
+  }
+  .heading {
+    font-size: 28px;
+  }
+  .formHeader > h1,
+  .formHeader > p,
+  label {
+    font-size: var(--font-medium);
+  }
+  .checkboxText {
+    font-size: var(--font-small);
+    font-weight: 400;
+  }
+  .formHeader > p {
+    width: 100%;
+    font-weight: 400;
+  }
+}

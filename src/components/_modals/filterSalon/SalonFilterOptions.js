@@ -1,7 +1,7 @@
 import React from "react";
 // import styles from "./SalonFilterOptions.module.css";
 import { Close } from "../../../assets/images/SalonsPageImages";
-import SecondaryButton from "../../Buttons/SecondayButton/SecondaryButton";
+import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import { useDispatch, useSelector } from "react-redux";
 

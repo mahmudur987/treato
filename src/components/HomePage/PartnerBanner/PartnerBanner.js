@@ -4,7 +4,7 @@ import PartnerBannerImg from "../../../assets/images/PartnerBannerImg/partnerBan
 
 const PartnerBanner = () => {
   return (
-      <section className={styles["container"]}>
+      <section className={styles["container"]} id="partnerSection">
         <div className={styles["bannerWrapper"]}>
             <div className={styles["bannerLeftSide"]}>
           <div className={styles["bannerDetails"]}>

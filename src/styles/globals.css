@@ -13,12 +13,18 @@
   --primary-color: #007bff;
   --secondary-color: #6c757d;
   --black-color: #08090a;
-  --light-color: #f3f3f3;
   --grey-color: #6d747a;
+  --Grey-10: #6D747A;
+  --Grey-30: #CED4DA;
+  --Grey-40:#EBEDF0;
+  --Grey-50:#DCE6E9;
+  --light-color: #f3f3f3;
+  --Card-Stroke:#EAEFF2;
+  --White:#FFF;
+  --Error-Red:#DE2929;
   --font-small: 14px;
   --font-medium: 16px;
   --fonts-large: 18px;
-
   --navbar-height: 90px;
   --page-padding-x: 1rem;
   --z-index-modal: 5000

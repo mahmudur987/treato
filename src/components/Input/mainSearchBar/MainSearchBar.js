@@ -113,7 +113,7 @@ const MainSearchBar = ({ place }) => {
             alt="closeIcon"
           />
 
-          <button className={styles["goSearch"]}>Go</button>
+<button className={`${styles["goSearch"]} ${locationInputValue !== "" || treatmentInputValue !== "" ? navstyles["blueButton"] : ""}`}>Go</button>
 
           {/*  location Desktop box/Modal */}
           <div
