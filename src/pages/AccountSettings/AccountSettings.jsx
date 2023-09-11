@@ -3,20 +3,20 @@ import SocialSettings from "../../components/AccountSettings/SocialSettings/Soci
 import UserAddress from "../../components/AccountSettings/UserAddress/UserAddress";
 import UserDetails from "../../components/AccountSettings/UserDetails/UserDetails";
 import styles from "./AccountSettings.module.css";
-import leftIco from "../../assets/images/AccountSettings/arrow-left.svg"
 import chevronRight from "../../assets/images/AccountSettings/chevron-right.svg"
 import mapPin from "../../assets/images/AccountSettings/map-pin.svg"
-import signOut from "../../assets/images/AccountSettings/sign-out-svgrepo-com 1.svg"
-import userIco from "../../assets/images/AccountSettings/user-svgrepo-com (2) 1.svg"
+import signOut from "../../assets/images/AccountSettings/signOut.svg"
+import userIco from "../../assets/images/AccountSettings/userIco.svg"
 import { useState } from "react";
 import SaveChanges from "../../components/AccountSettings/SaveChanges/SaveChanges";
+import BackButton from "../../components/Buttons/BackButton/BackButton";
 export default function AccountSettings() {
     let [mobileOpt, updateMobileOpt] = useState(-1)
 
     return (
         <>
         <div className={styles.acc_setting_page}>
-            <div className={styles.acc_mob_back}><img src={leftIco} alt="" onClick={()=>updateMobileOpt(-1)}/></div>
+            <BackButton func={updateMobileOpt(-1)}/>
             <div className={mobileOpt===-1?styles.acc_head:styles.d_none}>Account Settings</div>
             <div className={styles.acc_intro}>Manage your Treato profile. Changes will be reflected across all devices.</div>
             <div className={styles.acc_setting_mid}>

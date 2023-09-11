@@ -1,0 +1,85 @@
+.time_slick .slick-slider{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.time_slick .slick-list{
+    width: 70%;
+}
+
+.time_slick .slick-next::before,.time_slick .slick-prev::before,.time_slick .slick-next:hover,.time_slick .slick-prev:hover{
+    content: '' !important;
+}
+
+.time_slick .slick-prev:hover,.time_slick .slick-prev:focus,.time_slick .slick-next:hover,.time_slick .slick-next:focus {
+    background-color: white;
+    width: 48px;
+    height: 48px; 
+    border-radius: 50%;
+    background-image: url(../../../assets/images/SalonDetail/chevron-right.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.time_slick .slick-prev:hover,.time_slick .slick-prev:focus{
+    background-image: url(../../../assets/images/SalonDetail/chevron-left.svg);
+}
+
+.time_slick .slick-next{
+    right: 3% !important;
+    z-index: 9999 !important;
+    background-color: white;
+    width: 48px;
+    height: 48px; 
+    border-radius: 50%;
+    background-image: url(../../../assets/images/SalonDetail/chevron-right.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.time_slick .slick-prev{
+    left: 3% !important;
+    z-index: 9999 !important;
+    background-color: white;
+    width: 48px;
+    height: 48px; 
+    border-radius: 50%;
+    background-image: url(../../../assets/images/SalonDetail/chevron-left.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+@media only screen and (max-width:767px){
+    .time_slick .slick-prev:hover,.time_slick .slick-prev:focus,.time_slick .slick-next:hover,.time_slick .slick-next:focus {
+        background-color: white;
+        width: 24px;
+        height: 24px; 
+    }
+    
+    .time_slick .slick-prev:hover,.time_slick .slick-prev:focus{
+        height: 24px; 
+        background-image: url(../../../assets/images/SalonDetail/chevron-left.svg);
+    }
+    
+    .time_slick .slick-next{
+        width: 24px;
+        height: 24px; 
+        height: 24px; 
+        right: -3% !important;
+    }
+    
+    .time_slick .slick-prev{
+        left: -3% !important;
+        z-index: 9999 !important;
+        background-color: white;
+        width: 24px;
+        height: 24px; 
+        height: 24px; 
+        background-image: url(../../../assets/images/SalonDetail/chevron-left.svg);
+    }
+
+    .time_slick .slick-list{
+        width: 85%;
+    }
+}

@@ -1,6 +1,6 @@
 import styles from "./ProfileView.module.css";
-import userImg from "../../../assets/images/AccountSettings/pexels-koolshooters-6976943 1.png"
-import pencilIco from "../../../assets/images/AccountSettings/pencil_fill 2.svg"
+import userImg from "../../../assets/images/AccountSettings/userImg.png"
+import pencilIco from "../../../assets/images/AccountSettings/pencilIco.svg"
 
 export default function ProfileView(){
     return(

@@ -25,10 +25,6 @@
     flex-basis: 70%;
 }
 
-.acc_mob_back{
-    display: none;
-}
-
 .acc_setting_mobile{
     display: none;
 }
@@ -57,12 +53,6 @@
 
     .acc_intro{
         display: none;
-    }
-
-    .acc_mob_back{
-        display: block;
-        margin-bottom: 12px;
-        cursor: pointer;
     }
 
     .acc_mob_options{
