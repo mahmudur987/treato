@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
+import React from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import PageLayout from './layouts/PageLayout/PageLayout';
 import Home from './pages/Home/Home';
 import Blogs from './pages/Blogs/Blogs';
@@ -12,8 +13,6 @@ import CreateAccountPage from "./components/AuthPages/CreateAccountPage/CreateAc
 import LoginPage from "./components/AuthPages/LoginPage/LoginPage";
 import VerifyOTP from "./components/AuthPages/VerifyOTP/VarifyOTP";
 import ForgotPassword from "./components/AuthPages/ForgotPassword/ForgotPassword";
-import PageLayout from "./layouts/PageLayout/PageLayout";
-import BlogDetail from "./pages/BlogDetail/BlogDetail";
 import MyAppointments from "./pages/MyAppointments/MyAppointments";
 
 function App() {
@@ -44,7 +43,7 @@ function App() {
         <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path="/blogs/:id" element={<BlogDetail />} />
         <Route path="/my-appointments/*" element={<MyAppointments />} />
-        
+
       </Routes>
     </PageLayout>
   );
