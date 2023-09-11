@@ -746,7 +746,8 @@
     }
 
     .book_flowMain {
-        padding: 100px 24px;
+        padding: 70px 24px;
+        flex-direction: column;
         gap: 0px;
         box-sizing: border-box;
     }
@@ -763,6 +764,7 @@
     .book_flowA {
         font-size: 20px;
         margin-bottom: 16px;
+        margin-top: 12px;
     }
 
     .book_flowMob {

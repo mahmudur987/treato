@@ -4,7 +4,7 @@
 @media only screen and (max-width:767px){
     .acc_mob_back{
         display: block;
-        margin-top: 55px;
+        margin-bottom: 24px;
     }
     .acc_mob_back>img{
         cursor: pointer;

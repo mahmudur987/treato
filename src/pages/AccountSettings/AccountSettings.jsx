@@ -16,7 +16,7 @@ export default function AccountSettings() {
     return (
         <>
         <div className={styles.acc_setting_page}>
-            <BackButton func={updateMobileOpt(-1)}/>
+            <BackButton updateMobileOpt={updateMobileOpt}/>
             <div className={mobileOpt===-1?styles.acc_head:styles.d_none}>Account Settings</div>
             <div className={styles.acc_intro}>Manage your Treato profile. Changes will be reflected across all devices.</div>
             <div className={styles.acc_setting_mid}>

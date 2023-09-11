@@ -1,14 +1,17 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import BillSummary from '../../components/BookFlow/BillSummary/BillSummary'
 import FinalBill from '../../components/BookFlow/FInalBill/FinalBill'
 import SelectedServiceCard from '../../components/BookFlow/SelectedServiceCard/SelectedServiceCard'
 import VisitorDetail from '../../components/BookFlow/VisitorDetail/VisitorDetail'
 import WorkerDetail from '../../components/BookFlow/WorkerDetail/WorkerDetail'
+import BackButton from '../../components/Buttons/BackButton/BackButton'
 import BookNow from '../../components/SalonDetail/BookNow/BookNow'
 import SalonServiceMain from '../../components/SalonDetail/SalonServiceMain/SalonServiceMain'
 import styles from './BookFlow.module.css'
 
 export default function BookFlow() {
+    let navigate = useNavigate()
     let [activeBookFlowBA, updateActiveBookFlowBA] = useState(1)
     let [winWidthMain,updateWinWidthMain] = useState(window.innerWidth);
     function reportWindowSize() {
@@ -18,6 +21,7 @@ export default function BookFlow() {
     window.onresize = reportWindowSize;
     return (
         <div className={styles.book_flowMain}>
+            <BackButton updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} />
             <div className={styles.book_flowMainA}>
                 <div className={styles.book_flowA}>
                     {
@@ -56,8 +60,11 @@ export default function BookFlow() {
                             activeBookFlowBA === 3 ?
                                 <VisitorDetail />
                                 :
+                                activeBookFlowBA === 4 ?
                                 <FinalBill />
-
+                                :
+                                navigate('/salons/:id')
+                                
                 }
             </div>
             <div className={styles.book_flowMainB}>
