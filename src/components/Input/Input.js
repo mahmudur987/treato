@@ -1,11 +1,41 @@
-import React from 'react'
+import React from 'react';
+import inputStyles from "./Input.module.css"
 
-export default function InputField(props) {
-   
+const InputField = (props) => {
+  const { name, value, onChange, type, placeholder, checked, styles } = props;
 
-   return (
-      <>
-         
-      </>
-   )
-}
+  return (
+    <label className={inputStyles.label}>
+      {type === 'checkbox' ? (
+        <>
+          <input type="checkbox" name={name} checked={checked} onChange={onChange} className={""} />
+        </>
+      ) : type === 'textarea' ? (
+        <>
+          {props.label}
+          <textarea
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            className={styles}
+          />
+        </>
+      ) : (
+        <>
+          {props.label}
+          <input
+            type={type}
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            className={inputStyles.input}
+          />
+        </>
+      )}
+    </label>
+  );
+};
+
+export default InputField;

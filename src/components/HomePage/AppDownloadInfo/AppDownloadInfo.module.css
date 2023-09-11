@@ -11,10 +11,6 @@ a {
 .bannerWrapper {
   display: flex;
   align-items: center;
-  /* background-image: url("../../../assets/images/appDownloadImages/AppDownloadBg.png");
-  background-position: right;
-  background-repeat: no-repeat;
-  background-size: contain; */
 }
 .bannerDetails {
   width: 50%;
@@ -58,6 +54,11 @@ a {
 }
 .bannerImage {
   width: 50%;
+  height:600px;
+  background-image: url("../../../assets/images/appDownloadImages/AppBanner.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .bannerImage img {
   height: fit-content;
@@ -90,7 +91,7 @@ a {
 @media only screen and (max-width: 600px) {
   .bannerWrapper {
     flex-direction: column;
-    background-image: none;
+    /* background-image: none; */
   }
   .bannerDetails {
     height: 50%;
@@ -106,13 +107,11 @@ a {
     line-height: 40px;
   }
   .bannerImage {
-    display: block;
-    height: 50%;
     width: 100%;
-    /* background-image: url("../../../assets/images/appDownloadImages/AppDownloadBg.png");
+    height: 300px;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: contain; */
+    background-size: contain;
   }
   .bannerDetails .textWrapper {
     width: 100%;

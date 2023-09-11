@@ -9,25 +9,19 @@
 }
 
 /* recommended for you css */
-
-.rmdWrapper {
+.recommended{
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+}
+.rmdWrapper {
   margin-top: 3rem;
+  margin-bottom: 0.75rem;
   box-shadow: 0px 4px 16px 0px #00000014;
   padding: 0.75rem;
 }
-/* .rmdWrapper ul{
-  display: flex;
-  gap: 66px;
-} */
-/* .rmdWrapper ul li{
-  
-} */
+
 
 .rmdBox {
-  /* height: 184px; */
   display: flex;
   gap: 66px;
   overflow-x: scroll;
@@ -57,15 +51,16 @@ font-weight: 600;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* height: 136px; */
-  min-width: 125px;
+  height: 126px;
+  width: 125px;
   transition: all ease-in-out 0.3s;
   cursor: pointer;
   border-radius: 4px;
   padding: 0.75rem 0 0.75rem 0;
+  user-select: none;
 }
 .rmdItem:hover {
-  background: #edf2f7;
+  background: var(--light-blue);
 }
 .rmdItem img {
   height: 48px;
@@ -94,12 +89,7 @@ font-weight: 600;
   overflow-x: scroll;
   margin-top: 2rem;
 }
-.trItem {
-  height: 280px;
-  width: 312px;
-  border: 1px solid #eaeff2;
-  border-radius: 4px;
-}
+
 .trItemImg {
   height: 178px;
   width: 312px;
@@ -121,6 +111,9 @@ font-weight: 600;
     display: none;
 }
 
+
+
+
 /* media queries */
 
 @media only screen and (max-width: 770px) {
@@ -134,12 +127,7 @@ font-weight: 600;
   .rmdHeading {
     font-size: var(--fonts-large);
   }
-  .rmdWrapper {
-    margin-top: 1.5rem;
-    height: 184px;
-    flex-wrap: wrap;
-    height: 240px;
-  }
+
 .rmdBox{
     height: 100%;
     width: 100%;
@@ -149,6 +137,8 @@ font-weight: 600;
 }
   .rmdItem {
     height: 84px;
+    width: 80px;
+    padding: 0;
   }
   .rmdItem img {
     width: 24px;
@@ -176,7 +166,123 @@ font-weight: 600;
   .scroll_left,.scroll_right{
     display: none;
   }
-  .rmdWrapper{
-    padding: 0;
+  
+}
+
+/* Carousal css */
+
+.carousel-item-padding-40-px {
+  .react-multiple-carousel__arrow--left {
+    left: calc(1% + 1px);
+    transform: scale(-1);
+  }
+
+  .react-multiple-carousel__arrow--right {
+    right: calc(1% + 1px);
+  }
+
+  .react-multiple-carousel__arrow,
+  .react-multiple-carousel__arrow:hover {
+    background: transparent;
+    background-image: url("../../../assets/images/icons/ScrollRight.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .react-multiple-carousel__arrow::before {
+    content: "";
+    color: var(--black-color);
+  }
+}
+.custom-dot-list-style{
+  position:relative !important;
+} 
+.custom-dot-list-style .react-multi-carousel-dot--active button{
+  background: var(--primary-color) !important;
+}
+.custom-dot-list-style li button{
+  border: none !important;
+  border-width:0px !important ;
+}
+.carouselDot{
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  opacity: 1;
+  padding: 5px 5px 5px 5px;
+  box-shadow: none;
+  transition: background .5s;
+  padding: 0;
+  margin: 0;
+  margin-right: 6px;
+  outline: 0;
+  cursor: pointer;
+  border:none;
+}
+.dotActive{
+  background: var(--primary-color);
+}
+
+.rightArrow{
+  position: absolute;
+  outline: 0;
+  transition: all .5s;
+  border-radius: 35px;
+  z-index: 1000;
+  border: 0;
+  min-width: 43px;
+  min-height: 43px;
+  opacity: 1;
+  cursor: pointer;
+  right: 1%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('../../../assets/images/icons/ScrollRight.svg');
+}
+.leftArrow{
+  position: absolute;
+  outline: 0;
+  transition: all .5s;
+  border-radius: 35px;
+  z-index: 1000;
+  border: 0;
+  min-width: 43px;
+  min-height: 43px;
+  opacity: 1;
+  cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  left: 1%;
+  transform: scale(-1);
+  background-image: url('../../../assets/images/icons/ScrollRight.svg');
+
+}
+@media only screen and (max-width: 767px) {
+  .rmdWrapper {
+    height: 190px;
+    overflow-x: scroll;
+  }
+  .rmdWrapper ul {
+    height: 100%;
+    flex-wrap: wrap;
+    overflow-x: scroll !important;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .rmdWrapper ul::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .carousel-item-padding-40-px {
+    width: 80px !important;
+    flex: none !important;
+  }
+  .custom-dot-list-style{
+    display:none !important;
   }
 }

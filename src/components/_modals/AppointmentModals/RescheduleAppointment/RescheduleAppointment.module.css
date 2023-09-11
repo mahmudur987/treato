@@ -125,6 +125,25 @@
   overflow: visible;
 }
 
+  .slidersWrapper>div:last-child::before{
+      content: ""; /* Ensure content is set to an empty string */
+      background-size: cover; /* Adjust as needed */
+      width: 8px;
+      height: 14px;
+      display: inline-block; /* This is to make it display inline with the content */
+      background-image: url('../../../../assets/images/icons/chevronright.svg');
+  }
+  
+  .slidersWrapper>div:first-child::before {
+      content: ""; /* Ensure content is set to an empty string */
+      background-size: cover;
+      height: 20px;
+      width: 20px;
+      display: block; /* This is to make it display inline with the content */
+      background-image: url('../../../../assets/images/icons/chevronLeft.svg');
+  }
+
+
 @media only screen and (max-width: 600px) {
   .RescheduleModal {
     width: 100%;

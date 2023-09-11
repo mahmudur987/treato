@@ -1,11 +1,11 @@
+// Contactus.js
 import React, { useState } from "react";
 import styles from "./Contactus.module.css";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton.js";
-
 import contactUsBanner from "../../../assets/images/ContactusImages/contactusBanner.png";
+import InputField from "../../Input/Input";
 
 const Contactus = () => {
- 
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -34,12 +34,13 @@ const Contactus = () => {
     // submission logic here
     console.log(formData);
   };
+
   return (
     <section className={styles["container"]} id="contactUs">
       <h1 className={styles["heading"]}>Contact us</h1>
       <div className={styles["contactWrapper"]}>
         <div className={styles["Image"]}>
-          <img src={contactUsBanner} />
+          <img src={contactUsBanner} alt="Contact Us Banner" />
         </div>
         <div className={styles["formContainer"]}>
           <div className={styles["formHeader"]}>
@@ -49,67 +50,65 @@ const Contactus = () => {
 
           <form onSubmit={handleSubmit} className={styles["formFields"]}>
             <div className={styles["nameFields"]}>
-              <label className={styles["firstname"]}>
-                First Name:
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  placeholder="First name"
-                />
-              </label>
-              <label className={styles["lastname"]}>
-                Last Name:
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  placeholder="Last name"
-
-                />
-              </label>
+              <InputField
+                label="First Name"
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                placeholder="First name"
+                styles={`${styles.firstnameInput}`}
+              />
+              <InputField
+                label="Last Name"
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                placeholder="Last name"
+                styles={` ${styles.lastnameInput}`}
+              />
             </div>
             <div className={styles["emailField"]}>
-              <label>
-                Email:
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="e.g. person@gmail.com"
-
-                />
-              </label>
+              <InputField
+                label="Email"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="e.g. person@gmail.com"
+                // styles={styles.input}
+              />
             </div>
             <div className={styles["messageField"]}>
-              <label>
-                Message:
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Leave us a message..."
-                />
-              </label>
+              <InputField
+                label="Message"
+                type="textarea"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Leave us a message..."
+                styles={`${styles.input} ${styles.textarea}`}
+              />
               <div className={styles["checkboxField"]}>
-                <label>
-                  <input
-                    type="checkbox"
-                    name="agreeToPrivacyPolicy"
-                    checked={formData.agreeToPrivacyPolicy}
-                    onChange={handleChange}
-                  />
-                  <div className={styles["checkboxText"]}>                  
+                <InputField
+                  label={""}
+                  type="checkbox"
+                  name="agreeToPrivacyPolicy"
+                  checked={formData.agreeToPrivacyPolicy}
+                  onChange={handleChange}
+                />
+                <div className={styles["checkboxText"]}>
                   You agree to our friendly &nbsp;
                   <a className={styles["privacyPolicy"]}>privacy policy</a>
-                  </div>
-                </label>
+                </div>
               </div>
             </div>
-            <PrimaryButton type="submitButton" children={"Get in touch"} className={styles.apply} />
+            <PrimaryButton
+              type="submitButton"
+              children={"Get in touch"}
+              className={styles.apply}
+            />
           </form>
         </div>
       </div>

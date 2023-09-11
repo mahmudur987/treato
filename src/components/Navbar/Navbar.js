@@ -11,10 +11,12 @@ import {
   chevronright,
   download,
   history,
+  lookbookIcon,
   menuLogo,
   notetext,
   signin,
   signout,
+  supportIcon,
   x,
 } from "../../assets/images/icons";
 import PrimaryButton from "../Buttons/PrimaryButton/PrimaryButton";
@@ -44,13 +46,7 @@ export default function Navbar() {
   };
 
   const handleMobileMenuToggle = () => {
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-      setIsMobileMenuOpen(!isMobileMenuOpen);
-    }, 100);
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
   const handleDesktopMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -67,9 +63,9 @@ export default function Navbar() {
 
   return (
     <header
-      className={`${styles.header} ${
-        isMobileMenuOpen ? styles.menuopen : ""
-      } page-section`}
+    className={`${styles.header} ${
+      isMobileMenuOpen ? `${styles.menuopen} ${styles.whiteBackground}` : ""
+    } page-section`}
     >
       <div className={styles.container}>
         <div
@@ -155,7 +151,8 @@ export default function Navbar() {
                   <a href="/my-appointments/upcoming">
                     <div className={styles.listtext}>
                       <img src={history} alt="history" />
-                      Appointment History
+                      My Appointments
+                      <span className={styles.unSeenCounter}>1</span>
                     </div>
                     <div className={styles.chevronright}>
                       <img src={chevronright} slt="chevronright" />
@@ -183,7 +180,7 @@ export default function Navbar() {
                 <a href="/create-account">
                   <div className={styles.listtext}>
                     <img src={signin} alt="signin" />
-                    Sign Up / Sign In
+                    Sign up / Sign-in
                   </div>
                   <div className={styles.chevronright}>
                     <img src={chevronright} slt="chevronright" />
@@ -193,15 +190,7 @@ export default function Navbar() {
             )}
             {!isDesktopMenuOpen && (
               <>
-                <li onClick={() => scrollToSection(navigate, "partnerSection")}>
-                  <div className={styles.listtext}>
-                    <img src={briefcase} alt="briefcase" />
-                    Become a Partner
-                  </div>
-                  <div className={styles.chevronright}>
-                    <img src={chevronright} slt="chevronright" />
-                  </div>
-                </li>
+             
                 <li>
                   <a href="/blogs/1">
                     <div className={styles.listtext}>
@@ -214,10 +203,39 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li>
+                  <div className={styles.listtext}>
+                    <img src={lookbookIcon} alt="lookbookIcon" />
+                    Lookbook
+                  </div>
+                  <div className={styles.chevronright}>
+                    <img src={chevronright} slt="chevronright" />
+                  </div>
+                </li>
+                <li onClick={() => scrollToSection(navigate, "partnerSection")}>
+                  <div className={styles.listtext}>
+                    <img src={briefcase} alt="briefcase" />
+                    Become a partner
+                  </div>
+                  <div className={styles.chevronright}>
+                    <img src={chevronright} slt="chevronright" />
+                  </div>
+                </li>
+                <li>
                   <a href="/">
                     <div className={styles.listtext}>
                       <img src={download} alt="download" />
                       Download app
+                    </div>
+                    <div className={styles.chevronright}>
+                      <img src={chevronright} slt="chevronright" />
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="/">
+                    <div className={styles.listtext}>
+                      <img src={supportIcon} alt="supportIcon" />
+                      Help & Support
                     </div>
                     <div className={styles.chevronright}>
                       <img src={chevronright} slt="chevronright" />
