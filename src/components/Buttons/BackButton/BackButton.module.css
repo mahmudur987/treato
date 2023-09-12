@@ -5,6 +5,8 @@
     .acc_mob_back{
         display: block;
         margin-bottom: 24px;
+        background-color: unset;
+        border: none;
     }
     .acc_mob_back>img{
         cursor: pointer;

@@ -6,6 +6,7 @@ import plus from "../../../assets/images/SalonDetail/plus.svg"
 import rightBlue from "../../../assets/images/SalonDetail/rightBlue.svg"
 import bank from "../../../assets/images/SalonDetail/bank.svg"
 import simpl from "../../../assets/images/SalonDetail/simpl.png"
+import RadioInput from '../../Input/RadioInput/RadioInput'
 
 export default function FinalBill() {
 
@@ -14,14 +15,14 @@ export default function FinalBill() {
             <div className={styles.final_billA}>
                 <div className={styles.final_billAA}>Mode of payment</div>
                 <div className={styles.final_billAB}>
-                    <input type="radio" name="payment" id="" />
+                    <RadioInput Type={'radio'} NAME={'payment'} />
                     <div className={styles.final_billABA}>
                         <div>Online payment</div>
                         <div>Pay now using UPI, cards, NetBanking or wallets.</div>
                     </div>
                 </div>
                 <div className={styles.final_billAB}>
-                    <input type="radio" name="payment" id="" />
+                    <RadioInput Type={'radio'} NAME={'payment'} />
                     <div className={styles.final_billABA}>
                         <div>On-site payment after service</div>
                         <div>Pay directly at the salon.</div>
@@ -48,7 +49,7 @@ export default function FinalBill() {
                             </div>
                         </div>
                         <div className={styles.final_billCBC}>
-                            <input type="radio" name="cardSelect" id="" />
+                            <RadioInput Type={'radio'} NAME={'cardSelect'} />
                         </div>
                     </div>
                     <div className={styles.final_billCB}>
@@ -62,7 +63,7 @@ export default function FinalBill() {
                             </div>
                         </div>
                         <div className={styles.final_billCBC}>
-                            <input type="radio" name="cardSelect" id="" />
+                            <RadioInput Type={'radio'} NAME={'cardSelect'} />
                         </div>
                     </div>
                     <div className={styles.final_billCC}>
@@ -72,7 +73,7 @@ export default function FinalBill() {
                 </div>
                 <div className={styles.final_billCMain}>
                     <div className={styles.final_billCA}>
-                        UPI 
+                        UPI
                     </div>
                     <div className={styles.final_billCB}>
                         <div className={styles.final_billCBD}>
@@ -85,7 +86,7 @@ export default function FinalBill() {
                             </div>
                         </div>
                         <div className={styles.final_billCBC}>
-                            <input type="radio" name="cardSelect" id="" />
+                            <RadioInput Type={'radio'} NAME={'cardSelect'} />
                         </div>
                     </div>
                     <div className={styles.final_billCB}>
@@ -99,7 +100,7 @@ export default function FinalBill() {
                             </div>
                         </div>
                         <div className={styles.final_billCBC}>
-                            <input type="radio" name="cardSelect" id="" />
+                            <RadioInput Type={'radio'} NAME={'cardSelect'} />
                         </div>
                     </div>
                     <div className={`${styles.final_billCC} ${styles.final_billCCC}`}>
@@ -124,7 +125,7 @@ export default function FinalBill() {
                         <div className={styles.final_billCDB}>
                             <img src={rightBlue} alt="" />
                         </div>
-                    </div>  
+                    </div>
                 </div>
                 <div className={`${styles.final_billDMain} ${styles.final_billDMainMid}`}>
                     <div className={styles.final_billCA}>
@@ -138,7 +139,7 @@ export default function FinalBill() {
                         <div className={styles.final_billCDB}>
                             <img src={rightBlue} alt="" />
                         </div>
-                    </div>  
+                    </div>
                 </div>
                 <div className={styles.final_billDMain}>
                     <div className={styles.final_billCA}>
@@ -152,7 +153,7 @@ export default function FinalBill() {
                         <div className={styles.final_billCDB}>
                             <img src={rightBlue} alt="" />
                         </div>
-                    </div>  
+                    </div>
                 </div>
             </div>
         </div>
