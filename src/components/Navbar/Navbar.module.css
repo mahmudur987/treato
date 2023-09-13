@@ -71,14 +71,13 @@
 }
 .buttons button {
   padding: 1rem;
-  margin-left: 15px;
+  margin-left: 0.938rem;
   cursor: pointer;
   font-weight: 600;
   white-space: nowrap;
 }
 
 .partnerButton {
-  border: 1px solid #08080b;
   background: none;
   color: var(--dark-color);
 }
@@ -102,7 +101,6 @@
 .signinButton img {
   height: 24px;
   width: 24px;
-  /* margin-top: 1rem; */
 }
 .menuButton {
   display: none;
@@ -168,7 +166,7 @@
   width: 300px;
   right: 5%;
   top: 100%;
-  background: white;
+  background: var(--White);
   border-radius: 4px;
   padding: 1rem;
   z-index: 11;
@@ -188,6 +186,9 @@
 .whiteBackground {
   background-color: white;
 }
+.chevronright{
+  margin-right: 0.5rem;
+}
 @media only screen and (max-width: 1024px) {
   .navWrapper {
     width: auto;
@@ -195,22 +196,27 @@
   .navigation ul {
     gap: 10px;
   }
-  /* .buttons button{
-    font-size: var(--font-small);
-  } */
 }
 @media only screen and (max-width: 770px) {
+  .buttons {
+    gap: 16px;
+  }
   .buttons button {
     padding: 0.5rem;
+    height: 46px;
+    margin-left: 0;
   }
   .navigation li {
     font-size: var(--font-small);
   }
 }
 @media only screen and (max-width: 600px) {
-  .partnerButton,
-  .signupButton {
-    display: none;
+  .buttons {
+    .partnerButton,
+    .signupButton,
+    .signout {
+      display: none;
+    }
   }
   .navigation ul li {
     display: none;
@@ -238,7 +244,6 @@
   .menuButton img {
     height: 100%;
     width: 100%;
-    /* object-fit: contain; */
   }
   .header {
     flex-direction: column;
@@ -250,7 +255,6 @@
   }
   .container {
     width: 100%;
-    /* justify-content: center; */
   }
   .signinButton {
     display: none;

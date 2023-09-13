@@ -27,7 +27,7 @@ export default function Navbar() {
   const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
   const [isMainSearchBar, setisMainSearchBar] = useState(false);
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
   const scrollToSection = (navigate, sectionId) => {
@@ -63,11 +63,12 @@ export default function Navbar() {
 
   return (
     <header
-    className={`${styles.header} ${
-      isMobileMenuOpen ? `${styles.menuopen} ${styles.whiteBackground}` : ""
-    } page-section`}
+      className={`${styles.header} ${
+        isMobileMenuOpen ? `${styles.menuopen} ${styles.whiteBackground}` : ""
+      } page-section`}
     >
       <div className={styles.container}>
+        {/* leftSide navbar */}
         <div
           className={`${
             isMainSearchBar ? styles.navWrapper_search : styles.navWrapper
@@ -77,7 +78,7 @@ export default function Navbar() {
             <ul>
               <li className={styles.logo}>
                 <Link to="/">
-                  <img src={TreatoLogo} />
+                  <img src={TreatoLogo} alt="TreatoLogo" />
                 </Link>
               </li>
               {!isMainSearchBar && (
@@ -96,15 +97,20 @@ export default function Navbar() {
             </ul>
           </nav>
         </div>
-
+        {/* search bar */}
         {isMainSearchBar && <MainSearchBar place={"navbar"} />}
 
+        {/* rightSide buttons */}
         <div className={styles.buttons}>
           <button
             className={styles.menuButton}
             onClick={handleMobileMenuToggle}
           >
-            {!isMobileMenuOpen ? <img src={menuLogo} /> : <img src={x} />}
+            {!isMobileMenuOpen ? (
+              <img src={menuLogo} alt="menuLogo" />
+            ) : (
+              <img src={x} alt="closeIcon" />
+            )}
           </button>
           <SecondaryButton
             className={styles.partnerButton}
@@ -129,7 +135,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Profile dropBox */}
+      {/* mobile nav bar */}
       {isMobileMenuOpen && (
         <nav
           className={`${styles.mobileNavDropBox} ${
@@ -155,7 +161,7 @@ export default function Navbar() {
                       <span className={styles.unSeenCounter}>1</span>
                     </div>
                     <div className={styles.chevronright}>
-                      <img src={chevronright} slt="chevronright" />
+                      <img src={chevronright} alt="chevronright" />
                     </div>
                   </a>
                 </li>
@@ -166,7 +172,7 @@ export default function Navbar() {
                       <a href="#">Account Setting</a>
                     </div>
                     <div className={styles.chevronright}>
-                      <img src={chevronright} slt="chevronright" />
+                      <img src={chevronright} alt="chevronright" />
                     </div>
                   </a>
                 </li>
@@ -183,14 +189,13 @@ export default function Navbar() {
                     Sign up / Sign-in
                   </div>
                   <div className={styles.chevronright}>
-                    <img src={chevronright} slt="chevronright" />
+                    <img src={chevronright} alt="chevronright" />
                   </div>
                 </a>
               </li>
             )}
             {!isDesktopMenuOpen && (
               <>
-             
                 <li>
                   <a href="/blogs/1">
                     <div className={styles.listtext}>
@@ -198,7 +203,7 @@ export default function Navbar() {
                       Blog
                     </div>
                     <div className={styles.chevronright}>
-                      <img src={chevronright} slt="chevronright" />
+                      <img src={chevronright} alt="chevronright" />
                     </div>
                   </a>
                 </li>
@@ -208,7 +213,7 @@ export default function Navbar() {
                     Lookbook
                   </div>
                   <div className={styles.chevronright}>
-                    <img src={chevronright} slt="chevronright" />
+                    <img src={chevronright} alt="chevronright" />
                   </div>
                 </li>
                 <li onClick={() => scrollToSection(navigate, "partnerSection")}>
@@ -217,7 +222,7 @@ export default function Navbar() {
                     Become a partner
                   </div>
                   <div className={styles.chevronright}>
-                    <img src={chevronright} slt="chevronright" />
+                    <img src={chevronright} alt="chevronright" />
                   </div>
                 </li>
                 <li>
@@ -227,7 +232,7 @@ export default function Navbar() {
                       Download app
                     </div>
                     <div className={styles.chevronright}>
-                      <img src={chevronright} slt="chevronright" />
+                      <img src={chevronright} alt="chevronright" />
                     </div>
                   </a>
                 </li>
@@ -238,7 +243,7 @@ export default function Navbar() {
                       Help & Support
                     </div>
                     <div className={styles.chevronright}>
-                      <img src={chevronright} slt="chevronright" />
+                      <img src={chevronright} alt="chevronright" />
                     </div>
                   </a>
                 </li>
@@ -253,7 +258,7 @@ export default function Navbar() {
                     signout
                   </div>
                   <div className={styles.chevronright}>
-                    <img src={chevronright} slt="chevronright" />
+                    <img src={chevronright} alt="chevronright" />
                   </div>
                 </a>
               </li>
