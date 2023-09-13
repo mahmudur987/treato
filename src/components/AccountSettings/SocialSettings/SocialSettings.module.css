@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap&family=Lato&display=swap");
+
+.user_social {
+    font-family: "Lato", sans-serif;
+    width: 70%;
+}
+
+.usr_social_head {
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.usr_social_desc {
+    margin-top: 5px;
+}
+
+.usr_social_opt {
+    margin-top: 24px;
+}
+
+.social_options {
+    padding: 12px 0px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #EBEDF0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social_opt_left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.social_opt_connect {
+    padding: 12px 24px;
+    border-radius: 4px;
+    border: 1px solid #08080B;
+    background-color: unset;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.social_opt_logo {
+    padding: 9px;
+    border-radius: 200px;
+    border: 1px solid #EAEFF2;
+}
+
+.social_options:last-child {
+    border-bottom: none;
+    margin-bottom: unset;
+}
+
+.social_opt_disconnect{
+    border: none;
+    background-color: unset;
+    text-decoration: underline;
+    color: #DE2929;
+    padding: 12px 24px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width:767px){
+    .user_social {
+        font-family: "Lato", sans-serif;
+        width: 100%;
+    }
+    
+    .usr_social_desc{
+        color: #6D747A;
+        line-height: 24px;
+    }
+}
