@@ -9,7 +9,7 @@
 }
 
 /* recommended for you css */
-.recommended{
+.recommended {
   display: flex;
   flex-direction: column;
 }
@@ -19,7 +19,6 @@
   box-shadow: 0px 4px 16px 0px #00000014;
   padding: 0.75rem;
 }
-
 
 .rmdBox {
   display: flex;
@@ -42,9 +41,9 @@
   width: 0px;
   border: 2px solid var(--light-color);
 }
-.rmdHeading{
-font-size: 28px;
-font-weight: 600;
+.rmdHeading {
+  font-size: 28px;
+  font-weight: 600;
 }
 .rmdItem {
   display: flex;
@@ -56,8 +55,9 @@ font-weight: 600;
   transition: all ease-in-out 0.3s;
   cursor: pointer;
   border-radius: 4px;
-  padding: 0.75rem 0 0.75rem 0;
+  padding: 0.75rem 0.4rem;
   user-select: none;
+  gap: 8px;
 }
 .rmdItem:hover {
   background: var(--light-blue);
@@ -68,13 +68,15 @@ font-weight: 600;
 }
 .rmdItem h4 {
   text-align: center;
-  font-weight: 400;
+  font-weight: 500;
+  font-size: var(--font-small);
+  font-family: "Lato", sans-serif;
 }
 .scrollRight {
   height: 36px;
   cursor: pointer;
 }
-.scroll_left{
+.scroll_left {
   transform: scaleX(-1);
 }
 
@@ -107,38 +109,49 @@ font-weight: 600;
   height: 48px;
   cursor: pointer;
 }
-.trScrollRight_mobo{
-    display: none;
+.trScrollRight_mobo {
+  display: none;
 }
-
-
-
-
+.rmdWrapperMobo{
+  display: none;
+}
 /* media queries */
 
 @media only screen and (max-width: 770px) {
-  .container{
+  .container {
     padding: 2rem 1rem;
+  }
+  .rmdWrapperMobo{
+    overflow-x: scroll;
+    height: 280px;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    margin-bottom: 0.75rem;
+    box-shadow: 0px 4px 16px 0px #00000014;
+    padding: 0.75rem;
+  }
+  .rmdItem{
+    height: 115px;
+  }
+  .rmdWrapper{
+    display: none !important;
   }
 }
 
 @media only screen and (max-width: 600px) {
-
   .rmdHeading {
     font-size: var(--fonts-large);
   }
 
-.rmdBox{
+  .rmdBox {
     height: 100%;
     width: 100%;
     gap: 20px;
     flex-wrap: wrap;
     flex-direction: column;
-}
-  .rmdItem {
-    height: 84px;
-    width: 80px;
-    padding: 0;
   }
   .rmdItem img {
     width: 24px;
@@ -151,22 +164,22 @@ font-weight: 600;
   .scrollRight {
     display: none;
   }
-  .trScrollRight{
-   display: none;
+  .trScrollRight {
+    display: none;
   }
-  .trHeadWrapper{
+  .trHeadWrapper {
     display: flex;
     justify-content: space-between;
   }
-  .trScrollRight_mobo{
+  .trScrollRight_mobo {
     display: block;
     height: 24px;
     width: 24px;
   }
-  .scroll_left,.scroll_right{
+  .scroll_left,
+  .scroll_right {
     display: none;
   }
-  
 }
 
 /* Carousal css */
@@ -195,17 +208,17 @@ font-weight: 600;
     color: var(--black-color);
   }
 }
-.custom-dot-list-style{
-  position:relative !important;
-} 
-.custom-dot-list-style .react-multi-carousel-dot--active button{
+.custom-dot-list-style {
+  position: relative !important;
+}
+.custom-dot-list-style .react-multi-carousel-dot--active button {
   background: var(--primary-color) !important;
 }
-.custom-dot-list-style li button{
+.custom-dot-list-style li button {
   border: none !important;
-  border-width:0px !important ;
+  border-width: 0px !important ;
 }
-.carouselDot{
+.carouselDot {
   display: inline-block;
   width: 12px;
   height: 12px;
@@ -213,22 +226,22 @@ font-weight: 600;
   opacity: 1;
   padding: 5px 5px 5px 5px;
   box-shadow: none;
-  transition: background .5s;
+  transition: background 0.5s;
   padding: 0;
   margin: 0;
   margin-right: 6px;
   outline: 0;
   cursor: pointer;
-  border:none;
+  border: none;
 }
-.dotActive{
+.dotActive {
   background: var(--primary-color);
 }
 
-.rightArrow{
+.rightArrow {
   position: absolute;
   outline: 0;
-  transition: all .5s;
+  transition: all 0.5s;
   border-radius: 35px;
   z-index: 1000;
   border: 0;
@@ -240,12 +253,12 @@ font-weight: 600;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url('../../../assets/images/icons/ScrollRight.svg');
+  background-image: url("../../../assets/images/icons/ScrollRight.svg");
 }
-.leftArrow{
+.leftArrow {
   position: absolute;
   outline: 0;
-  transition: all .5s;
+  transition: all 0.5s;
   border-radius: 35px;
   z-index: 1000;
   border: 0;
@@ -258,8 +271,7 @@ font-weight: 600;
   background-size: cover;
   left: 1%;
   transform: scale(-1);
-  background-image: url('../../../assets/images/icons/ScrollRight.svg');
-
+  background-image: url("../../../assets/images/icons/ScrollRight.svg");
 }
 @media only screen and (max-width: 767px) {
   .rmdWrapper {
@@ -277,12 +289,12 @@ font-weight: 600;
   .rmdWrapper ul::-webkit-scrollbar {
     display: none;
   }
-  
+
   .carousel-item-padding-40-px {
     width: 80px !important;
     flex: none !important;
   }
-  .custom-dot-list-style{
-    display:none !important;
+  .custom-dot-list-style {
+    display: none !important;
   }
 }

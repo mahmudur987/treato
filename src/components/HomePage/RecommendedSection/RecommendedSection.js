@@ -12,8 +12,11 @@ import {
   skincare,
   spa,
 } from "../../../assets/images/recommendImages";
+import { getAllServices } from "../../../services/Services";
 
 export default function RecommendedSection() {
+  const [allServices, setallServices] = useState([]);
+  const [error, setError] = useState(null);
   const rmdBoxRef = useRef(null);
   const trSalonBoxRef = useRef(null);
   const responsive = {
@@ -49,6 +52,7 @@ export default function RecommendedSection() {
     { icon: fingernail, title: "Nail care" },
     { icon: skincare, title: "Facial & skincare" },
   ];
+  
   const CustomDot = ({ onMove, index, onClick, active }) => {
     // onMove means if dragging or swiping in progress.
     // active is provided by this lib for checking if the item is active or not.
@@ -64,6 +68,30 @@ export default function RecommendedSection() {
     <button className={styles.leftArrow} onClick={onClick}>
     </button>
   );
+
+  //api fetching
+useEffect(() => {
+   // Call the getAllServices function when the component mounts
+   async function fetchAllServices() {
+    try {
+      const { res, err } = await getAllServices();
+
+      if (res) {
+        // If the request was successful, update the state with the data
+        setallServices(res?.data?.data); // Assuming the response data contains a "data" property
+      } else {
+        // If there was an error, handle it and set the error state
+        setError(err);
+      }
+    } catch (error) {
+      // Handle unexpected errors here
+      setError(error);
+    }
+  }
+
+  fetchAllServices();
+}, [])
+
   return (
     <section id="recommended" className={styles.container}>
       <div className={styles.recommended}>
@@ -82,13 +110,21 @@ export default function RecommendedSection() {
           renderDotsOutside
           customDot={<CustomDot />}
         >
-          {services.map((service, index) => (
+          {allServices.map((service, index) => (
             <a key={index} className={styles.rmdItem}>
-              <img src={service.icon} alt={service.title} />
-              <h4>{service.title}</h4>
+              <img src={service.service_img.public_url} alt={service.service_name[0]} />
+              <h4>{service.service_name[0]}</h4>
             </a>
           ))}
         </Carousel>
+        <div className={styles.rmdWrapperMobo}>
+        {allServices.map((service, index) => (
+            <a key={index} className={styles.rmdItem}>
+              <img src={service.service_img.public_url} alt={service.service_name[0]} />
+              <h4>{service.service_name[0]}</h4>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );
