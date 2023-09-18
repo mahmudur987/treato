@@ -24,6 +24,11 @@ function App() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const token = sessionStorage.getItem('token')
+  }, [])
+
+
   return (
     <PageLayout>
       <Routes>
