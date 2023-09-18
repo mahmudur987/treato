@@ -1,5 +1,8 @@
 import styles from '../../../pages/BookFlow/BookFlow.module.css'
-import userIco from "../../../assets/images/SalonDetail/userIco.svg"
+import BasicInput from '../../Input/BasicInput/BasicInput'
+import PhoneInput from '../../Input/PhoneInput/PhoneInput'
+import RadioInput from '../../Input/RadioInput/RadioInput'
+import TextArea from '../../Input/TextArea/TextArea'
 
 export default function VisitorDetail() {
 
@@ -10,11 +13,11 @@ export default function VisitorDetail() {
                     Who are you booking for?
                 </div>
                 <div className={styles.visitor_detailAB}>
-                    <input type="radio" name="visitor" id="" />
+                    <RadioInput Type={'radio'} NAME={'visitor'}/>
                     <div>Booking for myself</div>
                 </div>
                 <div className={styles.visitor_detailAB}>
-                    <input type="radio" name="visitor" id="" />
+                    <RadioInput Type={'radio'} NAME={'visitor'}/>
                     <div>Booking for someone else (guest)</div>
                 </div>
             </div>
@@ -26,31 +29,25 @@ export default function VisitorDetail() {
                 <div className={styles.visitor_detailAC}>
                     <div className={styles.visitor_detailACA}>Name</div>
                     <div className={styles.visitor_detailACB}>
-                        <input type="text" placeholder='Shreya Avasthi'/>
+                        <BasicInput Type={'text'} PlaceHolder={'Shreyas Awasthi'}/>
                     </div>
                 </div>
                 <div className={styles.visitor_detailAC}>
                     <div className={styles.visitor_detailACA}>Phone</div>
                     <div className={`${styles.visitor_detailACB} ${styles.visitor_detailAC_opt}`}>
-                        <select name="country" id="">
-                            <option value="+91">+91</option>
-                            <option value="+88">+88</option>
-                            <option value="+66">+66</option>
-                        </select>
-                        <div className={styles.visitor_detailBorder}></div>
-                        <input type="tel" placeholder='Enter your phone number'/>
+                        <PhoneInput Type={'tel'} PlaceHolder={'Enter your phone number'}/>
                     </div>
                 </div>
                 <div className={styles.visitor_detailAC}>
                     <div className={styles.visitor_detailACA}>Email</div>
                     <div className={styles.visitor_detailACB}>
-                        <input type="email" placeholder='shreya2716@gmail.com'/>
+                        <BasicInput Type={'email'} PlaceHolder={'shreya2716@gmail.com'}/>
                     </div>
                 </div>
                 <div className={styles.visitor_detailAC}>
                     <div className={styles.visitor_detailACA}>Preferences (optional)</div>
                     <div className={styles.visitor_detailACB}>
-                        <textarea name="" id="" placeholder='Anything specific you want to share'></textarea>
+                        <TextArea PlaceHolder={'Anyhing specific you want to share'}/>
                     </div>
                 </div>
             </div>

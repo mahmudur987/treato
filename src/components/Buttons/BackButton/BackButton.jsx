@@ -5,7 +5,7 @@ export default function BackButton({updateMobileOpt,updateActiveBookFlowBA,activ
 
     return(
         <>
-            <div className={styles.acc_mob_back}><img src={leftIco} alt="" onClick={()=>updateActiveBookFlowBA?updateActiveBookFlowBA(activeBookFlowBA>0?activeBookFlowBA-1:activeBookFlowBA=0):updateMobileOpt?updateMobileOpt(-1):''}/></div>
+            <button className={styles.acc_mob_back}><img src={leftIco} alt="" onClick={()=>updateActiveBookFlowBA?updateActiveBookFlowBA(activeBookFlowBA>0?activeBookFlowBA-1:activeBookFlowBA=0):updateMobileOpt?updateMobileOpt(-1):''}/></button>
         </>
     )
 }

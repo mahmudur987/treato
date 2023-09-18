@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap&family=Lato&display=swap");
 
 .usr_detail_head {
     font-family: "Poppins", sans-serif;
@@ -24,24 +23,9 @@
     padding: 10px 0px;
 }
 
-.usr_detail_input {
-    padding: 13px 16px;
-    border-radius: 4px;
-    border: 1px solid #CED4DA;
-    width: 100%;
-    box-sizing: border-box;
-}
-
 .usr_detail_edit {
     position: absolute;
     top: 66%;
-    right: 3%;
-    cursor: pointer;
-}
-
-.usr_detail_calendar{
-    position: absolute;
-    top: 53%;
     right: 3%;
     cursor: pointer;
 }
@@ -50,20 +34,6 @@
     display: flex;
     border: 1px solid #CED4DA;
     padding: 13px 16px;
-}
-
-.usr_detail_contact>select {
-    background-color: unset;
-    border: none;
-}
-
-.usr_detail_contact>input {
-    border: none;
-    padding: 0px;
-    border-left: 1px solid #08090A;
-    margin-left: 10px;
-    padding-left: 10px;
-    border-radius: unset;
 }
 
 .usr_genders{

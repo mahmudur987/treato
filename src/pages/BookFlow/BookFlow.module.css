@@ -6,6 +6,7 @@
     align-items: flex-start;
     gap: 24px;
     color: #08090A;
+    overflow-x: hidden;
 }
 
 .book_flowMainA {
@@ -330,57 +331,8 @@
     margin-bottom: 8px;
 }
 
-.visitor_detailACB>input {
-    padding: 13px 16px;
-    border-radius: 4px;
-    border: 1px solid #CED4DA;
+.visitor_detailACB{
     width: 35%;
-}
-
-.visitor_detailACB>input:focus {
-    outline: none;
-}
-
-.visitor_detailAC_opt {
-    border: 1px solid #CED4DA;
-    border-radius: 4px;
-    padding: 0px 16px;
-    width: 35%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 8px;
-}
-
-.visitor_detailAC_opt input {
-    border: none;
-    width: 70%;
-    padding-left: 8px;
-}
-
-.visitor_detailAC_opt input:focus {
-    outline: none;
-}
-
-.visitor_detailBorder {
-    width: 1px;
-    height: 20px;
-    background-color: #08090A;
-}
-
-.visitor_detailAC_opt select {
-    border: none;
-    background-color: unset;
-}
-
-.visitor_detailACB>textarea {
-    width: 35%;
-    padding: 13px 16px;
-    border-radius: 4px;
-    border: 1px solid #CED4DA;
-    resize: none;
-    outline: none;
-    height: 140px;
 }
 
 .final_billMain {
@@ -733,16 +685,12 @@
         border-bottom: none;
     }
 
-    .visitor_detailACB>input,
-    .visitor_detailAC_opt input,
-    .visitor_detailAC_opt,
-    .visitor_detailACB>textarea {
-        width: 100%;
-        box-sizing: border-box;
-    }
-
     .visitor_detailAA {
         font-size: 20px;
+    }
+
+    .visitor_detailACB{
+        width: 100%;
     }
 
     .book_flowMain {

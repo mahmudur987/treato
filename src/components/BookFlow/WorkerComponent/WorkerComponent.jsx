@@ -1,6 +1,7 @@
 import styles from '../../../pages/BookFlow/BookFlow.module.css'
 import profilepic1 from "../../../assets/images/SalonDetail/profilepic1.png"
 import ellipse from "../../../assets/images/SalonDetail/Ellipse.svg"
+import RadioInput from '../../Input/RadioInput/RadioInput'
 
 export default function WorkerComponent() {
 
@@ -18,7 +19,7 @@ export default function WorkerComponent() {
                 </div>
             </div>
             <div className={styles.worker_compAB}>
-                <input type="radio" name="preference" id="" />
+                <RadioInput Type={'radio'} NAME={'preference'} />
             </div>
         </div>
     )

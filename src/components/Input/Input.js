@@ -2,8 +2,7 @@ import React from 'react';
 import inputStyles from "./Input.module.css"
 
 const InputField = (props) => {
-  const { name, value, onChange, type, placeholder, checked, styles } = props;
-
+  const { name, value, onChange, type, placeholder, checked, styles,label, setValue, error } = props;
   return (
     <label className={inputStyles.label}>
       {type === 'checkbox' ? (
