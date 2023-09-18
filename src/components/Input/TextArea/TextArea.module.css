@@ -1,0 +1,10 @@
+.text_area{
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 4px;
+    border: 1px solid #CED4DA;
+    resize: none;
+    outline: none;
+    height: 140px;
+    box-sizing: border-box;
+}
