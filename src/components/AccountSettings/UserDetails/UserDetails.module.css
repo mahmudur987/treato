@@ -1,0 +1,83 @@
+
+.usr_detail_head {
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.usr_detail_body {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.usr_detail_box {
+    flex-basis: 48.6%;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.usr_detail_label {
+    font-family: "Lato", sans-serif;
+    color: #08090A;
+    padding: 10px 0px;
+}
+
+.usr_detail_edit {
+    position: absolute;
+    top: 66%;
+    right: 3%;
+    cursor: pointer;
+}
+
+.usr_detail_contact {
+    display: flex;
+    border: 1px solid #CED4DA;
+    padding: 13px 16px;
+}
+
+.usr_genders{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.usr_detail_gender_label {
+    margin-bottom: 12px;
+}
+
+.usr_detail_gender {
+    padding: 12px 20px;
+    border-radius: 100px;
+    border: 1px solid #EAEFF2;
+    font-family: "Lato", sans-serif;
+    margin-right: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.active_gender {
+    border: 1px solid #0D69D7;
+    background: #0D69D7;
+    color: white;
+}
+
+.d_none{
+    display: none !important;
+}
+
+@media only screen and (max-width:767px){
+    .usr_detail_body {
+        flex-direction: column;
+        margin-bottom: 36px;
+        border-bottom: 1px solid #EBEDF0;
+    }
+
+    .usr_detail_box{
+        flex-basis: 100%;
+    }
+
+    .usr_detail_gender{
+        padding: 12px 17px;
+    }
+}

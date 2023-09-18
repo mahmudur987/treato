@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap&family=Lato&display=swap");
+
+.acc_setting_page{
+    padding: 144px 60px;
+}
+
+.acc_head{
+    font-size: 28px;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 12px;
+}
+
+.acc_intro{
+    font-family: 'Lato', sans-serif;
+}
+
+.acc_setting_mid{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 48px 0px;
+}
+
+.acc_setting_right{
+    flex-basis: 70%;
+}
+
+.acc_setting_mobile{
+    display: none;
+}
+
+.d_none{
+    display: none;
+}
+
+@media only screen and (max-width:767px){
+    .acc_setting_mobile{
+        display: block;
+        font-family: 'Lato', sans-serif;
+    }
+    
+    .acc_setting_page{
+        padding: 80px 24px;
+    }
+
+    .acc_setting_right{
+        flex-basis: 100%;
+    }
+
+    .acc_setting_mid{
+        display: none;
+    }
+
+    .acc_intro{
+        display: none;
+    }
+
+    .acc_mob_options{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        cursor: pointer;
+    }
+
+    .acc_mob_flex{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .acc_mob_options:last-child{
+        color: #DE2929;
+    }
+
+}

@@ -1,0 +1,793 @@
+.book_flowMain {
+    padding: 100px 60px;
+    font-family: "Lato", sans-serif;
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    gap: 24px;
+    color: #08090A;
+    overflow-x: hidden;
+}
+
+.book_flowMainA {
+    width: 69%;
+}
+
+.book_flowMainB {
+    width: 31%;
+}
+
+.book_flowA {
+    font-family: "Poppins", sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.book_flowB {
+    width: 50%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 36px;
+}
+
+.book_flowBA {
+    width: 33%;
+    height: 6px;
+    border-radius: 100px;
+    background: #EBEDF0;
+}
+
+.activeBook_flowBA {
+    background: #0D69D7;
+}
+
+.service_cardMain {
+    padding: 24px;
+    border: 1px solid #EBEDF0;
+}
+
+.service_cardA {
+    font-family: "Poppins", sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.service_cardB {
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.service_cardC {
+    padding: 16px 0px;
+    border-top: 1px solid #EBEDF0;
+}
+
+.service_cardCA,
+.service_cardD {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+}
+
+.service_cardCB {
+    color: #6D747A;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.service_cardD {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 16px 0px;
+    border-top: 1px solid #EBEDF0;
+    border-bottom: 1px solid #EBEDF0;
+}
+
+.book_flowMob {
+    display: none;
+}
+
+.worker_detailA {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-radius: 4px;
+    border: 1px solid #EBEDF0;
+}
+
+.worker_detailAD {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 12px;
+}
+
+.worker_detailAA {
+    padding: 10px;
+    border-radius: 50%;
+    border: 2px solid #6D747A;
+}
+
+.worker_detailAB div:first-child {
+    font-weight: 600;
+    color: #08090A;
+    margin-bottom: 4px;
+}
+
+.worker_detailAB div:last-child {
+    font-weight: 400;
+    font-size: 14px;
+    color: #6D747A;
+}
+
+.worker_detailAC input {
+    width: 24px;
+    height: 24px;
+}
+
+.worker_detailB {
+    padding: 0px 24px;
+    border: 1px solid #EBEDF0;
+    margin-top: 24px;
+}
+
+.worker_compA {
+    padding: 24px 0px;
+    border-bottom: 1px solid #EBEDF0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.worker_compAA {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 12px;
+}
+
+.worker_compAA>img {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+}
+
+.worker_compACA {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.worker_compACB {
+    font-weight: 400;
+    font-size: 14px;
+    gap: 8px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.worker_compAB input {
+    width: 24px;
+    height: 24px;
+}
+
+.worker_detailC {
+    padding: 36px 0px;
+    margin-top: 36px;
+    border-top: 1px solid #EBEDF0;
+}
+
+.service_timeA {
+    font-size: 24px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.service_timeB {
+    font-weight: 400;
+    line-height: 24px;
+    text-align: justify;
+}
+
+.service_timeC {
+    padding: 24px 0px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.service_timeE {
+    border-radius: 4px;
+    background: #F8F9FA;
+    padding: 10px 24px;
+    font-weight: 400;
+    line-height: 24px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.service_timeEA>span {
+    color: #0D69D7;
+    font-weight: 600;
+}
+
+.service_timeF {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.timeMain {
+    padding: 24px;
+    border-radius: 4px;
+    border: 1px solid #EAEFF2;
+    width: 12%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.activeTimeMain {
+    border: 1px solid #0D69D7 !important;
+    background: rgba(13, 105, 215, 0.10) !important;
+    color: #0D69D7 !important;
+}
+
+.service_cardF,
+.service_cardG {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 0px;
+    border-top: 1px solid #EBEDF0;
+    border-bottom: 1px dotted #EBEDF0;
+}
+
+.service_cardG {
+    border: none;
+    color: #6D747A;
+    font-weight: 400;
+}
+
+.service_cardGA {
+    border-radius: 50%;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #6D747A;
+}
+
+.service_dateA {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+    font-weight: 400;
+    border-radius: 4px;
+    border: 1px solid #EAEFF2;
+}
+
+.visitor_detailA {
+    padding: 24px 0px;
+    margin-top: 24px;
+    border-top: 1px solid #EBEDF0;
+    border-bottom: 1px solid #EBEDF0;
+}
+
+.visitor_detailA:last-child {
+    margin-top: 0px;
+    border-top: none;
+}
+
+.visitor_detailAA {
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.visitor_detailAB {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+    font-weight: 400;
+    margin-bottom: 16px;
+    line-height: 24px;
+}
+
+.visitor_detailAB:last-child {
+    margin-bottom: 0px;
+}
+
+.mb_0 {
+    margin-bottom: 0px;
+}
+
+.visitor_detailAC {
+    margin: 24px 0px;
+}
+
+.visitor_detailACA {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.visitor_detailACB{
+    width: 35%;
+}
+
+.final_billMain {
+    margin-top: 36px;
+    border-top: 1px solid #EBEDF0;
+}
+
+.final_billA {
+    margin-top: 36px;
+}
+
+.final_billAA {
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.final_billAB {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.final_billAB>input {
+    width: 24px;
+    height: 24px;
+}
+
+.final_billABA {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 4px;
+    flex-direction: column;
+}
+
+.final_billABA div:first-child {
+    font-weight: 400;
+}
+
+.final_billABA div:last-child {
+    font-size: 14px;
+    color: #6D747A;
+    font-weight: 400;
+}
+
+.final_billBA {
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.final_billBB {
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.final_billC {
+    padding: 24px;
+    border: 1px solid #EBEDF0;
+    border-radius: 4px;
+}
+
+.final_billCA {
+    font-size: 18px;
+    font-weight: 600;
+    padding-bottom: 16px;
+}
+
+.final_billCB {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0px;
+    border-top: 1px dotted #EBEDF0;
+}
+
+.final_billCBD {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 12px;
+}
+
+.final_billCBA {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    padding: 0px 3px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid #EAEFF2;
+}
+
+.final_billCBB {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    gap: 4px;
+    flex-direction: column;
+}
+
+.final_billCBB div:first-child {
+    font-weight: 400;
+}
+
+.final_billCBB div:last-child {
+    font-size: 14px;
+    color: #6D747A;
+    font-weight: 400;
+}
+
+.final_billCBC>input {
+    width: 24px;
+    height: 24px;
+}
+
+.final_billCC {
+    padding: 24px 0px;
+    margin-bottom: 24px;
+    border-top: 1px dotted #EBEDF0;
+    border-bottom: 1px dotted #EBEDF0;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 12px;
+    color: #0D69D7;
+}
+
+.final_billCCC {
+    padding-bottom: 0px;
+    border-bottom: none;
+    margin-bottom: 0px;
+}
+
+.final_billCD {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.final_billCDA {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 12px;
+    color: #6D747A;
+    font-weight: 400;
+}
+
+.final_billDMainMid {
+    padding: 24px 0px;
+    margin: 24px 0px;
+    border-top: 1px dotted #EBEDF0;
+    border-bottom: 1px dotted #EBEDF0;
+}
+
+.bill_sumA {
+    font-family: "Poppins", sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    border-bottom: 1px solid #EBEDF0;
+    padding-bottom: 24px;
+}
+
+.bill_sumB {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 24px 0px;
+    border-bottom: 1px solid #EBEDF0;
+}
+
+.bill_sumB>img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.bill_sumC,
+.bill_sumD,
+.bill_sumE,
+.bill_sumF {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+    padding-top: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px dotted #EBEDF0;
+}
+
+.bill_sumCA,
+.bill_sumDA {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 6px;
+}
+
+.bill_sumD,
+.bill_sumE,
+.bill_sumF {
+    padding-top: 16px;
+}
+
+.bill_sumE {
+    font-weight: 600;
+}
+
+.bill_sumEA {
+    font-size: 14px;
+    font-weight: 400;
+    color: #6D747A;
+    text-decoration: underline;
+}
+
+.bill_sumEB {
+    font-weight: 400;
+}
+
+.bill_sumF {
+    border-bottom: 4px solid #EBEDF0;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.bill_sumFC,
+.bill_sumFD {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+}
+
+.bill_sumFD {
+    color: #0D69D7;
+    font-weight: 600;
+}
+
+.bill_sumG {
+    padding-top: 24px;
+}
+
+.bill_sumG>button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    border-radius: 4px;
+    background: rgba(8, 8, 11, 0.40);
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.bill_sumH {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 16px;
+    font-weight: 400;
+    padding: 10px 24px;
+    border-radius: 4px;
+    background: #F8F9FA;
+    margin-top: 24px;
+    line-height: 24px;
+}
+
+.bill_sumHA>span{
+    color: #0D69D7;
+    font-weight: 600;
+}
+
+@media only screen and (max-width:767px) {
+
+    .bill_sumI{
+        border: 1px solid #EBEDF0;
+        padding: 16px 12px;
+    }
+    .bill_sumB{
+        padding: 0px;
+        padding-bottom: 16px;
+    }
+    .bill_sumC{
+        padding: 12px 0px;
+    }
+    .bill_sumF{
+        padding: 16px 12px;
+        margin: 24px 0px;
+        border: 1px solid #EBEDF0;
+    }
+    .bill_sumG{
+        display: none;
+    }
+    .bill_sumH{
+        font-size: 12px;
+        padding: 10px 12px;
+        line-height: 18px;
+    }
+    .bill_sumH>img{
+        display: none;
+    }
+    .bill_sumA{
+        font-size: 20px;
+        padding-bottom: 16px;
+    }
+    .service_cardMain{
+        padding: 0px;
+        border: none;
+    }
+    .final_billAA,.final_billBA {
+        font-size: 20px;
+    }
+    .final_billBB{
+        font-size: 18px;
+    }
+    .final_billC{
+        padding: 16px 12px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+    .final_billCA {
+        font-size: 16px;
+    }
+    .final_billCBB{
+        font-size: 14px;
+    }
+    .final_billCDA{
+        font-size: 14px;
+    }
+    .visitor_detailA:first-child {
+        border-top: none;
+    }
+
+    .visitor_detailA:last-child {
+        border-bottom: none;
+    }
+
+    .visitor_detailAA {
+        font-size: 20px;
+    }
+
+    .visitor_detailACB{
+        width: 100%;
+    }
+
+    .book_flowMain {
+        padding: 70px 24px;
+        flex-direction: column;
+        gap: 0px;
+        box-sizing: border-box;
+    }
+
+    .book_flowMainA,
+    .book_flowB {
+        width: 100%;
+    }
+
+    .book_flowMainB {
+        display: none;
+    }
+
+    .book_flowA {
+        font-size: 20px;
+        margin-bottom: 16px;
+        margin-top: 12px;
+    }
+
+    .book_flowMob {
+        display: block;
+    }
+
+    .worker_detailA {
+        padding: 0px;
+        padding-bottom: 24px;
+        border: none;
+        border-bottom: 1px solid #EBEDF0;
+    }
+
+    .worker_detailB {
+        padding: 0px;
+        margin: 0px;
+        border: none;
+    }
+
+    .worker_compACB {
+        display: block;
+        color: #6D747A;
+        line-height: 20px;
+    }
+
+    .worker_compACB>img {
+        display: none;
+    }
+
+    .worker_compA:last-child {
+        border: none;
+        padding-bottom: 36px;
+    }
+
+    .worker_detailC {
+        margin-top: 0px;
+        padding-top: 36px;
+        border-top: none;
+        position: relative;
+    }
+
+    .worker_detailC::before {
+        content: '';
+        position: absolute;
+        width: 115.7%;
+        height: 6px;
+        background-color: #EBEDF0;
+        top: 0%;
+        left: -8%;
+    }
+
+    .service_timeA {
+        font-size: 20px;
+    }
+
+    .service_timeC {
+        font-size: 16px;
+    }
+
+    .service_dateA {
+        width: 56px;
+        height: 62px;
+    }
+
+    .timeMain {
+        width: 23%;
+        padding: 10px 8px;
+    }
+
+    .service_timeE {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .service_timeE>img {
+        display: none;
+    }
+}

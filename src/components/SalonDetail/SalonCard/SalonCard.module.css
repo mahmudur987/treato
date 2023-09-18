@@ -1,0 +1,74 @@
+.salon_card {
+    width: 24%;
+    margin-top: 30px;
+}
+
+.salon_card {
+    border: 1px solid #EBEDF0;
+    padding: 24px;
+}
+
+.salon_cardA {
+    font-family: "Poppins", sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.salon_cardB {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+}
+
+.salon_cardB div:last-child {
+    color: #0D69D7;
+    cursor: pointer;
+}
+
+.salon_cardD {
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    gap: 12px;
+    color: #08090A;
+    padding: 16px 0px;
+    border-top: 1px solid #EBEDF0;
+    line-height: 24px;
+    font-weight: 400;
+}
+
+.salon_cardD span:first-child {
+    font-weight: 600;
+}
+
+.salon_cardD span:last-child {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.salon_cardDA {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 12px;
+    font-weight: 400;
+}
+
+.salon_cardDA div:first-child {
+    color: #DE2929;
+}
+
+.salon_cardDB {
+    font-weight: 600;
+    color: #0D69D7;
+    cursor: pointer;
+}
+
+@media only screen and (max-width:767px){
+    .salon_card{
+        display: none;
+    }
+}
