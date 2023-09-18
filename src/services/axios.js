@@ -10,8 +10,7 @@ export const operation = retry.operation({
 })
 
 const axiosInstance = axios.create({
-   //   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-   baseURL: '<backendlink>',
+   baseURL: process.env.REACT_APP_BASE_URL
 })
 
 // Add a response interceptor to handle errors
