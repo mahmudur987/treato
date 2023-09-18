@@ -12,6 +12,7 @@ import {
   arrowleft,
 } from "../../../assets/images/icons";
 import { Link } from "react-router-dom";
+import { register } from "../../../services/auth";
 
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -75,11 +76,14 @@ const CreateAccountPage = () => {
     // Your logic here for submitting the form data
   };
 
-
+  const handleRegister = async () => {
+    const { err, res } = await register(data)
+  }
+  
   return (
     <AuthPage>
       <div className={styles.container}>
-   
+
         <div className={styles.heading}>
           <h3 className={styles.letGetStarted}>Let’s get started!</h3>
           <p className={styles.createText}>
