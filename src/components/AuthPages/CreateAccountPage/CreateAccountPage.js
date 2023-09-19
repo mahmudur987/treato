@@ -77,7 +77,7 @@ const CreateAccountPage = () => {
   };
 
   const handleRegister = async () => {
-    const { err, res } = await register(data)
+    const { err, res } = await register()
   }
   
   return (

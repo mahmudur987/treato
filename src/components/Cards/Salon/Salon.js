@@ -2,31 +2,25 @@ import React from "react";
 import styles from "./Salon.module.css";
 
 const Salon = ({ salonData, place }) => {
+  const salon_image = 'https://atgfilestorage.s3.ap-south-1.amazonaws.com/5e9eac23b788af43d167c3de_1587457059872.jpg'
+  console.log(salonData)
   return (
 <div className={`${styles.card} ${place === "homePage" ? styles.card_Home : ""}`}>
       <img
-        src={salonData.cardImage}
+        src={salonData.salon_Img?salonData.salon_Img.public_url:salon_image}
         alt="cardImage"
         className={`${styles.cardImage} ${place === "homePage" ? styles.cardImage_Home : ""}`}
       />
       <div 
         className={`${styles.salonDetails} ${place === "homePage" ? styles.salonDetails_Home : ""}`}
       >
-        <a href="/salons" className={`${styles.Name} ${place === "homePage" ? styles.Name_Home : ""}`}>{salonData.name}</a>
+        <a href="/salons" className={`${styles.Name} ${place === "homePage" ? styles.Name_Home : ""}`}>{salonData.salons_name?salonData.salons_name:'Salon Name'}</a>
         <h4 className={styles.ratings}>
           {salonData.rating} <img src={salonData.star} alt="star" /> (
-          {salonData.ratingsCount} ratings)
+          {'1,961'} ratings)
         </h4>
         <h4 className={styles.location}>
-          {salonData.location}{" "}
-          <img
-            src={salonData.ellipse}
-            alt="Ellipse"
-            className={styles.Ellipse}
-          />
-          <span className={styles.meter}>
-            {salonData.distance} {salonData.unit}
-          </span>
+          {salonData.locationText}{" "}
         </h4>
       </div>
       {place != "homePage" ? (

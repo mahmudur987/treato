@@ -2,17 +2,22 @@ import React from "react";
 import styles from "./partnerBanner.module.css";
 import PartnerBannerImg from "../../../assets/images/PartnerBannerImg/partnerBannerImg.png";
 
-const PartnerBanner = () => {
+const PartnerBanner = ({mainData}) => {
+  let subHead = '';
+  if(mainData){
+    subHead = mainData.partner_subheading.split('.');
+  }
+
   return (
       <section className={styles["container"]} id="partnerSection">
         <div className={styles["bannerWrapper"]}>
             <div className={styles["bannerLeftSide"]}>
           <div className={styles["bannerDetails"]}>
-            <h1>Partner with us</h1>
+            <h1>{mainData?mainData.partner_heading:''}</h1>
             <p>
-              Grow your business for free with India’s fastest-growing beauty &
-              wellness platform. <br />
-              We promise to deliver more than you expect.
+              {subHead[0]}.
+              <br/>
+              {subHead[1]}
             </p>
             <button className={styles["learnMore"]}>Learn more</button>
           </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import PageLayout from './layouts/PageLayout/PageLayout';
 import Home from './pages/Home/Home';

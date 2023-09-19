@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./LatestBlog.module.css";
 import BlogImg1 from "../../../assets/images/HomeLatestBlogs/BlogImg1.png";
 import BlogImg2 from "../../../assets/images/HomeLatestBlogs/BlogImg2.png";
@@ -9,6 +9,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import BlogCard from "../../Cards/Blog/BlogCard";
 import { Link } from "react-router-dom";
+import { AllBlogs } from "../../../services/blog";
+import { useState } from "react";
 const LatestBlog = () => {
   const responsive = {
     superLargeDesktop: {
@@ -30,62 +32,60 @@ const LatestBlog = () => {
     },
   };
 
-  const blogData = [
-    {
-      id: 1,
-      author: "Preeti Ajgaonkar",
-      title:
-        "The Science of Skincare: Decoding Niacinamide for Acne-Prone Skin",
-      description:
-        "Acne can be a frustrating and stubborn skin concern that affects people of all ages. If you've q...",
-      image: BlogImg1,
-      userImg: user1,
-    },
-    {
-      id: 2,
-      author: "Anshul Sharma",
-      title: "How Ashwagandha Can Transform Your Stress Levels and Skin Health",
-      description:
-        "In this article, we uncover the power of adaptogens and take a closer look at ashwagandha—a herb known fo...",
-      image: BlogImg2,
-      userImg: user2,
-    },
-    {
-      id: 3,
-      author: "Preeti Ajgaonkar",
-      title: "How Ashwagandha Can Transform Your Stress Levels and Skin Health",
-      description:
-        "In this article, we uncover the power of adaptogens and take a closer look at ashwagandha—a herb known fo...",
-      image: BlogImg1,
-      userImg: user1,
-    },
-  ];
+  let [blogData, setBlogData] = useState([]);
+
+  useEffect(() => {
+    let getBlogs = async () => {
+      const { res, err } = await AllBlogs()
+      setBlogData(res.data.blogs)
+    }
+    getBlogs();
+  }, [])
+
   return (
     <div className={styles["container"]}>
       <div className={styles["header"]}>
         <h3 className={styles["headerText"]}> latest from our blog</h3>
-        <Link to="/blogs/1" className={styles["headerViewAll"]}>
+        <Link to="#" className={styles["headerViewAll"]}>
           View all <img src={chevronLeft} />
         </Link>
       </div>
       <div className={styles["blogWrapper"]}>
-        {blogData.map((blog) => (
-          <BlogCard blog={blog} />
-        ))}
+        {
+          blogData.length ?
+            blogData.map((blog, i) => {
+              if (i <= 2) {
+                return (
+                  <BlogCard blog={blog} key={i} />
+                )
+              }
+            })
+            :
+            ''
+        }
       </div>
 
       <div className={styles["blogWrapper_mobo"]}>
-        <Carousel
-          responsive={responsive}
-          showDots={true}
-          removeArrowOnDeviceType={["tablet", "mobile"]}
-          dotListClass="custom-dot-list-style"
-          itemClass="carousel-item-padding-40-px"
-        >
-          {blogData.map((blog) => (
-            <BlogCard blog={blog} />
-          ))}
-        </Carousel>
+        {
+          blogData.length ?
+            <Carousel
+              responsive={responsive}
+              showDots={true}
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+              dotListClass="custom-dot-list-style"
+              itemClass="carousel-item-padding-40-px"
+            >
+              {
+                blogData.map((blog, i) => {
+                  return (
+                    <BlogCard blog={blog} key={i} />
+                  )
+                })
+              }
+            </Carousel>
+            :
+            ''
+        }
       </div>
     </div>
   );

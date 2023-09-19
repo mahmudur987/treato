@@ -13,7 +13,7 @@ import {
 } from "../../../assets/images/recommendImages";
 import { ScrollRight, scrollright } from "../../../assets/images/icons";
 
-export default function RecommendedSection() {
+export default function RecommendedSection({mainData}) {
   const rmdBoxRef = useRef(null);
   const trSalonBoxRef = useRef(null);
 
