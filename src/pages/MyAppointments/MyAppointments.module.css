@@ -36,19 +36,32 @@
   width: 100%;
   border: none;
   background-color: var(--Grey-40);
+  text-align: center;
 }
 
 nav a{
     position: relative;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
+    text-align: center;
 }
 
 nav a .active{
     border-bottom: 4px solid;
     border-radius: 2%;
 }
-
+.unSeenDot{
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: -5px;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background: var(--primary-color);
+}
 
 @media only screen and (max-width: 768px) {
   .MyAppointments {

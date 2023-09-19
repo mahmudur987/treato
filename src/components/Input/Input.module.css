@@ -1,0 +1,24 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  line-height: 24px;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+  font-size: var(--font-medium);
+}
+
+.input::placeholder,
+textarea::placeholder {
+  color: var(--Grey-10);
+  font-family: "Lato", sans-serif;
+  font-size: var(--font-medium);
+}
+
+.input {
+  height: 48px;
+  border: 1px solid var(--Grey-30);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  box-sizing: border-box;
+}

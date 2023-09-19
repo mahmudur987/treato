@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from "./AppDownloadInfo.module.css";
 import { AppStore_black, AppleLogo, GoogleLogo, PlayStore_black } from '../../../assets/images/icons';
-import banner from "../../../assets/images/appDownloadImages/AppDownloadBg.png"
 const AppDownloadInfo = ({mainData}) => {
   return (
     <section className={styles['container']}>
@@ -18,7 +17,6 @@ const AppDownloadInfo = ({mainData}) => {
           </div>
         </div>
         <div className={styles["bannerImage"]}>
-          <img src={banner} alt="banner"/>
         </div>
       </div>
     </section>

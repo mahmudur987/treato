@@ -136,7 +136,7 @@ const RescheduleAppointment = () => {
           <h2>Showing slots as per the salon and professional availability.</h2>
           <h4>Date</h4>
           <div className={styles.calendarWrapper}>
-            <Slider {...settings}>
+            <Slider {...settings} className={styles.slidersWrapper}>
               {dateData.map((data, index) => (
                 <button key={index} className={styles.availableDate}>
                   <span>{data.day}</span>

@@ -43,4 +43,8 @@ export { default as clock } from "./clock.svg";
 export { default as checkCircleFill } from "./checkCircleFill.svg";
 export { default as ellipse } from "./ellipse.svg";
 export { default as star_line } from "./star_line.svg";
+export { default as lookbookIcon } from "./lookbookIcon.svg";
+export { default as supportIcon } from "./supportIcon.svg";
+
+
 

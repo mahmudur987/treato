@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styles from "../../HomePage/Hero/hero.module.css";
 import navstyles from "./MainSearchBar.module.css";
 import Treatments from "../../HomePage/Hero/SearchContent/Treatments";
@@ -6,6 +6,8 @@ import Venues from "../../HomePage/Hero/SearchContent/Venues";
 import Locations from "../../HomePage/Hero/SearchContent/Locations";
 import Search_MoboModal from "../../HomePage/Hero/Search_MoboModal/Search_MoboModal";
 import { closeIcon, mapPin, search } from "../../../assets/images/icons";
+import { getAllServices } from '../../../services/Services';
+
 const MainSearchBar = ({ place }) => {
   // Short letter abbreviations used in few classNames
   // trt: Treatment
@@ -17,6 +19,9 @@ const MainSearchBar = ({ place }) => {
   const [Trt_MoboModal, setTrt_MoboModal] = useState(false);
   const [loc_DesktopModal, setloc_DesktopModal] = useState(false);
   const [loc_MoboModal, setloc_MoboModal] = useState(false);
+  const [allServices, setallServices] = useState([]);
+  const [filteredServiceData, setFilteredServiceData] = useState([]);
+  const [error, setError] = useState(null);
   // functions to open/Close desktop search modal
   const handle_openTrt_Modal = () => {
     if (window.innerWidth >= 770) {
@@ -48,6 +53,42 @@ const MainSearchBar = ({ place }) => {
     document.body.style.overflow = "auto";
   };
 
+  useEffect(() => {
+    // Call the getAllServices function when the component mounts
+    async function fetchAllServices() {
+     try {
+       const { res, err } = await getAllServices();
+ 
+       if (res) {
+         // If the request was successful, update the state with the data
+         setallServices(res?.data?.data); // Assuming the response data contains a "data" property
+         setFilteredServiceData(res?.data?.data)
+       } else {
+         // If there was an error, handle it and set the error state
+         setError(err);
+       }
+     } catch (error) {
+       // Handle unexpected errors here
+       setError(error);
+     }
+   }
+ 
+   fetchAllServices();
+ }, [])
+
+ const handleTreatmentsInput = (e) => {
+  const inputValue = e.target.value;
+  setTreatmentInputValue(inputValue);
+
+  // Filter the data based on the input value
+  const filtered = allServices.filter((item) =>
+    item.service_name[0].toLowerCase().includes(inputValue.toLowerCase())
+  );
+
+  setFilteredServiceData(filtered);
+};
+
+console.log("treatmentInputValue",treatmentInputValue);
   return (
     <>
       <div
@@ -64,7 +105,7 @@ const MainSearchBar = ({ place }) => {
             className={styles["treatmentInput"]}
             placeholder="Search treatments or venues"
             value={treatmentInputValue}
-            onChange={(e) => setTreatmentInputValue(e.target.value)}
+            onChange={handleTreatmentsInput}
             onClick={handle_openTrt_Modal}
           />
 
@@ -75,7 +116,7 @@ const MainSearchBar = ({ place }) => {
             }`}
           >
             {/* treatments Content*/}
-            <Treatments />
+            <Treatments allServices={filteredServiceData} setTreatmentInputValue={setTreatmentInputValue} handle_close={handle_closeTrt_Modal}/>
             {/* Venues */}
             <Venues />
           </div>
@@ -136,6 +177,7 @@ const MainSearchBar = ({ place }) => {
           title="Treatment or venue"
           placeholderText="Treatments or venues"
           icon={search}
+          setTreatmentInputValue={setTreatmentInputValue}
         />
       )}
       {loc_MoboModal && (
