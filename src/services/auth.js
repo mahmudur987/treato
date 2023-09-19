@@ -1,4 +1,4 @@
-import axiosInstance, { operation } from './_axios'
+import axiosInstance, { operation } from './axios'
 
 /** Register the user after Verifying the OTP `POST: /api/auth/register/` */
 export const register = async (data) => {

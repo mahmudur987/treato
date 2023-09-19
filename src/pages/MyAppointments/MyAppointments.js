@@ -1,5 +1,5 @@
 import React from "react";
-import "./Nav.css";
+import "./MyAppointmentNav.css";
 import styles from "./MyAppointments.module.css";
 import Upcoming from "../../components/MyAppointments/Upcoming/Upcoming";
 import Cancelled from "../../components/MyAppointments/Cancelled/Cancelled";
@@ -16,6 +16,7 @@ const MyAppointments = () => {
         <nav className={styles.nav}>
           <NavLink to="/my-appointments/upcoming" exact>
             Upcoming
+            <span className={styles.unSeenDot}></span>
           </NavLink>
           <NavLink to="/my-appointments/completed" exact>
             Completed

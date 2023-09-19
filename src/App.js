@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import PageLayout from './layouts/PageLayout/PageLayout';
 import Home from './pages/Home/Home';
@@ -14,20 +14,45 @@ import LoginPage from "./components/AuthPages/LoginPage/LoginPage";
 import VerifyOTP from "./components/AuthPages/VerifyOTP/VarifyOTP";
 import ForgotPassword from "./components/AuthPages/ForgotPassword/ForgotPassword";
 import MyAppointments from "./pages/MyAppointments/MyAppointments";
-
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateUserDetails } from "./redux/slices/user";
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
+  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
 
   // Scroll to the top when the route changes
-  React.useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+  
 
   useEffect(() => {
     const token = sessionStorage.getItem('token')
   }, [])
+ // Function to fetch user's location
+ const fetchLocation = () => {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        dispatch(updateUserDetails({ latitude, longitude }));
+      },
+      (error) => {
+        setError(error.message);
+      }
+    );
+  } else {
+    setError("Geolocation is not available in your browser.");
+  }
+};
 
+useEffect(() => {
+  // Fetch the user's location when the component mounts
+  fetchLocation();
+}, []);
 
   return (
     <PageLayout>

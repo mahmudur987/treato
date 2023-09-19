@@ -5,7 +5,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--White);
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   position: fixed;
@@ -17,7 +16,6 @@
   padding: 1rem 1.25rem;
   transition: all ease-in-out 1s;
   z-index: 100;
-  /* position: fixed; */
 }
 .container {
   display: flex;
@@ -73,14 +71,13 @@
 }
 .buttons button {
   padding: 1rem;
-  margin-left: 15px;
+  margin-left: 0.938rem;
   cursor: pointer;
   font-weight: 600;
   white-space: nowrap;
 }
 
 .partnerButton {
-  border: 1px solid #08080b;
   background: none;
   color: var(--dark-color);
 }
@@ -104,14 +101,13 @@
 .signinButton img {
   height: 24px;
   width: 24px;
-  /* margin-top: 1rem; */
 }
 .menuButton {
   display: none;
 }
 
 .mobileNavDropBox {
-  width: 90%;
+  width: 100%;
   font-family: "Lato", sans-serif;
 }
 
@@ -122,7 +118,7 @@
   display: flex;
   margin: 1rem 0;
   cursor: pointer;
-  padding: 0.5rem 0rem;
+  padding: 0.2rem 0rem;
   justify-content: space-between;
 }
 .mobileNavDropBox ul li:hover {
@@ -170,11 +166,28 @@
   width: 300px;
   right: 5%;
   top: 100%;
-  background: white;
+  background: var(--White);
   border-radius: 4px;
   padding: 1rem;
   z-index: 11;
   box-shadow: 0px 4px 24px 0px #0000001f;
+}
+.unSeenCounter {
+  display: flex;
+  height: 20px;
+  width: 20px;
+  justify-content: center;
+  align-items: center;
+  color: var(--White);
+  background: var(--primary-color);
+  border-radius: 50%;
+  font-size: var(--font-small);
+}
+.whiteBackground {
+  background-color: white;
+}
+.chevronright{
+  margin-right: 0.5rem;
 }
 @media only screen and (max-width: 1024px) {
   .navWrapper {
@@ -183,22 +196,27 @@
   .navigation ul {
     gap: 10px;
   }
-  /* .buttons button{
-    font-size: var(--font-small);
-  } */
 }
 @media only screen and (max-width: 770px) {
+  .buttons {
+    gap: 16px;
+  }
   .buttons button {
     padding: 0.5rem;
+    height: 46px;
+    margin-left: 0;
   }
   .navigation li {
     font-size: var(--font-small);
   }
 }
 @media only screen and (max-width: 600px) {
-  .partnerButton,
-  .signupButton {
-    display: none;
+  .buttons {
+    .partnerButton,
+    .signupButton,
+    .signout {
+      display: none;
+    }
   }
   .navigation ul li {
     display: none;
@@ -226,19 +244,17 @@
   .menuButton img {
     height: 100%;
     width: 100%;
-    /* object-fit: contain; */
   }
   .header {
     flex-direction: column;
     padding: 0.5rem 0rem;
   }
   .menuopen {
-    position: relative;
+    position: fixed;
     transition: all ease-in-out 1s;
   }
   .container {
     width: 100%;
-    /* justify-content: center; */
   }
   .signinButton {
     display: none;

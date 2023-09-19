@@ -4,8 +4,19 @@
   padding-top: 3rem;
   grid-gap: 10px;
   gap: 60px;
+  row-gap: 0px;
 }
-.section-left {
+.blogWrapper {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 10px;
+  gap: 60px;
+  grid-column: span 12;
+}
+.sectionLeft {
+  grid-column: span 8;
+}
+.titleWrapper {
   grid-column: span 8;
 }
 .section-right {
@@ -164,16 +175,46 @@
 .blog-section-container {
   grid-column: span 12;
 }
-.blog-section-container .header{
+.blog-section-container .header {
   margin-bottom: 36px;
 }
-.blog-section-container{
+.blog-section-container {
   padding-bottom: 50px;
+}
+.relatedTreatment {
+  margin-top: 4rem;
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+}
+.relatedTitle {
+  font-family: "Poppins";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 180%; /* 57.6px */
+}
+.relatedTags {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 16px;
+}
+.relatedTags a {
+  color: var(--primary-color);
+  font-family: "Lato";
+  font-size: var(--font-medium);
+  padding: 0.625rem 1.25rem;
+  border-radius: 4px;
+  background: rgba(13, 105, 215, 0.05);
 }
 @media only screen and (max-width: 1000px) {
   .wrapper {
     display: block;
     padding-top: 10px;
+  }
+  .blogWrapper {
+    display: block;
   }
   .header {
     flex-direction: column;
@@ -193,5 +234,14 @@
   .line {
     margin-top: 24px;
     margin-bottom: 24px;
+  }
+  .relatedTreatment{
+    margin: 3.5rem 0;
+  }
+  .relatedTitle{
+    font-size: 20px;
+  }
+  .relatedTags{
+    gap:8px;
   }
 }

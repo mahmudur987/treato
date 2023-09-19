@@ -4,7 +4,9 @@ const initialState = {
    isLoggedIn: false,
    user: {
       role: 'ADMIN',
-      firstName: ''
+      firstName: '',
+      latitude: null,
+      longitude: null,
    }
 };
 
@@ -16,7 +18,7 @@ const user = createSlice({
          state.isLoggedIn = payload;
       },
       updateUserDetails: (state, { payload }) => {
-         state.user = payload
+         state.user = { ...state.user, ...payload };
       },
    },
 });
