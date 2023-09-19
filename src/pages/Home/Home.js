@@ -8,17 +8,27 @@ import PartnerBanner from "../../components/HomePage/PartnerBanner/PartnerBanner
 import Testimonials from "../../components/HomePage/Testimonials/Testimonials";
 import Contactus from "../../components/HomePage/Contactus/Contactus";
 import LatestBlog from "../../components/HomePage/LatestBlog/LatestBlog";
+import { HomePage } from "../../services/HomePage";
+import { useState,useEffect } from "react";
 
 export default function Home(props) {
+  let [homeData,setHomeData] = useState([])
+  useEffect(() => {
+    let getHomeData = async () => {
+      const { res, err } = await HomePage()
+      setHomeData(res.data.homepageCMS[0])
+    }
+    getHomeData();
+  }, [])
   return (
     <div className={styles["container"]}>
-      <HeroSection />
-      <RecommendedSection />
+      <HeroSection mainData={homeData.main_heading}/>
+      <RecommendedSection mainData={homeData.recommended_section}/>
       <TopSalons heading={"Top-rated Hair Salons"} />
       <LatestBlog />
-      <AppDownloadInfo />
+      <AppDownloadInfo mainData={homeData.downloadApp_section}/>
       <TopSalons heading={"Popular near you"} />
-      <PartnerBanner />
+      <PartnerBanner mainData={homeData.partner_section}/>
       <Testimonials />
       <Contactus />
     </div>

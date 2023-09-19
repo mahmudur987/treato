@@ -14,7 +14,7 @@ import {
 } from "../../../assets/images/recommendImages";
 import { getAllServices } from "../../../services/Services";
 
-export default function RecommendedSection() {
+export default function RecommendedSection({mainData}) {
   const [allServices, setallServices] = useState([]);
   const [error, setError] = useState(null);
   const rmdBoxRef = useRef(null);

@@ -1,16 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./styles.module.css";
-import scrollRight from "../../../assets/images/recommendImages/scrollRight.png";
-import scrollRightBW from "../../../assets/images/recommendImages/scrollRightBW.png";
-import star_line from "../../../assets/images/recommendImages/star_line.png";
-import Picture from "../../../assets/images/recommendImages/Picture.png";
-import Picture1 from "../../../assets/images/recommendImages/Picture1.png";
-import Picture2 from "../../../assets/images/recommendImages/Picture2.png";
 import Salon from "../../Cards/Salon/Salon";
-import { salonContent } from "../../../pages/Salons/SalonsContent";
 import { scrollright } from "../../../assets/images/icons";
+import { salon } from "../../../services/salon";
 
 const TopSalons = (props) => {
+  let [topSalonData, setTopSalonData] = useState([])
+  useEffect(() => {
+    let topSalonDataFunc = async () => {
+      const { res, err } = await salon()
+      setTopSalonData(res.data.salons)
+    }
+    topSalonDataFunc();
+  }, [])
   const trSalonBoxRef = useRef(null);
 
   const handle_trScrollRight = () => {
@@ -28,7 +30,7 @@ const TopSalons = (props) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
 
-  const isRmdContentOverflowing = salonContent.length > 4;
+  const isRmdContentOverflowing = topSalonData.length > 4;
 
   // Check screen width and services length to hide right arrow
   const screenWidth = window.innerWidth;
@@ -41,7 +43,7 @@ const TopSalons = (props) => {
     setShowLeftArrow(scrollLeft > 0);
     setShowRightArrow(
       scrollLeft <
-        carouselRef.current.scrollWidth - carouselRef.current.clientWidth
+      carouselRef.current.scrollWidth - carouselRef.current.clientWidth
     );
   };
 
@@ -62,8 +64,6 @@ const TopSalons = (props) => {
 
 
 
-
-
   return (
     <section className={styles["container"]}>
       <div className={styles["top-ratedSalons"]}>
@@ -71,16 +71,21 @@ const TopSalons = (props) => {
           <h3 className={styles["trHeading"]}>{props.heading}</h3>
         </div>
 
-        <div  >
-        {showLeftArrow && (
-            <img src={scrollright} onClick={scrollLeft} alt="scrollleft" className={styles.scroll_left}/>
+        <div>
+          {showLeftArrow && (
+            <img src={scrollright} onClick={scrollLeft} alt="scrollleft" className={styles.scroll_left} />
           )}
           <div ref={carouselRef} className={styles["trWrapper"]}>
-          {salonContent.map((salon, index) => (
-            <Salon salonData={salon} place={"homePage"} />
-          ))}
+            {
+              topSalonData.length ?
+                topSalonData.map((salon, index) => (
+                  <Salon salonData={salon} place={"homePage"} key={index} />
+                ))
+                :
+                ''
+            }
           </div>
-        {showRightArrow && (
+          {showRightArrow && (
             <img src={scrollright} onClick={scrollRight} alt="scrollRight" className={styles.scroll_right} />
           )}
         </div>
