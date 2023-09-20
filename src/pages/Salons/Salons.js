@@ -1,4 +1,4 @@
-import React, { useState, useCallback,useMemo  } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import styles from "./Salons.module.css";
 import Salon from "../../components/Cards/Salon/Salon";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,27 +13,78 @@ import {
 } from "../../assets/images/SalonsPageImages";
 import Pagination from "../../components/pagination/Pagination";
 import { salonContent } from "./SalonsContent.js";
-import { resetSalonContent } from "../../redux/slices/salons";
-const Salons =React.memo(() => { 
+import {
+  fetchSalonsData,
+  resetSalonContent,
+  updateFilterContent,
+} from "../../redux/slices/salons";
+import { useLocation } from "react-router-dom";
+import { salon } from "../../services/salon";
+import { useEffect } from "react";
+const Salons = React.memo(() => {
   const salonsState = useSelector((state) => state.salons);
-  // console.log(salonsState);
-  const dispatch = useDispatch();
+  const salonModal = useSelector((state) => state.salonModal);
 
-  const handleOpenModal = useCallback((modalContent) => {
-    window.scrollTo(0, 0);
-    document.body.style.overflow = "hidden";
-    dispatch(openModal(modalContent));
-    setCurrentPage(1);
-  }, [dispatch]);
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  // Get the 'services' and 'location' query parameters
+  const servicesParam = searchParams.get("services");
+  const locationParam = searchParams.get("location");
+
+  // Filter salonContent based on the condition
+  let filteredSalonContent;
+
+  useEffect(() => {
+    // Check if salonsState.salonContent is empty or undefined
+    if (!salonsState.salonContent || salonsState.salonContent.length === 0) {
+      // If it's empty, fetch the salons data
+      dispatch(fetchSalonsData()).then(() => {
+        // After fetching data, calculate filteredSalonContent
+        filteredSalonContent = calculateFilteredSalonContent();
+        console.log("filteredSalonContent", filteredSalonContent);
+        // Dispatch the 'updateFilterContent' action with the filtered salon data
+        dispatch(updateFilterContent(filteredSalonContent));
+      });
+    } else {
+      // If salonsState.salonContent is not empty, calculate filteredSalonContent directly
+      filteredSalonContent = calculateFilteredSalonContent();
+      console.log("filteredSalonContent", filteredSalonContent);
+      // Dispatch the 'updateFilterContent' action with the filtered salon data
+      dispatch(updateFilterContent(filteredSalonContent));
+    }
+  }, [dispatch, locationParam, salonsState.salonContent, servicesParam]);
+  
+  function calculateFilteredSalonContent() {
+    return salonsState.salonContent.filter((salonItem) => {
+      const matchesServices = !servicesParam || salonItem.services[0].service_name === servicesParam;
+      const matchesLocation = !locationParam || salonItem.locationText === locationParam;
+  
+      return matchesServices && matchesLocation;
+    });
+  }
+  
+
+  const handleOpenModal = useCallback(
+    (modalContent) => {
+      window.scrollTo(0, 0);
+      document.body.style.overflow = "hidden";
+      dispatch(openModal(modalContent));
+      setCurrentPage(1);
+    },
+    [dispatch]
+  );
 
   const ITEMS_PER_PAGE = 6;
   const [currentPage, setCurrentPage] = useState(1);
-  const items = useMemo(() => {  // Use useMemo to memoize items
+  const items = useMemo(() => {
+    // Use useMemo to memoize items
     return Array.from(
       { length: salonsState.filterContent.length },
       (_, index) => `Item ${index + 1}`
     );
-  }, [salonsState.filterContent.length]); 
+  }, [salonsState.filterContent.length]);
 
   const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -59,14 +110,20 @@ const Salons =React.memo(() => {
 
         <button
           className={styles.filter}
-          onClick={()=>handleOpenModal("sortBy")}
+          onClick={() => handleOpenModal("sortBy")}
         >
           Sort <img src={chevronDown} alt="chevronDown" />
         </button>
-        <button className={styles.filter}   onClick={()=>handleOpenModal("price")}>
+        <button
+          className={styles.filter}
+          onClick={() => handleOpenModal("price")}
+        >
           Price <img src={chevronDown} alt="chevronDown" />
         </button>
-        <button className={styles.filter}  onClick={()=>handleOpenModal("venue")}>
+        <button
+          className={styles.filter}
+          onClick={() => handleOpenModal("venue")}
+        >
           Venue Type <img src={chevronDown} alt="chevronDown" />
         </button>
       </div>
@@ -80,7 +137,7 @@ const Salons =React.memo(() => {
         </h4>
         <button
           className={styles.filterDesk}
-          onClick={()=>handleOpenModal("all")}
+          onClick={() => handleOpenModal("all")}
         >
           <img
             src={filterDeskIcon}
@@ -92,10 +149,13 @@ const Salons =React.memo(() => {
       </div>
 
       <div className={styles.salonsWrapper}>
-        {visibleItems.map((item, index) => (
-          //   <Salon key={index} salonData={filterContent[index]} />
-          <Salon key={index} salonData={salonsState.filterContent[index]} />
-        ))}
+        {salonsState.filterContent.length === 0 ? (
+          <div className={styles.notFound}>We didn't find a match</div>
+        ) : (
+          visibleItems?.map((item, index) => (
+            <Salon key={index} salonData={salonsState.filterContent[index]} />
+          ))
+        )}
       </div>
 
       <Pagination

@@ -17,6 +17,7 @@ import MyAppointments from "./pages/MyAppointments/MyAppointments";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateUserDetails } from "./redux/slices/user";
+import { fetchSalonsData } from "./redux/slices/salons";
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
@@ -31,6 +32,7 @@ function App() {
 
   useEffect(() => {
     const token = sessionStorage.getItem('token')
+    dispatch(fetchSalonsData());
   }, [])
  // Function to fetch user's location
  const fetchLocation = () => {
