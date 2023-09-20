@@ -84,7 +84,7 @@ export default function Navbar() {
               {!isMainSearchBar && (
                 <>
                   <li>
-                    <Link to="/blogs/1">Blog</Link>
+                    <Link to="/blogs">Blog</Link>
                   </li>
                   <li>
                     <Link to="#">Lookbook</Link>
@@ -154,7 +154,7 @@ export default function Navbar() {
                 </div>
 
                 <li>
-                  <a href="/my-appointments/upcoming">
+                  <a href="#">
                     <div className={styles.listtext}>
                       <img src={history} alt="history" />
                       My Appointments
@@ -183,7 +183,7 @@ export default function Navbar() {
 
             {!isLoggedIn && (
               <li>
-                <a href="/create-account">
+                <a href="#">
                   <div className={styles.listtext}>
                     <img src={signin} alt="signin" />
                     Sign up / Sign-in
@@ -197,7 +197,7 @@ export default function Navbar() {
             {!isDesktopMenuOpen && (
               <>
                 <li>
-                  <a href="/blogs/1">
+                  <Link to={"/blogs"} onClick={()=>setIsMobileMenuOpen(false)}>
                     <div className={styles.listtext}>
                       <img src={notetext} alt="notetext" />
                       Blog
@@ -205,7 +205,7 @@ export default function Navbar() {
                     <div className={styles.chevronright}>
                       <img src={chevronright} alt="chevronright" />
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <div className={styles.listtext}>
@@ -226,7 +226,7 @@ export default function Navbar() {
                   </div>
                 </li>
                 <li>
-                  <a href="/">
+                  <a href="#">
                     <div className={styles.listtext}>
                       <img src={download} alt="download" />
                       Download app
@@ -252,7 +252,7 @@ export default function Navbar() {
 
             {isLoggedIn && (
               <li>
-                <a href="/login">
+                <a href="#">
                   <div className={`${styles.listtext} ${styles.signout}`}>
                     <img src={signout} alt="signout" />
                     signout
