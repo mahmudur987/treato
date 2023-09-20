@@ -24,7 +24,9 @@ function App() {
   const dispatch = useDispatch();
 
   // Scroll to the top when the route changes
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
   
 
   useEffect(() => {
@@ -51,10 +53,6 @@ useEffect(() => {
   // Fetch the user's location when the component mounts
   fetchLocation();
 }, []);
-
-useEffect(() => {
-  window.scrollTo(0, 0);
-}, [location.pathname]);
 
   return (
     <PageLayout>
