@@ -14,13 +14,13 @@ import {
 import Pagination from "../../components/pagination/Pagination";
 import { salonContent } from "./SalonsContent.js";
 import {
-  fetchSalonsData,
   resetSalonContent,
   updateFilterContent,
 } from "../../redux/slices/salons";
 import { useLocation } from "react-router-dom";
 import { salon } from "../../services/salon";
 import { useEffect } from "react";
+import { fetchSalonsData } from "../../utils/utils";
 const Salons = React.memo(() => {
   const salonsState = useSelector((state) => state.salons);
   const salonModal = useSelector((state) => state.salonModal);

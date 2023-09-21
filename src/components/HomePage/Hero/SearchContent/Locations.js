@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../hero.module.css";
 import { mapPinBlue } from "../../../../assets/images/icons";
 
-const Locations = ({ allSalanList, setLocationInputValue, handle_close }) => {
+const Locations = ({ allSalonList, setLocationInputValue, handle_close }) => {
   const setinput = (salonLocation) => {
     handle_close();
     setLocationInputValue(salonLocation);
@@ -15,11 +15,11 @@ const Locations = ({ allSalanList, setLocationInputValue, handle_close }) => {
       </div>
 
       <div className={styles["locResults"]}>
-        {allSalanList?.length == 0 ? (
+        {allSalonList?.length == 0 ? (
           <div className={styles.notFound}>We didn't find a match</div>
         ) : (
           <>
-            {allSalanList.map((salon, index) => (
+            {allSalonList.map((salon, index) => (
               <div
                 key={index}
                 className={styles["locResultItem"]}

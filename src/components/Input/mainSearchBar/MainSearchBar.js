@@ -22,7 +22,7 @@ const MainSearchBar = ({ place }) => {
   const [loc_DesktopModal, setloc_DesktopModal] = useState(false);
   const [loc_MoboModal, setloc_MoboModal] = useState(false);
   const [allServices, setallServices] = useState([]);
-  const [allSalanList, setallSalanList] = useState([]);
+  const [allSalonList, setallSalonList] = useState([]);
   const [filteredServiceData, setFilteredServiceData] = useState([]);
   const [filteredSalonData, setFilteredSalonData] = useState([]);
   const navigate = useNavigate(); 
@@ -87,7 +87,7 @@ const MainSearchBar = ({ place }) => {
         const result = await salon();
         const { data } = result.res; // Destructure 'data' from 'result.res'
         const { salons } = data; // Destructure 'salons' from 'data'
-        setallSalanList(salons);
+        setallSalonList(salons);
         setFilteredSalonData(salons);
       } catch (error) {
         // Handle any errors here
@@ -117,7 +117,7 @@ const MainSearchBar = ({ place }) => {
     const uniqueLocations = new Set();
   
     // Filter the data and add unique locationText values to the Set
-    const filtered = allSalanList.filter((item) => {
+    const filtered = allSalonList.filter((item) => {
       const locationText = item.locationText.toLowerCase();
       if (!uniqueLocations.has(locationText) && locationText.includes(inputValue.toLowerCase())) {
         uniqueLocations.add(locationText);
@@ -223,7 +223,7 @@ const handleSearch=()=>{
           >
             <Locations
               setLocationInputValue={setLocationInputValue}
-              allSalanList={filteredSalonData}
+              allSalonList={filteredSalonData}
               handle_close={handle_closeloc_Modal}
             />
           </div>
