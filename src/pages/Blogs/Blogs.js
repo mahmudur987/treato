@@ -11,34 +11,39 @@ import BackButton from "../../components/Buttons/BackButton/BackButton";
 export default function Blogs(props) {
 
    let [blogData, setBlogData] = useState([]);
+   let [firstBlogData,setFirstBlogData] = useState('')
 
    useEffect(() => {
       let getBlogs = async () => {
          const { res, err } = await AllBlogs()
-         setBlogData(res.data.blogs)
+         if(err === null){
+            setBlogData(res.data.blogs)
+            setFirstBlogData(res.data.blogs[0])
+         }
       }
       getBlogs();
    }, [])
+
    return (
       <div className={styles["AllBlogsPage"]}>
          <BackButton/>
          <div className={styles["blog-section-container"]}>
             <Title className={styles["BlogsBigTitle"]}>Latest on Treato Blog</Title>
             <div className={styles["Allblogs-container"]}>
-               <Link to={blogData.length ? `/blogs/${blogData[0]._id}`:''} className={`${styles["AllBlogsPageA"]} ${styles["blogMainPc"]}`}>
+               <Link to={firstBlogData ? `/blogs/${firstBlogData._id}`:''} className={`${styles["AllBlogsPageA"]} ${styles["blogMainPc"]}`}>
                   <div className={styles["AllBlogsPageAA"]}>
-                     <img src={blogData.length ? blogData[0].blog_Img.public_url:''} alt="" />
+                     <img src={firstBlogData ? firstBlogData.blog_Img.public_url:''} alt="" />
                   </div>
-                  <div className={styles["AllBlogsPageAB"]}>{blogData.length ? blogData[0].blog_title:''}</div>
+                  <div className={styles["AllBlogsPageAB"]}>{firstBlogData ? firstBlogData.blog_title:''}</div>
                   <div className={styles["AllBlogsPageAC"]}>
-                     <img src={blogData.length ? blogData[0].blog_Img.public_url:''} alt="" />
-                     <div>{blogData.length ? blogData[0].blog_title:''}</div>
+                     <img src={firstBlogData ? firstBlogData.blog_Img.public_url:''} alt="" />
+                     <div>{firstBlogData ? firstBlogData.blog_title:''}</div>
                      <img src={ellipse} alt="" />
                      <div>July 12, 2023</div>
                   </div>
                </Link>
                <div className={`${styles["AllBlogsPageA"]} ${styles["blogMainMob"]}`}>
-                  {blogData.length ? <BlogCard blog={blogData[0]} blogPage={true}/> : ''}
+                  {firstBlogData ? <BlogCard blog={firstBlogData} blogPage={true}/> : ''}
                </div>
                <div className={styles["AllBlogsPageB"]}>
                   {

@@ -13,8 +13,9 @@ import BlogCard from "../../components/Cards/Blog/BlogCard";
 import Carousel from "react-multi-carousel";
 import { AllBlogs } from "../../services/blog";
 import { getAllServices } from "../../services/Services";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
+import PopularBlogCard from "../../components/Cards/PopularBlogCard/PopularBlogCard";
 
 export default function BlogDetail(props) {
   const responsive = {
@@ -45,8 +46,7 @@ export default function BlogDetail(props) {
     duration: "6-min read",
   };
 
-  let urlLoc = useLocation()
-  let blogId = urlLoc.pathname.split('/').pop()
+  let blogId = useParams();
 
   let date = getFormattedDate(detail.created_at);
   let [blogData, setBlogData] = useState([]);
@@ -58,7 +58,7 @@ export default function BlogDetail(props) {
     let getBlogs = async () => {
       const { res, err } = await AllBlogs()
       setBlogData(res.data.blogs)
-      let mainBlog = res.data.blogs.filter((v)=>v._id===blogId)
+      let mainBlog = res.data.blogs.filter((v)=>v._id===blogId.id)
       setMainBlogData(mainBlog)
     }
     let getServices = async () => {
@@ -153,20 +153,7 @@ export default function BlogDetail(props) {
                 blogData.map((v,i)=>{
                   if(i<=5){
                     return (
-                      <div className={styles["popular-blog"]} key={i}>
-                        <Link to={`/blogs/${v._id}`}><header> {v.blog_title} </header></Link>
-                        <div className={styles["popular-blog-content"]}>
-                          <p className={styles["popular-blog-author"]}>
-                            {" "}
-                            {v.writer_name}{" "}
-                          </p>
-                          <img src={Timer} alt="timer" />
-                          <p className={styles["popular-blog-duration"]}>
-                            {" "}
-                            {'9 min read'}{" "}
-                          </p>
-                        </div>
-                      </div>
+                      <PopularBlogCard blog={v}/>
                     )
                   }
                 })
