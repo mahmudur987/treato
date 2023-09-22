@@ -20,7 +20,7 @@ const SalonFilterOptions = ({
   dispatch,
   resetFilters
 }) => {
-  const modal = useSelector((state) => state.modal);
+  const modal = useSelector((state) => state.salonModal);
 
   return (
     <div className={styles.filterOptions}>

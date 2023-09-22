@@ -8,7 +8,7 @@ import modalReducer from "./slices/modal";
 export const store = configureStore({
    reducer: {
       user: userReducer,
-      modal: filterModalReducer,
+      salonModal: filterModalReducer,
       salons: salonsReducer,
       authChoice:authChoice,
       modal: modalReducer
