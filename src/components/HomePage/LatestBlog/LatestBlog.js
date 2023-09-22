@@ -46,7 +46,7 @@ const LatestBlog = () => {
     <div className={styles["container"]}>
       <div className={styles["header"]}>
         <h3 className={styles["headerText"]}> latest from our blog</h3>
-        <Link to="#" className={styles["headerViewAll"]}>
+        <Link to="/blogs" className={styles["headerViewAll"]}>
           View all <img src={chevronLeft} />
         </Link>
       </div>

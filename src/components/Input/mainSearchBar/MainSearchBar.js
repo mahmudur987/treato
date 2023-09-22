@@ -135,6 +135,7 @@ const handleSearch=()=>{
  navigate(`/salons?services=${treatmentInputValue}&location=${locationInputValue}`);
 }
 
+
   return (
     <>
       <div

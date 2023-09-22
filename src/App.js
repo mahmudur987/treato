@@ -74,7 +74,6 @@ useEffect(() => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
-        <Route path="/blogs/:id" element={<BlogDetail />} />
         <Route path="/my-appointments/*" element={<MyAppointments />} />
 
       </Routes>
