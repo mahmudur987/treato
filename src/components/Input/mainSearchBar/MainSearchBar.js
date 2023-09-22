@@ -87,8 +87,6 @@ const MainSearchBar = ({ place }) => {
 
   setFilteredServiceData(filtered);
 };
-
-console.log("treatmentInputValue",treatmentInputValue);
   return (
     <>
       <div
