@@ -130,14 +130,30 @@
   .container {
     padding: 2rem 1rem;
   }
+  .top-ratedSalons{
+    margin-top: 0rem;
+  }
   .rmdHeading {
     font-size: var(--fonts-large);
+  }
+  .trHeading{
+    font-size: 18px;
+    font-weight: 600;
+    font-family: "Lato", sans-serif;
+  }
+  .trWrapper{
+    margin-top: 1rem;
   }
   .rmdWrapper {
     margin-top: 1.5rem;
     height: 184px;
     flex-wrap: wrap;
     height: 240px;
+  }
+  .mobScrollRight{
+    padding: 4px;
+    height: 24px;
+    width: 24px;
   }
   .rmdBox {
     height: 100%;
@@ -171,5 +187,14 @@
     display: block;
     height: 24px;
     width: 24px;
+  }
+  .trMobHeading{
+    font-size: 24px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 }

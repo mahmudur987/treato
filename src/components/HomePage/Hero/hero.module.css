@@ -239,6 +239,7 @@
 }
 @media only screen and (max-width: 770px) {
   .container{
+    height: 64vh;
     padding: 5rem 1rem;
     justify-content: flex-start;
   }

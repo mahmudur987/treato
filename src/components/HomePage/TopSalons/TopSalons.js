@@ -3,9 +3,11 @@ import styles from "./styles.module.css";
 import Salon from "../../Cards/Salon/Salon";
 import { scrollright } from "../../../assets/images/icons";
 import { salon } from "../../../services/salon";
+import Title from "../../Typography/Title/Title";
 
 const TopSalons = (props) => {
   let [topSalonData, setTopSalonData] = useState([])
+  let winWidth = window.innerWidth
   useEffect(() => {
     let topSalonDataFunc = async () => {
       const { res, err } = await salon()
@@ -61,18 +63,20 @@ const TopSalons = (props) => {
       carouselRef?.current?.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  let winWidth = window.innerWidth
+  console.log(props.fromPopular)
 
   return (
     <section className={styles["container"]}>
       <div className={styles["top-ratedSalons"]}>
         <div className={styles["trHeadWrapper"]}>
-          <h3 className={styles["trHeading"]}>{props.heading}</h3>
           {
             winWidth<768?
-            <img src={scrollright} />
+            <div className={styles["trMobHeading"]}>
+            <h3>{props.heading}</h3>
+            <img src={scrollright} className={styles.mobScrollRight}/>
+            </div>
             :
-            ''
+            <h3 className={styles["trHeading"]}>{props.heading}</h3>
           }
         </div>
 

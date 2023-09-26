@@ -27,7 +27,7 @@ export default function Home(props) {
       <TopSalons heading={"Top-rated Hair Salons"} />
       <LatestBlog />
       <AppDownloadInfo mainData={homeData.downloadApp_section}/>
-      <TopSalons heading={"Popular near you"} />
+      <TopSalons heading={"Popular near you"} fromPopular={true}/>
       <PartnerBanner mainData={homeData.partner_section}/>
       <Testimonials />
       <Contactus />

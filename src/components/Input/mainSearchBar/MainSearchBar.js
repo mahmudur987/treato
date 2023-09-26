@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../HomePage/Hero/hero.module.css";
 import navstyles from "./MainSearchBar.module.css";
 import Treatments from "../../HomePage/Hero/SearchContent/Treatments";
@@ -22,6 +22,7 @@ const MainSearchBar = ({ place }) => {
   const [allServices, setallServices] = useState([]);
   const [filteredServiceData, setFilteredServiceData] = useState([]);
   const [error, setError] = useState(null);
+  let winWidth = window.innerWidth;
   // functions to open/Close desktop search modal
   const handle_openTrt_Modal = () => {
     if (window.innerWidth >= 770) {
@@ -56,44 +57,42 @@ const MainSearchBar = ({ place }) => {
   useEffect(() => {
     // Call the getAllServices function when the component mounts
     async function fetchAllServices() {
-     try {
-       const { res, err } = await getAllServices();
- 
-       if (res) {
-         // If the request was successful, update the state with the data
-         setallServices(res?.data?.data); // Assuming the response data contains a "data" property
-         setFilteredServiceData(res?.data?.data)
-       } else {
-         // If there was an error, handle it and set the error state
-         setError(err);
-       }
-     } catch (error) {
-       // Handle unexpected errors here
-       setError(error);
-     }
-   }
- 
-   fetchAllServices();
- }, [])
+      try {
+        const { res, err } = await getAllServices();
 
- const handleTreatmentsInput = (e) => {
-  const inputValue = e.target.value;
-  setTreatmentInputValue(inputValue);
+        if (res) {
+          // If the request was successful, update the state with the data
+          setallServices(res?.data?.data); // Assuming the response data contains a "data" property
+          setFilteredServiceData(res?.data?.data)
+        } else {
+          // If there was an error, handle it and set the error state
+          setError(err);
+        }
+      } catch (error) {
+        // Handle unexpected errors here
+        setError(error);
+      }
+    }
 
-  // Filter the data based on the input value
-  const filtered = allServices.filter((item) =>
-    item.service_name[0].toLowerCase().includes(inputValue.toLowerCase())
-  );
+    fetchAllServices();
+  }, [])
 
-  setFilteredServiceData(filtered);
-};
-let winWidth = window.innerWidth;
+  const handleTreatmentsInput = (e) => {
+    const inputValue = e.target.value;
+    setTreatmentInputValue(inputValue);
+
+    // Filter the data based on the input value
+    const filtered = allServices.filter((item) =>
+      item.service_name[0].toLowerCase().includes(inputValue.toLowerCase())
+    );
+
+    setFilteredServiceData(filtered);
+  };
   return (
     <>
       <div
-        className={`${styles.inputWrapper} ${
-          place === "navbar" ? navstyles.navbarInputWrapper : ""
-        }`}
+        className={`${styles.inputWrapper} ${place === "navbar" ? navstyles.navbarInputWrapper : ""
+          }`}
       >
         {/* search Treatments */}
         <div className={styles["searchTreatment"]}>
@@ -102,7 +101,7 @@ let winWidth = window.innerWidth;
           </div>
           <input
             className={styles["treatmentInput"]}
-            placeholder={winWidth>767?"Search treatments or venues":"Treatments or venues"}
+            placeholder={winWidth > 767 ? "Search treatments or venues" : "Treatments or venues"}
             value={treatmentInputValue}
             onChange={handleTreatmentsInput}
             onClick={handle_openTrt_Modal}
@@ -110,21 +109,19 @@ let winWidth = window.innerWidth;
 
           {/* Treatment search Desktop box/Modal*/}
           <div
-            className={`${styles["treatmentsResults"]} ${
-              Trt_DesktopModal ? "" : styles["hidden"]
-            }`}
+            className={`${styles["treatmentsResults"]} ${Trt_DesktopModal ? "" : styles["hidden"]
+              }`}
           >
             {/* treatments Content*/}
-            <Treatments allServices={filteredServiceData} setTreatmentInputValue={setTreatmentInputValue} handle_close={handle_closeTrt_Modal}/>
+            <Treatments allServices={filteredServiceData} setTreatmentInputValue={setTreatmentInputValue} handle_close={handle_closeTrt_Modal} />
             {/* Venues */}
             <Venues />
           </div>
 
           <img
             src={closeIcon}
-            className={`${styles["close_trtBox"]} ${
-              Trt_DesktopModal ? "" : styles["hidden"]
-            }`}
+            className={`${styles["close_trtBox"]} ${Trt_DesktopModal ? "" : styles["hidden"]
+              }`}
             onClick={handle_closeTrt_Modal}
             alt="closeIcon"
           />
@@ -139,27 +136,25 @@ let winWidth = window.innerWidth;
           </div>
           <input
             className={styles["locationInput"]}
-            placeholder={winWidth>767?"Search by location":"Current location"}
+            placeholder={winWidth > 767 ? "Search by location" : "Current location"}
             onClick={handle_openloc_Modal}
             value={locationInputValue}
             onChange={(e) => setLocationInputValue(e.target.value)}
           />
           <img
-            className={`${styles["close_trtBox"]} ${
-              loc_DesktopModal ? "" : styles["hidden"]
-            }`}
+            className={`${styles["close_trtBox"]} ${loc_DesktopModal ? "" : styles["hidden"]
+              }`}
             onClick={handle_closeloc_Modal}
             src={closeIcon}
             alt="closeIcon"
           />
 
-<button className={`${styles["goSearch"]} ${locationInputValue !== "" || treatmentInputValue !== "" ? navstyles["blueButton"] : ""}`}>Go</button>
+          <button className={`${styles["goSearch"]} ${locationInputValue !== "" || treatmentInputValue !== "" ? navstyles["blueButton"] : ""}`}>Go</button>
 
           {/*  location Desktop box/Modal */}
           <div
-            className={`${styles["locationResults"]} ${
-              loc_DesktopModal ? "" : styles["hidden"]
-            }`}
+            className={`${styles["locationResults"]} ${loc_DesktopModal ? "" : styles["hidden"]
+              }`}
           >
             <Locations />
           </div>
