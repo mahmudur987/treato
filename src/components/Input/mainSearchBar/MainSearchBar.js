@@ -136,6 +136,11 @@ const handleSearch=()=>{
 }
 
 
+
+  setFilteredServiceData(filtered);
+};
+let winWidth = window.innerWidth;
+
   return (
     <>
       <div
@@ -150,7 +155,7 @@ const handleSearch=()=>{
           </div>
           <input
             className={styles["treatmentInput"]}
-            placeholder="Search treatments or venues"
+            placeholder={winWidth>767?"Search treatments or venues":"Treatments or venues"}
             value={treatmentInputValue}
             onChange={handleTreatmentsInput}
             onClick={handle_openTrt_Modal}
@@ -191,7 +196,7 @@ const handleSearch=()=>{
           </div>
           <input
             className={styles["locationInput"]}
-            placeholder="Search by location"
+            placeholder={winWidth>767?"Search by location":"Current location"}
             onClick={handle_openloc_Modal}
             value={locationInputValue}
             onChange={handleLocationInput}

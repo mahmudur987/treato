@@ -152,4 +152,7 @@ a {
   .social {
     padding: 1.5rem 0;
   }
+  .downloads{
+    flex-direction: row;
+  }
 }

@@ -27,7 +27,6 @@
   margin-top: 2rem;
   display: flex;
   gap: 12px;
-  /* height: 324px; */
 }
 .Testis::-webkit-scrollbar {
   display: none;
@@ -38,7 +37,7 @@
   height: 300px;
   padding: 36px 16px 36px 16px;
   border-radius: 4px;
-  background: var(--light-color);
+  background: #EAEFF2;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
@@ -49,8 +48,9 @@
   height: 16px;
 }
 .TestisItem > p {
-  min-height: 118px;
   font-size: var(--font-medium);
+  line-height: 24px;
+  font-weight: 400;
 }
 .stars {
   display: flex;

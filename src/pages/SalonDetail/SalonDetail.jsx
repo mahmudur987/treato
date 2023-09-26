@@ -1,6 +1,7 @@
 import styles from './SalonDetail.module.css'
 import star from "../../assets/images/SalonDetail/star_line.svg"
 import ellipse from "../../assets/images/SalonDetail/Ellipse.svg"
+import slide1 from "../../assets/images/SalonDetail/slide1.png"
 import slide2 from "../../assets/images/SalonDetail/slide2.png"
 import slide3 from "../../assets/images/SalonDetail/slide3.png"
 import slide4 from "../../assets/images/SalonDetail/slide4.png"
@@ -10,10 +11,15 @@ import SalonCard from '../../components/SalonDetail/SalonCard/SalonCard'
 import BackButton from '../../components/Buttons/BackButton/BackButton'
 import BookNow from '../../components/SalonDetail/BookNow/BookNow'
 import SalonSlickSLider from './SalonSlickSlider'
+import SalonGallery from '../../components/SalonDetail/SalonGallery/SalonGallery'
+import { useState } from 'react'
 
 export default function SalonDetail() {
+    const gallery = [slide1,slide2,slide3,slide4,slide5,slide1,slide2,slide3,slide4,slide5,slide1,slide2,slide3,slide4,slide5,slide1,slide2,slide3,slide4,slide5];
+    let [showGallery,setShowGallery] = useState(false)
+
     return (
-        <div className={styles.salon_page}>
+        <div className={showGallery?`${styles.salon_page} ${styles.overHidden}`:styles.salon_page}>
             <BackButton />
             <div className={styles.salon_pcView}>
                 <div className={styles.salon_name}>
@@ -28,13 +34,19 @@ export default function SalonDetail() {
             </div>
             <div className={styles.salon_images}>
                 <div className={`${styles.salon_image_slider} salon_slick`}>
-                    <SalonSlickSLider/>
+                    <SalonSlickSLider setShowGallery={setShowGallery} gallery={gallery}/>
                 </div>
                 <div className={styles.salon_images_right}>
                     <img src={slide2} alt="" />
                     <img src={slide3} alt="" />
                     <img src={slide4} alt="" />
-                    <img src={slide5} alt="" />
+                    <div className={styles.salon_imagesA}>
+                        <div onClick={()=>setShowGallery(true)}>
+                            <div>View <span>22</span></div>
+                            <div>images</div>
+                        </div>
+                        <img src={slide5} alt="" />
+                    </div>
                 </div>
             </div>
             <div className={styles.salon_mobView}>
@@ -61,6 +73,12 @@ export default function SalonDetail() {
             <div className={styles.book_flowMob}>
                 <BookNow SalonDetails={true}/>
             </div>
+            {
+                showGallery?
+                <SalonGallery gallery={gallery} setShowGallery={setShowGallery}/>
+                :
+                ''
+            }
         </div>
     )
 }

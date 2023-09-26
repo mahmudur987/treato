@@ -24,6 +24,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    margin: 6px 0px;
 }
 .rating,
 .location,
