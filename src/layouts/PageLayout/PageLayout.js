@@ -7,8 +7,8 @@ import Footer from "../../components/Footer/Footer";
 import { useLocation } from "react-router-dom";
 import ModalManager from "../../components/_modals/ModalManager";
 export default function PageLayout({ children }) {
-  const showModal = useSelector((state) => state.modal.showModal);
-  const isMobileView = useSelector((state) => state.modal.isMobileView);
+  const showModal = useSelector((state) => state?.salonModal.showModal);
+  const isMobileView = useSelector((state) => state.salonModal.isMobileView);
   const location = useLocation();
   // remove Navbar and footer  if any of the below  routes 
   const isSpecialPage =

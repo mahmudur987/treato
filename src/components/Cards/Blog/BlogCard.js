@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const BlogCard = ({ blog, blogDetail, blogPage }) => {
   return (
+
     <div className={blogDetail ? `${styles["blog"]} ${styles["blogBig"]}` : blogPage?`${styles["blog"]} ${styles["blogPage"]}` : styles["blog"]}>
       <Link to={`/blogs/${blog._id}`}>
         <img className={styles["blogImage"]} src={blog ? blog.blog_Img.public_url : ''} alt="blogImage" />
@@ -19,6 +20,7 @@ const BlogCard = ({ blog, blogDetail, blogPage }) => {
             <img src={moreHorizontal} alt="more" />
           </div>
         </div>
+
         <Link to={`/blogs/${blog._id}`}>
           <h1 className={styles["blogTitle"]}>{blog ? blog.blog_title : ''}</h1>
         </Link>

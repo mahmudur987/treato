@@ -6,7 +6,9 @@ import Venues from "../../HomePage/Hero/SearchContent/Venues";
 import Locations from "../../HomePage/Hero/SearchContent/Locations";
 import Search_MoboModal from "../../HomePage/Hero/Search_MoboModal/Search_MoboModal";
 import { closeIcon, mapPin, search } from "../../../assets/images/icons";
-import { getAllServices } from '../../../services/Services';
+import { getAllServices } from "../../../services/Services";
+import { salon } from "../../../services/salon";
+import { useNavigate } from "react-router-dom";
 
 const MainSearchBar = ({ place }) => {
   // Short letter abbreviations used in few classNames
@@ -20,7 +22,10 @@ const MainSearchBar = ({ place }) => {
   const [loc_DesktopModal, setloc_DesktopModal] = useState(false);
   const [loc_MoboModal, setloc_MoboModal] = useState(false);
   const [allServices, setallServices] = useState([]);
+  const [allSalonList, setallSalonList] = useState([]);
   const [filteredServiceData, setFilteredServiceData] = useState([]);
+  const [filteredSalonData, setFilteredSalonData] = useState([]);
+  const navigate = useNavigate(); 
   const [error, setError] = useState(null);
   let winWidth = window.innerWidth;
   // functions to open/Close desktop search modal
@@ -113,7 +118,11 @@ const MainSearchBar = ({ place }) => {
               }`}
           >
             {/* treatments Content*/}
-            <Treatments allServices={filteredServiceData} setTreatmentInputValue={setTreatmentInputValue} handle_close={handle_closeTrt_Modal} />
+            <Treatments
+              allServices={filteredServiceData}
+              setTreatmentInputValue={setTreatmentInputValue}
+              handle_close={handle_closeTrt_Modal}
+            />
             {/* Venues */}
             <Venues />
           </div>
@@ -139,7 +148,7 @@ const MainSearchBar = ({ place }) => {
             placeholder={winWidth > 767 ? "Search by location" : "Current location"}
             onClick={handle_openloc_Modal}
             value={locationInputValue}
-            onChange={(e) => setLocationInputValue(e.target.value)}
+            onChange={handleLocationInput}
           />
           <img
             className={`${styles["close_trtBox"]} ${loc_DesktopModal ? "" : styles["hidden"]
@@ -149,14 +158,27 @@ const MainSearchBar = ({ place }) => {
             alt="closeIcon"
           />
 
-          <button className={`${styles["goSearch"]} ${locationInputValue !== "" || treatmentInputValue !== "" ? navstyles["blueButton"] : ""}`}>Go</button>
+          <button
+            className={`${styles["goSearch"]} ${
+              locationInputValue !== "" || treatmentInputValue !== ""
+                ? navstyles["blueButton"]
+                : ""
+            }`}
+            onClick={handleSearch}
+          >
+            Go
+          </button>
 
           {/*  location Desktop box/Modal */}
           <div
             className={`${styles["locationResults"]} ${loc_DesktopModal ? "" : styles["hidden"]
               }`}
           >
-            <Locations />
+            <Locations
+              setLocationInputValue={setLocationInputValue}
+              allSalonList={filteredSalonData}
+              handle_close={handle_closeloc_Modal}
+            />
           </div>
         </div>
 

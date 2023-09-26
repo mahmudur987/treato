@@ -13,7 +13,7 @@ function determineIsMobileView() {
 }
 
 const filterModal = createSlice({
-  name: "modal",
+  name: "salonModal",
   initialState,
   reducers: {
     openModal: (state, { payload }) => {
