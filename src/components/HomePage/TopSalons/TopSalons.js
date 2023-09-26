@@ -63,8 +63,6 @@ const TopSalons = (props) => {
       carouselRef?.current?.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  console.log(props.fromPopular)
-
   return (
     <section className={styles["container"]}>
       <div className={styles["top-ratedSalons"]}>
