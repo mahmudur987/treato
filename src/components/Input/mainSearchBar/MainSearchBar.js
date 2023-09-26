@@ -25,7 +25,7 @@ const MainSearchBar = ({ place }) => {
   const [allSalonList, setallSalonList] = useState([]);
   const [filteredServiceData, setFilteredServiceData] = useState([]);
   const [filteredSalonData, setFilteredSalonData] = useState([]);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   let winWidth = window.innerWidth;
   // functions to open/Close desktop search modal
@@ -68,7 +68,7 @@ const MainSearchBar = ({ place }) => {
         if (res) {
           // If the request was successful, update the state with the data
           setallServices(res?.data?.data); // Assuming the response data contains a "data" property
-          setFilteredServiceData(res?.data?.data)
+          setFilteredServiceData(res?.data?.data);
         } else {
           // If there was an error, handle it and set the error state
           setError(err);
@@ -80,8 +80,24 @@ const MainSearchBar = ({ place }) => {
     }
 
     fetchAllServices();
-  }, [])
+  }, []);
 
+  useEffect(() => {
+    const fetchSalons = async () => {
+      try {
+        const result = await salon();
+        const { data } = result.res; // Destructure 'data' from 'result.res'
+        const { salons } = data; // Destructure 'salons' from 'data'
+        setallSalonList(salons);
+        setFilteredSalonData(salons);
+      } catch (error) {
+        // Handle any errors here
+        console.error("Error fetching salons:", error);
+      }
+    };
+
+    fetchSalons();
+  }, []);
   const handleTreatmentsInput = (e) => {
     const inputValue = e.target.value;
     setTreatmentInputValue(inputValue);
@@ -93,6 +109,30 @@ const MainSearchBar = ({ place }) => {
 
     setFilteredServiceData(filtered);
   };
+
+  const handleLocationInput = (e) => {
+    const inputValue = e.target.value;
+    setLocationInputValue(inputValue);
+
+    // Create a Set to store unique locationText values
+    const uniqueLocations = new Set();
+
+    // Filter the data and add unique locationText values to the Set
+    const filtered = allSalonList.filter((item) => {
+      const locationText = item.locationText.toLowerCase();
+      if (!uniqueLocations.has(locationText) && locationText.includes(inputValue.toLowerCase())) {
+        uniqueLocations.add(locationText);
+        return true;
+      }
+      return false;
+    });
+
+    setFilteredSalonData(filtered);
+  };
+  const handleSearch = () => {
+    // Navigate to /salons with services and location as query parameters
+    navigate(`/salons?services=${treatmentInputValue}&location=${locationInputValue}`);
+  }
   return (
     <>
       <div
@@ -159,11 +199,10 @@ const MainSearchBar = ({ place }) => {
           />
 
           <button
-            className={`${styles["goSearch"]} ${
-              locationInputValue !== "" || treatmentInputValue !== ""
+            className={`${styles["goSearch"]} ${locationInputValue !== "" || treatmentInputValue !== ""
                 ? navstyles["blueButton"]
                 : ""
-            }`}
+              }`}
             onClick={handleSearch}
           >
             Go
