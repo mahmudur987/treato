@@ -7,7 +7,7 @@ import usePriceRange, { applyFilters } from "../filterFunctions";
 import { resetSalonContent } from "../../../../redux/slices/salons";
 
 const SalonFilterModalMobile = () => {
-  const modal = useSelector((state) => state.modal);
+  const modal = useSelector((state) => state.salonModal);
   const salonsState = useSelector((state) => state.salons);
 
   const [selectedSortOption, setSelectedSortOption] = useState("");

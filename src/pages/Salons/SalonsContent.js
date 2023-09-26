@@ -1,7 +1,7 @@
 export const salonContent = [
     {
       cardImage: require("../../assets/images/SalonsPageImages/cardImage.png"),
-      star: require("../../assets/images/SalonsPageImages/star.png"),
+      star: require("../../assets/images/SalonsPageImages/starBlack.svg"),
       ellipse: require("../../assets/images/SalonsPageImages/Ellipse.png"),
       mapPin: require("../../assets/images/SalonsPageImages/map-pin.png"),
       chevronRight: require("../../assets/images/SalonsPageImages/chevron-right.png"),
@@ -22,7 +22,7 @@ export const salonContent = [
     },
     {
       cardImage: require("../../assets/images/SalonsPageImages/cardImage.png"),
-      star: require("../../assets/images/SalonsPageImages/star.png"),
+      star: require("../../assets/images/SalonsPageImages/starBlack.svg"),
       ellipse: require("../../assets/images/SalonsPageImages/Ellipse.png"),
       mapPin: require("../../assets/images/SalonsPageImages/map-pin.png"),
       chevronRight: require("../../assets/images/SalonsPageImages/chevron-right.png"),
@@ -43,7 +43,7 @@ export const salonContent = [
     },
     {
       cardImage: require("../../assets/images/SalonsPageImages/cardImage.png"),
-      star: require("../../assets/images/SalonsPageImages/star.png"),
+      star: require("../../assets/images/SalonsPageImages/starBlack.svg"),
       ellipse: require("../../assets/images/SalonsPageImages/Ellipse.png"),
       mapPin: require("../../assets/images/SalonsPageImages/map-pin.png"),
       chevronRight: require("../../assets/images/SalonsPageImages/chevron-right.png"),
@@ -64,7 +64,7 @@ export const salonContent = [
     },
     {
       cardImage: require("../../assets/images/SalonsPageImages/cardImage.png"),
-      star: require("../../assets/images/SalonsPageImages/star.png"),
+      star: require("../../assets/images/SalonsPageImages/starBlack.svg"),
       ellipse: require("../../assets/images/SalonsPageImages/Ellipse.png"),
       mapPin: require("../../assets/images/SalonsPageImages/map-pin.png"),
       chevronRight: require("../../assets/images/SalonsPageImages/chevron-right.png"),
@@ -85,7 +85,7 @@ export const salonContent = [
     },
     {
       cardImage: require("../../assets/images/SalonsPageImages/cardImage.png"),
-      star: require("../../assets/images/SalonsPageImages/star.png"),
+      star: require("../../assets/images/SalonsPageImages/starBlack.svg"),
       ellipse: require("../../assets/images/SalonsPageImages/Ellipse.png"),
       mapPin: require("../../assets/images/SalonsPageImages/map-pin.png"),
       chevronRight: require("../../assets/images/SalonsPageImages/chevron-right.png"),
@@ -106,7 +106,7 @@ export const salonContent = [
     },
     {
       cardImage: require("../../assets/images/SalonsPageImages/cardImage.png"),
-      star: require("../../assets/images/SalonsPageImages/star.png"),
+      star: require("../../assets/images/SalonsPageImages/starBlack.svg"),
       ellipse: require("../../assets/images/SalonsPageImages/Ellipse.png"),
       mapPin: require("../../assets/images/SalonsPageImages/map-pin.png"),
       chevronRight: require("../../assets/images/SalonsPageImages/chevron-right.png"),
@@ -127,7 +127,7 @@ export const salonContent = [
     },
     {
       cardImage: require("../../assets/images/SalonsPageImages/cardImage.png"),
-      star: require("../../assets/images/SalonsPageImages/star.png"),
+      star: require("../../assets/images/SalonsPageImages/starBlack.svg"),
       ellipse: require("../../assets/images/SalonsPageImages/Ellipse.png"),
       mapPin: require("../../assets/images/SalonsPageImages/map-pin.png"),
       chevronRight: require("../../assets/images/SalonsPageImages/chevron-right.png"),
@@ -148,7 +148,7 @@ export const salonContent = [
     },
     {
       cardImage: require("../../assets/images/SalonsPageImages/cardImage.png"),
-      star: require("../../assets/images/SalonsPageImages/star.png"),
+      star: require("../../assets/images/SalonsPageImages/starBlack.svg"),
       ellipse: require("../../assets/images/SalonsPageImages/Ellipse.png"),
       mapPin: require("../../assets/images/SalonsPageImages/map-pin.png"),
       chevronRight: require("../../assets/images/SalonsPageImages/chevron-right.png"),
@@ -169,7 +169,7 @@ export const salonContent = [
     },
     {
       cardImage: require("../../assets/images/SalonsPageImages/cardImage.png"),
-      star: require("../../assets/images/SalonsPageImages/star.png"),
+      star: require("../../assets/images/SalonsPageImages/starBlack.svg"),
       ellipse: require("../../assets/images/SalonsPageImages/Ellipse.png"),
       mapPin: require("../../assets/images/SalonsPageImages/map-pin.png"),
       chevronRight: require("../../assets/images/SalonsPageImages/chevron-right.png"),
@@ -190,7 +190,7 @@ export const salonContent = [
     },
     {
       cardImage: require("../../assets/images/SalonsPageImages/cardImage.png"),
-      star: require("../../assets/images/SalonsPageImages/star.png"),
+      star: require("../../assets/images/SalonsPageImages/starBlack.svg"),
       ellipse: require("../../assets/images/SalonsPageImages/Ellipse.png"),
       mapPin: require("../../assets/images/SalonsPageImages/map-pin.png"),
       chevronRight: require("../../assets/images/SalonsPageImages/chevron-right.png"),
