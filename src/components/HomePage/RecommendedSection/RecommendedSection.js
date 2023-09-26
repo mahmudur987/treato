@@ -13,6 +13,7 @@ import {
   spa,
 } from "../../../assets/images/recommendImages";
 import { getAllServices } from "../../../services/Services";
+import Title from "../../Typography/Title/Title";
 
 export default function RecommendedSection({mainData}) {
   const [allServices, setallServices] = useState([]);
@@ -95,7 +96,7 @@ useEffect(() => {
   return (
     <section id="recommended" className={styles.container}>
       <div className={styles.recommended}>
-        <h2 className={styles.rmdHeading}>Recommended for you</h2>
+        <Title>Recommended for you</Title>
         <Carousel
           responsive={responsive}
           customRightArrow={<CustomRight />}

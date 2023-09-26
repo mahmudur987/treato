@@ -65,6 +65,7 @@
 .rmdItem img {
   height: 48px;
   width: 48px;
+  /* object-fit: cover; */
 }
 .rmdItem h4 {
   text-align: center;
@@ -119,11 +120,11 @@
 
 @media only screen and (max-width: 770px) {
   .container {
-    padding: 2rem 1rem;
+    padding: 0rem 1rem;
   }
   .rmdWrapperMobo{
     overflow-x: scroll;
-    height: 280px;
+    height: 220px;
     overflow-y: hidden;
     display: flex;
     flex-direction: column;
@@ -132,9 +133,6 @@
     margin-bottom: 0.75rem;
     box-shadow: 0px 4px 16px 0px #00000014;
     padding: 0.75rem;
-  }
-  .rmdItem{
-    height: 115px;
   }
   .rmdWrapper{
     display: none !important;
@@ -153,9 +151,17 @@
     flex-wrap: wrap;
     flex-direction: column;
   }
+  .rmdItem{
+    width: 84px;
+    height: 84px;
+    padding: 12px 8px;
+    font-size: 12px;
+    line-height: 17px;
+  }
   .rmdItem img {
     width: 24px;
-    height: 24px;
+    height: 24px !important;
+    object-fit: cover;
   }
   .rmdItem h4 {
     font-size: var(--font-small);

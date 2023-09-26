@@ -157,8 +157,8 @@
     font-size: var(--font-small);
     font-weight: 100;
   }
-  .scrollRight {
-    display: none;
+  .scrollRight,.scroll_left,.scroll_right {
+    display: none !important;
   }
   .trScrollRight {
     display: none;

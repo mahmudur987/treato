@@ -11,6 +11,7 @@ import BlogCard from "../../Cards/Blog/BlogCard";
 import { Link } from "react-router-dom";
 import { AllBlogs } from "../../../services/blog";
 import { useState } from "react";
+import Title from "../../Typography/Title/Title";
 const LatestBlog = () => {
   const responsive = {
     superLargeDesktop: {
@@ -45,7 +46,7 @@ const LatestBlog = () => {
   return (
     <div className={styles["container"]}>
       <div className={styles["header"]}>
-        <h3 className={styles["headerText"]}> latest from our blog</h3>
+        <Title>Latest from our blog</Title>
         <Link to="/blogs" className={styles["headerViewAll"]}>
           View all <img src={chevronLeft} />
         </Link>

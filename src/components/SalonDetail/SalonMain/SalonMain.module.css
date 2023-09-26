@@ -181,6 +181,13 @@
     font-weight: 400;
 }
 
+.salon_offersModal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 .salon_offersA {
     display: flex;
     justify-content: space-between;
@@ -198,6 +205,21 @@
     border: 1px solid #EBEDF0;
 }
 
+.salon_offersModalA{
+    width: 90%;
+    padding: 16px 0px;
+}
+
+.salon_offersModalB{
+    width: 10%;
+    text-align: right;
+}
+
+.salon_offersModalB>input{
+    width: 24px;
+    height: 24px;
+}
+
 .salon_offersAB {
     display: flex;
     align-items: center;
@@ -208,9 +230,15 @@
 }
 
 .salon_offersAC {
-    margin-top: 11px;
+    margin: 8px 0px;
     font-weight: 400;
     line-height: 24px;
+}
+
+.salon_offersAE{
+    color: var(--Success-Green); 
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .salon_teamA {

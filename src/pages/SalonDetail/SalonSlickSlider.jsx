@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import './SalonSlickSlider.css'
 import { useState } from 'react'
 
-export default function SalonSlickSLider() {
+export default function SalonSlickSLider({gallery,setShowGallery}) {
     let [activeImg, updateActiveImg] = useState(0)
 
     const settings = {
@@ -33,17 +33,22 @@ export default function SalonSlickSLider() {
 
     return (
         <>
+        {
+            gallery?
             <Slider {...settings}>
                 {
-                    Images.map((v, i) => {
+                    gallery.map((v, i) => {
                         return (
-                            <img src={v.img} alt="" key={i} />
+                            <img src={v} alt="" key={i} />
                         )
                     })
                 }
             </Slider>
-            <div className={styles.salon_slider_index}>
-                {activeImg + 1}/{Images.length}
+            :
+            ''
+        }
+            <div className={styles.salon_slider_index} onClick={()=>setShowGallery(true)}>
+                {activeImg + 1}/{gallery.length}
             </div>
         </>
     )

@@ -61,14 +61,19 @@ const TopSalons = (props) => {
       carouselRef?.current?.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-
+  let winWidth = window.innerWidth
 
   return (
     <section className={styles["container"]}>
       <div className={styles["top-ratedSalons"]}>
         <div className={styles["trHeadWrapper"]}>
           <h3 className={styles["trHeading"]}>{props.heading}</h3>
+          {
+            winWidth<768?
+            <img src={scrollright} />
+            :
+            ''
+          }
         </div>
 
         <div>
