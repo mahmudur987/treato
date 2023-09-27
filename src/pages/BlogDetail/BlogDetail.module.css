@@ -454,4 +454,7 @@
   .Allblogs-container>a {
     margin-bottom: 48px;
   }
+  .pagination{
+    display: none;
+  }
 }
