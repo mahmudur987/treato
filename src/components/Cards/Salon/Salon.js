@@ -4,6 +4,7 @@ import { chevronright, mapPin, star_line } from "../../../assets/images/icons";
 import { starBlack } from "../../../assets/images/SalonsPageImages";
 
 const Salon = ({ salonData, place }) => {
+
   return (
     <div className={`${styles.card} ${place === "homePage" ? styles.card_Home : ""}`}>
       <img

@@ -11,7 +11,7 @@ import BackButton from "../../components/Buttons/BackButton/BackButton";
 export default function Blogs(props) {
 
    let [blogData, setBlogData] = useState([]);
-   let [firstBlogData,setFirstBlogData] = useState('')
+   let [firstBlogData,setFirstBlogData] = useState('');
 
    useEffect(() => {
       let getBlogs = async () => {
