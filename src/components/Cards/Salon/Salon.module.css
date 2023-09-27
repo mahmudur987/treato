@@ -11,6 +11,7 @@
   height: 256px;
   width: 100%;
   flex-shrink: 0;
+  border-radius: 4px;
 }
 .Name {
   font-family: "Lato", sans-serif;
@@ -26,7 +27,7 @@
     gap: 6px;
     margin: 6px 0px;
 }
-.rating,
+.ratings,
 .location,
 .meter,
 .serviceName,
@@ -34,7 +35,7 @@
    font-family: "Lato", sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 400 !important;
   line-height: 150%; /* 24px */
   letter-spacing: 0.16px;
 }
@@ -62,7 +63,6 @@
   flex-direction: column;
 }
 
-.servicesWrapper,
 .salonDetails {
   margin: 1rem;
 }
@@ -74,6 +74,8 @@
   gap: 16px;
   border-top: 1px solid #EBEDF0;
   border-bottom: 1px solid #EBEDF0;
+  margin: 1.5rem 1.5rem;
+  padding: 1.5rem 0rem;
 }
 .servicesWrapper::-webkit-scrollbar {
   display: none;
@@ -82,13 +84,14 @@
   display: flex;
   justify-content: space-between;
   margin: 0rem 1rem;
-  gap:12px;
-  margin-bottom: .5rem;
+  gap: 12px;
+  margin-bottom: 1.5rem;
 }
 .buttons img {
   height: 16px;
   width: 16px;
   margin-left: 0.625rem;
+  border-radius: 4px;
 }
 .viewDetails,
 .viewMap {
@@ -148,17 +151,28 @@ height: 192px;
 @media only screen and (max-width: 600px) {
   .card {
     width: 100%;
+    border: none;
   }
   .salonDetails,
   .servicesWrapper,
   .buttons {
-    margin: 1.25rem .5rem;
-    padding: 1.25rem .5rem;
+    margin: 1.25rem 0rem;
+    padding: 1.25rem 0rem;
     justify-content: space-around;
     gap: 16px;
+    border: none;
   }
   .Name{
     font-size: var(--fonts-large);
+  }
+  .buttons,.salonDetails{
+    margin-bottom: 0rem;
+    margin-top: 0rem;
+    padding-bottom: 0rem;
+    padding-top: 0rem;
+  }
+  .salonDetails{
+    margin-top: 1rem;
   }
   .buttons button {
     width: 153px;

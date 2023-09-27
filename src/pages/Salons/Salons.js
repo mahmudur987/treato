@@ -148,10 +148,10 @@ const Salons = React.memo(() => {
 
       <div className={styles.salonsWrapper}>
         {
-          visibleItems.length?
-          visibleItems.map((v,i)=>{
+          salonsState.salonContent.length?
+          salonsState.salonContent.map((v,i)=>{
             return(
-              <Salon key={i} salonData={salonsState.filterContent[i]} />
+              <Salon key={i} salonData={v} />
             )
           })
           :
