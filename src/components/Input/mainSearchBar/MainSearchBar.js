@@ -27,7 +27,12 @@ const MainSearchBar = ({ place }) => {
   const [filteredSalonData, setFilteredSalonData] = useState([]);
   const navigate = useNavigate();
   const [error, setError] = useState(null);
-  let winWidth = window.innerWidth;
+  let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
+  function reportWindowSize() {
+    let winWidth = window.innerWidth;
+    updateWinWidthMain(winWidth)
+  }
+  window.onresize = reportWindowSize;
   // functions to open/Close desktop search modal
   const handle_openTrt_Modal = () => {
     if (window.innerWidth >= 770) {
@@ -148,7 +153,7 @@ const MainSearchBar = ({ place }) => {
           </div>
           <input
             className={styles["treatmentInput"]}
-            placeholder={winWidth > 767 ? "Search treatments or venues" : "Treatments or venues"}
+            placeholder={winWidthMain > 767 ? "Search treatments or venues" : "Treatments or venues"}
             value={treatmentInputValue}
             onChange={handleTreatmentsInput}
             onClick={handle_openTrt_Modal}
@@ -187,7 +192,7 @@ const MainSearchBar = ({ place }) => {
           </div>
           <input
             className={styles["locationInput"]}
-            placeholder={winWidth > 767 ? "Search by location" : "Current location"}
+            placeholder={winWidthMain > 767 ? "Search by location" : "Current location"}
             onClick={handle_openloc_Modal}
             value={locationInputValue}
             onChange={handleLocationInput}
@@ -219,6 +224,7 @@ const MainSearchBar = ({ place }) => {
               setLocationInputValue={setLocationInputValue}
               allSalonList={filteredSalonData}
               handle_close={handle_closeloc_Modal}
+              locationInputValue={locationInputValue}
             />
           </div>
         </div>

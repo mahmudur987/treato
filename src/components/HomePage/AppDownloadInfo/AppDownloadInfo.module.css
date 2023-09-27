@@ -91,6 +91,10 @@ a {
   }
 }
 @media only screen and (max-width: 600px) {
+  .bannerDetails h1 {
+    font-size: 28px;
+    line-height: 42px;
+  }
   .bannerWrapper {
     flex-direction: column;
     /* background-image: none; */
@@ -115,7 +119,21 @@ a {
     width: 100%;
   }
   .bannerDetails .desc {
-    font-size: var(--fonts-large);
+    font-size: 16px;
+    line-height: 24px;
     font-weight: 400;
+  }
+  .socialLinks {
+    display: flex;
+    gap: 12px;
+    margin: 24px 0px;
+  }
+  .socialLinks a {
+    width: 49%;
+    height: 52px;
+  }
+
+  .socialLinks a img{
+    width: 100%;
   }
 }

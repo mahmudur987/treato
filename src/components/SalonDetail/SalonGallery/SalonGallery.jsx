@@ -10,7 +10,12 @@ import 'react-gallery-carousel/dist/index.css';
 import { useState } from 'react';
 
 export default function SalonGallery({ gallery, setShowGallery }) {
-    let winWidth = window.innerWidth;
+    let [winWidthMain,updateWinWidthMain] = useState(window.innerWidth);
+    function reportWindowSize() {
+        let winWidth = window.innerWidth;
+        updateWinWidthMain(winWidth)
+    }
+    window.onresize = reportWindowSize;
     let [lightBox, setLightBox] = useState(
         {
             open: false,
@@ -31,7 +36,7 @@ export default function SalonGallery({ gallery, setShowGallery }) {
     return (
         <div className={styles.salon_GalleryMain}>
             {
-                lightBox.open&&winWidth>767 ?
+                lightBox.open&&winWidthMain>767 ?
                     <div className={'salon_LightBox'}>
                         <img src={cross} alt="" className={styles.lightBoxClose} onClick={() => setLightBox({ open: false, index: 0, src: '' })} />
                         <Carousel canAutoPlay={false} index={lightBox.index} images={images} style={{ height: 500, width: 800 }} isMaximized={true} hasSizeButton={false} hasMediaButton={false} hasIndexBoard={false} leftIcon={<img src={blackArrowleft} alt="" className={styles.lightBoxLeft} />} rightIcon={<img src={blackArrowright} alt="" className={styles.lightBoxRight} />} />

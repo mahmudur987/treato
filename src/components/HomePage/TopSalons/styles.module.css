@@ -129,6 +129,7 @@
 @media only screen and (max-width: 770px) {
   .container {
     padding: 2rem 1rem;
+    padding-top: 0rem;
   }
   .top-ratedSalons{
     margin-top: 0rem;
@@ -163,7 +164,8 @@
     flex-direction: column;
   }
   .rmdItem {
-    height: 84px;
+    height: unset !important;
+    padding: 12px 0px !important;
   }
   .rmdItem img {
     width: 24px;
@@ -189,9 +191,8 @@
     width: 24px;
   }
   .trMobHeading{
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 600;
-    font-family: "Poppins", sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;

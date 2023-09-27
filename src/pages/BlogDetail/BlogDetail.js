@@ -153,7 +153,7 @@ export default function BlogDetail(props) {
                 blogData.map((v,i)=>{
                   if(i<=5){
                     return (
-                      <PopularBlogCard blog={v}/>
+                      <PopularBlogCard blog={v} key={i}/>
                     )
                   }
                 })

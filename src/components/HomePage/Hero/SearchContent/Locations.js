@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../hero.module.css";
 import { mapPinBlue } from "../../../../assets/images/icons";
 
-const Locations = ({ allSalonList, setLocationInputValue, handle_close }) => {
+const Locations = ({ allSalonList, setLocationInputValue, handle_close,locationInputValue }) => {
   const setinput = (salonLocation) => {
     handle_close();
     setLocationInputValue(salonLocation);
@@ -15,21 +15,25 @@ const Locations = ({ allSalonList, setLocationInputValue, handle_close }) => {
       </div>
 
       <div className={styles["locResults"]}>
-        {allSalonList?.length == 0 ? (
-          <div className={styles.notFound}>We didn't find a match</div>
-        ) : (
+        {
+          allSalonList ?
           <>
-            {allSalonList.map((salon, index) => (
-              <div
-                key={index}
-                className={styles["locResultItem"]}
-                onClick={() => setinput(salon.locationText)}
-              >
-                <p>{salon.locationText}</p>
-              </div>
-            ))}
-          </>
-        )}
+              {allSalonList.map((salon, index) => (
+                <div
+                  key={index}
+                  className={styles["locResultItem"]}
+                  onClick={() => setinput(salon.locationText)}
+                >
+                  <p>{salon.locationText}</p>
+                </div>
+              ))}
+            </>
+            :
+            locationInputValue!==undefined&&locationInputValue!==''?
+            <div className={styles.notFound}>We didn't find a match</div>
+            :
+            ''
+        }
       </div>
     </div>
   );

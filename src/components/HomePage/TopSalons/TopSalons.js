@@ -7,11 +7,10 @@ import Title from "../../Typography/Title/Title";
 
 const TopSalons = (props) => {
   let [topSalonData, setTopSalonData] = useState([])
-  let winWidth = window.innerWidth
   useEffect(() => {
     let topSalonDataFunc = async () => {
       const { res, err } = await salon()
-      if(res.data){
+      if (res.data) {
         setTopSalonData(res.data.salons)
       }
     }
@@ -65,18 +64,24 @@ const TopSalons = (props) => {
       carouselRef?.current?.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
+  function reportWindowSize() {
+    let winWidth = window.innerWidth;
+    updateWinWidthMain(winWidth)
+  }
+  window.onresize = reportWindowSize;
   return (
     <section className={styles["container"]}>
       <div className={styles["top-ratedSalons"]}>
         <div className={styles["trHeadWrapper"]}>
           {
-            winWidth<768?
-            <div className={styles["trMobHeading"]}>
-            <h3>{props.heading}</h3>
-            <img src={scrollright} className={styles.mobScrollRight}/>
-            </div>
-            :
-            <h3 className={styles["trHeading"]}>{props.heading}</h3>
+            winWidthMain <= 768 ?
+              <div className={styles["trMobHeading"]}>
+                <h3>{props.heading}</h3>
+                <img src={scrollright} className={styles.mobScrollRight} />
+              </div>
+              :
+              <Title>{props.heading}</Title>
           }
         </div>
 

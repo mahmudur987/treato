@@ -7,16 +7,17 @@ import NewBlogCard from "../../components/Cards/NewBlogCard/NewBlogCard";
 import { ellipse } from "../../assets/images/icons";
 import { Link } from "react-router-dom";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
+import { chevronLeft } from "../../assets/images/icons";
 
 export default function Blogs(props) {
 
    let [blogData, setBlogData] = useState([]);
-   let [firstBlogData,setFirstBlogData] = useState('');
+   let [firstBlogData, setFirstBlogData] = useState('');
 
    useEffect(() => {
       let getBlogs = async () => {
          const { res, err } = await AllBlogs()
-         if(err === null){
+         if (err === null) {
             setBlogData(res.data.blogs)
             setFirstBlogData(res.data.blogs[0])
          }
@@ -26,24 +27,24 @@ export default function Blogs(props) {
 
    return (
       <div className={styles["AllBlogsPage"]}>
-         <BackButton/>
+         <BackButton />
          <div className={styles["blog-section-container"]}>
             <Title className={styles["BlogsBigTitle"]}>Latest on Treato Blog</Title>
             <div className={styles["Allblogs-container"]}>
-               <Link to={firstBlogData ? `/blogs/${firstBlogData._id}`:''} className={`${styles["AllBlogsPageA"]} ${styles["blogMainPc"]}`}>
+               <Link to={firstBlogData ? `/blogs/${firstBlogData._id}` : ''} className={`${styles["AllBlogsPageA"]} ${styles["blogMainPc"]}`}>
                   <div className={styles["AllBlogsPageAA"]}>
-                     <img src={firstBlogData ? firstBlogData.blog_Img.public_url:''} alt="" />
+                     <img src={firstBlogData ? firstBlogData.blog_Img.public_url : ''} alt="" />
                   </div>
-                  <div className={styles["AllBlogsPageAB"]}>{firstBlogData ? firstBlogData.blog_title:''}</div>
+                  <div className={styles["AllBlogsPageAB"]}>{firstBlogData ? firstBlogData.blog_title : ''}</div>
                   <div className={styles["AllBlogsPageAC"]}>
-                     <img src={firstBlogData ? firstBlogData.blog_Img.public_url:''} alt="" />
-                     <div>{firstBlogData ? firstBlogData.blog_title:''}</div>
+                     <img src={firstBlogData ? firstBlogData.blog_Img.public_url : ''} alt="" />
+                     <div>{firstBlogData ? firstBlogData.blog_title : ''}</div>
                      <img src={ellipse} alt="" />
                      <div>July 12, 2023</div>
                   </div>
                </Link>
                <div className={`${styles["AllBlogsPageA"]} ${styles["blogMainMob"]}`}>
-                  {firstBlogData ? <BlogCard blog={firstBlogData} blogPage={true}/> : ''}
+                  {firstBlogData ? <BlogCard blog={firstBlogData} blogPage={true} /> : ''}
                </div>
                <div className={styles["AllBlogsPageB"]}>
                   {
@@ -51,7 +52,7 @@ export default function Blogs(props) {
                         blogData.map((blog, i) => {
                            if (i <= 3) {
                               return (
-                                 <NewBlogCard blog={blog} key={i}/>
+                                 <NewBlogCard blog={blog} key={i} />
                               )
                            }
                         })
@@ -68,13 +69,34 @@ export default function Blogs(props) {
                   blogData.length ?
                      blogData.map((blog, i) => {
                         return (
-                           <BlogCard blog={blog} key={i} blogPage={true}/>
+                           <BlogCard blog={blog} key={i} blogPage={true} />
                         )
                      })
                      :
                      ''
                }
             </div>
+         </div>
+         <div className={styles.pagination}>
+            <button
+
+               className={styles.prev}
+            >
+               <img src={chevronLeft} alt={'left'}/> Prev
+            </button>
+            <div className={styles.paginationButton}>
+               <button
+                  className={styles.active}
+               >
+                  {1}
+               </button>
+            </div>
+            <button
+               className={styles.next}
+
+            >
+               Next <img src={chevronLeft} alt={'right'}/>
+            </button>
          </div>
       </div>
    )
