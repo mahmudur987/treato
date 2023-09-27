@@ -153,8 +153,9 @@ height: 192px;
   .servicesWrapper,
   .buttons {
     margin: 1.25rem .5rem;
+    padding: 1.25rem .5rem;
     justify-content: space-around;
-    gap: 0px;
+    gap: 16px;
   }
   .Name{
     font-size: var(--fonts-large);
