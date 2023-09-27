@@ -11,7 +11,9 @@ const TopSalons = (props) => {
   useEffect(() => {
     let topSalonDataFunc = async () => {
       const { res, err } = await salon()
-      setTopSalonData(res.data.salons)
+      if(res.data){
+        setTopSalonData(res.data.salons)
+      }
     }
     topSalonDataFunc();
   }, [])

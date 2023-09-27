@@ -16,21 +16,24 @@ export default function Home(props) {
   useEffect(() => {
     let getHomeData = async () => {
       const { res, err } = await HomePage()
+      if(res){
       setHomeData(res.data.homepageCMS[0])
+      }
     }
     getHomeData();
   }, [])
+
   return (
     <div className={styles["container"]}>
-      <HeroSection mainData={homeData.main_heading}/>
-      <RecommendedSection mainData={homeData.recommended_section}/>
+      <HeroSection mainData={homeData.main_heading?homeData.main_heading:''}/>
+      <RecommendedSection mainData={homeData.recommended_section?homeData.recommended_section:''}/>
       <TopSalons heading={"Top-rated Hair Salons"} />
       <LatestBlog />
-      <AppDownloadInfo mainData={homeData.downloadApp_section}/>
+      <AppDownloadInfo mainData={homeData.downloadApp_section?homeData.downloadApp_section:''}/>
       <TopSalons heading={"Popular near you"} fromPopular={true}/>
-      <PartnerBanner mainData={homeData.partner_section}/>
+      <PartnerBanner mainData={homeData.partner_section?homeData.partner_section:''}/>
       <Testimonials />
-      <Contactus />
+      <Contactus mainData={homeData.contact_us_image?homeData.contact_us_image:''}/>
     </div>
   );
 }

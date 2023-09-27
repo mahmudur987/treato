@@ -86,10 +86,12 @@ const MainSearchBar = ({ place }) => {
     const fetchSalons = async () => {
       try {
         const result = await salon();
-        const { data } = result.res; // Destructure 'data' from 'result.res'
-        const { salons } = data; // Destructure 'salons' from 'data'
-        setallSalonList(salons);
-        setFilteredSalonData(salons);
+        if(result.res){
+          const { data } = result.res; // Destructure 'data' from 'result.res'
+          const { salons } = data; // Destructure 'salons' from 'data'
+          setallSalonList(salons);
+          setFilteredSalonData(salons);
+        }
       } catch (error) {
         // Handle any errors here
         console.error("Error fetching salons:", error);

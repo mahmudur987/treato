@@ -38,7 +38,9 @@ const LatestBlog = () => {
   useEffect(() => {
     let getBlogs = async () => {
       const { res, err } = await AllBlogs()
+      if(res){
       setBlogData(res.data.blogs)
+      }
     }
     getBlogs();
   }, [])
