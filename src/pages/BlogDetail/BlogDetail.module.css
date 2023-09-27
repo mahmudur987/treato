@@ -3,7 +3,6 @@
   grid-template-columns: repeat(12, 1fr);
   padding-top: 3rem;
   grid-gap: 10px;
-  gap: 60px;
   row-gap: 0px;
 }
 
@@ -11,12 +10,12 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-gap: 10px;
-  gap: 60px;
   grid-column: span 12;
 }
 
 .sectionLeft {
   grid-column: span 8;
+  margin-right: 60px !important;
 }
 
 .titleWrapper {
@@ -456,5 +455,8 @@
   }
   .pagination{
     display: none;
+  }
+  .sectionLeft {
+    margin-right: 0px !important;
   }
 }
