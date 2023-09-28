@@ -99,9 +99,7 @@ const TopSalons = (props) => {
                 ''
             }
           </div>
-          {showRightArrow && (
-            <img src={scrollright} onClick={scrollRight} alt="scrollRight" className={styles.scroll_right} />
-          )}
+          <img src={scrollright} onClick={scrollRight} alt="scrollRight" className={styles.scroll_right} />
         </div>
       </div>
     </section>

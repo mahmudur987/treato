@@ -44,11 +44,11 @@ a {
   width: 32%;
   padding: 0 0 1.5rem 0;
   border-radius: 4px;
-  border: 1px;
   display: flex;
   flex-direction: column;
   border: 1px solid #eaeff2;
   font-family: "Lato", sans-serif;
+  height: 470px;
 }
 
 .headerText {
@@ -64,6 +64,7 @@ a {
   height: 270px;
   width: 100%;
   object-fit: cover;
+  border-radius: 4px 4px 0px 0px;
 }
 
 .blogDetails {
@@ -115,6 +116,8 @@ a {
   letter-spacing: 0.01em;
   text-align: left;
   color: var(--Grey-10);
+  height: 72px;
+  overflow: hidden;
 }
 
 .blogWrapper_mobo {
@@ -144,7 +147,7 @@ a {
   }
 
   .userInfo {
-    gap: 0px;
+    gap: 8px;
   }
 
   .userName {
@@ -155,8 +158,11 @@ a {
 }
 
 @media only screen and (max-width: 770px) {
+  .blog{
+    height: 415px;
+  }
   .blogImage {
-    height: 200px;
+    height: 215px;
   }
   .blogPage {
     border: none;

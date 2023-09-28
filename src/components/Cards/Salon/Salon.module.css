@@ -11,7 +11,7 @@
   height: 256px;
   width: 100%;
   flex-shrink: 0;
-  border-radius: 4px;
+  border-radius: 4px 4px 0px 0px;
 }
 .Name {
   font-family: "Lato", sans-serif;
@@ -180,5 +180,11 @@ height: 192px;
     line-height: 100%;
     letter-spacing: -0.16px;
     padding: 1rem 0.25rem
+  }
+  .salonDetails_Home{
+    padding: 12px 16px;
+  }
+  .card_Home{
+    border: 1px solid #EBEDF0;
   }
 }
