@@ -181,7 +181,7 @@ export default function BlogDetail(props) {
       </div>
       <div className={styles["blog-section-container"]}>
         <Title className={styles["header"]}>Related Blogs</Title>
-        <div className={styles["blogs-container"]}>
+        <div className={`${styles["blogs-container"]} customSlickDiv`}>
           {
             blogData.length ?
               <Carousel
