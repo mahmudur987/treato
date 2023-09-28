@@ -20,6 +20,12 @@
 .react-multi-carousel-dot--active button{
     background-color: #0D69D7 !important;
 }
+.react-multiple-carousel__arrow--left{
+    left: 2% !important;
+}
+.react-multiple-carousel__arrow--right{
+    right: 3.5% !important;
+}
 
 @media only screen and (max-width:767px){
     .react-multi-carousel-dot button{
