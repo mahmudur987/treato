@@ -1,11 +1,11 @@
-.salon_card {
-    width: 24%;
-    margin-top: 30px;
-}
 
 .salon_card {
     border: 1px solid #EBEDF0;
     padding: 24px;
+    width: 24%;
+    margin-top: 30px;
+    position: sticky;
+    top: 90px;
 }
 
 .salon_cardA {

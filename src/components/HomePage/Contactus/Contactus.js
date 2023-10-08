@@ -5,7 +5,7 @@ import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton.js";
 import contactUsBanner from "../../../assets/images/ContactusImages/contactusBanner.png";
 import InputField from "../../Input/Input";
 
-const Contactus = () => {
+const Contactus = ({mainData}) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -32,7 +32,6 @@ const Contactus = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // submission logic here
-    console.log(formData);
   };
 
   return (
@@ -40,7 +39,7 @@ const Contactus = () => {
       <h1 className={styles["heading"]}>Contact us</h1>
       <div className={styles["contactWrapper"]}>
         <div className={styles["Image"]}>
-          <img src={contactUsBanner} alt="Contact Us Banner" />
+          <img src={mainData?mainData.public_url:contactUsBanner} alt="Contact Us Banner" />
         </div>
         <div className={styles["formContainer"]}>
           <div className={styles["formHeader"]}>

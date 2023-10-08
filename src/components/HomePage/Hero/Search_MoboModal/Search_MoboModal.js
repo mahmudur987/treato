@@ -73,12 +73,6 @@ const Search_MoboModal = (props) => {
           onClick={handle_close}
           alt="arrowLeft"
         />
-        <img
-          src={x}
-          className={styles["closeModal"]}
-          onClick={handle_close}
-          alt="closeModal"
-        />
       </div>
       <div className={styles["modalHeader"]}>
         <h2>{title}</h2>

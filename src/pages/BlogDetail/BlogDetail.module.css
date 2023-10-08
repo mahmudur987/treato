@@ -3,7 +3,6 @@
   grid-template-columns: repeat(12, 1fr);
   padding-top: 3rem;
   grid-gap: 10px;
-  gap: 60px;
   row-gap: 0px;
 }
 
@@ -11,12 +10,12 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-gap: 10px;
-  gap: 60px;
   grid-column: span 12;
 }
 
 .sectionLeft {
   grid-column: span 8;
+  margin-right: 60px !important;
 }
 
 .titleWrapper {
@@ -315,6 +314,49 @@
   display: none;
 }
 
+.pagination {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #DCDFE0;
+  background-color: var(--White);
+  cursor: pointer;
+  font-size: 18px; 
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: #26262C;
+}
+
+.prev img,
+.next img {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.next img{
+  transform: rotateZ(180deg);
+}
+
+.pagination button.active {
+  background-color: var(--primary-color);
+  color: var(--White);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+}
+
+.active {
+  background-color: var(--primary-color);
+}
+
+
 @media only screen and (max-width: 1000px) {
 
   .wrapper {
@@ -362,24 +404,29 @@
   }
 }
 
-@media only screen and (max-width: 767px){
-  .social-icons img{
+@media only screen and (max-width: 767px) {
+  .social-icons img {
     width: 20px;
     height: 20px;
   }
-  .header-right{
+
+  .header-right {
     font-size: 16px;
   }
-  .section-right{
+
+  .section-right {
     display: none;
   }
-  .blog-header{
+
+  .blog-header {
     font-size: 20px;
   }
-  .blog-text{
+
+  .blog-text {
     font-size: 16px;
-     font-weight: 400;
+    font-weight: 400;
   }
+
   .blogMainMob {
     display: block;
     margin-bottom: 24px;
@@ -405,5 +452,11 @@
 
   .Allblogs-container>a {
     margin-bottom: 48px;
+  }
+  .pagination{
+    display: none;
+  }
+  .sectionLeft {
+    margin-right: 0px !important;
   }
 }

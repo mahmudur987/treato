@@ -1,0 +1,35 @@
+.react-multi-carousel-list,.react-multi-carousel-track{
+    position: unset !important;
+}
+.customSlickDiv{
+    position: relative !important;
+}
+/* The Above class must be added to parent div of slick slider */
+
+.react-multi-carousel-dot-list{
+    bottom: -6% !important;
+    z-index: 99999 !important;
+    gap: 12px !important;
+}
+.react-multi-carousel-dot button{
+    width: 8px !important;
+    height: 8px !important;
+    background-color: #D9D9D9 !important;
+    border: none !important;
+}
+.react-multi-carousel-dot--active button{
+    background-color: #0D69D7 !important;
+}
+.react-multiple-carousel__arrow--left{
+    left: 2% !important;
+}
+.react-multiple-carousel__arrow--right{
+    right: 3.5% !important;
+}
+
+@media only screen and (max-width:767px){
+    .react-multi-carousel-dot button{
+        width: 6px !important;
+        height: 6px !important;
+    }
+}

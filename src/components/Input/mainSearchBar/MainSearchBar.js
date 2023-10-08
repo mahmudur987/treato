@@ -25,8 +25,14 @@ const MainSearchBar = ({ place }) => {
   const [allSalonList, setallSalonList] = useState([]);
   const [filteredServiceData, setFilteredServiceData] = useState([]);
   const [filteredSalonData, setFilteredSalonData] = useState([]);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
+  let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
+  function reportWindowSize() {
+    let winWidth = window.innerWidth;
+    updateWinWidthMain(winWidth)
+  }
+  window.onresize = reportWindowSize;
   // functions to open/Close desktop search modal
   const handle_openTrt_Modal = () => {
     if (window.innerWidth >= 770) {
@@ -85,10 +91,12 @@ const MainSearchBar = ({ place }) => {
     const fetchSalons = async () => {
       try {
         const result = await salon();
-        const { data } = result.res; // Destructure 'data' from 'result.res'
-        const { salons } = data; // Destructure 'salons' from 'data'
-        setallSalonList(salons);
-        setFilteredSalonData(salons);
+        if(result.res){
+          const { data } = result.res; // Destructure 'data' from 'result.res'
+          const { salons } = data; // Destructure 'salons' from 'data'
+          setallSalonList(salons);
+          setFilteredSalonData(salons);
+        }
       } catch (error) {
         // Handle any errors here
         console.error("Error fetching salons:", error);
@@ -112,10 +120,10 @@ const MainSearchBar = ({ place }) => {
   const handleLocationInput = (e) => {
     const inputValue = e.target.value;
     setLocationInputValue(inputValue);
-  
+
     // Create a Set to store unique locationText values
     const uniqueLocations = new Set();
-  
+
     // Filter the data and add unique locationText values to the Set
     const filtered = allSalonList.filter((item) => {
       const locationText = item.locationText.toLowerCase();
@@ -125,23 +133,18 @@ const MainSearchBar = ({ place }) => {
       }
       return false;
     });
-  
+
     setFilteredSalonData(filtered);
   };
-  
-
-const handleSearch=()=>{
- // Navigate to /salons with services and location as query parameters
- navigate(`/salons?services=${treatmentInputValue}&location=${locationInputValue}`);
-}
-
-
+  const handleSearch = () => {
+    // Navigate to /salons with services and location as query parameters
+    navigate(`/salons?services=${treatmentInputValue}&location=${locationInputValue}`);
+  }
   return (
     <>
       <div
-        className={`${styles.inputWrapper} ${
-          place === "navbar" ? navstyles.navbarInputWrapper : ""
-        }`}
+        className={`${styles.inputWrapper} ${place === "navbar" ? navstyles.navbarInputWrapper : ""
+          }`}
       >
         {/* search Treatments */}
         <div className={styles["searchTreatment"]}>
@@ -150,7 +153,7 @@ const handleSearch=()=>{
           </div>
           <input
             className={styles["treatmentInput"]}
-            placeholder="Search treatments or venues"
+            placeholder={winWidthMain > 767 ? "Search treatments or venues" : "Treatments or venues"}
             value={treatmentInputValue}
             onChange={handleTreatmentsInput}
             onClick={handle_openTrt_Modal}
@@ -158,9 +161,8 @@ const handleSearch=()=>{
 
           {/* Treatment search Desktop box/Modal*/}
           <div
-            className={`${styles["treatmentsResults"]} ${
-              Trt_DesktopModal ? "" : styles["hidden"]
-            }`}
+            className={`${styles["treatmentsResults"]} ${Trt_DesktopModal ? "" : styles["hidden"]
+              }`}
           >
             {/* treatments Content*/}
             <Treatments
@@ -174,9 +176,8 @@ const handleSearch=()=>{
 
           <img
             src={closeIcon}
-            className={`${styles["close_trtBox"]} ${
-              Trt_DesktopModal ? "" : styles["hidden"]
-            }`}
+            className={`${styles["close_trtBox"]} ${Trt_DesktopModal ? "" : styles["hidden"]
+              }`}
             onClick={handle_closeTrt_Modal}
             alt="closeIcon"
           />
@@ -191,26 +192,24 @@ const handleSearch=()=>{
           </div>
           <input
             className={styles["locationInput"]}
-            placeholder="Search by location"
+            placeholder={winWidthMain > 767 ? "Search by location" : "Current location"}
             onClick={handle_openloc_Modal}
             value={locationInputValue}
             onChange={handleLocationInput}
           />
           <img
-            className={`${styles["close_trtBox"]} ${
-              loc_DesktopModal ? "" : styles["hidden"]
-            }`}
+            className={`${styles["close_trtBox"]} ${loc_DesktopModal ? "" : styles["hidden"]
+              }`}
             onClick={handle_closeloc_Modal}
             src={closeIcon}
             alt="closeIcon"
           />
 
           <button
-            className={`${styles["goSearch"]} ${
-              locationInputValue !== "" || treatmentInputValue !== ""
+            className={`${styles["goSearch"]} ${locationInputValue !== "" || treatmentInputValue !== ""
                 ? navstyles["blueButton"]
                 : ""
-            }`}
+              }`}
             onClick={handleSearch}
           >
             Go
@@ -218,14 +217,14 @@ const handleSearch=()=>{
 
           {/*  location Desktop box/Modal */}
           <div
-            className={`${styles["locationResults"]} ${
-              loc_DesktopModal ? "" : styles["hidden"]
-            }`}
+            className={`${styles["locationResults"]} ${loc_DesktopModal ? "" : styles["hidden"]
+              }`}
           >
             <Locations
               setLocationInputValue={setLocationInputValue}
               allSalonList={filteredSalonData}
               handle_close={handle_closeloc_Modal}
+              locationInputValue={locationInputValue}
             />
           </div>
         </div>

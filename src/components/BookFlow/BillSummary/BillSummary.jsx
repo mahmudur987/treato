@@ -4,7 +4,7 @@ import discountIco from "../../../assets/images/SalonDetail/discountIco.svg"
 import rightBlue from "../../../assets/images/SalonDetail/rightBlue.svg"
 import calendar_cancel from "../../../assets/images/SalonDetail/calendar-cancel.svg"
 
-export default function BillSummary() {
+export default function BillSummary({setShowModal}) {
 
     return (
         <>
@@ -55,7 +55,7 @@ export default function BillSummary() {
                         <img src={discountIco} alt="" />
                         <div>Offers & Benefits</div>
                     </div>
-                    <div className={styles.bill_sumFD}>
+                    <div className={styles.bill_sumFD} onClick={()=>setShowModal?setShowModal(true):''}>
                         <div>4 offers</div>
                         <img src={rightBlue} alt="" />
                     </div>

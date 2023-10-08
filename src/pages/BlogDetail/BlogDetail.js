@@ -153,7 +153,7 @@ export default function BlogDetail(props) {
                 blogData.map((v,i)=>{
                   if(i<=5){
                     return (
-                      <PopularBlogCard blog={v}/>
+                      <PopularBlogCard blog={v} key={i}/>
                     )
                   }
                 })
@@ -181,7 +181,7 @@ export default function BlogDetail(props) {
       </div>
       <div className={styles["blog-section-container"]}>
         <Title className={styles["header"]}>Related Blogs</Title>
-        <div className={styles["blogs-container"]}>
+        <div className={`${styles["blogs-container"]} customSlickDiv`}>
           {
             blogData.length ?
               <Carousel

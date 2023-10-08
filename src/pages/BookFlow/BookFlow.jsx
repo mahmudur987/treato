@@ -8,6 +8,7 @@ import WorkerDetail from '../../components/BookFlow/WorkerDetail/WorkerDetail'
 import BackButton from '../../components/Buttons/BackButton/BackButton'
 import BookNow from '../../components/SalonDetail/BookNow/BookNow'
 import SalonServiceMain from '../../components/SalonDetail/SalonServiceMain/SalonServiceMain'
+import SalonDetailModal from '../../components/_modals/SalonDetailModal/SalonDetailModal'
 import styles from './BookFlow.module.css'
 
 export default function BookFlow() {
@@ -19,9 +20,16 @@ export default function BookFlow() {
         updateWinWidthMain(winWidth)
     }
     window.onresize = reportWindowSize;
+    let [showModal,setShowModal] = useState(false)
     return (
         <div className={styles.book_flowMain}>
             <BackButton updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} />
+            {
+                showModal?
+                <SalonDetailModal setShowModal={setShowModal}/>
+                :
+                ''
+            }
             <div className={styles.book_flowMainA}>
                 <div className={styles.book_flowA}>
                     {
@@ -45,7 +53,7 @@ export default function BookFlow() {
                 </div>
                 {
                     activeBookFlowBA === 4 && winWidthMain < 768 ?
-                        <BillSummary />
+                        <BillSummary setShowModal={setShowModal}/>
                         :
                         ''
 
@@ -70,7 +78,7 @@ export default function BookFlow() {
             <div className={styles.book_flowMainB}>
                 {
                     activeBookFlowBA === 4 ?
-                        <BillSummary />
+                        <BillSummary setShowModal={setShowModal}/>
                         :
                         <SelectedServiceCard updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} />
 

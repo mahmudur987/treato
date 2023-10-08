@@ -239,7 +239,9 @@
 }
 @media only screen and (max-width: 770px) {
   .container{
-    padding: 2rem 1rem;
+    height: 64vh;
+    padding: 5rem 1rem;
+    justify-content: flex-start;
   }
   .storeLinks {
     margin-top: 4rem;
@@ -248,7 +250,7 @@
     line-height: 68px;
   }
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
   .heroHeading {
     width: 100%;
     padding: 0;
@@ -296,14 +298,18 @@
     color: white;
     border-radius: 4px;
     cursor: pointer;
+    border: none;
   }
   .storeLinks {
     width: 100%;
     margin-top: 2rem;
-    justify-content: space-around;
+    justify-content: space-between;
+  }
+  .storeLinks a{
+    width: 48%;
   }
   .storeLinks a img {
-    width: 142px;
+    width: 100%;
   }
   .treatmentsResults,
   .locationResults {

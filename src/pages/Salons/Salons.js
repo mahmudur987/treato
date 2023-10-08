@@ -43,14 +43,12 @@ const Salons = React.memo(() => {
       dispatch(fetchSalonsData()).then(() => {
         // After fetching data, calculate filteredSalonContent
         filteredSalonContent = calculateFilteredSalonContent();
-        console.log("filteredSalonContent", filteredSalonContent);
         // Dispatch the 'updateFilterContent' action with the filtered salon data
         dispatch(updateFilterContent(filteredSalonContent));
       });
     } else {
       // If salonsState.salonContent is not empty, calculate filteredSalonContent directly
       filteredSalonContent = calculateFilteredSalonContent();
-      console.log("filteredSalonContent", filteredSalonContent);
       // Dispatch the 'updateFilterContent' action with the filtered salon data
       dispatch(updateFilterContent(filteredSalonContent));
     }
@@ -149,13 +147,16 @@ const Salons = React.memo(() => {
       </div>
 
       <div className={styles.salonsWrapper}>
-        {salonsState.filterContent.length === 0 ? (
-          <div className={styles.notFound}>We didn't find a match</div>
-        ) : (
-          visibleItems?.map((item, index) => (
-            <Salon key={index} salonData={salonsState.filterContent[index]} />
-          ))
-        )}
+        {
+          salonsState.salonContent.length?
+          salonsState.salonContent.map((v,i)=>{
+            return(
+              <Salon key={i} salonData={v} />
+            )
+          })
+          :
+          ''
+        }
       </div>
 
       <Pagination

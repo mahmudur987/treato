@@ -32,6 +32,7 @@ a {
   font-size: 56px;
   line-height: 64px;
   font-family: "Poppins", sans-serif;
+  margin: 24px 0px;
 }
 .bannerDetails small {
   font-size: var(--font-medium);
@@ -68,6 +69,7 @@ a {
 .socialLinks {
   display: flex;
   gap: 20px;
+  margin: 24px 0px;
 }
 .socialLinks a {
   height: 52px;
@@ -89,6 +91,10 @@ a {
   }
 }
 @media only screen and (max-width: 600px) {
+  .bannerDetails h1 {
+    font-size: 28px;
+    line-height: 42px;
+  }
   .bannerWrapper {
     flex-direction: column;
     /* background-image: none; */
@@ -102,10 +108,6 @@ a {
     height: 24px;
     width: 24px;
   }
-  .bannerDetails h1 {
-    font-size: 26px;
-    line-height: 40px;
-  }
   .bannerImage {
     width: 100%;
     height: 300px;
@@ -117,7 +119,21 @@ a {
     width: 100%;
   }
   .bannerDetails .desc {
-    font-size: var(--fonts-large);
+    font-size: 16px;
+    line-height: 24px;
     font-weight: 400;
+  }
+  .socialLinks {
+    display: flex;
+    gap: 12px;
+    margin: 24px 0px;
+  }
+  .socialLinks a {
+    width: 49%;
+    height: 52px;
+  }
+
+  .socialLinks a img{
+    width: 100%;
   }
 }

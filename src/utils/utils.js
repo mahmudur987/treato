@@ -24,6 +24,7 @@ export const getFormattedDate = argDate => {
 export const fetchSalonsData = () => async (dispatch) => {
    try {
      const result = await salon();
+     if(result.res){
      const { data } = result.res; // Destructure 'data' from 'result.res'
      const { salons } = data; // Destructure 'salons' from 'data'
      const ServicesResponse = await getAllServices();
@@ -46,6 +47,7 @@ export const fetchSalonsData = () => async (dispatch) => {
  
      // Dispatch the 'updateFilterContent' action with the fetched 'salons' data
      dispatch(updateFilterContent(salons));
+    }
    } catch (error) {
      // Handle any errors here
      console.error("Error fetching salons:", error);

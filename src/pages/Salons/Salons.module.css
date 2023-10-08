@@ -102,4 +102,7 @@
   .filterDesk {
     display: none;
   }
+  .salonsWrapper{
+    gap: 64px;
+  }
 }

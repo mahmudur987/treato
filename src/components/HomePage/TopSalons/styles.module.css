@@ -129,15 +129,32 @@
 @media only screen and (max-width: 770px) {
   .container {
     padding: 2rem 1rem;
+    padding-top: 0rem;
+  }
+  .top-ratedSalons{
+    margin-top: 0rem;
   }
   .rmdHeading {
     font-size: var(--fonts-large);
+  }
+  .trHeading{
+    font-size: 18px;
+    font-weight: 600;
+    font-family: "Lato", sans-serif;
+  }
+  .trWrapper{
+    margin-top: 1rem;
   }
   .rmdWrapper {
     margin-top: 1.5rem;
     height: 184px;
     flex-wrap: wrap;
     height: 240px;
+  }
+  .mobScrollRight{
+    padding: 4px;
+    height: 24px;
+    width: 24px;
   }
   .rmdBox {
     height: 100%;
@@ -147,7 +164,8 @@
     flex-direction: column;
   }
   .rmdItem {
-    height: 84px;
+    height: unset !important;
+    padding: 12px 0px !important;
   }
   .rmdItem img {
     width: 24px;
@@ -157,8 +175,8 @@
     font-size: var(--font-small);
     font-weight: 100;
   }
-  .scrollRight {
-    display: none;
+  .scrollRight,.scroll_left,.scroll_right {
+    display: none !important;
   }
   .trScrollRight {
     display: none;
@@ -171,5 +189,13 @@
     display: block;
     height: 24px;
     width: 24px;
+  }
+  .trMobHeading{
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 }
