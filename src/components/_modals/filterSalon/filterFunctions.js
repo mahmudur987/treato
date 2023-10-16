@@ -44,8 +44,8 @@ export const applyFilters = (
     } else if (selectedSortOption === "Nearest to me") {
       // Sort by some other logic
       filteredSalons.sort((a, b) => {
-        const distanceA = a.unit === "km" ? a.distance * 1000 : a.distance;
-        const distanceB = b.unit === "km" ? b.distance * 1000 : b.distance;
+        const distanceA = a.unit === "km" ? a.distances * 1000 : a.distances;
+        const distanceB = b.unit === "km" ? b.distances * 1000 : b.distances;
         return distanceA - distanceB;
       });
     } else if (selectedSortOption === "Ratings") {

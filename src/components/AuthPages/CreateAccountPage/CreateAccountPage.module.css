@@ -54,7 +54,10 @@ label {
   display: flex;
   gap: 16px;
 }
-
+.NameWrapper .inputGroup{
+  display: flex;
+  flex-direction: column;
+}
 .termsWrapper {
   width: 100%;
   display: flex;
@@ -164,7 +167,7 @@ label {
   .NameWrapper .inputGroup input,
   .google,
   .facebook {
-    width: 163px;
+    width: 100%;
   }
   .continueWith {
     font-size: var(--font-small);

@@ -91,7 +91,7 @@ const MainSearchBar = ({ place }) => {
     const fetchSalons = async () => {
       try {
         const result = await salon();
-        if(result.res){
+        if (result.res) {
           const { data } = result.res; // Destructure 'data' from 'result.res'
           const { salons } = data; // Destructure 'salons' from 'data'
           setallSalonList(salons);
@@ -127,7 +127,10 @@ const MainSearchBar = ({ place }) => {
     // Filter the data and add unique locationText values to the Set
     const filtered = allSalonList.filter((item) => {
       const locationText = item.locationText.toLowerCase();
-      if (!uniqueLocations.has(locationText) && locationText.includes(inputValue.toLowerCase())) {
+      if (
+        !uniqueLocations.has(locationText) &&
+        locationText.includes(inputValue.toLowerCase())
+      ) {
         uniqueLocations.add(locationText);
         return true;
       }
@@ -135,16 +138,22 @@ const MainSearchBar = ({ place }) => {
     });
 
     setFilteredSalonData(filtered);
+    
   };
+
+
   const handleSearch = () => {
     // Navigate to /salons with services and location as query parameters
-    navigate(`/salons?services=${treatmentInputValue}&location=${locationInputValue}`);
-  }
+    navigate(
+      `/salons?services=${treatmentInputValue}&location=${locationInputValue}`
+    );
+  };
   return (
     <>
       <div
-        className={`${styles.inputWrapper} ${place === "navbar" ? navstyles.navbarInputWrapper : ""
-          }`}
+        className={`${styles.inputWrapper} ${
+          place === "navbar" ? navstyles.navbarInputWrapper : ""
+        }`}
       >
         {/* search Treatments */}
         <div className={styles["searchTreatment"]}>
@@ -153,7 +162,11 @@ const MainSearchBar = ({ place }) => {
           </div>
           <input
             className={styles["treatmentInput"]}
-            placeholder={winWidthMain > 767 ? "Search treatments or venues" : "Treatments or venues"}
+            placeholder={
+              winWidthMain > 767
+                ? "Search treatments or venues"
+                : "Treatments or venues"
+            }
             value={treatmentInputValue}
             onChange={handleTreatmentsInput}
             onClick={handle_openTrt_Modal}
@@ -161,8 +174,9 @@ const MainSearchBar = ({ place }) => {
 
           {/* Treatment search Desktop box/Modal*/}
           <div
-            className={`${styles["treatmentsResults"]} ${Trt_DesktopModal ? "" : styles["hidden"]
-              }`}
+            className={`${styles["treatmentsResults"]} ${
+              Trt_DesktopModal ? "" : styles["hidden"]
+            }`}
           >
             {/* treatments Content*/}
             <Treatments
@@ -176,8 +190,9 @@ const MainSearchBar = ({ place }) => {
 
           <img
             src={closeIcon}
-            className={`${styles["close_trtBox"]} ${Trt_DesktopModal ? "" : styles["hidden"]
-              }`}
+            className={`${styles["close_trtBox"]} ${
+              Trt_DesktopModal ? "" : styles["hidden"]
+            }`}
             onClick={handle_closeTrt_Modal}
             alt="closeIcon"
           />
@@ -192,24 +207,28 @@ const MainSearchBar = ({ place }) => {
           </div>
           <input
             className={styles["locationInput"]}
-            placeholder={winWidthMain > 767 ? "Search by location" : "Current location"}
+            placeholder={
+              winWidthMain > 767 ? "Search by location" : "Current location"
+            }
             onClick={handle_openloc_Modal}
             value={locationInputValue}
             onChange={handleLocationInput}
           />
           <img
-            className={`${styles["close_trtBox"]} ${loc_DesktopModal ? "" : styles["hidden"]
-              }`}
+            className={`${styles["close_trtBox"]} ${
+              loc_DesktopModal ? "" : styles["hidden"]
+            }`}
             onClick={handle_closeloc_Modal}
             src={closeIcon}
             alt="closeIcon"
           />
 
           <button
-            className={`${styles["goSearch"]} ${locationInputValue !== "" || treatmentInputValue !== ""
+            className={`${styles["goSearch"]} ${
+              locationInputValue !== "" || treatmentInputValue !== ""
                 ? navstyles["blueButton"]
                 : ""
-              }`}
+            }`}
             onClick={handleSearch}
           >
             Go
@@ -217,8 +236,9 @@ const MainSearchBar = ({ place }) => {
 
           {/*  location Desktop box/Modal */}
           <div
-            className={`${styles["locationResults"]} ${loc_DesktopModal ? "" : styles["hidden"]
-              }`}
+            className={`${styles["locationResults"]} ${
+              loc_DesktopModal ? "" : styles["hidden"]
+            }`}
           >
             <Locations
               setLocationInputValue={setLocationInputValue}

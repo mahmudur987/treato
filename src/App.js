@@ -15,7 +15,7 @@ import VerifyOTP from "./components/AuthPages/VerifyOTP/VarifyOTP";
 import ForgotPassword from "./components/AuthPages/ForgotPassword/ForgotPassword";
 import MyAppointments from "./pages/MyAppointments/MyAppointments";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUserDetails } from "./redux/slices/user";
 import { fetchSalonsData } from "./utils/utils";
 function App() {
@@ -23,6 +23,7 @@ function App() {
   const location = useLocation();
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.user);
 
   // Scroll to the top when the route changes
   useEffect(() => {
@@ -31,10 +32,10 @@ function App() {
   
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token')
-    dispatch(fetchSalonsData());
-
-  }, [])
+    // Call the action to fetch salon data, passing userDetails as an argument
+    dispatch(fetchSalonsData(userDetails));
+  }, [dispatch, userDetails]);
+  
  // Function to fetch user's location
  const fetchLocation = () => {
   if ("geolocation" in navigator) {

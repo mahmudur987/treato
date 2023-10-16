@@ -24,7 +24,7 @@ import { fetchSalonsData } from "../../utils/utils";
 const Salons = React.memo(() => {
   const salonsState = useSelector((state) => state.salons);
   const salonModal = useSelector((state) => state.salonModal);
-
+  const userDetails = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -40,7 +40,7 @@ const Salons = React.memo(() => {
     // Check if salonsState.salonContent is empty or undefined
     if (!salonsState.salonContent || salonsState.salonContent.length === 0) {
       // If it's empty, fetch the salons data
-      dispatch(fetchSalonsData()).then(() => {
+      dispatch(fetchSalonsData(userDetails)).then(() => {
         // After fetching data, calculate filteredSalonContent
         filteredSalonContent = calculateFilteredSalonContent();
         // Dispatch the 'updateFilterContent' action with the filtered salon data
@@ -53,7 +53,7 @@ const Salons = React.memo(() => {
       dispatch(updateFilterContent(filteredSalonContent));
     }
   }, [dispatch, locationParam, salonsState.salonContent, servicesParam]);
-  
+
   function calculateFilteredSalonContent() {
     return salonsState.salonContent.filter((salonItem) => {
       const matchesServices = !servicesParam || salonItem.services[0].service_name === servicesParam;
@@ -148,10 +148,10 @@ const Salons = React.memo(() => {
 
       <div className={styles.salonsWrapper}>
         {
-          salonsState.salonContent.length?
-          salonsState.salonContent.map((v,i)=>{
+          salonsState.filterContent.length?
+          salonsState.filterContent.map((v,i)=>{
             return(
-              <Salon key={i} salonData={v} />
+              <Salon key={i} salonData={v}/>
             )
           })
           :

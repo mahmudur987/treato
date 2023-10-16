@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "./Salon.module.css";
-import { chevronright, mapPin, star_line } from "../../../assets/images/icons";
+import { chevronright, ellipse, mapPin, star_line } from "../../../assets/images/icons";
 import { starBlack } from "../../../assets/images/SalonsPageImages";
+import { displayDistance } from "../../../utils/utils";
 
 const Salon = ({ salonData, place }) => {
 
@@ -18,10 +19,10 @@ const Salon = ({ salonData, place }) => {
         <a href="/salons" className={`${styles.Name} ${place === "homePage" ? styles.Name_Home : ""}`}>{salonData.salon_name ? salonData.salon_name : 'Salon Name'}</a>
         <h4 className={styles.ratings}>
           {salonData.rating} <img src={starBlack} alt="star" /> (
-          {salonData.total_rating} ratings)
+          {salonData.total_rating} ratings)      
         </h4>
         <h4 className={styles.location}>
-          {salonData?.locationText}{" "}
+          {salonData?.locationText}{" "} <img src={ellipse}/>  {displayDistance(salonData?.distances)}
         </h4>
       </div>
       {place != "homePage" ? (
