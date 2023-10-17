@@ -42,7 +42,7 @@ export default function UserDetails({ mobView }) {
                 <div className={styles.usr_detail_box}>
                     <label htmlFor="f_name" className={styles.usr_detail_label}>First Name</label>
 
-                    <BasicInput Type={'text'} VALUE={inputVal.f_name} DISABLED={inputState.f_name} ID={"f_name"} NAME={"f_name"} updateInputVal={updateInputVal} inputVal={inputVal} />
+                    <BasicInput Type={'text'} VALUE={inputVal.f_name} DISABLED={inputState.f_name} id={"f_name"} NAME={"f_name"} updateInputVal={updateInputVal} inputVal={inputVal} />
 
                     <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.f_name ? { f_name: false } : { f_name: true })} />
 
@@ -50,28 +50,28 @@ export default function UserDetails({ mobView }) {
                 <div className={styles.usr_detail_box}>
                     <label htmlFor="l_name" className={styles.usr_detail_label}>Last Name</label>
 
-                    <BasicInput Type={'text'} VALUE={inputVal.l_name} DISABLED={inputState.l_name} ID={"l_name"} NAME={"l_name"} updateInputVal={updateInputVal} inputVal={inputVal} />
+                    <BasicInput Type={'text'} VALUE={inputVal.l_name} DISABLED={inputState.l_name} id={"l_name"} NAME={"l_name"} updateInputVal={updateInputVal} inputVal={inputVal} />
 
                     <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.l_name ? { l_name: false } : { l_name: true })} />
                 </div>
                 <div className={styles.usr_detail_box}>
                     <label htmlFor="email" className={styles.usr_detail_label}>Email (used to log into your account)</label>
 
-                    <BasicInput Type={'email'} VALUE={inputVal.user_email} DISABLED={inputState.email} ID={"email"} NAME={"email"} updateInputVal={updateInputVal} inputVal={inputVal} />
+                    <BasicInput Type={'email'} VALUE={inputVal.user_email} DISABLED={inputState.email} id={"email"} NAME={"email"} updateInputVal={updateInputVal} inputVal={inputVal} />
 
                     <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.email ? { email: false } : { email: true })} />
                 </div>
                 <div className={styles.usr_detail_box}>
                     <label htmlFor="user_tel" className={styles.usr_detail_label}>Phone</label>
                     <div>
-                        <PhoneInput Type={'tel'} VALUE={inputVal.user_tel} DISABLED={inputState.phone} ID={"user_tel"} NAME={"user_tel"} updateInputVal={updateInputVal} inputVal={inputVal} />
+                        <PhoneInput Type={'tel'} VALUE={inputVal.user_tel} DISABLED={inputState.phone} id={"user_tel"} NAME={"user_tel"} updateInputVal={updateInputVal} inputVal={inputVal} />
                     </div>
                     <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.phone ? { phone: false } : { phone: true })} />
                 </div>
                 <div className={styles.usr_detail_box}>
                     <label htmlFor="user_dob" className={styles.usr_detail_label}>Date of Birth</label>
 
-                    <BasicInput Type={'date'} VALUE={inputVal.user_dob} DISABLED={inputState.dob} ID={"user_dob"} NAME={"user_dob"} updateInputVal={updateInputVal} inputVal={inputVal} />
+                    <BasicInput Type={'date'} VALUE={inputVal.user_dob} DISABLED={inputState.dob} id={"user_dob"} NAME={"user_dob"} updateInputVal={updateInputVal} inputVal={inputVal} />
 
                     <img src={editImg} alt="" className={inputState.dob ? styles.usr_detail_edit : styles.d_none} onClick={() => updateInput(inputState.dob ? { dob: false } : { dob: true })} />
                 </div>

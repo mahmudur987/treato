@@ -15,11 +15,11 @@ import SalonGallery from '../../components/SalonDetail/SalonGallery/SalonGallery
 import { useState } from 'react'
 
 export default function SalonDetail() {
-    const gallery = [slide1,slide2,slide3,slide4,slide5,slide1,slide2,slide3,slide4,slide5,slide1,slide2,slide3,slide4,slide5,slide1,slide2,slide3,slide4,slide5];
-    let [showGallery,setShowGallery] = useState(false)
+    const gallery = [slide1, slide2, slide3, slide4, slide5, slide1, slide2, slide3, slide4, slide5, slide1, slide2, slide3, slide4, slide5, slide1, slide2, slide3, slide4, slide5];
+    let [showGallery, setShowGallery] = useState(false)
 
     return (
-        <div className={showGallery?`${styles.salon_page} ${styles.overHidden}`:styles.salon_page}>
+        <div className={showGallery ? `${styles.salon_page} ${styles.overHidden}` : styles.salon_page}>
             <BackButton />
             <div className={styles.salon_pcView}>
                 <div className={styles.salon_name}>
@@ -34,14 +34,14 @@ export default function SalonDetail() {
             </div>
             <div className={styles.salon_images}>
                 <div className={`${styles.salon_image_slider} salon_slick`}>
-                    <SalonSlickSLider setShowGallery={setShowGallery} gallery={gallery}/>
+                    <SalonSlickSLider setShowGallery={setShowGallery} gallery={gallery} />
                 </div>
                 <div className={styles.salon_images_right}>
                     <img src={slide2} alt="" />
                     <img src={slide3} alt="" />
                     <img src={slide4} alt="" />
                     <div className={styles.salon_imagesA}>
-                        <div onClick={()=>setShowGallery(true)}>
+                        <div onClick={() => setShowGallery(true)}>
                             <div>View <span>22</span></div>
                             <div>images</div>
                         </div>
@@ -71,13 +71,13 @@ export default function SalonDetail() {
                 <SalonCard />
             </div>
             <div className={styles.book_flowMob}>
-                <BookNow SalonDetails={true}/>
+                <BookNow SalonDetails={true} />
             </div>
             {
-                showGallery?
-                <SalonGallery gallery={gallery} setShowGallery={setShowGallery}/>
-                :
-                ''
+                showGallery ?
+                    <SalonGallery gallery={gallery} setShowGallery={setShowGallery} />
+                    :
+                    ''
             }
         </div>
     )

@@ -2,8 +2,11 @@ import styles from '../../../pages/BookFlow/BookFlow.module.css'
 import BookNow from '../../SalonDetail/BookNow/BookNow'
 import clock from "../../../assets/images/SalonDetail/clock.svg"
 import user_3 from "../../../assets/images/SalonDetail/user_3.svg"
+import editIco from "../../../assets/images/icons/edit.svg"
+import { useNavigate } from 'react-router-dom'
 
 export default function SelectedServiceCard({ updateActiveBookFlowBA, activeBookFlowBA }) {
+    const navigate = useNavigate();
 
     return (
         <div className={styles.service_cardMain}>
@@ -39,11 +42,12 @@ export default function SelectedServiceCard({ updateActiveBookFlowBA, activeBook
                             <div className={styles.service_cardF}>
                                 <img src={clock} alt="" />
                                 <div>Tue - Aug 15, 1:30 PM</div>
+                                <img src={editIco} alt="" />
                             </div>
                             <div className={styles.service_cardG}>
                                 <div className={styles.service_cardGA}><img src={user_3} alt="" /></div>
-
                                 <div>No Preference</div>
+                                <img src={editIco} alt="" />
                             </div>
                         </>
                         :
@@ -55,11 +59,12 @@ export default function SelectedServiceCard({ updateActiveBookFlowBA, activeBook
                                 <div className={styles.service_cardF}>
                                     <img src={clock} alt="" />
                                     <div>Tue - Aug 15, 1:30 PM</div>
+                                    <img src={editIco} alt="" />
                                 </div>
                                 <div className={styles.service_cardG}>
                                     <div className={styles.service_cardGA}><img src={user_3} alt="" /></div>
-
                                     <div>No Preference</div>
+                                    <img src={editIco} alt="" />
                                 </div>
                             </>
                             :
@@ -70,16 +75,20 @@ export default function SelectedServiceCard({ updateActiveBookFlowBA, activeBook
                                 <div className={styles.service_cardF}>
                                     <img src={clock} alt="" />
                                     <div>Tue - Aug 15, 1:30 PM</div>
+                                    <img src={editIco} alt="" />
                                 </div>
                                 <div className={styles.service_cardG}>
                                     <div className={styles.service_cardGA}><img src={user_3} alt="" /></div>
-
                                     <div>No Preference</div>
+                                    <img src={editIco} alt="" />
                                 </div>
                             </>
             }
             <div className={styles.service_cardE}>
                 <BookNow innerText={'Proceed'} updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} />
+            </div>
+            <div className={styles.service_cardBack} onClick={()=> activeBookFlowBA===1?navigate(-1):activeBookFlowBA===2?updateActiveBookFlowBA(activeBookFlowBA=1):activeBookFlowBA===3?updateActiveBookFlowBA(activeBookFlowBA=2):updateActiveBookFlowBA(activeBookFlowBA=3)}>
+                Back to previous
             </div>
         </div>
     )

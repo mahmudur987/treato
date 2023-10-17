@@ -1,10 +1,10 @@
-.react-multi-carousel-list,.react-multi-carousel-track{
-    position: unset !important;
-}
 .customSlickDiv{
     position: relative !important;
 }
 /* The Above class must be added to parent div of slick slider */
+.react-multi-carousel-list,.react-multi-carousel-track{
+    position: unset !important;
+}
 
 .react-multi-carousel-dot-list{
     bottom: -6% !important;

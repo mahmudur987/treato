@@ -1,11 +1,12 @@
 .time_slick .slick-slider{
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-left: 70px;
 }
 
 .time_slick .slick-list{
-    width: 70%;
+    width: 83%;
 }
 
 .time_slick .slick-next::before,.time_slick .slick-prev::before,.time_slick .slick-next:hover,.time_slick .slick-prev:hover{
@@ -27,7 +28,7 @@
 }
 
 .time_slick .slick-next{
-    right: 3% !important;
+    right: 10% !important;
     z-index: 9999 !important;
     background-color: white;
     width: 48px;
@@ -39,7 +40,7 @@
 }
 
 .time_slick .slick-prev{
-    left: 3% !important;
+    left: -1% !important;
     z-index: 9999 !important;
     background-color: white;
     width: 48px;
@@ -49,7 +50,21 @@
     background-repeat: no-repeat;
     background-position: center center;
 }
-
+@media only screen and (min-width:1024px) and (max-width:1180px){
+    .time_slick .slick-next{
+        right: 3% !important;
+    }
+}
+@media only screen and (min-width:767px) and (max-width:1024px){
+    .time_slick .slick-next{
+        right: 2% !important;
+    }
+}
+@media only screen and (min-width:1600px){
+    .time_slick .slick-next{
+        right: 13% !important;
+    }
+}
 @media only screen and (max-width:767px){
     .time_slick .slick-prev:hover,.time_slick .slick-prev:focus,.time_slick .slick-next:hover,.time_slick .slick-next:focus {
         background-color: white;
@@ -66,11 +81,11 @@
         width: 24px;
         height: 24px; 
         height: 24px; 
-        right: -3% !important;
+        right: 6% !important;
     }
     
     .time_slick .slick-prev{
-        left: -3% !important;
+        left: -1% !important;
         z-index: 9999 !important;
         background-color: white;
         width: 24px;
@@ -79,7 +94,24 @@
         background-image: url(../../../assets/images/SalonDetail/chevron-left.svg);
     }
 
+    .time_slick .slick-slider{
+        padding-left: 0px;
+        justify-content: center;
+        width: 100%;
+    }
+    
     .time_slick .slick-list{
         width: 85%;
+    }
+    .time_slick .slick-track{
+        transform: translate3d(0px, 0px, 0px);
+    }
+}
+@media only screen and (max-width:440px){
+    .time_slick .slick-prev{
+        left: -5% !important;
+    }
+    .time_slick .slick-next{
+        right: -5% !important;
     }
 }

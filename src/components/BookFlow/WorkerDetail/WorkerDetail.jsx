@@ -18,7 +18,7 @@ export default function WorkerDetail() {
                     </div>
                 </div>
                 <div className={styles.worker_detailAC}>
-                    <input type="radio" name="preference" id="" />
+                    <input type="radio" name="preference" />
                 </div>
             </div>
             <div className={styles.worker_detailB}>

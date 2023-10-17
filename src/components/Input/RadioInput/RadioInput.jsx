@@ -1,8 +1,8 @@
 import styles from './RadioInput.module.css'
 
-export default function RadioInput({Type,VALUE,DISABLED,ID,NAME}){
+export default function RadioInput({Type,VALUE,DISABLED,id,NAME,setGuest,guest,setShowPay,showPay,setPaySelected}){
 
     return(
-        <input type={Type?Type:''} className={styles.radio_input} value={VALUE?VALUE:''} disabled={DISABLED?DISABLED:false} ID={ID?ID:''} name={NAME?NAME:''}/>
+        <input type={Type?Type:''} className={styles.radio_input} value={VALUE?VALUE:''} disabled={DISABLED?DISABLED:false} id={id?id:''} name={NAME?NAME:''} onClick={()=>setGuest?setGuest(guest?true:false):setShowPay?setShowPay(showPay?true:false):setPaySelected?setPaySelected(true):null}/>
     )
 }
