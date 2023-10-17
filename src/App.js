@@ -24,7 +24,8 @@ function App() {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user);
-
+  const [userGeolocationAvailable, setUserGeolocationAvailable] = useState(true); // State to track geolocation availability
+const [userLoc, setuserLoc] = useState({})
   // Scroll to the top when the route changes
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,27 +37,38 @@ function App() {
     dispatch(fetchSalonsData(userDetails));
   }, [dispatch, userDetails]);
   
- // Function to fetch user's location
- const fetchLocation = () => {
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        dispatch(updateUserDetails({ latitude, longitude }));
-      },
-      (error) => {
-        setError(error.message);
-      }
-    );
-  } else {
-    setError("Geolocation is not available in your browser.");
-  }
-};
-
 useEffect(() => {
-  // Fetch the user's location when the component mounts
   fetchLocation();
 }, []);
+const fetchLocation = () => {
+    // If geolocation is not available, fall back to IP-based location
+    fetchIpBasedLocation().then((ipBasedLocation) => {
+      if (ipBasedLocation) {
+        const { lat, lon } = ipBasedLocation;
+        setuserLoc({ lat, lon });
+        dispatch(updateUserDetails({ latitude:lat, longitude:lon }));
+      } else {
+        setError("Location not available.");
+      }
+    });
+};
+
+const fetchIpBasedLocation = async () => {
+  try {
+    const response = await fetch("http://ip-api.com/json");
+    if (response.ok) {
+      const data = await response.json();
+      const { lat, lon } = data;
+      return { lat, lon };
+    } else {
+      console.error("IP-based location service response not okay:", response.status, response.statusText);
+    }
+  } catch (error) {
+    console.error("Error fetching IP-based location:", error);
+  }
+  return null;
+};
+
 
   return (
     <PageLayout>

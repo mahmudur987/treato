@@ -47,7 +47,7 @@ const degToRad = (deg) => {
 export const displayDistance = (kilometers) => {
   if (kilometers < 1) {
     // Convert kilometers to meters (1 kilometer = 1000 meters)
-    return (kilometers * 1000)?.toFixed(0) + ' meters';
+    return (kilometers * 1000)?.toFixed(0) + ' m';
   } else {
     return kilometers?.toFixed(0) + ' km';
   }

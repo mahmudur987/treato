@@ -10,17 +10,58 @@ const WriteReview = () => {
   const [textareaValue, setTextareaValue] = useState("");
   const [titleValue, settitleValue] = useState("");
   const [rating, setRating] = useState(0);
+  const [stylistRating, setstylistRating] = useState(0);
+ // Error states
+ const [titleError, setTitleError] = useState("");
+ const [textareaError, setTextareaError] = useState("");
+ const [ratingError, setRatingError] = useState("");
+ const [stylistratingError, setStylistRatingError] = useState("");
+
   const dispatch = useDispatch();
 
   const handleStarClick = (value) => {
     setRating(value);
-  };
-  // Function to handle textarea changes
-  const handleTextareaChange = (event) => {
-    const { value } = event.target;
-    setTextareaValue(value);
+    setRatingError(""); // Clear rating error when the user selects a rating
   };
 
+  const handleStylistStarClick = (value) => {
+    setstylistRating(value);
+    setStylistRatingError("");
+  };
+
+  const handleTitleChange = (event) => {
+    settitleValue(event.target.value);
+    setTitleError(""); // Clear title error when the user types
+  };
+  const handleTextareaChange = (event) => {
+    setTextareaValue(event.target.value);
+    setTextareaError(""); // Clear textarea error when the user types
+  };
+  const handleSubmit = () => {
+    // Validate input fields
+    let isValid = true;
+
+    if (titleValue.trim() === "") {
+      setTitleError("Title is required");
+      isValid = false;
+    }
+
+    if (textareaValue.trim() === "") {
+      setTextareaError("Review is required");
+      isValid = false;
+    }
+    if (rating === 0) {
+      setRatingError("Rating is required");
+      isValid = false;
+    }
+    if(stylistRating===0){
+      setStylistRatingError("Rating is required")
+    }
+    if (isValid) {
+      // Process form submission
+      // You can dispatch an action to submit the review here
+    }
+  };
   function handleClose() {
     dispatch(closeModal());
   }
@@ -56,6 +97,28 @@ const WriteReview = () => {
                   </span>
                 ))}
               </div>
+              {ratingError && <div className={styles.errorText}>{ratingError}</div>}
+
+            </label>
+          </div>
+          <div className={styles.Rating}>
+            <label>
+            How would you rate the stylist?
+              <div class={styles.rating}>
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <span
+                    key={value}
+                    className={`${styles.star} ${
+                      value <= stylistRating ? styles.staractive : ""
+                    }`}
+                    onClick={() => handleStylistStarClick(value)}
+                  >
+                    <img src={star_line} alt="star_line" />
+                  </span>
+                ))}
+              </div>
+              {stylistratingError && <div className={styles.errorText}>{stylistratingError}</div>}
+
             </label>
           </div>
           <div className={styles.ReviewTitle}>
@@ -63,10 +126,11 @@ const WriteReview = () => {
               A title for your review
               <input
                 value={titleValue}
-                onChange={(e) => settitleValue(e.target.value)}
+                onChange={handleTitleChange}
                 placeholder="What’s most important to know?"
                 className={styles.titleInput}
               />
+                {titleError && <div className={styles.errorText}>{titleError}</div>}
             </label>
           </div>
           <div className={styles.Review}>
@@ -79,6 +143,7 @@ const WriteReview = () => {
                   placeholder="What did you like or dislike about the treatment or venue?"
                   className={styles.textarea}
                 />
+                 {textareaError && <div className={styles.errorText}>{textareaError}</div>}
               </label>
             </div>
           </div>
@@ -86,7 +151,7 @@ const WriteReview = () => {
       </div>
       <div className={styles.button}>
         <SecondaryButton children={"Cancel"} onClick={handleClose} />
-        <PrimaryButton children={"Submit"} />
+        <PrimaryButton children={"Submit"} onClick={handleSubmit}/>
       </div>
     </div>
   );
