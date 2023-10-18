@@ -127,7 +127,7 @@
 .treatmentsResults::-webkit-scrollbar,
 .locationResults::-webkit-scrollbar {
   background-color: var(--light-color);
-  width: 8px;
+  width: 12px;
   height: 8px;
 }
 .treatmentsResults::-webkit-scrollbar-thumb,

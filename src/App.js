@@ -18,6 +18,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserDetails } from "./redux/slices/user";
 import { fetchSalonsData } from "./utils/utils";
+import Lookbook from "./pages/Lookbook/Lookbook";
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
@@ -82,6 +83,7 @@ const fetchIpBasedLocation = async () => {
         <Route path='/salons/:id' element={<SalonDetail />} />
         <Route path='/salons/:id/book' element={<BookFlow/>} />
         <Route path="/salons" element={<Salons />} />
+        <Route path="/lookbook" element={<Lookbook />} />
         <Route path="/auth-choice" exact element={<AuthChoicePage />} />
         <Route path="/create-account" element={<CreateAccountPage />} />
         <Route path="/login" element={<LoginPage />} />

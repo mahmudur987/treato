@@ -111,7 +111,7 @@ const MainSearchBar = ({ place }) => {
 
     // Filter the data based on the input value
     const filtered = allServices.filter((item) =>
-      item.service_name[0].toLowerCase().includes(inputValue.toLowerCase())
+      item.service_name.toLowerCase().includes(inputValue.toLowerCase())
     );
 
     setFilteredServiceData(filtered);

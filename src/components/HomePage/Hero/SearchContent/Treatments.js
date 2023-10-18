@@ -29,12 +29,12 @@ const Treatments = ({ allServices, handle_close, setTreatmentInputValue }) => {
               <div
                 key={index}
                 className={styles["trt_resultItem"]}
-                onClick={() => setinput(treatment.service_name[0])}
+                onClick={() => setinput(treatment.service_name)}
               >
                 <div>
                   <img src={search_Blue} alt="Treatment" />
                 </div>
-                <p>{treatment.service_name[0]}</p>
+                <p>{treatment.service_name}</p>
               </div>
             ))}
           </>

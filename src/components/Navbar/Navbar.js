@@ -87,7 +87,7 @@ export default function Navbar() {
                     <Link to="/blogs">Blog</Link>
                   </li>
                   <li>
-                    <Link to="#">Lookbook</Link>
+                    <Link to="/lookbook">Lookbook</Link>
                   </li>
                   <li onClick={() => scrollToSection(navigate, "contactUs")}>
                     <Link to="#">Contact us</Link>

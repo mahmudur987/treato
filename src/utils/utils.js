@@ -67,7 +67,7 @@ export const fetchSalonsData = (userDetails) => async (dispatch) => {
       // Create a map of service IDs to their corresponding names
       const serviceMap = {};
       listServices.forEach((service) => {
-        serviceMap[service._id] = service.service_name[0];
+        serviceMap[service._id] = service.service_name;
       });
       // Add the service_name to each salon's services array
       let allSalonsCoordinates=salons.map((e)=>{
