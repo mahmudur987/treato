@@ -27,6 +27,16 @@
     right: 3.5% !important;
 }
 
+.images-length-greater-equal-5   .masonry-div-1 {
+    margin-top: 29.5rem;
+  }
+  .images-length-greater-equal-5    .masonry-div-2 {
+    margin-top: 14.938rem;
+  }
+  .images-length-greater-equal-5   .masonry-div-4 {
+    margin-top: 14.938rem;
+  }
+  
 @media only screen and (max-width:767px){
     .react-multi-carousel-dot button{
         width: 6px !important;

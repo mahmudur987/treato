@@ -52,15 +52,6 @@
   width: 90vw;
   margin: 7rem 0rem;
 }
-.masonry > div:nth-child(1) {
-  margin-top: 29.5rem;
-}
-.masonry > div:nth-child(2) {
-  margin-top: 14.938rem;
-}
-.masonry > div:nth-child(4) {
-  margin-top: 14.938rem;
-}
 
 .imageContainer {
   position: relative;
@@ -189,8 +180,18 @@
   background: var(--White, #fff);
   flex-shrink: 0;
 }
-.expandbutton{
-    display: none;
+.expandbutton {
+  display: none;
+}
+.zeroResponse {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-family: "Lato";
+  margin: 2rem auto;
+
 }
 @media only screen and (max-width: 770px) {
   .masonry > div:nth-child(1) {
@@ -218,7 +219,7 @@
   .expandbutton {
     width: 48px;
     height: 32px;
-    background-color: #FFF;
+    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
