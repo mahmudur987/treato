@@ -45,9 +45,9 @@ const fetchLocation = () => {
     // If geolocation is not available, fall back to IP-based location
     fetchIpBasedLocation().then((ipBasedLocation) => {
       if (ipBasedLocation) {
-        const { lat, lon } = ipBasedLocation;
-        setuserLoc({ lat, lon });
-        dispatch(updateUserDetails({ latitude:lat, longitude:lon }));
+        const { lat, lon,city,regionName } = ipBasedLocation;
+        setuserLoc({ lat, lon,city,regionName });
+        dispatch(updateUserDetails({ latitude:lat, longitude:lon,city,regionName }));
       } else {
         setError("Location not available.");
       }
@@ -59,8 +59,8 @@ const fetchIpBasedLocation = async () => {
     const response = await fetch("http://ip-api.com/json");
     if (response.ok) {
       const data = await response.json();
-      const { lat, lon } = data;
-      return { lat, lon };
+      const { lat, lon,city,regionName } = data;
+      return { lat, lon,city,regionName };
     } else {
       console.error("IP-based location service response not okay:", response.status, response.statusText);
     }

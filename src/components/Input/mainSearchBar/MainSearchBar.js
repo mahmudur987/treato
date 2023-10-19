@@ -30,7 +30,7 @@ const MainSearchBar = ({ place }) => {
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
   function reportWindowSize() {
     let winWidth = window.innerWidth;
-    updateWinWidthMain(winWidth)
+    updateWinWidthMain(winWidth);
   }
   window.onresize = reportWindowSize;
   // functions to open/Close desktop search modal
@@ -138,9 +138,7 @@ const MainSearchBar = ({ place }) => {
     });
 
     setFilteredSalonData(filtered);
-    
   };
-
 
   const handleSearch = () => {
     // Navigate to /salons with services and location as query parameters
@@ -250,7 +248,9 @@ const MainSearchBar = ({ place }) => {
         </div>
 
         {/* mobo search button */}
-        <button className={styles["moboSearchBtn"]}>Search</button>
+        <button className={styles["moboSearchBtn"]} onClick={handleSearch}>
+          Search
+        </button>
       </div>
       {Trt_MoboModal && (
         <Search_MoboModal
@@ -271,6 +271,9 @@ const MainSearchBar = ({ place }) => {
           title="Search by location"
           placeholderText="Current location"
           icon={mapPin}
+          setLocationInputValue={setLocationInputValue}
+          allSalonList={filteredSalonData}
+          handleLocationInput={handleLocationInput}
         />
       )}
     </>

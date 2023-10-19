@@ -3,15 +3,7 @@ import styles from "../hero.module.css";
 import { search_Blue } from "../../../../assets/images/icons";
 
 const Treatments = ({ allServices, handle_close, setTreatmentInputValue }) => {
-  const treatments = [
-    { id: 1, name: "Hair Extension" },
-    { id: 2, name: "Another Treatment" },
-    { id: 3, name: "Hair Extension" },
-    { id: 4, name: "Another Treatment" },
-    { id: 5, name: "Another Treatment" },
-    { id: 6, name: "Hair Extension" },
-    { id: 7, name: "Another Treatment" },
-  ];
+
 
   const setinput = (serviceName) => {
     handle_close();

@@ -31,12 +31,21 @@
 .lookbookContainer h1 span {
   color: var(--primary-color);
 }
-.serviceButtonWrapper {
+.serviceButtonWrapper,
+.serviceButtonWrapperMobo {
   display: flex;
   margin: 2rem;
-  gap: 1rem;
+  gap: 16px;
 }
-.serviceButtonWrapper button {
+.serviceButtonWrapperMobo {
+  display: none;
+  overflow: hidden;
+  width: 100%;
+  gap: 12px;
+  position: relative;
+}
+.serviceButtonWrapper button,
+.serviceButtonWrapperMobo button {
   display: flex;
   padding: 8px 16px;
   justify-content: center;
@@ -46,11 +55,66 @@
   border-radius: 200px;
   border: 1px solid var(--Grey-10);
   background: #fff;
+  font-family: "Lato";
+}
+.serviceButtonWrapperMobo button {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+.expandList {
+  overflow-y: scroll;
+  flex-wrap: wrap;
+}
+.rotate180 {
+  transform: rotate(180deg);
+}
+.expandServicesList {
+  position: absolute;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  right: 0%;
+  height: 40px;
+  border: none !important;
+  width: 70px;
+  /* box-shadow: rgba(216, 27, 27, 0.2) 0px 60px 40px -7px; */
+  background: linear-gradient(
+    270deg,
+    #fff 46.22%,
+    rgba(255, 255, 255, 0.24) 100%
+  ) !important;
+}
+.expandServicesList img {
+  height: 20px;
+  width: 20px;
+  z-index: 1;
+}
+
+.imgDetails {
+  display: none;
+  position: absolute;
+  bottom: 20%;
+  left: 50%; 
+  transform: translateX(-50%); 
+  background: #fff;
+  border: none;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  border-radius: 4px;
+}
+.imageContainer:hover .imgDetails {
+  display: block;
 }
 .masonry {
   display: flex;
   width: 90vw;
-  margin: 7rem 0rem;
+  margin: 7rem 0rem 1rem 0rem;
 }
 
 .imageContainer {
@@ -191,15 +255,46 @@
   font-size: 24px;
   font-family: "Lato";
   margin: 2rem auto;
-
+  font-weight: bolder;
 }
+.headerWrapper{
+  display: none;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+.backIcon{
+  background: none;
+  border: none;
+}
+.locationWrap{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.showMore {
+  color: var(--primary-color);
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%; /* 16px */
+  letter-spacing: -0.16px;
+  display: flex;
+  padding: 16px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  border: 1px solid var(--Secondary-colour, #0d69d7);
+  background: #fff;
+  margin: 1rem auto;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 770px) {
-  .masonry > div:nth-child(1) {
-    margin-top: 7.938rem;
-  }
-  .masonry > div:nth-child(2) {
-    margin-top: 0rem;
-  }
+
   .imageText {
     display: none;
   }
@@ -231,5 +326,43 @@
   .expandbutton img {
     width: 14px;
     height: 14px;
+  }
+  .lookbookContainer {
+    box-sizing: border-box;
+    padding: 0rem 2rem;
+  }
+}
+@media only screen and (max-width: 440px) {
+  .serviceButtonWrapperMobo{
+    display: flex;
+  }
+  .lookbookContainer {
+    padding: 1rem;
+  }
+  .lookbookContainer h1 {
+    font-size: 1.25rem;
+  }
+  .lookbookContainer h2 {
+    font-size: 1rem;
+    text-align: left;
+  }
+  .lookbookContainer .inputWrapper,
+  .lookbookContainer .serviceButtonWrapper {
+    display: none;
+  }
+  .masonry {
+    margin: 1rem 0rem;
+  }
+  .zeroResponse {
+    font-size: 1rem;
+  }
+  .imgDetails{
+    white-space: nowrap;
+    padding: .4rem;
+    font-size: 12px;
+    bottom: 10%;
+  }
+  .headerWrapper{
+    display: flex;
   }
 }
