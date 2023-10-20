@@ -25,8 +25,10 @@ const Salons = React.memo(() => {
   const salonsState = useSelector((state) => state.salons);
   const salonModal = useSelector((state) => state.salonModal);
   const userDetails = useSelector((state) => state.user);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -50,14 +52,26 @@ const Salons = React.memo(() => {
 
   //pagination codes
   const ITEMS_PER_PAGE = 6;
-  const [currentPage, setCurrentPage] = useState(1);
+
+  //fetching base on search input
+  useEffect(() => {
+    setIsLoading(true); // Set loading state
+    dispatch(
+      fetchSalonsData(userDetails, "searchBase", servicesParam, locationParam)
+    ).then(() => setIsLoading(false));
+  }, [
+    dispatch,
+    servicesParam,
+    locationParam,
+    salonsState.filterContent.length,
+  ]);
+
+  // Memoize items based on filterContent
   const items = useMemo(() => {
-    // Use useMemo to memoize items
-    return Array.from(
-      { length: salonsState.filterContent.length },
-      (_, index) => `Item ${index + 1}`
-    );
-  }, [salonsState.filterContent.length]);
+    return salonsState.filterContent.map((item, index) => (
+      <Salon key={index} salonData={item} />
+    ));
+  }, [salonsState.filterContent]);
 
   const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -66,18 +80,13 @@ const Salons = React.memo(() => {
   const visibleItems = items.slice(startIndex, endIndex);
 
   const handlePageChange = (pageNumber) => {
+    window.scrollTo(0, 0);
     setCurrentPage(pageNumber);
   };
   const showingStart = startIndex + 1;
   const showingEnd = endIndex <= items.length ? endIndex : items.length;
   let showing = showingStart - showingEnd;
 
-  //fetching base on search input
-  useEffect(() => {
-    dispatch(
-      fetchSalonsData(userDetails, "searchBase", servicesParam, locationParam)
-    );
-  }, [dispatch, servicesParam, locationParam,salonsState.filterContent]);
   useEffect(() => {
     const delay = setTimeout(() => {
       setShowContent(true);
@@ -87,7 +96,6 @@ const Salons = React.memo(() => {
       clearTimeout(delay); // Clear the timeout if the component unmounts
     };
   }, []);
-
   return (
     <div className={styles.container}>
       {/* mobo filter options */}
@@ -118,11 +126,8 @@ const Salons = React.memo(() => {
       </div>
       <div className={styles.venueInfo}>
         <h4>
-          Showing{" "}
-          {salonsState.filterContent.length > 6
-            ? 6
-            : salonsState.filterContent.length}{" "}
-          of {salonsState.filterContent.length} venues
+          Showing {visibleItems.length} of {salonsState.filterContent.length}{" "}
+          venues
         </h4>
         <button
           className={styles.filterDesk}
@@ -138,14 +143,15 @@ const Salons = React.memo(() => {
       </div>
 
       <div className={styles.salonsWrapper}>
-        {showContent ?
-          (salonsState.filterContent.length ? (
-            salonsState.filterContent.map((v, i) => {
-              return <Salon key={i} salonData={v} />;
-            })
+        {isLoading ? (
+          <div className="zeroResponse">Loading...</div>
+        ) : showContent ? (
+          visibleItems.length > 0 ? (
+            visibleItems
           ) : (
             <div className="zeroResponse">No result found</div>
-          )):<div className="zeroResponse">Loading...</div>}
+          )
+        ) : null}
       </div>
 
       <Pagination

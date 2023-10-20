@@ -159,6 +159,8 @@ const MainSearchBar = ({ place }) => {
       navigate(
         `/salons?services=${treatmentInputValue}&location=${locationInputValue}`
       );
+      setTreatmentInputValue("")
+      setLocationInputValue("")
     }
     else{
       toast.info('Please fill in both input fields to proceed. !', {

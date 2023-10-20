@@ -10,11 +10,6 @@ import { starBlack } from "../../../assets/images/SalonsPageImages";
 import { displayDistance } from "../../../utils/utils";
 
 const Salon = ({ salonData, place }) => {
-  const [distances, setdistances] = useState(0);
-  useEffect(() => {
-    let distance = displayDistance(salonData?.distances);
-    setdistances(distance);
-  }, [salonData]);
 
   return (
     <div
