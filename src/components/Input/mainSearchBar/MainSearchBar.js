@@ -8,7 +8,8 @@ import Search_MoboModal from "../../HomePage/Hero/Search_MoboModal/Search_MoboMo
 import { closeIcon, mapPin, search } from "../../../assets/images/icons";
 import { getAllServices } from "../../../services/Services";
 import { salon } from "../../../services/salon";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const MainSearchBar = ({ place }) => {
   // Short letter abbreviations used in few classNames
@@ -64,6 +65,14 @@ const MainSearchBar = ({ place }) => {
     document.body.style.overflow = "auto";
   };
 
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  // Get the 'services' and 'location' query parameters
+  const servicesParam = searchParams.get("services");
+  const locationParam = searchParams.get("location");
+
+
   useEffect(() => {
     // Call the getAllServices function when the component mounts
     async function fetchAllServices() {
@@ -85,6 +94,10 @@ const MainSearchBar = ({ place }) => {
     }
 
     fetchAllServices();
+    if(servicesParam && locationParam){
+      setTreatmentInputValue(servicesParam)
+      setLocationInputValue(locationParam)
+    }
   }, []);
 
   useEffect(() => {
@@ -141,11 +154,26 @@ const MainSearchBar = ({ place }) => {
   };
 
   const handleSearch = () => {
-    // Navigate to /salons with services and location as query parameters
-    navigate(
-      `/salons?services=${treatmentInputValue}&location=${locationInputValue}`
-    );
+    if(locationInputValue!="" && treatmentInputValue!=""){
+      // Navigate to /salons with services and location as query parameters
+      navigate(
+        `/salons?services=${treatmentInputValue}&location=${locationInputValue}`
+      );
+    }
+    else{
+      toast.info('Please fill in both input fields to proceed. !', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
   };
+
   return (
     <>
       <div

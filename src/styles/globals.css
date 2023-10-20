@@ -42,6 +42,9 @@
   :root {
     --navbar-height: 64px;
   }
+  .zeroResponse {
+    font-size: 1rem;
+  }
 }
 .page-section {
   padding-left: var(--page-padding-x) !important;
@@ -50,4 +53,16 @@
 
 .page-container {
   margin-top: var(--navbar-height);
+}
+
+.zeroResponse {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-family: "Lato";
+  margin: 2rem auto;
+  font-weight: bolder;
+  height:40vh;
 }

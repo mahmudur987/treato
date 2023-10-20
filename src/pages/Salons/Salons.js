@@ -18,13 +18,15 @@ import {
   updateFilterContent,
 } from "../../redux/slices/salons";
 import { useLocation } from "react-router-dom";
-import { salon } from "../../services/salon";
+import { getSalonListBySearchInput, salon } from "../../services/salon";
 import { useEffect } from "react";
 import { fetchSalonsData } from "../../utils/utils";
 const Salons = React.memo(() => {
   const salonsState = useSelector((state) => state.salons);
   const salonModal = useSelector((state) => state.salonModal);
   const userDetails = useSelector((state) => state.user);
+
+  const [showContent, setShowContent] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -36,34 +38,6 @@ const Salons = React.memo(() => {
   // Filter salonContent based on the condition
   let filteredSalonContent;
 
-  useEffect(() => {
-    // Check if salonsState.salonContent is empty or undefined
-    if (!salonsState.salonContent || salonsState.salonContent.length === 0) {
-      // If it's empty, fetch the salons data
-      dispatch(fetchSalonsData(userDetails)).then(() => {
-        // After fetching data, calculate filteredSalonContent
-        filteredSalonContent = calculateFilteredSalonContent();
-        // Dispatch the 'updateFilterContent' action with the filtered salon data
-        dispatch(updateFilterContent(filteredSalonContent));
-      });
-    } else {
-      // If salonsState.salonContent is not empty, calculate filteredSalonContent directly
-      filteredSalonContent = calculateFilteredSalonContent();
-      // Dispatch the 'updateFilterContent' action with the filtered salon data
-      dispatch(updateFilterContent(filteredSalonContent));
-    }
-  }, [dispatch, locationParam, salonsState.salonContent, servicesParam]);
-
-  function calculateFilteredSalonContent() {
-    return salonsState.salonContent.filter((salonItem) => {
-      const matchesServices = !servicesParam || salonItem.services[0].service_name === servicesParam;
-      const matchesLocation = !locationParam || salonItem.locationText === locationParam;
-  
-      return matchesServices && matchesLocation;
-    });
-  }
-  
-
   const handleOpenModal = useCallback(
     (modalContent) => {
       window.scrollTo(0, 0);
@@ -74,6 +48,7 @@ const Salons = React.memo(() => {
     [dispatch]
   );
 
+  //pagination codes
   const ITEMS_PER_PAGE = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const items = useMemo(() => {
@@ -96,6 +71,22 @@ const Salons = React.memo(() => {
   const showingStart = startIndex + 1;
   const showingEnd = endIndex <= items.length ? endIndex : items.length;
   let showing = showingStart - showingEnd;
+
+  //fetching base on search input
+  useEffect(() => {
+    dispatch(
+      fetchSalonsData(userDetails, "searchBase", servicesParam, locationParam)
+    );
+  }, [dispatch, servicesParam, locationParam,salonsState.filterContent]);
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setShowContent(true);
+    }, 1000); // Set a 2-second delay
+
+    return () => {
+      clearTimeout(delay); // Clear the timeout if the component unmounts
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -147,16 +138,14 @@ const Salons = React.memo(() => {
       </div>
 
       <div className={styles.salonsWrapper}>
-        {
-          salonsState.filterContent.length?
-          salonsState.filterContent.map((v,i)=>{
-            return(
-              <Salon key={i} salonData={v}/>
-            )
-          })
-          :
-          ''
-        }
+        {showContent ?
+          (salonsState.filterContent.length ? (
+            salonsState.filterContent.map((v, i) => {
+              return <Salon key={i} salonData={v} />;
+            })
+          ) : (
+            <div className="zeroResponse">No result found</div>
+          )):<div className="zeroResponse">Loading...</div>}
       </div>
 
       <Pagination

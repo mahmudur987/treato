@@ -4,7 +4,7 @@ import {
   updateSalonContent,
 } from "../redux/slices/salons";
 import { getAllServices } from "../services/Services";
-import { salon } from "../services/salon";
+import { getSalonListBySearchInput, salon } from "../services/salon";
 
 export const getFormattedDate = (argDate) => {
   const date = new Date(argDate);
@@ -54,9 +54,15 @@ export const displayDistance = (kilometers) => {
 };
 
 // Define an async function to fetch and update the salons data
-export const fetchSalonsData = (userDetails) => async (dispatch) => {
+export const fetchSalonsData = (userDetails,fetchType,serviceName,salonlocation) => async (dispatch) => {
   try {
-    const result = await salon();
+    let result;
+    if(fetchType==="searchBase"){
+    result = await getSalonListBySearchInput(serviceName,salonlocation);
+    }
+    else{
+    result = await salon();
+    }
     if (result.res) {
       const { data } = result.res; // Destructure 'data' from 'result.res'
       const { salons } = data; // Destructure 'salons' from 'data'
@@ -67,9 +73,13 @@ export const fetchSalonsData = (userDetails) => async (dispatch) => {
       // Create a map of service IDs to their corresponding names
       const serviceMap = {};
       listServices.forEach((service) => {
-        serviceMap[service._id] = service.service_name;
+        serviceMap[service._id] = {
+          service_name: service.service_name,
+          price: service.price,
+          service_timing:service.service_timing // Add the price to the service
+        };
       });
-      // Add the service_name to each salon's services array
+
       let allSalonsCoordinates=salons.map((e)=>{
         let obj={lat:e.location.coordinates[0],lon:e.location.coordinates[1]}
         return obj
@@ -78,15 +88,18 @@ export const fetchSalonsData = (userDetails) => async (dispatch) => {
         return calculateDistance(userCoordinates.lat, userCoordinates.lon, salon.lat, salon.lon);
       });
       salons.forEach((salon,i) => {
-        salon.services = salon.services.map((serviceId) => ({
-          _id: serviceId,
-          service_name: serviceMap[serviceId] || "Service Name Not Found", // Provide a default value if service name is not found
-        }));
+        if(fetchType!="searchBase"){
+          salon.services = salon.services.map((serviceId) => ({
+            _id: serviceId,
+            ...serviceMap[serviceId], // Provide a default value if service name is not found
+          }));
+        }
         salon.distances=calculatedDistances[i]
       });
-
       // Dispatch the 'updateSalonContent' action with the fetched 'salons' data
-      dispatch(updateSalonContent(salons));
+      if(fetchType!="searchBase"){
+        dispatch(updateSalonContent(salons));
+      }
 
       // Dispatch the 'updateFilterContent' action with the fetched 'salons' data
       dispatch(updateFilterContent(salons));
