@@ -4,7 +4,7 @@ const initialState = {
    isLoggedIn: false,
    user: {
       role: 'ADMIN',
-      firstName: '',
+      first_name: '',
       latitude: null,
       longitude: null,
    }

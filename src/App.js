@@ -16,7 +16,7 @@ import ForgotPassword from "./components/AuthPages/ForgotPassword/ForgotPassword
 import MyAppointments from "./pages/MyAppointments/MyAppointments";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserDetails } from "./redux/slices/user";
+import { updateIsLoggedIn, updateUserDetails } from "./redux/slices/user";
 import { fetchSalonsData } from "./utils/utils";
 import Lookbook from "./pages/Lookbook/Lookbook";
 import { ToastContainer, toast } from "react-toastify";
@@ -27,6 +27,7 @@ function App() {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user);
+  const [receivedOTP, setreceivedOTP] = useState(0)
   const [userGeolocationAvailable, setUserGeolocationAvailable] =
     useState(true); // State to track geolocation availability
   const [userLoc, setuserLoc] = useState({});
@@ -42,6 +43,12 @@ function App() {
 
   useEffect(() => {
     fetchLocation();
+    let userData = localStorage.getItem("userData");
+    let isTokenExist = localStorage.getItem("jwtToken");
+    if (userData && isTokenExist) {
+      dispatch(updateIsLoggedIn(true));
+      dispatch(updateUserDetails(JSON.parse(userData)));
+    }
   }, []);
   const fetchLocation = () => {
     // If geolocation is not available, fall back to IP-based location
@@ -80,7 +87,7 @@ function App() {
 
   return (
     <PageLayout>
-         <ToastContainer />
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blogs" element={<Blogs />} />
@@ -93,9 +100,9 @@ function App() {
         <Route path="/lookbook" element={<Lookbook />} />
         <Route path="/auth-choice" exact element={<AuthChoicePage />} />
         <Route path="/create-account" element={<CreateAccountPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage setreceivedOTP={setreceivedOTP} />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/verify-otp" element={<VerifyOTP />} />
+        <Route path="/verify-otp" element={<VerifyOTP receivedOTP={receivedOTP}/>} />
         <Route path="/my-appointments/*" element={<MyAppointments />} />
       </Routes>
     </PageLayout>

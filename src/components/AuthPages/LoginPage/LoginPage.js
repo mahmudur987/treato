@@ -11,17 +11,26 @@ import {
   eyeline,
   arrowleft,
 } from "../../../assets/images/icons";
-import { Link } from "react-router-dom";
-
-const LoginPage = () => {
+import { Link, useNavigate } from "react-router-dom";
+import { getUserProfile, googlelogin, login, sendLoginOTP } from "../../../services/auth";
+import {
+  updateIsLoggedIn,
+  updateUserDetails,
+} from "../../../redux/slices/user";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import axios from "axios";
+const LoginPage = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [showEmailPassword, setShowEmailPassword] = useState(true);
+  const [receivedOTP, setreceivedOTP] = useState(0)
   const [formErrors, setFormErrors] = useState({});
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleOTPForm = () => {
     setShowEmailPassword(false);
   };
@@ -31,14 +40,14 @@ const LoginPage = () => {
 
     const errors = {};
 
-    if (!email) {
+    if (!email && showEmailPassword) {
       errors.email = "Email address is required";
     }
-    if (!phone) {
-      errors.phone = "Phone number is required";
+    if (!phone && !showEmailPassword|| phone.replace(/[^0-9]/g, '').length !== 12) {
+      errors.phone = "Phone number must be exactly 10 digits";
     }
     // Password validation logic
-    if (!password) {
+    if (!password  && showEmailPassword) {
       errors.password = "Password is required";
     } else {
       const regex =
@@ -57,9 +66,75 @@ const LoginPage = () => {
       password,
       phone,
     };
-    if (Object.keys(errors).length === 0) {
-      console.log(formData);
+    console.log(formData, errors);
+
+    if (Object.keys(errors).length === 0  && showEmailPassword) {
+      login(formData).then((res) => {
+        console.log(res);
+        if (res?.res?.status === 200 && res?.res?.data.token) {
+          if (typeof localStorage !== "undefined") {
+            // Use localStorage
+            localStorage.setItem("jwtToken", res?.res.data.token);
+          } else {
+            console.error("localStorage is not available.");
+          }
+          (async () => {
+            const profileResponse = await getUserProfile();
+            if (profileResponse?.res.status === 200) {
+              localStorage.setItem(
+                "userData",
+                JSON.stringify(profileResponse?.res?.data?.data)
+              );
+              dispatch(updateIsLoggedIn(true));
+              dispatch(updateUserDetails(profileResponse?.res?.data?.data));
+              navigate("/");
+              toast("Welcome to Treato! Start exploring now!", {
+                position: "top-right",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+            }
+          })();
+        } else if (
+          res?.res?.status === 200 &&
+          res?.res?.data.message === "Password is incorrect"
+        ) {
+          toast.error(`${res?.res?.data.message}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          toast.error("Invalid Credential", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      });
       // return;
+    }
+    else if(Object.keys(errors).length === 0  && !showEmailPassword) {
+      sendLoginOTP({phoneNumber:formData?.phone}).then((res)=>{
+        props.setreceivedOTP({phoneNumber:formData?.phone,otp:res?.res?.data.otp})
+        navigate('/verify-otp')
+
+      })
     }
 
     // Handle form submission
@@ -136,10 +211,9 @@ const LoginPage = () => {
               <label htmlFor="phone">Phone</label>
               <PhoneInput
                 defaultCountry="IN"
+                value={phone}
                 placeholder="Enter phone number"
                 onChange={(value) => setPhone(value)}
-                international
-                countryCallingCodeEditable={false}
               />
               {formErrors.phone && (
                 <p className={styles.error}>{formErrors.phone}</p>
@@ -148,10 +222,7 @@ const LoginPage = () => {
           )}
           <div className={styles.actions}>
             {!showEmailPassword ? (
-              <Link to="/verify-otp">
-                {/* sign in button if user (Sign in using OTP)  */}
                 <PrimaryButton className={styles.action}>Sign in</PrimaryButton>
-              </Link>
             ) : (
               <PrimaryButton className={styles.action}>Sign in</PrimaryButton>
             )}
@@ -174,10 +245,15 @@ const LoginPage = () => {
             <span></span>Or simply continue with <span></span>
           </p>
           <div className={styles.socialButtons}>
-            <SecondaryButton className={styles.google}>
+            <SecondaryButton className={styles.google} onClick={()=>{
+              googlelogin().then((res)=>{
+                console.log(res)
+              })
+            }}>
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
+            
             <SecondaryButton className={styles.facebook}>
               <img src={Facebook_Logo} />
               Facebook

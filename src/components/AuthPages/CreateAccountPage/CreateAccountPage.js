@@ -11,8 +11,9 @@ import {
   eyeline,
   arrowleft,
 } from "../../../assets/images/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../../services/auth";
+import { toast } from "react-toastify";
 
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -23,7 +24,7 @@ const CreateAccountPage = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-
+  const navigate = useNavigate();
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -41,8 +42,8 @@ const CreateAccountPage = () => {
       errors.email = "Email address is required";
     }
 
-    if (!phone) {
-      errors.phone = "Phone number is required";
+    if (!phone || phone.replace(/[^0-9]/g, '').length !== 12) {
+      errors.phone = "Phone number must be exactly 10 digits";
     }
 
     // Password validation logic
@@ -61,15 +62,30 @@ const CreateAccountPage = () => {
 
     setFormErrors(errors);
     const formData = {
-      firstName,
-      lastName,
+      first_name:firstName,
+      last_name:lastName,
       email,
       phone,
       password,
     };
     if (Object.keys(errors).length === 0) {
+      register(formData).then((res) => {
+        if(res?.res?.data.message==="User Information Saved Successfully"){
+          navigate('/login')
+          toast.success('Registered successfully', {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+        }
+        console.log(res);
+      });
       console.log(formData);
-      // return;
     }
 
     // Handle form submission
@@ -139,10 +155,9 @@ const CreateAccountPage = () => {
             <label htmlFor="phone">Phone</label>
             <PhoneInput
               defaultCountry="IN"
+              value={phone}  
               placeholder="Enter phone number"
               onChange={(value) => setPhone(value)}
-              international
-              countryCallingCodeEditable={false}
             />
             {formErrors.phone && (
               <p className={styles.error}>{formErrors.phone}</p>
