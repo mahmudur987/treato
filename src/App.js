@@ -21,6 +21,7 @@ import { fetchSalonsData } from "./utils/utils";
 import Lookbook from "./pages/Lookbook/Lookbook";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ResetPassword from "./components/AuthPages/ResetPassword/ResetPassword";
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
@@ -103,6 +104,7 @@ function App() {
         <Route path="/login" element={<LoginPage setreceivedOTP={setreceivedOTP} />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-otp" element={<VerifyOTP receivedOTP={receivedOTP}/>} />
+        <Route path="/reset-password/*" element={<ResetPassword />} />
         <Route path="/my-appointments/*" element={<MyAppointments />} />
       </Routes>
     </PageLayout>

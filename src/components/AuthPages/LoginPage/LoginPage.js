@@ -12,9 +12,17 @@ import {
   arrowleft,
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { getUserProfile, googlelogin, login, sendLoginOTP } from "../../../services/auth";
+import {
+  getUserProfile,
+  googlelogin,
+  login,
+  otpsignin,
+  sendLoginOTP,
+} from "../../../services/auth";
 import {
   updateIsLoggedIn,
+  updateOTP,
+  updateTempLoginInfo,
   updateUserDetails,
 } from "../../../redux/slices/user";
 import { useDispatch } from "react-redux";
@@ -27,8 +35,9 @@ const LoginPage = (props) => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [showEmailPassword, setShowEmailPassword] = useState(true);
-  const [receivedOTP, setreceivedOTP] = useState(0)
+  const [receivedOTP, setreceivedOTP] = useState(0);
   const [formErrors, setFormErrors] = useState({});
+  const [responseError, setresponseError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleOTPForm = () => {
@@ -43,11 +52,15 @@ const LoginPage = (props) => {
     if (!email && showEmailPassword) {
       errors.email = "Email address is required";
     }
-    if (!phone && !showEmailPassword|| phone.replace(/[^0-9]/g, '').length !== 12) {
+
+    if (
+      (!phone && !showEmailPassword) ||
+      (phone.replace(/[^0-9]/g, "").length !== 12 && !showEmailPassword)
+    ) {
       errors.phone = "Phone number must be exactly 10 digits";
     }
     // Password validation logic
-    if (!password  && showEmailPassword) {
+    if (!password && showEmailPassword) {
       errors.password = "Password is required";
     } else {
       const regex =
@@ -66,9 +79,8 @@ const LoginPage = (props) => {
       password,
       phone,
     };
-    console.log(formData, errors);
 
-    if (Object.keys(errors).length === 0  && showEmailPassword) {
+    if (Object.keys(errors).length === 0 && showEmailPassword) {
       login(formData).then((res) => {
         console.log(res);
         if (res?.res?.status === 200 && res?.res?.data.token) {
@@ -129,12 +141,28 @@ const LoginPage = (props) => {
       });
       // return;
     }
-    else if(Object.keys(errors).length === 0  && !showEmailPassword) {
-      sendLoginOTP({phoneNumber:formData?.phone}).then((res)=>{
-        props.setreceivedOTP({phoneNumber:formData?.phone,otp:res?.res?.data.otp})
-        navigate('/verify-otp')
+    // handle phone Number login
+    else if (Object.keys(errors).length === 0 && !showEmailPassword) {
+      // sendLoginOTP({ phoneNumber: formData?.phone }).then((res) => {
+      //   props.setreceivedOTP({
+      //     phoneNumber: formData?.phone,
+      //     otp: res?.res?.data.otp,
+      //   });
+      otpsignin({ phoneNumber: formData?.phone }).then((res) => {
+        console.log(res);
+        if (res?.res?.data.message === "User sign in successfully!") {
+          dispatch(updateTempLoginInfo(res?.res?.data.data));
+          dispatch(updateOTP(res?.res?.data.otp))
+          localStorage.setItem("userPhoneNumber", phone);
+          localStorage.setItem("requiredLoginData", JSON.stringify(res?.res?.data.data));
+          localStorage.setItem("requiredLoginToken", JSON.stringify(res?.res?.data.token));
 
-      })
+          navigate("/verify-otp");
+        } else if (res?.err != null) {
+          setresponseError(res?.err.response.data.error);
+        }
+      });
+      // });
     }
 
     // Handle form submission
@@ -220,9 +248,12 @@ const LoginPage = (props) => {
               )}
             </div>
           )}
+          {responseError != "" && (
+            <p className={styles.error}>{responseError}</p>
+          )}
           <div className={styles.actions}>
             {!showEmailPassword ? (
-                <PrimaryButton className={styles.action}>Sign in</PrimaryButton>
+              <PrimaryButton className={styles.action}>Sign in</PrimaryButton>
             ) : (
               <PrimaryButton className={styles.action}>Sign in</PrimaryButton>
             )}
@@ -245,15 +276,18 @@ const LoginPage = (props) => {
             <span></span>Or simply continue with <span></span>
           </p>
           <div className={styles.socialButtons}>
-            <SecondaryButton className={styles.google} onClick={()=>{
-              googlelogin().then((res)=>{
-                console.log(res)
-              })
-            }}>
+            <SecondaryButton
+              className={styles.google}
+              onClick={() => {
+                googlelogin().then((res) => {
+                  console.log(res);
+                });
+              }}
+            >
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
-            
+
             <SecondaryButton className={styles.facebook}>
               <img src={Facebook_Logo} />
               Facebook

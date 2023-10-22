@@ -19,6 +19,11 @@
   font-size: 20px;
   font-weight: 400;
 }
+.error{
+  color:red;
+  margin:auto;
+  font-size: var(--font-small);
+}
 .OTPWrapper {
   display: flex;
   width: 100%;
@@ -42,11 +47,14 @@
 }
 .submitOTP {
   width: 400px;
+  margin-bottom: 1rem;
 }
 .OTPtimer {
   font-family: "Lato", sans-serif;
   font-size: var(--font-medium);
   font-weight: 400;
+  display: flex;
+  gap: 8px;
 }
 .OTPtimer .countdown {
   color: var(--Grey-10);
@@ -55,7 +63,6 @@
 .resendOTP {
   color: var(--primary-color);
   font-size: var(--font-medium);
-  display: none;
 }
 @media only screen and (max-width: 768px) {
   .OTPWrapper input {

@@ -46,6 +46,8 @@ export { default as star_line } from "./star_line.svg";
 export { default as lookbookIcon } from "./lookbookIcon.svg";
 export { default as supportIcon } from "./supportIcon.svg";
 export { default as expandMoboImage } from "./expandMoboImage.svg";
+export { default as LoadSpinnerIcon } from "./LoadSpinner.svg";
+
 
 
 

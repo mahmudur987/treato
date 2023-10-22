@@ -14,7 +14,9 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../../services/auth";
 import { toast } from "react-toastify";
-
+import { useDispatch } from "react-redux";
+import { sendLoginOTP } from "../../../services/auth";
+import { updateOTP } from "../../../redux/slices/user";
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -25,6 +27,7 @@ const CreateAccountPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -42,7 +45,7 @@ const CreateAccountPage = () => {
       errors.email = "Email address is required";
     }
 
-    if (!phone || phone.replace(/[^0-9]/g, '').length !== 12) {
+    if (!phone || phone.replace(/[^0-9]/g, "").length !== 12) {
       errors.phone = "Phone number must be exactly 10 digits";
     }
 
@@ -57,35 +60,27 @@ const CreateAccountPage = () => {
       } else {
         setPasswordError(false);
       }
-      // errors.password = "";
     }
 
     setFormErrors(errors);
     const formData = {
-      first_name:firstName,
-      last_name:lastName,
+      first_name: firstName,
+      last_name: lastName,
       email,
       phone,
       password,
+      type: "register",
     };
     if (Object.keys(errors).length === 0) {
-      register(formData).then((res) => {
-        if(res?.res?.data.message==="User Information Saved Successfully"){
-          navigate('/login')
-          toast.success('Registered successfully', {
-            position: "top-right",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
-        }
+      localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
+      sendLoginOTP({ phoneNumber: phone }).then((res) => {
         console.log(res);
+        if (res?.res.data.status === true) {
+          console.log("OTP");
+          dispatch(updateOTP(res?.res.data.otp));
+        }
       });
-      console.log(formData);
+      navigate("/verify-otp");
     }
 
     // Handle form submission
@@ -95,11 +90,10 @@ const CreateAccountPage = () => {
   const handleRegister = async () => {
     const { err, res } = await register()
   }
-  
+
   return (
     <AuthPage>
       <div className={styles.container}>
-
         <div className={styles.heading}>
           <h3 className={styles.letGetStarted}>Let’s get started!</h3>
           <p className={styles.createText}>
@@ -155,7 +149,7 @@ const CreateAccountPage = () => {
             <label htmlFor="phone">Phone</label>
             <PhoneInput
               defaultCountry="IN"
-              value={phone}  
+              value={phone}
               placeholder="Enter phone number"
               onChange={(value) => setPhone(value)}
             />

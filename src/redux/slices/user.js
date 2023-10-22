@@ -7,7 +7,9 @@ const initialState = {
       first_name: '',
       latitude: null,
       longitude: null,
-   }
+   },
+   OTP:0,
+   tempLoginInfo:{},
 };
 
 const user = createSlice({
@@ -20,8 +22,17 @@ const user = createSlice({
       updateUserDetails: (state, { payload }) => {
          state.user = { ...state.user, ...payload };
       },
+      updateOTP: (state, { payload }) => {
+         state.OTP = payload;
+      },
+      updateTempLoginInfo: (state, { payload }) => {
+         state.tempLoginInfo = { ...state.tempLoginInfo, ...payload };
+      },
+      resetTempLoginInfo: (state) => {
+         state.tempLoginInfo = {};
+      },
    },
 });
 
-export const { updateIsLoggedIn, updateUserDetails } = user.actions;
+export const { updateIsLoggedIn, updateUserDetails,updateOTP,updateTempLoginInfo,resetTempLoginInfo } = user.actions;
 export default user.reducer;
