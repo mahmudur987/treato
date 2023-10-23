@@ -22,13 +22,14 @@ import Lookbook from "./pages/Lookbook/Lookbook";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from "./components/AuthPages/ResetPassword/ResetPassword";
+import PrivateRoutes from "./layouts/PrivateRoutes";
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user);
-  const [receivedOTP, setreceivedOTP] = useState(0)
+  const [receivedOTP, setreceivedOTP] = useState(0);
   const [userGeolocationAvailable, setUserGeolocationAvailable] =
     useState(true); // State to track geolocation availability
   const [userLoc, setuserLoc] = useState({});
@@ -91,21 +92,30 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/blogs/:id" element={<BlogDetail />} />
-        <Route path="/salons" element={<Salons />} />
-        <Route path="/account-settings" element={<AccountSettings />} />
-        <Route path="/salons/:id" element={<SalonDetail />} />
-        <Route path="/salons/:id/book" element={<BookFlow />} />
-        <Route path="/salons" element={<Salons />} />
-        <Route path="/lookbook" element={<Lookbook />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path="/account-settings" element={<AccountSettings />} />
+          <Route path="/salons" element={<Salons />} />
+          <Route path="/salons/:id" element={<SalonDetail />} />
+          <Route path="/salons/:id/book" element={<BookFlow />} />
+          <Route path="/lookbook" element={<Lookbook />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:id" element={<BlogDetail />} />
+          <Route path="/my-appointments/*" element={<MyAppointments />} />
+        </Route>
+        {/* Auth routes */}
         <Route path="/auth-choice" exact element={<AuthChoicePage />} />
         <Route path="/create-account" element={<CreateAccountPage />} />
-        <Route path="/login" element={<LoginPage setreceivedOTP={setreceivedOTP} />} />
+        <Route
+          path="/login"
+          element={<LoginPage setreceivedOTP={setreceivedOTP} />}
+        />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/verify-otp" element={<VerifyOTP receivedOTP={receivedOTP}/>} />
+        <Route
+          path="/verify-otp"
+          element={<VerifyOTP receivedOTP={receivedOTP} />}
+        />
         <Route path="/reset-password/*" element={<ResetPassword />} />
-        <Route path="/my-appointments/*" element={<MyAppointments />} />
+
       </Routes>
     </PageLayout>
   );

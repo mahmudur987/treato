@@ -22,6 +22,9 @@ const user = createSlice({
       updateUserDetails: (state, { payload }) => {
          state.user = { ...state.user, ...payload };
       },
+      resetUserDetails: (state, { payload }) => {
+         state.user = { };
+      },
       updateOTP: (state, { payload }) => {
          state.OTP = payload;
       },
@@ -34,5 +37,5 @@ const user = createSlice({
    },
 });
 
-export const { updateIsLoggedIn, updateUserDetails,updateOTP,updateTempLoginInfo,resetTempLoginInfo } = user.actions;
+export const { updateIsLoggedIn, updateUserDetails,updateOTP,updateTempLoginInfo,resetTempLoginInfo,resetUserDetails } = user.actions;
 export default user.reducer;

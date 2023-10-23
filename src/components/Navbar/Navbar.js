@@ -21,6 +21,8 @@ import {
 } from "../../assets/images/icons";
 import PrimaryButton from "../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton/SecondaryButton";
+import { useDispatch, useSelector } from "react-redux";
+import { resetUserDetails, updateIsLoggedIn } from "../../redux/slices/user";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,8 +30,11 @@ export default function Navbar() {
   const [isMainSearchBar, setisMainSearchBar] = useState(false);
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setuserInfo] = useState("");
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
-
+  const userData = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  // console.log();
   const scrollToSection = (navigate, sectionId) => {
     navigate("/"); // Navigate to the home page
     setIsMobileMenuOpen(false);
@@ -61,6 +66,23 @@ export default function Navbar() {
     }
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (userData.isLoggedIn) {
+      setIsLoggedIn(true);
+      setuserInfo(userData.user);
+    }
+  }, [userData.isLoggedIn]);
+  const handleLogout = () => {
+    dispatch(updateIsLoggedIn(false));
+    dispatch(resetUserDetails({}));
+    localStorage.removeItem("userData");
+    localStorage.removeItem("jwtToken");
+    setIsDesktopMenuOpen(false)
+    setIsMobileMenuOpen(false)
+    navigate("/");
+    setIsLoggedIn(false);
+    setuserInfo("");
+  };
   return (
     <header
       className={`${styles.header} ${
@@ -121,6 +143,7 @@ export default function Navbar() {
             <PrimaryButton
               children={"Sign up"}
               className={styles.signupButton}
+              onClick={() => navigate("/auth-choice")}
             />
           ) : (
             <SecondaryButton
@@ -128,7 +151,7 @@ export default function Navbar() {
               onClick={handleDesktopMenuToggle}
             >
               <img src={mask} alt="mask" />
-              Shreya
+              {userInfo?.first_name}
               <img src={chevrondown} alt="chevrondown" />
             </SecondaryButton>
           )}
@@ -147,10 +170,8 @@ export default function Navbar() {
               <>
                 <div className={styles.navUserInfo}>
                   <img src={mask2} alt="mask" />
-                  <h3 className={styles.userName}>Shreya Avasthi</h3>
-                  <small className={styles.userEmail}>
-                    shreya2716@gmail.com
-                  </small>
+                  <h3 className={styles.userName}>{userInfo?.first_name}</h3>
+                  <small className={styles.userEmail}>{userInfo?.email}</small>
                 </div>
 
                 <li>
@@ -197,7 +218,10 @@ export default function Navbar() {
             {!isDesktopMenuOpen && (
               <>
                 <li>
-                  <Link to={"/blogs"} onClick={()=>setIsMobileMenuOpen(false)}>
+                  <Link
+                    to={"/blogs"}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
                     <div className={styles.listtext}>
                       <img src={notetext} alt="notetext" />
                       Blog
@@ -253,7 +277,10 @@ export default function Navbar() {
             {isLoggedIn && (
               <li>
                 <a href="#">
-                  <div className={`${styles.listtext} ${styles.signout}`}>
+                  <div
+                    className={`${styles.listtext} ${styles.signout}`}
+                    onClick={handleLogout}
+                  >
                     <img src={signout} alt="signout" />
                     signout
                   </div>

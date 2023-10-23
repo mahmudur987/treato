@@ -218,7 +218,7 @@ const handleGoogleLogin=()=>{
               <img src={Facebook_Logo} />
               Facebook
             </SecondaryButton>
-          </div>
+          </div>    
         </div>
         <div className={styles.termsWrapper}>
           <p className={styles.terms}>
