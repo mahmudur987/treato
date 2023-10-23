@@ -3,7 +3,12 @@ import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import styles from "./VerifyOTP.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { otpsignin, register, sendLoginOTP } from "../../../services/auth";
+import {
+  getUserProfile,
+  otpsignin,
+  register,
+  sendLoginOTP,
+} from "../../../services/auth";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetTempLoginInfo,
@@ -70,7 +75,7 @@ const VerifyOTP = (props) => {
     sendLoginOTP(data).then((res) => {
       console.log(res);
       if (res?.res?.data.otp) {
-        dispatch(updateOTP(res?.res?.data.otp))
+        dispatch(updateOTP(res?.res?.data.otp));
         toast.success("OTP resend successfully!", {
           position: "top-right",
           autoClose: 4000,
@@ -100,7 +105,7 @@ const VerifyOTP = (props) => {
         let jwtToken = requiredLoginToken;
         let userData =
           userDetails?.tempLoginInfo || JSON.parse(requiredLoginData);
-          if (typeof localStorage !== "undefined") {
+        if (typeof localStorage !== "undefined") {
           // Use localStorage
           localStorage.setItem("jwtToken", jwtToken);
           localStorage.setItem("userData", JSON.stringify(userData));
@@ -110,6 +115,8 @@ const VerifyOTP = (props) => {
           dispatch(updateOTP(0));
           localStorage.removeItem("requiredLoginData");
           localStorage.removeItem("requiredLoginToken");
+          localStorage.removeItem("userPhoneNumber");
+
           navigate("/");
           toast("Welcome to Treato! Start exploring now!", {
             position: "top-right",
@@ -124,9 +131,7 @@ const VerifyOTP = (props) => {
         } else {
           console.error("localStorage is not available.");
         }
-      }
-
-      else if (otp.join("") === "") {
+      } else if (otp.join("") === "") {
         setOTPerror(true);
         seterrorMessage("Please fill the OTP");
       } else {
@@ -142,23 +147,29 @@ const VerifyOTP = (props) => {
           if (
             res?.res?.data.message === "User Information Saved Successfully"
           ) {
-            console.log("in reg");
-
-            //TODO:need to add user data in localStorage
-            // dispatch(updateIsLoggedIn(true));
-            // dispatch(updateUserDetails(res?.res?.data?.data));
-            navigate("/");
-            toast("Welcome to Treato! Start exploring now!", {
-              position: "top-right",
-              autoClose: 4000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
+            localStorage.setItem("jwtToken", res?.res?.data.token);
+            getUserProfile().then((res) => {
+              localStorage.setItem(
+                "userData",
+                JSON.stringify(res?.res?.data.data)
+              );
+              dispatch(updateIsLoggedIn(true));
+              dispatch(updateUserDetails(res?.res?.data?.data));
+              dispatch(updateOTP(0));
+              navigate("/");
+              toast("Welcome to Treato! Start exploring now!", {
+                position: "top-right",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+              localStorage.removeItem("requiredRegisterData");
             });
-            localStorage.removeItem("requiredRegisterData");
+            //TODO:need to add user data in localStorage
           } else {
             console.log(res?.err.response.data.message);
             setOTPerror(true);

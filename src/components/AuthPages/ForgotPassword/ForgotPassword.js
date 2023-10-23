@@ -19,7 +19,7 @@ const ForgotPassword = () => {
       forgotpasswordLink({ email }).then((res) => {
         if (res?.res?.status === 200 && res?.res.data.link) {
           setisSubmit(true);
-          localStorage.setItem("userEmail",email)
+          localStorage.setItem("userEmail", email);
         } else {
           setEmailError("Email is not exist");
         }
@@ -27,7 +27,11 @@ const ForgotPassword = () => {
         setisloading(false);
       });
     } else {
-      setEmailError("Valid email required");
+      if (email === "") {
+        setEmailError("Email required");
+      } else {
+        setEmailError("Valid email required");
+      }
     }
   };
   return (
@@ -36,6 +40,7 @@ const ForgotPassword = () => {
         <>
           {!isSubmit ? (
             <div className={styles.container}>
+              <h2 className={styles.heading}>Provide Your Registered Email</h2>
               <input
                 type="email"
                 id="email"

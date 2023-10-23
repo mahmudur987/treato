@@ -16,6 +16,7 @@ export default function PageLayout({ children }) {
     location.pathname === "/create-account" ||
     location.pathname === "/login" ||
     location.pathname === "/verify-otp" ||
+    location.pathname === "/reset-password" ||
     location.pathname === "/forgot-password";
   // remove footer  if the current route is "/myappointments "
   const isMyAppointmentsRoute =

@@ -12,7 +12,7 @@ import {
   arrowleft,
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { register } from "../../../services/auth";
+import { googlelogin, register } from "../../../services/auth";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { sendLoginOTP } from "../../../services/auth";
@@ -73,14 +73,17 @@ const CreateAccountPage = () => {
     };
     if (Object.keys(errors).length === 0) {
       localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
+      localStorage.setItem("userPhoneNumber", JSON.stringify(formData.phone));
+
+      
       sendLoginOTP({ phoneNumber: phone }).then((res) => {
         console.log(res);
         if (res?.res.data.status === true) {
           console.log("OTP");
           dispatch(updateOTP(res?.res.data.otp));
+          navigate("/verify-otp");
         }
       });
-      navigate("/verify-otp");
     }
 
     // Handle form submission
@@ -90,7 +93,11 @@ const CreateAccountPage = () => {
   const handleRegister = async () => {
     const { err, res } = await register()
   }
-
+const handleGoogleLogin=()=>{
+  googlelogin().then((res)=>{
+    console.log(res)
+  })
+}
   return (
     <AuthPage>
       <div className={styles.container}>
@@ -203,7 +210,7 @@ const CreateAccountPage = () => {
             <span></span>Or simply continue with <span></span>
           </p>
           <div className={styles.socialButtons}>
-            <SecondaryButton className={styles.google}>
+            <SecondaryButton className={styles.google} onClick={handleGoogleLogin}>
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
