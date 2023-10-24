@@ -68,7 +68,7 @@ const LatestBlog = () => {
         }
       </div>
 
-      <div className={styles["blogWrapper_mobo"]}>
+      <div id="blogWrapper_mobo" className={styles["blogWrapper_mobo"]}>
         {
           blogData.length ?
             <Carousel

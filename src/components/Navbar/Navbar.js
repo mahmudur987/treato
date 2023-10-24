@@ -34,7 +34,8 @@ export default function Navbar() {
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  // console.log();
+
+  // Using to scroll to a particular section
   const scrollToSection = (navigate, sectionId) => {
     navigate("/"); // Navigate to the home page
     setIsMobileMenuOpen(false);
@@ -50,12 +51,26 @@ export default function Navbar() {
     }, 450); // Delay the scroll to ensure the navigation has completed
   };
 
+  //To toggle top right menubar
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
   const handleDesktopMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     setIsDesktopMenuOpen(!isDesktopMenuOpen);
+  };
+
+  //Logout
+  const handleLogout = () => {
+    dispatch(updateIsLoggedIn(false));
+    dispatch(resetUserDetails({}));
+    localStorage.removeItem("userData");
+    localStorage.removeItem("jwtToken");
+    setIsDesktopMenuOpen(false);
+    setIsMobileMenuOpen(false);
+    navigate("/");
+    setIsLoggedIn(false);
+    setuserInfo("");
   };
 
   useEffect(() => {
@@ -72,17 +87,12 @@ export default function Navbar() {
       setuserInfo(userData.user);
     }
   }, [userData.isLoggedIn]);
-  const handleLogout = () => {
-    dispatch(updateIsLoggedIn(false));
-    dispatch(resetUserDetails({}));
-    localStorage.removeItem("userData");
-    localStorage.removeItem("jwtToken");
-    setIsDesktopMenuOpen(false)
-    setIsMobileMenuOpen(false)
-    navigate("/");
-    setIsLoggedIn(false);
-    setuserInfo("");
-  };
+  // Add a useEffect to close menus when the route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    setIsDesktopMenuOpen(false);
+  }, [location.pathname]);
+
   return (
     <header
       className={`${styles.header} ${
@@ -129,7 +139,7 @@ export default function Navbar() {
             onClick={handleMobileMenuToggle}
           >
             {!isMobileMenuOpen ? (
-              <img src={menuLogo} alt="menuLogo" />
+              <img src={isLoggedIn?mask:menuLogo} alt="menuLogo" />
             ) : (
               <img src={x} alt="closeIcon" />
             )}
@@ -147,7 +157,7 @@ export default function Navbar() {
             />
           ) : (
             <SecondaryButton
-              className={styles.signinButton}
+              className={`${styles.signinButton} ${styles.hideOnMobile}`}
               onClick={handleDesktopMenuToggle}
             >
               <img src={mask} alt="mask" />
@@ -175,7 +185,7 @@ export default function Navbar() {
                 </div>
 
                 <li>
-                  <a href="#">
+                  <Link to="/my-appointments/upcoming">
                     <div className={styles.listtext}>
                       <img src={history} alt="history" />
                       My Appointments
@@ -184,10 +194,10 @@ export default function Navbar() {
                     <div className={styles.chevronright}>
                       <img src={chevronright} alt="chevronright" />
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to="/account-settings">
                     <div className={styles.listtext}>
                       <img src={signin} alt="signin" />
                       <a href="#">Account Setting</a>
@@ -195,7 +205,7 @@ export default function Navbar() {
                     <div className={styles.chevronright}>
                       <img src={chevronright} alt="chevronright" />
                     </div>
-                  </a>
+                  </Link>
                 </li>
 
                 <hr />
@@ -204,7 +214,7 @@ export default function Navbar() {
 
             {!isLoggedIn && (
               <li>
-                <a href="#">
+                <a href="/auth-choice">
                   <div className={styles.listtext}>
                     <img src={signin} alt="signin" />
                     Sign up / Sign-in
@@ -232,13 +242,15 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <div className={styles.listtext}>
-                    <img src={lookbookIcon} alt="lookbookIcon" />
-                    Lookbook
-                  </div>
-                  <div className={styles.chevronright}>
-                    <img src={chevronright} alt="chevronright" />
-                  </div>
+                  <Link to={"/lookbook"}>
+                    <div className={styles.listtext}>
+                      <img src={lookbookIcon} alt="lookbookIcon" />
+                      Lookbook
+                    </div>
+                    <div className={styles.chevronright}>
+                      <img src={chevronright} alt="chevronright" />
+                    </div>
+                  </Link>
                 </li>
                 <li onClick={() => scrollToSection(navigate, "partnerSection")}>
                   <div className={styles.listtext}>
@@ -249,16 +261,14 @@ export default function Navbar() {
                     <img src={chevronright} alt="chevronright" />
                   </div>
                 </li>
-                <li>
-                  <a href="#">
-                    <div className={styles.listtext}>
-                      <img src={download} alt="download" />
-                      Download app
-                    </div>
-                    <div className={styles.chevronright}>
-                      <img src={chevronright} alt="chevronright" />
-                    </div>
-                  </a>
+                <li onClick={() => scrollToSection(navigate, "AppDownload")}>
+                  <div className={styles.listtext}>
+                    <img src={download} alt="download" />
+                    Download app
+                  </div>
+                  <div className={styles.chevronright}>
+                    <img src={chevronright} alt="chevronright" />
+                  </div>
                 </li>
                 <li>
                   <a href="/">

@@ -59,10 +59,12 @@
 .OTPtimer .countdown {
   color: var(--Grey-10);
   font-size: var(--font-medium);
+  cursor: pointer;
 }
 .resendOTP {
   color: var(--primary-color);
   font-size: var(--font-medium);
+  cursor: pointer;
 }
 @media only screen and (max-width: 768px) {
   .OTPWrapper input {

@@ -20,7 +20,7 @@ export const login = async (data) => {
 };
 export const sendLoginOTP = async (data) => {
   try {
-    const res = await axiosInstance.post(`/user/sendotp`, data);
+    const res = await axiosInstance.post(`/user/otpsignup`, data);
     return { res: res, err: null };
   } catch (error) {
     return { err: error, res: null };
@@ -64,24 +64,38 @@ export const resetPassword = async (id, token, newPassword) => {
 };
 
 export const googlelogin = async () => {
-  try {
-    const res = await axiosInstance.get(
-      `https://backend.treato.in/api/v1/auth/google`
-    );
-    return { res: res, err: null };
-  } catch (error) {
-    return { err: error, res: null };
-  }
-  //   try {
-  //     const res = window.open(
-  //       "https://backend.treato.in/api/v1/auth/google",
-  //       "_self"
-  //     );
-  //     return { res: res, err: null };
-  //   } catch (error) {
-  //     return { err: error, res: null };
-  //   }
+//   try {
+//     const res = await axiosInstance.get(
+//       `https://backend.treato.in/api/v1/auth/google`
+//     );
+//     return { res: res, err: null };
+//   } catch (error) {
+//     return { err: error, res: null };
+//   }
+    try {
+      const res = window.open(
+        "https://backend.treato.in/api/v1/auth/google",
+        "_self"
+      );
+      return { res: res, err: null };
+    } catch (error) {
+      return { err: error, res: null };
+    }
 };
+
+
+export const googleloginSuccess = async () => {
+     try {
+       const res = await axiosInstance.get(
+         "https://backend.treato.in/api/v1/auth/login/success"
+       );
+       return { res: res, err: null };
+     } catch (error) {
+       return { err: error, res: null };
+     }
+     
+   };
+
 
 export const getUserProfile = async () => {
   try {

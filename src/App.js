@@ -23,6 +23,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from "./components/AuthPages/ResetPassword/ResetPassword";
 import PrivateRoutes from "./layouts/PrivateRoutes";
+import { googleloginSuccess } from "./services/auth";
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
@@ -87,6 +88,12 @@ function App() {
     return null;
   };
 
+  useEffect(() => {
+    googleloginSuccess().then((res) => {
+      console.log(res);
+    });
+  }, []);
+
   return (
     <PageLayout>
       <ToastContainer />
@@ -115,7 +122,6 @@ function App() {
           element={<VerifyOTP receivedOTP={receivedOTP} />}
         />
         <Route path="/reset-password/*" element={<ResetPassword />} />
-
       </Routes>
     </PageLayout>
   );

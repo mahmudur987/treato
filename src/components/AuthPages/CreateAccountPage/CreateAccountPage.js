@@ -71,17 +71,29 @@ const CreateAccountPage = () => {
       password,
       type: "register",
     };
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(errors).length === 0 && !passwordError) {
+      alert(passwordError)
       localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
       localStorage.setItem("userPhoneNumber", JSON.stringify(formData.phone));
 
-      
       sendLoginOTP({ phoneNumber: phone }).then((res) => {
         console.log(res);
-        if (res?.res.data.status === true) {
+
+        if (res && res?.res?.data.status === true) {
           console.log("OTP");
           dispatch(updateOTP(res?.res.data.otp));
           navigate("/verify-otp");
+        } else {
+          toast.error(`${res?.err?.response?.data.message||res?.err?.response?.data.error}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         }
       });
     }
@@ -91,13 +103,13 @@ const CreateAccountPage = () => {
   };
 
   const handleRegister = async () => {
-    const { err, res } = await register()
-  }
-const handleGoogleLogin=()=>{
-  googlelogin().then((res)=>{
-    console.log(res)
-  })
-}
+    const { err, res } = await register();
+  };
+  const handleGoogleLogin = () => {
+    googlelogin().then((res) => {
+      console.log(res);
+    });
+  };
   return (
     <AuthPage>
       <div className={styles.container}>
@@ -210,7 +222,10 @@ const handleGoogleLogin=()=>{
             <span></span>Or simply continue with <span></span>
           </p>
           <div className={styles.socialButtons}>
-            <SecondaryButton className={styles.google} onClick={handleGoogleLogin}>
+            <SecondaryButton
+              className={styles.google}
+              onClick={handleGoogleLogin}
+            >
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
@@ -218,7 +233,7 @@ const handleGoogleLogin=()=>{
               <img src={Facebook_Logo} />
               Facebook
             </SecondaryButton>
-          </div>    
+          </div>
         </div>
         <div className={styles.termsWrapper}>
           <p className={styles.terms}>
