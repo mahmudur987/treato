@@ -143,11 +143,6 @@ const LoginPage = (props) => {
     }
     // handle phone Number login
     else if (Object.keys(errors).length === 0 && !showEmailPassword) {
-      // sendLoginOTP({ phoneNumber: formData?.phone }).then((res) => {
-      //   props.setreceivedOTP({
-      //     phoneNumber: formData?.phone,
-      //     otp: res?.res?.data.otp,
-      //   });
       otpsignin({ phoneNumber: formData?.phone }).then((res) => {
         console.log(res);
         if (res?.res?.data.message === "User sign in successfully!") {

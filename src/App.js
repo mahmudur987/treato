@@ -24,6 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from "./components/AuthPages/ResetPassword/ResetPassword";
 import PrivateRoutes from "./layouts/PrivateRoutes";
 import { googleloginSuccess } from "./services/auth";
+import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
@@ -90,7 +91,7 @@ function App() {
 
   useEffect(() => {
     googleloginSuccess().then((res) => {
-      console.log(res);
+      console.log("Google login response:",res);
     });
   }, []);
 
@@ -105,6 +106,7 @@ function App() {
           <Route path="/salons/:id" element={<SalonDetail />} />
           <Route path="/salons/:id/book" element={<BookFlow />} />
           <Route path="/lookbook" element={<Lookbook />} />
+          <Route path="/lookbook-details/:id" element={<LookbookDetails />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
           <Route path="/my-appointments/*" element={<MyAppointments />} />
@@ -114,12 +116,12 @@ function App() {
         <Route path="/create-account" element={<CreateAccountPage />} />
         <Route
           path="/login"
-          element={<LoginPage setreceivedOTP={setreceivedOTP} />}
+          element={<LoginPage  />}
         />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route
           path="/verify-otp"
-          element={<VerifyOTP receivedOTP={receivedOTP} />}
+          element={<VerifyOTP  />}
         />
         <Route path="/reset-password/*" element={<ResetPassword />} />
       </Routes>

@@ -27,7 +27,6 @@ const VerifyOTP = (props) => {
   const [isRegister, setisRegister] = useState(false);
 
   const inputRefs = useRef([]);
-  const [receivedOTP, setreceivedOTP] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user);
@@ -40,7 +39,6 @@ const VerifyOTP = (props) => {
       setisRegister(true);
       console.log(userDetails.OTP);
     } else {
-      setreceivedOTP(props?.receivedOTP);
       setisRegister(false);
     }
   }, []);
@@ -206,7 +204,7 @@ const VerifyOTP = (props) => {
           <h3 className={styles.VerifyOTP}>Verify OTP</h3>
           <h4 className={styles.enterOTPText}>
             Enter the OTP sent to{" "}
-            {receivedOTP.phoneNumber ||
+            {
               localStorage.getItem("userPhoneNumber") ||
               "your number"}
             .

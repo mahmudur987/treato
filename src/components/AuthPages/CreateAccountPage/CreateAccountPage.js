@@ -57,6 +57,7 @@ const CreateAccountPage = () => {
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%^&*])[A-Za-z\d@$!%^&*]{8,}$/;
       if (!regex.test(password)) {
         setPasswordError(true);
+        errors.notvalid="true"
       } else {
         setPasswordError(false);
       }
@@ -71,8 +72,7 @@ const CreateAccountPage = () => {
       password,
       type: "register",
     };
-    if (Object.keys(errors).length === 0 && !passwordError) {
-      alert(passwordError)
+    if (Object.keys(errors).length === 0 ) {
       localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
       localStorage.setItem("userPhoneNumber", JSON.stringify(formData.phone));
 
