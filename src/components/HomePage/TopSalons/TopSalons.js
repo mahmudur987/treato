@@ -6,11 +6,11 @@ import { salon } from "../../../services/salon";
 import Title from "../../Typography/Title/Title";
 
 const TopSalons = (props) => {
-  let [topSalonData, setTopSalonData] = useState([])
+  let [topSalonData, setTopSalonData] = useState(null)
   useEffect(() => {
     let topSalonDataFunc = async () => {
       const { res, err } = await salon()
-      if (res.data) {
+      if (res) {
         setTopSalonData(res.data.salons)
       }
     }
@@ -33,7 +33,7 @@ const TopSalons = (props) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
 
-  const isRmdContentOverflowing = topSalonData.length > 4;
+  const isRmdContentOverflowing = topSalonData?topSalonData.length > 4:null;
 
   // Check screen width and services length to hide right arrow
   const screenWidth = window.innerWidth;
@@ -91,7 +91,7 @@ const TopSalons = (props) => {
           )}
           <div ref={carouselRef} className={styles["trWrapper"]}>
             {
-              topSalonData.length ?
+              topSalonData?
                 topSalonData.map((salon, index) => (
                   <Salon salonData={salon} place={"homePage"} key={index} />
                 ))

@@ -6,17 +6,17 @@ import clock from "../../../assets/images/SalonDetail/clock.svg"
 import SalonMap from '../SalonMap/SalonMap'
 import BookNow from '../BookNow/BookNow'
 
-export default function SalonCard() {
+export default function SalonCard({SalonData}) {
 
     return (
         <div className={styles.salon_card}>
             <div className={styles.salon_cardA}>
-                She Hair & Beauty
+                {SalonData?SalonData.salon_name:null}
             </div>
             <div className={styles.salon_cardB}>
-                <div>4.8</div>
+                <div>{SalonData?SalonData.rating:null} </div>
                 <img src={star} alt="" />
-                <div>(based on 1,361 ratings)</div>
+                <div>(based on {SalonData?SalonData.total_rating:null} ratings)</div>
                 <img src={ellipse} alt="" />
                 <div>See reviews</div>
             </div>
@@ -42,7 +42,7 @@ export default function SalonCard() {
                     </div>
                 </div>
             </div>
-            <SalonMap/>
+            <SalonMap SalonData={SalonData?SalonData:null}/>
         </div>
     )
 }

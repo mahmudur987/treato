@@ -2,16 +2,13 @@
 
 .acc_setting_page{
     padding: 144px 60px;
+    font-family: 'Lato', sans-serif;
 }
 
 .acc_head{
     font-size: 28px;
     font-family: "Poppins", sans-serif;
     margin-bottom: 12px;
-}
-
-.acc_intro{
-    font-family: 'Lato', sans-serif;
 }
 
 .acc_setting_mid{
@@ -31,6 +28,15 @@
 
 .d_none{
     display: none;
+}
+
+.acc_settingA{
+    width: 290px;
+    margin: 0px 0px 0px auto;
+    display: flex;
+    justify-content: start;
+    gap: 12px;
+    align-items: center;
 }
 
 @media only screen and (max-width:767px){

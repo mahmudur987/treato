@@ -1,0 +1,75 @@
+.acc_calendar{
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    top: 60%;
+}
+.acc_calendar_active{
+    display: block;
+}
+.acc_calendar .react-calendar {
+    border-radius: 12px;
+    border: 1px solid #EBEBEB;
+    background: #FFF;
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08);
+    font-family: 'Inter', sans-serif;
+    padding: 72px;
+    width: 560px;
+    box-sizing: border-box;
+    font-size: 24px;
+}
+.acc_calendar .react-calendar__navigation{
+    position: relative;
+}
+.acc_calendar .react-calendar__navigation__prev2-button, .acc_calendar .react-calendar__navigation__next2-button{
+    display: none;
+}
+.acc_calendar .react-calendar__navigation__prev-button,.acc_calendar .react-calendar__navigation__next-button,.acc_calendar .react-calendar__navigation__label{
+    position: absolute;
+    right: 30px;
+    top: 14px;
+    font-size: 20px !important;
+}
+.acc_calendar .react-calendar__navigation__next-button{
+    right: 0px;
+}
+.acc_calendar .react-calendar__navigation__prev-button:hover,.acc_calendar .react-calendar__navigation__next-button,.acc_calendar .react-calendar__navigation__label:hover
+.acc_calendar .react-calendar__navigation__next-button:hover,.acc_calendar .react-calendar__navigation button:enabled:hover, .acc_calendar .react-calendar__navigation button:enabled:focus{
+    background-color: unset !important;
+    background: unset !important;
+}
+.acc_calendar .react-calendar__navigation__label{
+    right: unset;
+    left: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; 
+}
+.acc_calendar .react-calendar__month-view__weekdays__weekday{
+    text-transform: capitalize;
+}
+.acc_calendar .react-calendar__month-view__weekdays__weekday abbr{
+    text-decoration: none;
+    font-weight: 500;
+    color: #333333;
+}
+.acc_calendar .react-calendar__month-view__days__day{
+    font-weight: 500;
+    color: #666666;
+}
+.acc_calendar .react-calendar__tile{
+    width: 56px;
+    height: 56px;
+}
+.acc_calendar .react-calendar__tile:enabled:hover,.acc_calendar .react-calendar__tile:enabled:focus,.react-calendar__tile--now{
+    background-color: unset;
+}
+.acc_calendar .react-calendar__tile--active{
+    background-color: #0D69D7;
+    border-radius: 50%;
+    color: #fff;
+}
+.acc_calendar .react-calendar__tile--active:enabled:hover,.acc_calendar .react-calendar__tile--active:enabled:focus{
+    background-color: #0D69D7;
+    border-radius: 50%;
+    color: #fff;
+}

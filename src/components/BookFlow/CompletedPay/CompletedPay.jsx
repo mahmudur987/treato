@@ -44,7 +44,7 @@ export default function CompletedPay() {
                     <div>₹1,177</div>
                 </div>
             </div>
-            <div className={styles.payMainD}>
+            <div className={styles.payMainF}>
                 <PrimaryButton children={"Back to home"} onClick={()=>navigate('/')}/>
             </div>
         </div>

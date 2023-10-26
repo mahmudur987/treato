@@ -2,7 +2,7 @@ import styles from "./ProfileView.module.css";
 import userImg from "../../../assets/images/AccountSettings/userImg.png"
 import pencilIco from "../../../assets/images/AccountSettings/pencilIco.svg"
 
-export default function ProfileView(){
+export default function ProfileView({setProfileModal}){
     return(
         <div className={styles.user_profile}>
             <div className={styles.user_img_main}>
@@ -10,7 +10,7 @@ export default function ProfileView(){
                     <img src={userImg} alt="" className={styles.user_img}/>
                 </div>
                 <div className={styles.user_img_edit}>
-                    <img src={pencilIco} alt="" />
+                    <img src={pencilIco} alt="" onClick={()=>setProfileModal(true)}/>
                 </div>
             </div>
             <div className={styles.user_name}>
