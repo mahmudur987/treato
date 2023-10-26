@@ -109,14 +109,16 @@ const TopSalons = (props) => {
               ? topSalonData.map((salon, index) => (
                   <Salon salonData={salon} place={"homePage"} key={index} />
                 ))
-              : ""}
+              : <p className={styles.notAvailable}>No salon available</p>}
           </div>
+          {topSalonData.length>0 &&     
           <img
             src={scrollright}
             onClick={scrollRight}
             alt="scrollRight"
             className={styles.scroll_right}
           />
+          }
         </div>
       </div>
     </section>

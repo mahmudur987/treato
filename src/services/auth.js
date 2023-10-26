@@ -84,10 +84,11 @@ export const googlelogin = async () => {
 };
 
 
+
 export const googleloginSuccess = async () => {
      try {
        const res = await axiosInstance.get(
-         "https://backend.treato.in/api/v1/auth/login/success"
+         "http://43.204.141.2:4000/api/v1/auth/login/success"
        );
        return { res: res, err: null };
      } catch (error) {
@@ -96,6 +97,18 @@ export const googleloginSuccess = async () => {
      
    };
 
+
+   export const Facebooklogin = async () => {
+        try {
+          const res = window.open(
+            "https://backend.treato.in/api/v1/auth/facebook",
+            "_self"
+          );
+          return { res: res, err: null };
+        } catch (error) {
+          return { err: error, res: null };
+        }
+    };
 
 export const getUserProfile = async () => {
   try {

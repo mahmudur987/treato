@@ -12,9 +12,9 @@ import {
   arrowleft,
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { googlelogin, register } from "../../../services/auth";
+import { Facebooklogin, googlelogin, register } from "../../../services/auth";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { sendLoginOTP } from "../../../services/auth";
 import { updateOTP } from "../../../redux/slices/user";
 const CreateAccountPage = () => {
@@ -26,6 +26,7 @@ const CreateAccountPage = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const userChoice = useSelector((state) => state.authChoice);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleFormSubmit = (event) => {
@@ -70,6 +71,7 @@ const CreateAccountPage = () => {
       email,
       phone,
       password,
+      role:userChoice?.role?.role,
       type: "register",
     };
     if (Object.keys(errors).length === 0 ) {
@@ -110,6 +112,12 @@ const CreateAccountPage = () => {
       console.log(res);
     });
   };
+  const handleFacebookLogin = () => {
+    Facebooklogin().then((res) => {
+      console.log(res);
+    });
+  };
+  
   return (
     <AuthPage>
       <div className={styles.container}>
@@ -229,7 +237,7 @@ const CreateAccountPage = () => {
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
-            <SecondaryButton className={styles.facebook}>
+            <SecondaryButton className={styles.facebook} onClick={handleFacebookLogin}>
               <img src={Facebook_Logo} />
               Facebook
             </SecondaryButton>

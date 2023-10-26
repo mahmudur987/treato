@@ -25,6 +25,8 @@ import ResetPassword from "./components/AuthPages/ResetPassword/ResetPassword";
 import PrivateRoutes from "./layouts/PrivateRoutes";
 import { googleloginSuccess } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
+import axiosInstance from "./services/axios";
+import { fetchIPInfo } from "./services/user";
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
@@ -46,7 +48,18 @@ function App() {
   }, [dispatch, userDetails]);
 
   useEffect(() => {
-    fetchLocation();
+    fetchIPInfo().then((res) => {
+      if (res) {
+        let ipBasedLocation=res?.response
+        const [latitude, longitude] = ipBasedLocation?.loc?.split(",");
+        setuserLoc({latitude, longitude, city:ipBasedLocation.city });
+        dispatch(
+          updateUserDetails({ latitude, longitude, ...ipBasedLocation })
+        );
+      } else {
+        setError("Location not available.");
+      }
+    });
     let userData = localStorage.getItem("userData");
     let isTokenExist = localStorage.getItem("jwtToken");
     if (userData && isTokenExist) {
@@ -68,7 +81,6 @@ function App() {
       }
     });
   };
-
   const fetchIpBasedLocation = async () => {
     try {
       const response = await fetch("http://ip-api.com/json");
@@ -89,11 +101,52 @@ function App() {
     return null;
   };
 
+    //TODO :google auth
+  // useEffect(() => {
+    //!--step1
+    // googleloginSuccess().then((res) => {
+    //   console.log("Google login response:",res);
+    // });
+    //!--step2
+    // const fetchData = async () => {
+    //   try {
+    //     const res = await axiosInstance.get(
+    //       'https://backend.treato.in/api/v1/auth/login/success'
+    //     );
+    //     console.log('Google login response:', res);
+    //   } catch (error) {
+    //     console.error('Error:', error);
+    //   }
+    // };
+    // fetchData();
+  // }, []);
+
+
   useEffect(() => {
-    googleloginSuccess().then((res) => {
-      console.log("Google login response:",res);
-    });
+    const getUser = () => {
+      fetch("https://backend.treato.in/api/v1/auth/login/success", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      })
+        // .then((res) => {
+        //   if (res.status === 200) return res.json();
+        //   throw new Error("Authentication has failed!");
+        // })
+        .then((resObject) => {
+          console.log("Google response", resObject);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getUser();
   }, []);
+  
 
   return (
     <PageLayout>
@@ -114,15 +167,9 @@ function App() {
         {/* Auth routes */}
         <Route path="/auth-choice" exact element={<AuthChoicePage />} />
         <Route path="/create-account" element={<CreateAccountPage />} />
-        <Route
-          path="/login"
-          element={<LoginPage  />}
-        />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route
-          path="/verify-otp"
-          element={<VerifyOTP  />}
-        />
+        <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path="/reset-password/*" element={<ResetPassword />} />
       </Routes>
     </PageLayout>
