@@ -3,15 +3,7 @@ import styles from "../hero.module.css";
 import { search_Blue } from "../../../../assets/images/icons";
 
 const Treatments = ({ allServices, handle_close, setTreatmentInputValue }) => {
-  const treatments = [
-    { id: 1, name: "Hair Extension" },
-    { id: 2, name: "Another Treatment" },
-    { id: 3, name: "Hair Extension" },
-    { id: 4, name: "Another Treatment" },
-    { id: 5, name: "Another Treatment" },
-    { id: 6, name: "Hair Extension" },
-    { id: 7, name: "Another Treatment" },
-  ];
+
 
   const setinput = (serviceName) => {
     handle_close();
@@ -29,12 +21,12 @@ const Treatments = ({ allServices, handle_close, setTreatmentInputValue }) => {
               <div
                 key={index}
                 className={styles["trt_resultItem"]}
-                onClick={() => setinput(treatment.service_name[0])}
+                onClick={() => setinput(treatment.service_name)}
               >
                 <div>
                   <img src={search_Blue} alt="Treatment" />
                 </div>
-                <p>{treatment.service_name[0]}</p>
+                <p>{treatment.service_name}</p>
               </div>
             ))}
           </>

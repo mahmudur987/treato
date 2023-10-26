@@ -11,9 +11,12 @@ import {
   eyeline,
   arrowleft,
 } from "../../../assets/images/icons";
-import { Link } from "react-router-dom";
-import { register } from "../../../services/auth";
-
+import { Link, useNavigate } from "react-router-dom";
+import { Facebooklogin, googlelogin, register } from "../../../services/auth";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { sendLoginOTP } from "../../../services/auth";
+import { updateOTP } from "../../../redux/slices/user";
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -23,7 +26,9 @@ const CreateAccountPage = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-
+  const userChoice = useSelector((state) => state.authChoice);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -41,8 +46,8 @@ const CreateAccountPage = () => {
       errors.email = "Email address is required";
     }
 
-    if (!phone) {
-      errors.phone = "Phone number is required";
+    if (!phone || phone.replace(/[^0-9]/g, "").length !== 12) {
+      errors.phone = "Phone number must be exactly 10 digits";
     }
 
     // Password validation logic
@@ -53,23 +58,46 @@ const CreateAccountPage = () => {
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%^&*])[A-Za-z\d@$!%^&*]{8,}$/;
       if (!regex.test(password)) {
         setPasswordError(true);
+        errors.notvalid="true"
       } else {
         setPasswordError(false);
       }
-      // errors.password = "";
     }
 
     setFormErrors(errors);
     const formData = {
-      firstName,
-      lastName,
+      first_name: firstName,
+      last_name: lastName,
       email,
       phone,
       password,
+      role:userChoice?.role?.role,
+      type: "register",
     };
-    if (Object.keys(errors).length === 0) {
-      console.log(formData);
-      // return;
+    if (Object.keys(errors).length === 0 ) {
+      localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
+      localStorage.setItem("userPhoneNumber", JSON.stringify(formData.phone));
+
+      sendLoginOTP({ phoneNumber: phone }).then((res) => {
+        console.log(res);
+
+        if (res && res?.res?.data.status === true) {
+          console.log("OTP");
+          dispatch(updateOTP(res?.res.data.otp));
+          navigate("/verify-otp");
+        } else {
+          toast.error(`${res?.err?.response?.data.message||res?.err?.response?.data.error}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      });
     }
 
     // Handle form submission
@@ -77,13 +105,22 @@ const CreateAccountPage = () => {
   };
 
   const handleRegister = async () => {
-    const { err, res } = await register()
-  }
+    const { err, res } = await register();
+  };
+  const handleGoogleLogin = () => {
+    googlelogin().then((res) => {
+      console.log(res);
+    });
+  };
+  const handleFacebookLogin = () => {
+    Facebooklogin().then((res) => {
+      console.log(res);
+    });
+  };
   
   return (
     <AuthPage>
       <div className={styles.container}>
-
         <div className={styles.heading}>
           <h3 className={styles.letGetStarted}>Let’s get started!</h3>
           <p className={styles.createText}>
@@ -139,10 +176,9 @@ const CreateAccountPage = () => {
             <label htmlFor="phone">Phone</label>
             <PhoneInput
               defaultCountry="IN"
+              value={phone}
               placeholder="Enter phone number"
               onChange={(value) => setPhone(value)}
-              international
-              countryCallingCodeEditable={false}
             />
             {formErrors.phone && (
               <p className={styles.error}>{formErrors.phone}</p>
@@ -194,11 +230,14 @@ const CreateAccountPage = () => {
             <span></span>Or simply continue with <span></span>
           </p>
           <div className={styles.socialButtons}>
-            <SecondaryButton className={styles.google}>
+            <SecondaryButton
+              className={styles.google}
+              onClick={handleGoogleLogin}
+            >
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
-            <SecondaryButton className={styles.facebook}>
+            <SecondaryButton className={styles.facebook} onClick={handleFacebookLogin}>
               <img src={Facebook_Logo} />
               Facebook
             </SecondaryButton>

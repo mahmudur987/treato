@@ -23,7 +23,7 @@ const AuthChoicePage = () => {
         <h1 className={styles.heading}>Create your Treato account</h1>
         <div className={styles.choiceButtons}>
           <PrimaryButton
-            onClick={() => handleRoleChoice("customer")}
+            onClick={() => handleRoleChoice("normal")}
             className={styles.customer}
           >
             <div>
@@ -40,7 +40,7 @@ const AuthChoicePage = () => {
             />
           </PrimaryButton>
           <SecondaryButton
-            onClick={() => handleRoleChoice("business")}
+            onClick={() => handleRoleChoice("partner")}
             className={styles.businesses}
           >
             <div>

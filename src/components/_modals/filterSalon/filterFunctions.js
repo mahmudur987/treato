@@ -1,8 +1,12 @@
 // filterUtils.js
 
-import { resetSalonContent, updateSalonContent } from "../../../redux/slices/salons";
+import {
+  resetSalonContent,
+  updateFilterContent,
+  updateSalonContent,
+} from "../../../redux/slices/salons";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 const usePriceRange = () => {
   const [percentage, setPercentage] = useState(0);
@@ -22,57 +26,53 @@ const usePriceRange = () => {
 
 export default usePriceRange;
 
-
-
-
-
 export const applyFilters = (
-    selectedSortOption,
-    selectedVenueType,
-    calculatedPrice,
-    salonsState,
-    dispatch,
-    closeModal
-  ) => {
-    // Filter salonContent based on the selected sort option
-    let filteredSalons = [...salonsState.salonContent];
-  
-    if (selectedSortOption === "Recommended") {
-      filteredSalons = filteredSalons.filter(
-        (salon) => salon.recommended === true
-      );
-    } else if (selectedSortOption === "Nearest to me") {
-      // Sort by some other logic
-      filteredSalons.sort((a, b) => {
-        const distanceA = a.unit === "km" ? a.distance * 1000 : a.distance;
-        const distanceB = b.unit === "km" ? b.distance * 1000 : b.distance;
-        return distanceA - distanceB;
-      });
-    } else if (selectedSortOption === "Ratings") {
-      // Sort by ratings
-      filteredSalons.sort((a, b) => b.rating - a.rating);
-    }
-  
-    if (calculatedPrice > 0) {
-      filteredSalons = filteredSalons.filter((salon) =>
-        salon.services.some(
-          (service) => parseFloat(service.price) < calculatedPrice
-        )
-      );
-    }
-  
-    if (selectedVenueType !== "") {
-      filteredSalons = filteredSalons.filter(
-        (salon) => salon.venueType === selectedVenueType
-      );
-    }
-  
-    // Update the filtered salon content
-    // You can use the filteredSalons array for rendering the filtered salons
-    dispatch(updateSalonContent(filteredSalons));
-    // Close the modal
-    document.body.style.overflow = "auto";
-    dispatch(closeModal());
-  };
-  
+  selectedSortOption,
+  selectedVenueType,
+  calculatedPrice,
+  salonsState,
+  dispatch,
+  closeModal
+) => {
+  // Filter salonContent based on the selected sort option
+  let filteredSalons = [...salonsState.filterContent];
 
+  if (selectedSortOption === "Recommended") {
+    filteredSalons = filteredSalons.filter(
+      (salon) => salon.recommended === true
+    );
+  } else if (selectedSortOption === "Nearest to me") {
+    // Sort by some other logic
+    filteredSalons.sort((a, b) => {
+      const distanceA = a.unit === "km" ? a.distances * 1000 : a.distances;
+      const distanceB = b.unit === "km" ? b.distances * 1000 : b.distances;
+      return distanceA - distanceB;
+    });
+  } else if (selectedSortOption === "Ratings") {
+    // Sort by ratings
+    filteredSalons.sort((a, b) => b.rating - a.rating);
+  }
+
+  if (calculatedPrice > 0) {
+    console.log(calculatedPrice);
+    filteredSalons = filteredSalons.filter((salon) =>
+      salon.services.some(
+        (service) => parseFloat(service.price) < calculatedPrice
+      )
+    );
+  }
+
+  if (selectedVenueType !== "") {
+    filteredSalons = filteredSalons.filter(
+      (salon) => salon.venueType === selectedVenueType
+    );
+  }
+
+  // Update the filtered salon content
+
+  // Dispatch the 'updateFilterContent' action with the fetched 'salons' data
+  dispatch(updateFilterContent(filteredSalons));
+  // Close the modal
+  document.body.style.overflow = "auto";
+  dispatch(closeModal());
+};

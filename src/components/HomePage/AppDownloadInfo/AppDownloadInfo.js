@@ -3,7 +3,7 @@ import styles from "./AppDownloadInfo.module.css";
 import { AppStore_black, AppleLogo, GoogleLogo, PlayStore_black } from '../../../assets/images/icons';
 const AppDownloadInfo = ({mainData}) => {
   return (
-    <section className={styles['container']}>
+    <section className={styles['container']} id="AppDownload">
       <div className={styles["bannerWrapper"]}>
         <div className={styles["bannerDetails"]}>
           <div className={styles.textWrapper}>          

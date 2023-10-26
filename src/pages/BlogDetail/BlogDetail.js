@@ -168,7 +168,7 @@ export default function BlogDetail(props) {
                   serviceData.length?
                   serviceData.map((v)=>{
                     return(
-                      <a key={v._id}>{v.service_name[0]}</a>
+                      <a key={v._id}>{v.service_name}</a>
                     )
                   })
                   :

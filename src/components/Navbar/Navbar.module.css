@@ -81,6 +81,7 @@
   background: none;
   color: var(--dark-color);
 }
+
 .signupButton,
 .signinButton {
   background-color: var(--black-color);
@@ -186,7 +187,7 @@
 .whiteBackground {
   background-color: white;
 }
-.chevronright{
+.chevronright {
   margin-right: 0.5rem;
 }
 @media only screen and (max-width: 1024px) {
@@ -242,8 +243,8 @@
     padding: 0;
   }
   .menuButton img {
-    height: 100%;
-    width: 100%;
+    height: 32px;
+    width: 32px;
   }
   .header {
     flex-direction: column;
@@ -259,5 +260,7 @@
   .signinButton {
     display: none;
   }
+  .hideOnMobile {
+    display: none !important;
+  }
 }
-/* Add responsive styles as needed */

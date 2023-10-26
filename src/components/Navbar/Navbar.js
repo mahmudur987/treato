@@ -21,6 +21,8 @@ import {
 } from "../../assets/images/icons";
 import PrimaryButton from "../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton/SecondaryButton";
+import { useDispatch, useSelector } from "react-redux";
+import { resetUserDetails, updateIsLoggedIn } from "../../redux/slices/user";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,8 +30,12 @@ export default function Navbar() {
   const [isMainSearchBar, setisMainSearchBar] = useState(false);
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setuserInfo] = useState("");
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const userData = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
+  // Using to scroll to a particular section
   const scrollToSection = (navigate, sectionId) => {
     navigate("/"); // Navigate to the home page
     setIsMobileMenuOpen(false);
@@ -45,6 +51,7 @@ export default function Navbar() {
     }, 450); // Delay the scroll to ensure the navigation has completed
   };
 
+  //To toggle top right menubar
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -53,12 +60,37 @@ export default function Navbar() {
     setIsDesktopMenuOpen(!isDesktopMenuOpen);
   };
 
+  //Logout
+  const handleLogout = () => {
+    dispatch(updateIsLoggedIn(false));
+    dispatch(resetUserDetails({}));
+    localStorage.removeItem("userData");
+    localStorage.removeItem("jwtToken");
+    setIsDesktopMenuOpen(false);
+    setIsMobileMenuOpen(false);
+    navigate("/");
+    setIsLoggedIn(false);
+    setuserInfo("");
+  };
+
   useEffect(() => {
     if (location.pathname === "/salons") {
       setisMainSearchBar(true);
     } else {
       setisMainSearchBar(false);
     }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (userData.isLoggedIn) {
+      setIsLoggedIn(true);
+      setuserInfo(userData.user);
+    }
+  }, [userData.isLoggedIn]);
+  // Add a useEffect to close menus when the route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    setIsDesktopMenuOpen(false);
   }, [location.pathname]);
 
   return (
@@ -87,7 +119,7 @@ export default function Navbar() {
                     <Link to="/blogs">Blog</Link>
                   </li>
                   <li>
-                    <Link to="#">Lookbook</Link>
+                    <Link to="/lookbook">Lookbook</Link>
                   </li>
                   <li onClick={() => scrollToSection(navigate, "contactUs")}>
                     <Link to="#">Contact us</Link>
@@ -107,7 +139,7 @@ export default function Navbar() {
             onClick={handleMobileMenuToggle}
           >
             {!isMobileMenuOpen ? (
-              <img src={menuLogo} alt="menuLogo" />
+              <img src={isLoggedIn?mask:menuLogo} alt="menuLogo" />
             ) : (
               <img src={x} alt="closeIcon" />
             )}
@@ -121,14 +153,15 @@ export default function Navbar() {
             <PrimaryButton
               children={"Sign up"}
               className={styles.signupButton}
+              onClick={() => navigate("/auth-choice")}
             />
           ) : (
             <SecondaryButton
-              className={styles.signinButton}
+              className={`${styles.signinButton} ${styles.hideOnMobile}`}
               onClick={handleDesktopMenuToggle}
             >
               <img src={mask} alt="mask" />
-              Shreya
+              {userInfo?.first_name}
               <img src={chevrondown} alt="chevrondown" />
             </SecondaryButton>
           )}
@@ -147,14 +180,12 @@ export default function Navbar() {
               <>
                 <div className={styles.navUserInfo}>
                   <img src={mask2} alt="mask" />
-                  <h3 className={styles.userName}>Shreya Avasthi</h3>
-                  <small className={styles.userEmail}>
-                    shreya2716@gmail.com
-                  </small>
+                  <h3 className={styles.userName}>{userInfo?.first_name}</h3>
+                  <small className={styles.userEmail}>{userInfo?.email}</small>
                 </div>
 
                 <li>
-                  <a href="#">
+                  <Link to="/my-appointments/upcoming">
                     <div className={styles.listtext}>
                       <img src={history} alt="history" />
                       My Appointments
@@ -163,10 +194,10 @@ export default function Navbar() {
                     <div className={styles.chevronright}>
                       <img src={chevronright} alt="chevronright" />
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to="/account-settings">
                     <div className={styles.listtext}>
                       <img src={signin} alt="signin" />
                       <a href="#">Account Setting</a>
@@ -174,7 +205,7 @@ export default function Navbar() {
                     <div className={styles.chevronright}>
                       <img src={chevronright} alt="chevronright" />
                     </div>
-                  </a>
+                  </Link>
                 </li>
 
                 <hr />
@@ -183,7 +214,7 @@ export default function Navbar() {
 
             {!isLoggedIn && (
               <li>
-                <a href="#">
+                <a href="/auth-choice">
                   <div className={styles.listtext}>
                     <img src={signin} alt="signin" />
                     Sign up / Sign-in
@@ -197,7 +228,10 @@ export default function Navbar() {
             {!isDesktopMenuOpen && (
               <>
                 <li>
-                  <Link to={"/blogs"} onClick={()=>setIsMobileMenuOpen(false)}>
+                  <Link
+                    to={"/blogs"}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
                     <div className={styles.listtext}>
                       <img src={notetext} alt="notetext" />
                       Blog
@@ -208,13 +242,15 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <div className={styles.listtext}>
-                    <img src={lookbookIcon} alt="lookbookIcon" />
-                    Lookbook
-                  </div>
-                  <div className={styles.chevronright}>
-                    <img src={chevronright} alt="chevronright" />
-                  </div>
+                  <Link to={"/lookbook"}>
+                    <div className={styles.listtext}>
+                      <img src={lookbookIcon} alt="lookbookIcon" />
+                      Lookbook
+                    </div>
+                    <div className={styles.chevronright}>
+                      <img src={chevronright} alt="chevronright" />
+                    </div>
+                  </Link>
                 </li>
                 <li onClick={() => scrollToSection(navigate, "partnerSection")}>
                   <div className={styles.listtext}>
@@ -225,16 +261,14 @@ export default function Navbar() {
                     <img src={chevronright} alt="chevronright" />
                   </div>
                 </li>
-                <li>
-                  <a href="#">
-                    <div className={styles.listtext}>
-                      <img src={download} alt="download" />
-                      Download app
-                    </div>
-                    <div className={styles.chevronright}>
-                      <img src={chevronright} alt="chevronright" />
-                    </div>
-                  </a>
+                <li onClick={() => scrollToSection(navigate, "AppDownload")}>
+                  <div className={styles.listtext}>
+                    <img src={download} alt="download" />
+                    Download app
+                  </div>
+                  <div className={styles.chevronright}>
+                    <img src={chevronright} alt="chevronright" />
+                  </div>
                 </li>
                 <li>
                   <a href="/">
@@ -253,7 +287,10 @@ export default function Navbar() {
             {isLoggedIn && (
               <li>
                 <a href="#">
-                  <div className={`${styles.listtext} ${styles.signout}`}>
+                  <div
+                    className={`${styles.listtext} ${styles.signout}`}
+                    onClick={handleLogout}
+                  >
                     <img src={signout} alt="signout" />
                     signout
                   </div>

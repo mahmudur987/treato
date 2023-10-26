@@ -1,0 +1,142 @@
+.LookbookDetails {
+  padding: 5rem 4rem;
+  display: grid;
+  grid-template-columns: 3fr 2fr; /* Two columns with equal width */
+  gap: 20px; /* Gap between the columns */
+  box-sizing: border-box;
+  /* You can add more styles as needed */
+}
+.imageSection {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  margin-top: 4rem;
+}
+.LookbookDetails h3 {
+  font-family: "Poppins";
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 150%; /* 42px */
+}
+.imageSection .rating {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1rem;
+  gap: 8px;
+}
+.rating img {
+  width: 16px;
+  height: 16px;
+}
+.imageSection p {
+  font-family: "Lato";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.16px;
+}
+.imageSection .lookbookImage {
+  width: 100%;
+  border-radius: 4px;
+  image-rendering: pixelated;
+}
+.paymentContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin-top: 4rem;
+}
+.paymentBox {
+  /* Styles for the right payment box */
+  min-width: 80%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--Grey-40);
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+.serviceInfo {
+  display: flex;
+  justify-content: space-between;
+}
+.salonInfo,
+.serviceName h4,
+.serviceName small {
+  font-family: "Lato";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.16px;
+}
+.serviceName small {
+  color: var(--Grey-10);
+}
+.addVenueBtn {
+  color: var(--primary-color);
+  background: none;
+  border: none;
+  text-align: left;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.stylistInfo {
+  display: flex;
+  align-items: center;
+  font-family: "Lato";
+  gap: 4px;
+}
+.stylistInfo span {
+  color: var(--Grey-10);
+}
+.stylistInfo .salonName {
+  font-family: "Lato";
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+.stylistImage {
+  width: 24px; /* Adjust the width as needed */
+  border-radius: 50%; /* To make the images round */
+}
+
+.stylistImageOffset1 {
+  width: 24px; /* Adjust the width as needed */
+  margin-left: -10px;
+  z-index: -1;
+}
+
+.stylistImageOffset2 {
+  width: 24px; /* Adjust the width as needed */
+  margin-left: -10px;
+  z-index: -2;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  margin: 0.8rem auto;
+  background-color: var(--Grey-40);
+  border: none;
+}
+@media only screen and (max-width: 768px) {
+.LookbookDetails{
+    grid-template-columns: 1fr;
+    padding: 1rem;
+}
+.LookbookDetails h3{
+    font-size: 24px;
+}
+.paymentContainer{
+    margin-top: 1rem;
+}
+.rating{
+    font-size: 14px;
+}
+.paymentBox{
+    width: 100%;
+    border: none;
+    padding: 0rem;
+    margin-bottom: 5rem;
+}
+}

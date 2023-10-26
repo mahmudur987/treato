@@ -9,3 +9,13 @@ export const salon = async () => {
       return { err: error, res: null }
    }
 }
+
+export const getSalonListBySearchInput=async(serviceName,salonlocation)=>{
+   try{
+      const res = await axiosInstance.get(`salon/combineSearch?service=${serviceName}&location=${salonlocation}`)
+      return { res: res, err: null }
+   }
+   catch(error){
+      return { err: error, res: null }
+   }
+}

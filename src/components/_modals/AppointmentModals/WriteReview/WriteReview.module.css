@@ -6,6 +6,14 @@
   flex-direction: column;
   gap: 24px;
 }
+.WriteReview .errorText {
+  color: #de2929;
+  font-family: "Lato";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+}
 .modalTitle {
   text-align: center;
   font-size: 20px;
@@ -50,6 +58,13 @@
 .ReviewWrapper {
   gap: 24px;
 }
+.Rating label,
+.ReviewTitle label,
+.Review label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 .titleInput {
   padding: 13px 16px;
   border-radius: 4px;
@@ -82,30 +97,30 @@ input:focus {
   gap: 16px;
 }
 
-.rating{
-    display: flex;
-    flex-direction: row;
-    gap: 6px;
+.rating {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
 }
-.star img{
+.star img {
   width: 24px;
   height: 24px;
 }
 .staractive img {
-  filter: invert(100%);
+  filter: invert(50%);
 }
 
 @media only screen and (max-width: 600px) {
-    .WriteReview{
-        width: 100%;
-    }
-    .line{
-        margin: 1rem 0;
-    }
-    .ReviewWrapper{
-        gap: 16px;
-    }
-    .textarea{
-        height: 88px;
-    }
+  .WriteReview {
+    width: 100%;
+  }
+  .line {
+    margin: 1rem 0;
+  }
+  .ReviewWrapper {
+    gap: 6px;
+  }
+  .textarea {
+    height: 88px;
+  }
 }
