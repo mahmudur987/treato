@@ -4,18 +4,30 @@ import Salon from "../../Cards/Salon/Salon";
 import { scrollright } from "../../../assets/images/icons";
 import { salon } from "../../../services/salon";
 import Title from "../../Typography/Title/Title";
+import { useSelector } from "react-redux";
 
 const TopSalons = (props) => {
-  let [topSalonData, setTopSalonData] = useState(null)
+  const salonsState = useSelector((state) => state.salons);
+  let [topSalonData, setTopSalonData] = useState([]);
+
   useEffect(() => {
-    let topSalonDataFunc = async () => {
-      const { res, err } = await salon()
-      if (res) {
-        setTopSalonData(res.data.salons)
-      }
+    if (props.heading === "Top-rated Hair Salons") {
+      let filterResult = [...salonsState?.salonContent].sort(
+        (a, b) => b.rating - a.rating
+      );
+      setTopSalonData(filterResult);
+    } else if (props?.heading === "Popular near you") {
+      let filterResult = [...salonsState?.salonContent]
+        .filter((salon) => salon.distances < 200)
+        .sort((a, b) => {
+          const distanceA = a.unit === "km" ? a.distances * 1000 : a.distances;
+          const distanceB = b.unit === "km" ? b.distances * 1000 : b.distances;
+          return distanceA - distanceB;
+        })
+        .sort((a, b) => b.rating - a.rating);
+      setTopSalonData(filterResult);
     }
-    topSalonDataFunc();
-  }, [])
+  }, [salonsState]);
   const trSalonBoxRef = useRef(null);
 
   const handle_trScrollRight = () => {
@@ -26,7 +38,6 @@ const TopSalons = (props) => {
       });
     }
   };
-
 
   const carouselRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -46,7 +57,7 @@ const TopSalons = (props) => {
     setShowLeftArrow(scrollLeft > 0);
     setShowRightArrow(
       scrollLeft <
-      carouselRef.current.scrollWidth - carouselRef.current.clientWidth
+        carouselRef.current.scrollWidth - carouselRef.current.clientWidth
     );
   };
 
@@ -67,39 +78,47 @@ const TopSalons = (props) => {
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
   function reportWindowSize() {
     let winWidth = window.innerWidth;
-    updateWinWidthMain(winWidth)
+    updateWinWidthMain(winWidth);
   }
   window.onresize = reportWindowSize;
   return (
     <section className={styles["container"]}>
       <div className={styles["top-ratedSalons"]}>
         <div className={styles["trHeadWrapper"]}>
-          {
-            winWidthMain <= 768 ?
-              <div className={styles["trMobHeading"]}>
-                <h3>{props.heading}</h3>
-                <img src={scrollright} className={styles.mobScrollRight} />
-              </div>
-              :
-              <Title>{props.heading}</Title>
-          }
+          {winWidthMain <= 768 ? (
+            <div className={styles["trMobHeading"]}>
+              <h3>{props.heading}</h3>
+              <img src={scrollright} className={styles.mobScrollRight} />
+            </div>
+          ) : (
+            <Title>{props.heading}</Title>
+          )}
         </div>
 
         <div>
           {showLeftArrow && (
-            <img src={scrollright} onClick={scrollLeft} alt="scrollleft" className={styles.scroll_left} />
+            <img
+              src={scrollright}
+              onClick={scrollLeft}
+              alt="scrollleft"
+              className={styles.scroll_left}
+            />
           )}
           <div ref={carouselRef} className={styles["trWrapper"]}>
-            {
-              topSalonData?
-                topSalonData.map((salon, index) => (
+            {topSalonData.length
+              ? topSalonData.map((salon, index) => (
                   <Salon salonData={salon} place={"homePage"} key={index} />
                 ))
-                :
-                ''
-            }
+              : <p className={styles.notAvailable}>No salon available</p>}
           </div>
-          <img src={scrollright} onClick={scrollRight} alt="scrollRight" className={styles.scroll_right} />
+          {topSalonData.length>0 &&     
+          <img
+            src={scrollright}
+            onClick={scrollRight}
+            alt="scrollRight"
+            className={styles.scroll_right}
+          />
+          }
         </div>
       </div>
     </section>

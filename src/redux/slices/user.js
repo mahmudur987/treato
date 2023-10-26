@@ -4,10 +4,12 @@ const initialState = {
    isLoggedIn: false,
    user: {
       role: 'ADMIN',
-      firstName: '',
+      first_name: '',
       latitude: null,
       longitude: null,
-   }
+   },
+   OTP:0,
+   tempLoginInfo:{},
 };
 
 const user = createSlice({
@@ -20,8 +22,20 @@ const user = createSlice({
       updateUserDetails: (state, { payload }) => {
          state.user = { ...state.user, ...payload };
       },
+      resetUserDetails: (state, { payload }) => {
+         state.user = { };
+      },
+      updateOTP: (state, { payload }) => {
+         state.OTP = payload;
+      },
+      updateTempLoginInfo: (state, { payload }) => {
+         state.tempLoginInfo = { ...state.tempLoginInfo, ...payload };
+      },
+      resetTempLoginInfo: (state) => {
+         state.tempLoginInfo = {};
+      },
    },
 });
 
-export const { updateIsLoggedIn, updateUserDetails } = user.actions;
+export const { updateIsLoggedIn, updateUserDetails,updateOTP,updateTempLoginInfo,resetTempLoginInfo,resetUserDetails } = user.actions;
 export default user.reducer;

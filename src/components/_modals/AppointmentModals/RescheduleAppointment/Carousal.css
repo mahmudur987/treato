@@ -18,3 +18,8 @@
         background-image: url('../../../../assets/images/icons/chevronLeft.svg');
     }
 }
+@media only screen and (max-width: 767px) {
+    #blogWrapper_mobo .custom-dot-list-style {
+        display: none !important;
+      }
+}

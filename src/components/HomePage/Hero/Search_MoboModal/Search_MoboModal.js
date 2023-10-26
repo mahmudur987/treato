@@ -15,7 +15,13 @@ const Search_MoboModal = (props) => {
     title,
     placeholderText,
     icon,
-    setTreatmentInputValue
+    setTreatmentInputValue,
+    setLocationInputValue,
+    allSalonList,
+    handleLocationInput,
+    setLocationInput,
+    pageName,
+    handleGoButtonClick
   } = props;
   const [allServices, setallServices] = useState([]);
   const [filteredServiceData, setFilteredServiceData] = useState([]);
@@ -28,10 +34,13 @@ const Search_MoboModal = (props) => {
     
       // Filter the data based on the input value
       const filtered = allServices.filter((item) =>
-        item.service_name[0].toLowerCase().includes(inputValue.toLowerCase())
+        item.service_name.toLowerCase().includes(inputValue.toLowerCase())
       );
     
       setFilteredServiceData(filtered);
+    }
+    else{
+      handleLocationInput(e)
     }
   };
 
@@ -94,7 +103,7 @@ const Search_MoboModal = (props) => {
       </div>
         <div className={styles["modalContent"]}>
           <div className={styles["loc_Results"]}>
-            {title!="Treatment or venue"?<Locations />:
+            {title!="Treatment or venue"?<Locations allSalonList={allSalonList} setLocationInputValue={setLocationInputValue} handle_close={handle_close} pageName={pageName} setLocationInput={setLocationInput} handleGoButtonClick={handleGoButtonClick}/>:
             <>
             <Treatments allServices={filteredServiceData} setTreatmentInputValue={setTreatmentInputValue} handle_close={handle_close}/>
             <Venues/>
