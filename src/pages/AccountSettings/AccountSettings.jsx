@@ -8,7 +8,7 @@ import mapPin from "../../assets/images/AccountSettings/map-pin.svg"
 import signOut from "../../assets/images/AccountSettings/signOut.svg"
 import userIco from "../../assets/images/AccountSettings/userIco.svg"
 import lock from "../../assets/images/icons/lock.svg"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SaveChanges from "../../components/AccountSettings/SaveChanges/SaveChanges";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import PasswordChange from "../../components/AccountSettings/PasswordChange/PasswordChange";
@@ -18,13 +18,21 @@ import SecondaryButton from "../../components/Buttons/SecondaryButton/SecondaryB
 import ChangeProfile from "../../components/_modals/ChangeProfile/ChangeProfile";
 import AddressModal from "../../components/_modals/AddressModal/AddressModal";
 import VerifyOtp from "../../components/_modals/VerifyOtp/VerifyOtp";
+import { updateUser } from "../../services/updateUser";
+import { useSelector } from "react-redux";
 export default function AccountSettings() {
     let [mobileOpt, updateMobileOpt] = useState(-1)
     let [passModal, setPassModal] = useState(false)
     let [profileModal, setProfileModal] = useState(false)
-    let [addressModal, setAddressModal] = useState(false)
+    let [addressModal, setAddressModal] = useState({active:false,data:null})
     let [otpModal, setOtpModal] = useState(false)
-    let [showSave,setShowSave] = useState(false)
+    let [showSave, setShowSave] = useState(false)
+    let [activeGender, updateGender] = useState(
+        {
+            index: -1,
+            value: ''
+        }
+    );
     let [inputState, updateInputState] = useState(
         {
             f_name: true,
@@ -34,16 +42,17 @@ export default function AccountSettings() {
             user_dob: true
         }
     );
-    let [inputVal, updateInputVal] = useState(
-        {
-            f_name: 'Sarah',
-            l_name: 'Avasthi',
-            user_email: 'shreya2716@gmail.com',
-            user_tel: '9274611991',
-            user_dob: '25 November, 1988'
-        }
-    );
-    let setDefault = ()=>{
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    let [inputVal, updateInputVal] = useState({
+        f_name: userData.first_name ? userData.first_name : '',
+        l_name: userData.last_name ? userData.last_name : '',
+        user_email: userData.email ? userData.email : '',
+        user_tel: userData.phone ? userData.phone : '',
+        user_dob: userData.dob ? userData.dob : '',
+        user_loc: userData.location ? userData.location : '',
+        user_gender: userData.gender ? userData.gender : ''
+    });
+    let setDefault = () => {
         let states = {
             f_name: true,
             l_name: true,
@@ -52,15 +61,51 @@ export default function AccountSettings() {
             user_dob: true
         }
         let data = {
-            f_name: 'Sarah',
-            l_name: 'Avasthi',
-            user_email: 'shreya2716@gmail.com',
-            user_tel: '9274611991',
-            user_dob: '25 November, 1988'
+            f_name: userData.first_name ? userData.first_name : '',
+            l_name: userData.last_name ? userData.last_name : '',
+            user_email: userData.email ? userData.email : '',
+            user_tel: userData.phone ? userData.phone : '',
+            user_dob: userData.dob ? userData.dob : '',
+            user_loc: userData.location ? userData.location : '',
+            user_gender: userData.gender ? userData.gender : ''
         }
         updateInputState(states)
         updateInputVal(data)
         setShowSave(false)
+    }
+    let submitForm = (e) => {
+        e.preventDefault();
+        const userJWt = localStorage.getItem("jwtToken");
+        let formData = {
+            first_name: e.target.f_name.value,
+            last_name: e.target.l_name.value,
+            email: e.target.user_email.value,
+            phone: e.target.user_tel.value,
+            dob: e.target.user_dob.value,
+            gender: activeGender.value,
+            google: "",
+            fb: "",
+            instagram: "",
+            house: inputVal.user_loc.length ? inputVal.user_loc[inputVal.user_loc.length - 1].house : '',
+            landmark: inputVal.user_loc.length ? inputVal.user_loc[inputVal.user_loc.length - 1].landmark : '',
+            place: inputVal.user_loc
+        }
+        setShowSave(false)
+        let states = {
+            f_name: true,
+            l_name: true,
+            user_email: true,
+            user_tel: true,
+            user_dob: true
+        }
+        updateInputState(states)
+        console.log(formData);
+        updateUser(userJWt,formData).then((res)=>{
+            console.log(res);
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
     }
     return (
         <>
@@ -71,13 +116,15 @@ export default function AccountSettings() {
                 <div className={styles.acc_setting_mid}>
                     <ProfileView setProfileModal={setProfileModal} />
                     <div className={styles.acc_setting_right}>
-                        <UserDetails setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal}/>
-                        <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal}/>
-                        <SocialSettings />
-                        <PasswordChange setPassModal={setPassModal} />
-                        <div className={showSave?styles.acc_settingA:styles.d_none}>
-                            <SecondaryButton children={"Cancel"} onClick={setDefault}/>
-                            <PrimaryButton children={"Save Changes"} form={"acc_set_form"}/>
+                        <form id="acc_set_form" onSubmit={submitForm}>
+                            <UserDetails setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} />
+                            <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.user_loc} />
+                            <SocialSettings />
+                            <PasswordChange setPassModal={setPassModal} />
+                        </form>
+                        <div className={showSave ? styles.acc_settingA : styles.d_none}>
+                            <SecondaryButton children={"Cancel"} onClick={setDefault} />
+                            <PrimaryButton children={"Save Changes"} form={"acc_set_form"} />
                         </div>
                     </div>
                 </div>
@@ -123,28 +170,25 @@ export default function AccountSettings() {
                             :
                             mobileOpt === 1 ?
                                 <>
-                                    <UserDetails mobView='Personal Details' setOtpModal={setOtpModal}/>
+                                 <form id="mob_acc_set_form" onSubmit={submitForm}>
+                                    <UserDetails mobView='Personal Details' setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender}/>
                                     <SocialSettings />
+                                    <SaveChanges form={"mob_acc_set_form"} />
+                                    </form>
                                 </>
                                 :
                                 mobileOpt === 2 ?
                                     <>
-                                        <UserAddress setAddressModal={setAddressModal} />
+                                        <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.user_loc} />
                                     </>
                                     :
                                     mobileOpt === 3 ?
-                                    <ChangePass setPassModal={setPassModal} />
-                                    :
-                                    null
+                                        <ChangePass setPassModal={setPassModal} />
+                                        :
+                                        null
                     }
                 </div>
             </div>
-            {
-                mobileOpt !== -1&&mobileOpt !== 3 ?
-                    <SaveChanges />
-                    :
-                    <></>
-            }
             {
                 passModal ?
                     <ChangePass setPassModal={setPassModal} />
@@ -152,13 +196,13 @@ export default function AccountSettings() {
                     profileModal ?
                         <ChangeProfile setProfileModal={setProfileModal} />
                         :
-                        addressModal ?
-                            <AddressModal setAddressModal={setAddressModal} />
+                        addressModal.active ?
+                            <AddressModal setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave} addressModal={addressModal}/>
                             :
-                            otpModal?
-                            <VerifyOtp setOtpModal={setOtpModal}/>
-                            :
-                            null
+                            otpModal ?
+                                <VerifyOtp setOtpModal={setOtpModal} />
+                                :
+                                null
             }
         </>
     )

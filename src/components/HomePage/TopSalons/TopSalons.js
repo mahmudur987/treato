@@ -42,7 +42,7 @@ const TopSalons = (props) => {
   const carouselRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(true);
+  const [showRightArrow, setShowRightArrow] = useState(false);
 
   const isRmdContentOverflowing = topSalonData?topSalonData.length > 4:null;
 
@@ -111,7 +111,7 @@ const TopSalons = (props) => {
                 ))
               : <p className={styles.notAvailable}>No salon available</p>}
           </div>
-          {topSalonData.length>0 &&     
+          {showRightArrow &&     
           <img
             src={scrollright}
             onClick={scrollRight}

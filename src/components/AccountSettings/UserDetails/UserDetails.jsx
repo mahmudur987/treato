@@ -6,17 +6,10 @@ import PhoneInput from "../../Input/PhoneInput/PhoneInput";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ReactCalendar.css'
-import { updateUser } from "../../../services/updateUser";
 
-export default function UserDetails({ mobView, setOtpModal,setShowSave,updateInputState,inputState,updateInputVal,inputVal }) {
+export default function UserDetails({ mobView, setOtpModal,setShowSave,updateInputState,inputState,updateInputVal,inputVal,updateGender,activeGender }) {
     const [value, onChange] = useState(new Date());
     let [showCalendar, setShowCalendar] = useState(false)
-    let [activeGender, updateGender] = useState(
-        {
-            index: 1,
-            value: 'male'
-        }
-    );
 
     let updateInput = (data) => {
         let newInputState = { ...inputState }
@@ -35,24 +28,6 @@ export default function UserDetails({ mobView, setOtpModal,setShowSave,updateInp
         updateInputVal(data)
         setShowCalendar(prev => !prev)
     }
-    let submitForm = (e) => {
-        e.preventDefault();
-        let formData = {
-            first_name: e.target.f_name.value,
-            last_name: e.target.l_name.value,
-            email: e.target.user_email.value,
-            phone: e.target.user_tel.value,
-            dob: e.target.user_dob.value,
-            gender: activeGender.value,
-            google: "https://www.google.com/",
-            fb: "https://www.facebook.com/",
-            instagram: "https://www.instagram.com/",
-            house: "42",
-            landmark: "Opposite Royal Park Mall",
-            place: "Bellandur, Bengaluru, Karnataka"
-        }
-        updateUser(formData)
-    }
 
     return (
         <div>
@@ -61,7 +36,6 @@ export default function UserDetails({ mobView, setOtpModal,setShowSave,updateInp
                     mobView !== undefined ? mobView : 'Basic Details'
                 }
             </div>
-            <form id="acc_set_form" onSubmit={submitForm}>
                 <div className={styles.usr_detail_body}>
                     <div className={styles.usr_detail_box}>
                         <label htmlFor="f_name">
@@ -100,7 +74,7 @@ export default function UserDetails({ mobView, setOtpModal,setShowSave,updateInp
                     <div className={styles.usr_detail_box}>
                         <label htmlFor="user_dob">
                             <div className={styles.usr_detail_label}>Date of Birth</div>
-                            <BasicInput Type={'text'} VALUE={inputVal.user_dob} DISABLED={true} id={"user_dob"} NAME={"user_dob"} updateInputVal={updateInputVal} inputVal={inputVal} />
+                            <BasicInput Type={'text'} VALUE={inputVal.user_dob!==''?inputVal.user_dob:'Enter Your Date Of Birth'} DISABLED={true} id={"user_dob"} NAME={"user_dob"} updateInputVal={updateInputVal} inputVal={inputVal} />
                         </label>
 
                         <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => { updateInput(inputState.user_dob ? { user_dob: false } : { user_dob: true }); setShowCalendar(prev => !prev) }} />
@@ -109,15 +83,14 @@ export default function UserDetails({ mobView, setOtpModal,setShowSave,updateInp
                         <label htmlFor="user_gender">
                             <div className={styles.usr_detail_label}>Gender</div>
                             <div className={styles.usr_genders} >
-                                <div className={activeGender.index !== 1 ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 1, value: 'male' })}>Male</div>
-                                <div className={activeGender.index !== 2 ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 2, value: 'female' })}>Female</div>
-                                <div className={activeGender.index !== 3 ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 3, value: 'non-binary' })}>Non-Binary</div>
-                                <div className={activeGender.index !== 4 ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 4, value: 'other' })}>Other</div>
+                                <div className={activeGender.index !== 1||inputVal.gender==='male' ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 1, value: 'male' })}>Male</div>
+                                <div className={activeGender.index !== 2||inputVal.gender==='female' ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 2, value: 'female' })}>Female</div>
+                                <div className={activeGender.index !== 3||inputVal.gender==='non-binary' ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 3, value: 'non-binary' })}>Non-Binary</div>
+                                <div className={activeGender.index !== 4||inputVal.gender==='other' ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 4, value: 'other' })}>Other</div>
                             </div>
                         </label>
                     </div>
                 </div>
-            </form>
             <div className={showCalendar ? "acc_calendar acc_calendar_active" : "acc_calendar"}>
                 <Calendar onChange={onChange} value={value} onClickDay={updateCalendar} />
             </div>

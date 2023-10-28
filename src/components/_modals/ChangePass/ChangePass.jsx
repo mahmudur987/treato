@@ -9,12 +9,13 @@ export default function ChangePass({ setPassModal }) {
     let [error,showError] = useState(false)
     let passUpdate = (e)=>{
         e.preventDefault();
+        const userJWt = localStorage.getItem("jwtToken");
         if(e.target.currentPass.value!==''&&e.target.newPass.value!==''&&e.target.rePass.value!==''){
             let formData= {
                 currentPassword: e.target.currentPass.value,
                 newPassword: e.target.newPass.value
             }
-            updatePass(formData).then((res)=>{
+            updatePass(userJWt,formData).then((res)=>{
                 console.log(res);
             })
             .catch((err)=>{
@@ -57,7 +58,7 @@ export default function ChangePass({ setPassModal }) {
                             null
                         }
                     </div>
-                    <PrimaryButton children={'Update'} />
+                    <PrimaryButton children={'Update'} form="passChange"/>
                 </form>
             </div>
         </div>

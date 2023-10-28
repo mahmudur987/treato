@@ -13,8 +13,10 @@
     padding: 16px 0px;
     margin: 16px 0px;
     border-top: 1px solid #EBEDF0;
-    border-bottom: 1px solid #EBEDF0;
     width: 70%;
+}
+.addr_main:last-child{
+    border-bottom: 1px solid #EBEDF0;
 }
 
 .addr_main_top {
@@ -41,6 +43,11 @@
     font-weight: 600;
     color: #0D69D7;
     cursor: pointer;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
 }
 
 .new_addr_add span:first-child {

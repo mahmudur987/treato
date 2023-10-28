@@ -19,7 +19,7 @@
 }
 
 .acc_setting_right{
-    flex-basis: 70%;
+    flex-basis: 66%;
 }
 
 .acc_setting_mobile{
@@ -47,6 +47,7 @@
     
     .acc_setting_page{
         padding: 80px 24px;
+        padding-bottom: 8px;
     }
 
     .acc_setting_right{
