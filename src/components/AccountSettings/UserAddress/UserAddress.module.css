@@ -7,6 +7,7 @@
 .addr_head {
     font-size: 24px;
     font-family: "Poppins", sans-serif;
+    margin-bottom: 12px;
 }
 
 .addr_main {
@@ -14,8 +15,13 @@
     margin: 16px 0px;
     border-top: 1px solid #EBEDF0;
     width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
 }
-.addr_main:last-child{
+
+.addr_main:last-child {
     border-bottom: 1px solid #EBEDF0;
 }
 
@@ -71,25 +77,25 @@
     box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08);
 }
 
-.addr_edit_opt div:first-child{
+.addr_edit_opt div:first-child {
     cursor: pointer;
 }
 
-.addr_edit_del{
+.addr_edit_del {
     color: #DE2929;
     cursor: pointer;
 }
 
-.addr_edit_opt_show{
+.addr_edit_opt_show {
     display: flex;
 }
 
-.addr_edit_click{
+.addr_edit_click {
     cursor: pointer;
 }
 
-@media only screen and (max-width:767px){
-    .user_address{
+@media only screen and (max-width:767px) {
+    .user_address {
         margin: 24px 0px;
         padding-bottom: 36px;
         border-bottom: 1px solid #EBEDF0;
@@ -102,5 +108,10 @@
 
     .addr_stored {
         width: 100%;
+    }
+
+    .addr_main_top {
+        justify-content: start;
+        gap: 8px;
     }
 }

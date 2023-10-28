@@ -21,9 +21,9 @@ export default function UserDetails({ mobView, setOtpModal,setShowSave,updateInp
     let updateCalendar = (value, event) => {
         let data = { ...inputVal };
         if (event.target.type === 'button') {
-            data.user_dob = event.target.children[0].getAttribute("aria-label")
+            data.dob = event.target.children[0].getAttribute("aria-label")
         } else {
-            data.user_dob = event.target.getAttribute("aria-label")
+            data.dob = event.target.getAttribute("aria-label")
         }
         updateInputVal(data)
         setShowCalendar(prev => !prev)
@@ -38,55 +38,55 @@ export default function UserDetails({ mobView, setOtpModal,setShowSave,updateInp
             </div>
                 <div className={styles.usr_detail_body}>
                     <div className={styles.usr_detail_box}>
-                        <label htmlFor="f_name">
+                        <label htmlFor="first_name">
                             <div className={styles.usr_detail_label}>First Name</div>
-                            <BasicInput Type={'text'} VALUE={inputVal.f_name} DISABLED={inputState.f_name} id={"f_name"} NAME={"f_name"} updateInputVal={updateInputVal} inputVal={inputVal} />
+                            <BasicInput Type={'text'} VALUE={inputVal.first_name} DISABLED={inputState.first_name} id={"first_name"} NAME={"first_name"} updateInputVal={updateInputVal} inputVal={inputVal} />
                         </label>
 
-                        <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.f_name ? { f_name: false } : { f_name: true })} />
+                        <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.first_name ? { first_name: false } : { first_name: true })} />
 
                     </div>
                     <div className={styles.usr_detail_box}>
-                        <label htmlFor="l_name">
+                        <label htmlFor="last_name">
                             <div className={styles.usr_detail_label}>Last Name</div>
-                            <BasicInput Type={'text'} VALUE={inputVal.l_name} DISABLED={inputState.l_name} id={"l_name"} NAME={"l_name"} updateInputVal={updateInputVal} inputVal={inputVal} />
+                            <BasicInput Type={'text'} VALUE={inputVal.last_name} DISABLED={inputState.last_name} id={"last_name"} NAME={"last_name"} updateInputVal={updateInputVal} inputVal={inputVal} />
                         </label>
 
-                        <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.l_name ? { l_name: false } : { l_name: true })} />
+                        <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.last_name ? { last_name: false } : { last_name: true })} />
                     </div>
                     <div className={styles.usr_detail_box}>
                         <label htmlFor="email">
                             <div className={styles.usr_detail_label}>Email (used to log into your account)</div>
-                            <BasicInput Type={'email'} VALUE={inputVal.user_email} DISABLED={inputState.user_email} id={"email"} NAME={"user_email"} updateInputVal={updateInputVal} inputVal={inputVal} />
+                            <BasicInput Type={'email'} VALUE={inputVal.email} DISABLED={inputState.email} id={"email"} NAME={"email"} updateInputVal={updateInputVal} inputVal={inputVal} />
                         </label>
 
-                        <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.email ? { user_email: false } : { user_email: true })} />
+                        <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.email ? { email: false } : { email: true })} />
                     </div>
                     <div className={styles.usr_detail_box}>
-                        <label htmlFor="user_tel">
+                        <label htmlFor="phone">
                             <div className={styles.usr_detail_label}>Phone</div>
-                            <PhoneInput Type={'tel'} VALUE={inputVal.user_tel} DISABLED={inputState.user_tel} id={"user_tel"} NAME={"user_tel"} updateInputVal={updateInputVal} inputVal={inputVal} />
+                            <PhoneInput Type={'tel'} VALUE={inputVal.phone} DISABLED={inputState.phone} id={"phone"} NAME={"phone"} updateInputVal={updateInputVal} inputVal={inputVal} />
                         </label>
                         <div>
                         </div>
                         <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => setOtpModal(true)} />
                     </div>
                     <div className={styles.usr_detail_box}>
-                        <label htmlFor="user_dob">
+                        <label htmlFor="dob">
                             <div className={styles.usr_detail_label}>Date of Birth</div>
-                            <BasicInput Type={'text'} VALUE={inputVal.user_dob!==''?inputVal.user_dob:'Enter Your Date Of Birth'} DISABLED={true} id={"user_dob"} NAME={"user_dob"} updateInputVal={updateInputVal} inputVal={inputVal} />
+                            <BasicInput Type={'text'} VALUE={inputVal.dob!==''?inputVal.dob:'Enter Your Date Of Birth'} DISABLED={true} id={"dob"} NAME={"dob"} updateInputVal={updateInputVal} inputVal={inputVal} />
                         </label>
 
-                        <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => { updateInput(inputState.user_dob ? { user_dob: false } : { user_dob: true }); setShowCalendar(prev => !prev) }} />
+                        <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => { updateInput(inputState.dob ? { dob: false } : { dob: true }); setShowCalendar(prev => !prev) }} />
                     </div>
                     <div className={styles.usr_detail_box}>
-                        <label htmlFor="user_gender">
+                        <label htmlFor="gender">
                             <div className={styles.usr_detail_label}>Gender</div>
-                            <div className={styles.usr_genders} >
-                                <div className={activeGender.index !== 1||inputVal.gender==='male' ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 1, value: 'male' })}>Male</div>
-                                <div className={activeGender.index !== 2||inputVal.gender==='female' ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 2, value: 'female' })}>Female</div>
-                                <div className={activeGender.index !== 3||inputVal.gender==='non-binary' ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 3, value: 'non-binary' })}>Non-Binary</div>
-                                <div className={activeGender.index !== 4||inputVal.gender==='other' ? styles.usr_detail_gender : `${styles.usr_detail_gender} ${styles.active_gender}`} onClick={() => updateGender({ index: 4, value: 'other' })}>Other</div>
+                            <div className={styles.usr_genders} onClick={()=>setShowSave(true)}>
+                                <div className={activeGender==='male' ? `${styles.usr_detail_gender} ${styles.active_gender}`:styles.usr_detail_gender} onClick={() => updateGender('male')}>Male</div>
+                                <div className={activeGender==='female' ? `${styles.usr_detail_gender} ${styles.active_gender}`:styles.usr_detail_gender} onClick={() => updateGender('female')}>Female</div>
+                                <div className={activeGender==='non-binary'? `${styles.usr_detail_gender} ${styles.active_gender}`:styles.usr_detail_gender} onClick={() => updateGender('non-binary')}>Non-Binary</div>
+                                <div className={activeGender==='other' ? `${styles.usr_detail_gender} ${styles.active_gender}`:styles.usr_detail_gender} onClick={() => updateGender('other')}>Other</div>
                             </div>
                         </label>
                     </div>

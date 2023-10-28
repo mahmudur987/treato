@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './AddressModal.module.css'
 import DarkCross from '../../../assets/images/icons/DarkCross.svg'
-import map from '../../../assets/images/icons/map.png'
 import SecondaryButton from '../../Buttons/SecondaryButton/SecondaryButton'
 import BasicInput from '../../Input/BasicInput/BasicInput'
 import PrimaryButton from '../../Buttons/PrimaryButton/PrimaryButton'
@@ -9,6 +8,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import GoogleMapReact from 'google-map-react';
 import { useSelector } from 'react-redux'
+import { updateUser } from '../../../services/updateUser'
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 export default function AddressModal({ setAddressModal, updateInputVal, inputVal, setShowSave, addressModal }) {
@@ -29,25 +29,32 @@ export default function AddressModal({ setAddressModal, updateInputVal, inputVal
 
     let updateAddress = (e) => {
         e.preventDefault();
-        let user_home = e.target.user_home.value;
-        let user_landmark = e.target.user_landmark.value;
+        const userJWt = localStorage.getItem("jwtToken");
+        let house = e.target.house.value;
+        let landmark = e.target.landmark.value;
         let address = {
-            type: e.target.loc_type.value,
-            landmark: user_landmark ? user_landmark : '',
-            house: user_home ? user_home : ''
+            type: e.target.type.value,
+            landmark: landmark ? landmark : '',
+            house: house ? house : ''
         }
         let allData = { ...inputVal };
-        allData.user_loc.push(address)
+        allData.place.push(address)
         updateInputVal(allData);
+        updateUser(userJWt,allData).then((res)=>{
+            localStorage.setItem('userData',JSON.stringify(allData))
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
         setAddressModal(false)
         setShowSave(true)
     }
     let editAddress = (e) => {
         e.preventDefault();
         let allData = { ...inputVal };
-        allData.user_loc[addressModal.index].house = e.target.user_home.value;
-        allData.user_loc[addressModal.index].landmark = e.target.user_landmark.value;
-        allData.user_loc[addressModal.index].type = e.target.loc_type.value;
+        allData.place[addressModal.index].house = e.target.house.value;
+        allData.place[addressModal.index].landmark = e.target.landmark.value;
+        allData.place[addressModal.index].type = e.target.type.value;
         setAddressModal(false)
         updateInputVal(allData);
     }
@@ -60,9 +67,9 @@ export default function AddressModal({ setAddressModal, updateInputVal, inputVal
     useEffect(() => {
         if (addressModal.data) {
             updateInputs({
-                user_home: addressModal.data.house,
-                user_landmark: addressModal.data.landmark,
-                loc_type: locType === 1 ? "Home" : "Other"
+                house: addressModal.data.house,
+                landmark: addressModal.data.landmark,
+                type: locType === 1 ? "Home" : "Other"
             });
             setLocType(addressModal.data.type === "Home" ? 1 : 2)
         }
@@ -108,24 +115,24 @@ export default function AddressModal({ setAddressModal, updateInputVal, inputVal
                                 <div className={styles.addressD} onChange={() => setUpdateSave(true)}>
                                     <label htmlFor="house">
                                         <div className={styles.addressDA}>House/Flat Number*</div>
-                                        <BasicInput PlaceHolder={'House or flat number'} NAME={'user_home'} required={true} id={"house"} VALUE={inputs.user_home} onChange={onChangeInput} />
+                                        <BasicInput PlaceHolder={'House or flat number'} NAME={'house'} required={true} id={"house"} VALUE={inputs.house} onChange={onChangeInput} />
                                     </label>
                                 </div>
                                 <div className={styles.addressD}>
                                     <label htmlFor="landmark" onChange={() => setUpdateSave(true)}>
                                         <div className={styles.addressDA}>Landmark (optional)</div>
-                                        <BasicInput PlaceHolder={'e.g. opp. AXN Center'} NAME={'user_landmark'} id={"landmark"} VALUE={inputs.user_landmark} onChange={onChangeInput} />
+                                        <BasicInput PlaceHolder={'e.g. opp. AXN Center'} NAME={'landmark'} id={"landmark"} VALUE={inputs.landmark} onChange={onChangeInput} />
                                     </label>
                                 </div>
                                 <div className={styles.addressE}>
                                     <div className={styles.addressEA}>Save as</div>
                                     <div className={styles.addressEB}>
                                         <label htmlFor="home" onChange={() => setUpdateSave(true)} onClick={() => setLocType(1)}>
-                                            <BasicInput Type={"radio"} className={styles.d_none} id="home" NAME={"loc_type"} VALUE={"Home"} required={true} />
+                                            <BasicInput Type={"radio"} className={styles.d_none} id="home" NAME={"type"} VALUE={"Home"}/>
                                             <div className={locType === 1 ? `${styles.addressEBB} ${styles.addressEBA}` : styles.addressEBA}>Home</div>
                                         </label>
                                         <label htmlFor="other" onChange={() => setUpdateSave(true)} onClick={() => setLocType(2)}>
-                                            <BasicInput Type={"radio"} className={styles.d_none} id="other" NAME={"loc_type"} VALUE={"Other"} required={true} />
+                                            <BasicInput Type={"radio"} className={styles.d_none} id="other" NAME={"type"} VALUE={"Other"}/>
                                             <div className={locType === 2 ? `${styles.addressEBB} ${styles.addressEBA}` : styles.addressEBA}>Other</div>
                                         </label>
                                     </div>
@@ -169,24 +176,24 @@ export default function AddressModal({ setAddressModal, updateInputVal, inputVal
                                 <div className={styles.addressD} onChange={() => setUpdateSave(true)}>
                                     <label htmlFor="house">
                                         <div className={styles.addressDA}>House/Flat Number*</div>
-                                        <BasicInput PlaceHolder={'House or flat number'} NAME={'user_home'} required={true} id={"house"} />
+                                        <BasicInput PlaceHolder={'House or flat number'} NAME={'house'} required={true} id={"house"} />
                                     </label>
                                 </div>
                                 <div className={styles.addressD}>
                                     <label htmlFor="landmark" onChange={() => setUpdateSave(true)}>
                                         <div className={styles.addressDA}>Landmark (optional)</div>
-                                        <BasicInput PlaceHolder={'e.g. opp. AXN Center'} NAME={'user_landmark'} id={"landmark"} />
+                                        <BasicInput PlaceHolder={'e.g. opp. AXN Center'} NAME={'landmark'} id={"landmark"} />
                                     </label>
                                 </div>
                                 <div className={styles.addressE}>
                                     <div className={styles.addressEA}>Save as</div>
                                     <div className={styles.addressEB}>
                                         <label htmlFor="home" onChange={() => setUpdateSave(true)} onClick={() => setLocType(1)}>
-                                            <BasicInput Type={"radio"} className={styles.d_none} id="home" NAME={"loc_type"} VALUE={"Home"} required={true} />
+                                            <BasicInput Type={"radio"} className={styles.d_none} id="home" NAME={"type"} VALUE={"Home"} required={true} />
                                             <div className={locType === 1 ? `${styles.addressEBB} ${styles.addressEBA}` : styles.addressEBA}>Home</div>
                                         </label>
                                         <label htmlFor="other" onChange={() => setUpdateSave(true)} onClick={() => setLocType(2)}>
-                                            <BasicInput Type={"radio"} className={styles.d_none} id="other" NAME={"loc_type"} VALUE={"Other"} required={true} />
+                                            <BasicInput Type={"radio"} className={styles.d_none} id="other" NAME={"type"} VALUE={"Other"} required={true} />
                                             <div className={locType === 2 ? `${styles.addressEBB} ${styles.addressEBA}` : styles.addressEBA}>Other</div>
                                         </label>
                                     </div>

@@ -20,54 +20,50 @@ import AddressModal from "../../components/_modals/AddressModal/AddressModal";
 import VerifyOtp from "../../components/_modals/VerifyOtp/VerifyOtp";
 import { updateUser } from "../../services/updateUser";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 export default function AccountSettings() {
     let [mobileOpt, updateMobileOpt] = useState(-1)
     let [passModal, setPassModal] = useState(false)
     let [profileModal, setProfileModal] = useState(false)
-    let [addressModal, setAddressModal] = useState({active:false,data:null})
+    let [addressModal, setAddressModal] = useState({ active: false, data: null })
     let [otpModal, setOtpModal] = useState(false)
     let [showSave, setShowSave] = useState(false)
-    let [activeGender, updateGender] = useState(
-        {
-            index: -1,
-            value: ''
-        }
-    );
     let [inputState, updateInputState] = useState(
         {
-            f_name: true,
-            l_name: true,
-            user_email: true,
-            user_tel: true,
-            user_dob: true
+            first_name: true,
+            last_name: true,
+            email: true,
+            phone: true,
+            dob: true
         }
     );
     const userData = JSON.parse(localStorage.getItem("userData"));
     let [inputVal, updateInputVal] = useState({
-        f_name: userData.first_name ? userData.first_name : '',
-        l_name: userData.last_name ? userData.last_name : '',
-        user_email: userData.email ? userData.email : '',
-        user_tel: userData.phone ? userData.phone : '',
-        user_dob: userData.dob ? userData.dob : '',
-        user_loc: userData.location ? userData.location : '',
-        user_gender: userData.gender ? userData.gender : ''
+        first_name: userData.first_name ? userData.first_name : '',
+        last_name: userData.last_name ? userData.last_name : '',
+        email: userData.email ? userData.email : '',
+        phone: userData.phone ? userData.phone : '',
+        dob: userData.dob ? userData.dob : '',
+        place: userData.place ? userData.place : '',
+        gender: userData.gender ? userData.gender : ''
     });
+    let [activeGender, updateGender] = useState(userData.gender ? userData.gender : '');
     let setDefault = () => {
         let states = {
-            f_name: true,
-            l_name: true,
-            user_email: true,
-            user_tel: true,
-            user_dob: true
+            first_name: true,
+            last_name: true,
+            email: true,
+            phone: true,
+            dob: true
         }
         let data = {
-            f_name: userData.first_name ? userData.first_name : '',
-            l_name: userData.last_name ? userData.last_name : '',
-            user_email: userData.email ? userData.email : '',
-            user_tel: userData.phone ? userData.phone : '',
-            user_dob: userData.dob ? userData.dob : '',
-            user_loc: userData.location ? userData.location : '',
-            user_gender: userData.gender ? userData.gender : ''
+            first_name: userData.first_name ? userData.first_name : '',
+            last_name: userData.last_name ? userData.last_name : '',
+            email: userData.email ? userData.email : '',
+            phone: userData.phone ? userData.phone : '',
+            dob: userData.dob ? userData.dob : '',
+            place: userData.place ? userData.place : '',
+            gender: userData.gender ? userData.gender : ''
         }
         updateInputState(states)
         updateInputVal(data)
@@ -77,35 +73,43 @@ export default function AccountSettings() {
         e.preventDefault();
         const userJWt = localStorage.getItem("jwtToken");
         let formData = {
-            first_name: e.target.f_name.value,
-            last_name: e.target.l_name.value,
-            email: e.target.user_email.value,
-            phone: e.target.user_tel.value,
-            dob: e.target.user_dob.value,
-            gender: activeGender.value,
+            first_name: e.target.first_name.value,
+            last_name: e.target.last_name.value,
+            email: e.target.email.value,
+            phone: e.target.phone.value,
+            dob: e.target.dob.value,
+            gender: activeGender,
             google: "",
             fb: "",
             instagram: "",
-            house: inputVal.user_loc.length ? inputVal.user_loc[inputVal.user_loc.length - 1].house : '',
-            landmark: inputVal.user_loc.length ? inputVal.user_loc[inputVal.user_loc.length - 1].landmark : '',
-            place: inputVal.user_loc
+            house: inputVal.place.length ? inputVal.place[inputVal.place.length - 1].house : '',
+            landmark: inputVal.place.length ? inputVal.place[inputVal.place.length - 1].landmark : '',
+            place: inputVal.place
         }
         setShowSave(false)
         let states = {
-            f_name: true,
-            l_name: true,
-            user_email: true,
-            user_tel: true,
-            user_dob: true
+            first_name: true,
+            last_name: true,
+            email: true,
+            phone: true,
+            dob: true
         }
         updateInputState(states)
-        console.log(formData);
-        updateUser(userJWt,formData).then((res)=>{
+        updateUser(userJWt, formData).then((res) => {
+            localStorage.setItem('userData', JSON.stringify(formData))
             console.log(res);
         })
-        .catch((err)=>{
-            console.log(err)
-        })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+    const navigate = useNavigate()
+    let logOut = () => {
+        localStorage.removeItem('userData');
+        localStorage.removeItem('jwtToken');
+        localStorage.removeItem('userPhoneNumber');
+        navigate('/')
+        window.place.reload();
     }
     return (
         <>
@@ -118,7 +122,7 @@ export default function AccountSettings() {
                     <div className={styles.acc_setting_right}>
                         <form id="acc_set_form" onSubmit={submitForm}>
                             <UserDetails setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} />
-                            <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.user_loc} />
+                            <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal}  />
                             <SocialSettings />
                             <PasswordChange setPassModal={setPassModal} />
                         </form>
@@ -161,7 +165,7 @@ export default function AccountSettings() {
                                     </div>
                                 </div>
                                 <div className={styles.acc_mob_options}>
-                                    <div className={styles.acc_mob_flex}>
+                                    <div className={styles.acc_mob_flex} onClick={logOut}>
                                         <div><img src={signOut} alt="" className={styles.acc_mob_opt_ico} /></div>
                                         <div>Sign Out</div>
                                     </div>
@@ -170,20 +174,22 @@ export default function AccountSettings() {
                             :
                             mobileOpt === 1 ?
                                 <>
-                                 <form id="mob_acc_set_form" onSubmit={submitForm}>
-                                    <UserDetails mobView='Personal Details' setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender}/>
-                                    <SocialSettings />
-                                    <SaveChanges form={"mob_acc_set_form"} />
+                                    <form id="mob_acc_set_form" onSubmit={submitForm}>
+                                        <UserDetails mobView='Personal Details' setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} />
+                                        <SocialSettings />
+                                        <div className={showSave ? null : styles.d_none}>
+                                            <SaveChanges form={"mob_acc_set_form"} />
+                                        </div>
                                     </form>
                                 </>
                                 :
                                 mobileOpt === 2 ?
                                     <>
-                                        <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.user_loc} />
+                                        <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal}  />
                                     </>
                                     :
                                     mobileOpt === 3 ?
-                                        <ChangePass setPassModal={setPassModal} />
+                                        <ChangePass setPassModal={setPassModal} updateMobileOpt={updateMobileOpt}/>
                                         :
                                         null
                     }
@@ -191,13 +197,13 @@ export default function AccountSettings() {
             </div>
             {
                 passModal ?
-                    <ChangePass setPassModal={setPassModal} />
+                    <ChangePass setPassModal={setPassModal} updateMobileOpt={updateMobileOpt}/>
                     :
                     profileModal ?
                         <ChangeProfile setProfileModal={setProfileModal} />
                         :
                         addressModal.active ?
-                            <AddressModal setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave} addressModal={addressModal}/>
+                            <AddressModal setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave} addressModal={addressModal} />
                             :
                             otpModal ?
                                 <VerifyOtp setOtpModal={setOtpModal} />

@@ -73,3 +73,19 @@
     border-radius: 50%;
     color: #fff;
 }
+
+@media only screen and (max-width:767px){
+    .acc_calendar{
+        top: 92%;
+        left: 2%;
+    }
+    .acc_calendar .react-calendar {
+        padding: 6px;
+        width: 98%;
+        font-size: 16px;
+    }
+    .acc_calendar .react-calendar__tile{
+        width: 40px;
+        height: 44px;
+    }
+}

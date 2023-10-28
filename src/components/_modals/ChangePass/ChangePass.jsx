@@ -5,7 +5,7 @@ import BasicInput from '../../Input/BasicInput/BasicInput'
 import PrimaryButton from '../../Buttons/PrimaryButton/PrimaryButton'
 import { updatePass } from '../../../services/updatePass'
 
-export default function ChangePass({ setPassModal }) {
+export default function ChangePass({ setPassModal,updateMobileOpt }) {
     let [error,showError] = useState(false)
     let passUpdate = (e)=>{
         e.preventDefault();
@@ -17,6 +17,8 @@ export default function ChangePass({ setPassModal }) {
             }
             updatePass(userJWt,formData).then((res)=>{
                 console.log(res);
+                setPassModal(false)
+                updateMobileOpt(-1)
             })
             .catch((err)=>{
                 console.log(err)
