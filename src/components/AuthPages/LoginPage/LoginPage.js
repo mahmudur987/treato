@@ -13,6 +13,7 @@ import {
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  Facebooklogin,
   getUserProfile,
   googlelogin,
   login,
@@ -147,10 +148,16 @@ const LoginPage = (props) => {
         console.log(res);
         if (res?.res?.data.message === "User sign in successfully!") {
           dispatch(updateTempLoginInfo(res?.res?.data.data));
-          dispatch(updateOTP(res?.res?.data.otp))
+          dispatch(updateOTP(res?.res?.data.otp));
           localStorage.setItem("userPhoneNumber", phone);
-          localStorage.setItem("requiredLoginData", JSON.stringify(res?.res?.data.data));
-          localStorage.setItem("requiredLoginToken", JSON.stringify(res?.res?.data.token));
+          localStorage.setItem(
+            "requiredLoginData",
+            JSON.stringify(res?.res?.data.data)
+          );
+          localStorage.setItem(
+            "requiredLoginToken",
+            JSON.stringify(res?.res?.data.token)
+          );
 
           navigate("/verify-otp");
         } else if (res?.err != null) {
@@ -283,7 +290,14 @@ const LoginPage = (props) => {
               Google
             </SecondaryButton>
 
-            <SecondaryButton className={styles.facebook}>
+            <SecondaryButton
+              className={styles.facebook}
+              onClick={() => {
+                Facebooklogin().then((res) => {
+                  console.log(res);
+                });
+              }}
+            >
               <img src={Facebook_Logo} />
               Facebook
             </SecondaryButton>

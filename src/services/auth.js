@@ -64,14 +64,6 @@ export const resetPassword = async (id, token, newPassword) => {
 };
 
 export const googlelogin = async () => {
-//   try {
-//     const res = await axiosInstance.get(
-//       `https://backend.treato.in/api/v1/auth/google`
-//     );
-//     return { res: res, err: null };
-//   } catch (error) {
-//     return { err: error, res: null };
-//   }
     try {
       const res = window.open(
         "https://backend.treato.in/api/v1/auth/google",

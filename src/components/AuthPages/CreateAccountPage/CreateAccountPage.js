@@ -104,9 +104,6 @@ const CreateAccountPage = () => {
     // Your logic here for submitting the form data
   };
 
-  const handleRegister = async () => {
-    const { err, res } = await register();
-  };
   const handleGoogleLogin = () => {
     googlelogin().then((res) => {
       console.log(res);

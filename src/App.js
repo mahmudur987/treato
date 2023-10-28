@@ -133,10 +133,6 @@ function App() {
           "Access-Control-Allow-Credentials": true,
         },
       })
-        // .then((res) => {
-        //   if (res.status === 200) return res.json();
-        //   throw new Error("Authentication has failed!");
-        // })
         .then((resObject) => {
           console.log("Google response", resObject);
         })
@@ -153,7 +149,6 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route element={<PrivateRoutes />}>
           <Route path="/account-settings" element={<AccountSettings />} />
           <Route path="/salons" element={<Salons />} />
           <Route path="/salons/:id" element={<SalonDetail />} />
@@ -163,7 +158,9 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
           <Route path="/my-appointments/*" element={<MyAppointments />} />
-        </Route>
+          //Todo: only we have to add payment page under PrivateRoutes
+        {/* <Route element={<PrivateRoutes />}> */}
+        {/* </Route> */}
         {/* Auth routes */}
         <Route path="/auth-choice" exact element={<AuthChoicePage />} />
         <Route path="/create-account" element={<CreateAccountPage />} />

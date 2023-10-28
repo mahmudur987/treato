@@ -24,6 +24,7 @@ import { useSelector } from "react-redux";
 import { getAllServices } from "../../services/Services";
 import { useRef } from "react";
 import Search_MoboModal from "../../components/HomePage/Hero/Search_MoboModal/Search_MoboModal";
+import { Link } from "react-router-dom";
 const Lookbook = () => {
   const modalImageRef = useRef();
   const salonsState = useSelector((state) => state.salons);
@@ -50,7 +51,7 @@ const Lookbook = () => {
         alt={alt}
         className={styles.masonryImage}
       />
-      <a className={styles.imgDetails}>view Details</a>
+      <Link className={styles.imgDetails} to="/lookbook-details/1">View details</Link>
       <span className={styles.imageRating}>
         <img src={starBlack} alt="starIcon" /> {rating}
       </span>
