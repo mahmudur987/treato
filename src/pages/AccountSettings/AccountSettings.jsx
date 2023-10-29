@@ -28,6 +28,7 @@ export default function AccountSettings() {
     let [addressModal, setAddressModal] = useState({ active: false, data: null })
     let [otpModal, setOtpModal] = useState(false)
     let [showSave, setShowSave] = useState(false)
+    let [otpSuccess, setOtpSuccess] = useState(false)
     let [inputState, updateInputState] = useState(
         {
             first_name: true,
@@ -86,22 +87,28 @@ export default function AccountSettings() {
             landmark: inputVal.place.length ? inputVal.place[inputVal.place.length - 1].landmark : '',
             place: inputVal.place
         }
-        setShowSave(false)
-        let states = {
-            first_name: true,
-            last_name: true,
-            email: true,
-            phone: true,
-            dob: true
-        }
-        updateInputState(states)
-        updateUser(userJWt, formData).then((res) => {
+        if (e.target.phone.value !== userData.phone) {
+            setOtpModal(true)
+            localStorage.setItem('tempUserData', JSON.stringify(formData))
+        }else{
+        updateUser(userJWt, formData)
+        .then((res) => {
             localStorage.setItem('userData', JSON.stringify(formData))
+            setShowSave(false)
+            let states = {
+                first_name: true,
+                last_name: true,
+                email: true,
+                phone: true,
+                dob: true
+            }
+            updateInputState(states)
             console.log(res);
         })
-            .catch((err) => {
-                console.log(err)
-            })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
     }
     const navigate = useNavigate()
     let logOut = () => {
@@ -122,7 +129,7 @@ export default function AccountSettings() {
                     <div className={styles.acc_setting_right}>
                         <form id="acc_set_form" onSubmit={submitForm}>
                             <UserDetails setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} />
-                            <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal}  />
+                            <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal} />
                             <SocialSettings />
                             <PasswordChange setPassModal={setPassModal} />
                         </form>
@@ -185,11 +192,11 @@ export default function AccountSettings() {
                                 :
                                 mobileOpt === 2 ?
                                     <>
-                                        <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal}  />
+                                        <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal} />
                                     </>
                                     :
                                     mobileOpt === 3 ?
-                                        <ChangePass setPassModal={setPassModal} updateMobileOpt={updateMobileOpt}/>
+                                        <ChangePass setPassModal={setPassModal} updateMobileOpt={updateMobileOpt} setOtpSuccess />
                                         :
                                         null
                     }
@@ -197,7 +204,7 @@ export default function AccountSettings() {
             </div>
             {
                 passModal ?
-                    <ChangePass setPassModal={setPassModal} updateMobileOpt={updateMobileOpt}/>
+                    <ChangePass setPassModal={setPassModal} updateMobileOpt={updateMobileOpt} />
                     :
                     profileModal ?
                         <ChangeProfile setProfileModal={setProfileModal} />
@@ -206,7 +213,7 @@ export default function AccountSettings() {
                             <AddressModal setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave} addressModal={addressModal} />
                             :
                             otpModal ?
-                                <VerifyOtp setOtpModal={setOtpModal} />
+                                <VerifyOtp setOtpModal={setOtpModal} setOtpSuccess={setOtpSuccess} otpSuccess={otpSuccess} setShowSave={setShowSave} updateInputState={updateInputState}/>
                                 :
                                 null
             }

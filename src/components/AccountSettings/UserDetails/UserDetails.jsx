@@ -69,7 +69,7 @@ export default function UserDetails({ mobView, setOtpModal,setShowSave,updateInp
                         </label>
                         <div>
                         </div>
-                        <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => setOtpModal(true)} />
+                        <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.phone ? { phone: false } : { phone: true })} />
                     </div>
                     <div className={styles.usr_detail_box}>
                         <label htmlFor="dob">
