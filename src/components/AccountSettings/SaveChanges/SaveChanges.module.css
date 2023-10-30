@@ -1,12 +1,14 @@
-.save_main{
+.save_main {
     padding: 10px 20px;
     box-sizing: border-box;
     border-top: 1px solid #CED4DA;
-    width: 100%;
+    width: 115.5%;
+    margin-left: -8%;
+    margin-top: 50px;
 }
 
-.save_main button{
-    padding: 16px 24px; 
+.save_main button {
+    padding: 16px 24px;
     border-radius: 4px;
     background: #08080B;
     color: white;

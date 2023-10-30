@@ -1,0 +1,146 @@
+.otpMain {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #08090A;
+    font-family: 'Lato', sans-serif;
+    z-index: 999;
+}
+
+.otpA {
+    padding: 24px;
+    background-color: #fff;
+    width: 424px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.otpB {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.otpBA,
+.otpBB {
+    flex-basis: 95%;
+    text-align: center;
+}
+.otpBB{
+    flex-basis: 5%;
+}
+.otpBB img{
+    cursor: pointer;
+}
+
+.otpC{
+   font-weight: 400;
+   color: #2F3336;
+   letter-spacing: 0.16px;
+   margin: 48px 0px;
+}
+
+.otpD{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.otpD div{
+    width: 54px;
+    height: 76px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    align-items: flex-end;
+}
+
+.otpH{
+    width: 84px;
+    height: 84px;
+    margin: 24px auto;
+}
+
+.otpH img{
+    width: 100%;
+    height: 100%;
+}
+
+.otpI{
+    margin-bottom: 24px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.otpD div::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #08090A;
+    bottom: 0%;
+    left: 0%;
+}
+
+.otpD input{
+    border: none;
+    background-color: unset;
+    width: 100%;
+    height: 100%;
+    font-size: 28px;
+    font-weight: 600;
+    font-family: 'Poppins','Sans-Serif';
+    text-align: center;
+}
+
+.otpE{
+    font-size: 14px;
+    font-weight: 400;
+    color: #DE2929;
+}
+
+.otpG{
+    font-weight: 400;
+    margin-top: 12px;
+}
+
+.otpG span{
+    color: #939CA3;
+    font-weight: 600;
+}
+
+.otpF{
+    margin-top: 48px;
+}
+
+.hide{
+    display: none;
+}
+
+@media only screen and (max-width:767px){
+    .otpMain{
+        align-items: flex-end;
+    }
+    .otpA{
+        width: 100%;
+        border-radius: 12px 12px 0px 0px;
+    }
+    .otpC {
+        margin-bottom: 36px;
+    }
+    .otpBA{
+        flex-basis: 90%;
+        text-align: left;
+    }
+}

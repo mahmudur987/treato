@@ -71,6 +71,7 @@ const LatestBlog = () => {
       <div id="blogWrapper_mobo" className={styles["blogWrapper_mobo"]}>
         {
           blogData.length ?
+          <div className="customSlickDiv">
             <Carousel
               responsive={responsive}
               showDots={true}
@@ -86,6 +87,7 @@ const LatestBlog = () => {
                 })
               }
             </Carousel>
+            </div>
             :
             ''
         }

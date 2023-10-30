@@ -7,20 +7,29 @@
 .addr_head {
     font-size: 24px;
     font-family: "Poppins", sans-serif;
+    margin-bottom: 12px;
 }
 
 .addr_main {
     padding: 16px 0px;
     margin: 16px 0px;
     border-top: 1px solid #EBEDF0;
-    border-bottom: 1px solid #EBEDF0;
     width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.addr_main:last-child {
+    border-bottom: 1px solid #EBEDF0;
 }
 
 .addr_main_top {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: start;
+    gap: 8px;
+    align-items: flex-start;
     font-family: "Lato", sans-serif;
     font-weight: 600;
     position: relative;
@@ -40,6 +49,12 @@
     font-family: "Lato", sans-serif;
     font-weight: 600;
     color: #0D69D7;
+    cursor: pointer;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
 }
 
 .new_addr_add span:first-child {
@@ -63,20 +78,25 @@
     box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08);
 }
 
-.addr_edit_del{
-    color: #DE2929;
-}
-
-.addr_edit_opt_show{
-    display: flex;
-}
-
-.addr_edit_click{
+.addr_edit_opt div:first-child {
     cursor: pointer;
 }
 
-@media only screen and (max-width:767px){
-    .user_address{
+.addr_edit_del {
+    color: #DE2929;
+    cursor: pointer;
+}
+
+.addr_edit_opt_show {
+    display: flex;
+}
+
+.addr_edit_click {
+    cursor: pointer;
+}
+
+@media only screen and (max-width:767px) {
+    .user_address {
         margin: 24px 0px;
         padding-bottom: 36px;
         border-bottom: 1px solid #EBEDF0;

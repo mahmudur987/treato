@@ -13,35 +13,54 @@ import BookNow from '../../components/SalonDetail/BookNow/BookNow'
 import SalonSlickSLider from './SalonSlickSlider'
 import SalonGallery from '../../components/SalonDetail/SalonGallery/SalonGallery'
 import { useState } from 'react'
+import { salon } from '../../services/salon'
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 export default function SalonDetail() {
-    const gallery = [slide1,slide2,slide3,slide4,slide5,slide1,slide2,slide3,slide4,slide5,slide1,slide2,slide3,slide4,slide5,slide1,slide2,slide3,slide4,slide5];
-    let [showGallery,setShowGallery] = useState(false)
+    const gallery = [slide1, slide2, slide3, slide4, slide5, slide1, slide2, slide3, slide4, slide5, slide1, slide2, slide3, slide4, slide5, slide1, slide2, slide3, slide4, slide5];
+    let [showGallery, setShowGallery] = useState(false)
+    let [SalonData, setSalonData] = useState(null)
+    let { id } = useParams(); 
+
+    useEffect(() => {
+      let SalonDataFunc = async () => {
+        const { res, err } = await salon()
+        if (res.data) {
+            res.data.salons.map((v)=>{
+                if(v._id===id){
+                    setSalonData(v)
+                }
+            })
+        }
+      }
+      SalonDataFunc();
+    }, [])
 
     return (
-        <div className={showGallery?`${styles.salon_page} ${styles.overHidden}`:styles.salon_page}>
+        <div className={showGallery ? `${styles.salon_page} ${styles.overHidden}` : styles.salon_page}>
             <BackButton />
             <div className={styles.salon_pcView}>
                 <div className={styles.salon_name}>
-                    She Hair & Beauty
+                    {SalonData?SalonData.salon_name:null}
                 </div>
                 <div className={styles.salon_info}>
-                    <div className={styles.salon_star}>4.8 <img src={star} alt="" /></div>
-                    <div>(1,361 ratings)</div>
+                    <div className={styles.salon_star}>{SalonData?SalonData.rating:null} <img src={star} alt="" /></div>
+                    <div>({SalonData?SalonData.total_rating:null})</div>
                     <img src={ellipse} alt="" />
-                    <div>Ejipura, Bengaluru (570 m away)</div>
+                    <div>{SalonData?SalonData.locationText:null} (570 m away)</div>
                 </div>
             </div>
             <div className={styles.salon_images}>
                 <div className={`${styles.salon_image_slider} salon_slick`}>
-                    <SalonSlickSLider setShowGallery={setShowGallery} gallery={gallery}/>
+                    <SalonSlickSLider setShowGallery={setShowGallery} gallery={gallery} />
                 </div>
                 <div className={styles.salon_images_right}>
                     <img src={slide2} alt="" />
                     <img src={slide3} alt="" />
                     <img src={slide4} alt="" />
                     <div className={styles.salon_imagesA}>
-                        <div onClick={()=>setShowGallery(true)}>
+                        <div onClick={() => setShowGallery(true)}>
                             <div>View <span>22</span></div>
                             <div>images</div>
                         </div>
@@ -68,16 +87,16 @@ export default function SalonDetail() {
             </div>
             <div className={styles.salon_middle}>
                 <SalonMain />
-                <SalonCard />
+                <SalonCard SalonData={SalonData?SalonData:null}/>
             </div>
             <div className={styles.book_flowMob}>
-                <BookNow SalonDetails={true}/>
+                <BookNow SalonDetails={true} />
             </div>
             {
-                showGallery?
-                <SalonGallery gallery={gallery} setShowGallery={setShowGallery}/>
-                :
-                ''
+                showGallery ?
+                    <SalonGallery gallery={gallery} setShowGallery={setShowGallery} />
+                    :
+                    ''
             }
         </div>
     )
