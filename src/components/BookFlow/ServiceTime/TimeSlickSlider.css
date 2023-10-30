@@ -6,7 +6,7 @@
 }
 
 .time_slick .slick-list{
-    width: 83%;
+    width: 94%;
 }
 
 .time_slick .slick-next::before,.time_slick .slick-prev::before,.time_slick .slick-next:hover,.time_slick .slick-prev:hover{
@@ -28,7 +28,7 @@
 }
 
 .time_slick .slick-next{
-    right: 10% !important;
+    right: 0% !important;
     z-index: 9999 !important;
     background-color: white;
     width: 48px;
@@ -49,16 +49,6 @@
     background-image: url(../../../assets/images/SalonDetail/chevron-left.svg);
     background-repeat: no-repeat;
     background-position: center center;
-}
-@media only screen and (min-width:1024px) and (max-width:1180px){
-    .time_slick .slick-next{
-        right: 3% !important;
-    }
-}
-@media only screen and (min-width:767px) and (max-width:1024px){
-    .time_slick .slick-next{
-        right: 2% !important;
-    }
 }
 @media only screen and (min-width:1600px){
     .time_slick .slick-next{

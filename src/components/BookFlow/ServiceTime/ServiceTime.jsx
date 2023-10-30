@@ -16,7 +16,7 @@ export default function ServiceTime() {
     let [activeTime, updateActiveTime] = useState(0)
     const settings = {
         dots: false,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 7,
         slidesToScroll: 3,
@@ -99,7 +99,7 @@ export default function ServiceTime() {
                 <div>{showYear}</div>
                 <img src={rightIco} alt="" onClick={() => updateMonthYear(0)} />
             </div>
-            <div className={`${styles.service_timeD} time_slick`}>
+            <div className={`time_slick`}>
                 {
                     allCalendar ?
                         <Slider {...settings}>

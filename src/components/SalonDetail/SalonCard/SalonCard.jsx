@@ -7,7 +7,7 @@ import SalonMap from '../SalonMap/SalonMap'
 import BookNow from '../BookNow/BookNow'
 
 export default function SalonCard({SalonData}) {
-
+    console.log(SalonData);
     return (
         <div className={styles.salon_card}>
             <div className={styles.salon_cardA}>

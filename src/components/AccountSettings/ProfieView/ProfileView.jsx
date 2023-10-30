@@ -2,15 +2,15 @@ import styles from "./ProfileView.module.css";
 import userImg from "../../../assets/images/AccountSettings/userImg.png"
 import pencilIco from "../../../assets/images/AccountSettings/pencilIco.svg"
 
-export default function ProfileView({setProfileModal}){
+export default function ProfileView({setProfileModal,logOut}){
     return(
         <div className={styles.user_profile}>
             <div className={styles.user_img_main}>
                 <div>
                     <img src={userImg} alt="" className={styles.user_img}/>
                 </div>
-                <div className={styles.user_img_edit}>
-                    <img src={pencilIco} alt="" onClick={()=>setProfileModal(true)}/>
+                <div className={styles.user_img_edit} onClick={()=>setProfileModal(true)}>
+                    <img src={pencilIco} alt=""/>
                 </div>
             </div>
             <div className={styles.user_name}>
@@ -21,7 +21,7 @@ export default function ProfileView({setProfileModal}){
             </div>
             <div className={styles.user_borderLine}></div>
             <div>
-                <button className={styles.user_sign_btn}>Sign Out</button>
+                <button className={styles.user_sign_btn} onClick={logOut}>Sign Out</button>
             </div>
         </div>
     )

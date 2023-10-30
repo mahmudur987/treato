@@ -93,12 +93,14 @@ const LoginPage = (props) => {
           (async () => {
             const profileResponse = await getUserProfile();
             if (profileResponse?.res.status === 200) {
+              const profileData = profileResponse?.res?.data?.data
+              delete Object.assign(profileData, {['place']: profileData['location'] })['location'];
               localStorage.setItem(
                 "userData",
-                JSON.stringify(profileResponse?.res?.data?.data)
+                JSON.stringify(profileData)
               );
               dispatch(updateIsLoggedIn(true));
-              dispatch(updateUserDetails(profileResponse?.res?.data?.data));
+              dispatch(updateUserDetails(profileData));
               navigate("/");
               toast("Welcome to Treato! Start exploring now!", {
                 position: "top-right",

@@ -32,7 +32,7 @@ export default function UserAddress({ setAddressModal, address,updateInputVal, i
                         return (
                             <div className={styles.addr_main} key={i}>
                                 <div className={styles.addr_main_top}>
-                                    <div>{v.type}</div>
+                                    <div>{v.house_type}</div>
                                     <div><img src={moreVertical} alt="" className={styles.addr_edit_click} onClick={() => updateEditStatus(editStatus === i ? -1 : i)} /></div>
                                     <div className={editStatus === i ? `${styles.addr_edit_opt} ${styles.addr_edit_opt_show}` : styles.addr_edit_opt}>
                                         <div onClick={() => { setAddressModal({active:true,data:v,index:i}); updateEditStatus(-1); }}>Edit</div>
