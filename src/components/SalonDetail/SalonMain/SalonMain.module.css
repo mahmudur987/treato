@@ -62,13 +62,13 @@
 .salon_service_option ul li {
     padding: 8px 16px;
     border-radius: 200px;
-    border: 1px solid #0D69D7;
-    color: #0D69D7;
+    border: 1px solid #6D747A;
+    color: #08090A;
     cursor: pointer;
 }
 
 .active_salon_service {
-    background-color: #0D69D7;
+    background-color: #08090A;
     color: white !important;
 }
 
@@ -110,9 +110,10 @@
 }
 
 .salon_serviceE {
+    min-width: 62px;
     border-radius: 4px;
-    border: 1px solid #0D69D7;
-    color: #0D69D7;
+    border: 1px solid #08090A;
+    color: #08090A;
     font-size: 14px;
     background-color: unset;
 }
@@ -428,13 +429,12 @@
 .salon_serviceEA{
     width: 100%;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
-    background-color: #0D69D7;
+    background-color: #08090A;
     color: white;
     padding: 4px 6px;
     box-sizing: border-box;
-    gap: 8px;
     cursor: pointer;
 }
 

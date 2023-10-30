@@ -158,23 +158,49 @@
     height: 48px;
 }
 
-.worker_compACA {
-    font-weight: 600;
-    margin-bottom: 4px;
-}
-
-.worker_compACB {
+.worker_compACB,.worker_compStar {
     font-weight: 400;
     font-size: 14px;
     gap: 8px;
     display: flex;
     justify-content: start;
     align-items: center;
+    color: #6D747A;
+}
+.worker_compACA {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #08090A;
+}
+.worker_compACBA{
+    font-weight: 400;
+    font-size: 14px;
+    gap: 8px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: #6D747A;
+}
+.worker_compStar{
+    gap: 3px;
 }
 
 .worker_compAB input {
     width: 24px;
     height: 24px;
+}
+
+.worker_prevBooked {
+    display: flex;
+    padding: 4px 12px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background: #EBEDF0;
+    color: var(--Black, #08090A);
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 4px;
 }
 
 .worker_detailC {
@@ -265,7 +291,8 @@
 
 .service_cardGA {
     border-radius: 50%;
-    padding: 6px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -283,6 +310,7 @@
     font-weight: 400;
     border-radius: 4px;
     border: 1px solid #EAEFF2;
+    cursor: pointer;
 }
 
 .visitor_detailA {
@@ -331,7 +359,7 @@
     margin-bottom: 8px;
 }
 
-.visitor_detailACB{
+.visitor_detailACB {
     width: 35%;
 }
 
@@ -557,6 +585,7 @@
     font-weight: 400;
     color: #6D747A;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .bill_sumEB {
@@ -615,68 +644,199 @@
     line-height: 24px;
 }
 
-.bill_sumHA>span{
+.bill_sumHA>span {
     color: #0D69D7;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.service_cardBack {
+    text-align: center;
+    color: #08090A;
+    font-weight: 600;
+    font-family: 'Poppins', 'Sans-Serif';
+    text-decoration: underline;
+    margin-top: 16px;
+    cursor: pointer;
+}
+
+.service_timeMonth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    width: 100%;
     font-weight: 600;
 }
 
-@media only screen and (max-width:767px) {
+.service_timeMonth img {
+    cursor: pointer;
+}
 
-    .bill_sumI{
+.payMain{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.payMainA{
+    width: 424px;
+    text-align: center;
+}
+
+.payMainC{
+    font-weight: 400;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    line-height: 24px;
+}
+.payMainC span:first-child{
+    font-weight: 600;
+}
+.payMainC span:last-child, .payMainD span{
+    font-weight: 600;
+    color: #0D69D7;
+}
+.payMainD{
+    line-height: 24px;
+}
+.payMainE{
+    padding: 24px;
+    border: 1px solid #EBEDF0;
+    margin-top: 36px;
+}
+.payMainEA{
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #EBEDF0;
+    font-size: 20px;
+    font-weight: 600;
+}
+.addedServiceA{
+    padding: 12px 0px;
+    border-top: 1px solid #EBEDF0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+}
+.addedServiceB{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 4px;
+}
+.payMainEB{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+}
+.payMainEC{
+    padding: 12px 0px;
+    border-top: 1px solid #EBEDF0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.fwBold{
+    font-weight: 600;
+}
+.payMainECA{
+    font-size: 14px;
+    font-weight: 400;
+    color: #6D747A;
+    text-decoration: underline;
+}
+.payMainF{
+    width: 158px;
+    margin: auto;
+    margin-top: 36px;
+}
+
+@media only screen and (max-width:767px) {
+    .service_timeMonth {
+        width: 100%;
+    }
+
+    .service_cardBack {
+        display: none;
+    }
+
+    .bill_sumI {
         border: 1px solid #EBEDF0;
         padding: 16px 12px;
     }
-    .bill_sumB{
+
+    .bill_sumB {
         padding: 0px;
         padding-bottom: 16px;
     }
-    .bill_sumC{
+
+    .bill_sumC {
         padding: 12px 0px;
     }
-    .bill_sumF{
+
+    .bill_sumF {
         padding: 16px 12px;
         margin: 24px 0px;
         border: 1px solid #EBEDF0;
     }
-    .bill_sumG{
+
+    .bill_sumG {
         display: none;
     }
-    .bill_sumH{
+
+    .bill_sumH {
         font-size: 12px;
         padding: 10px 12px;
         line-height: 18px;
     }
-    .bill_sumH>img{
+
+    .bill_sumH>img {
         display: none;
     }
-    .bill_sumA{
+
+    .bill_sumA {
         font-size: 20px;
         padding-bottom: 16px;
     }
-    .service_cardMain{
+
+    .service_cardMain {
         padding: 0px;
         border: none;
     }
-    .final_billAA,.final_billBA {
+
+    .final_billAA,
+    .final_billBA {
         font-size: 20px;
     }
-    .final_billBB{
+
+    .final_billBB {
         font-size: 18px;
     }
-    .final_billC{
+
+    .final_billC {
         padding: 16px 12px;
         box-sizing: border-box;
         width: 100%;
     }
+
     .final_billCA {
         font-size: 16px;
     }
-    .final_billCBB{
+
+    .final_billCBB {
         font-size: 14px;
     }
-    .final_billCDA{
+
+    .final_billCDA {
         font-size: 14px;
     }
+
     .visitor_detailA:first-child {
         border-top: none;
     }
@@ -689,7 +849,7 @@
         font-size: 20px;
     }
 
-    .visitor_detailACB{
+    .visitor_detailACB {
         width: 100%;
     }
 

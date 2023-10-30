@@ -44,7 +44,7 @@ a {
   height: 24px;
   width: 24px;
 }
-.bannerDetails small p {
+.bannerDetails small p, .bannerDetails p, .bannerDetails small{
   line-height: 32px;
   font-size: var(--fonts-large);
 }
@@ -135,5 +135,10 @@ a {
 
   .socialLinks a img{
     width: 100%;
+  }
+  .bannerDetails small p, .bannerDetails p, .bannerDetails small{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
   }
 }

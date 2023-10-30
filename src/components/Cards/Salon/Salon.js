@@ -7,36 +7,28 @@ import {
   star_line,
 } from "../../../assets/images/icons";
 import { starBlack } from "../../../assets/images/SalonsPageImages";
+import { Link } from "react-router-dom";
 import { displayDistance } from "../../../utils/utils";
 
 const Salon = ({ salonData, place }) => {
 
   return (
-    <div
-      className={`${styles.card} ${
-        place === "homePage" ? styles.card_Home : ""
-      }`}
-    >
-      <img
-        src={salonData.salon_image ? salonData.salon_image.public_url : ""}
-        alt="cardImage"
-        className={`${styles.cardImage} ${
-          place === "homePage" ? styles.cardImage_Home : ""
-        }`}
-      />
+    <div className={`${styles.card} ${place === "homePage" ? styles.card_Home : ""}`}>
+      <Link to={salonData ? `/salons/${salonData._id}` : null}>
+        <img
+          src={salonData.salon_image ? salonData.salon_image.public_url : ''}
+          alt="cardImage"
+          className={`${styles.cardImage} ${place === "homePage" ? styles.cardImage_Home : ""}`}
+        />
+      </Link>
       <div
         className={`${styles.salonDetails} ${
           place === "homePage" ? styles.salonDetails_Home : ""
         }`}
       >
-        <a
-          href="/salons"
-          className={`${styles.Name} ${
-            place === "homePage" ? styles.Name_Home : ""
-          }`}
-        >
-          {salonData.salon_name ? salonData.salon_name : "Salon Name"}
-        </a>
+        <Link to={salonData ? `/salons/${salonData._id}` : null} className={`${styles.Name} ${place === "homePage" ? styles.Name_Home : ""}`}>
+          {salonData.salon_name ? salonData.salon_name : 'Salon Name'}
+        </Link>
         <h4 className={styles.ratings}>
           {salonData.rating} <img src={starBlack} alt="star" /> (
           {salonData.total_rating} ratings)

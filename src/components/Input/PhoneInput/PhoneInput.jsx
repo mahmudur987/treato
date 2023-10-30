@@ -16,7 +16,7 @@ export default function PhoneInput({ PlaceHolder,Type,VALUE,DISABLED,ID,NAME,upd
                 <option value="+66">+66</option>
             </select>
             <div className={styles.phone_inputBorder}></div>
-            <input type={Type?Type:''} placeholder={PlaceHolder?PlaceHolder:''} className={styles.phone_input} value={VALUE?VALUE:''} disabled={DISABLED?DISABLED:false} ID={ID?ID:''} name={NAME?NAME:''} onChange={inputValue}/>
+            <input type={Type?Type:''} placeholder={PlaceHolder?PlaceHolder:''} className={styles.phone_input} value={VALUE?VALUE:''} disabled={DISABLED?DISABLED:false} id={ID?ID:''} name={NAME?NAME:''} onChange={inputValue}/>
         </div>
     )
 }

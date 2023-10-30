@@ -2,7 +2,7 @@ import styles from '../SalonMain/SalonMain.module.css'
 import ellipse from "../../../assets/images/SalonDetail/Ellipse.svg"
 import { Link } from "react-router-dom";
 
-export default function BookNow({innerText,updateActiveBookFlowBA,activeBookFlowBA,SalonDetails}) {
+export default function BookNow({innerText,updateActiveBookFlowBA,activeBookFlowBA,SalonDetails,setCompletedPay}) {
 
     return (
         <div className={styles.book_nowA}>
@@ -35,7 +35,7 @@ export default function BookNow({innerText,updateActiveBookFlowBA,activeBookFlow
                 }
             </div>
             <div className={styles.book_nowC}>
-                <Link to={updateActiveBookFlowBA?'':'/salons/:id/book'}><button onClick={()=>updateActiveBookFlowBA?updateActiveBookFlowBA(activeBookFlowBA!==4?activeBookFlowBA+1:4):''} className={styles.book_nowAA}>{innerText?innerText:'Book Now'}</button></Link>
+                <Link to={updateActiveBookFlowBA?'':'/salons/:id/book'}><button onClick={()=>updateActiveBookFlowBA?updateActiveBookFlowBA(activeBookFlowBA!==4?activeBookFlowBA+1:4):setCompletedPay?setCompletedPay(true):null} className={styles.book_nowAA}>{innerText?innerText:'Book Now'}</button></Link>
             </div>
         </div>
     )

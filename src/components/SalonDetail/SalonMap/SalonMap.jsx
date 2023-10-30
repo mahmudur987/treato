@@ -3,14 +3,14 @@ import map from "../../../assets/images/SalonDetail/map.svg"
 import gmap from "../../../assets/images/SalonDetail/gmap.png"
 import mapBlue from "../../../assets/images/SalonDetail/mapBlue.svg"
 
-export default function SalonMap() {
+export default function SalonMap({SalonData}) {
 
     return (
         <>
             <div className={styles.salon_MapA}>
                 <img src={map} alt="" />
                 <div>
-                    3rd Main Road, Ejipura, Bengaluru - 110058
+                    {SalonData?SalonData.locationText:null}
                 </div>
             </div>
             <div className={styles.salon_MapB}>

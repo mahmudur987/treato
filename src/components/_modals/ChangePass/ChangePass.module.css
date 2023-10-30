@@ -1,0 +1,87 @@
+.passMain {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #08090A;
+    font-family: 'Lato', sans-serif;
+    z-index: 999;
+}
+
+.passA {
+    padding: 24px;
+    background-color: #fff;
+    width: 424px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.passB {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 48px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.passC {
+    margin-bottom: 24px;
+}
+
+.passBA,
+.passBB {
+    flex-basis: 70%;
+    text-align: right;
+}
+
+.passBB {
+    flex-basis: 30%;
+}
+
+.passBB img {
+    cursor: pointer;
+}
+
+.passCA {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.passError{
+    color: #DE2929;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+@media only screen and (max-width:767px) {
+    .passMain {
+        position: unset;
+        background-color: unset;
+        height: unset;
+    }
+
+    .passA {
+        width: 100%;
+        padding: 0px;
+    }
+
+    .passB {
+        justify-content: start;
+    }
+
+    .passBA{
+        flex-basis: 100%;
+        text-align: left;
+    }
+
+    .passBB {
+        display: none;
+    }
+}

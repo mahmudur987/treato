@@ -25,7 +25,7 @@ export default function SocialSettings(){
                         Google
                     </div>
                     <div className={styles.social_opt_right}>
-                        <button className={connectStatus1===1?styles.social_opt_disconnect:styles.social_opt_connect} onClick={()=>updateConnectStatus1(connectStatus1===1?-1:1)}>{connectStatus1===1?'Disconnect':'Connect'}</button>
+                        <div className={connectStatus1===1?styles.social_opt_disconnect:styles.social_opt_connect} onClick={()=>updateConnectStatus1(connectStatus1===1?-1:1)}>{connectStatus1===1?'Disconnect':'Connect'}</div>
                     </div>
                 </div>
                 <div className={styles.social_options}>
@@ -34,7 +34,7 @@ export default function SocialSettings(){
                         Facebook
                     </div>
                     <div className={styles.social_opt_right}>
-                        <button className={connectStatus2===1?styles.social_opt_disconnect:styles.social_opt_connect} onClick={()=>updateConnectStatus2(connectStatus2===1?-1:1)}>{connectStatus2===1?'Disconnect':'Connect'}</button>
+                        <div className={connectStatus2===1?styles.social_opt_disconnect:styles.social_opt_connect} onClick={()=>updateConnectStatus2(connectStatus2===1?-1:1)}>{connectStatus2===1?'Disconnect':'Connect'}</div>
                     </div>
                 </div>
                 <div className={styles.social_options}>
@@ -43,7 +43,7 @@ export default function SocialSettings(){
                         Instagram
                     </div>
                     <div className={styles.social_opt_right}>
-                        <button className={connectStatus3===1?styles.social_opt_disconnect:styles.social_opt_connect} onClick={()=>updateConnectStatus3(connectStatus3===1?-1:1)}>{connectStatus3===1?'Disconnect':'Connect'}</button>
+                        <div className={connectStatus3===1?styles.social_opt_disconnect:styles.social_opt_connect} onClick={()=>updateConnectStatus3(connectStatus3===1?-1:1)}>{connectStatus3===1?'Disconnect':'Connect'}</div>
                     </div>
                 </div>
             </div>
