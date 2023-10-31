@@ -23,50 +23,22 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from "./components/AuthPages/ResetPassword/ResetPassword";
 import PrivateRoutes from "./layouts/PrivateRoutes";
-import { googleloginSuccess } from "./services/auth";
+import { getUserProfile, googleloginSuccess } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 import axiosInstance from "./services/axios";
 import { fetchIPInfo } from "./services/user";
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
+  const [fetchUserData, setfetchUserData] = useState({})
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user);
-  const [receivedOTP, setreceivedOTP] = useState(0);
   const [userGeolocationAvailable, setUserGeolocationAvailable] =
     useState(true); // State to track geolocation availability
   const [userLoc, setuserLoc] = useState({});
-  // Scroll to the top when the route changes
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
 
-  useEffect(() => {
-    // Call the action to fetch salon data, passing userDetails as an argument
-    dispatch(fetchSalonsData(userDetails));
-  }, [dispatch, userDetails]);
 
-  useEffect(() => {
-    fetchIPInfo().then((res) => {
-      if (res) {
-        let ipBasedLocation=res?.response
-        const [latitude, longitude] = ipBasedLocation?.loc?.split(",");
-        setuserLoc({latitude, longitude, city:ipBasedLocation.city });
-        dispatch(
-          updateUserDetails({ latitude, longitude, ...ipBasedLocation })
-        );
-      } else {
-        setError("Location not available.");
-      }
-    });
-    let userData = localStorage.getItem("userData");
-    let isTokenExist = localStorage.getItem("jwtToken");
-    if (userData && isTokenExist) {
-      dispatch(updateIsLoggedIn(true));
-      dispatch(updateUserDetails(JSON.parse(userData)));
-    }
-  }, []);
   const fetchLocation = () => {
     // If geolocation is not available, fall back to IP-based location
     fetchIpBasedLocation().then((ipBasedLocation) => {
@@ -100,6 +72,39 @@ function App() {
     }
     return null;
   };
+  // Scroll to the top when the route changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    // Call the action to fetch salon data, passing userDetails as an argument
+    dispatch(fetchSalonsData(userDetails));
+  }, [dispatch, userDetails]);
+
+  useEffect(() => {
+    fetchIPInfo().then((res) => {
+      if (res) {
+        let ipBasedLocation=res?.response
+        const [latitude, longitude] = ipBasedLocation?.loc?.split(",");
+        setuserLoc({latitude, longitude, city:ipBasedLocation.city });
+        dispatch(
+          updateUserDetails({ latitude, longitude, ...ipBasedLocation })
+        );
+      } else {
+        setError("Location not available.");
+      }
+    });
+    
+    let isTokenExist = localStorage.getItem("jwtToken");
+    if (isTokenExist) {
+      getUserProfile().then((res)=>{
+        dispatch(updateIsLoggedIn(true));
+        dispatch(updateUserDetails(res?.res?.data?.data));
+      })
+    }
+  }, []);
+
 
     //TODO :google auth
   // useEffect(() => {

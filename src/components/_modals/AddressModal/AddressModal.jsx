@@ -15,6 +15,25 @@ const AnyReactComponent = ({ text }) => <div>{text}</div>;
 export default function AddressModal({ setAddressModal, updateInputVal, inputVal, setShowSave, addressModal }) {
     const getMapData = (e) => {
         console.log(e);
+        const lat = e.lat;
+        const lng = e.lng;
+        
+        // Use the lat and lng to perform reverse geocoding and get the address
+        const geocoder = new window.google.maps.Geocoder();
+        geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+          if (status === 'OK') {
+            if (results[0]) {
+              const address = results[0].formatted_address;
+              console.log('Address:', address);
+              
+              // Now you have the address based on the clicked location
+            } else {
+              console.log('No results found');
+            }
+          } else {
+            console.log('Geocoder failed due to: ' + status);
+          }
+        });
     };
     let [defaultProps, updateDefaultProps] = useState({
         center: {

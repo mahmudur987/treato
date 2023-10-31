@@ -23,11 +23,13 @@ import PrimaryButton from "../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton/SecondaryButton";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUserDetails, updateIsLoggedIn } from "../../redux/slices/user";
+import { fetchIPInfo } from "../../services/user";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
   const [isMainSearchBar, setisMainSearchBar] = useState(false);
+  const [resetUserData, setresetUserData] = useState({});
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setuserInfo] = useState("");
@@ -63,7 +65,7 @@ export default function Navbar() {
   //Logout
   const handleLogout = () => {
     dispatch(updateIsLoggedIn(false));
-    dispatch(resetUserDetails({}));
+    dispatch(resetUserDetails(resetUserData));
     localStorage.removeItem("userData");
     localStorage.removeItem("jwtToken");
     setIsDesktopMenuOpen(false);
@@ -73,6 +75,18 @@ export default function Navbar() {
     setuserInfo("");
     // window.open("https://backend.treato.in/api/v1/auth/logout","_self")
   };
+
+  useEffect(() => {
+    fetchIPInfo().then((res) => {
+      if (res) {
+        let ipBasedLocation = res?.response;
+        const [latitude, longitude] = ipBasedLocation?.loc?.split(",");
+        setresetUserData({ latitude, longitude, ...ipBasedLocation });
+      } else {
+        console.log("Location not available.");
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (location.pathname === "/salons") {
@@ -140,7 +154,7 @@ export default function Navbar() {
             onClick={handleMobileMenuToggle}
           >
             {!isMobileMenuOpen ? (
-              <img src={isLoggedIn?mask:menuLogo} alt="menuLogo" />
+              <img src={isLoggedIn ? mask : menuLogo} alt="menuLogo" />
             ) : (
               <img src={x} alt="closeIcon" />
             )}

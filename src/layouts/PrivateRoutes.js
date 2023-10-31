@@ -6,9 +6,8 @@ export default function PrivateRoutes() {
     const navigate = useNavigate();
     useEffect(() => {
         const jwtToken = localStorage.getItem("jwtToken");
-        const userData = localStorage.getItem("userData");
 
-        if (!jwtToken || !userData) {
+        if (!jwtToken) {
             // If either the JWT token or userData is missing in local storage, redirect to the login page
             navigate('/auth-choice');
         }

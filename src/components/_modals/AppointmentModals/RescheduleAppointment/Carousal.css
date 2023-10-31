@@ -1,25 +1,50 @@
+#slidersWrapper,#reschedule_time_slick {
+  .slick-next::before {
+    content: ""; /* Ensure content is set to an empty string */
+    background-size: cover; /* Adjust as needed */
+    width: 8px;
+    height: 14px;
+    display: inline-block; /* This is to make it display inline with the content */
+    background-image: url("../../../../assets/images/icons/chevronright.svg");
+  }
 
-#slidersWrapper{
-    .slick-next::before{
-        content: ""; /* Ensure content is set to an empty string */
-        background-size: cover; /* Adjust as needed */
-        width: 8px;
-        height: 14px;
-        display: inline-block; /* This is to make it display inline with the content */
-        background-image: url('../../../../assets/images/icons/chevronright.svg');
-    }
-    
-    .slick-prev::before{
-        content: ""; /* Ensure content is set to an empty string */
-        background-size: cover;
-        height: 20px;
-        width: 20px;
-        display: block; /* This is to make it display inline with the content */
-        background-image: url('../../../../assets/images/icons/chevronLeft.svg');
-    }
+  .slick-prev::before {
+    content: ""; /* Ensure content is set to an empty string */
+    background-size: cover;
+    height: 24px;
+    width: 24px;
+    display: block; /* This is to make it display inline with the content */
+    background-image: url("../../../../assets/images/icons/chevronLeft.svg");
+  }
 }
+#reschedule_time_slick{
+    gap: 1rem ;
+}
+#reschedule_time_slick .slick-slider {
+  padding-left: 32px !important;
+}
+#reschedule_time_slick .slick-next,
+#reschedule_time_slick .slick-prev {
+  width: 0px !important;
+  height: 0px !important;
+  top:35%;
+  /* display: none; */
+}
+
+#reschedule_time_slick .slick-next{
+    right: 3% !important;
+    margin-top: .2rem;
+    
+}
+
 @media only screen and (max-width: 767px) {
-    #blogWrapper_mobo .custom-dot-list-style {
-        display: none !important;
-      }
+  #blogWrapper_mobo .custom-dot-list-style {
+    display: none !important;
+  }
+  #reschedule_time_slick .slick-slider {
+    padding-left: 8px !important;
+  }
+  #reschedule_time_slick .slick-prev{
+    left: -3% !important;    
+}
 }
