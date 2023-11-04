@@ -9,3 +9,12 @@ export const getAllServices = async () => {
       return { err: error, res: null }
    }
 }
+
+export const getSingleServices = async (id) => {
+   try {
+      const res = await axiosInstance.get(`/service/${id}`)
+      return { res: res, err: null }
+   } catch (error) {
+      return { err: error, res: null }
+   }
+}

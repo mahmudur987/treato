@@ -63,6 +63,11 @@ export const resetPassword = async (id, token, newPassword) => {
   }
 };
 
+// required for google auth 
+
+// { withCredentials: true }
+// "http://localhost:4000/api/v1/auth/google"
+
 export const googlelogin = async () => {
     try {
       const res = window.open(
@@ -76,11 +81,10 @@ export const googlelogin = async () => {
 };
 
 
-
 export const googleloginSuccess = async () => {
      try {
        const res = await axiosInstance.get(
-         "http://43.204.141.2:4000/api/v1/auth/login/success"
+         "https://backend.treato.in/api/v1/auth/login/success"
        );
        return { res: res, err: null };
      } catch (error) {

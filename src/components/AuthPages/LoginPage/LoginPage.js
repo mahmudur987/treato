@@ -4,6 +4,7 @@ import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import styles from "./LoginPage.module.css";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import "react-phone-number-input/style.css";
+import { jwtDecode } from "jwt-decode";
 import PhoneInput from "react-phone-number-input";
 import {
   Facebook_Logo,
@@ -28,6 +29,13 @@ import {
 } from "../../../redux/slices/user";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from "react-social-login-buttons";
+import {
+  GoogleOAuthProvider,
+  GoogleLogin,
+  useGoogleLogin,
+} from "@react-oauth/google";
 import axios from "axios";
 const LoginPage = (props) => {
   const [email, setEmail] = useState("");
@@ -39,6 +47,7 @@ const LoginPage = (props) => {
   const [receivedOTP, setreceivedOTP] = useState(0);
   const [formErrors, setFormErrors] = useState({});
   const [responseError, setresponseError] = useState("");
+  const [facebookProfile, setFacebookProfile] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleOTPForm = () => {
@@ -94,12 +103,11 @@ const LoginPage = (props) => {
           (async () => {
             const profileResponse = await getUserProfile();
             if (profileResponse?.res.status === 200) {
-              const profileData = profileResponse?.res?.data?.data
-              delete Object.assign(profileData, {['place']: profileData['location'] })['location'];
-              localStorage.setItem(
-                "userData",
-                JSON.stringify(profileData)
-              );
+              const profileData = profileResponse?.res?.data?.data;
+              delete Object.assign(profileData, {
+                ["place"]: profileData["location"],
+              })["location"];
+              localStorage.setItem("userData", JSON.stringify(profileData));
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(profileData));
               navigate("/");
@@ -172,6 +180,25 @@ const LoginPage = (props) => {
     // Handle form submission
     // Your logic here for submitting the form data
   };
+
+  const login = useGoogleLogin({
+    cookiePolicy: "single_host_origin",
+    onSuccess: async (response) => {
+      try {
+        const res = await axios.get(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer ${response.access_token}`,
+            },
+          }
+        );
+        console.log("GoogleResponse",res);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  });
 
   return (
     <AuthPage>
@@ -280,7 +307,7 @@ const LoginPage = (props) => {
             <span></span>Or simply continue with <span></span>
           </p>
           <div className={styles.socialButtons}>
-            <SecondaryButton
+            {/* <SecondaryButton
               className={styles.google}
               onClick={() => {
                 googlelogin().then((res) => {
@@ -290,19 +317,38 @@ const LoginPage = (props) => {
             >
               <img src={Google_Logo} />
               Google
+            </SecondaryButton> */}
+            {/* <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  // var decoded=jwtDecode(credentialResponse.credential)
+                  // console.log(decoded);
+                  console.log(credentialResponse);
+                }}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              /> */}
+ 
+            <SecondaryButton className={styles.google} onClick={() => login()}>
+              <img src={Google_Logo} />
+              Google
             </SecondaryButton>
-
-            <SecondaryButton
-              className={styles.facebook}
-              onClick={() => {
-                Facebooklogin().then((res) => {
-                  console.log(res);
-                });
+            <LoginSocialFacebook
+              appId="1052652552722200"
+              onResolve={(response) => {
+                console.log("FacebookResponse",response);
+                setFacebookProfile(response.data);
+              }}
+              onReject={(error) => {
+                console.log(error);
               }}
             >
-              <img src={Facebook_Logo} />
-              Facebook
-            </SecondaryButton>
+              <SecondaryButton className={styles.facebook}>
+                <img src={Facebook_Logo} />
+                Facebook
+              </SecondaryButton>
+              {/* <FacebookLoginButton /> */}
+            </LoginSocialFacebook>
           </div>
         </div>
       </div>

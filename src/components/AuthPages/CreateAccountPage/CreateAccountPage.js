@@ -17,6 +17,11 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { sendLoginOTP } from "../../../services/auth";
 import { updateOTP } from "../../../redux/slices/user";
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from "react-social-login-buttons";
+import axios from "axios";
+import { useGoogleLogin } from "@react-oauth/google";
+
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -26,6 +31,8 @@ const CreateAccountPage = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [facebookProfile, setFacebookProfile] = useState(null);
+
   const userChoice = useSelector((state) => state.authChoice);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -58,7 +65,7 @@ const CreateAccountPage = () => {
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%^&*])[A-Za-z\d@$!%^&*]{8,}$/;
       if (!regex.test(password)) {
         setPasswordError(true);
-        errors.notvalid="true"
+        errors.notvalid = "true";
       } else {
         setPasswordError(false);
       }
@@ -71,10 +78,10 @@ const CreateAccountPage = () => {
       email,
       phone,
       password,
-      role:userChoice?.role?.role,
+      role: userChoice?.role?.role,
       type: "register",
     };
-    if (Object.keys(errors).length === 0 ) {
+    if (Object.keys(errors).length === 0) {
       localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
       localStorage.setItem("userPhoneNumber", JSON.stringify(formData.phone));
 
@@ -86,16 +93,21 @@ const CreateAccountPage = () => {
           dispatch(updateOTP(res?.res.data.otp));
           navigate("/verify-otp");
         } else {
-          toast.error(`${res?.err?.response?.data.message||res?.err?.response?.data.error}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          toast.error(
+            `${
+              res?.err?.response?.data.message || res?.err?.response?.data.error
+            }`,
+            {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            }
+          );
         }
       });
     }
@@ -114,7 +126,27 @@ const CreateAccountPage = () => {
       console.log(res);
     });
   };
-  
+
+  const login = useGoogleLogin({
+    cookiePolicy: "single_host_origin",
+    onSuccess: async (response) => {
+      try {
+        const res = await axios.get(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer ${response.access_token}`,
+            },
+          }
+        );
+        console.log("GoogleResponse",res);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  });
+
+
   return (
     <AuthPage>
       <div className={styles.container}>
@@ -227,17 +259,35 @@ const CreateAccountPage = () => {
             <span></span>Or simply continue with <span></span>
           </p>
           <div className={styles.socialButtons}>
-            <SecondaryButton
+            {/* <SecondaryButton
               className={styles.google}
               onClick={handleGoogleLogin}
             >
               <img src={Google_Logo} />
               Google
+            </SecondaryButton> */}
+            <SecondaryButton className={styles.google} onClick={() => login()}>
+              <img src={Google_Logo} />
+              Google
             </SecondaryButton>
-            <SecondaryButton className={styles.facebook} onClick={handleFacebookLogin}>
-              <img src={Facebook_Logo} />
-              Facebook
-            </SecondaryButton>
+            <LoginSocialFacebook
+              appId="1052652552722200"
+              onResolve={(response) => {
+                console.log(response);
+                setFacebookProfile(response.data);
+              }}
+              onReject={(error) => {
+                console.log(error);
+              }}
+            >
+              <SecondaryButton
+                className={styles.facebook}
+              >
+                <img src={Facebook_Logo} />
+                Facebook
+              </SecondaryButton>
+              {/* <FacebookLoginButton /> */}
+            </LoginSocialFacebook>
           </div>
         </div>
         <div className={styles.termsWrapper}>

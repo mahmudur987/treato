@@ -30,14 +30,13 @@ import { fetchIPInfo } from "./services/user";
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
-  const [fetchUserData, setfetchUserData] = useState({})
+  const [fetchUserData, setfetchUserData] = useState({});
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user);
   const [userGeolocationAvailable, setUserGeolocationAvailable] =
     useState(true); // State to track geolocation availability
   const [userLoc, setuserLoc] = useState({});
-
 
   const fetchLocation = () => {
     // If geolocation is not available, fall back to IP-based location
@@ -85,9 +84,9 @@ function App() {
   useEffect(() => {
     fetchIPInfo().then((res) => {
       if (res) {
-        let ipBasedLocation=res?.response
+        let ipBasedLocation = res?.response;
         const [latitude, longitude] = ipBasedLocation?.loc?.split(",");
-        setuserLoc({latitude, longitude, city:ipBasedLocation.city });
+        setuserLoc({ latitude, longitude, city: ipBasedLocation.city });
         dispatch(
           updateUserDetails({ latitude, longitude, ...ipBasedLocation })
         );
@@ -95,37 +94,35 @@ function App() {
         setError("Location not available.");
       }
     });
-    
+
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
-      getUserProfile().then((res)=>{
+      getUserProfile().then((res) => {
         dispatch(updateIsLoggedIn(true));
         dispatch(updateUserDetails(res?.res?.data?.data));
-      })
+      });
     }
   }, []);
 
-
-    //TODO :google auth
+  //TODO :google auth
   // useEffect(() => {
-    //!--step1
-    // googleloginSuccess().then((res) => {
-    //   console.log("Google login response:",res);
-    // });
-    //!--step2
-    // const fetchData = async () => {
-    //   try {
-    //     const res = await axiosInstance.get(
-    //       'https://backend.treato.in/api/v1/auth/login/success'
-    //     );
-    //     console.log('Google login response:', res);
-    //   } catch (error) {
-    //     console.error('Error:', error);
-    //   }
-    // };
-    // fetchData();
+  //!--step1
+  // googleloginSuccess().then((res) => {
+  //   console.log("Google login response:",res);
+  // });
+  //!--step2
+  // const fetchData = async () => {
+  //   try {
+  //     const res = await axiosInstance.get(
+  //       'https://backend.treato.in/api/v1/auth/login/success'
+  //     );
+  //     console.log('Google login response:', res);
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
+  // fetchData();
   // }, []);
-
 
   useEffect(() => {
     const getUser = () => {
@@ -138,8 +135,11 @@ function App() {
           "Access-Control-Allow-Credentials": true,
         },
       })
-        .then((resObject) => {
-          console.log("Google response", resObject);
+        .then((response) => {
+          if (response.status === 200) return response.json();
+          throw new Error("authentication has been failed");
+        }).then((res)=>{
+          console.log("Google response", res);
         })
         .catch((err) => {
           console.log(err);
@@ -147,23 +147,21 @@ function App() {
     };
     getUser();
   }, []);
-  
-
   return (
     <PageLayout>
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
-          <Route path="/account-settings" element={<AccountSettings />} />
-          <Route path="/salons" element={<Salons />} />
-          <Route path="/salons/:id" element={<SalonDetail />} />
-          <Route path="/salons/:id/book" element={<BookFlow />} />
-          <Route path="/lookbook" element={<Lookbook />} />
-          <Route path="/lookbook-details/:id" element={<LookbookDetails />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blogs/:id" element={<BlogDetail />} />
-          <Route path="/my-appointments/*" element={<MyAppointments />} />
-          //Todo: only we have to add payment page under PrivateRoutes
+        <Route path="/account-settings" element={<AccountSettings />} />
+        <Route path="/salons" element={<Salons />} />
+        <Route path="/salons/:id" element={<SalonDetail />} />
+        <Route path="/salons/:id/book" element={<BookFlow />} />
+        <Route path="/lookbook" element={<Lookbook />} />
+        <Route path="/lookbook-details/:id" element={<LookbookDetails />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/:id" element={<BlogDetail />} />
+        <Route path="/my-appointments/*" element={<MyAppointments />} />
+        //Todo: only we have to add payment page under PrivateRoutes
         {/* <Route element={<PrivateRoutes />}> */}
         {/* </Route> */}
         {/* Auth routes */}
