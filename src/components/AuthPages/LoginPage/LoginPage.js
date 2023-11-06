@@ -193,7 +193,7 @@ const LoginPage = (props) => {
             },
           }
         );
-        console.log("GoogleResponse",res);
+        console.log("GoogleResponse", res);
       } catch (err) {
         console.log(err);
       }
@@ -307,6 +307,7 @@ const LoginPage = (props) => {
             <span></span>Or simply continue with <span></span>
           </p>
           <div className={styles.socialButtons}>
+           {/* //Todo: will be removed after resolved */}
             {/* <SecondaryButton
               className={styles.google}
               onClick={() => {
@@ -328,7 +329,7 @@ const LoginPage = (props) => {
                   console.log("Login Failed");
                 }}
               /> */}
- 
+
             <SecondaryButton className={styles.google} onClick={() => login()}>
               <img src={Google_Logo} />
               Google
@@ -336,7 +337,7 @@ const LoginPage = (props) => {
             <LoginSocialFacebook
               appId="1052652552722200"
               onResolve={(response) => {
-                console.log("FacebookResponse",response);
+                console.log("FacebookResponse", response);
                 setFacebookProfile(response.data);
               }}
               onReject={(error) => {

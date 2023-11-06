@@ -113,7 +113,7 @@ useEffect(() => {
         >
           {allServices.map((service, index) => (
             <a key={index} className={styles.rmdItem}>
-              <img src={service.service_img.public_url} alt={service.service_name[0]} />
+              <img src={service.service_img?.public_url} alt={service.service_name[0]} />
               <h4>{service.service_name}</h4>
             </a>
           ))}
@@ -121,7 +121,7 @@ useEffect(() => {
         <div className={styles.rmdWrapperMobo}>
         {allServices.map((service, index) => (
             <a key={index} className={styles.rmdItem}>
-              <img src={service.service_img.public_url} alt={service.service_name[0]} />
+              <img src={service.service_img?.public_url} alt={service.service_name[0]} />
               <h4>{service.service_name}</h4>
             </a>
           ))}

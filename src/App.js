@@ -124,29 +124,29 @@ function App() {
   // fetchData();
   // }, []);
 
-  useEffect(() => {
-    const getUser = () => {
-      fetch("https://backend.treato.in/api/v1/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed");
-        }).then((res)=>{
-          console.log("Google response", res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getUser();
-  }, []);
+  // useEffect(() => {
+  //   const getUser = () => {
+  //     fetch("https://backend.treato.in/api/v1/auth/login/success", {
+  //       method: "GET",
+  //       credentials: "include",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //         "Access-Control-Allow-Credentials": true,
+  //       },
+  //     })
+  //       .then((response) => {
+  //         if (response.status === 200) return response.json();
+  //         throw new Error("authentication has been failed");
+  //       }).then((res)=>{
+  //         console.log("Google response", res);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   };
+  //   getUser();
+  // }, []);
   return (
     <PageLayout>
       <ToastContainer />
