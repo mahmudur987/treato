@@ -127,7 +127,7 @@ const CreateAccountPage = () => {
     });
   };
 
-  const login = useGoogleLogin({
+  const googleAuthLogin = useGoogleLogin({
     cookiePolicy: "single_host_origin",
     onSuccess: async (response) => {
       try {
@@ -266,7 +266,7 @@ const CreateAccountPage = () => {
               <img src={Google_Logo} />
               Google
             </SecondaryButton> */}
-            <SecondaryButton className={styles.google} onClick={() => login()}>
+            <SecondaryButton className={styles.google} onClick={() => googleAuthLogin()}>
               <img src={Google_Logo} />
               Google
             </SecondaryButton>

@@ -181,7 +181,7 @@ const LoginPage = (props) => {
     // Your logic here for submitting the form data
   };
 
-  const login = useGoogleLogin({
+  const googleAuthLogin = useGoogleLogin({
     cookiePolicy: "single_host_origin",
     onSuccess: async (response) => {
       try {
@@ -307,30 +307,7 @@ const LoginPage = (props) => {
             <span></span>Or simply continue with <span></span>
           </p>
           <div className={styles.socialButtons}>
-           {/* //Todo: will be removed after resolved */}
-            {/* <SecondaryButton
-              className={styles.google}
-              onClick={() => {
-                googlelogin().then((res) => {
-                  console.log(res);
-                });
-              }}
-            >
-              <img src={Google_Logo} />
-              Google
-            </SecondaryButton> */}
-            {/* <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  // var decoded=jwtDecode(credentialResponse.credential)
-                  // console.log(decoded);
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
-              /> */}
-
-            <SecondaryButton className={styles.google} onClick={() => login()}>
+            <SecondaryButton className={styles.google} onClick={() => googleAuthLogin()}>
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
