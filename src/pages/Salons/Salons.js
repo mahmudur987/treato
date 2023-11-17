@@ -65,7 +65,7 @@ const Salons = React.memo(() => {
     locationParam,
     salonsState.filterContent.length,
   ]);
-
+  
   // Memoize items based on filterContent
   const items = useMemo(() => {
     return salonsState.filterContent.map((item, index) => (

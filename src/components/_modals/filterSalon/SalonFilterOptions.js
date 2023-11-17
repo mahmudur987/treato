@@ -18,13 +18,15 @@ const SalonFilterOptions = ({
   handleCloseModal,
   styles,
   dispatch,
-  resetFilters
+  resetFilters,
 }) => {
   const modal = useSelector((state) => state.salonModal);
+  const userDetails = useSelector((state) => state.user);
 
   return (
     <div className={styles.filterOptions}>
-      {((modal.modalContent == "sortBy" && isMobile) || (modal.modalContent == "all" && !isMobile))? (
+      {(modal.modalContent == "sortBy" && isMobile) ||
+      (modal.modalContent == "all" && !isMobile) ? (
         <div className={styles.sortBy}>
           {isMobile ? (
             <div className={styles.header}>
@@ -45,16 +47,18 @@ const SalonFilterOptions = ({
             />
             Recommended
           </label>
-          <label>
-            <input
-              type="radio"
-              name="sortOption"
-              value="Nearest to me"
-              checked={selectedSortOption === "Nearest to me"}
-              onChange={() => setSelectedSortOption("Nearest to me")}
-            />
-            Nearest to me
-          </label>
+          {userDetails?.user?.isLocationAllow && (
+            <label>
+              <input
+                type="radio"
+                name="sortOption"
+                value="Nearest to me"
+                checked={selectedSortOption === "Nearest to me"}
+                onChange={() => setSelectedSortOption("Nearest to me")}
+              />
+              Nearest to me
+            </label>
+          )}
           <label>
             <input
               type="radio"
@@ -66,9 +70,12 @@ const SalonFilterOptions = ({
             Ratings (High to Low)
           </label>
         </div>
-      ):""}
+      ) : (
+        ""
+      )}
 
-      {((modal.modalContent == "price" && isMobile) || (modal.modalContent == "all" && !isMobile))? (
+      {(modal.modalContent == "price" && isMobile) ||
+      (modal.modalContent == "all" && !isMobile) ? (
         <div className={styles.Price}>
           {isMobile && (
             <div className={styles.header}>
@@ -90,98 +97,103 @@ const SalonFilterOptions = ({
             onChange={handlePercentageChange}
           />
         </div>
-      ):""}
+      ) : (
+        ""
+      )}
 
-      {((modal.modalContent == "venue" && isMobile) || (modal.modalContent == "all" && !isMobile))?  (
-          <div className={styles.venueType}>
-            {isMobile ? (
-              <div className={styles.header}>
-                <h4>Venue type</h4>
-                <img src={Close} alt="close" onClick={handleCloseModal} />
-              </div>
-            ) : (
+      {(modal.modalContent == "venue" && isMobile) ||
+      (modal.modalContent == "all" && !isMobile) ? (
+        <div className={styles.venueType}>
+          {isMobile ? (
+            <div className={styles.header}>
               <h4>Venue type</h4>
-            )}
+              <img src={Close} alt="close" onClick={handleCloseModal} />
+            </div>
+          ) : (
+            <h4>Venue type</h4>
+          )}
 
-            {/* {!isMobile && ( */}
-              <div className={styles.venueButtons}>
-                {isMobile ? (
-                  <>
-                    <label
-                      className={`${styles.everyone} ${
-                        selectedVenueType === "everyone" ? styles.active : ""
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="venueType"
-                        value="everyone"
-                        checked={selectedVenueType === "everyone"}
-                        onChange={() => setSelectedVenueType("everyone")}
-                      />
-                      Everyone
-                    </label>
-                    <label
-                      className={`${styles.female} ${
-                        selectedVenueType === "female" ? styles.active : ""
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="venueType"
-                        value="female"
-                        checked={selectedVenueType === "female"}
-                        onChange={() => setSelectedVenueType("female")}
-                      />
-                      Female only
-                    </label>
-                    <label
-                      className={`${styles.male} ${
-                        selectedVenueType === "male" ? styles.active : ""
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="venueType"
-                        value="male"
-                        checked={selectedVenueType === "male"}
-                        onChange={() => setSelectedVenueType("male")}
-                      />
-                      Male only
-                    </label>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      className={`${styles.everyone} ${
-                        selectedVenueType === "everyone" ? styles.active : ""
-                      }`}
-                      onClick={() => setSelectedVenueType("everyone")}
-                    >
-                      Everyone
-                    </button>
-                    <button
-                      className={`${styles.female} ${
-                        selectedVenueType === "female" ? styles.active : ""
-                      }`}
-                      onClick={() => setSelectedVenueType("female")}
-                    >
-                      Female only
-                    </button>
-                    <button
-                      className={`${styles.male} ${
-                        selectedVenueType === "male" ? styles.active : ""
-                      }`}
-                      onClick={() => setSelectedVenueType("male")}
-                    >
-                      Male only
-                    </button>
-                  </>
-                )}
-              </div>
-            {/* )} */}
+          {/* {!isMobile && ( */}
+          <div className={styles.venueButtons}>
+            {isMobile ? (
+              <>
+                <label
+                  className={`${styles.everyone} ${
+                    selectedVenueType === "everyone" ? styles.active : ""
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="venueType"
+                    value="everyone"
+                    checked={selectedVenueType === "everyone"}
+                    onChange={() => setSelectedVenueType("everyone")}
+                  />
+                  Everyone
+                </label>
+                <label
+                  className={`${styles.female} ${
+                    selectedVenueType === "female" ? styles.active : ""
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="venueType"
+                    value="female"
+                    checked={selectedVenueType === "female"}
+                    onChange={() => setSelectedVenueType("female")}
+                  />
+                  Female only
+                </label>
+                <label
+                  className={`${styles.male} ${
+                    selectedVenueType === "male" ? styles.active : ""
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="venueType"
+                    value="male"
+                    checked={selectedVenueType === "male"}
+                    onChange={() => setSelectedVenueType("male")}
+                  />
+                  Male only
+                </label>
+              </>
+            ) : (
+              <>
+                <button
+                  className={`${styles.everyone} ${
+                    selectedVenueType === "everyone" ? styles.active : ""
+                  }`}
+                  onClick={() => setSelectedVenueType("everyone")}
+                >
+                  Everyone
+                </button>
+                <button
+                  className={`${styles.female} ${
+                    selectedVenueType === "female" ? styles.active : ""
+                  }`}
+                  onClick={() => setSelectedVenueType("female")}
+                >
+                  Female only
+                </button>
+                <button
+                  className={`${styles.male} ${
+                    selectedVenueType === "male" ? styles.active : ""
+                  }`}
+                  onClick={() => setSelectedVenueType("male")}
+                >
+                  Male only
+                </button>
+              </>
+            )}
           </div>
-        ):""}
+          {/* )} */}
+        </div>
+      ) : (
+        ""
+      )}
 
       {/* Render different buttons based on whether it's mobile or desktop */}
       {isMobile ? (

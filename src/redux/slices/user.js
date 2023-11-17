@@ -8,6 +8,7 @@ const initialState = {
     first_name: "",
     latitude: null,
     longitude: null,
+    isLocationAllow:false
   },
   OTP: 0,
   tempLoginInfo: {},

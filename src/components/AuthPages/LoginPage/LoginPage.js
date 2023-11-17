@@ -17,6 +17,7 @@ import {
   Facebooklogin,
   getUserProfile,
   googlelogin,
+  googleloginSuccess,
   login,
   otpsignin,
   sendLoginOTP,
@@ -101,13 +102,13 @@ const LoginPage = (props) => {
             console.error("localStorage is not available.");
           }
           (async () => {
-            const profileResponse = await getUserProfile();
+            const profileResponse = await getUserProfile(res?.res.data.token);
             if (profileResponse?.res.status === 200) {
               const profileData = profileResponse?.res?.data?.data;
               delete Object.assign(profileData, {
                 ["place"]: profileData["location"],
               })["location"];
-              localStorage.setItem("userData", JSON.stringify(profileData));
+              // localStorage.setItem("userData", JSON.stringify(profileData));
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(profileData));
               navigate("/");
@@ -306,6 +307,21 @@ const LoginPage = (props) => {
           <p className={styles.continueWith}>
             <span></span>Or simply continue with <span></span>
           </p>
+
+            {/* //? Passport.js google and facebook auth by library [G,F]*/}
+          {/* <div className={styles.socialButtons}>
+            <SecondaryButton className={styles.google} onClick={() => googlelogin()}>
+              <img src={Google_Logo} />
+              Google P
+            </SecondaryButton>
+
+              <SecondaryButton className={styles.facebook} onClick={() => Facebooklogin()}>
+                <img src={Facebook_Logo} />
+                Facebook P
+              </SecondaryButton>
+          </div> */}
+
+            {/*//? google and facebook auth by library */}
           <div className={styles.socialButtons}>
             <SecondaryButton className={styles.google} onClick={() => googleAuthLogin()}>
               <img src={Google_Logo} />

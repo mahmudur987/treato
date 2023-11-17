@@ -76,17 +76,6 @@ export default function Navbar() {
     // window.open("https://backend.treato.in/api/v1/auth/logout","_self")
   };
 
-  useEffect(() => {
-    fetchIPInfo().then((res) => {
-      if (res) {
-        let ipBasedLocation = res?.response;
-        const [latitude, longitude] = ipBasedLocation?.loc?.split(",");
-        setresetUserData({ latitude, longitude, ...ipBasedLocation });
-      } else {
-        console.log("Location not available.");
-      }
-    });
-  }, []);
 
   useEffect(() => {
     if (location.pathname === "/salons") {

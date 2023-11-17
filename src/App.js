@@ -22,11 +22,9 @@ import Lookbook from "./pages/Lookbook/Lookbook";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from "./components/AuthPages/ResetPassword/ResetPassword";
-import PrivateRoutes from "./layouts/PrivateRoutes";
-import { getUserProfile, googleloginSuccess } from "./services/auth";
+import { getUserProfile } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
-import axiosInstance from "./services/axios";
-import { fetchIPInfo } from "./services/user";
+
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
@@ -34,70 +32,71 @@ function App() {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user);
+  const [isLocationBlocked, setisLocationBlocked] = useState(false);
   const [userGeolocationAvailable, setUserGeolocationAvailable] =
     useState(true); // State to track geolocation availability
   const [userLoc, setuserLoc] = useState({});
 
-  const fetchLocation = () => {
-    // If geolocation is not available, fall back to IP-based location
-    fetchIpBasedLocation().then((ipBasedLocation) => {
-      if (ipBasedLocation) {
-        const { lat, lon, city, regionName } = ipBasedLocation;
-        setuserLoc({ lat, lon, city, regionName });
-        dispatch(
-          updateUserDetails({ latitude: lat, longitude: lon, city, regionName })
-        );
-      } else {
-        setError("Location not available.");
-      }
-    });
-  };
-  const fetchIpBasedLocation = async () => {
-    try {
-      const response = await fetch("http://ip-api.com/json");
-      if (response.ok) {
-        const data = await response.json();
-        const { lat, lon, city, regionName } = data;
-        return { lat, lon, city, regionName };
-      } else {
-        console.error(
-          "IP-based location service response not okay:",
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (error) {
-      console.error("Error fetching IP-based location:", error);
+//Ask For Location Permission 
+  const askForLocationPermission = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setuserLoc({ latitude, longitude });
+          dispatch(
+            updateUserDetails({ latitude, longitude, isLocationAllow: true })
+          );
+        },
+        (error) => {
+          console.error("Error getting user's location:", error);
+          // if blocked setting default lat and lon of Delhi
+          dispatch(
+            updateUserDetails({
+              isLocationAllow: false,
+              latitude: 28.6139, // Latitude of Delhi
+              longitude: 77.2090, // Longitude of Delhi
+            })
+          );
+          setUserGeolocationAvailable(false);
+          setisLocationBlocked(true);
+        }
+      );
+    } else {
+      console.error("Geolocation not supported");
+      setUserGeolocationAvailable(false);
     }
-    return null;
   };
-  // Scroll to the top when the route changes
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
 
   useEffect(() => {
-    // Call the action to fetch salon data, passing userDetails as an argument
-    dispatch(fetchSalonsData(userDetails));
-  }, [dispatch, userDetails]);
+    if(isLocationBlocked){
+      toast.info(`For a better experience, please allow location access.`, {
+        position: "top-right",
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  }, [isLocationBlocked])
+  
+  useEffect(() => {
+    // Fetch user's location if not available
+    if (!userDetails.latitude || !userDetails.longitude) {
+      askForLocationPermission();
+    }
+  }, [userDetails.latitude,userDetails.longitude]);
+
+
 
   useEffect(() => {
-    fetchIPInfo().then((res) => {
-      if (res) {
-        let ipBasedLocation = res?.response;
-        const [latitude, longitude] = ipBasedLocation?.loc?.split(",");
-        setuserLoc({ latitude, longitude, city: ipBasedLocation.city });
-        dispatch(
-          updateUserDetails({ latitude, longitude, ...ipBasedLocation })
-        );
-      } else {
-        setError("Location not available.");
-      }
-    });
-
+    //fetching user data through jwttoken and storing in user state
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
-      getUserProfile().then((res) => {
+      getUserProfile(isTokenExist).then((res) => {
         dispatch(updateIsLoggedIn(true));
         dispatch(updateUserDetails(res?.res?.data?.data));
       });
@@ -106,11 +105,7 @@ function App() {
 
   //TODO :google auth
   // useEffect(() => {
-  //!--step1
-  // googleloginSuccess().then((res) => {
-  //   console.log("Google login response:",res);
-  // });
-  //!--step2
+  //!--modal not visible in this method
   // const fetchData = async () => {
   //   try {
   //     const res = await axiosInstance.get(
@@ -124,29 +119,40 @@ function App() {
   // fetchData();
   // }, []);
 
-  // useEffect(() => {
-  //   const getUser = () => {
-  //     fetch("https://backend.treato.in/api/v1/auth/login/success", {
-  //       method: "GET",
-  //       credentials: "include",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Credentials": true,
-  //       },
-  //     })
-  //       .then((response) => {
-  //         if (response.status === 200) return response.json();
-  //         throw new Error("authentication has been failed");
-  //       }).then((res)=>{
-  //         console.log("Google response", res);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   };
-  //   getUser();
-  // }, []);
+  // ! window.open method is having unauthorized error
+  useEffect(() => {
+    const getUser = () => {
+      fetch("http://backend.treato.in/api/v1/auth/login/success", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) return response.json();
+          throw new Error("authentication has been failed");
+        })
+        .then((res) => {
+          console.log("Google response", res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getUser();
+  }, []);
+  // Scroll to the top when the route changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    // Call the action to fetch salon data, passing userDetails as an argument
+    dispatch(fetchSalonsData(userDetails));
+  }, [dispatch, userDetails]);
   return (
     <PageLayout>
       <ToastContainer />

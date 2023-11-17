@@ -63,53 +63,9 @@ export const resetPassword = async (id, token, newPassword) => {
   }
 };
 
-// required for google auth 
-
-// { withCredentials: true }
-// "http://localhost:4000/api/v1/auth/google"
-
-export const googlelogin = async () => {
-    try {
-      const res = window.open(
-        "https://backend.treato.in/api/v1/auth/google",
-        "_self"
-      );
-      return { res: res, err: null };
-    } catch (error) {
-      return { err: error, res: null };
-    }
-};
-
-
-export const googleloginSuccess = async () => {
-     try {
-       const res = await axiosInstance.get(
-         "https://backend.treato.in/api/v1/auth/login/success"
-       );
-       return { res: res, err: null };
-     } catch (error) {
-       return { err: error, res: null };
-     }
-     
-   };
-
-
-   export const Facebooklogin = async () => {
-        try {
-          const res = window.open(
-            "https://backend.treato.in/api/v1/auth/facebook",
-            "_self"
-          );
-          return { res: res, err: null };
-        } catch (error) {
-          return { err: error, res: null };
-        }
-    };
-
-export const getUserProfile = async () => {
+export const getUserProfile = async (jwtToken) => {
   try {
     // Retrieve the JWT token from localStorage
-    const jwtToken = localStorage.getItem("jwtToken");
     if (!jwtToken) {
       // Handle the case where the token is not available
       throw new Error("JWT token is not available");
@@ -128,3 +84,49 @@ export const getUserProfile = async () => {
     return { err: error, res: null };
   }
 };
+
+// required for google auth 
+
+// { withCredentials: true }
+// https://backend.treato.in
+// "http://localhost:4000/api/v1/auth/google"
+
+// * Passport.js google auth
+export const googlelogin = async () => {
+    try {
+      const res = window.open(
+        "https://backend.treato.in/api/v1/auth/google",
+        "_self"
+      );
+      return { res: res, err: null };
+    } catch (error) {
+      return { err: error, res: null };
+    }
+};
+export const googleloginSuccess = async () => {
+     try {
+       const res = await axiosInstance.get(
+         "https://backend.treato.in/api/v1/auth/login/success"
+       );
+       return { res: res, err: null };
+     } catch (error) {
+       return { err: error, res: null };
+     }
+     
+   };
+// * Passport.js Facebook auth
+
+   export const Facebooklogin = async () => {
+        try {
+          const res = window.open(
+            "https://backend.treato.in/api/v1/auth/facebook",
+            "_self"
+          );
+          return { res: res, err: null };
+        } catch (error) {
+          return { err: error, res: null };
+        }
+    };
+
+
+

@@ -106,7 +106,6 @@ const VerifyOTP = (props) => {
         if (typeof localStorage !== "undefined") {
           // Use localStorage
           localStorage.setItem("jwtToken", jwtToken);
-          localStorage.setItem("userData", JSON.stringify(userData));
           dispatch(updateIsLoggedIn(true));
           dispatch(updateUserDetails(userData));
           dispatch(resetTempLoginInfo({}));
