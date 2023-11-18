@@ -35,7 +35,7 @@ export const applyFilters = (
   closeModal
 ) => {
   // Filter salonContent based on the selected sort option
-  let filteredSalons = [...salonsState.filterContent];
+  let filteredSalons = [...salonsState.searchSalonResults];
 
   if (selectedSortOption === "Recommended") {
     filteredSalons = filteredSalons.sort((a, b) => b.rating - a.rating);

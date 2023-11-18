@@ -19,6 +19,7 @@ import {
   googlelogin,
   googleloginSuccess,
   login,
+  oauthGoogleLogin,
   otpsignin,
   sendLoginOTP,
 } from "../../../services/auth";
@@ -28,7 +29,7 @@ import {
   updateTempLoginInfo,
   updateUserDetails,
 } from "../../../redux/slices/user";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { LoginSocialFacebook } from "reactjs-social-login";
 import { FacebookLoginButton } from "react-social-login-buttons";
@@ -49,6 +50,7 @@ const LoginPage = (props) => {
   const [formErrors, setFormErrors] = useState({});
   const [responseError, setresponseError] = useState("");
   const [facebookProfile, setFacebookProfile] = useState(null);
+  const userChoice = useSelector((state) => state.authChoice);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleOTPForm = () => {
@@ -93,7 +95,6 @@ const LoginPage = (props) => {
 
     if (Object.keys(errors).length === 0 && showEmailPassword) {
       login(formData).then((res) => {
-        console.log(res);
         if (res?.res?.status === 200 && res?.res?.data.token) {
           if (typeof localStorage !== "undefined") {
             // Use localStorage
@@ -182,6 +183,7 @@ const LoginPage = (props) => {
     // Your logic here for submitting the form data
   };
 
+
   const googleAuthLogin = useGoogleLogin({
     cookiePolicy: "single_host_origin",
     onSuccess: async (response) => {
@@ -194,13 +196,50 @@ const LoginPage = (props) => {
             },
           }
         );
-        console.log("GoogleResponse", res);
+        console.log("GoogleResponse",res);
+        const {email,family_name,given_name,picture}=res?.data
+        let data={
+            email: email,
+            first_name: given_name,
+            last_name:family_name,
+            role:userChoice?.role?.role||"normal",
+            picture,
+        }
+        oauthGoogleLogin(data).then((res)=>{
+          console.log(res);
+          if(res?.res?.data && res?.res.status===200){
+            dispatch(updateIsLoggedIn(true));
+            dispatch(updateUserDetails(res?.res?.data?.newUser||res?.res?.data.user));
+            navigate("/");
+            toast("Welcome to Treato! Start exploring now!", {
+              position: "top-right",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+          else{
+            toast.error(`An unexpected error occurred. Please try again.`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              });
+          }
+        })
       } catch (err) {
         console.log(err);
       }
     },
   });
-
   return (
     <AuthPage>
       <div className={styles.container}>

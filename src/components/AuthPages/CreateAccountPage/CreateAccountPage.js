@@ -12,11 +12,11 @@ import {
   arrowleft,
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { Facebooklogin, googlelogin, register } from "../../../services/auth";
+import { Facebooklogin, googlelogin, oauthGoogleLogin, register } from "../../../services/auth";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { sendLoginOTP } from "../../../services/auth";
-import { updateOTP } from "../../../redux/slices/user";
+import { updateIsLoggedIn, updateOTP, updateUserDetails } from "../../../redux/slices/user";
 import { LoginSocialFacebook } from "reactjs-social-login";
 import { FacebookLoginButton } from "react-social-login-buttons";
 import axios from "axios";
@@ -140,6 +140,44 @@ const CreateAccountPage = () => {
           }
         );
         console.log("GoogleResponse",res);
+        const {email,family_name,given_name,picture}=res?.data
+        let data={
+            email: email,
+            first_name: given_name,
+            last_name:family_name,
+            role:userChoice?.role?.role||"normal",
+            picture,
+        }
+        oauthGoogleLogin(data).then((res)=>{
+          console.log(res);
+          if(res?.res?.data && res?.res.status===200){
+            dispatch(updateIsLoggedIn(true));
+            dispatch(updateUserDetails(res?.res?.data?.newUser||res?.res?.data.user));
+            navigate("/");
+            toast("Welcome to Treato! Start exploring now!", {
+              position: "top-right",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+          else{
+            toast.error(`An unexpected error occurred. Please try again.`, {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              });
+          }
+        })
       } catch (err) {
         console.log(err);
       }

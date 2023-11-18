@@ -128,5 +128,12 @@ export const googleloginSuccess = async () => {
         }
     };
 
-
-
+//google login fro oauth library
+    export const oauthGoogleLogin = async (data) => {
+      try {
+        const res = await axiosInstance.post(`/google`, data);
+        return { res, err: null };
+      } catch (error) {
+        return { err: error, res: null };
+      }
+    };

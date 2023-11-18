@@ -16,11 +16,12 @@ import { salonContent } from "./SalonsContent.js";
 import {
   resetSalonContent,
   updateFilterContent,
+  updateSearchSalonResults,
 } from "../../redux/slices/salons";
 import { useLocation } from "react-router-dom";
 import { getSalonListBySearchInput, salon } from "../../services/salon";
 import { useEffect } from "react";
-import { fetchSalonsData } from "../../utils/utils";
+import { fetchSalonsData, getfilterSalon } from "../../utils/utils";
 const Salons = React.memo(() => {
   const salonsState = useSelector((state) => state.salons);
   const salonModal = useSelector((state) => state.salonModal);
@@ -56,16 +57,18 @@ const Salons = React.memo(() => {
   //fetching base on search input
   useEffect(() => {
     setIsLoading(true); // Set loading state
-    dispatch(
-      fetchSalonsData(userDetails, "searchBase", servicesParam, locationParam)
-    ).then(() => setIsLoading(false));
-  }, [
-    dispatch,
-    servicesParam,
-    locationParam,
-    salonsState.filterContent.length,
-  ]);
-  
+    getfilterSalon(
+      userDetails,
+      "searchBase",
+      servicesParam,
+      locationParam
+    ).then((res) => {
+      setIsLoading(false);
+      dispatch(updateSearchSalonResults(res))
+      dispatch(updateFilterContent(res))
+    });
+  }, [servicesParam, locationParam]);
+
   // Memoize items based on filterContent
   const items = useMemo(() => {
     return salonsState.filterContent.map((item, index) => (

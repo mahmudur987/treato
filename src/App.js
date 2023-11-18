@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import PageLayout from "./layouts/PageLayout/PageLayout";
 import Home from "./pages/Home/Home";
 import Blogs from "./pages/Blogs/Blogs";
@@ -24,6 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from "./components/AuthPages/ResetPassword/ResetPassword";
 import { getUserProfile } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
+import PrivateFormRoutes from "./layouts/PrivateRoutes";
 
 function App() {
   // Use the location hook to track route changes
@@ -37,7 +38,7 @@ function App() {
     useState(true); // State to track geolocation availability
   const [userLoc, setuserLoc] = useState({});
 
-//Ask For Location Permission 
+  //Ask For Location Permission
   const askForLocationPermission = () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -55,7 +56,7 @@ function App() {
             updateUserDetails({
               isLocationAllow: false,
               latitude: 28.6139, // Latitude of Delhi
-              longitude: 77.2090, // Longitude of Delhi
+              longitude: 77.209, // Longitude of Delhi
             })
           );
           setUserGeolocationAvailable(false);
@@ -69,7 +70,7 @@ function App() {
   };
 
   useEffect(() => {
-    if(isLocationBlocked){
+    if (isLocationBlocked) {
       toast.info(`For a better experience, please allow location access.`, {
         position: "top-right",
         autoClose: 6000,
@@ -81,16 +82,14 @@ function App() {
         theme: "light",
       });
     }
-  }, [isLocationBlocked])
-  
+  }, [isLocationBlocked]);
+
   useEffect(() => {
     // Fetch user's location if not available
     if (!userDetails.latitude || !userDetails.longitude) {
       askForLocationPermission();
     }
-  }, [userDetails.latitude,userDetails.longitude]);
-
-
+  }, [userDetails.latitude, userDetails.longitude]);
 
   useEffect(() => {
     //fetching user data through jwttoken and storing in user state
@@ -103,47 +102,6 @@ function App() {
     }
   }, []);
 
-  //TODO :google auth
-  // useEffect(() => {
-  //!--modal not visible in this method
-  // const fetchData = async () => {
-  //   try {
-  //     const res = await axiosInstance.get(
-  //       'https://backend.treato.in/api/v1/auth/login/success'
-  //     );
-  //     console.log('Google login response:', res);
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
-  // fetchData();
-  // }, []);
-
-  // ! window.open method is having unauthorized error
-  useEffect(() => {
-    const getUser = () => {
-      fetch("http://backend.treato.in/api/v1/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed");
-        })
-        .then((res) => {
-          console.log("Google response", res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getUser();
-  }, []);
   // Scroll to the top when the route changes
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -171,12 +129,16 @@ function App() {
         {/* <Route element={<PrivateRoutes />}> */}
         {/* </Route> */}
         {/* Auth routes */}
-        <Route path="/auth-choice" exact element={<AuthChoicePage />} />
-        <Route path="/create-account" element={<CreateAccountPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/verify-otp" element={<VerifyOTP />} />
-        <Route path="/reset-password/*" element={<ResetPassword />} />
+        <Route element={<PrivateFormRoutes />}>
+          <Route path="/auth-choice" exact element={<AuthChoicePage />} />
+          <Route path="/create-account" element={<CreateAccountPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verify-otp" element={<VerifyOTP />} />
+          <Route path="/reset-password/*" element={<ResetPassword />} />
+        </Route>
+        {/* Redirect to home for any wrong routes */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </PageLayout>
   );
