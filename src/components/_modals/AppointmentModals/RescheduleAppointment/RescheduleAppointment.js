@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RescheduleAppointment.module.css";
-import ServiceTimeStyles from "../../../../pages/BookFlow/BookFlow.module.css";
 import { frame1 } from "../../../../assets/images/Appointments";
 import rightIco from "../../../../assets/images/SalonDetail/chevron-right.svg";
-import leftIco from "../../../../assets/images/SalonDetail/chevron-left.svg";
 import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
 import Slider from "react-slick";
 import "./Carousal.css";
-import ServiceTime from "../../../BookFlow/ServiceTime/ServiceTime";
 import DateComponent from "../../../BookFlow/DateComponent/DateComponent";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -29,72 +26,144 @@ function SamplePrevArrow(props) {
 }
 const RescheduleAppointment = () => {
   const [slidesToShow, setSlidesToShow] = useState(4); // Default value for mobile
-  let [actveCard, updateActiveCard] = useState(0)
-  let [activeTime, updateActiveTime] = useState(0)
+  let [actveCard, updateActiveCard] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [showMonth, setShowMonth] = useState(new Date().getMonth());
+  const [showYear, setShowYear] = useState(new Date().getFullYear());
+  let [allCalendar, setallCalendar] = useState(null);
+  const [showPrevButton, setShowPrevButton] = useState(false);
+  const [showNextButton, setShowNextButton] = useState(true);
 
-  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const containerRef = React.createRef();
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const date = new Date();
-  const year = date.getFullYear();
-  let threeMonths = months.filter((v, i) => date.getMonth() <= i ? v : null)
-  let [showMonth, setShowMonth] = useState(0)
-  let [showYear, setShowYear] = useState(year)
-  let [allCalendar, setallCalendar] = useState(null)
-  const [canChangeMonth, setCanChangeMonth] = useState(true); 
-  const [canDecreaseMonth, setCanDecreaseMonth] = useState(true);
-  function updateMonthYear(back) {
-      if (back) {
-          if (threeMonths[showMonth] === 'January' && showMonth === 2) {
-            setCanDecreaseMonth(false);
-            console.log("not des");
-              setShowYear(prev => prev - 1);
-          }
-          setShowMonth(showMonth === 0 ? 0 : showMonth - 1)
-      } else {
-          if (threeMonths[showMonth] === 'December' && showMonth === 1) {
-            console.log("not inc");
-            setCanChangeMonth(false); 
-              setShowYear(prev => prev + 1);
-          }
-          setShowMonth(showMonth === 2 ? 2 : showMonth + 1)
-      }
-  }
+
+  const [allowMonths, setallowMonths] = useState([]);
 
   useEffect(() => {
-      let todayMonth = null
-      let todayDate = null
-      let day = null
-      months.map((v, i) => {
-          if (v === threeMonths[showMonth]) {
-              todayMonth = i
-          }
-      })
-      if (!showMonth) {
-          todayDate = new Date().getDate();
-          day = new Date().getDay();
-      } else {
-          todayDate = new Date(showYear, todayMonth, 1).getDate();
-          day = new Date(showYear, todayMonth, 1).getDay();
-      }
-      let lastDate = new Date(showYear, todayMonth + 1, 0).getDate();
-      let allDates = []
-      let allDays = [];
-      for (todayDate; todayDate <= lastDate; todayDate++) {
-          allDates.push(todayDate)
-          allDays.push(days[day])
-          if (day === 6) {
-              day = 0
-          } else {
-              day++;
-          }
-      }
-      let finalCalendar = [{
-          allDates,
-          allDays
-      }]
-      setallCalendar(finalCalendar)
-  }, [showMonth])
+    console.log(allowMonths);
+  }, [allowMonths]);
 
+  const generateAllowedMonths = () => {
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+    const allowedMonths = [];
+
+    for (let i = 0; i < 3; i++) {
+      const month = (currentMonth + i) % 12;
+      const year = currentYear + Math.floor((currentMonth + i) / 12);
+      allowedMonths.push(`${months[month]} ${year}`);
+    }
+    setallowMonths(allowedMonths);
+    return allowedMonths;
+  };
+
+  const handleIncrement = () => {
+    const allowedMonths = generateAllowedMonths();
+    console.log(allowedMonths);
+
+    const nextMonth = (showMonth + 1) % 12;
+    const nextYear = showMonth === 11 ? showYear + 1 : showYear;
+
+    const nextMonthString = `${months[nextMonth]} ${nextYear}`;
+
+    if (allowedMonths.includes(nextMonthString)) {
+      setShowMonth(nextMonth);
+      setShowYear(nextYear);
+    }
+  };
+
+  const handleDecrement = () => {
+    const allowedMonths = generateAllowedMonths();
+
+    const prevMonth = (showMonth - 1 + 12) % 12;
+    const prevYear = showMonth === 0 ? showYear - 1 : showYear;
+
+    const prevMonthString = `${months[prevMonth]} ${prevYear}`;
+
+    if (allowedMonths.includes(prevMonthString)) {
+      setShowMonth(prevMonth);
+      setShowYear(prevYear);
+    }
+  };
+
+  useEffect(() => {
+    const today = new Date();
+    console.log(today);
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+    const currentDate = today.getDate();
+
+    let startMonth = currentMonth;
+    let startYear = currentYear;
+    let startDay = currentDate;
+
+    if (
+      showYear > currentYear ||
+      (showYear === currentYear && showMonth > currentMonth)
+    ) {
+      startMonth = showMonth;
+      startYear = showYear;
+      startDay = 1; // Start from the 1st day of the selected month
+    }
+
+    const lastDate = new Date(startYear, startMonth + 1, 0).getDate();
+    const allDates = [];
+    const allDays = [];
+
+    let day = new Date(startYear, startMonth, startDay).getDay();
+
+    for (let i = startDay; i <= lastDate; i++) {
+      allDates.push(i);
+      allDays.push(days[day]);
+
+      if (day === 6) {
+        day = 0;
+      } else {
+        day++;
+      }
+    }
+
+    // For future months, calculate all dates from the 1st to the last day
+    if (
+      showYear > currentYear ||
+      (showYear === currentYear && showMonth > currentMonth)
+    ) {
+      console.log(
+        showYear,
+        currentYear,
+        showYear > currentYear ||
+          (showYear === currentYear && showMonth > currentMonth)
+      );
+      const futureLastDate = new Date(showYear, showMonth + 1, 0).getDate();
+      for (let i = 1; i <= futureLastDate; i++) {
+        allDates.push(i);
+        allDays.push(days[day]);
+
+        if (day === 6) {
+          day = 0;
+        } else {
+          day++;
+        }
+      }
+    }
+
+    setallCalendar([{ allDates, allDays }]);
+  }, [showMonth, showYear]);
 
   useEffect(() => {
     // Check the window width and update slidesToShow accordingly
@@ -119,6 +188,9 @@ const RescheduleAppointment = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  useEffect(() => {
+    handleScroll();
+  }, [scrollPosition]);
 
   var settings = {
     dots: false,
@@ -129,21 +201,6 @@ const RescheduleAppointment = () => {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
-  const dateData = [
-    { day: "Mon", date: "14" },
-    { day: "Tue", date: "15" },
-    { day: "Wed", date: "16" },
-    { day: "Thur", date: "17" },
-    { day: "Fri", date: "18" },
-    { day: "Sat", date: "19" },
-
-    // Add more objects as needed
-  ];
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [showPrevButton, setShowPrevButton] = useState(false);
-  const [showNextButton, setShowNextButton] = useState(true);
-
-  const containerRef = React.createRef();
 
   const handleScroll = () => {
     if (containerRef.current) {
@@ -158,34 +215,13 @@ const RescheduleAppointment = () => {
       );
     }
   };
-  useEffect(() => {
-    handleScroll();
-  }, [scrollPosition]);
 
-  const handlePrevClick = () => {
-    if (containerRef.current) {
-      const container = containerRef.current;
-      container.scrollTo({
-        left: scrollPosition - 100, // Adjust this value as needed for scrolling
-        behavior: "smooth",
-      });
-    }
-  };
-  const handleNextClick = () => {
-    if (containerRef.current) {
-      const container = containerRef.current;
-      container.scrollTo({
-        left: scrollPosition + 100, // Adjust this value as needed for scrolling
-        behavior: "smooth",
-      });
-    }
-  };
   return (
     <div className={styles.RescheduleModal}>
       <h1 className={styles.modalTitle}>Reschedule Appointment</h1>
       <div className={styles.modalContent}>
         <div className={styles.salonInfo}>
-          <img src={frame1} alr="frame1" className={styles.salonProfileImg} />
+          <img src={frame1} alt="frame1" className={styles.salonProfileImg} />
           <div className={styles.details}>
             <h4 className={styles.salonName}>She Hair & Beauty</h4>
             <p className={styles.salonLocation}>Ejipura, Bengaluru</p>
@@ -198,30 +234,47 @@ const RescheduleAppointment = () => {
               Showing slots as per the salon and professional availability.
             </h2>
             <h4>Date</h4>
+            {console.log(months[0], months[showMonth])}
             <div className={styles.service_timeMonth}>
-              <img src={leftIco} alt=""  style={{ filter: canDecreaseMonth ? 'none' : 'blur(3px)' }} onClick={() => updateMonthYear(1)} />
-              <div>{threeMonths[showMonth]}</div>
-              <div>{showYear}</div>
-              <img src={rightIco} alt=""   style={{ filter: canChangeMonth ? 'none' : 'blur(3px)' }} onClick={() => updateMonthYear(0)}  />
+              <img
+                src={rightIco}
+                alt="leftIcon"
+                onClick={handleDecrement}
+                className={`${styles.leftarrowIcon} ${
+                  allowMonths[0] === `${months[showMonth]} ${showYear}`
+                    ? styles.disabled
+                    : ""
+                }`}
+              />
+              <div>{`${months[showMonth]} ${showYear}`}</div>
+              <img
+                src={rightIco}
+                alt="rightIcon"
+                onClick={handleIncrement}
+                className={`${styles.rightarrowIcon} ${
+                  allowMonths[2] === `${months[showMonth]} ${showYear}`
+                    ? styles.disabled
+                    : ""
+                }`}
+              />
             </div>
             <div id="reschedule_time_slick" className={`time_slick`}>
-                {
-                    allCalendar ?
-                        <Slider {...settings}>
-                            {
-                                allCalendar[0].allDates.map((v, i) => {
-                                    return (
-                                        <DateComponent index={i} updateActiveCard={updateActiveCard} actveCard={actveCard} allCalendar={allCalendar} key={i} />
-                                    )
-                                })
-                            }
-                        </Slider>
-                        :
-                        null
-                }
-
+              {allCalendar ? (
+                <Slider {...settings}>
+                  {allCalendar[0].allDates.map((v, i) => {
+                    return (
+                      <DateComponent
+                        index={i}
+                        updateActiveCard={updateActiveCard}
+                        actveCard={actveCard}
+                        allCalendar={allCalendar}
+                        key={i}
+                      />
+                    );
+                  })}
+                </Slider>
+              ) : null}
             </div>
-
           </div>
           <hr className={styles.line} />
           <div className={styles.startTime}>

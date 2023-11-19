@@ -150,8 +150,12 @@
       display: block; /* This is to make it display inline with the content */
       background-image: url('../../../../assets/images/icons/chevronLeft.svg');
   }
-
-
+.leftarrowIcon{
+  transform: scaleX(-1);
+}
+.disabled{
+ opacity: 0.3;
+}
 @media only screen and (max-width: 600px) {
   .RescheduleModal {
     width: 100%;
