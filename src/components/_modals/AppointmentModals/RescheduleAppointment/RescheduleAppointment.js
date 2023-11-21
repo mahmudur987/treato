@@ -5,7 +5,7 @@ import rightIco from "../../../../assets/images/SalonDetail/chevron-right.svg";
 import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
 import Slider from "react-slick";
 import "./Carousal.css";
-import DateComponent from "../../../BookFlow/DateComponent/DateComponent";
+import FormDateComponent from "./FormDateComponent";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
 
@@ -33,8 +33,9 @@ const RescheduleAppointment = () => {
   let [allCalendar, setallCalendar] = useState(null);
   const [showPrevButton, setShowPrevButton] = useState(false);
   const [showNextButton, setShowNextButton] = useState(true);
-
   const containerRef = React.createRef();
+  
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
     "January",
     "February",
@@ -49,14 +50,19 @@ const RescheduleAppointment = () => {
     "November",
     "December",
   ];
-
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
+  const timeSlots = ["10:30 AM", "01:30 PM", "03:30 PM", "06:30 PM", "08:30 PM"];
+  const [selectedDate, setSelectedDate] = useState({
+    date: new Date().getDate(),
+    day: days[new Date().getDay()],
+  });
+  const [selectedMonthYear, setSelectedMonthYear] = useState(`${months[new Date().getMonth()]} ${new Date().getFullYear()}`);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [allowMonths, setallowMonths] = useState([]);
 
-  useEffect(() => {
-    console.log(allowMonths);
-  }, [allowMonths]);
+  const handleTimeSlotClick = (timeSlot) => {
+    setSelectedTimeSlot(timeSlot);
+  };
+
 
   const generateAllowedMonths = () => {
     const currentMonth = new Date().getMonth();
@@ -74,7 +80,6 @@ const RescheduleAppointment = () => {
 
   const handleIncrement = () => {
     const allowedMonths = generateAllowedMonths();
-    console.log(allowedMonths);
 
     const nextMonth = (showMonth + 1) % 12;
     const nextYear = showMonth === 11 ? showYear + 1 : showYear;
@@ -84,6 +89,7 @@ const RescheduleAppointment = () => {
     if (allowedMonths.includes(nextMonthString)) {
       setShowMonth(nextMonth);
       setShowYear(nextYear);
+      setSelectedMonthYear(nextMonthString)
     }
   };
 
@@ -98,12 +104,19 @@ const RescheduleAppointment = () => {
     if (allowedMonths.includes(prevMonthString)) {
       setShowMonth(prevMonth);
       setShowYear(prevYear);
+      setSelectedMonthYear(prevMonthString)
     }
+  };
+
+  const handleRescheduleAppointment = () => {
+    // You can now access the selectedDate, selectedTime, and selectedTimeSlot
+    console.log("Selected Date:", selectedDate);
+    console.log("Selected Time:", selectedMonthYear);
+    console.log("Selected Time Slot:", selectedTimeSlot);
   };
 
   useEffect(() => {
     const today = new Date();
-    console.log(today);
     const currentYear = today.getFullYear();
     const currentMonth = today.getMonth();
     const currentDate = today.getDate();
@@ -143,12 +156,6 @@ const RescheduleAppointment = () => {
       showYear > currentYear ||
       (showYear === currentYear && showMonth > currentMonth)
     ) {
-      console.log(
-        showYear,
-        currentYear,
-        showYear > currentYear ||
-          (showYear === currentYear && showMonth > currentMonth)
-      );
       const futureLastDate = new Date(showYear, showMonth + 1, 0).getDate();
       for (let i = 1; i <= futureLastDate; i++) {
         allDates.push(i);
@@ -234,7 +241,6 @@ const RescheduleAppointment = () => {
               Showing slots as per the salon and professional availability.
             </h2>
             <h4>Date</h4>
-            {console.log(months[0], months[showMonth])}
             <div className={styles.service_timeMonth}>
               <img
                 src={rightIco}
@@ -263,11 +269,12 @@ const RescheduleAppointment = () => {
                 <Slider {...settings}>
                   {allCalendar[0].allDates.map((v, i) => {
                     return (
-                      <DateComponent
+                      <FormDateComponent
                         index={i}
                         updateActiveCard={updateActiveCard}
                         actveCard={actveCard}
                         allCalendar={allCalendar}
+                        setSelectedDate={setSelectedDate}
                         key={i}
                       />
                     );
@@ -280,16 +287,20 @@ const RescheduleAppointment = () => {
           <div className={styles.startTime}>
             <h4>Start time</h4>
             <div className={styles.timeSlotsWrapper}>
-              <button className={styles.timeSlot}>10:30 AM</button>
-              <button className={styles.timeSlot}>01:30 PM</button>
-              <button className={styles.timeSlot}>03:30 PM</button>
-              <button className={styles.timeSlot}>06:30 PM</button>
-              <button className={styles.timeSlot}>08:30 PM</button>
+            {timeSlots.map((timeSlot, index) => (
+            <button
+              key={index}
+              className={styles.timeSlot}
+              onClick={() => handleTimeSlotClick(timeSlot)}
+            >
+              {timeSlot}
+            </button>
+          ))}
             </div>
           </div>
         </div>
       </div>
-      <PrimaryButton children={"Reschedule Appointment"} />
+      <PrimaryButton children={"Reschedule Appointment"} onClick={handleRescheduleAppointment} />
     </div>
   );
 };

@@ -9,16 +9,18 @@ import {
   Facebook_Logo,
   Google_Logo,
   eyeline,
-  arrowleft,
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { Facebooklogin, googlelogin, oauthGoogleLogin, register } from "../../../services/auth";
+import { socialMediaLogin } from "../../../services/auth";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { sendLoginOTP } from "../../../services/auth";
-import { updateIsLoggedIn, updateOTP, updateUserDetails } from "../../../redux/slices/user";
+import {
+  updateIsLoggedIn,
+  updateOTP,
+  updateUserDetails,
+} from "../../../redux/slices/user";
 import { LoginSocialFacebook } from "reactjs-social-login";
-import { FacebookLoginButton } from "react-social-login-buttons";
 import axios from "axios";
 import { useGoogleLogin } from "@react-oauth/google";
 
@@ -31,9 +33,8 @@ const CreateAccountPage = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-  const [facebookProfile, setFacebookProfile] = useState(null);
-
   const userChoice = useSelector((state) => state.authChoice);
+  const facebookAppId = process.env.REACT_APP_FACEBOOK_APP_ID;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleFormSubmit = (event) => {
@@ -89,7 +90,6 @@ const CreateAccountPage = () => {
         console.log(res);
 
         if (res && res?.res?.data.status === true) {
-          console.log("OTP");
           dispatch(updateOTP(res?.res.data.otp));
           navigate("/verify-otp");
         } else {
@@ -111,20 +111,6 @@ const CreateAccountPage = () => {
         }
       });
     }
-
-    // Handle form submission
-    // Your logic here for submitting the form data
-  };
-
-  const handleGoogleLogin = () => {
-    googlelogin().then((res) => {
-      console.log(res);
-    });
-  };
-  const handleFacebookLogin = () => {
-    Facebooklogin().then((res) => {
-      console.log(res);
-    });
   };
 
   const googleAuthLogin = useGoogleLogin({
@@ -139,20 +125,22 @@ const CreateAccountPage = () => {
             },
           }
         );
-        console.log("GoogleResponse",res);
-        const {email,family_name,given_name,picture}=res?.data
-        let data={
-            email: email,
-            first_name: given_name,
-            last_name:family_name,
-            role:userChoice?.role?.role||"normal",
-            picture,
-        }
-        oauthGoogleLogin(data).then((res)=>{
-          console.log(res);
-          if(res?.res?.data && res?.res.status===200){
+        const { email, family_name, given_name, picture } = res?.data;
+        let data = {
+          email: email,
+          first_name: given_name,
+          last_name: family_name,
+          role: userChoice?.role?.role || "normal",
+          picture,
+        };
+        socialMediaLogin(data).then((res) => {
+          if (res?.res?.data && res?.res.status === 200) {
             dispatch(updateIsLoggedIn(true));
-            dispatch(updateUserDetails(res?.res?.data?.newUser||res?.res?.data.user));
+            dispatch(
+              updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+            );
+            // TODO jwt token will be added in localstorage once api update
+            localStorage.setItem("jwtToken", res?.res?.data?.token);
             navigate("/");
             toast("Welcome to Treato! Start exploring now!", {
               position: "top-right",
@@ -164,8 +152,7 @@ const CreateAccountPage = () => {
               progress: undefined,
               theme: "light",
             });
-          }
-          else{
+          } else {
             toast.error(`An unexpected error occurred. Please try again.`, {
               position: "top-right",
               autoClose: 5000,
@@ -175,16 +162,56 @@ const CreateAccountPage = () => {
               draggable: true,
               progress: undefined,
               theme: "light",
-              });
+            });
           }
-        })
+        });
       } catch (err) {
         console.log(err);
       }
     },
   });
 
-
+  const facebookAuthLogin = (facebookResponse) => {
+    const { email, first_name, last_name, picture } = facebookResponse;
+    let data = {
+      email,
+      first_name,
+      last_name,
+      role: userChoice?.role?.role || "normal",
+      picture: picture?.data?.url,
+    };
+    socialMediaLogin(data).then((res) => {
+      if (res?.res?.data && res?.res.status === 200) {
+        dispatch(updateIsLoggedIn(true));
+        dispatch(
+          updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+        );
+        localStorage.setItem("jwtToken", res?.res?.data?.token);
+        navigate("/");
+        toast("Welcome to Treato! Start exploring now!", {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error(`An unexpected error occurred. Please try again.`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    });
+  };
   return (
     <AuthPage>
       <div className={styles.container}>
@@ -297,34 +324,26 @@ const CreateAccountPage = () => {
             <span></span>Or simply continue with <span></span>
           </p>
           <div className={styles.socialButtons}>
-            {/* <SecondaryButton
+            <SecondaryButton
               className={styles.google}
-              onClick={handleGoogleLogin}
+              onClick={() => googleAuthLogin()}
             >
-              <img src={Google_Logo} />
-              Google
-            </SecondaryButton> */}
-            <SecondaryButton className={styles.google} onClick={() => googleAuthLogin()}>
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
             <LoginSocialFacebook
-              appId="1052652552722200"
+              appId={facebookAppId}
               onResolve={(response) => {
-                console.log(response);
-                setFacebookProfile(response.data);
+                facebookAuthLogin(response?.data);
               }}
               onReject={(error) => {
                 console.log(error);
               }}
             >
-              <SecondaryButton
-                className={styles.facebook}
-              >
+              <SecondaryButton className={styles.facebook}>
                 <img src={Facebook_Logo} />
                 Facebook
               </SecondaryButton>
-              {/* <FacebookLoginButton /> */}
             </LoginSocialFacebook>
           </div>
         </div>

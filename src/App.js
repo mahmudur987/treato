@@ -44,6 +44,7 @@ function App() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
+          // TODO: to add state,city  google map api key required
           setuserLoc({ latitude, longitude });
           dispatch(
             updateUserDetails({ latitude, longitude, isLocationAllow: true })
