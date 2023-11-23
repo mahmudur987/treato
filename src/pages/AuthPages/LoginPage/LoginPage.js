@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
-import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import styles from "./LoginPage.module.css";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import "react-phone-number-input/style.css";
@@ -32,6 +30,8 @@ import {
   useGoogleLogin,
 } from "@react-oauth/google";
 import axios from "axios";
+import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
+import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -105,46 +105,18 @@ const LoginPage = () => {
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(profileData));
               navigate("/");
-              toast("Welcome to Treato! Start exploring now!", {
-                position: "top-right",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
+              toast("Welcome to Treato! Start exploring now!");
             }
           })();
         } else if (
           res?.res?.status === 200 &&
           res?.res?.data.message === "Password is incorrect"
         ) {
-          toast.error(`${res?.res?.data.message}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          toast.error(`${res?.res?.data.message}`);
         } else {
-          toast.error("Invalid Credential", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          toast.error("Invalid Credential");
         }
       });
-      // return;
     }
     // handle phone Number login
     else if (Object.keys(errors).length === 0 && !showEmailPassword) {
@@ -168,11 +140,8 @@ const LoginPage = () => {
           setresponseError(res?.err.response.data.error);
         }
       });
-      // });
     }
 
-    // Handle form submission
-    // Your logic here for submitting the form data
   };
 
   const googleAuthLogin = useGoogleLogin({
@@ -203,27 +172,9 @@ const LoginPage = () => {
             );
             localStorage.setItem("jwtToken", res?.res?.data?.token);
             navigate("/");
-            toast("Welcome to Treato! Start exploring now!", {
-              position: "top-right",
-              autoClose: 4000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            toast("Welcome to Treato! Start exploring now!");
           } else {
-            toast.error(`An unexpected error occurred. Please try again.`, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            toast.error(`An unexpected error occurred. Please try again.`);
           }
         });
       } catch (err) {
@@ -249,27 +200,9 @@ const LoginPage = () => {
         );
         localStorage.setItem("jwtToken", res?.res?.data?.token);
         navigate("/");
-        toast("Welcome to Treato! Start exploring now!", {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast("Welcome to Treato! Start exploring now!");
       } else {
-        toast.error(`An unexpected error occurred. Please try again.`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error(`An unexpected error occurred. Please try again.`);
       }
     });
   };
@@ -384,7 +317,7 @@ const LoginPage = () => {
           <div className={styles.socialButtons}>
             <SecondaryButton
               className={styles.google}
-              onClick={() => googleAuthLogin()}
+              onClick={googleAuthLogin}
             >
               <img src={Google_Logo} />
               Google

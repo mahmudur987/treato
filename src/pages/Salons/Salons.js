@@ -71,23 +71,23 @@ const Salons = React.memo(() => {
 
   // Memoize items based on filterContent
   const items = useMemo(() => {
-    return salonsState.filterContent.map((item, index) => (
+    return salonsState?.filterContent?.map((item, index) => (
       <Salon key={index} salonData={item} />
     ));
   }, [salonsState.filterContent]);
 
-  const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(items?.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
 
-  const visibleItems = items.slice(startIndex, endIndex);
+  const visibleItems = items?.slice(startIndex, endIndex);
 
   const handlePageChange = (pageNumber) => {
     window.scrollTo(0, 0);
     setCurrentPage(pageNumber);
   };
   const showingStart = startIndex + 1;
-  const showingEnd = endIndex <= items.length ? endIndex : items.length;
+  const showingEnd = endIndex <= items?.length ? endIndex : items?.length;
   let showing = showingStart - showingEnd;
 
   useEffect(() => {
@@ -129,7 +129,7 @@ const Salons = React.memo(() => {
       </div>
       <div className={styles.venueInfo}>
         <h4>
-          Showing {visibleItems.length} of {salonsState.filterContent.length}{" "}
+          Showing {visibleItems?.length} of {salonsState?.filterContent?.length}{" "}
           venues
         </h4>
         <button
@@ -149,7 +149,7 @@ const Salons = React.memo(() => {
         {isLoading ? (
           <div className="zeroResponse">Loading...</div>
         ) : showContent ? (
-          visibleItems.length > 0 ? (
+          visibleItems?.length > 0 ? (
             visibleItems
           ) : (
             <div className="zeroResponse">No result found</div>

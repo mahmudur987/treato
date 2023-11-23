@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
-import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
+import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
+import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
 import styles from "./CreateAccountPage.module.css";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import "react-phone-number-input/style.css";
@@ -96,17 +96,7 @@ const CreateAccountPage = () => {
           toast.error(
             `${
               res?.err?.response?.data.message || res?.err?.response?.data.error
-            }`,
-            {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            }
+            }`
           );
         }
       });
@@ -142,27 +132,9 @@ const CreateAccountPage = () => {
             // TODO jwt token will be added in localstorage once api update
             localStorage.setItem("jwtToken", res?.res?.data?.token);
             navigate("/");
-            toast("Welcome to Treato! Start exploring now!", {
-              position: "top-right",
-              autoClose: 4000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            toast("Welcome to Treato! Start exploring now!");
           } else {
-            toast.error(`An unexpected error occurred. Please try again.`, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            toast.error(`An unexpected error occurred. Please try again.`);
           }
         });
       } catch (err) {
@@ -188,27 +160,9 @@ const CreateAccountPage = () => {
         );
         localStorage.setItem("jwtToken", res?.res?.data?.token);
         navigate("/");
-        toast("Welcome to Treato! Start exploring now!", {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast("Welcome to Treato! Start exploring now!");
       } else {
-        toast.error(`An unexpected error occurred. Please try again.`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error(`An unexpected error occurred. Please try again.`);
       }
     });
   };

@@ -85,49 +85,7 @@ export const getUserProfile = async (jwtToken) => {
   }
 };
 
-// required for google auth 
-
-// { withCredentials: true }
-// https://backend.treato.in
-// "http://localhost:4000/api/v1/auth/google"
-
-// * Passport.js google auth
-export const googlelogin = async () => {
-    try {
-      const res = window.open(
-        "https://backend.treato.in/api/v1/auth/google",
-        "_self"
-      );
-      return { res: res, err: null };
-    } catch (error) {
-      return { err: error, res: null };
-    }
-};
-export const googleloginSuccess = async () => {
-     try {
-       const res = await axiosInstance.get(
-         "https://backend.treato.in/api/v1/auth/login/success"
-       );
-       return { res: res, err: null };
-     } catch (error) {
-       return { err: error, res: null };
-     }
-     
-   };
-// * Passport.js Facebook auth
-
-   export const Facebooklogin = async () => {
-        try {
-          const res = window.open(
-            "https://backend.treato.in/api/v1/auth/facebook",
-            "_self"
-          );
-          return { res: res, err: null };
-        } catch (error) {
-          return { err: error, res: null };
-        }
-    };
-
+//Todo :We are temporarily using this API for Google and Facebook login and will switch to the Passport.js method once the bug in our Passport code is fixed
 //google and facebook login
     export const socialMediaLogin = async (data) => {
       try {

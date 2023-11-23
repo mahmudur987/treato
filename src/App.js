@@ -8,11 +8,11 @@ import BlogDetail from "./pages/BlogDetail/BlogDetail";
 import AccountSettings from "./pages/AccountSettings/AccountSettings";
 import SalonDetail from "./pages/SalonDetail/SalonDetail";
 import BookFlow from "./pages/BookFlow/BookFlow";
-import AuthChoicePage from "./components/AuthPages/AuthChoicePage/AuthChoicePage";
-import CreateAccountPage from "./components/AuthPages/CreateAccountPage/CreateAccountPage";
-import LoginPage from "./components/AuthPages/LoginPage/LoginPage";
-import VerifyOTP from "./components/AuthPages/VerifyOTP/VarifyOTP";
-import ForgotPassword from "./components/AuthPages/ForgotPassword/ForgotPassword";
+import AuthChoicePage from "./pages/AuthPages/AuthChoicePage/AuthChoicePage";
+import CreateAccountPage from "./pages/AuthPages/CreateAccountPage/CreateAccountPage";
+import LoginPage from "./pages/AuthPages/LoginPage/LoginPage";
+import VerifyOTP from "./pages/AuthPages/VerifyOTP/VarifyOTP";
+import ForgotPassword from "./pages/AuthPages/ForgotPassword/ForgotPassword";
 import MyAppointments from "./pages/MyAppointments/MyAppointments";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,7 @@ import { fetchSalonsData } from "./utils/utils";
 import Lookbook from "./pages/Lookbook/Lookbook";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ResetPassword from "./components/AuthPages/ResetPassword/ResetPassword";
+import ResetPassword from "./pages/AuthPages/ResetPassword/ResetPassword";
 import { getUserProfile } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 import PrivateFormRoutes from "./layouts/PrivateRoutes";
@@ -72,16 +72,7 @@ function App() {
 
   useEffect(() => {
     if (isLocationBlocked) {
-      toast.info(`For a better experience, please allow location access.`, {
-        position: "top-right",
-        autoClose: 6000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.info(`For a better experience, please allow location access.`);
     }
   }, [isLocationBlocked]);
 
@@ -114,7 +105,18 @@ function App() {
   }, [dispatch, userDetails]);
   return (
     <PageLayout>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/account-settings" element={<AccountSettings />} />

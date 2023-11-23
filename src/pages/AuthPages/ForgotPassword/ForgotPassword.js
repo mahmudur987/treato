@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import { SuccessCircle } from "../../../assets/images/icons";
-import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import styles from "./ForgotPassword.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { forgotpasswordLink } from "../../../services/auth";
-import LoadSpinner from "../../LoadSpinner/LoadSpinner";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner.js";
+import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
 const ForgotPassword = () => {
   const [email, setemail] = useState("");
   const [emailError, setEmailError] = useState("");

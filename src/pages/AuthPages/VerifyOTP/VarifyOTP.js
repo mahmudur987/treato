@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
-import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import styles from "./VerifyOTP.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -18,6 +17,7 @@ import {
   updateUserDetails,
 } from "../../../redux/slices/user";
 import { toast } from "react-toastify";
+import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
 const VerifyOTP = (props) => {
   const [otp, setOTP] = useState(["", "", "", ""]);
   const [OTPerror, setOTPerror] = useState(false);
@@ -74,16 +74,7 @@ const VerifyOTP = (props) => {
       console.log(res);
       if (res?.res?.data.otp) {
         dispatch(updateOTP(res?.res?.data.otp));
-        toast.success("OTP resend successfully!", {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success("OTP resend successfully!");
         setCountdown(299);
       }
     });
@@ -115,16 +106,7 @@ const VerifyOTP = (props) => {
           localStorage.removeItem("userPhoneNumber");
 
           navigate("/");
-          toast("Welcome to Treato! Start exploring now!", {
-            position: "top-right",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          toast("Welcome to Treato! Start exploring now!");
         } else {
           console.error("localStorage is not available.");
         }
@@ -154,16 +136,7 @@ const VerifyOTP = (props) => {
               dispatch(updateUserDetails(res?.res?.data?.data));
               dispatch(updateOTP(0));
               navigate("/");
-              toast("Welcome to Treato! Start exploring now!", {
-                position: "top-right",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
+              toast("Welcome to Treato! Start exploring now!");
               localStorage.removeItem("requiredRegisterData");
             });
             //TODO:need to add user data in localStorage
