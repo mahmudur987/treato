@@ -26,7 +26,7 @@ export default function SalonDetail() {
     useEffect(() => {
       let SalonDataFunc = async () => {
         const { res, err } = await salon()
-        if (res.data) {
+        if (res) {
             res.data.salons.map((v)=>{
                 if(v._id===id){
                     setSalonData(v)

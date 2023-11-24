@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 const TopSalons = (props) => {
   const salonsState = useSelector((state) => state.salons);
   let [topSalonData, setTopSalonData] = useState([]);
+  console.log(props);
 
   useEffect(() => {
     if (props.heading === "Top-rated Hair Salons") {

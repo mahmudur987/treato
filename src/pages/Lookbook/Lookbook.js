@@ -24,6 +24,8 @@ import { useSelector } from "react-redux";
 import { getAllServices } from "../../services/Services";
 import { useRef } from "react";
 import Search_MoboModal from "../../components/HomePage/Hero/Search_MoboModal/Search_MoboModal";
+import { GetLooks } from "../../services/GetLooks";
+import { Link } from "react-router-dom";
 const Lookbook = () => {
   const modalImageRef = useRef();
   const salonsState = useSelector((state) => state.salons);
@@ -35,14 +37,12 @@ const Lookbook = () => {
   const [filteredSalonData, setFilteredSalonData] = useState([]);
   const [filteredServiceData, setFilteredServiceData] = useState([]);
   const [allServices, setallServices] = useState([]);
-  const [locationInputValue, setLocationInputValue] =
-    useState("select location");
-    const [itemsToShow, setItemsToShow] = useState(10);
+  const [locationInputValue, setLocationInputValue] = useState("select location");
+  const [itemsToShow, setItemsToShow] = useState(10);
   const [isServiceListExpanded, setisServiceListExpanded] = useState(false);
   const [uniqueLocText, setuniqueLocText] = useState({});
 
-
-  const ImageWithDetails = ({ src, alt, rating }) => (
+  const ImageWithDetails = ({ src, alt, rating, imgDesc,id }) => (
     <div className={styles.imageContainer}>
       <ModalImage
         small={src}
@@ -50,192 +50,23 @@ const Lookbook = () => {
         alt={alt}
         className={styles.masonryImage}
       />
-      <a className={styles.imgDetails}>view Details</a>
-      <span className={styles.imageRating}>
-        <img src={starBlack} alt="starIcon" /> {rating}
-      </span>
+      <Link className={styles.imgDetails} to={`/lookbook-details/${id?id:''}`}>
+        View Details
+      </Link>
+      <div className={styles.imageRating}>
+        <img src={starBlack} alt="starIcon" />
+        <div>
+          {rating}
+        </div>
+      </div>
       {/* <span className={styles.expandbutton}>
         <img src={expandMoboImage} />
       </span> */}
       <p className={styles.imageText}>
-        A subtle salmon tinge on curled hairs. Golden long, waist length,
-        straight.
+        {imgDesc ? imgDesc : 'Salon'}
       </p>
     </div>
   );
-  //lookbook image object
-  const images = [
-    {
-      src: img1,
-      alt: "Image 1",
-      rating: 4,
-      serviceType: "Hair",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img2,
-      alt: "Image 2",
-      rating: 3,
-      serviceType: "Hair Removal",
-      location: "Telangana, Hyderabada",
-    },
-    {
-      src: img3,
-      alt: "Image 3",
-      rating: 5,
-      serviceType: "Nail care",
-      location: "Telangana, Hyderabada",
-    },
-    {
-      src: img4,
-      alt: "Image 4",
-      rating: 3.2,
-      serviceType: "Hair Removal",
-      location: "Telangana, Hyderabada",
-    },
-    {
-      src: img5,
-      alt: "Image 5",
-      rating: 3.4,
-      serviceType: "Nail care",
-      location: "Telangana, Hyderabada",
-    },
-    {
-      src: img6,
-      alt: "Image 6",
-      rating: 4.2,
-      serviceType: "Spa",
-      location: "Telangana, Hyderabada",
-    },
-    {
-      src: img1,
-      alt: "Image 7",
-      rating: 4,
-      serviceType: "Hair Removal",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img2,
-      alt: "Image 8",
-      rating: 3,
-      serviceType: "Nail care",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img3,
-      alt: "Image 9",
-      rating: 5,
-      serviceType: "Hair",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img4,
-      alt: "Image 10",
-      rating: 3.2,
-      serviceType: "Makeup",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img5,
-      alt: "Image 11",
-      rating: 3.4,
-      serviceType: "Hair",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img6,
-      alt: "Image 12",
-      rating: 4.2,
-      serviceType: "Hair Removal",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img4,
-      alt: "Image 13",
-      rating: 3.2,
-      serviceType: "Nail care",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img5,
-      alt: "Image 14",
-      rating: 3.4,
-      serviceType: "Makeup",
-      location: "Agra, Uttar Pradesh",
-    },
-    {
-      src: img6,
-      alt: "Image 15",
-      rating: 4.2,
-      serviceType: "Spa",
-      location: "Agra, Uttar Pradesh",
-    },
-    {
-      src: img1,
-      alt: "Image 16",
-      rating: 4,
-      serviceType: "Hair",
-      location: "Agra, Uttar Pradesh",
-    },
-    {
-      src: img2,
-      alt: "Image 17",
-      rating: 3,
-      serviceType: "Hair Removal",
-      location: "Agra, Uttar Pradesh",
-    },
-    {
-      src: img3,
-      alt: "Image 18",
-      rating: 5,
-      serviceType: "Nail care",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img4,
-      alt: "Image 19",
-      rating: 3.2,
-      serviceType: "Makeup",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img5,
-      alt: "Image 20",
-      rating: 3.4,
-      serviceType: "Hair",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img6,
-      alt: "Image 21",
-      rating: 4.2,
-      serviceType: "Spa",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img4,
-      alt: "Image 22",
-      rating: 3.2,
-      serviceType: "Hair Removal",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img5,
-      alt: "Image 23",
-      rating: 3.4,
-      serviceType: "Nail care",
-      location: "Pune, Maharashtra",
-    },
-    {
-      src: img6,
-      alt: "Image 24",
-      rating: 4.2,
-      serviceType: "Hair",
-      location: "Pune, Maharashtra",
-    },
-  ];
-
- 
 
   const handleShowMore = () => {
     setItemsToShow(itemsToShow + 10); // Increase by 10 when the button is clicked
@@ -279,28 +110,28 @@ const Lookbook = () => {
   };
   // Function to filter images based on locationInput and serviceType
   const filterImages = () => {
-    let filteredImages = images; // Start with all images
+    let filteredImages = filteredServiceData; // Start with all images
     if (locationInput != "") {
       // Filter based on locationInput
       filteredImages = filteredImages.filter((image) =>
-        image.location.toLowerCase().includes(locationInput.toLowerCase())
+        image.locationText.toLowerCase().includes(locationInput.toLowerCase())
       );
+    } else {
+      let getLooks = async () => {
+        const { res, err } = await GetLooks()
+        if (res) {
+          setFilteredServiceData(res?.data?.data)
+        }
+      }
+      getLooks();
     }
 
-    if (activeButton !== "All") {
-      // Filter based on the activeButton (serviceType)
-      filteredImages = filteredImages.filter(
-        (image) => image.serviceType === activeButton
-      );
-    }
+
 
     return filteredImages;
   };
   const handleGoButtonClick = () => {
-    // Get the filtered images
-    const filteredImages = filterImages();
-    // Update the state with filtered images
-    setFilteredServiceData(filteredImages);
+    setIsDropdownVisible(false);
   };
   useEffect(() => {
     const fetchSalons = async () => {
@@ -346,10 +177,15 @@ const Lookbook = () => {
         console.log(error);
       }
     }
-
+    let getLooks = async () => {
+      const { res, err } = await GetLooks()
+      if (res) {
+        setFilteredServiceData(res?.data?.data)
+        console.log(res?.data?.data);
+      }
+    }
+    getLooks();
     fetchAllServices();
-    setFilteredServiceData(images);
-    handleGoButtonClick();
   }, []);
 
   const masonryRef = useRef(null);
@@ -450,7 +286,10 @@ const Lookbook = () => {
   };
 
   useEffect(() => {
-    handleGoButtonClick();
+    // Get the filtered images
+    const filteredImages = filterImages();
+    // Update the state with filtered images
+    setFilteredServiceData(filteredImages);
   }, [locationInput]);
 
   return (
@@ -485,9 +324,8 @@ const Lookbook = () => {
       </div>
       {/* services Button Mobo version */}
       <div
-        className={`${styles.serviceButtonWrapperMobo} ${
-          isServiceListExpanded ? styles.expandList : ""
-        }`}
+        className={`${styles.serviceButtonWrapperMobo} ${isServiceListExpanded ? styles.expandList : ""
+          }`}
       >
         {allServices.map((service, index) => (
           <button
@@ -535,14 +373,12 @@ const Lookbook = () => {
               setLocationInput("");
               setIsDropdownVisible(false);
               setFilteredSalonData(allSalonList);
-              setFilteredServiceData(images);
             }}
           />
         )}
         <button
-          className={`${styles.submitLocation} ${
-            locationInput ? styles.blueBg : ""
-          }`}
+          className={`${styles.submitLocation} ${locationInput ? styles.blueBg : ""
+            }`}
           onClick={handleGoButtonClick}
         >
           GO
@@ -592,9 +428,11 @@ const Lookbook = () => {
           filteredServiceData.slice(0, itemsToShow).map((image, index) => (
             <ImageWithDetails
               key={index}
-              src={image.src}
-              alt={image.alt}
-              rating={image.rating}
+              src={image?.photo?.public_url}
+              alt={image?.name}
+              rating={image?.rating}
+              imgDesc={image?.description}
+              id={image._id}
             />
           ))}
       </Masonry>

@@ -153,7 +153,6 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route element={<PrivateRoutes />}>
           <Route path="/account-settings" element={<AccountSettings />} />
           <Route path="/salons" element={<Salons />} />
           <Route path="/salons/:id" element={<SalonDetail />} />
@@ -163,7 +162,6 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
           <Route path="/my-appointments/*" element={<MyAppointments />} />
-        </Route>
         {/* Auth routes */}
         <Route path="/auth-choice" exact element={<AuthChoicePage />} />
         <Route path="/create-account" element={<CreateAccountPage />} />

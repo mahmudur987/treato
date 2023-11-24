@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
 import styles from "./LatestBlog.module.css";
-import BlogImg1 from "../../../assets/images/HomeLatestBlogs/BlogImg1.png";
-import BlogImg2 from "../../../assets/images/HomeLatestBlogs/BlogImg2.png";
-import user1 from "../../../assets/images/HomeLatestBlogs/user1.png";
-import user2 from "../../../assets/images/HomeLatestBlogs/user2.png";
 import chevronLeft from "../../../assets/images/HomeLatestBlogs/chevronLeft.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -13,6 +9,7 @@ import { AllBlogs } from "../../../services/blog";
 import { useState } from "react";
 import Title from "../../Typography/Title/Title";
 const LatestBlog = () => {
+  let [shareBlog,setShareBlog] = useState(null)
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -59,7 +56,7 @@ const LatestBlog = () => {
             blogData.map((blog, i) => {
               if (i <= 2) {
                 return (
-                  <BlogCard blog={blog} key={i} />
+                  <BlogCard blog={blog} key={i} shareBlog={shareBlog} setShareBlog={setShareBlog}/>
                 )
               }
             })
@@ -82,7 +79,7 @@ const LatestBlog = () => {
               {
                 blogData.map((blog, i) => {
                   return (
-                    <BlogCard blog={blog} key={i} />
+                    <BlogCard blog={blog} key={i} shareBlog={shareBlog} setShareBlog={setShareBlog}/>
                   )
                 })
               }
