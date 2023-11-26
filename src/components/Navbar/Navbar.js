@@ -164,7 +164,7 @@ export default function Navbar() {
               className={`${styles.signinButton} ${styles.hideOnMobile}`}
               onClick={handleDesktopMenuToggle}
             >
-              <img src={mask} alt="mask" />
+              <img src={userInfo?.avatar?.public_url?userInfo?.avatar?.public_url:mask} alt="mask" />
               {userInfo?.first_name}
               <img src={chevrondown} alt="chevrondown" />
             </SecondaryButton>
@@ -183,7 +183,7 @@ export default function Navbar() {
             {isLoggedIn && (
               <>
                 <div className={styles.navUserInfo}>
-                  <img src={mask2} alt="mask" />
+              <img src={userInfo?.avatar?.public_url?userInfo?.avatar?.public_url:mask2} alt="mask" />
                   <h3 className={styles.userName}>{userInfo?.first_name}</h3>
                   <small className={styles.userEmail}>{userInfo?.email}</small>
                 </div>

@@ -118,7 +118,7 @@ const TopSalons = (props) => {
               ? topSalonData.map((salon, index) => (
                   <Salon salonData={salon} place={"homePage"} key={index} />
                 ))
-              : <p className={styles.notAvailable}>No salon available</p>}
+              : <p className={styles.notAvailable}>No salons available at the moment. Check back later!</p>}
           </div>
           {showRightArrow &&     
           <img

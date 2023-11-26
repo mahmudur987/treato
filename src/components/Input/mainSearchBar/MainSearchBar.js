@@ -44,7 +44,6 @@ const MainSearchBar = ({ place }) => {
     }
   };
   const handle_closeTrt_Modal = () => {
-    setTreatmentInputValue("");
     setTrt_DesktopModal(false);
     setTrt_MoboModal(false);
     document.body.style.overflow = "auto";
@@ -59,7 +58,6 @@ const MainSearchBar = ({ place }) => {
     }
   };
   const handle_closeloc_Modal = () => {
-    setLocationInputValue("");
     setloc_DesktopModal(false);
     setloc_MoboModal(false);
     document.body.style.overflow = "auto";
@@ -94,7 +92,7 @@ const MainSearchBar = ({ place }) => {
     }
 
     fetchAllServices();
-    if(servicesParam && locationParam){
+    if(servicesParam || locationParam){
       setTreatmentInputValue(servicesParam)
       setLocationInputValue(locationParam)
     }
@@ -154,16 +152,15 @@ const MainSearchBar = ({ place }) => {
   };
 
   const handleSearch = () => {
-    if(locationInputValue!="" && treatmentInputValue!=""){
+    if(locationInputValue==="" && treatmentInputValue===""){
       // Navigate to /salons with services and location as query parameters
+      toast.info('Please fill input fields to proceed. !');
+    }
+    else{
+      console.log(locationInputValue,treatmentInputValue);
       navigate(
         `/salons?services=${treatmentInputValue}&location=${locationInputValue}`
       );
-      setTreatmentInputValue("")
-      setLocationInputValue("")
-    }
-    else{
-      toast.info('Please fill in both input fields to proceed. !');
     }
   };
 
@@ -203,8 +200,6 @@ const MainSearchBar = ({ place }) => {
               setTreatmentInputValue={setTreatmentInputValue}
               handle_close={handle_closeTrt_Modal}
             />
-            {/* Venues */}
-            <Venues />
           </div>
 
           <img

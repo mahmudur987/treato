@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
 import styles from "../hero.module.css";
 import { search_Blue } from "../../../../assets/images/icons";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Treatments = ({ allServices, handle_close, setTreatmentInputValue }) => {
-
-
+const Treatments = ({ allServices, handle_close, setTreatmentInputValue,pageName }) => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  // Get the 'services' and 'location' query parameters
+  const locationParam = searchParams.get("location");
+const navigate=useNavigate()
   const setinput = (serviceName) => {
     handle_close();
     setTreatmentInputValue(serviceName);
+    if(pageName==="salons"){
+      navigate(
+        `/salons?services=${serviceName}&location=${locationParam}`
+      );
+    }
   };
   return (
     <div className={styles["treatmentsSection"]}>

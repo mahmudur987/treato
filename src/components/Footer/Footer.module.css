@@ -155,4 +155,7 @@ a {
   .downloads{
     flex-direction: row;
   }
+  .downloads img{
+    width: 100%;
+  }
 }

@@ -5,13 +5,15 @@ import filterModalReducer from "./slices/filterModals/filterModal"
 import salonsReducer from "./slices/salons";
 import authChoice from "./slices/authChoice";
 import modalReducer from "./slices/modal";
+import lookbook from "./slices/lookbook";
 export const store = configureStore({
    reducer: {
       user: userReducer,
       salonModal: filterModalReducer,
       salons: salonsReducer,
       authChoice:authChoice,
-      modal: modalReducer
+      modal: modalReducer,
+      lookbook:lookbook
    },
    middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(),
