@@ -143,7 +143,7 @@ export default function Navbar() {
             onClick={handleMobileMenuToggle}
           >
             {!isMobileMenuOpen ? (
-              <img src={isLoggedIn ? mask : menuLogo} alt="menuLogo" />
+              <img src={isLoggedIn ? userInfo?.avatar?.public_url?userInfo?.avatar?.public_url:mask : menuLogo} alt="menuLogo" />
             ) : (
               <img src={x} alt="closeIcon" />
             )}

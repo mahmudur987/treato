@@ -11,7 +11,7 @@ import {
   eyeline,
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { socialMediaLogin } from "../../../services/auth";
+import { google_Login, facebook_Login } from "../../../services/auth";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { sendLoginOTP } from "../../../services/auth";
@@ -103,45 +103,34 @@ const CreateAccountPage = () => {
     }
   };
 
-  const googleAuthLogin = useGoogleLogin({
-    cookiePolicy: "single_host_origin",
+
+  const googleAuthLogin=useGoogleLogin({
+    cookiePolicy: 'single_host_origin',
     onSuccess: async (response) => {
       try {
-        const res = await axios.get(
-          "https://www.googleapis.com/oauth2/v3/userinfo",
-          {
-            headers: {
-              Authorization: `Bearer ${response.access_token}`,
-            },
-          }
-        );
-        const { email, family_name, given_name, picture } = res?.data;
-        let data = {
-          email: email,
-          first_name: given_name,
-          last_name: family_name,
-          role: userChoice?.role?.role || "normal",
-          picture,
-        };
-        socialMediaLogin(data).then((res) => {
-          if (res?.res?.data && res?.res.status === 200) {
-            dispatch(updateIsLoggedIn(true));
-            dispatch(
-              updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
-            );
-            // TODO jwt token will be added in localstorage once api update
-            localStorage.setItem("jwtToken", res?.res?.data?.token);
-            navigate("/");
-            toast("Welcome to Treato! Start exploring now!");
-          } else {
-            toast.error(`An unexpected error occurred. Please try again.`);
-          }
-        });
+        const { access_token } = response;
+        console.log(access_token);
+        // Make a request to your backend API
+       google_Login(access_token).then((res)=>{
+        if (res?.res?.data && res?.res.status === 200) {
+          dispatch(updateIsLoggedIn(true));
+          dispatch(
+            updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+          );
+          localStorage.setItem("jwtToken", res?.res?.data?.token);
+          navigate("/");
+          toast("Welcome to Treato! Start exploring now!");
+        } else {
+          toast.error(`An unexpected error occurred. Please try again.`);
+        }
+       });
       } catch (err) {
         console.log(err);
       }
     },
   });
+  
+
 
   const facebookAuthLogin = (facebookResponse) => {
     const { email, first_name, last_name, picture } = facebookResponse;
@@ -152,7 +141,7 @@ const CreateAccountPage = () => {
       role: userChoice?.role?.role || "normal",
       picture: picture?.data?.url,
     };
-    socialMediaLogin(data).then((res) => {
+    facebook_Login(data).then((res) => {
       if (res?.res?.data && res?.res.status === 200) {
         dispatch(updateIsLoggedIn(true));
         dispatch(
@@ -280,7 +269,7 @@ const CreateAccountPage = () => {
           <div className={styles.socialButtons}>
             <SecondaryButton
               className={styles.google}
-              onClick={() => googleAuthLogin()}
+              onClick={googleAuthLogin}
             >
               <img src={Google_Logo} />
               Google

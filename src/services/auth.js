@@ -87,9 +87,19 @@ export const getUserProfile = async (jwtToken) => {
 
 //Todo :We are temporarily using this API for Google and Facebook login and will switch to the Passport.js method once the bug in our Passport code is fixed
 //google and facebook login
-    export const socialMediaLogin = async (data) => {
+    export const facebook_Login = async (data) => {
       try {
-        const res = await axiosInstance.post(`/google-facebook`, data);
+        const res = await axiosInstance.post(`/facebook`, data);
+        return { res, err: null };
+      } catch (error) {
+        return { err: error, res: null };
+      }
+    };
+
+    export const google_Login = async (access_token) => {
+      console.log(access_token);
+      try {
+        const res = await axiosInstance.post(`/google`, {access_token});
         return { res, err: null };
       } catch (error) {
         return { err: error, res: null };

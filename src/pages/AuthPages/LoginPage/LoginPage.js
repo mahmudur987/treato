@@ -12,8 +12,9 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   getUserProfile,
   login,
-  socialMediaLogin,
+  facebook_Login,
   otpsignin,
+  google_Login,
 } from "../../../services/auth";
 import {
   updateIsLoggedIn,
@@ -121,7 +122,6 @@ const LoginPage = () => {
     // handle phone Number login
     else if (Object.keys(errors).length === 0 && !showEmailPassword) {
       otpsignin({ phoneNumber: formData?.phone }).then((res) => {
-        console.log(res);
         if (res?.res?.data.message === "User sign in successfully!") {
           dispatch(updateTempLoginInfo(res?.res?.data.data));
           dispatch(updateOTP(res?.res?.data.otp));
@@ -144,39 +144,25 @@ const LoginPage = () => {
 
   };
 
-  const googleAuthLogin = useGoogleLogin({
-    cookiePolicy: "single_host_origin",
+  const googleAuthLogin=useGoogleLogin({
+    cookiePolicy: 'single_host_origin',
     onSuccess: async (response) => {
       try {
-        const res = await axios.get(
-          "https://www.googleapis.com/oauth2/v3/userinfo",
-          {
-            headers: {
-              Authorization: `Bearer ${response.access_token}`,
-            },
-          }
-        );
-        const { email, family_name, given_name, picture } = res?.data;
-        let data = {
-          email: email,
-          first_name: given_name,
-          last_name: family_name,
-          role: userChoice?.role?.role || "normal",
-          picture,
-        };
-        socialMediaLogin(data).then((res) => {
-          if (res?.res?.data && res?.res.status === 200) {
-            dispatch(updateIsLoggedIn(true));
-            dispatch(
-              updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
-            );
-            localStorage.setItem("jwtToken", res?.res?.data?.token);
-            navigate("/");
-            toast("Welcome to Treato! Start exploring now!");
-          } else {
-            toast.error(`An unexpected error occurred. Please try again.`);
-          }
-        });
+        const { access_token } = response;
+        // Make a request to your backend API
+       google_Login(access_token).then((res)=>{
+        if (res?.res?.data && res?.res.status === 200) {
+          dispatch(updateIsLoggedIn(true));
+          dispatch(
+            updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+          );
+          localStorage.setItem("jwtToken", res?.res?.data?.token);
+          navigate("/");
+          toast("Welcome to Treato! Start exploring now!");
+        } else {
+          toast.error(`An unexpected error occurred. Please try again.`);
+        }
+       });
       } catch (err) {
         console.log(err);
       }
@@ -192,7 +178,7 @@ const LoginPage = () => {
       role: userChoice?.role?.role || "normal",
       picture: picture?.data?.url,
     };
-    socialMediaLogin(data).then((res) => {
+    facebook_Login(data).then((res) => {
       if (res?.res?.data && res?.res.status === 200) {
         dispatch(updateIsLoggedIn(true));
         dispatch(
