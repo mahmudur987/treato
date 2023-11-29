@@ -1,19 +1,18 @@
 import styles from '../SalonMain/SalonMain.module.css'
-import pp1 from "../../../assets/images/SalonDetail/profilepic1.png"
 import starWhite from "../../../assets/images/SalonDetail/starWhite.svg"
 
-export default function SalonTeam() {
+export default function SalonTeam({stylistData}) {
     return (
         <div className={styles.salon_teamAA}>
             <div className={styles.salon_teamAAA}>
-                <img src={pp1} alt="" />
+                <img src={stylistData?.stylist_Img?.public_url} alt="stylist image" />
             </div>
             <div className={styles.salon_teamAAD}>
-                <img src={starWhite} alt="" />
-                4.2
+                <img src={starWhite} alt="star" />
+                {stylistData?.rating}
             </div>
-            <div className={styles.salon_teamAAB}>Nayanika</div>
-            <div className={styles.salon_teamAAC}>Hair Styling Specialist</div>
+            <div className={styles.salon_teamAAB}>{stylistData?.stylist_name}</div>
+            <div className={styles.salon_teamAAC}>{stylistData?.stylist_service[0]}</div>
         </div>
     )
 }

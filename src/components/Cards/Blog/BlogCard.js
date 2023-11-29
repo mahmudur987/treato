@@ -3,12 +3,11 @@ import styles from "./BlogCard.module.css"
 import moreHorizontal from "../../../assets/images/HomeLatestBlogs/moreHorizontal.png";
 import share_forward from "../../../assets/images/icons/share_forward.svg";
 import share_forward_white from "../../../assets/images/icons/share_forward_white.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ShareBlog from "../../_modals/ShareBlog/ShareBlog";
 
-const BlogCard = ({ blog, blogDetail, blogPage,shareBlog,setShareBlog }) => {
-  let [activeShare,setActiveShare] = useState(false)
-  let [shareModal,setShareModal] = useState(false)
+const BlogCard = ({ blog, blogDetail, blogPage,shareBlog,setShareBlog,setActiveShare,setShareModal,activeShare,setBlogUrl}) => {
+  const location = window.location.href;
   if(setShareBlog){
     window.onclick = (e)=>{
       if(shareBlog!==null&&e.target.classList[0]!=='moreImg'){
@@ -28,7 +27,7 @@ const BlogCard = ({ blog, blogDetail, blogPage,shareBlog,setShareBlog }) => {
             <img className={styles["userImg"]} src={blog ? blog?.blog_Img?.public_url : ''} alt="userImg" />
             <span className={styles["userName"]}>{blog ? blog?.writer_name : ''}</span>
           </div>
-          <div className={styles["more"]} onClick={()=>setShareBlog?setShareBlog(blog._id):null}>
+          <div className={styles["more"]} onClick={()=>{setShareBlog(blog._id); setBlogUrl(`${location}blogs/${blog._id}`)}}>
             <img src={moreHorizontal} alt="more" className="moreImg"/>
             <div className={shareBlog===blog._id?styles["shareMain"]:styles["d_none"]} onMouseOver={()=>setActiveShare(true)} onMouseOut={()=>setActiveShare(false)} onClick={()=>{setShareModal(true); setShareBlog(null)}} >
               <img src={activeShare?share_forward_white:share_forward} alt="share" />
@@ -42,11 +41,6 @@ const BlogCard = ({ blog, blogDetail, blogPage,shareBlog,setShareBlog }) => {
         </Link>
         <p className={styles["blogDescription"]}>{blog ? blog?.blog_description : ''}</p>
       </div>
-          {
-            shareModal?
-            <ShareBlog setShareModal={setShareModal}/>
-            :null
-          }
     </div>
   );
 };

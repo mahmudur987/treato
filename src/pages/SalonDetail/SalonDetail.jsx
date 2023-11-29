@@ -1,16 +1,11 @@
 import styles from './SalonDetail.module.css'
 import star from "../../assets/images/SalonDetail/star_line.svg"
 import ellipse from "../../assets/images/SalonDetail/Ellipse.svg"
-import slide1 from "../../assets/images/SalonDetail/slide1.png"
-import slide2 from "../../assets/images/SalonDetail/slide2.png"
-import slide3 from "../../assets/images/SalonDetail/slide3.png"
-import slide4 from "../../assets/images/SalonDetail/slide4.png"
-import slide5 from "../../assets/images/SalonDetail/slide5.png"
 import SalonMain from '../../components/SalonDetail/SalonMain/SalonMain'
 import SalonCard from '../../components/SalonDetail/SalonCard/SalonCard'
 import BackButton from '../../components/Buttons/BackButton/BackButton'
 import BookNow from '../../components/SalonDetail/BookNow/BookNow'
-import SalonSlickSLider from './SalonSlickSlider'
+import SalonSlickSlider from './SalonSlickSlider'
 import SalonGallery from '../../components/SalonDetail/SalonGallery/SalonGallery'
 import { useState } from 'react'
 import { salon } from '../../services/salon'
@@ -18,10 +13,13 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 export default function SalonDetail() {
-    const gallery = [slide1, slide2, slide3, slide4, slide5, slide1, slide2, slide3, slide4, slide5, slide1, slide2, slide3, slide4, slide5, slide1, slide2, slide3, slide4, slide5];
     let [showGallery, setShowGallery] = useState(false)
+    let [salonImages, setSalonImages] = useState(null)
     let [SalonData, setSalonData] = useState(null)
+    let [addedServices,addServices] = useState([]);
+    let [totalSalonServices,setTotalSalonServices] = useState(0);
     let { id } = useParams(); 
+    let [firstImage,setFirstImage] = useState(null)
 
     useEffect(() => {
       let SalonDataFunc = async () => {
@@ -29,7 +27,10 @@ export default function SalonDetail() {
         if (res) {
             res.data.salons.map((v)=>{
                 if(v._id===id){
-                    setSalonData(v)
+                    setSalonData(v);
+                    setTotalSalonServices(v?.services[0]?.mainCategories.length)
+                    setFirstImage(v?.salon_Img[0]?.public_url);
+                    setSalonImages(v?.salon_Img);
                 }
             })
         }
@@ -53,48 +54,52 @@ export default function SalonDetail() {
             </div>
             <div className={styles.salon_images}>
                 <div className={`${styles.salon_image_slider} salon_slick`}>
-                    <SalonSlickSLider setShowGallery={setShowGallery} gallery={gallery} />
+                    <SalonSlickSlider setShowGallery={setShowGallery} SalonData={SalonData?SalonData:null}/>
                 </div>
                 <div className={styles.salon_images_right}>
-                    <img src={slide2} alt="" />
-                    <img src={slide3} alt="" />
-                    <img src={slide4} alt="" />
+                {
+                    SalonData?.salon_Img.map((v, i) => {
+                        if(i>=1&&i<=SalonData?.salon_Img.length){
+                            return(<img src={v.public_url} alt="salon image" key={i} />)
+                        }
+                    })
+                }
                     <div className={styles.salon_imagesA}>
                         <div onClick={() => setShowGallery(true)}>
-                            <div>View <span>22</span></div>
+                            <div>View <span>{SalonData?.salon_Img.length}</span></div>
                             <div>images</div>
                         </div>
-                        <img src={slide5} alt="" />
+                        <img src={firstImage?firstImage:null} alt="" />
                     </div>
                 </div>
             </div>
             <div className={styles.salon_mobView}>
                 <div className={styles.salon_name}>
-                    She Hair & Beauty
+                    {SalonData?.salon_name}
                 </div>
                 <div className={styles.salon_info}>
-                    <div className={styles.salon_star}>4.8 <img src={star} alt="" /> (1,361 ratings)</div>
+                    <div className={styles.salon_star}>{SalonData?.salon_rating} <img src={star} alt="" /> ({SalonData?.total_rating} ratings)</div>
                     <div className={styles.salon_infoA}>
-                        <div>Ejipura, Bengaluru (570 m away)</div>
+                        <div>{SalonData?.locationText} (570 m away)</div>
                         <div>View map</div>
                     </div>
                     <div className={styles.salon_infoB}>
                         <div>Closed</div>
                         <img src={ellipse} alt="" />
-                        <div>Opens 9:00 AM Monday</div>
+                        <div>Opens {SalonData?.working_hours[0].opening_time} {SalonData?.working_hours[0].day}</div>
                     </div>
                 </div>
             </div>
             <div className={styles.salon_middle}>
-                <SalonMain />
-                <SalonCard SalonData={SalonData?SalonData:null}/>
+                <SalonMain SalonData={SalonData?SalonData:null} addServices={addServices} addedServices={addedServices}/>
+                <SalonCard SalonData={SalonData?SalonData:null} addServices={addServices} addedServices={addedServices} salonId = {id}/>
             </div>
             <div className={styles.book_flowMob}>
-                <BookNow SalonDetails={true} />
+                <BookNow SalonDetails={true} salonId = {id} totalSalonServices={totalSalonServices}/>
             </div>
             {
                 showGallery ?
-                    <SalonGallery gallery={gallery} setShowGallery={setShowGallery} />
+                    <SalonGallery gallery={salonImages} setShowGallery={setShowGallery} />
                     :
                     ''
             }

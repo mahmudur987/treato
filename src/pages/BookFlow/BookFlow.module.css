@@ -254,6 +254,10 @@
     gap: 20px;
 }
 
+.service_timeF div{
+    font-size: 16px !important;
+}
+
 .timeMain {
     padding: 24px;
     border-radius: 4px;
@@ -264,6 +268,9 @@
     align-items: center;
     font-weight: 400;
     cursor: pointer;
+}
+.timeMain label {
+    all : unset;
 }
 
 .activeTimeMain {
@@ -296,9 +303,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #6D747A;
 }
-
+.service_cardGA img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
 .service_dateA {
     width: 64px;
     height: 64px;
@@ -950,4 +960,7 @@
     .service_timeE>img {
         display: none;
     }
+}
+.d_none{
+    display: none !important;
 }

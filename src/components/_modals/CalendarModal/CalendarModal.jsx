@@ -10,8 +10,8 @@ import rightIco from "../../../assets/images/SalonDetail/chevron-right.svg"
 import leftIco from "../../../assets/images/SalonDetail/chevron-left.svg"
 import { useEffect } from 'react';
 
-export default function CalendarModal() {
-    let [actveCard, updateActiveCard] = useState(0)
+export default function CalendarModal({getWorkerData}) {
+    let [actveCard, updateActiveCard] = useState(-1)
     const settings = {
         dots: false,
         infinite: false,
@@ -110,7 +110,7 @@ export default function CalendarModal() {
                             {
                                 allCalendar[0].allDates.map((v, i) => {
                                     return (
-                                        <DateComponent index={i} updateActiveCard={updateActiveCard} actveCard={actveCard} allCalendar={allCalendar} key={i} />
+                                        <DateComponent index={i} updateActiveCard={updateActiveCard} actveCard={actveCard} allCalendar={allCalendar} key={i} getWorkerData={getWorkerData} month={threeMonths[0]}/>
                                     )
                                 })
                             }

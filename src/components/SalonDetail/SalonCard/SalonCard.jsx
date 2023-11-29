@@ -5,9 +5,20 @@ import discount from "../../../assets/images/SalonDetail/discountIco.svg"
 import clock from "../../../assets/images/SalonDetail/clock.svg"
 import SalonMap from '../SalonMap/SalonMap'
 import BookNow from '../BookNow/BookNow'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
-export default function SalonCard({SalonData}) {
-    console.log(SalonData);
+export default function SalonCard({SalonData,salonId}) {
+    const currentTime = new Date().toLocaleTimeString(); 
+    let [checkSalonOpen,setCheckSalonOpen] = useState(false);
+    useEffect(()=>{
+        if(SalonData){
+            let salonTime = SalonData?.working_hours[0]?.closing_time.toLowerCase();
+            if(currentTime<salonTime){
+                setCheckSalonOpen(true)
+            }
+        }
+    },[SalonData])
     return (
         <div className={styles.salon_card}>
             <div className={styles.salon_cardA}>
@@ -21,7 +32,7 @@ export default function SalonCard({SalonData}) {
                 <div>See reviews</div>
             </div>
             <div className={styles.salon_cardC}>
-                <BookNow/>
+                <BookNow salonId={salonId?salonId:null}/>
             </div>
             <div className={styles.salon_cardD}>
                 <img src={discount} alt="" />
@@ -33,9 +44,9 @@ export default function SalonCard({SalonData}) {
                 <img src={clock} alt="" />
                 <div>
                     <div className={styles.salon_cardDA}>
-                        <div>Closed</div>
+                        <div>{checkSalonOpen?"Open":"Closed"}</div>
                         <img src={ellipse} alt="" />
-                        <div>Opens 9:00 AM Monday</div>
+                        <div>Opens {SalonData?.working_hours[0]?.opening_time} {SalonData?.working_hours[0]?.day}</div>
                     </div>
                     <div className={styles.salon_cardDB}>
                         See timings
