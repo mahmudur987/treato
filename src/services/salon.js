@@ -19,3 +19,12 @@ export const getSalonListBySearchInput=async(serviceName,salonlocation)=>{
       return { err: error, res: null }
    }
 }
+
+export const getSingleSalonData = async (id) => {
+   try {
+      const res = await axiosInstance.get(`salon/getOneSalon/${id}`)
+      return { res: res, err: null }
+   } catch (error) {
+      return { err: error, res: null }
+   }
+}

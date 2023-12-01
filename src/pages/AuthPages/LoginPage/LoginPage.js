@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
-import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import styles from "./LoginPage.module.css";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import "react-phone-number-input/style.css";
@@ -9,15 +7,14 @@ import {
   Facebook_Logo,
   Google_Logo,
   eyeline,
-  arrowleft,
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getUserProfile,
-  googlelogin,
   login,
+  facebook_Login,
   otpsignin,
-  sendLoginOTP,
+  google_Login,
 } from "../../../services/auth";
 import {
   updateIsLoggedIn,
@@ -25,19 +22,28 @@ import {
   updateTempLoginInfo,
   updateUserDetails,
 } from "../../../redux/slices/user";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { LoginSocialFacebook } from "reactjs-social-login";
+import {
+  GoogleOAuthProvider,
+  GoogleLogin,
+  useGoogleLogin,
+} from "@react-oauth/google";
 import axios from "axios";
-const LoginPage = (props) => {
+import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
+import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
+const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [showEmailPassword, setShowEmailPassword] = useState(true);
-  const [receivedOTP, setreceivedOTP] = useState(0);
   const [formErrors, setFormErrors] = useState({});
   const [responseError, setresponseError] = useState("");
+  const facebookAppId = process.env.REACT_APP_FACEBOOK_APP_ID;
+  const userChoice = useSelector((state) => state.authChoice);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleOTPForm = () => {
@@ -82,7 +88,6 @@ const LoginPage = (props) => {
 
     if (Object.keys(errors).length === 0 && showEmailPassword) {
       login(formData).then((res) => {
-        console.log(res);
         if (res?.res?.status === 200 && res?.res?.data.token) {
           if (typeof localStorage !== "undefined") {
             // Use localStorage
@@ -91,81 +96,102 @@ const LoginPage = (props) => {
             console.error("localStorage is not available.");
           }
           (async () => {
-            const profileResponse = await getUserProfile();
+            const profileResponse = await getUserProfile(res?.res.data.token);
             if (profileResponse?.res.status === 200) {
-              const profileData = profileResponse?.res?.data?.data
-              delete Object.assign(profileData, {['place']: profileData['location'] })['location'];
-              localStorage.setItem(
-                "userData",
-                JSON.stringify(profileData)
-              );
+              const profileData = profileResponse?.res?.data?.data;
+              delete Object.assign(profileData, {
+                ["place"]: profileData["location"],
+              })["location"];
+              // localStorage.setItem("userData", JSON.stringify(profileData));
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(profileData));
               navigate("/");
-              toast("Welcome to Treato! Start exploring now!", {
-                position: "top-right",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
+              toast("Welcome to Treato! Start exploring now!");
             }
           })();
         } else if (
           res?.res?.status === 200 &&
           res?.res?.data.message === "Password is incorrect"
         ) {
-          toast.error(`${res?.res?.data.message}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          toast.error(`${res?.res?.data.message}`);
         } else {
-          toast.error("Invalid Credential", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          toast.error("Invalid Credential");
         }
       });
-      // return;
     }
     // handle phone Number login
     else if (Object.keys(errors).length === 0 && !showEmailPassword) {
       otpsignin({ phoneNumber: formData?.phone }).then((res) => {
-        console.log(res);
         if (res?.res?.data.message === "User sign in successfully!") {
           dispatch(updateTempLoginInfo(res?.res?.data.data));
-          dispatch(updateOTP(res?.res?.data.otp))
+          dispatch(updateOTP(res?.res?.data.otp));
           localStorage.setItem("userPhoneNumber", phone);
-          localStorage.setItem("requiredLoginData", JSON.stringify(res?.res?.data.data));
-          localStorage.setItem("requiredLoginToken", JSON.stringify(res?.res?.data.token));
+          localStorage.setItem(
+            "requiredLoginData",
+            JSON.stringify(res?.res?.data.data)
+          );
+          localStorage.setItem(
+            "requiredLoginToken",
+            JSON.stringify(res?.res?.data.token)
+          );
 
           navigate("/verify-otp");
         } else if (res?.err != null) {
           setresponseError(res?.err.response.data.error);
         }
       });
-      // });
     }
 
-    // Handle form submission
-    // Your logic here for submitting the form data
   };
 
+  const googleAuthLogin=useGoogleLogin({
+    cookiePolicy: 'single_host_origin',
+    onSuccess: async (response) => {
+      try {
+        const { access_token } = response;
+        // Make a request to your backend API
+       google_Login(access_token).then((res)=>{
+        if (res?.res?.data && res?.res.status === 200) {
+          dispatch(updateIsLoggedIn(true));
+          dispatch(
+            updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+          );
+          localStorage.setItem("jwtToken", res?.res?.data?.token);
+          navigate("/");
+          toast("Welcome to Treato! Start exploring now!");
+        } else {
+          toast.error(`An unexpected error occurred. Please try again.`);
+        }
+       });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  });
+
+  const facebookAuthLogin = (facebookResponse) => {
+    const { email, first_name, last_name, picture } = facebookResponse;
+    let data = {
+      email,
+      first_name,
+      last_name,
+      role: userChoice?.role?.role || "normal",
+      picture: picture?.data?.url,
+    };
+    facebook_Login(data).then((res) => {
+      if (res?.res?.data && res?.res.status === 200) {
+        dispatch(updateIsLoggedIn(true));
+        dispatch(
+          updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+        );
+        localStorage.setItem("jwtToken", res?.res?.data?.token);
+        navigate("/");
+        toast("Welcome to Treato! Start exploring now!");
+      } else {
+        toast.error(`An unexpected error occurred. Please try again.`);
+      }
+    });
+  };
   return (
     <AuthPage>
       <div className={styles.container}>
@@ -272,23 +298,30 @@ const LoginPage = (props) => {
           <p className={styles.continueWith}>
             <span></span>Or simply continue with <span></span>
           </p>
+
+          {/*//? google and facebook auth by library */}
           <div className={styles.socialButtons}>
             <SecondaryButton
               className={styles.google}
-              onClick={() => {
-                googlelogin().then((res) => {
-                  console.log(res);
-                });
-              }}
+              onClick={googleAuthLogin}
             >
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
-
-            <SecondaryButton className={styles.facebook}>
-              <img src={Facebook_Logo} />
-              Facebook
-            </SecondaryButton>
+            <LoginSocialFacebook
+              appId={facebookAppId}
+              onResolve={(response) => {
+                facebookAuthLogin(response?.data);
+              }}
+              onReject={(error) => {
+                console.log(error);
+              }}
+            >
+              <SecondaryButton className={styles.facebook}>
+                <img src={Facebook_Logo} />
+                Facebook
+              </SecondaryButton>
+            </LoginSocialFacebook>
           </div>
         </div>
       </div>

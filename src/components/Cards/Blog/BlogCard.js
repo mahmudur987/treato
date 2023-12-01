@@ -8,12 +8,12 @@ const BlogCard = ({ blog, blogDetail, blogPage }) => {
 
     <div className={blogDetail ? `${styles["blog"]} ${styles["blogBig"]}` : blogPage?`${styles["blog"]} ${styles["blogPage"]}` : styles["blog"]}>
       <Link to={`/blogs/${blog._id}`}>
-        <img className={styles["blogImage"]} src={blog ? blog.blog_Img.public_url : ''} alt="blogImage" />
+        <img className={styles["blogImage"]} src={blog ? blog.blog_Img?.public_url : ''} alt="blogImage" />
       </Link>
       <div className={styles["blogDetails"]}>
         <div className={styles["postedByContainer"]}>
           <div className={styles["userInfo"]}>
-            <img className={styles["userImg"]} src={blog ? blog.blog_Img.public_url : ''} alt="userImg" />
+            <img className={styles["userImg"]} src={blog ? blog.blog_Img?.public_url : ''} alt="userImg" />
             <span className={styles["userName"]}>{blog ? blog.writer_name : ''}</span>
           </div>
           <div href="/" className={styles["more"]}>

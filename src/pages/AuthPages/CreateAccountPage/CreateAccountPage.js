@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
-import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
+import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
+import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
 import styles from "./CreateAccountPage.module.css";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import "react-phone-number-input/style.css";
@@ -9,14 +9,21 @@ import {
   Facebook_Logo,
   Google_Logo,
   eyeline,
-  arrowleft,
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { Facebooklogin, googlelogin, register } from "../../../services/auth";
+import { google_Login, facebook_Login } from "../../../services/auth";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { sendLoginOTP } from "../../../services/auth";
-import { updateOTP } from "../../../redux/slices/user";
+import {
+  updateIsLoggedIn,
+  updateOTP,
+  updateUserDetails,
+} from "../../../redux/slices/user";
+import { LoginSocialFacebook } from "reactjs-social-login";
+import axios from "axios";
+import { useGoogleLogin } from "@react-oauth/google";
+
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -27,6 +34,7 @@ const CreateAccountPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const userChoice = useSelector((state) => state.authChoice);
+  const facebookAppId = process.env.REACT_APP_FACEBOOK_APP_ID;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleFormSubmit = (event) => {
@@ -58,7 +66,7 @@ const CreateAccountPage = () => {
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%^&*])[A-Za-z\d@$!%^&*]{8,}$/;
       if (!regex.test(password)) {
         setPasswordError(true);
-        errors.notvalid="true"
+        errors.notvalid = "true";
       } else {
         setPasswordError(false);
       }
@@ -71,10 +79,10 @@ const CreateAccountPage = () => {
       email,
       phone,
       password,
-      role:userChoice?.role?.role,
+      role: userChoice?.role?.role,
       type: "register",
     };
-    if (Object.keys(errors).length === 0 ) {
+    if (Object.keys(errors).length === 0) {
       localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
       localStorage.setItem("userPhoneNumber", JSON.stringify(formData.phone));
 
@@ -82,42 +90,71 @@ const CreateAccountPage = () => {
         console.log(res);
 
         if (res && res?.res?.data.status === true) {
-          console.log("OTP");
           dispatch(updateOTP(res?.res.data.otp));
           navigate("/verify-otp");
         } else {
-          toast.error(`${res?.err?.response?.data.message||res?.err?.response?.data.error}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          toast.error(
+            `${
+              res?.err?.response?.data.message || res?.err?.response?.data.error
+            }`
+          );
         }
       });
     }
-
-    // Handle form submission
-    // Your logic here for submitting the form data
   };
 
-  const handleRegister = async () => {
-    const { err, res } = await register();
-  };
-  const handleGoogleLogin = () => {
-    googlelogin().then((res) => {
-      console.log(res);
-    });
-  };
-  const handleFacebookLogin = () => {
-    Facebooklogin().then((res) => {
-      console.log(res);
-    });
-  };
+
+  const googleAuthLogin=useGoogleLogin({
+    cookiePolicy: 'single_host_origin',
+    onSuccess: async (response) => {
+      try {
+        const { access_token } = response;
+        console.log(access_token);
+        // Make a request to your backend API
+       google_Login(access_token).then((res)=>{
+        if (res?.res?.data && res?.res.status === 200) {
+          dispatch(updateIsLoggedIn(true));
+          dispatch(
+            updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+          );
+          localStorage.setItem("jwtToken", res?.res?.data?.token);
+          navigate("/");
+          toast("Welcome to Treato! Start exploring now!");
+        } else {
+          toast.error(`An unexpected error occurred. Please try again.`);
+        }
+       });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  });
   
+
+
+  const facebookAuthLogin = (facebookResponse) => {
+    const { email, first_name, last_name, picture } = facebookResponse;
+    let data = {
+      email,
+      first_name,
+      last_name,
+      role: userChoice?.role?.role || "normal",
+      picture: picture?.data?.url,
+    };
+    facebook_Login(data).then((res) => {
+      if (res?.res?.data && res?.res.status === 200) {
+        dispatch(updateIsLoggedIn(true));
+        dispatch(
+          updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+        );
+        localStorage.setItem("jwtToken", res?.res?.data?.token);
+        navigate("/");
+        toast("Welcome to Treato! Start exploring now!");
+      } else {
+        toast.error(`An unexpected error occurred. Please try again.`);
+      }
+    });
+  };
   return (
     <AuthPage>
       <div className={styles.container}>
@@ -232,15 +269,25 @@ const CreateAccountPage = () => {
           <div className={styles.socialButtons}>
             <SecondaryButton
               className={styles.google}
-              onClick={handleGoogleLogin}
+              onClick={googleAuthLogin}
             >
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
-            <SecondaryButton className={styles.facebook} onClick={handleFacebookLogin}>
-              <img src={Facebook_Logo} />
-              Facebook
-            </SecondaryButton>
+            <LoginSocialFacebook
+              appId={facebookAppId}
+              onResolve={(response) => {
+                facebookAuthLogin(response?.data);
+              }}
+              onReject={(error) => {
+                console.log(error);
+              }}
+            >
+              <SecondaryButton className={styles.facebook}>
+                <img src={Facebook_Logo} />
+                Facebook
+              </SecondaryButton>
+            </LoginSocialFacebook>
           </div>
         </div>
         <div className={styles.termsWrapper}>

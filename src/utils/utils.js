@@ -101,11 +101,53 @@ export const fetchSalonsData = (userDetails,fetchType,serviceName,salonlocation)
         dispatch(updateSalonContent(salons));
       }
 
-      // Dispatch the 'updateFilterContent' action with the fetched 'salons' data
-      dispatch(updateFilterContent(salons));
     }
   } catch (error) {
     // Handle any errors here
     console.error("Error fetching salons:", error);
   }
+};
+
+
+export const getfilterSalon = async(userDetails,fetchType,serviceName,salonlocation) =>  {
+    let result;
+    if(fetchType==="searchBase"){
+    result = await getSalonListBySearchInput(serviceName,salonlocation);
+    }
+
+    if (result.res) {
+      const { data } = result.res; // Destructure 'data' from 'result.res'
+      const { salons } = data; // Destructure 'salons' from 'data'
+      const userCoordinates = { lat: userDetails?.user?.latitude, lon: userDetails?.user?.longitude };
+
+      const ServicesResponse = await getAllServices();
+      let listServices = ServicesResponse?.res.data.data;
+      // Create a map of service IDs to their corresponding names
+      const serviceMap = {};
+      listServices.forEach((service) => {
+        serviceMap[service._id] = {
+          service_name: service.service_name,
+          price: service.price,
+          service_timing:service.service_timing // Add the price to the service
+        };
+      });
+
+      let allSalonsCoordinates=salons.map((e)=>{
+        let obj={lat:e.location.coordinates[0],lon:e.location.coordinates[1]}
+        return obj
+      })
+      const calculatedDistances = allSalonsCoordinates?.map((salon) => {
+        return calculateDistance(userCoordinates.lat, userCoordinates.lon, salon.lat, salon.lon);
+      });
+      salons.forEach((salon,i) => {
+        if(fetchType!="searchBase"){
+          salon.services = salon.services.map((serviceId) => ({
+            _id: serviceId,
+            ...serviceMap[serviceId], // Provide a default value if service name is not found
+          }));
+        }
+        salon.distances=calculatedDistances[i]
+      });
+      return salons
+    }
 };

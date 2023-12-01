@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 const TopSalons = (props) => {
   const salonsState = useSelector((state) => state.salons);
+  const userDetails = useSelector((state) => state.user);
   let [topSalonData, setTopSalonData] = useState([]);
 
   useEffect(() => {
@@ -17,14 +18,22 @@ const TopSalons = (props) => {
       );
       setTopSalonData(filterResult);
     } else if (props?.heading === "Popular near you") {
-      let filterResult = [...salonsState?.salonContent]
-        .filter((salon) => salon.distances < 200)
-        .sort((a, b) => {
-          const distanceA = a.unit === "km" ? a.distances * 1000 : a.distances;
-          const distanceB = b.unit === "km" ? b.distances * 1000 : b.distances;
-          return distanceA - distanceB;
-        })
-        .sort((a, b) => b.rating - a.rating);
+      let filterResult;
+      if(!userDetails?.user.isLocationAllow){
+        filterResult = [...salonsState?.salonContent].sort(
+          (a, b) => b.rating - a.rating
+        );
+      }
+      else{
+        filterResult = [...salonsState?.salonContent]
+          .filter((salon) => salon.distances < 400)
+          .sort((a, b) => {
+            const distanceA = a.unit === "km" ? a.distances * 1000 : a.distances;
+            const distanceB = b.unit === "km" ? b.distances * 1000 : b.distances;
+            return distanceA - distanceB;
+          })
+          .sort((a, b) => b.rating - a.rating);
+      }
       setTopSalonData(filterResult);
     }
   }, [salonsState]);
@@ -109,7 +118,7 @@ const TopSalons = (props) => {
               ? topSalonData.map((salon, index) => (
                   <Salon salonData={salon} place={"homePage"} key={index} />
                 ))
-              : <p className={styles.notAvailable}>No salon available</p>}
+              : <p className={styles.notAvailable}>No salons available at the moment. Check back later!</p>}
           </div>
           {showRightArrow &&     
           <img
