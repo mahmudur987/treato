@@ -5,8 +5,8 @@ import { Link, useNavigate  } from "react-router-dom"; // Import useNavigate
 import { chooseRole } from "../../../redux/slices/authChoice";
 import { briefcase, user, arrowright, arrowleft } from "../../../assets/images/icons";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
-import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
-import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
+import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
+import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
 const AuthChoicePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Use the useNavigate hook

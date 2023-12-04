@@ -57,7 +57,7 @@ export default function SalonServiceMain({ hideTitle, SalonData}) {
                                     <div key={i}>
                                         <div className={styles.salon_service_title} onClick={() => activeOptFunc(i)}>
                                             <div>{v?.category_name} ({v?.subCategories.length} items)</div>
-                                            <div><img src={upIco} alt="" className={activeOption[i].selected ? styles.rotate_imgA : styles.rotate_img} /></div>
+                                            <div><img src={upIco} alt="up arrow" className={activeOption[i].selected ? styles.rotate_imgA : styles.rotate_img} /></div>
                                         </div>
                                         <div className={styles.salon_serviceAB}>
                                             <div className={activeOption[i].selected ? `${styles.salon_serviceA} ${styles.showServices}` : styles.salon_serviceA}>

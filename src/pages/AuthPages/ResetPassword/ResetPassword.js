@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
-import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
+import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
 import styles from "./ResetPassword.module.css";
 import { eyeline } from "../../../assets/images/icons";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { resetPassword } from "../../../services/auth";
 import { toast } from "react-toastify";
@@ -44,16 +44,7 @@ const ResetPassword = () => {
             console.log(res);
             if (res.success === true) {
               navigate("/login");
-              toast.success("Password updated successfully", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
+              toast.success("Password updated successfully");
             } else if (res.success === false) {
               console.log(res.error.response.data.message);
               seterrorMEssage(res.error.response.data.message);

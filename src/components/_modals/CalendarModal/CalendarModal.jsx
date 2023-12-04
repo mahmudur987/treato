@@ -98,10 +98,10 @@ export default function CalendarModal({getWorkerData}) {
         <div>
             <div className={styles.service_timeC}>Date</div>
             <div className={styles.service_timeMonth}>
-                <img src={showMonth!==0?rightIco:leftIco} alt="" onClick={() => updateMonthYear(1)} className={showMonth!==0?"rotateImg":""}/>
+                <img src={showMonth!==0?rightIco:leftIco} alt="left icon" onClick={() => updateMonthYear(1)} className={showMonth!==0?"rotateImg":""}/>
                 <div>{threeMonths[showMonth]}</div>
                 <div>{showYear}</div>
-                <img src={showMonth===2?leftIco:rightIco} alt="" onClick={() => updateMonthYear(0)} className={showMonth===2?"rotateImg":""}/>
+                <img src={showMonth===2?leftIco:rightIco} alt="right icon" onClick={() => updateMonthYear(0)} className={showMonth===2?"rotateImg":""}/>
             </div>
             <div className={`time_slick`}>
                 {

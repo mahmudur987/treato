@@ -21,7 +21,9 @@ const Search_MoboModal = (props) => {
     handleLocationInput,
     setLocationInput,
     pageName,
-    handleGoButtonClick
+    uniqueLocText,
+    activeButton,
+    setallLookbook
   } = props;
   const [allServices, setallServices] = useState([]);
   const [filteredServiceData, setFilteredServiceData] = useState([]);
@@ -70,9 +72,6 @@ const Search_MoboModal = (props) => {
 
 
 
-
-
-
   return (
     <div className={styles["container"]}>
       <div className={styles["modalNav"]}>
@@ -103,7 +102,7 @@ const Search_MoboModal = (props) => {
       </div>
         <div className={styles["modalContent"]}>
           <div className={styles["loc_Results"]}>
-            {title!="Treatment or venue"?<Locations allSalonList={allSalonList} setLocationInputValue={setLocationInputValue} handle_close={handle_close} pageName={pageName} setLocationInput={setLocationInput} handleGoButtonClick={handleGoButtonClick}/>:
+            {title!="Treatment or venue"?<Locations allSalonList={allSalonList} setLocationInputValue={setLocationInputValue} handle_close={handle_close} pageName={pageName} setLocationInput={setLocationInput}  uniqueLocText={uniqueLocText} activeButton={activeButton} setallLookbook={setallLookbook}/>:
             <>
             <Treatments allServices={filteredServiceData} setTreatmentInputValue={setTreatmentInputValue} handle_close={handle_close}/>
             <Venues/>

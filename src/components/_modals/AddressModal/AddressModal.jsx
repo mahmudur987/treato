@@ -113,6 +113,10 @@ export default function AddressModal({ setAddressModal, updateInputVal, inputVal
         data[e.target.name] = e.target.value;
         updateInputs(data)
     }
+    let handleChange = ()=>{
+        setAddressModal({ active: false, data: null });
+        setlocationModal(true);
+    }
     return (
         <>
             {
@@ -125,7 +129,7 @@ export default function AddressModal({ setAddressModal, updateInputVal, inputVal
                             </div>
                             <div className={styles.addressB}>
                                 <div className={styles.addressBA}>{isLoaded && userDetails.user.city}, {isLoaded && userDetails.user.region}, {isLoaded && userDetails.user.postal}, {isLoaded && userDetails.user.country}</div>
-                                <div className={styles.addressBB} onClick={() => {setAddressModal({ active: false, data: null });setlocationModal(true)}} ><SecondaryButton children={'Change'} className={styles.addressBB_btn} /></div>
+                                <div className={styles.addressBB} onClick={handleChange} ><SecondaryButton children={'Change'} className={styles.addressBB_btn} /></div>
                             </div>
                             <div className={styles.addressC}>
                                 {
@@ -186,7 +190,7 @@ export default function AddressModal({ setAddressModal, updateInputVal, inputVal
                             </div>
                             <div className={styles.addressB}>
                                 <div className={styles.addressBA}>{isLoaded && userDetails.user.city}, {isLoaded && userDetails.user.region}, {isLoaded && userDetails.user.postal}, {isLoaded && userDetails.user.country}</div>
-                                <div className={styles.addressBB}  onClick={() => {setAddressModal({ active: false, data: null });setlocationModal(true)}} ><SecondaryButton children={'Change'} className={styles.addressBB_btn} /></div>
+                                <div className={styles.addressBB}  onClick={handleChange} ><SecondaryButton children={'Change'} className={styles.addressBB_btn} /></div>
                             </div>
                             <div className={styles.addressC}>
                                 {

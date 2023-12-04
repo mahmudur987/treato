@@ -79,20 +79,18 @@ export default function BlogDetail(props) {
     getBlogData()
   }, [pathname])
 
-  console.log(mainBlogData);
-
   return (
     <div className={`${styles["container"]} page-section page-container`}>
       <BackButton/>
       <div className={styles["wrapper"]}>
         <div className={styles.titleWrapper}>
-          <Title className={styles["title"]}>{mainBlogData.length?mainBlogData[0].blog_title:''}</Title>
+          <Title className={styles["title"]}>{mainBlogData?.length?mainBlogData[0]?.blog_title:''}</Title>
 
           <header className={styles["header"]}>
             <div className={styles["header-left"]}>
-              <img src={mainBlogData.length?mainBlogData[0]?.blog_Img?.public_url:''} />
+              <img src={mainBlogData?.length?mainBlogData[0]?.blog_Img?.public_url:''} />
               <div className={styles["header-content"]}>
-                <p className={styles["author"]}> {mainBlogData.length?mainBlogData[0]?.writer_name:''} </p>
+                <p className={styles["author"]}> {mainBlogData?.length?mainBlogData[0]?.writer_name:''} </p>
                 <p className={styles["header-date"]}>
                   {date}
                   <img src={Timer} alt="timer" />
@@ -119,28 +117,28 @@ export default function BlogDetail(props) {
         <div className={styles.blogWrapper}>
           <div className={styles.sectionLeft}>
             <img
-              src={mainBlogData.length?mainBlogData[0]?.blog_Img?.public_url:''}
+              src={mainBlogData?.length?mainBlogData[0]?.blog_Img?.public_url:''}
               alt="blog-image"
               className={styles["blog-image"]}
             />
             <p className={styles["blog-text"]}>
-              {mainBlogData.length?mainBlogData[0]?.blog_description:''}
+              {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
+            </p>
+            <h4 className={styles["blog-header"]}>{mainBlogData?.length?mainBlogData[0]?.blog_title:''}</h4>
+            <p className={styles["blog-text"]}>
+            {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
             </p>
             <h4 className={styles["blog-header"]}>{mainBlogData.length?mainBlogData[0]?.blog_title:''}</h4>
             <p className={styles["blog-text"]}>
-            {mainBlogData.length?mainBlogData[0]?.blog_description:''}
-            </p>
-            <h4 className={styles["blog-header"]}>{mainBlogData.length?mainBlogData[0]?.blog_title:''}</h4>
-            <p className={styles["blog-text"]}>
-            {mainBlogData.length?mainBlogData[0]?.blog_description:''}
+            {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
             </p>
             <img
-              src={mainBlogData.length?mainBlogData[0]?.blog_Img?.public_url:''}
+              src={mainBlogData?.length?mainBlogData[0]?.blog_Img?.public_url:''}
               alt="blog-image"
               className={styles["blog-image"]}
             />
             <p className={styles["blog-text"]}>
-            {mainBlogData.length?mainBlogData[0]?.blog_description:''}
+            {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
             </p>
             <div className={styles["line"]}> </div>
 

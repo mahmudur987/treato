@@ -106,7 +106,9 @@
   background: rgba(13, 105, 215, 0.1);
   color: var(--primary-color);
 }
-
+.blurredArrow {
+  filter: blur(4px);
+}
 /* Carousel css */
 
 .calendarWrapper button,
@@ -123,6 +125,12 @@
   width: 85%;
   margin: auto;
   overflow: visible;
+}
+.service_timeMonth{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
   .slidersWrapper>div:last-child::before{
@@ -142,8 +150,12 @@
       display: block; /* This is to make it display inline with the content */
       background-image: url('../../../../assets/images/icons/chevronLeft.svg');
   }
-
-
+.leftarrowIcon{
+  transform: scaleX(-1);
+}
+.disabled{
+ opacity: 0.3;
+}
 @media only screen and (max-width: 600px) {
   .RescheduleModal {
     width: 100%;

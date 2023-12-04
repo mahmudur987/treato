@@ -35,12 +35,10 @@ export const applyFilters = (
   closeModal
 ) => {
   // Filter salonContent based on the selected sort option
-  let filteredSalons = [...salonsState.filterContent];
+  let filteredSalons = [...salonsState.searchSalonResults];
 
   if (selectedSortOption === "Recommended") {
-    filteredSalons = filteredSalons.filter(
-      (salon) => salon.recommended === true
-    );
+    filteredSalons = filteredSalons.sort((a, b) => b.rating - a.rating);
   } else if (selectedSortOption === "Nearest to me") {
     // Sort by some other logic
     filteredSalons.sort((a, b) => {
@@ -63,9 +61,11 @@ export const applyFilters = (
   }
 
   if (selectedVenueType !== "") {
-    filteredSalons = filteredSalons.filter(
-      (salon) => salon.venueType === selectedVenueType
-    );
+    filteredSalons = filteredSalons.filter((salon) => {
+      if (salon.venue_type != "") {
+        return salon.venue_type === selectedVenueType;
+      }
+    });
   }
 
   // Update the filtered salon content

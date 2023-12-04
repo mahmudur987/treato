@@ -23,11 +23,13 @@ import PrimaryButton from "../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton/SecondaryButton";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUserDetails, updateIsLoggedIn } from "../../redux/slices/user";
+import { fetchIPInfo } from "../../services/user";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
   const [isMainSearchBar, setisMainSearchBar] = useState(false);
+  const [resetUserData, setresetUserData] = useState({});
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setuserInfo] = useState("");
@@ -63,7 +65,7 @@ export default function Navbar() {
   //Logout
   const handleLogout = () => {
     dispatch(updateIsLoggedIn(false));
-    dispatch(resetUserDetails({}));
+    dispatch(resetUserDetails(resetUserData));
     localStorage.removeItem("userData");
     localStorage.removeItem("jwtToken");
     setIsDesktopMenuOpen(false);
@@ -71,7 +73,9 @@ export default function Navbar() {
     navigate("/");
     setIsLoggedIn(false);
     setuserInfo("");
+    // window.open("https://backend.treato.in/api/v1/auth/logout","_self")
   };
+
 
   useEffect(() => {
     if (location.pathname === "/salons") {
@@ -139,7 +143,7 @@ export default function Navbar() {
             onClick={handleMobileMenuToggle}
           >
             {!isMobileMenuOpen ? (
-              <img src={isLoggedIn?mask:menuLogo} alt="menuLogo" />
+              <img src={isLoggedIn ? userInfo?.avatar?.public_url?userInfo?.avatar?.public_url:mask : menuLogo} alt="menuLogo" />
             ) : (
               <img src={x} alt="closeIcon" />
             )}
@@ -160,7 +164,7 @@ export default function Navbar() {
               className={`${styles.signinButton} ${styles.hideOnMobile}`}
               onClick={handleDesktopMenuToggle}
             >
-              <img src={mask} alt="mask" />
+              <img src={userInfo?.avatar?.public_url?userInfo?.avatar?.public_url:mask} alt="mask" />
               {userInfo?.first_name}
               <img src={chevrondown} alt="chevrondown" />
             </SecondaryButton>
@@ -179,7 +183,7 @@ export default function Navbar() {
             {isLoggedIn && (
               <>
                 <div className={styles.navUserInfo}>
-                  <img src={mask2} alt="mask" />
+              <img src={userInfo?.avatar?.public_url?userInfo?.avatar?.public_url:mask2} alt="mask" />
                   <h3 className={styles.userName}>{userInfo?.first_name}</h3>
                   <small className={styles.userEmail}>{userInfo?.email}</small>
                 </div>

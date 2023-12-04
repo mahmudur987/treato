@@ -63,57 +63,9 @@ export const resetPassword = async (id, token, newPassword) => {
   }
 };
 
-export const googlelogin = async () => {
-//   try {
-//     const res = await axiosInstance.get(
-//       `https://backend.treato.in/api/v1/auth/google`
-//     );
-//     return { res: res, err: null };
-//   } catch (error) {
-//     return { err: error, res: null };
-//   }
-    try {
-      const res = window.open(
-        "https://backend.treato.in/api/v1/auth/google",
-        "_self"
-      );
-      return { res: res, err: null };
-    } catch (error) {
-      return { err: error, res: null };
-    }
-};
-
-
-
-export const googleloginSuccess = async () => {
-     try {
-       const res = await axiosInstance.get(
-         "http://43.204.141.2:4000/api/v1/auth/login/success"
-       );
-       return { res: res, err: null };
-     } catch (error) {
-       return { err: error, res: null };
-     }
-     
-   };
-
-
-   export const Facebooklogin = async () => {
-        try {
-          const res = window.open(
-            "https://backend.treato.in/api/v1/auth/facebook",
-            "_self"
-          );
-          return { res: res, err: null };
-        } catch (error) {
-          return { err: error, res: null };
-        }
-    };
-
-export const getUserProfile = async () => {
+export const getUserProfile = async (jwtToken) => {
   try {
     // Retrieve the JWT token from localStorage
-    const jwtToken = localStorage.getItem("jwtToken");
     if (!jwtToken) {
       // Handle the case where the token is not available
       throw new Error("JWT token is not available");
@@ -132,3 +84,24 @@ export const getUserProfile = async () => {
     return { err: error, res: null };
   }
 };
+
+//Todo :We are temporarily using this API for Google and Facebook login and will switch to the Passport.js method once the bug in our Passport code is fixed
+//google and facebook login
+    export const facebook_Login = async (data) => {
+      try {
+        const res = await axiosInstance.post(`/facebook`, data);
+        return { res, err: null };
+      } catch (error) {
+        return { err: error, res: null };
+      }
+    };
+
+    export const google_Login = async (access_token) => {
+      console.log(access_token);
+      try {
+        const res = await axiosInstance.post(`/google`, {access_token});
+        return { res, err: null };
+      } catch (error) {
+        return { err: error, res: null };
+      }
+    };

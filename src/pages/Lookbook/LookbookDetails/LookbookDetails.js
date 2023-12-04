@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./LookbookDetails.module.css";
-import Img1 from "../../../assets/images/LookbookImages/Lookbook2.png";
 import { arrowleft } from "../../../assets/images/icons";
 import greyStar from "../../../assets/images/icons/greyStar.svg"
 import mask from "../../../assets/images/NavbarImages/Mask.png";

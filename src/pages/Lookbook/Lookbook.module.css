@@ -289,7 +289,18 @@
   margin: 1rem auto;
   cursor: pointer;
 }
+.currentLocation{
+  display: flex;
+  font-size: var(--font-medium);
+  padding: 0.5rem;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
 
+.currentLocation h4 {
+  color: var(--primary-color);
+  margin-left: 1rem;
+}
 @media only screen and (max-width: 770px) {
 
   .imageText {
