@@ -6,6 +6,7 @@ import mask from "../../assets/images/NavbarImages/Mask.png";
 import MainSearchBar from "../Input/mainSearchBar/MainSearchBar";
 import {
   TreatoLogo,
+  accountSetting,
   briefcase,
   chevrondown,
   chevronright,
@@ -166,7 +167,7 @@ export default function Navbar() {
             >
               <img src={userInfo?.avatar?.public_url?userInfo?.avatar?.public_url:mask} alt="mask" />
               {userInfo?.first_name}
-              <img src={chevrondown} alt="chevrondown" />
+              <img src={chevrondown} alt="chevrondown" className={styles.chevrondown}/>
             </SecondaryButton>
           )}
         </div>
@@ -203,8 +204,8 @@ export default function Navbar() {
                 <li>
                   <Link to="/account-settings">
                     <div className={styles.listtext}>
-                      <img src={signin} alt="signin" />
-                      <a href="#">Account Setting</a>
+                      <img src={accountSetting} alt="signin" />
+                      <a href="#">Account Settings</a>
                     </div>
                     <div className={styles.chevronright}>
                       <img src={chevronright} alt="chevronright" />
@@ -212,7 +213,7 @@ export default function Navbar() {
                   </Link>
                 </li>
 
-                <hr />
+                <hr className={styles.divideLine} />
               </>
             )}
 
@@ -274,17 +275,7 @@ export default function Navbar() {
                     <img src={chevronright} alt="chevronright" />
                   </div>
                 </li>
-                <li>
-                  <a href="/">
-                    <div className={styles.listtext}>
-                      <img src={supportIcon} alt="supportIcon" />
-                      Help & Support
-                    </div>
-                    <div className={styles.chevronright}>
-                      <img src={chevronright} alt="chevronright" />
-                    </div>
-                  </a>
-                </li>
+               
               </>
             )}
 
@@ -296,11 +287,9 @@ export default function Navbar() {
                     onClick={handleLogout}
                   >
                     <img src={signout} alt="signout" />
-                    signout
+                    Signout
                   </div>
-                  <div className={styles.chevronright}>
-                    <img src={chevronright} alt="chevronright" />
-                  </div>
+              
                 </a>
               </li>
             )}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./LoginPage.module.css";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+import en from "react-phone-number-input/locale/en";
 import {
   Facebook_Logo,
   Google_Logo,
@@ -33,6 +33,8 @@ import {
 import axios from "axios";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
+import CountrySelect from "../../../components/Countrycode/CountrySelect";
+import { getCountryCallingCode } from "react-phone-number-input";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,6 +43,7 @@ const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [showEmailPassword, setShowEmailPassword] = useState(true);
   const [formErrors, setFormErrors] = useState({});
+  const [country, setCountry] = useState("IN");
   const [responseError, setresponseError] = useState("");
   const facebookAppId = process.env.REACT_APP_FACEBOOK_APP_ID;
   const userChoice = useSelector((state) => state.authChoice);
@@ -61,7 +64,7 @@ const LoginPage = () => {
 
     if (
       (!phone && !showEmailPassword) ||
-      (phone.replace(/[^0-9]/g, "").length !== 12 && !showEmailPassword)
+      (phone.replace(/[^0-9]/g, "").length !== 10 && !showEmailPassword)
     ) {
       errors.phone = "Phone number must be exactly 10 digits";
     }
@@ -83,7 +86,7 @@ const LoginPage = () => {
     const formData = {
       email,
       password,
-      phone,
+      phone: phone.length && Object.keys(errors).length === 0?`+${getCountryCallingCode(country)}${phone}`:"",
     };
 
     if (Object.keys(errors).length === 0 && showEmailPassword) {
@@ -233,7 +236,10 @@ const LoginPage = () => {
                 <img
                   src={eyeline}
                   className={styles.eyeline}
-                  onClick={() => setPasswordVisible(!passwordVisible)}
+                  onClick={() => {
+                    setPasswordVisible(!passwordVisible)
+                    setPasswordError(false);
+                  }}
                 />
                 {passwordError && (
                   <div className={styles.passwordError}>
@@ -252,7 +258,7 @@ const LoginPage = () => {
                   <p className={styles.error}>{formErrors.password}</p>
                 )}
                 <Link to="/forgot-password" className={styles.forgotPassword}>
-                  forgot Pasword?
+                  Forgot Password?
                 </Link>
               </div>
             </>
@@ -260,12 +266,31 @@ const LoginPage = () => {
           {!showEmailPassword && (
             <div className={styles.inputGroup}>
               <label htmlFor="phone">Phone</label>
-              <PhoneInput
-                defaultCountry="IN"
-                value={phone}
-                placeholder="Enter phone number"
-                onChange={(value) => setPhone(value)}
+              <div className={`${styles.phoneNumberInput} ${styles.phoneInputWrapper} ${phone.length?styles.bglightGray:""}`}>
+              <CountrySelect
+                labels={en}
+                value={country}
+                onChange={setCountry}
+                phone={phone}
+
               />
+               <div className={`${styles.divider} ${phone.length?styles.bglightGray:""}`}></div>
+              <input
+                value={phone}
+                type="text" 
+                inputMode="numeric" 
+                pattern="[0-9]*" 
+                maxLength={10} 
+                onChange={(e) => {
+                  const sanitizedValue = e.target.value.replace(/\D/g, ""); 
+                  setPhone(sanitizedValue);
+
+                  formErrors.phone = "";
+
+                }}
+                placeholder="Enter your phone number"
+              />
+            </div>
               {formErrors.phone && (
                 <p className={styles.error}>{formErrors.phone}</p>
               )}
@@ -276,7 +301,7 @@ const LoginPage = () => {
           )}
           <div className={styles.actions}>
             {!showEmailPassword ? (
-              <PrimaryButton className={styles.action}>Sign in</PrimaryButton>
+              <PrimaryButton className={styles.action}>Get OTP</PrimaryButton>
             ) : (
               <PrimaryButton className={styles.action}>Sign in</PrimaryButton>
             )}

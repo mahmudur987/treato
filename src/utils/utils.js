@@ -24,7 +24,12 @@ export const getFormattedDate = (argDate) => {
 };
 
 
+export const handleInputChange=(e, setFunction)=> {
+  const inputValue = e.target.value;
+  const filteredValue = inputValue.replace(/[^A-Za-z]/g, ''); // Remove numeric characters
 
+  setFunction(filteredValue);
+}
 
 const R = 6371; // Radius of the Earth in kilometers
 
@@ -119,7 +124,7 @@ export const getfilterSalon = async(userDetails,fetchType,serviceName,salonlocat
       const { data } = result.res; // Destructure 'data' from 'result.res'
       const { salons } = data; // Destructure 'salons' from 'data'
       const userCoordinates = { lat: userDetails?.user?.latitude, lon: userDetails?.user?.longitude };
-
+      
       const ServicesResponse = await getAllServices();
       let listServices = ServicesResponse?.res.data.data;
       // Create a map of service IDs to their corresponding names

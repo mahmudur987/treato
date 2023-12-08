@@ -81,7 +81,9 @@
   background: none;
   color: var(--dark-color);
 }
-
+.divideLine{
+  color: #CED4DA;
+}
 .signupButton,
 .signinButton {
   background-color: var(--black-color);
@@ -91,17 +93,22 @@
 .signinButton {
   background: none;
   display: flex;
-  gap: 4px;
+  gap: 12px;
   align-items: center;
   text-align: center;
   color: var(--black-color);
-  font-size: var(--font-small);
+  font-size: var(--font-medium);
   font-weight: 400;
   height: 48px;
+  border: none !important;
+}
+.signinButton .chevrondown{
+  width: 24px;
+  height: 24px;
 }
 .signinButton img {
-  height: 24px;
-  width: 24px;
+  height: 44px;
+  width: 44px;
   border-radius:50%;
 }
 .menuButton {
@@ -110,6 +117,7 @@
 
 .mobileNavDropBox {
   width: 100%;
+ 
   font-family: "Lato", sans-serif;
 }
 
@@ -118,10 +126,13 @@
 }
 .mobileNavDropBox ul li {
   display: flex;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   cursor: pointer;
   padding: 0.2rem 0rem;
   justify-content: space-between;
+}
+.mobileNavDropBox ul li:last-child {
+margin-bottom: 0rem;
 }
 .mobileNavDropBox ul li:hover {
   background-color: var(--light-color);
@@ -157,6 +168,7 @@
 .userName {
   font-size: var(--font-medium);
   font-weight: 600;
+  margin-top: .4rem;
 }
 .userEmail {
   font-size: var(--font-small);
@@ -171,7 +183,7 @@
   top: 100%;
   background: var(--White);
   border-radius: 4px;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   z-index: 11;
   box-shadow: 0px 4px 24px 0px #0000001f;
 }
@@ -211,6 +223,18 @@
   }
   .navigation li {
     font-size: var(--font-small);
+  }
+  .listtext{
+    font-size: var(--font-medium);
+  }
+  .mobileNavDropBox{
+    height: 100vh;
+  }
+  .mobileNavDropBox ul li{
+    margin: 1rem 0;
+  }
+  .navUserInfo{
+    margin-top: 15%;
   }
 }
 @media only screen and (max-width: 600px) {
