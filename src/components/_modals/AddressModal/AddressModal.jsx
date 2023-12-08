@@ -9,15 +9,14 @@ import { useEffect } from 'react'
 import GoogleMapReact from 'google-map-react';
 import { useSelector } from 'react-redux'
 import { updateUser } from '../../../services/updateUser'
-import { all } from 'axios'
+
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-export default function AddressModal({ setAddressModal, updateInputVal, inputVal, setShowSave, addressModal }) {
+export default function AddressModal({ setAddressModal, updateInputVal, inputVal, setShowSave, addressModal,setlocationModal }) {
     const getMapData = (e) => {
         console.log(e);
         const lat = e.lat;
         const lng = e.lng;
-        
         // Use the lat and lng to perform reverse geocoding and get the address
         const geocoder = new window.google.maps.Geocoder();
         geocoder.geocode({ location: { lat, lng } }, (results, status) => {
@@ -25,7 +24,6 @@ export default function AddressModal({ setAddressModal, updateInputVal, inputVal
             if (results[0]) {
               const address = results[0].formatted_address;
               console.log('Address:', address);
-              
               // Now you have the address based on the clicked location
             } else {
               console.log('No results found');
@@ -115,6 +113,10 @@ export default function AddressModal({ setAddressModal, updateInputVal, inputVal
         data[e.target.name] = e.target.value;
         updateInputs(data)
     }
+    let handleChange = ()=>{
+        setAddressModal({ active: false, data: null });
+        setlocationModal(true);
+    }
     return (
         <>
             {
@@ -127,7 +129,7 @@ export default function AddressModal({ setAddressModal, updateInputVal, inputVal
                             </div>
                             <div className={styles.addressB}>
                                 <div className={styles.addressBA}>{isLoaded && userDetails.user.city}, {isLoaded && userDetails.user.region}, {isLoaded && userDetails.user.postal}, {isLoaded && userDetails.user.country}</div>
-                                <div className={styles.addressBB}><SecondaryButton children={'Change'} className={styles.addressBB_btn} /></div>
+                                <div className={styles.addressBB} onClick={handleChange} ><SecondaryButton children={'Change'} className={styles.addressBB_btn} /></div>
                             </div>
                             <div className={styles.addressC}>
                                 {
@@ -188,7 +190,7 @@ export default function AddressModal({ setAddressModal, updateInputVal, inputVal
                             </div>
                             <div className={styles.addressB}>
                                 <div className={styles.addressBA}>{isLoaded && userDetails.user.city}, {isLoaded && userDetails.user.region}, {isLoaded && userDetails.user.postal}, {isLoaded && userDetails.user.country}</div>
-                                <div className={styles.addressBB}><SecondaryButton children={'Change'} className={styles.addressBB_btn} /></div>
+                                <div className={styles.addressBB}  onClick={handleChange} ><SecondaryButton children={'Change'} className={styles.addressBB_btn} /></div>
                             </div>
                             <div className={styles.addressC}>
                                 {

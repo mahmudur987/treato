@@ -24,7 +24,7 @@ export default function SalonGallery({ gallery, setShowGallery }) {
         }
     )
     const images = gallery.map((v) => ({
-        src: v
+        src: v.public_url
     }));
     if (lightBox.src !== '') {
         gallery.map((v, i) => {
@@ -57,7 +57,7 @@ export default function SalonGallery({ gallery, setShowGallery }) {
                                 gallery ?
                                     gallery.map((v, i) => {
                                         return (
-                                            <SalonGalleryCard image={v} key={i} setLightBox={setLightBox} />
+                                            <SalonGalleryCard image={v.public_url} key={i} setLightBox={setLightBox}/>
                                         )
                                     })
                                     :

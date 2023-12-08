@@ -1,0 +1,138 @@
+.shareMain {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #08090A;
+    font-family: 'Lato', sans-serif;
+    z-index: 999;
+}
+
+.shareA {
+    padding: 36px;
+    padding-bottom: 48px;
+    background-color: #fff;
+    width: 536px;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.shareB {
+    text-align: right;
+}
+
+.shareB img{
+    cursor: pointer;
+}
+
+.shareC {
+    font-family: 'Poppins', 'Sans-Serif';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+.shareD {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 36px;
+    gap: 36px;
+}
+
+.shareDA {
+    color: #434141;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.14px;
+    cursor: pointer;
+}
+
+.shareE {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 200px;
+    border: 2px solid #DFE5EA;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 36px;
+}
+
+.shareEA {
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+}
+
+.shareEB {
+    width: 30%;
+    padding: 16px 24px;
+    box-sizing: border-box;
+    border-radius: 100px;
+    background: #08080B;
+    color: #FFF;
+    font-family: 'Poppins', 'Sans-Serif';
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+}
+
+@media only screen and (max-width:767px) {
+    .shareMain {
+        align-items: flex-end;
+    }
+
+    .shareA {
+        width: 100%;
+        border-radius: 12px 12px 0px 0px;
+        padding: 24px;
+    }
+    .shareD{
+        gap: 24px;
+    }
+    .shareDA img{
+        width: 32px;
+        height: 32px;
+    }
+    .shareE{
+        padding: 8px;
+        padding-left: 24px;
+    }
+    .shareEB{
+        width: 122px;
+        height: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+    }
+    .pc_d_none{
+        display: block;
+    }
+    .mob_d_none{
+        display: none;
+    }
+
+}
+.mob_d_none{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+.pc_d_none{
+    display: none;
+}
