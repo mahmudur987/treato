@@ -356,9 +356,8 @@ const Lookbook = () => {
       </div>
       {/* services Button Mobo version */}
       <div
-        className={`${styles.serviceButtonWrapperMobo} ${
-          isServiceListExpanded ? styles.expandList : ""
-        }`}
+        className={`${styles.serviceButtonWrapperMobo} ${isServiceListExpanded ? styles.expandList : ""
+          }`}
       >
         {allServices.map((service, index) => (
           <button
@@ -403,9 +402,8 @@ const Lookbook = () => {
           <img src={closeIcon} onClick={() => handleCloseLocationDropdown()} />
         )}
         <button
-          className={`${styles.submitLocation} ${
-            locationInput ? styles.blueBg : ""
-          }`}
+          className={`${styles.submitLocation} ${locationInput ? styles.blueBg : ""
+            }`}
           onClick={handleGoButtonClick}
         >
           GO

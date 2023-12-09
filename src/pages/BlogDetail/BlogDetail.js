@@ -16,6 +16,7 @@ import { getAllServices } from "../../services/Services";
 import { Link, useLocation, useParams } from "react-router-dom";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import PopularBlogCard from "../../components/Cards/PopularBlogCard/PopularBlogCard";
+import { SingleBlog } from "../../services/SingleBlog";
 
 export default function BlogDetail(props) {
   const responsive = {
@@ -57,16 +58,25 @@ export default function BlogDetail(props) {
   useEffect(() => {
     let getBlogs = async () => {
       const { res, err } = await AllBlogs()
-      setBlogData(res.data.blogs)
-      let mainBlog = res.data.blogs.filter((v)=>v._id===blogId.id)
-      setMainBlogData(mainBlog)
+      if(res){
+        setBlogData(res.data.blogs)
+      }
     }
     let getServices = async () => {
       const { res, err } = await getAllServices()
-      setServiceData(res.data.data)
+      if(res){
+        setServiceData(res.data.data)
+      }
+    }
+    let getBlogData = async()=>{
+      const {res,err} = await SingleBlog(blogId.id);
+      if(res){
+        setMainBlogData(res.data.data)
+      }
     }
     getBlogs();
     getServices();
+    getBlogData()
   }, [pathname])
   const shareOnFacebook = () => {
     try {
@@ -115,13 +125,13 @@ export default function BlogDetail(props) {
       <BackButton/>
       <div className={styles["wrapper"]}>
         <div className={styles.titleWrapper}>
-          <Title className={styles["title"]}>{mainBlogData.length?mainBlogData[0].blog_title:''}</Title>
+          <Title className={styles["title"]}>{mainBlogData?.length?mainBlogData[0]?.blog_title:''}</Title>
 
           <header className={styles["header"]}>
             <div className={styles["header-left"]}>
-              <img src={mainBlogData.length?mainBlogData[0].blog_Img.public_url:''} />
+              <img src={mainBlogData?.length?mainBlogData[0]?.blog_Img?.public_url:''} />
               <div className={styles["header-content"]}>
-                <p className={styles["author"]}> {mainBlogData.length?mainBlogData[0].writer_name:''} </p>
+                <p className={styles["author"]}> {mainBlogData?.length?mainBlogData[0]?.writer_name:''} </p>
                 <p className={styles["header-date"]}>
                   {date}
                   <img src={Timer} alt="timer" />
@@ -158,28 +168,28 @@ export default function BlogDetail(props) {
         <div className={styles.blogWrapper}>
           <div className={styles.sectionLeft}>
             <img
-              src={mainBlogData.length?mainBlogData[0].blog_Img.public_url:''}
+              src={mainBlogData?.length?mainBlogData[0]?.blog_Img?.public_url:''}
               alt="blog-image"
               className={styles["blog-image"]}
             />
             <p className={styles["blog-text"]}>
-              {mainBlogData.length?mainBlogData[0].blog_description:''}
+              {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
             </p>
-            <h4 className={styles["blog-header"]}>{mainBlogData.length?mainBlogData[0].blog_title:''}</h4>
+            <h4 className={styles["blog-header"]}>{mainBlogData?.length?mainBlogData[0]?.blog_title:''}</h4>
             <p className={styles["blog-text"]}>
-            {mainBlogData.length?mainBlogData[0].blog_description:''}
+            {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
             </p>
-            <h4 className={styles["blog-header"]}>{mainBlogData.length?mainBlogData[0].blog_title:''}</h4>
+            <h4 className={styles["blog-header"]}>{mainBlogData.length?mainBlogData[0]?.blog_title:''}</h4>
             <p className={styles["blog-text"]}>
-            {mainBlogData.length?mainBlogData[0].blog_description:''}
+            {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
             </p>
             <img
-              src={mainBlogData.length?mainBlogData[0].blog_Img.public_url:''}
+              src={mainBlogData?.length?mainBlogData[0]?.blog_Img?.public_url:''}
               alt="blog-image"
               className={styles["blog-image"]}
             />
             <p className={styles["blog-text"]}>
-            {mainBlogData.length?mainBlogData[0].blog_description:''}
+            {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
             </p>
             <div className={styles["line"]}> </div>
 

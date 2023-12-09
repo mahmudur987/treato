@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
 import styles from "./LatestBlog.module.css";
-import BlogImg1 from "../../../assets/images/HomeLatestBlogs/BlogImg1.png";
-import BlogImg2 from "../../../assets/images/HomeLatestBlogs/BlogImg2.png";
-import user1 from "../../../assets/images/HomeLatestBlogs/user1.png";
-import user2 from "../../../assets/images/HomeLatestBlogs/user2.png";
 import chevronLeft from "../../../assets/images/HomeLatestBlogs/chevronLeft.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -12,7 +8,14 @@ import { Link } from "react-router-dom";
 import { AllBlogs } from "../../../services/blog";
 import { useState } from "react";
 import Title from "../../Typography/Title/Title";
+import ShareBlog from "../../_modals/ShareBlog/ShareBlog";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const LatestBlog = () => {
+  let [shareBlog, setShareBlog] = useState(null);
+  let [activeShare, setActiveShare] = useState(false);
+  let [shareModal, setShareModal] = useState(false);
+  let [BlogUrl,setBlogUrl] = useState(null)
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -38,61 +41,69 @@ const LatestBlog = () => {
   useEffect(() => {
     let getBlogs = async () => {
       const { res, err } = await AllBlogs()
-      if(res){
-      setBlogData(res.data.blogs)
+      if (res) {
+        setBlogData(res.data.blogs)
       }
     }
     getBlogs();
   }, [])
 
   return (
-    <div className={styles["container"]}>
-      <div className={styles["header"]}>
-        <Title>Latest from our blog</Title>
-        <Link to="/blogs" className={styles["headerViewAll"]}>
-          View all <img src={chevronLeft} />
-        </Link>
-      </div>
-      <div className={styles["blogWrapper"]}>
-        {
-          blogData.length ?
-            blogData.map((blog, i) => {
-              if (i <= 2) {
-                return (
-                  <BlogCard blog={blog} key={i} />
-                )
-              }
-            })
-            :
-            ''
-        }
-      </div>
-
-      <div id="blogWrapper_mobo" className={styles["blogWrapper_mobo"]}>
-        {
-          blogData.length ?
-          <div className="customSlickDiv">
-            <Carousel
-              responsive={responsive}
-              showDots={true}
-              removeArrowOnDeviceType={["tablet", "mobile"]}
-              dotListClass="custom-dot-list-style"
-              itemClass="carousel-item-padding-40-px"
-            >
-              {
-                blogData.map((blog, i) => {
+    <>
+      <div className={styles["container"]}>
+        <div className={styles["header"]}>
+          <Title>Latest from our blog</Title>
+          <Link to="/blogs" className={styles["headerViewAll"]}>
+            View all <img src={chevronLeft} />
+          </Link>
+        </div>
+        <div className={styles["blogWrapper"]}>
+          {
+            blogData.length ?
+              blogData.map((blog, i) => {
+                if (i <= 2) {
                   return (
-                    <BlogCard blog={blog} key={i} />
+                    <BlogCard blog={blog} key={i} shareBlog={shareBlog} setShareBlog={setShareBlog} activeShare={activeShare} setActiveShare={setActiveShare} setShareModal={setShareModal} setBlogUrl={setBlogUrl}/>
                   )
-                })
-              }
-            </Carousel>
-            </div>
-            :
-            ''
-        }
+                }
+              })
+              :
+              ''
+          }
+        </div>
+
+        <div id="blogWrapper_mobo" className={styles["blogWrapper_mobo"]}>
+          {
+            blogData.length ?
+              <div className="customSlickDiv">
+                <Carousel
+                  responsive={responsive}
+                  showDots={true}
+                  removeArrowOnDeviceType={["tablet", "mobile"]}
+                  dotListClass="custom-dot-list-style"
+                  itemClass="carousel-item-padding-40-px"
+                >
+                  {
+                    blogData.map((blog, i) => {
+                      return (
+                        <BlogCard blog={blog} key={i} shareBlog={shareBlog} setShareBlog={setShareBlog} activeShare={activeShare} setActiveShare={setActiveShare} setShareModal={setShareModal} setBlogUrl={setBlogUrl}/>
+                      )
+                    })
+                  }
+                </Carousel>
+              </div>
+              :
+              ''
+          }
+        </div>
       </div>
-    </div>
+      <ToastContainer />
+      {
+        shareModal ?
+          <ShareBlog setShareModal={setShareModal} BlogUrl={BlogUrl}/>
+          : null
+      }
+    </>
   );
 };
 

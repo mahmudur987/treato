@@ -2,33 +2,39 @@ import styles from '../../../pages/BookFlow/BookFlow.module.css'
 import userIco from "../../../assets/images/SalonDetail/userIco.svg"
 import WorkerComponent from '../WorkerComponent/WorkerComponent'
 import ServiceTime from '../ServiceTime/ServiceTime'
+import RadioInput from '../../Input/RadioInput/RadioInput'
 
-export default function WorkerDetail() {
+export default function WorkerDetail({ SalonData,getWorkerData }) {
 
     return (
         <div className={styles.worker_detailMain}>
-            <div className={styles.worker_detailA}>
-                <div className={styles.worker_detailAD}>
-                    <div className={styles.worker_detailAA}>
-                        <img src={userIco} alt="" />
+            <label htmlFor="none" onClick={getWorkerData}>
+                <div className={styles.worker_detailA}>
+                    <div className={styles.worker_detailAD}>
+                        <div className={styles.worker_detailAA}>
+                            <img src={userIco} alt="" />
+                        </div>
+                        <div className={styles.worker_detailAB}>
+                            <div>No Preference</div>
+                            <div>Professional assigned by the salon. Maximum availability</div>
+                        </div>
                     </div>
-                    <div className={styles.worker_detailAB}>
-                        <div>No Preference</div>
-                        <div>Professional assigned by the salon. Maximum availability</div>
+                    <div className={styles.worker_detailAC}>
+                        <RadioInput Type={'radio'} NAME={'preference'} id={`none`} VALUE={'none'}/>
                     </div>
                 </div>
-                <div className={styles.worker_detailAC}>
-                    <input type="radio" name="preference" />
-                </div>
-            </div>
+            </label>
             <div className={styles.worker_detailB}>
-                <WorkerComponent/>
-                <WorkerComponent/>
-                <WorkerComponent/>
-                <WorkerComponent/>
+                {
+                    SalonData?.stylists?.map((v, i) => {
+                        return (
+                            <WorkerComponent workerData={v} key={i} index={i} getWorkerData={getWorkerData}/>
+                        )
+                    })
+                }
             </div>
             <div className={styles.worker_detailC}>
-                <ServiceTime/>
+                <ServiceTime getWorkerData={getWorkerData}/>
             </div>
         </div>
     )
