@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { salon } from "../../services/salon";
-import { getAllServices } from "../../services/Services";
 
 const initialState = {
   salonContent: [], // Initialize salonContent as an empty array

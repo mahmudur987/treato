@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
 import {
-  updateFilterContent,
   updateSalonContent,
 } from "../redux/slices/salons";
 import { getAllServices } from "../services/Services";
@@ -93,7 +91,7 @@ export const fetchSalonsData = (userDetails,fetchType,serviceName,salonlocation)
         return calculateDistance(userCoordinates.lat, userCoordinates.lon, salon.lat, salon.lon);
       });
       salons.forEach((salon,i) => {
-        if(fetchType!="searchBase"){
+        if(fetchType!=="searchBase"){
           salon.services = salon.services.map((serviceId) => ({
             _id: serviceId,
             ...serviceMap[serviceId], // Provide a default value if service name is not found
@@ -102,7 +100,7 @@ export const fetchSalonsData = (userDetails,fetchType,serviceName,salonlocation)
         salon.distances=calculatedDistances[i]
       });
       // Dispatch the 'updateSalonContent' action with the fetched 'salons' data
-      if(fetchType!="searchBase"){
+      if(fetchType!=="searchBase"){
         dispatch(updateSalonContent(salons));
       }
 
@@ -145,7 +143,7 @@ export const getfilterSalon = async(userDetails,fetchType,serviceName,salonlocat
         return calculateDistance(userCoordinates.lat, userCoordinates.lon, salon.lat, salon.lon);
       });
       salons.forEach((salon,i) => {
-        if(fetchType!="searchBase"){
+        if(fetchType!=="searchBase"){
           salon.services = salon.services.map((serviceId) => ({
             _id: serviceId,
             ...serviceMap[serviceId], // Provide a default value if service name is not found

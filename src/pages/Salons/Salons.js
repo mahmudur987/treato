@@ -4,7 +4,6 @@ import Salon from "../../components/Cards/Salon/Salon";
 import { useDispatch, useSelector } from "react-redux";
 import {
   openModal,
-  closeModal,
 } from "../../redux/slices/filterModals/filterModal";
 import {
   filterDeskIcon,
@@ -12,19 +11,15 @@ import {
   chevronDown,
 } from "../../assets/images/SalonsPageImages";
 import Pagination from "../../components/pagination/Pagination";
-import { salonContent } from "./SalonsContent.js";
 import {
-  resetSalonContent,
   updateFilterContent,
   updateSearchSalonResults,
 } from "../../redux/slices/salons";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getSalonListBySearchInput, salon } from "../../services/salon";
 import { useEffect } from "react";
-import { fetchSalonsData, getfilterSalon } from "../../utils/utils";
+import { getfilterSalon } from "../../utils/utils";
 import {
   arrowleft,
-  chevronLeft,
   closeIcon,
 } from "../../assets/images/icons/index.js";
 import { getAllServices } from "../../services/Services.js";
@@ -54,7 +49,6 @@ const Salons = React.memo(() => {
   const locationParam = searchParams.get("location");
 
   // Filter salonContent based on the condition
-  let filteredSalonContent;
   const handleBack = () => {
     navigate("/"); // Go back to the previous page
   };

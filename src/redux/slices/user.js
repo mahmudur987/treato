@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchIPInfo } from "../../services/user";
 
 const initialState = {
   isLoggedIn: false,

@@ -17,6 +17,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import PopularBlogCard from "../../components/Cards/PopularBlogCard/PopularBlogCard";
 import { SingleBlog } from "../../services/SingleBlog";
+import { toast } from "react-toastify";
 
 export default function BlogDetail(props) {
   const responsive = {
