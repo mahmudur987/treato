@@ -171,6 +171,15 @@ const LoginPage = () => {
       }
     },
   });
+  const googlePassportLogin=()=>{
+    window.open("https://backend.treato.in/api/v1/auth/google", "_self");
+
+  }
+
+  const facebookPassportLogin = () => {
+    window.open("http://localhost:5000/auth/facebook", "_self");
+  };
+
 
   const facebookAuthLogin = (facebookResponse) => {
     const { email, first_name, last_name, picture } = facebookResponse;
@@ -328,12 +337,20 @@ const LoginPage = () => {
           <div className={styles.socialButtons}>
             <SecondaryButton
               className={styles.google}
-              onClick={googleAuthLogin}
+              onClick={googlePassportLogin}
             >
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
-            <LoginSocialFacebook
+
+            <SecondaryButton className={styles.facebook} onClick={facebookPassportLogin}>
+                <img src={Facebook_Logo}/>
+                Facebook
+              </SecondaryButton>
+
+              
+              {/* //Todo: facebook login do uncommment if passort not work*/}
+            {/* <LoginSocialFacebook
               appId={facebookAppId}
               onResolve={(response) => {
                 facebookAuthLogin(response?.data);
@@ -342,11 +359,11 @@ const LoginPage = () => {
                 console.log(error);
               }}
             >
-              <SecondaryButton className={styles.facebook}>
-                <img src={Facebook_Logo} />
+              <SecondaryButton className={styles.facebook} onClick={facebookPassportLogin}>
+                <img src={Facebook_Logo}/>
                 Facebook
               </SecondaryButton>
-            </LoginSocialFacebook>
+            </LoginSocialFacebook> */}
           </div>
         </div>
       </div>
