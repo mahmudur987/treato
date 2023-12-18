@@ -17,6 +17,9 @@
   justify-content: flex-start;
   align-items: center;
   gap: 24px;
+ font-weight: 400px;
+ font-style: 16px;
+ font-family: "Lato", sans-serif; 
   padding: 0.625rem 1.5rem;
 }
 .shareOTPWrapper h3{
@@ -119,8 +122,14 @@ cursor:pointer;
 }
 .serviceDetails {
     min-width: 50%;
-}
-.serviceDetails .sDetail {
+  }
+  .serviceDetails .title{
+  
+    font-weight: 600px;
+    font-size: 16px;
+    font-style: normal;
+  }
+  .serviceDetails .sDetail {
     display: flex;
     gap: 8px;
     font-size: var(--font-medium);
@@ -166,7 +175,7 @@ cursor:pointer;
 .bookedOn {
   display: flex;
   flex-direction: column;
-  font-weight: 400;
+  font-weight: 600px;
 }
 .status,
 .buttons,

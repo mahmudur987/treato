@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchIPInfo } from "../../services/user";
+import { updateUser } from "../../services/updateUser";
 
 const initialState = {
   isLoggedIn: false,
@@ -22,7 +23,10 @@ const user = createSlice({
       state.isLoggedIn = payload;
     },
     updateUserDetails: (state, { payload }) => {
-      state.user = { ...state.user, ...payload };
+      console.log( "varshaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",payload);
+     
+      state.user = { ...state.user, ...payload};
+     state.toggle= !state.toggle
     },
     resetUserDetails: (state, { payload }) => {
       state.user = { ...payload };
@@ -37,11 +41,24 @@ const user = createSlice({
       state.tempLoginInfo = {};
     },
   },
+//   extraReducers:(builder)=>{
+// builder.addCase(updateUser.pending, (state, { payload }) => {
+//   state.loading = true
+// })
+//  .addCase(updateUser.fulfilled, (state, { payload }) => {
+//   state.loading = false
+//   state.user = { ...state.user, ...payload};
+// })
+//  .addCase(updateUser.rejected, (state, { payload }) => {
+//   state.loading = false
+// })
+//   }
 });
 
 export const {
   updateIsLoggedIn,
   updateUserDetails,
+  
   updateOTP,
   updateTempLoginInfo,
   resetTempLoginInfo,

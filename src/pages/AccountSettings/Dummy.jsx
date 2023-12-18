@@ -21,64 +21,60 @@ import VerifyOtp from "../../components/_modals/VerifyOtp/VerifyOtp";
 import { updateUser } from "../../services/updateUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateUserDetails } from "../../redux/slices/user";
-export default function AccountSettings() {
-    let data = useSelector(state => state.user);
-    console.log(data)
+export default function Dummy() {
+    let data = useSelector(state => state.user)
     let dispatch = useDispatch()
-    // const [, set] = useState(second)
 
     let [mobileOpt, updateMobileOpt] = useState(-1)
-    const [userUpdatedData, setUserUpdatedData] = useState()
     let [passModal, setPassModal] = useState(false)
     let [profileModal, setProfileModal] = useState(false)
     let [addressModal, setAddressModal] = useState({ active: false, data: null })
     let [otpModal, setOtpModal] = useState(false)
     let [showSave, setShowSave] = useState(false)
     let [otpSuccess, setOtpSuccess] = useState(false)
-    let [inputState, updateInputState] = useState(
-        {
-            first_name: true,
-            last_name: true,
-            email: true,
-            phone: true,
-            dob: true
-        }
-    );
+    // let [inputState, updateInputState] = useState(
+    //     {
+    //         first_name: true,
+    //         last_name: true,
+    //         email: true,
+    //         phone: true,
+    //         dob: true
+    //     }
+    // );
     // const userData = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")) : '';
     const userData = data.user
     console.log(userData);
     let [inputVal, updateInputVal] = useState({
-        first_name: userData.first_name ? userData.first_name : '',
-        last_name: userData.last_name ? userData.last_name : '',
-        email: userData.email ? userData.email : '',
-        phone: userData.phone ? userData.phone : '',
-        dob: userData.dob ? userData.dob : '',
-        place: userData.place ? userData.place : [],
-        gender: userData.gender ? userData.gender : ''
+        first_name: "jiya",
+        last_name: "roy",
+        email: "jiya@gmail.com",
+        phone: "8877665544",
+        dob: "14-02-2023",
+        place: [],
+        gender: "female"
     });
-    let [activeGender, updateGender] = useState(userData.gender ? userData.gender : '');
-    let setDefault = () => {
-        let states = {
-            first_name: true,
-            last_name: true,
-            email: true,
-            phone: true,
-            dob: true
-        }
-        let data = {
-            first_name: userData.first_name ? userData.first_name : '',
-            last_name: userData.last_name ? userData.last_name : '',
-            email: userData.email ? userData.email : '',
-            phone: userData.phone ? userData.phone : '',
-            dob: userData.dob ? userData.dob : '',
-            place: userData.place ? userData.place : [],
-            gender: userData.gender ? userData.gender : ''
-        }
-        updateInputState(states)
-        updateInputVal(data)
-        setShowSave(false)
-    }
+    // let [activeGender, updateGender] = useState(userData.gender ? userData.gender : '');
+    // let setDefault = () => {
+    //     let states = {
+    //         first_name: true,
+    //         last_name: true,
+    //         email: true,
+    //         phone: true,
+    //         dob: true
+    //     }
+    //     let data = {
+    //         first_name: userData.first_name ? userData.first_name : '',
+    //         last_name: userData.last_name ? userData.last_name : '',
+    //         email: userData.email ? userData.email : '',
+    //         phone: userData.phone ? userData.phone : '',
+    //         dob: userData.dob ? userData.dob : '',
+    //         place: userData.place ? userData.place : [],
+    //         gender: userData.gender ? userData.gender : ''
+    //     }
+    //     updateInputState(states)
+    //     updateInputVal(data)
+    //     setShowSave(false)
+    // }
     let submitForm = (e) => {
         e.preventDefault();
         const userJWt = localStorage.getItem("jwtToken");
@@ -88,7 +84,7 @@ export default function AccountSettings() {
             email: e.target.email.value,
             phone: e.target.phone.value,
             dob: e.target.dob.value,
-            gender: activeGender,
+            gender: e.target.gender.value,
             google: "",
             fb: "",
             instagram: "",
@@ -100,12 +96,10 @@ export default function AccountSettings() {
             setOtpModal(true)
             localStorage.setItem('tempUserData', JSON.stringify(formData))
         } else {
-            console.log(formData);
             updateUser(userJWt, formData)
                 .then((res) => {
-                    // console.log("varsha Harkal", res);
+                    localStorage.setItem('userData', JSON.stringify(formData))
                     setShowSave(false)
-                    dispatch(updateUserDetails(res?.res?.data?.data))
                     let states = {
                         first_name: true,
                         last_name: true,
@@ -113,10 +107,8 @@ export default function AccountSettings() {
                         phone: true,
                         dob: true
                     }
-                    updateInputState(states)
-
+                    // updateInputState(states)
                     console.log(res);
-                    // console.log(res.data.data);
                 })
                 .catch((err) => {
                     console.log(err)
@@ -141,12 +133,9 @@ export default function AccountSettings() {
             place: userData?.place ? userData?.place : [],
             gender: userData.gender ? userData.gender : ''
         }
-
         updateInputVal(data)
-        updateGender(userData.gender ? userData.gender : '')
-    }, [userData,])
-
-
+        // updateGender(userData.gender ? userData.gender : '')
+    }, [userData])
 
 
     return (
@@ -162,13 +151,14 @@ export default function AccountSettings() {
                                 <ProfileView setProfileModal={setProfileModal} logOut={logOut} />
                                 <div className={styles.acc_setting_right}>
                                     <form id="acc_set_form" onSubmit={submitForm}>
-                                        <UserDetails setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} />
+                                        {/* <UserDetails setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} /> */}
+                                        <UserDetails setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputVal={updateInputVal} inputVal={inputVal} />
                                         <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal} />
                                         <SocialSettings />
                                         <PasswordChange setPassModal={setPassModal} />
                                     </form>
                                     <div className={showSave ? styles.acc_settingA : styles.d_none}>
-                                        <SecondaryButton children={"Cancel"} onClick={setDefault} />
+                                        <SecondaryButton children={"Cancel"} />
                                         <PrimaryButton children={"Save Changes"} form={"acc_set_form"} />
                                     </div>
                                 </div>
@@ -216,7 +206,7 @@ export default function AccountSettings() {
                                         mobileOpt === 1 ?
                                             <>
                                                 <form id="mob_acc_set_form" onSubmit={submitForm}>
-                                                    <UserDetails mobView='Personal Details' setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} />
+                                                    {/* <UserDetails mobView='Personal Details' setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} /> */}
                                                     <SocialSettings />
                                                     <div className={showSave ? null : styles.d_none}>
                                                         <SaveChanges form={"mob_acc_set_form"} />
@@ -247,7 +237,8 @@ export default function AccountSettings() {
                                         <AddressModal setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave} addressModal={addressModal} />
                                         :
                                         otpModal ?
-                                            <VerifyOtp setOtpModal={setOtpModal} setOtpSuccess={setOtpSuccess} otpSuccess={otpSuccess} setShowSave={setShowSave} updateInputState={updateInputState} />
+                                            // <VerifyOtp setOtpModal={setOtpModal} setOtpSuccess={setOtpSuccess} otpSuccess={otpSuccess} setShowSave={setShowSave} updateInputState={updateInputState} />
+                                            <VerifyOtp setOtpModal={setOtpModal} setOtpSuccess={setOtpSuccess} otpSuccess={otpSuccess} setShowSave={setShowSave} />
                                             :
                                             null
                         }
