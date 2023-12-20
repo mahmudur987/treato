@@ -177,7 +177,7 @@ const LoginPage = () => {
   }
 
   const facebookPassportLogin = () => {
-    window.open("http://localhost:5000/auth/facebook", "_self");
+    window.open("https://backend.treato.in/api/v1/auth/facebook", "_self");
   };
 
 
