@@ -41,18 +41,7 @@ const user = createSlice({
       state.tempLoginInfo = {};
     },
   },
-//   extraReducers:(builder)=>{
-// builder.addCase(updateUser.pending, (state, { payload }) => {
-//   state.loading = true
-// })
-//  .addCase(updateUser.fulfilled, (state, { payload }) => {
-//   state.loading = false
-//   state.user = { ...state.user, ...payload};
-// })
-//  .addCase(updateUser.rejected, (state, { payload }) => {
-//   state.loading = false
-// })
-//   }
+
 });
 
 export const {
