@@ -21,7 +21,10 @@ import VerifyOtp from "../../components/_modals/VerifyOtp/VerifyOtp";
 import { updateUser } from "../../services/updateUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { updateUserDetails } from "../../redux/slices/user";
+import FindLocationModal from "../../components/_modals/FindLocationModal/FindLocationModal";
+
 export default function AccountSettings() {
     let data = useSelector(state => state.user);
     let dispatch = useDispatch()
@@ -29,6 +32,7 @@ export default function AccountSettings() {
     let [mobileOpt, updateMobileOpt] = useState(-1)
     let [passModal, setPassModal] = useState(false)
     let [profileModal, setProfileModal] = useState(false)
+    let [locationModal, setlocationModal] = useState(false)
     let [addressModal, setAddressModal] = useState({ active: false, data: null })
     let [otpModal, setOtpModal] = useState(false)
     let [showSave, setShowSave] = useState(false)
@@ -239,10 +243,13 @@ export default function AccountSettings() {
                                     <ChangeProfile setProfileModal={setProfileModal} />
                                     :
                                     addressModal.active ?
-                                        <AddressModal setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave} addressModal={addressModal} />
+                                        <AddressModal setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave} addressModal={addressModal} setlocationModal={setlocationModal}/>
                                         :
                                         otpModal ?
                                             <VerifyOtp setOtpModal={setOtpModal} setOtpSuccess={setOtpSuccess} otpSuccess={otpSuccess} setShowSave={setShowSave} updateInputState={updateInputState} />
+                                            :
+                                            locationModal?
+                                            <FindLocationModal setAddressModal={setAddressModal} setlocationModal={setlocationModal} addressModal={addressModal}/>
                                             :
                                             null
                         }

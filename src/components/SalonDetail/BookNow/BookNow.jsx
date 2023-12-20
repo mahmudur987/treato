@@ -1,20 +1,43 @@
 import styles from '../SalonMain/SalonMain.module.css'
 import ellipse from "../../../assets/images/SalonDetail/Ellipse.svg"
 import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
-export default function BookNow({innerText,updateActiveBookFlowBA,activeBookFlowBA,SalonDetails,setCompletedPay}) {
-
+export default function BookNow({innerText,updateActiveBookFlowBA,activeBookFlowBA,SalonDetails,setCompletedPay,salonId,totalSalonServices,salonServices,Disabled}) {
+    let [totalServicesPrice, setTotalServicesPrice] = useState(0);
+    useEffect(() => {
+        if (salonServices?.length) {
+            let prices = salonServices.map((v,i)=>{
+                return v.service_price
+            })
+            let totalPrice = prices.reduce((a, b) => a + b,0);
+            setTotalServicesPrice(totalPrice);
+        }
+    }, [salonServices]);
+    let proceedPayment = () => {
+        if(Disabled){
+            toast.error('Please fill all required details!');
+        }else{
+            if(updateActiveBookFlowBA){
+                updateActiveBookFlowBA(activeBookFlowBA!==4?activeBookFlowBA+1:4);
+            }
+            if(setCompletedPay){
+                setCompletedPay(true);
+            }
+        }
+    }
     return (
         <div className={styles.book_nowA}>
             <div className={styles.book_nowB}>
                 {
                     SalonDetails ? 
-                    '32 services to choose from'
+                    `${totalSalonServices?totalSalonServices:null} services to choose from`
                     :
                     activeBookFlowBA===4?
                     <>
                         <div className={styles.book_nowD}>
-                            Total: <span>₹1,177</span>
+                            Total: <span>₹{totalServicesPrice}</span>
                         </div>
                         <div className={styles.book_nowE}>
                             View Bill
@@ -23,19 +46,19 @@ export default function BookNow({innerText,updateActiveBookFlowBA,activeBookFlow
                     :
                     <>
                         <div className={styles.book_nowBA}>
-                            <div>2 services</div>
+                            <div>{salonServices?.length?salonServices.length:0} services</div>
                             <img src={ellipse} alt="" />
-                            <div>1 hr 15 mins</div>
+                            <div>{salonServices?.length?salonServices.at(-1)?.service_time:'0 mins'}</div>
                         </div>
                         <div>
-                            Item total: <span className={styles.book_nowBB}>₹998</span>
+                            Item total: <span className={styles.book_nowBB}>₹{totalServicesPrice}</span>
                         </div>
                     </>
 
                 }
             </div>
             <div className={styles.book_nowC}>
-                <Link to={updateActiveBookFlowBA?'':'/salons/:id/book'}><button onClick={()=>updateActiveBookFlowBA?updateActiveBookFlowBA(activeBookFlowBA!==4?activeBookFlowBA+1:4):setCompletedPay?setCompletedPay(true):null} className={styles.book_nowAA}>{innerText?innerText:'Book Now'}</button></Link>
+                <Link to={updateActiveBookFlowBA?'':`/salons/${salonId}/book`}><button onClick={proceedPayment} className={styles.book_nowAA}>{innerText?innerText:'Book Now'}</button></Link>
             </div>
         </div>
     )
