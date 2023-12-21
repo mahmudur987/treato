@@ -9,6 +9,7 @@ export const updateUser = async (userJWT,data) => {
          'token': userJWT
          }
        })
+      console.log("errrror", res);
       return { res: res, err: null }
    } catch (error) {
       return { err: error, res: null }
