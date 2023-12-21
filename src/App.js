@@ -25,6 +25,7 @@ import ResetPassword from "./pages/AuthPages/ResetPassword/ResetPassword";
 import { getUserProfile } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 import PrivateFormRoutes from "./layouts/PrivateRoutes";
+import LocationAutocomplete from "./components/locations/LocationAutocomplete";
 
 function App() {
   // Use the location hook to track route changes
@@ -157,6 +158,9 @@ useEffect(() => {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
           <Route path="/my-appointments/*" element={<MyAppointments />} />
+          <Route path="/LocationAutocomplete" element={<LocationAutocomplete />} />
+
+           
         {/* Auth routes */}
         <Route element={<PrivateFormRoutes />}>
           <Route path="/auth-choice" exact element={<AuthChoicePage />} />
