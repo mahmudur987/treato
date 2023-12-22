@@ -19,10 +19,16 @@ import ChangeProfile from "../../components/_modals/ChangeProfile/ChangeProfile"
 import AddressModal from "../../components/_modals/AddressModal/AddressModal";
 import VerifyOtp from "../../components/_modals/VerifyOtp/VerifyOtp";
 import { updateUser } from "../../services/updateUser";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import { updateUserDetails } from "../../redux/slices/user";
 import FindLocationModal from "../../components/_modals/FindLocationModal/FindLocationModal";
+
 export default function AccountSettings() {
+    let data = useSelector(state => state.user);
+    let dispatch = useDispatch()
+
     let [mobileOpt, updateMobileOpt] = useState(-1)
     let [passModal, setPassModal] = useState(false)
     let [profileModal, setProfileModal] = useState(false)
@@ -40,7 +46,7 @@ export default function AccountSettings() {
             dob: true
         }
     );
-    const userData = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")) : '';
+    const userData = data.user
     let [inputVal, updateInputVal] = useState({
         first_name: userData.first_name ? userData.first_name : '',
         last_name: userData.last_name ? userData.last_name : '',
@@ -93,10 +99,12 @@ export default function AccountSettings() {
             setOtpModal(true)
             localStorage.setItem('tempUserData', JSON.stringify(formData))
         } else {
+            console.log(formData);
             updateUser(userJWt, formData)
                 .then((res) => {
-                    localStorage.setItem('userData', JSON.stringify(formData))
+                    console.log(res?.res?.data?.data);
                     setShowSave(false)
+                    dispatch(updateUserDetails(res?.res?.data?.data))
                     let states = {
                         first_name: true,
                         last_name: true,
@@ -105,10 +113,12 @@ export default function AccountSettings() {
                         dob: true
                     }
                     updateInputState(states)
-                    console.log(res);
+
+                    // console.log(res);
+                    console.log(res.data.data);
                 })
                 .catch((err) => {
-                    console.log(err)
+                    // console.log(err)
                 })
         }
     }
@@ -120,6 +130,24 @@ export default function AccountSettings() {
         navigate('/')
         window.location.reload();
     }
+    useEffect(() => {
+        let data = {
+            first_name: userData.first_name ? userData.first_name : '',
+            last_name: userData.last_name ? userData.last_name : '',
+            email: userData.email ? userData.email : '',
+            phone: userData.phone ? userData.phone : '',
+            dob: userData.dob ? userData.dob : '',
+            place: userData?.place ? userData?.place : [],
+            gender: userData.gender ? userData.gender : ''
+        }
+
+        updateInputVal(data)
+        updateGender(userData.gender ? userData.gender : '')
+    }, [userData,])
+
+
+
+
     return (
         <>
             {

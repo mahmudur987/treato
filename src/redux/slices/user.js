@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchIPInfo } from "../../services/user";
+import { updateUser } from "../../services/updateUser";
 
 const initialState = {
   isLoggedIn: false,
@@ -20,8 +22,9 @@ const user = createSlice({
     updateIsLoggedIn: (state, { payload }) => {
       state.isLoggedIn = payload;
     },
-    updateUserDetails: (state, { payload }) => {
-      state.user = { ...state.user, ...payload };
+    updateUserDetails: (state, { payload }) => {     
+      state.user = { ...state.user, ...payload};
+     state.toggle= !state.toggle
     },
     resetUserDetails: (state, { payload }) => {
       state.user = { ...payload };
@@ -36,11 +39,13 @@ const user = createSlice({
       state.tempLoginInfo = {};
     },
   },
+
 });
 
 export const {
   updateIsLoggedIn,
   updateUserDetails,
+  
   updateOTP,
   updateTempLoginInfo,
   resetTempLoginInfo,

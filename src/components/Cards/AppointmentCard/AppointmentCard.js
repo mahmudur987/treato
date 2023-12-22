@@ -221,6 +221,15 @@ const AppointmentCard = ({ salon, cardType }) => {
             Write a review
           </div>
           <div className={styles.buttons}>
+
+          <SecondaryButton
+              children={cardType == "Upcoming" ? "Cancel" : "Help"}
+              onClick={
+                cardType == "Upcoming"
+                  ? () => handleModal("CancelAppointment")
+                  : () => handleModal("HelpAppointment")
+              }
+            />
             <PrimaryButton
               children={cardType == "Upcoming" ? "Reschedule" : "Book again"}
               onClick={
@@ -229,14 +238,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                   : () => handleModal("BookAgainModal")
               }
             />
-            <SecondaryButton
-              children={cardType == "Upcoming" ? "Cancel" : "Help"}
-              onClick={
-                cardType == "Upcoming"
-                  ? () => handleModal("CancelAppointment")
-                  : () => handleModal("HelpAppointment")
-              }
-            />
+           
           </div>
         </div>
       </div>
