@@ -218,6 +218,38 @@
 .moboSearchBtn {
   display: none;
 }
+.locationUl{
+  margin-right:14px ;
+  margin-left: 8px;
+}
+.locationList{
+  color:#6D747A;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Lato";
+  list-style: none;
+  padding: .6rem;
+  cursor: pointer;
+}
+.CurrentLocation{
+  color: #0D69D7 !important;
+  font-size: 16px !important;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 1rem;
+}
+.CurrentLocation img{
+  width: 24px;
+  height: 24px;
+}
+.locationList:hover{
+  background-color: #F6F6F6;
+}
+.locationList small,.locationList strong{
+font-size: 14px;
+}
 /* media queries */
 
 .notFound{

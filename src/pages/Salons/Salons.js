@@ -17,7 +17,7 @@ import {
 } from "../../redux/slices/salons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { getfilterSalon } from "../../utils/utils";
+import { getfilterSalon, getfilterSalonByServiceLatLng } from "../../utils/utils";
 import {
   arrowleft,
   closeIcon,
@@ -47,6 +47,9 @@ const Salons = React.memo(() => {
   let servicesParam = "";
   servicesParam = searchParams.get("services");
   const locationParam = searchParams.get("location");
+  const locationLat = searchParams.get("lat");
+  const locationLng = searchParams.get("lng");
+console.log(locationLat,locationLng);
 
   // Filter salonContent based on the condition
   const handleBack = () => {
@@ -69,11 +72,23 @@ const Salons = React.memo(() => {
   //fetching base on search input
   useEffect(() => {
     setIsLoading(true); // Set loading state
-    getfilterSalon(
+    //Todo:location text based search function 
+    // getfilterSalon(
+    //   userDetails,
+    //   "searchBase",
+    //   servicesParam,
+    //   locationParam
+    // ).then((res) => {
+    //   setIsLoading(false);
+    //   dispatch(updateSearchSalonResults(res));
+    //   dispatch(updateFilterContent(res));
+    // });
+
+    getfilterSalonByServiceLatLng(
       userDetails,
       "searchBase",
       servicesParam,
-      locationParam
+      locationParam,locationLat,locationLng
     ).then((res) => {
       setIsLoading(false);
       dispatch(updateSearchSalonResults(res));

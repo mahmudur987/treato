@@ -4,8 +4,10 @@ import {
   chevronright,
   ellipse,
   mapPin,
+  mapPinBlue,
   star_line,
 } from "../../../assets/images/icons";
+import mapBlue from "../../../assets/images/SalonDetail/mapBlue.svg";
 import { starBlack } from "../../../assets/images/SalonsPageImages";
 import { Link } from "react-router-dom";
 import { displayDistance } from "../../../utils/utils";
@@ -13,6 +15,12 @@ import { useSelector } from "react-redux";
 import { logDOM } from "@testing-library/react";
 
 const Salon = ({ salonData, place }) => {
+  const openMapInNewWindow = () => {
+    if (salonData) {
+      const mapUrl = `https://www.google.com/maps/place/${salonData?.location?.coordinates[0]},${salonData?.location?.coordinates[1]}`;
+      window.open(mapUrl, "_blank");
+    }
+  };
   const userDetails = useSelector((state) => state.user);
   return (
     <div
@@ -77,13 +85,15 @@ const Salon = ({ salonData, place }) => {
             ))}
           </div>
           <div className={styles.buttons}>
+            <Link to={salonData ? `/salons/${salonData._id}`:null} >
             <button className={styles.viewDetails}>
               View details
               <img src={chevronright} alt="chevronRight" />
             </button>
-            <button className={styles.viewMap}>
+            </Link>
+            <button className={styles.viewMap} onClick={openMapInNewWindow}>
               View on map
-              <img src={mapPin} alt="mapPin" />
+              <img src={mapBlue} alt="mapPin" />
             </button>
           </div>
         </>

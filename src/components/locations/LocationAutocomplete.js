@@ -5,7 +5,7 @@ import usePlacesAutocomplete, {
     getLatLng,
   } from "use-places-autocomplete";
   import useOnclickOutside from "react-cool-onclickoutside";
-  
+  import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 const LocationAutocomplete = () => {
     const {
@@ -61,6 +61,15 @@ const LocationAutocomplete = () => {
           );
         });
     
+        const containerStyle = {
+          width: "100%",
+          height: "400px",
+        };
+      
+        const center = {
+          lat: 0, // Default to 0
+          lng: 0, // Default to 0
+        };
       return (
         <div ref={ref} style={{height:"90vh",padding:"10rem"}}>
           <input
@@ -71,6 +80,13 @@ const LocationAutocomplete = () => {
           />
           {/* We can use the "status" to decide whether we should display the dropdown or not */}
           {status === "OK" && <ul>{renderSuggestions()}</ul>}
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={{ lat: 19.2856, lng: 72.8691 }}
+              zoom={15}
+            >
+              <Marker position={{ lat: 19.2856, lng: 72.8691 }} />
+            </GoogleMap>
         </div>
       );
       }

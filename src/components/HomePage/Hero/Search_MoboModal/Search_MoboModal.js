@@ -105,7 +105,7 @@ const Search_MoboModal = (props) => {
             {title!="Treatment or venue"?<Locations allSalonList={allSalonList} setLocationInputValue={setLocationInputValue} handle_close={handle_close} pageName={pageName} setLocationInput={setLocationInput}  uniqueLocText={uniqueLocText} activeButton={activeButton} setallLookbook={setallLookbook}/>:
             <>
             <Treatments allServices={filteredServiceData} setTreatmentInputValue={setTreatmentInputValue} handle_close={handle_close}/>
-            <Venues/>
+            {/* <Venues/> */}
             </>
             }
             

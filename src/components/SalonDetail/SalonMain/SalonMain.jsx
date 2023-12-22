@@ -62,7 +62,7 @@ export default function SalonServices({SalonData,addServices,addedServices}) {
                                 {SalonData?.salons_address}
                             </div>
                             <div className={styles.salon_aboutBC}>
-                                <SalonMap/>
+                                <SalonMap SalonData={SalonData}/>
                             </div>
                         </div>
                     </div>

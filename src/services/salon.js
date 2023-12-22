@@ -19,6 +19,15 @@ export const getSalonListBySearchInput=async(serviceName,salonlocation)=>{
       return { err: error, res: null }
    }
 }
+export const getSalonListByServiceLocation=async(serviceName,locationLat,locationLng)=>{
+   try{
+      const res = await axiosInstance.get(`salon/serviceLocation?service=${serviceName}&latitude=${locationLat}&longitude=${locationLng}`)
+      return { res: res, err: null }
+   }
+   catch(error){
+      return { err: error, res: null }
+   }
+}
 
 export const getSingleSalonData = async (id) => {
    try {
