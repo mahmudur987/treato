@@ -45,11 +45,10 @@ const Salons = React.memo(() => {
   const searchParams = new URLSearchParams(location.search);
   // Get the 'services' and 'location' query parameters
   let servicesParam = "";
-  servicesParam = searchParams.get("services");
+  servicesParam = searchParams.get("service");
   const locationParam = searchParams.get("location");
   const locationLat = searchParams.get("lat");
   const locationLng = searchParams.get("lng");
-console.log(locationLat,locationLng);
 
   // Filter salonContent based on the condition
   const handleBack = () => {

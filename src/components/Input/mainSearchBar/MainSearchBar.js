@@ -34,8 +34,8 @@ const MainSearchBar = ({ place }) => {
   const [allSalonList, setallSalonList] = useState([]);
   const [filteredServiceData, setFilteredServiceData] = useState([]);
   const [filteredSalonData, setFilteredSalonData] = useState([]);
-  const [locationLat, setlocationLat] = useState(null)
-  const [locationLng, setlocationLng] = useState(null)
+  const [locationLat, setlocationLat] = useState("")
+  const [locationLng, setlocationLng] = useState("")
 
   const userDetails = useSelector((state) => state?.user?.user);
   const navigate = useNavigate();
@@ -79,7 +79,7 @@ const MainSearchBar = ({ place }) => {
 
   const searchParams = new URLSearchParams(location.search);
   // Get the 'services' and 'location' query parameters
-  const servicesParam = searchParams.get("services");
+  const servicesParam = searchParams.get("service");
   const locationParam = searchParams.get("location");
 // -----------google map locations----------------
 const {
@@ -103,12 +103,14 @@ const ref = useOnclickOutside(() => {
 
 const handleInput = (e) => {
   console.log(e.target.value);
-  if(e.target.value===""){
-    setloc_DesktopModal(false)
-    setValue(e.target.value);
-    return
+    if(e.target.value===""){
+      setloc_DesktopModal(false)
+      setLocationInputValue(e.target.value)
+      setValue(e.target.value);
+      return
     }
     // Update the keyword of the input element
+    setLocationInputValue(e.target.value)
     setValue(e.target.value);
     handle_openloc_Modal()
 };
@@ -142,7 +144,7 @@ const handleSelect =
   };
 
 const renderSuggestions = () =>
-  data.map((suggestion) => {
+  data?.map((suggestion) => {
     const {
       place_id,
       structured_formatting: { main_text, secondary_text },
@@ -244,9 +246,24 @@ const renderSuggestions = () =>
     }
     else{
       console.log(locationInputValue,treatmentInputValue);
-      navigate(
-        `/salons?services=${treatmentInputValue}&lat=${locationLat}&lng=${locationLng}&location=${locationInputValue}`
-      );
+      if(value!=""){
+        //if we have value in location input 
+        getGeocode({ address: value }).then((results) => {
+          const { lat, lng } = getLatLng(results[0]);
+          setlocationLat(lat)
+          setlocationLng(lng)
+          navigate(
+            `/salons?service=${treatmentInputValue}&lat=${lat?lat:""}&lng=${lng?lng:""}&location=${locationInputValue}`
+          );
+        });
+      }
+      else{
+        //if we  dont have value in location input 
+        navigate(
+          `/salons?service=${treatmentInputValue}&lat=${locationLat}&lng=${locationLng}&location=${locationInputValue}`
+        );
+      }
+      
     }
   };
 

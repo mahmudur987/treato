@@ -34,6 +34,7 @@ export default function AccountSettings() {
     let [profileModal, setProfileModal] = useState(false)
     let [locationModal, setlocationModal] = useState(false)
     let [addressModal, setAddressModal] = useState({ active: false, data: null })
+    const [userAddressText, setuserAddressText] = useState("")
     let [otpModal, setOtpModal] = useState(false)
     let [showSave, setShowSave] = useState(false)
     let [otpSuccess, setOtpSuccess] = useState(false)
@@ -243,13 +244,13 @@ export default function AccountSettings() {
                                     <ChangeProfile setProfileModal={setProfileModal} />
                                     :
                                     addressModal.active ?
-                                        <AddressModal setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave} addressModal={addressModal} setlocationModal={setlocationModal}/>
+                                        <AddressModal setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave} addressModal={addressModal} setlocationModal={setlocationModal} setuserAddressText={setuserAddressText} userAddressText={userAddressText} />
                                         :
                                         otpModal ?
                                             <VerifyOtp setOtpModal={setOtpModal} setOtpSuccess={setOtpSuccess} otpSuccess={otpSuccess} setShowSave={setShowSave} updateInputState={updateInputState} />
                                             :
                                             locationModal?
-                                            <FindLocationModal setAddressModal={setAddressModal} setlocationModal={setlocationModal} addressModal={addressModal}/>
+                                            <FindLocationModal setAddressModal={setAddressModal} setlocationModal={setlocationModal} addressModal={addressModal} setuserAddressText={setuserAddressText} userAddressText={userAddressText}/>
                                             :
                                             null
                         }

@@ -172,7 +172,7 @@ export const getfilterSalonByServiceLatLng = async(userDetails,fetchType,service
     let listServices = ServicesResponse?.res.data.data;
     // Create a map of service IDs to their corresponding names
     const serviceMap = {};
-    listServices.forEach((service) => {
+    listServices?.forEach((service) => {
       serviceMap[service._id] = {
         service_name: service.service_name,
         price: service.price,
@@ -180,16 +180,16 @@ export const getfilterSalonByServiceLatLng = async(userDetails,fetchType,service
       };
     });
 
-    let allSalonsCoordinates=salons.map((e)=>{
+    let allSalonsCoordinates=salons?.map((e)=>{
       let obj={lat:e.location.coordinates[0],lon:e.location.coordinates[1]}
       return obj
     })
     const calculatedDistances = allSalonsCoordinates?.map((salon) => {
       return calculateDistance(userCoordinates.lat, userCoordinates.lon, salon.lat, salon.lon);
     });
-    salons.forEach((salon,i) => {
+    salons?.forEach((salon,i) => {
       if(fetchType!=="searchBase"){
-        salon.services = salon.services.map((serviceId) => ({
+        salon.services = salon.services?.map((serviceId) => ({
           _id: serviceId,
           ...serviceMap[serviceId], // Provide a default value if service name is not found
         }));
