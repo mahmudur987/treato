@@ -10,7 +10,7 @@ export const operation = retry.operation({
 })
 
 const axiosInstance = axios.create({
-     baseURL: "http://localhost:4000/api/v1",
+     baseURL: process.env.REACT_APP_BASE_URL,
 })
 
 // Add a response interceptor to handle errors

@@ -1,4 +1,3 @@
-// AIzaSyCyZYuKJc4YREy3ppZxlnODX_HL7sJlAbk   style={{height:"90vh",padding:"10rem"}}
 import React, { useState } from 'react';
 import usePlacesAutocomplete, {
     getGeocode,

@@ -20,7 +20,7 @@ export default function AddressModal({
   addressModal,
   setlocationModal,
   setuserAddressText,
-  userAddressText
+  userAddressText,
 }) {
   const [position, setPosition] = useState(null);
   const [address, setAddress] = useState("");
@@ -116,14 +116,10 @@ export default function AddressModal({
     setlocationModal(true);
   };
 
-      
   const containerStyle = {
     width: "100%",
     height: "260px",
   };
-
-
-
 
   const handleMapClick = (event) => {
     const latLng = event.latLng;
@@ -137,29 +133,29 @@ export default function AddressModal({
     setPosition({ lat, lng });
   };
 
-  const getAddressFromLatLng = async(lat, lng) => {
+  const getAddressFromLatLng = async (lat, lng) => {
     try {
-        const response = await fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyCyZYuKJc4YREy3ppZxlnODX_HL7sJlAbk`
-        );
-    
-        if (!response.ok) {
-          throw new Error('Failed to fetch address');
-        }
-    
-        const data = await response.json();
-    
-        if (data.results && data.results.length > 0) {
-            console.log(data.results[0].formatted_address);
-            setuserAddressText(data?.results[0]?.formatted_address)
-          return data.results[0].formatted_address;
-        } else {
-          throw new Error('No address found for the given coordinates');
-        }
-      } catch (error) {
-        console.error('Error fetching address:', error.message);
-        return `Address for ${lat}, ${lng}`;
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch address");
       }
+
+      const data = await response.json();
+
+      if (data.results && data.results.length > 0) {
+        console.log(data.results[0].formatted_address);
+        setuserAddressText(data?.results[0]?.formatted_address);
+        return data.results[0].formatted_address;
+      } else {
+        throw new Error("No address found for the given coordinates");
+      }
+    } catch (error) {
+      console.error("Error fetching address:", error.message);
+      return `Address for ${lat}, ${lng}`;
+    }
   };
 
   return (
@@ -177,7 +173,7 @@ export default function AddressModal({
             </div>
             <div className={styles.addressB}>
               <div className={styles.addressBA}>
-              {userAddressText && userAddressText}
+                {userAddressText && userAddressText}
               </div>
               <div className={styles.addressBB} onClick={handleChange}>
                 <SecondaryButton
@@ -189,10 +185,26 @@ export default function AddressModal({
             <div className={styles.addressC}>
               <GoogleMap
                 mapContainerStyle={containerStyle}
-                center={{ lat: userDetails?.user?.isLocationAllow?userDetails?.user?.latitude:19.2856, lng:userDetails?.user?.isLocationAllow?userDetails?.user?.longitude:72.8691 }}
+                center={{
+                  lat: userDetails?.user?.isLocationAllow
+                    ? userDetails?.user?.latitude
+                    : 19.2856,
+                  lng: userDetails?.user?.isLocationAllow
+                    ? userDetails?.user?.longitude
+                    : 72.8691,
+                }}
                 zoom={15}
               >
-                <Marker position={{ lat: userDetails?.user?.isLocationAllow?userDetails?.user?.latitude:19.2856, lng: userDetails?.user?.isLocationAllow?userDetails?.user?.longitude:72.8691 }} />
+                <Marker
+                  position={{
+                    lat: userDetails?.user?.isLocationAllow
+                      ? userDetails?.user?.latitude
+                      : 19.2856,
+                    lng: userDetails?.user?.isLocationAllow
+                      ? userDetails?.user?.longitude
+                      : 72.8691,
+                  }}
+                />
               </GoogleMap>
             </div>
             <form id="addressForm" onSubmit={editAddress}>
@@ -298,7 +310,7 @@ export default function AddressModal({
             <div className={styles.addressB}>
               <div className={styles.addressBA}>
                 {console.log(userAddressText)}
-              {userAddressText && userAddressText}
+                {userAddressText && userAddressText}
               </div>
               <div className={styles.addressBB} onClick={handleChange}>
                 <SecondaryButton
@@ -308,15 +320,22 @@ export default function AddressModal({
               </div>
             </div>
             <div className={styles.addressC}>
-             <GoogleMap
+              <GoogleMap
                 mapContainerStyle={containerStyle}
-                center={{ lat: userDetails?.user?.isLocationAllow?userDetails?.user?.latitude:19.2856, lng: userDetails?.user?.isLocationAllow?userDetails?.user?.longitude:72.8691 }}
+                center={{
+                  lat: userDetails?.user?.isLocationAllow
+                    ? userDetails?.user?.latitude
+                    : 19.2856,
+                  lng: userDetails?.user?.isLocationAllow
+                    ? userDetails?.user?.longitude
+                    : 72.8691,
+                }}
                 zoom={15}
                 onClick={handleMapClick}
-                >
-                  {position && (
-                    <Marker position={position} label="Clicked Point" />
-                  )}
+              >
+                {position && (
+                  <Marker position={position} label="Clicked Point" />
+                )}
               </GoogleMap>
             </div>
             <form id="addressForm" onSubmit={updateAddress}>
