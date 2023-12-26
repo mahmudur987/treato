@@ -16,6 +16,7 @@ import { salon } from '../../services/salon'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './BookFlow.module.css'
+import { getAvailableSlots } from '../../services/Appointments'
 
 export default function BookFlow() {
     let navigate = useNavigate();
@@ -24,6 +25,7 @@ export default function BookFlow() {
     let [showPay, setShowPay] = useState(true);
     let [paySelected, setPaySelected] = useState(false);
     let [SalonData, setSalonData] = useState(null);
+    const [selectedYear, setSelectedYear] = useState("")
     let [stepTwoDetails,setStepTwoDetails] = useState({
         workerData : null,
         dateData : null,
@@ -38,6 +40,7 @@ export default function BookFlow() {
     let [completedPay, setCompletedPay] = useState(false);
     let { id } = useParams();
     const salonServices = useSelector(state => state.salonServices.salonContent);
+    const userDetails = useSelector(state => state.user?.user);
 
     useEffect(() => {
         let SalonDataFunc = async () => {
@@ -53,22 +56,81 @@ export default function BookFlow() {
         SalonDataFunc();
       }, [])
 
-      let getWorkerData = (e) =>{
-        let oldData = {...stepTwoDetails};
+
+      const convertDate = (inputDate,Year) => {
+        const dateObject = new Date(inputDate);
+        const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+        const day = dateObject.getDate().toString().padStart(2, '0');
+  
+        const formattedDate = `${Year}-${month}-${day}`;
+        return formattedDate
+      };
+
+
+      let getWorkerData = (e,year) =>{
+          let oldData = {...stepTwoDetails};
+          let ServiceIds=salonServices?.map(e=>{
+              return e?.service_id
+          })
+
         if(SalonData&&e.target.name==='preference'&&e.target.value){
             let filtered = SalonData?.stylists?.filter(v => v._id===e.target.value);
-            if(filtered.length){
-                oldData.workerData = filtered;
-            }else{
-                oldData.workerData = [{stylist_name: 'No preference',stylist_Img:{public_url: NoProfessional}}]
-            }
+            let requiredData
+             if(filtered.length){
+                 oldData.workerData = filtered;
+                 requiredData={
+                    salons_id:salonServices[0]?.salon_id,
+                    service_id:ServiceIds,
+                   selectedStylistId:filtered[0]?._id,
+                   dateforService:convertDate(stepTwoDetails?.dateData,selectedYear),
+                   userData:{
+                    name: userDetails?.first_name
+                   }
+                 }
+                }else{
+                    oldData.workerData = [{stylist_name: 'No preference',stylist_Img:{public_url: NoProfessional}}]
+                    requiredData={
+                        salons_id:salonServices[0]?.salon_id,
+                        service_id:ServiceIds,
+                        noPreference:true,
+                       selectedStylistId:stepTwoDetails?.workerData[0]?._id,
+                       dateforService:convertDate(stepTwoDetails?.dateData,selectedYear),
+                       userData:{
+                        name: userDetails?.first_name
+                       }
+                     }
+                }
+                if(stepTwoDetails?.dateData!==null){
+                    console.log("from selected Stylist");
+                    let SlotResponse=getAvailableSlots(requiredData).then((res)=>{
+                    //    console.log(res);
+                    })
+                }
         }
         if(e.target.name==='time'&&e.target.value){
             oldData.timeData = e.target.value;
         }
         if(e.target.name==='date'&&e.target.value){
+            setSelectedYear(year)
+            if(stepTwoDetails?.workerData!==null){
+            let requiredData={
+                salons_id:salonServices[0]?.salon_id,
+                service_id:ServiceIds,
+               selectedStylistId:stepTwoDetails?.workerData[0]?._id,
+               dateforService:convertDate(e.target.value,year),
+               userData:{
+                name: userDetails?.first_name
+               }
+             }
+             console.log("from selected Date");
+
+                let SlotResponse=getAvailableSlots(requiredData).then((res)=>{
+                console.log(res);
+             })
+            }
             oldData.dateData = e.target.value;
         }
+        console.log(oldData);
         setStepTwoDetails(oldData);
     }
 
