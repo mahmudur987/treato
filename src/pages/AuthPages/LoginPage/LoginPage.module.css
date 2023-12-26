@@ -15,25 +15,71 @@
 .letGetStarted {
   font-size: 28px;
   font-weight: 600;
+  margin-bottom: .3rem;
 }
 .createText {
   font-family: "Lato", sans-serif;
-  font-size: var(--fonts-large);
+  font-size: 20px;
   font-weight: 400;
 }
 .form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
   width: 100%;
 }
 label {
-  font-family: "Lato", sans-serif;
-  font-size: var(--font-small);
+  font-family: "Lato";
+  font-size: var(--font-medium);
   font-weight: 600;
+  font-style: normal;
+}
+.countryCodeOptions {
+  border: 1px solid #ced4da;
+  padding: .3rem;
+  width: 62px;
+  border-radius:4px ;
+}
+.countryCodeOptions option{
+  font-family: "Lato";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+.phoneNumberInput input {
+  border: none !important;
+  margin-top:0rem !important;
+}
+.inputGroup input:not(:placeholder-shown) {
+  background: #F8F9FA;
+}
+.bglightGray{
+  background-color: #F8F9FA;
+}
+.phoneNumberInput {
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px;
+  margin-top: 0.4rem;
+}
+.phoneInputWrapper {
+  border: 1px solid #ced4da;
+}
+.inputGroup .divider {
+  height: 20px;
+  width: 1px;
+  margin: auto;
+  margin-left: 0.6rem;
+  background-color: black;
 }
 .NameWrapper .inputGroup input {
   width: 204px;
+  font-family: "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
 }
 .inputGroup {
   box-sizing: border-box;
@@ -44,6 +90,11 @@ label {
   padding: 0.813rem 1rem;
   width: 100%;
   box-sizing: border-box;
+  font-family: "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  margin-top: 0.4rem;
 }
 .NameWrapper {
   display: flex;
@@ -73,10 +124,10 @@ label {
 
 .terms a,
 .alreadyHaveAccount a {
-  color: var(--primary-color);
+  color: #0D69D7;
   font-family: "Lato", sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 600;
 }
 .socialButtons {
   display: flex;
@@ -84,7 +135,7 @@ label {
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 .action {
   width: 100%;
@@ -106,11 +157,12 @@ label {
   font-weight: 600;
   font-family: "Lato", sans-serif;
   gap: 24px;
+  margin-bottom: .3rem;
 }
 .continueWith span {
   height: 1px;
   width: 24%;
-  background-color: var(Grey-10);
+  background-color:#CED4DA;
 }
 .google,
 .facebook {
@@ -133,7 +185,7 @@ label {
 .eyeline {
   position: absolute;
   right: 16px;
-  top: 35px;
+  top: 42px;
   cursor: pointer;
 }
 .passwordError,
@@ -153,12 +205,12 @@ label {
 }
 .forgotPassword {
   font-size: var(--font-small);
-  color: var(--primary-color);
+  color: #0D69D7;
   width: 100%;
   display: inline-block;
   text-align: end;
   font-weight: 400;
-  font-family: "Lato", sans-serif;
+  font-family: "Lato";
 }
 
 @media only screen and (max-width: 768px) {

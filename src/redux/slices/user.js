@@ -22,9 +22,7 @@ const user = createSlice({
     updateIsLoggedIn: (state, { payload }) => {
       state.isLoggedIn = payload;
     },
-    updateUserDetails: (state, { payload }) => {
-      console.log( "varshaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",payload);
-     
+    updateUserDetails: (state, { payload }) => {     
       state.user = { ...state.user, ...payload};
      state.toggle= !state.toggle
     },

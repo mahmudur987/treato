@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import styles from "./VerifyOTP.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import {
   getUserProfile,
-  otpsignin,
   register,
   sendLoginOTP,
 } from "../../../services/auth";
@@ -13,7 +12,6 @@ import {
   resetTempLoginInfo,
   updateIsLoggedIn,
   updateOTP,
-  updateTempLoginInfo,
   updateUserDetails,
 } from "../../../redux/slices/user";
 import { toast } from "react-toastify";
@@ -32,7 +30,7 @@ const VerifyOTP = (props) => {
   const userDetails = useSelector((state) => state.user);
   useEffect(() => {
     inputRefs.current[0]?.focus();
-    if (localStorage.getItem("requiredRegisterData") != undefined) {
+    if (localStorage.getItem("requiredRegisterData") !== undefined) {
       setRequiredRegisterData(
         JSON.parse(localStorage.getItem("requiredRegisterData"))
       );

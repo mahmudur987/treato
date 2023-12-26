@@ -29,7 +29,7 @@ const AuthChoicePage = () => {
             <div>
               <div className={styles.info}>
                 <img src={user} alt="User Icon"  className={styles.userIcon}/>
-                Customer
+                Customers
               </div>
               <p className={styles.desc}>Explore and book salons near you</p>
             </div>

@@ -27,6 +27,7 @@
   align-items: center;
   width: 400px;
   border-radius: 4px;
+  padding: 1.5rem 1.25rem;
 }
 
 .info {
@@ -34,6 +35,7 @@
   align-items: center;
   font-weight: 600;
   font-size: 28px;
+  gap: 12px;
 }
 .customer img,
 .businesses img {
@@ -46,55 +48,68 @@
   font-size: var(--font-small);
   font-weight: 400;
   text-align: left;
+  font-size: var(--font-medium);
+  margin-top: 0.3rem;
 }
-.arrowright2,.arrowright1 {
+.arrowright2,
+.arrowright1 {
   height: 24px;
   width: 24px;
 }
 .signLink {
   font-size: var(--font-medium);
   font-weight: 400;
+  font-family: "Lato";
 }
 .link {
   font-size: var(--font-medium);
   color: var(--primary-color);
   font-family: "Lato", sans-serif;
-
+  font-weight: 600;
 }
-.userIcon,.arrowright1 {
+.userIcon,
+.arrowright1 {
   filter: invert(100%);
 }
-.arrowleft{
+.arrowleft {
   display: none;
 }
 
-
 @media only screen and (max-width: 768px) {
-  .customer,.businesses {
+  .choiceButtons{
+    width: 100%;
+  }
+  .customer,
+  .businesses {
     padding: 1rem;
-    width: 340px;
+    width: 100% !important;
   }
-  .heading{
-    font-size: 24px;
+  .heading {
+    font-size: 22px;
   }
-  .arrowright1,.arrowright2,.choiceButtons img{
+  .arrowright1,
+  .arrowright2,
+  .choiceButtons img {
     width: 24px;
     height: 24px;
   }
-  .info{
+  .info {
     font-size: var(--fonts-large);
   }
-  .desc,.signLink{
+  .desc{
+    margin-top: 0rem;
+    font-size: 12px;
+  }
+  .signLink {
     font-size: var(--font-small);
   }
-}
-@media only screen and (max-width: 768px) {
-  .customer,.businesses {
+  .customer,
+  .businesses {
     width: 100%;
   }
-  .arrowleft{
+  .arrowleft {
     display: block;
-    position:absolute;
+    position: absolute;
     top: 4%;
   }
 }

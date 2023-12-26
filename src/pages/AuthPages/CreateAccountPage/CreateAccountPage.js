@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
 import styles from "./CreateAccountPage.module.css";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+import "react-phone-input-2/lib/style.css";
 import {
   Facebook_Logo,
   Google_Logo,
@@ -21,8 +21,13 @@ import {
   updateUserDetails,
 } from "../../../redux/slices/user";
 import { LoginSocialFacebook } from "reactjs-social-login";
-import axios from "axios";
 import { useGoogleLogin } from "@react-oauth/google";
+import {
+  getCountryCallingCode,
+} from "react-phone-number-input/input";
+import en from "react-phone-number-input/locale/en";
+import CountrySelect from "../../../components/Countrycode/CountrySelect";
+import { handleInputChange } from "../../../utils/utils";
 
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -33,6 +38,7 @@ const CreateAccountPage = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [country, setCountry] = useState("IN");
   const userChoice = useSelector((state) => state.authChoice);
   const facebookAppId = process.env.REACT_APP_FACEBOOK_APP_ID;
   const navigate = useNavigate();
@@ -54,7 +60,7 @@ const CreateAccountPage = () => {
       errors.email = "Email address is required";
     }
 
-    if (!phone || phone.replace(/[^0-9]/g, "").length !== 12) {
+    if (!phone || phone.replace(/[^0-9]/g, "").length !== 10) {
       errors.phone = "Phone number must be exactly 10 digits";
     }
 
@@ -77,18 +83,17 @@ const CreateAccountPage = () => {
       first_name: firstName,
       last_name: lastName,
       email,
-      phone,
+      phone: phone.length?`+${getCountryCallingCode(country)}${phone}`:"",
       password,
       role: userChoice?.role?.role,
       type: "register",
     };
+    console.log(formData);
     if (Object.keys(errors).length === 0) {
       localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
       localStorage.setItem("userPhoneNumber", JSON.stringify(formData.phone));
 
       sendLoginOTP({ phoneNumber: phone }).then((res) => {
-        console.log(res);
-
         if (res && res?.res?.data.status === true) {
           dispatch(updateOTP(res?.res.data.otp));
           navigate("/verify-otp");
@@ -103,34 +108,30 @@ const CreateAccountPage = () => {
     }
   };
 
-
-  const googleAuthLogin=useGoogleLogin({
-    cookiePolicy: 'single_host_origin',
+  const googleAuthLogin = useGoogleLogin({
+    cookiePolicy: "single_host_origin",
     onSuccess: async (response) => {
       try {
         const { access_token } = response;
-        console.log(access_token);
         // Make a request to your backend API
-       google_Login(access_token).then((res)=>{
-        if (res?.res?.data && res?.res.status === 200) {
-          dispatch(updateIsLoggedIn(true));
-          dispatch(
-            updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
-          );
-          localStorage.setItem("jwtToken", res?.res?.data?.token);
-          navigate("/");
-          toast("Welcome to Treato! Start exploring now!");
-        } else {
-          toast.error(`An unexpected error occurred. Please try again.`);
-        }
-       });
+        google_Login(access_token).then((res) => {
+          if (res?.res?.data && res?.res.status === 200) {
+            dispatch(updateIsLoggedIn(true));
+            dispatch(
+              updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+            );
+            localStorage.setItem("jwtToken", res?.res?.data?.token);
+            navigate("/");
+            toast("Welcome to Treato! Start exploring now!");
+          } else {
+            toast.error(`An unexpected error occurred. Please try again.`);
+          }
+        });
       } catch (err) {
         console.log(err);
       }
     },
   });
-  
-
 
   const facebookAuthLogin = (facebookResponse) => {
     const { email, first_name, last_name, picture } = facebookResponse;
@@ -155,6 +156,7 @@ const CreateAccountPage = () => {
       }
     });
   };
+
   return (
     <AuthPage>
       <div className={styles.container}>
@@ -172,9 +174,10 @@ const CreateAccountPage = () => {
                 type="text"
                 id="firstName"
                 name="firstName"
-                placeholder="Firstname"
+                placeholder="First name"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={(e) => handleInputChange(e,setFirstName)}
+                pattern="[A-Za-z]*"
               />
               {formErrors.firstName && (
                 <p className={styles.error}>{formErrors.firstName}</p>
@@ -186,9 +189,10 @@ const CreateAccountPage = () => {
                 type="text"
                 id="lastName"
                 name="lastName"
-                placeholder="Lastname"
+                placeholder="Last name"
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={(e) => handleInputChange(e,setLastName)}
+                pattern="[A-Za-z]*"
               />
               {formErrors.lastName && (
                 <p className={styles.error}>{formErrors.lastName}</p>
@@ -209,14 +213,29 @@ const CreateAccountPage = () => {
               <p className={styles.error}>{formErrors.email}</p>
             )}
           </div>
-          <div className={styles.inputGroup}>
+          <div className={`${styles.inputGroup}`}>
             <label htmlFor="phone">Phone</label>
-            <PhoneInput
-              defaultCountry="IN"
-              value={phone}
-              placeholder="Enter phone number"
-              onChange={(value) => setPhone(value)}
-            />
+            <div className={`${styles.phoneNumberInput} ${styles.phoneInputWrapper}  ${phone.length?styles.bglightGray:""}`}>
+              <CountrySelect
+                labels={en}
+                value={country}
+                onChange={setCountry}
+                phone={phone}
+              />
+              <div className={`${styles.divider} ${phone.length?styles.bglightGray:""}`}></div>
+              <input
+                value={phone}
+                type="text" 
+                inputMode="numeric" 
+                pattern="[0-9]*" 
+                maxLength={10} 
+                onChange={(e) => {
+                  const sanitizedValue = e.target.value.replace(/\D/g, ""); 
+                  setPhone(sanitizedValue);
+                }}
+                placeholder="Enter your phone number"
+              />
+            </div>
             {formErrors.phone && (
               <p className={styles.error}>{formErrors.phone}</p>
             )}
@@ -229,7 +248,10 @@ const CreateAccountPage = () => {
               name="password"
               placeholder="Enter your password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPasswordError(false);
+                setPassword(e.target.value);
+              }}
               className=""
             />
             <img
@@ -255,7 +277,7 @@ const CreateAccountPage = () => {
           </div>
           <div className={styles.actions}>
             <PrimaryButton className={styles.action}>
-              Create Account
+              Create account
             </PrimaryButton>
             <p className={styles.alreadyHaveAccount}>
               Already have an account? <Link to="/login">Log in</Link>

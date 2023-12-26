@@ -25,10 +25,10 @@ export default function SalonDetail() {
       let SalonDataFunc = async () => {
         const { res, err } = await salon()
         if (res) {
-            res.data.salons.map((v)=>{
-                if(v._id===id){
+            res?.data?.salons?.map((v)=>{
+                if(v?._id===id){
                     setSalonData(v);
-                    setTotalSalonServices(v?.services[0]?.mainCategories.length)
+                    setTotalSalonServices(v?.services[0]?.mainCategories?.length)
                     setFirstImage(v?.salon_Img[0]?.public_url);
                     setSalonImages(v?.salon_Img);
                 }
@@ -58,15 +58,15 @@ export default function SalonDetail() {
                 </div>
                 <div className={styles.salon_images_right}>
                 {
-                    SalonData?.salon_Img.map((v, i) => {
-                        if(i>=1&&i<=SalonData?.salon_Img.length){
+                    SalonData?.salon_Img?.map((v, i) => {
+                        if(i>=1&&i<=SalonData?.salon_Img?.length){
                             return(<img src={v.public_url} alt="salon image" key={i} />)
                         }
                     })
                 }
                     <div className={styles.salon_imagesA}>
                         <div onClick={() => setShowGallery(true)}>
-                            <div>View <span>{SalonData?.salon_Img.length}</span></div>
+                            <div>View <span>{SalonData?.salon_Img?.length}</span></div>
                             <div>images</div>
                         </div>
                         <img src={firstImage?firstImage:null} alt="" />

@@ -1,10 +1,8 @@
-import { useSelector } from "react-redux";
 import {
-  updateFilterContent,
   updateSalonContent,
 } from "../redux/slices/salons";
 import { getAllServices } from "../services/Services";
-import { getSalonListBySearchInput, salon } from "../services/salon";
+import { getSalonListBySearchInput, getSalonListByServiceLocation, salon } from "../services/salon";
 
 export const getFormattedDate = (argDate) => {
   const date = new Date(argDate);
@@ -24,7 +22,12 @@ export const getFormattedDate = (argDate) => {
 };
 
 
+export const handleInputChange=(e, setFunction)=> {
+  const inputValue = e.target.value;
+  const filteredValue = inputValue.replace(/[^A-Za-z]/g, ''); // Remove numeric characters
 
+  setFunction(filteredValue);
+}
 
 const R = 6371; // Radius of the Earth in kilometers
 
@@ -88,7 +91,7 @@ export const fetchSalonsData = (userDetails,fetchType,serviceName,salonlocation)
         return calculateDistance(userCoordinates.lat, userCoordinates.lon, salon.lat, salon.lon);
       });
       salons.forEach((salon,i) => {
-        if(fetchType!="searchBase"){
+        if(fetchType!=="searchBase"){
           salon.services = salon.services.map((serviceId) => ({
             _id: serviceId,
             ...serviceMap[serviceId], // Provide a default value if service name is not found
@@ -97,7 +100,7 @@ export const fetchSalonsData = (userDetails,fetchType,serviceName,salonlocation)
         salon.distances=calculatedDistances[i]
       });
       // Dispatch the 'updateSalonContent' action with the fetched 'salons' data
-      if(fetchType!="searchBase"){
+      if(fetchType!=="searchBase"){
         dispatch(updateSalonContent(salons));
       }
 
@@ -119,7 +122,7 @@ export const getfilterSalon = async(userDetails,fetchType,serviceName,salonlocat
       const { data } = result.res; // Destructure 'data' from 'result.res'
       const { salons } = data; // Destructure 'salons' from 'data'
       const userCoordinates = { lat: userDetails?.user?.latitude, lon: userDetails?.user?.longitude };
-
+      
       const ServicesResponse = await getAllServices();
       let listServices = ServicesResponse?.res.data.data;
       // Create a map of service IDs to their corresponding names
@@ -140,7 +143,7 @@ export const getfilterSalon = async(userDetails,fetchType,serviceName,salonlocat
         return calculateDistance(userCoordinates.lat, userCoordinates.lon, salon.lat, salon.lon);
       });
       salons.forEach((salon,i) => {
-        if(fetchType!="searchBase"){
+        if(fetchType!=="searchBase"){
           salon.services = salon.services.map((serviceId) => ({
             _id: serviceId,
             ...serviceMap[serviceId], // Provide a default value if service name is not found
@@ -150,4 +153,49 @@ export const getfilterSalon = async(userDetails,fetchType,serviceName,salonlocat
       });
       return salons
     }
+};
+
+
+
+export const getfilterSalonByServiceLatLng = async(userDetails,fetchType,serviceName,salonlocation,locationLat,locationLng) =>  {
+  let result;
+  if(fetchType==="searchBase"){
+  result = await getSalonListByServiceLocation(serviceName,locationLat,locationLng);
+  }
+
+  if (result.res) {
+    const { data } = result.res; // Destructure 'data' from 'result.res'
+    const { salons } = data; // Destructure 'salons' from 'data'
+    const userCoordinates = { lat: userDetails?.user?.latitude, lon: userDetails?.user?.longitude };
+    
+    const ServicesResponse = await getAllServices();
+    let listServices = ServicesResponse?.res.data.data;
+    // Create a map of service IDs to their corresponding names
+    const serviceMap = {};
+    listServices?.forEach((service) => {
+      serviceMap[service._id] = {
+        service_name: service.service_name,
+        price: service.price,
+        service_timing:service.service_timing // Add the price to the service
+      };
+    });
+
+    let allSalonsCoordinates=salons?.map((e)=>{
+      let obj={lat:e.location.coordinates[0],lon:e.location.coordinates[1]}
+      return obj
+    })
+    const calculatedDistances = allSalonsCoordinates?.map((salon) => {
+      return calculateDistance(userCoordinates.lat, userCoordinates.lon, salon.lat, salon.lon);
+    });
+    salons?.forEach((salon,i) => {
+      if(fetchType!=="searchBase"){
+        salon.services = salon.services?.map((serviceId) => ({
+          _id: serviceId,
+          ...serviceMap[serviceId], // Provide a default value if service name is not found
+        }));
+      }
+      salon.distances=calculatedDistances[i]
+    });
+    return salons
+  }
 };

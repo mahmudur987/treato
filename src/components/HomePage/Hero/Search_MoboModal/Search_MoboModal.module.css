@@ -63,3 +63,32 @@
 .closeInput {
   right: 10px;
 }
+
+.locationList{
+  color:#6D747A;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Lato";
+  list-style: none;
+  padding: .6rem;
+  cursor: pointer;
+}
+.CurrentLocation{
+  color: #0D69D7 !important;
+  font-size: 14px !important;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+.CurrentLocation img{
+  width: 16px;
+  height: 16px;
+}
+.locationList:hover{
+  background-color: #F6F6F6;
+}
+.locationList small,.locationList strong{
+font-size: 14px;
+}

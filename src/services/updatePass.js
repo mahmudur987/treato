@@ -1,4 +1,3 @@
-import { toFormData } from 'axios'
 import axiosInstance from './axios'
 
 /** Register the user after Verifying the OTP `POST: /api/auth/register/` */

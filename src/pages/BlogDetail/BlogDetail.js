@@ -17,6 +17,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import PopularBlogCard from "../../components/Cards/PopularBlogCard/PopularBlogCard";
 import { SingleBlog } from "../../services/SingleBlog";
+import { toast } from "react-toastify";
 
 export default function BlogDetail(props) {
   const responsive = {
@@ -78,7 +79,48 @@ export default function BlogDetail(props) {
     getServices();
     getBlogData()
   }, [pathname])
+  const shareOnFacebook = () => {
+    try {
+      // Construct the share URL
+      const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent("https://treato.netlify.app")}`;
+  
+      // Open the share dialog in a new window
+      window.open(shareUrl, '_blank');
+    } catch (error) {
+      console.error('Error sharing on Facebook:', error);
+    }
+  };
+  const shareOnTwitter  = () => {
+    try {
+      const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent("https://treato.netlify.app")}&text=${encodeURIComponent(mainBlogData[0].blog_title)}`;
+      window.open(shareUrl, '_blank');
+    } catch (error) {
+      console.error('Error sharing on Twitter:', error);
+    }
+  };
+  const shareOnLinkedin   = () => {
+    try {
+      const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent("https://treato.netlify.app")}&title=${encodeURIComponent(mainBlogData[0].blog_title)}`;
+      window.open(shareUrl, '_blank');
+    } catch (error) {
+      console.error('Error sharing on Linkedin:', error);
+    }
+  };
+  const shareOnInstagram   = () => {
+    try {
+        const caption = encodeURIComponent('Check out this awesome blog post!'); // Customize the caption
+        const shareUrl = `https://www.instagram.com/`;
+        window.open(shareUrl, '_blank');
+        
+    } catch (error) {
+      console.error('Error sharing on Instagram :', error);
+    }
+  };
 
+  const copyLinkToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    toast.info(`Link copied to clipboard!`);
+  };
   return (
     <div className={`${styles["container"]} page-section page-container`}>
       <BackButton/>
@@ -103,11 +145,21 @@ export default function BlogDetail(props) {
             <div className={styles["header-right"]}>
               <p>Share:</p>
               <div className={styles["social-icons"]}>
+              <button onClick={shareOnFacebook}>
                 <img src={Facebook} alt="Facebook" />
+                </button>
+                <button onClick={shareOnTwitter}>
                 <img src={Twitter} alt="Twitter" />
+                </button>
+                <button onClick={shareOnLinkedin}>
                 <img src={Linkedin} alt="Linkedin" />
+                </button>
+                <button onClick={shareOnInstagram}>
                 <img src={Instagram} alt="Instagram" />
+                </button>
+                <button onClick={copyLinkToClipboard}>
                 <img src={CopyLink} alt="CopyLink" />
+                </button>
               </div>
             </div>
           </header>
@@ -147,11 +199,21 @@ export default function BlogDetail(props) {
             >
               <p>Share:</p>
               <div className={styles["social-icons"]}>
+                <button onClick={shareOnFacebook}>
                 <img src={Facebook} alt="Facebook" />
+                </button>
+                <button onClick={shareOnTwitter}>
                 <img src={Twitter} alt="Twitter" />
+                </button>
+                <button onClick={shareOnLinkedin}>
                 <img src={Linkedin} alt="Linkedin" />
+                </button>
+                <button onClick={shareOnInstagram}>
                 <img src={Instagram} alt="Instagram" />
+                </button>
+                <button onClick={copyLinkToClipboard}>
                 <img src={CopyLink} alt="CopyLink" />
+                </button>
               </div>
             </div>
           </div>

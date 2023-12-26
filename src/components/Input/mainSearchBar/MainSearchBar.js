@@ -5,11 +5,24 @@ import Treatments from "../../HomePage/Hero/SearchContent/Treatments";
 import Venues from "../../HomePage/Hero/SearchContent/Venues";
 import Locations from "../../HomePage/Hero/SearchContent/Locations";
 import Search_MoboModal from "../../HomePage/Hero/Search_MoboModal/Search_MoboModal";
-import { closeIcon, mapPin, search } from "../../../assets/images/icons";
+import {
+  closeIcon,
+  mapPin,
+  mapPinBlue,
+  search,
+} from "../../../assets/images/icons";
 import { getAllServices } from "../../../services/Services";
 import { salon } from "../../../services/salon";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import useOnclickOutside from "react-cool-onclickoutside";
+import SalonSearchLocationModal from "../../HomePage/Hero/Search_MoboModal/SalonSearchLocationModal";
+import { useSelector } from "react-redux";
 
 const MainSearchBar = ({ place }) => {
   // Short letter abbreviations used in few classNames
@@ -26,6 +39,10 @@ const MainSearchBar = ({ place }) => {
   const [allSalonList, setallSalonList] = useState([]);
   const [filteredServiceData, setFilteredServiceData] = useState([]);
   const [filteredSalonData, setFilteredSalonData] = useState([]);
+  const [locationLat, setlocationLat] = useState("");
+  const [locationLng, setlocationLng] = useState("");
+
+  const userDetails = useSelector((state) => state?.user?.user);
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
@@ -67,9 +84,88 @@ const MainSearchBar = ({ place }) => {
 
   const searchParams = new URLSearchParams(location.search);
   // Get the 'services' and 'location' query parameters
-  const servicesParam = searchParams.get("services");
+  const servicesParam = searchParams.get("service");
   const locationParam = searchParams.get("location");
+  // -----------google map locations----------------
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    callbackName: "YOUR_CALLBACK_NAME",
+    requestOptions: {
+      /* Define search scope here */
+    },
+    debounce: 300,
+  });
+  const ref = useOnclickOutside(() => {
+    // When the user clicks outside of the component, we can dismiss
+    // the searched suggestions by calling this method
+    clearSuggestions();
+  });
 
+  const handleInput = (e) => {
+    console.log(e.target.value);
+    if (e.target.value === "") {
+      setloc_DesktopModal(false);
+      setLocationInputValue(e.target.value);
+      setValue(e.target.value);
+      return;
+    }
+    // Update the keyword of the input element
+    setLocationInputValue(e.target.value);
+    setValue(e.target.value);
+    handle_openloc_Modal();
+  };
+
+  const handleSelectCurrentLocation = () => {
+    setLocationInputValue("Current Location");
+    setValue("Current Location");
+    clearSuggestions();
+    setlocationLat(userDetails?.latitude);
+    setlocationLng(userDetails?.longitude);
+    setloc_DesktopModal(false);
+  };
+  const handleSelect =
+    ({ description }) =>
+    () => {
+      // When the user selects a place, we can replace the keyword without request data from API
+      // by setting the second parameter to "false"
+      console.log(description);
+      setLocationInputValue(description);
+      setValue(description, false);
+      clearSuggestions();
+
+      // Get latitude and longitude via utility functions
+      getGeocode({ address: description }).then((results) => {
+        const { lat, lng } = getLatLng(results[0]);
+        setlocationLat(lat);
+        setlocationLng(lng);
+        console.log("📍 Coordinates: ", { lat, lng });
+      });
+      setloc_DesktopModal(false);
+    };
+
+  const renderSuggestions = () =>
+    data?.map((suggestion) => {
+      const {
+        place_id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        <li
+          key={place_id}
+          onClick={handleSelect(suggestion)}
+          className={styles.locationList}
+        >
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      );
+    });
+  // -----------------------------------------
 
   useEffect(() => {
     // Call the getAllServices function when the component mounts
@@ -92,9 +188,10 @@ const MainSearchBar = ({ place }) => {
     }
 
     fetchAllServices();
-    if(servicesParam || locationParam){
-      setTreatmentInputValue(servicesParam)
-      setLocationInputValue(locationParam)
+    if (servicesParam || locationParam) {
+      setTreatmentInputValue(servicesParam);
+      setLocationInputValue(locationParam);
+      setValue(locationParam);
     }
   }, []);
 
@@ -152,15 +249,29 @@ const MainSearchBar = ({ place }) => {
   };
 
   const handleSearch = () => {
-    if(locationInputValue==="" && treatmentInputValue===""){
+    if (locationInputValue === "" && treatmentInputValue === "") {
       // Navigate to /salons with services and location as query parameters
-      toast.info('Please fill input fields to proceed. !');
-    }
-    else{
-      console.log(locationInputValue,treatmentInputValue);
-      navigate(
-        `/salons?services=${treatmentInputValue}&location=${locationInputValue}`
-      );
+      toast.info("Please fill input fields to proceed. !");
+    } else {
+      console.log(locationInputValue, treatmentInputValue);
+      if (value != "") {
+        //if we have value in location input
+        getGeocode({ address: value }).then((results) => {
+          const { lat, lng } = getLatLng(results[0]);
+          setlocationLat(lat);
+          setlocationLng(lng);
+          navigate(
+            `/salons?service=${treatmentInputValue}&lat=${lat ? lat : ""}&lng=${
+              lng ? lng : ""
+            }&location=${locationInputValue}`
+          );
+        });
+      } else {
+        //if we  dont have value in location input
+        navigate(
+          `/salons?service=${treatmentInputValue}&lat=${locationLat}&lng=${locationLng}&location=${locationInputValue}`
+        );
+      }
     }
   };
 
@@ -224,9 +335,16 @@ const MainSearchBar = ({ place }) => {
             placeholder={
               winWidthMain > 767 ? "Search by location" : "Current location"
             }
-            onClick={handle_openloc_Modal}
-            value={locationInputValue}
-            onChange={handleLocationInput}
+            onClick={() => {
+              if (winWidthMain < 767) {
+                handle_openloc_Modal();
+              }
+            }}
+            // value={locationInputValue}
+            // onChange={handleLocationInput}
+            value={value}
+            onChange={winWidthMain > 767 ? handleInput : ""}
+            disabled={!ready}
           />
           <img
             className={`${styles["close_trtBox"]} ${
@@ -239,7 +357,7 @@ const MainSearchBar = ({ place }) => {
 
           <button
             className={`${styles["goSearch"]} ${
-              locationInputValue !== "" || treatmentInputValue !== ""
+              value !== "" || treatmentInputValue !== ""
                 ? navstyles["blueButton"]
                 : ""
             }`}
@@ -247,19 +365,26 @@ const MainSearchBar = ({ place }) => {
           >
             Go
           </button>
-
           {/*  location Desktop box/Modal */}
           <div
             className={`${styles["locationResults"]} ${
               loc_DesktopModal ? "" : styles["hidden"]
             }`}
           >
-            <Locations
-              setLocationInputValue={setLocationInputValue}
-              allSalonList={filteredSalonData}
-              handle_close={handle_closeloc_Modal}
-              locationInputValue={locationInputValue}
-            />
+            {status === "OK" && (
+              <ul className={styles.locationUl}>
+                {userDetails?.isLocationAllow && (
+                  <li
+                    className={`${styles.locationList} ${styles.CurrentLocation}`}
+                    onClick={handleSelectCurrentLocation}
+                  >
+                    <img src={mapPinBlue} alt="pinIcon"></img>
+                    Current Location
+                  </li>
+                )}
+                <>{renderSuggestions()}</>
+              </ul>
+            )}
           </div>
         </div>
 
@@ -280,7 +405,7 @@ const MainSearchBar = ({ place }) => {
         />
       )}
       {loc_MoboModal && (
-        <Search_MoboModal
+        <SalonSearchLocationModal
           handle_close={handle_closeloc_Modal}
           setShow_Modal={setloc_MoboModal}
           show_Modal={loc_MoboModal}
@@ -290,6 +415,9 @@ const MainSearchBar = ({ place }) => {
           setLocationInputValue={setLocationInputValue}
           allSalonList={filteredSalonData}
           handleLocationInput={handleLocationInput}
+          setlocationLat={setlocationLat}
+          setlocationLng={setlocationLng}
+          setlocationValue={setValue}
         />
       )}
     </>

@@ -2,36 +2,27 @@ import React, { useState, useCallback, useMemo } from "react";
 import styles from "./Salons.module.css";
 import Salon from "../../components/Cards/Salon/Salon";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  openModal,
-  closeModal,
-} from "../../redux/slices/filterModals/filterModal";
+import { openModal } from "../../redux/slices/filterModals/filterModal";
 import {
   filterDeskIcon,
   filter,
   chevronDown,
 } from "../../assets/images/SalonsPageImages";
 import Pagination from "../../components/pagination/Pagination";
-import { salonContent } from "./SalonsContent.js";
 import {
-  resetSalonContent,
   updateFilterContent,
   updateSearchSalonResults,
 } from "../../redux/slices/salons";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getSalonListBySearchInput, salon } from "../../services/salon";
 import { useEffect } from "react";
-import { fetchSalonsData, getfilterSalon } from "../../utils/utils";
 import {
-  arrowleft,
-  chevronLeft,
-  closeIcon,
-} from "../../assets/images/icons/index.js";
+  getfilterSalonByServiceLatLng,
+} from "../../utils/utils";
+import { arrowleft, closeIcon } from "../../assets/images/icons/index.js";
 import { getAllServices } from "../../services/Services.js";
 import Treatments from "../../components/HomePage/Hero/SearchContent/Treatments.js";
 const Salons = React.memo(() => {
   const salonsState = useSelector((state) => state.salons);
-  const salonModal = useSelector((state) => state.salonModal);
   const userDetails = useSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
@@ -50,11 +41,12 @@ const Salons = React.memo(() => {
   const searchParams = new URLSearchParams(location.search);
   // Get the 'services' and 'location' query parameters
   let servicesParam = "";
-  servicesParam = searchParams.get("services");
+  servicesParam = searchParams.get("service");
   const locationParam = searchParams.get("location");
+  const locationLat = searchParams.get("lat");
+  const locationLng = searchParams.get("lng");
 
   // Filter salonContent based on the condition
-  let filteredSalonContent;
   const handleBack = () => {
     navigate("/"); // Go back to the previous page
   };
@@ -75,11 +67,14 @@ const Salons = React.memo(() => {
   //fetching base on search input
   useEffect(() => {
     setIsLoading(true); // Set loading state
-    getfilterSalon(
+
+    getfilterSalonByServiceLatLng(
       userDetails,
       "searchBase",
       servicesParam,
-      locationParam
+      locationParam,
+      locationLat,
+      locationLng
     ).then((res) => {
       setIsLoading(false);
       dispatch(updateSearchSalonResults(res));
@@ -234,7 +229,7 @@ const Salons = React.memo(() => {
       </div>
 
       <div className={styles.salonsWrapper}>
-        {isLoading? (
+        {isLoading ? (
           <div className="zeroResponse">Loading...</div>
         ) : showContent ? (
           visibleItems?.length > 0 ? (

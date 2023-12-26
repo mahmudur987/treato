@@ -21,12 +21,10 @@ export default function UserAddress({ setAddressModal, address, updateInputVal, 
                 console.log(err)
             })
     }
-    console.log(allAddress);
-    console.log(address);
+
     return (
         <div className={styles.user_address}>
-            <pre>{JSON.stringify(address, null, 2)}</pre>
-            <pre>{JSON.stringify(allAddress.length)}</pre>
+
             <div className={styles.addr_head}>
                 My Addresses
             </div>

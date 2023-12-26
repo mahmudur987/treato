@@ -14,7 +14,7 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
   const handleEmailSubmit = () => {
     setEmailError("");
-    if (email != "") {
+    if (email !== "") {
       setisloading(true);
       forgotpasswordLink({ email }).then((res) => {
         if (res?.res?.status === 200 && res?.res.data.link) {

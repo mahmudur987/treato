@@ -3,7 +3,7 @@ import React from "react";
 import { Close } from "../../../assets/images/SalonsPageImages";
 import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
 const SalonFilterOptions = ({
   isMobile,
@@ -17,7 +17,6 @@ const SalonFilterOptions = ({
   handleApplyFilter,
   handleCloseModal,
   styles,
-  dispatch,
   resetFilters,
 }) => {
   const modal = useSelector((state) => state.salonModal);
@@ -25,8 +24,8 @@ const SalonFilterOptions = ({
 
   return (
     <div className={styles.filterOptions}>
-      {(modal.modalContent == "sortBy" && isMobile) ||
-      (modal.modalContent == "all" && !isMobile) ? (
+      {(modal.modalContent === "sortBy" && isMobile) ||
+      (modal.modalContent === "all" && !isMobile) ? (
         <div className={styles.sortBy}>
           {isMobile ? (
             <div className={styles.header}>
@@ -74,8 +73,8 @@ const SalonFilterOptions = ({
         ""
       )}
 
-      {(modal.modalContent == "price" && isMobile) ||
-      (modal.modalContent == "all" && !isMobile) ? (
+      {(modal.modalContent === "price" && isMobile) ||
+      (modal.modalContent === "all" && !isMobile) ? (
         <div className={styles.Price}>
           {isMobile && (
             <div className={styles.header}>
@@ -101,8 +100,8 @@ const SalonFilterOptions = ({
         ""
       )}
 
-      {(modal.modalContent == "venue" && isMobile) ||
-      (modal.modalContent == "all" && !isMobile) ? (
+      {(modal.modalContent === "venue" && isMobile) ||
+      (modal.modalContent === "all" && !isMobile) ? (
         <div className={styles.venueType}>
           {isMobile ? (
             <div className={styles.header}>
