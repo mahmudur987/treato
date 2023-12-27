@@ -1,7 +1,3 @@
-import slide1 from "../../assets/images/SalonDetail/slide1.png"
-import slide2 from "../../assets/images/SalonDetail/slide2.png"
-import slide3 from "../../assets/images/SalonDetail/slide3.png"
-import slide4 from "../../assets/images/SalonDetail/slide4.png"
 import styles from './SalonDetail.module.css'
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -9,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import './SalonSlickSlider.css'
 import { useState } from 'react'
 
-export default function SalonSlickSLider({gallery,setShowGallery}) {
+export default function SalonSlickSLider({gallery,setShowGallery,SalonData}) {
     let [activeImg, updateActiveImg] = useState(0)
 
     const settings = {
@@ -24,22 +20,15 @@ export default function SalonSlickSLider({gallery,setShowGallery}) {
         autoplay: false,
     };
 
-    const Images = [
-        { img: slide1 },
-        { img: slide2 },
-        { img: slide3 },
-        { img: slide4 },
-    ]
-
     return (
         <>
         {
-            gallery?
+            SalonData?
             <Slider {...settings}>
                 {
-                    gallery.map((v, i) => {
+                    SalonData?.salon_Img.map((v, i) => {
                         return (
-                            <img src={v} alt="" key={i} />
+                            <img src={v.public_url} alt="salon image" key={i} />
                         )
                     })
                 }
@@ -48,7 +37,7 @@ export default function SalonSlickSLider({gallery,setShowGallery}) {
             ''
         }
             <div className={styles.salon_slider_index} onClick={()=>setShowGallery(true)}>
-                {activeImg + 1}/{gallery.length}
+                {activeImg + 1}/{SalonData?.salon_Img.length}
             </div>
         </>
     )

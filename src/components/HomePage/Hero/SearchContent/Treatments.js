@@ -9,12 +9,13 @@ const Treatments = ({ allServices, handle_close, setTreatmentInputValue,pageName
   // Get the 'services' and 'location' query parameters
   const locationParam = searchParams.get("location");
 const navigate=useNavigate()
+
   const setinput = (serviceName) => {
     handle_close();
     setTreatmentInputValue(serviceName);
     if(pageName==="salons"){
       navigate(
-        `/salons?services=${serviceName}&location=${locationParam}`
+        `/salons?service=${serviceName}&location=${locationParam}`
       );
     }
   };

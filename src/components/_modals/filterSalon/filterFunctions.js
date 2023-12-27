@@ -1,9 +1,7 @@
 // filterUtils.js
 
 import {
-  resetSalonContent,
   updateFilterContent,
-  updateSalonContent,
 } from "../../../redux/slices/salons";
 
 import { useState } from "react";

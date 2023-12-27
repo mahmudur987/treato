@@ -355,6 +355,27 @@
   background-color: var(--primary-color);
 }
 
+.lowOpacity{
+  opacity: 0.5 !important;
+}
+
+.paginationButton{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 16px;
+}
+
+.paginationButton button{
+  width: 31px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  border: none;
+}
+
 
 @media only screen and (max-width: 1000px) {
 

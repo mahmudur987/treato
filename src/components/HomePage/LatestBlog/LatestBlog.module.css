@@ -110,7 +110,6 @@ a {
     line-height: 20px;
   }
   .blogWrapper {
-    overflow-x: scroll;
     gap: 10px;
   }
   .blogWrapper::-webkit-scrollbar {

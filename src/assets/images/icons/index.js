@@ -47,6 +47,8 @@ export { default as lookbookIcon } from "./lookbookIcon.svg";
 export { default as supportIcon } from "./supportIcon.svg";
 export { default as expandMoboImage } from "./expandMoboImage.svg";
 export { default as LoadSpinnerIcon } from "./LoadSpinner.svg";
+export { default as accountSetting } from "./accountSetting.svg";
+
 
 
 

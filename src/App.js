@@ -25,6 +25,7 @@ import ResetPassword from "./pages/AuthPages/ResetPassword/ResetPassword";
 import { getUserProfile } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 import PrivateFormRoutes from "./layouts/PrivateRoutes";
+import LocationAutocomplete from "./components/locations/LocationAutocomplete";
 
 function App() {
   // Use the location hook to track route changes
@@ -103,6 +104,35 @@ function App() {
     // Call the action to fetch salon data, passing userDetails as an argument
     dispatch(fetchSalonsData(userDetails));
   }, [dispatch, userDetails]);
+
+//TODO:testing passportJS auth. setup
+useEffect(() => {
+  const getUser = () => {
+    fetch("https://backend.treato.in/api/v1/auth/login/success", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
+      })
+      .then((resObject) => {
+        console.log("PassportJS Google Response:",resObject.user);
+        // setUser(resObject.user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  getUser();
+}, []);
+
+
   return (
     <PageLayout>
       <ToastContainer
@@ -119,18 +149,18 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/account-settings" element={<AccountSettings />} />
-        <Route path="/salons" element={<Salons />} />
-        <Route path="/salons/:id" element={<SalonDetail />} />
-        <Route path="/salons/:id/book" element={<BookFlow />} />
-        <Route path="/lookbook" element={<Lookbook />} />
-        <Route path="/lookbook-details/:id" element={<LookbookDetails />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/blogs/:id" element={<BlogDetail />} />
-        <Route path="/my-appointments/*" element={<MyAppointments />} />
-        //Todo: only we have to add payment page under PrivateRoutes
-        {/* <Route element={<PrivateRoutes />}> */}
-        {/* </Route> */}
+          <Route path="/account-settings" element={<AccountSettings />} />
+          <Route path="/salons" element={<Salons />} />
+          <Route path="/salons/:id" element={<SalonDetail />} />
+          <Route path="/salons/:id/book" element={<BookFlow />} />
+          <Route path="/lookbook" element={<Lookbook />} />
+          <Route path="/lookbook-details/:id" element={<LookbookDetails />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:id" element={<BlogDetail />} />
+          <Route path="/my-appointments/*" element={<MyAppointments />} />
+          <Route path="/LocationAutocomplete" element={<LocationAutocomplete />} />
+
+           
         {/* Auth routes */}
         <Route element={<PrivateFormRoutes />}>
           <Route path="/auth-choice" exact element={<AuthChoicePage />} />
