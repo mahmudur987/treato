@@ -22,7 +22,6 @@ export default function CalendarModal({getWorkerData}) {
   const year = date.getFullYear();
   let threeMonths = [];
   const [selectedMonthYear, setSelectedMonthYear] = useState(`${months[new Date().getMonth()]} ${new Date().getFullYear()}`);
-console.log(selectedMonthYear);
     const settings = {
         dots: false,
         infinite: false,

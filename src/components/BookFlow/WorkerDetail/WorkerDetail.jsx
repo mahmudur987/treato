@@ -3,12 +3,18 @@ import userIco from "../../../assets/images/SalonDetail/userIco.svg"
 import WorkerComponent from '../WorkerComponent/WorkerComponent'
 import ServiceTime from '../ServiceTime/ServiceTime'
 import RadioInput from '../../Input/RadioInput/RadioInput'
+import { useEffect, useRef } from 'react'
 
-export default function WorkerDetail({ SalonData,getWorkerData }) {
+export default function WorkerDetail({ SalonData,getWorkerData,availableSlots }) {
+    const noneLabelRef = useRef(null);
 
+    useEffect(() => {
+        // Click the label when the component mounts
+        noneLabelRef.current.click();
+    }, []); 
     return (
         <div className={styles.worker_detailMain}>
-            <label htmlFor="none" onClick={getWorkerData}>
+            <label htmlFor="none" onClick={getWorkerData} ref={noneLabelRef}>
                 <div className={styles.worker_detailA}>
                     <div className={styles.worker_detailAD}>
                         <div className={styles.worker_detailAA}>
@@ -34,7 +40,7 @@ export default function WorkerDetail({ SalonData,getWorkerData }) {
                 }
             </div>
             <div className={styles.worker_detailC}>
-                <ServiceTime getWorkerData={getWorkerData}/>
+                <ServiceTime getWorkerData={getWorkerData} availableSlots={availableSlots}/>
             </div>
         </div>
     )

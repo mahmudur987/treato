@@ -75,14 +75,13 @@ export const getUpcomingAppointments = async () => {
   export const getAvailableSlots = async (data) => {
     const jwtToken = localStorage.getItem("jwtToken");
 
-    console.log(data);
+    console.log("slots Data",data);
     try {
-      const res = await axiosInstance.post(`/appointment/new`, data, {
+      const res = await axiosInstance.post(`/appointment/generateSlots`, data, {
         headers: {
           token: jwtToken,
         },
       });
-      console.log(res);
       return { res: res, err: null };
     } catch (error) {
       return { err: error, res: null };

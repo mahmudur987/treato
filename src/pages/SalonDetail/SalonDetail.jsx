@@ -11,7 +11,8 @@ import { useState } from 'react'
 import { salon } from '../../services/salon'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-
+import { useSelector } from 'react-redux'
+import {calculateSalonDistance, displayDistance} from "../../utils/utils.js"
 export default function SalonDetail() {
     let [showGallery, setShowGallery] = useState(false)
     let [salonImages, setSalonImages] = useState(null)
@@ -21,6 +22,8 @@ export default function SalonDetail() {
     let { id } = useParams(); 
     let [firstImage,setFirstImage] = useState(null)
 
+    const userDetails = useSelector((state) => state?.user?.user);
+    
     useEffect(() => {
       let SalonDataFunc = async () => {
         const { res, err } = await salon()
@@ -37,7 +40,8 @@ export default function SalonDetail() {
       }
       SalonDataFunc();
     }, [])
-
+    // console.log(SalonData);
+// console.log(SalonData?.location?.coordinates[0],SalonData?.location?.coordinates[1],userDetails?.latitude,userDetails?.longitude)
     return (
         <div className={showGallery ? `${styles.salon_page} ${styles.overHidden}` : styles.salon_page}>
             <BackButton />
@@ -49,7 +53,7 @@ export default function SalonDetail() {
                     <div className={styles.salon_star}>{SalonData?SalonData.rating:null} <img src={star} alt="" /></div>
                     <div>({SalonData?SalonData.total_rating:null})</div>
                     <img src={ellipse} alt="" />
-                    <div>{SalonData?SalonData.locationText:null} (570 m away)</div>
+                    <div>{SalonData?SalonData.locationText:null} ({displayDistance(calculateSalonDistance(SalonData?.location?.coordinates[0],SalonData?.location?.coordinates[1],userDetails?.latitude,userDetails?.longitude) )} away)</div>
                 </div>
             </div>
             <div className={styles.salon_images}>

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import styles from "../../../pages/BookFlow/BookFlow.module.css";
 import BasicInput from "../../Input/BasicInput/BasicInput";
 
@@ -9,9 +10,18 @@ export default function DateComponent({
   getWorkerData,
   month,
 }) {
+  const labelRef = useRef(null);
+  useEffect(() => {
+    // Check if index is 0 and actveCard is not already set to 0
+    if (index === 0 && actveCard !== 0) {
+      // Trigger click event on the label
+      labelRef.current.click();
+    }
+  }, []);
   return (
     <label
       id={`date${index}`}
+      ref={labelRef}
       className={
         actveCard === index
           ? `${styles.service_dateA} ${styles.activeTimeMain}`

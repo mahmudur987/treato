@@ -25,6 +25,7 @@ export default function BookFlow() {
     let [showPay, setShowPay] = useState(true);
     let [paySelected, setPaySelected] = useState(false);
     let [SalonData, setSalonData] = useState(null);
+    const [availableSlots, setavailableSlots] = useState([])
     const [selectedYear, setSelectedYear] = useState("")
     let [stepTwoDetails,setStepTwoDetails] = useState({
         workerData : null,
@@ -41,6 +42,9 @@ export default function BookFlow() {
     let { id } = useParams();
     const salonServices = useSelector(state => state.salonServices.salonContent);
     const userDetails = useSelector(state => state.user?.user);
+useEffect(() => {
+console.log(activeBookFlowBA);
+}, [activeBookFlowBA])
 
     useEffect(() => {
         let SalonDataFunc = async () => {
@@ -78,32 +82,27 @@ export default function BookFlow() {
             let requiredData
              if(filtered.length){
                  oldData.workerData = filtered;
+                 oldData.isNoPreference = false;
                  requiredData={
                     salons_id:salonServices[0]?.salon_id,
                     service_id:ServiceIds,
-                   selectedStylistId:filtered[0]?._id,
-                   dateforService:convertDate(stepTwoDetails?.dateData,selectedYear),
-                   userData:{
-                    name: userDetails?.first_name
-                   }
+                    selectedStylistId:filtered[0]?._id,
+                    dateforService:convertDate(stepTwoDetails?.dateData,selectedYear),
                  }
                 }else{
                     oldData.workerData = [{stylist_name: 'No preference',stylist_Img:{public_url: NoProfessional}}]
+                    oldData.isNoPreference = true;
                     requiredData={
                         salons_id:salonServices[0]?.salon_id,
                         service_id:ServiceIds,
                         noPreference:true,
-                       selectedStylistId:stepTwoDetails?.workerData[0]?._id,
-                       dateforService:convertDate(stepTwoDetails?.dateData,selectedYear),
-                       userData:{
-                        name: userDetails?.first_name
-                       }
+                        dateforService:convertDate(stepTwoDetails?.dateData,selectedYear),
                      }
                 }
                 if(stepTwoDetails?.dateData!==null){
                     console.log("from selected Stylist");
-                    let SlotResponse=getAvailableSlots(requiredData).then((res)=>{
-                    //    console.log(res);
+                    getAvailableSlots(requiredData).then((res)=>{
+                    setavailableSlots(res?.res?.data?.data)
                     })
                 }
         }
@@ -111,26 +110,34 @@ export default function BookFlow() {
             oldData.timeData = e.target.value;
         }
         if(e.target.name==='date'&&e.target.value){
+            console.log("from selected Date");
             setSelectedYear(year)
             if(stepTwoDetails?.workerData!==null){
-            let requiredData={
-                salons_id:salonServices[0]?.salon_id,
-                service_id:ServiceIds,
-               selectedStylistId:stepTwoDetails?.workerData[0]?._id,
-               dateforService:convertDate(e.target.value,year),
-               userData:{
-                name: userDetails?.first_name
-               }
-             }
-             console.log("from selected Date");
-
-                let SlotResponse=getAvailableSlots(requiredData).then((res)=>{
-                console.log(res);
+                let requiredData;
+                if(oldData.isNoPreference){
+                    console.log("--date NoPReferene----");
+                  requiredData={
+                        salons_id:salonServices[0]?.salon_id,
+                        noPreference:oldData.isNoPreference,
+                        service_id:ServiceIds,
+                        dateforService:convertDate(e.target.value,year),
+                     }
+                }
+                else{
+                    console.log("--date PReferene----");
+                    requiredData={
+                        salons_id:salonServices[0]?.salon_id,
+                        service_id:ServiceIds,
+                        selectedStylistId:stepTwoDetails?.workerData[0]?._id,
+                        dateforService:convertDate(e.target.value,year),
+                     }
+                }
+            getAvailableSlots(requiredData).then((res)=>{
+                    setavailableSlots(res?.res?.data?.data)
              })
             }
             oldData.dateData = e.target.value;
         }
-        console.log(oldData);
         setStepTwoDetails(oldData);
     }
 
@@ -182,7 +189,7 @@ export default function BookFlow() {
                                     <SalonServiceMain hideTitle={true} SalonData={SalonData?SalonData:null}/>
                                     :
                                     activeBookFlowBA === 2 ?
-                                        <WorkerDetail SalonData={SalonData?SalonData:null} getWorkerData={getWorkerData}/>
+                                        <WorkerDetail SalonData={SalonData?SalonData:null} getWorkerData={getWorkerData} availableSlots={availableSlots}/>
                                         :
                                         activeBookFlowBA === 3 ?
                                             <VisitorDetail />
