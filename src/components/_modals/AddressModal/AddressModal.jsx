@@ -67,11 +67,13 @@ export default function AddressModal({
       landmark: landmark ? landmark : "",
       house: house ? house : "",
     };
-    let allData = { ...inputVal };
-    allData.place.push(address);
+    let allData = { ...inputVal, address };
+    console.log(allData, "alldata ");
+    // allData.place.push(address);
     updateInputVal(allData);
     updateUser(userJWt, allData)
       .then((res) => {
+        console.log(res);
         localStorage.setItem("userData", JSON.stringify(allData));
       })
       .catch((err) => {
@@ -99,8 +101,8 @@ export default function AddressModal({
   useEffect(() => {
     if (addressModal.data) {
       updateInputs({
-        house: addressModal.data.house,
-        landmark: addressModal.data.landmark,
+        house: addressModal?.data?.house,
+        landmark: addressModal?.data?.landmark,
         house_type: locType === 1 ? "Home" : "Other",
       });
       setLocType(addressModal.data.house_type === "Home" ? 1 : 2);
@@ -134,6 +136,7 @@ export default function AddressModal({
   };
 
   const getAddressFromLatLng = async (lat, lng) => {
+    console.log(lat, lng);
     try {
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`

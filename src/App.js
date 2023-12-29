@@ -109,13 +109,13 @@ function App() {
 useEffect(() => {
   const getUser = () => {
     fetch("https://backend.treato.in/api/v1/auth/login/success", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
+      // method: "GET",
+      // credentials: "include",
+      // headers: {
+      //   Accept: "application/json",
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Credentials": true,
+      // },
     })
       .then((response) => {
         if (response.status === 200) return response.json();

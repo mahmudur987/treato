@@ -44,17 +44,22 @@ export default function AccountSettings() {
             last_name: true,
             email: true,
             phone: true,
-            dob: true
+            dob: true,
+            house: true,
+            landmark: true
         }
     );
     const userData = data.user
+    console.log(userData);
     let [inputVal, updateInputVal] = useState({
         first_name: userData.first_name ? userData.first_name : '',
         last_name: userData.last_name ? userData.last_name : '',
         email: userData.email ? userData.email : '',
         phone: userData.phone ? userData.phone : '',
         dob: userData.dob ? userData.dob : '',
-        place: userData.place ? userData.place : [],
+        house: userData.house ? userData.house : '',
+        landmark: userData.landmark ? userData.landmark : '',
+        // place: userData.place ? userData.place : '',
         gender: userData.gender ? userData.gender : ''
     });
     let [activeGender, updateGender] = useState(userData.gender ? userData.gender : '');
@@ -72,7 +77,9 @@ export default function AccountSettings() {
             email: userData.email ? userData.email : '',
             phone: userData.phone ? userData.phone : '',
             dob: userData.dob ? userData.dob : '',
-            place: userData.place ? userData.place : [],
+            house: userData.house ? userData.house : '',
+            landmark: userData.landmark ? userData.landmark : '',
+            // place: userData.place ? userData.place : '',
             gender: userData.gender ? userData.gender : ''
         }
         updateInputState(states)
@@ -92,17 +99,24 @@ export default function AccountSettings() {
             google: "",
             fb: "",
             instagram: "",
-            house: inputVal.place.length ? inputVal.place[inputVal.place.length - 1].house : '',
-            landmark: inputVal.place.length ? inputVal.place[inputVal.place.length - 1].landmark : '',
-            place: inputVal.place
+            // inputVal,
+            // house: inputVal.place.length ? inputVal.place[inputVal.place.length - 1].house : '',
+            // landmark: inputVal.place.length ? inputVal.place[inputVal.place.length - 1].landmark : '',
+            // house: e.target.house.value,
+            // landmark: e.target.landmark.value,
+            // place: inputVal
+            // place: ""
+
         }
         if (e.target.phone.value !== userData.phone) {
             setOtpModal(true)
             localStorage.setItem('tempUserData', JSON.stringify(formData))
         } else {
             console.log(formData);
+
             updateUser(userJWt, formData)
                 .then((res) => {
+                    console.log(res);
                     console.log(res?.res?.data?.data);
                     setShowSave(false)
                     dispatch(updateUserDetails(res?.res?.data?.data))
@@ -115,11 +129,10 @@ export default function AccountSettings() {
                     }
                     updateInputState(states)
 
-                    // console.log(res);
                     console.log(res.data.data);
                 })
                 .catch((err) => {
-                    // console.log(err)
+                    console.log(err)
                 })
         }
     }
@@ -138,16 +151,18 @@ export default function AccountSettings() {
             email: userData.email ? userData.email : '',
             phone: userData.phone ? userData.phone : '',
             dob: userData.dob ? userData.dob : '',
-            place: userData?.place ? userData?.place : [],
+            house: userData.house ? userData.house : '',
+            landmark: userData.landmark ? userData.landmark : '',
+            // place: userData?.place ? userData?.place : '',
             gender: userData.gender ? userData.gender : ''
         }
 
         updateInputVal(data)
         updateGender(userData.gender ? userData.gender : '')
-    }, [userData,])
+    }, [userData])
 
 
-
+    console.log(inputVal);
 
     return (
         <>
@@ -163,7 +178,8 @@ export default function AccountSettings() {
                                 <div className={styles.acc_setting_right}>
                                     <form id="acc_set_form" onSubmit={submitForm}>
                                         <UserDetails setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} />
-                                        <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal} />
+                                        {/* <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal} /> */}
+                                        <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} />
                                         <SocialSettings />
                                         <PasswordChange setPassModal={setPassModal} />
                                     </form>
@@ -249,10 +265,10 @@ export default function AccountSettings() {
                                         otpModal ?
                                             <VerifyOtp setOtpModal={setOtpModal} setOtpSuccess={setOtpSuccess} otpSuccess={otpSuccess} setShowSave={setShowSave} updateInputState={updateInputState} />
                                             :
-                                            locationModal?
-                                            <FindLocationModal setAddressModal={setAddressModal} setlocationModal={setlocationModal} addressModal={addressModal} setuserAddressText={setuserAddressText} userAddressText={userAddressText}/>
-                                            :
-                                            null
+                                            locationModal ?
+                                                <FindLocationModal setAddressModal={setAddressModal} setlocationModal={setlocationModal} addressModal={addressModal} setuserAddressText={setuserAddressText} userAddressText={userAddressText} />
+                                                :
+                                                null
                         }
                     </>
                     :
