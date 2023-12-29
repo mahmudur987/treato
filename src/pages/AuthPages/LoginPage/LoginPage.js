@@ -140,7 +140,7 @@ const LoginPage = () => {
 
           navigate("/verify-otp");
         } else if (res?.err != null) {
-          setresponseError(res?.err.response.data.error);
+          setresponseError(res?.err?.response?.data.error);
         }
       });
     }
@@ -171,13 +171,10 @@ const LoginPage = () => {
       }
     },
   });
-  const googlePassportLogin=()=>{
-    window.open("https://backend.treato.in/api/v1/auth/google", "_self");
 
-  }
 
   const facebookPassportLogin = () => {
-    window.open("https://backend.treato.in/api/v1/auth/facebook", "_self");
+    window.open("http://localhost:4000/api/v1/auth/facebook", "_self");
   };
 
 
@@ -337,7 +334,7 @@ const LoginPage = () => {
           <div className={styles.socialButtons}>
             <SecondaryButton
               className={styles.google}
-              onClick={googlePassportLogin}
+              onClick={googleAuthLogin}
             >
               <img src={Google_Logo} />
               Google

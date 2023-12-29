@@ -93,7 +93,7 @@ const CreateAccountPage = () => {
       localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
       localStorage.setItem("userPhoneNumber", JSON.stringify(formData.phone));
 
-      sendLoginOTP({ phoneNumber: phone }).then((res) => {
+      sendLoginOTP({ phoneNumber: formData?.phone }).then((res) => {
         if (res && res?.res?.data.status === true) {
           dispatch(updateOTP(res?.res.data.otp));
           navigate("/verify-otp");
