@@ -99,16 +99,12 @@ export default function AccountSettings() {
             google: "",
             fb: "",
             instagram: "",
-            // inputVal,
-            // house: inputVal.place.length ? inputVal.place[inputVal.place.length - 1].house : '',
-            // landmark: inputVal.place.length ? inputVal.place[inputVal.place.length - 1].landmark : '',
-            // house: e.target.house.value,
-            // landmark: e.target.landmark.value,
-            // place: inputVal
-            // place: ""
-
+            house: inputVal?.address?.house ? inputVal?.address?.house : '',
+            landmark: inputVal?.address?.landmark ? inputVal?.address?.landmark : '',
+            address_type: inputVal?.address?.house_type?inputVal?.address?.house_type:"",
+            place: userAddressText?userAddressText:""
         }
-        if (e.target.phone.value !== userData.phone) {
+        if (e.target.phone.value !== userData.phone &&  e.target.phone.value!=="") {
             setOtpModal(true)
             localStorage.setItem('tempUserData', JSON.stringify(formData))
         } else {
@@ -116,8 +112,6 @@ export default function AccountSettings() {
 
             updateUser(userJWt, formData)
                 .then((res) => {
-                    console.log(res);
-                    console.log(res?.res?.data?.data);
                     setShowSave(false)
                     dispatch(updateUserDetails(res?.res?.data?.data))
                     let states = {
@@ -151,18 +145,18 @@ export default function AccountSettings() {
             email: userData.email ? userData.email : '',
             phone: userData.phone ? userData.phone : '',
             dob: userData.dob ? userData.dob : '',
-            house: userData.house ? userData.house : '',
-            landmark: userData.landmark ? userData.landmark : '',
-            // place: userData?.place ? userData?.place : '',
+            house: userData?.location?.house ? userData?.location?.house : '',
+            landmark: userData?.location?.landmark ? userData?.location?.landmark : '',
+            place: userData?.location?.place ? userData?.location?.place : '',
+            house_type: userData?.location?.address_type ? userData?.location?.address_type : '',
             gender: userData.gender ? userData.gender : ''
         }
-
+console.log("starting data",data);
         updateInputVal(data)
         updateGender(userData.gender ? userData.gender : '')
     }, [userData])
 
 
-    console.log(inputVal);
 
     return (
         <>

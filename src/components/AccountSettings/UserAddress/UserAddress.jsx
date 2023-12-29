@@ -1,6 +1,6 @@
 import styles from "./UserAddress.module.css";
 import moreVertical from "../../../assets/images/AccountSettings/more-vertical.svg"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateUser } from "../../../services/updateUser";
 
 export default function UserAddress({ setAddressModal, address, updateInputVal, inputVal }) {
@@ -22,8 +22,12 @@ export default function UserAddress({ setAddressModal, address, updateInputVal, 
                 console.log(err)
             })
     }
-    // console.log(inputVal);
 
+    console.log("UserAddress",inputVal);
+// useEffect(() => {
+// console.log("address changed ");
+// }, [inputVal])
+console.log(inputVal);
     return (
         <div className={styles.user_address}>
 
@@ -32,7 +36,7 @@ export default function UserAddress({ setAddressModal, address, updateInputVal, 
             </div>
             <div className={styles.addr_main} >
                 <div className={styles.addr_main_top}>
-                    <div>{inputVal?.address?.house_type}</div>
+                    <div>{inputVal?.house_type}</div>
                     {/* <div><img src={moreVertical} alt="" className={styles.addr_edit_click} onClick={() => updateEditStatus(editStatus === i ? -1 : i)} /></div> */}
                     {/* <div className={editStatus === i ? `${styles.addr_edit_opt} ${styles.addr_edit_opt_show}` : styles.addr_edit_opt}>
                         <div onClick={() => { setAddressModal({ active: true, data: v, index: i }); updateEditStatus(-1); }}>Edit</div>
@@ -40,8 +44,8 @@ export default function UserAddress({ setAddressModal, address, updateInputVal, 
                     </div> */}
                 </div>
                 <div className={styles.addr_stored}>
-                    <div>{inputVal?.address?.house}</div>
-                    <div>{inputVal?.address?.landmark}</div>
+                    <div>{inputVal?.house}</div>
+                    <div>{inputVal?.landmark}</div>
                 </div>
             </div>
 
