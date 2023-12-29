@@ -97,7 +97,6 @@ export const getUserProfile = async (jwtToken) => {
     };
 
     export const google_Login = async (access_token) => {
-      console.log(access_token);
       try {
         const res = await axiosInstance.post(`/google`, {access_token});
         return { res, err: null };

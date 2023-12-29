@@ -20,7 +20,7 @@ import { getAvailableSlots } from '../../services/Appointments'
 
 export default function BookFlow() {
     let navigate = useNavigate();
-    let [activeBookFlowBA, updateActiveBookFlowBA] = useState(1);
+    let [activeBookFlowBA, updateActiveBookFlowBA] = useState(4);
     let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
     let [showPay, setShowPay] = useState(true);
     let [paySelected, setPaySelected] = useState(false);

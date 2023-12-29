@@ -575,7 +575,66 @@
   padding-bottom: 16px;
   border-bottom: 1px dotted #ebedf0;
 }
-
+.appliedOffer{
+  display: flex;
+  justify-content: space-between;
+width: 100%;
+}
+.offerDetails{
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+}
+.bill_sumFB{
+  display: flex;
+  flex-direction: row;
+}
+.applyOfferContainer{
+  display: flex;
+  flex-direction: column;
+}
+.applyOffer{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.discountAmount{
+  color: var(--Grey-Grey-10, #6D747A);
+font-family: "Lato";
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%; /* 21px */
+letter-spacing: 0.14px;
+text-decoration-line: strikethrough;
+margin-right: 8px;
+}
+.firstLine{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.offerName{
+  color: var(--Grey-Black, #08090A);
+font-family: "Lato";
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%; /* 24px */
+letter-spacing: 0.16px;
+}
+.firstLine img,.deleteOption img{
+  width: 24px;
+height: 24px;
+}
+.secondLine{
+  color: var(--Green-Text, #009758);
+font-family: "Lato";
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%; /* 21px */
+}
 .bill_sumCA,
 .bill_sumDA {
   display: flex;
@@ -997,6 +1056,7 @@
   .service_timeE > img {
     display: none;
   }
+
 }
 .d_none {
   display: none !important;

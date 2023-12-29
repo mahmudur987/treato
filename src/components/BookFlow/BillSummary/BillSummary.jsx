@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import BookNow from '../../SalonDetail/BookNow/BookNow'
 import PoliciesModal from '../../_modals/PoliciesModal/PoliciesModal'
 import { useState } from 'react'
+import { deleteOfferIcon, offerIcon } from '../../../assets/images/icons'
 
 export default function BillSummary({ setShowModal, updateActiveBookFlowBA, activeBookFlowBA, showPay, paySelected,setCompletedPay }) {
     const navigate = useNavigate();
@@ -59,18 +60,36 @@ export default function BillSummary({ setShowModal, updateActiveBookFlowBA, acti
                         <div className={styles.bill_sumFA}>
                             Amount to be paid
                         </div>
-                        <div className={styles.bill_sumFB}>₹1,177</div>
+                        <div className={styles.bill_sumFB}><h1 className={styles.discountAmount}>245</h1> ₹1,177</div>
                     </div>
                 </div>
-                <div className={styles.bill_sumF}>
-                    <div className={styles.bill_sumFC}>
-                        <img src={discountIco} alt="" />
-                        <div>Offers & Benefits</div>
+                <div className={`${styles.bill_sumF} ${styles.applyOfferContainer}`}>
+                    <div className={styles.applyOffer}>
+                        <div className={`${styles.bill_sumFC}`}>
+                            <img src={discountIco} alt="" />
+                            <div>Offers & Benefits</div>
+                        </div>
+                        <div className={styles.bill_sumFD} onClick={() => setShowModal ? setShowModal(true) : ''}>
+                            <div>4 offers</div>
+                            <img src={rightBlue} alt="" />
+                        </div>
                     </div>
-                    <div className={styles.bill_sumFD} onClick={() => setShowModal ? setShowModal(true) : ''}>
-                        <div>4 offers</div>
-                        <img src={rightBlue} alt="" />
+
+                    <div className={styles.appliedOffer}>
+                        <div className={styles.offerDetails}>
+                            <div className={styles.firstLine}>
+                                <img src={offerIcon} alt="offerIcon"/>
+                                <span className={styles.offerName}>'BEAUTY100' applied</span>
+                            </div>
+                            <div className={styles.secondLine}>
+                            ₹242 savings on this order
+                            </div>
+                        </div>
+                        <div className={styles.deleteOption}>
+                            <img src={deleteOfferIcon} alt="deleteIcon"/>
+                        </div>
                     </div>
+
                 </div>
                 {
                     !showPay || paySelected ?
