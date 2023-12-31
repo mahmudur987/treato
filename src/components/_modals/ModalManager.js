@@ -11,7 +11,7 @@ import WriteReview from "./AppointmentModals/WriteReview/WriteReview";
 
 const ModalManager = () => {
   const dispatch = useDispatch();
-  const { activeModal, closable } = useSelector((state) => state.modal);
+  const { activeModal, closable, data } = useSelector((state) => state.modal);
 
   function handleClose() {
     dispatch(closeModal());
@@ -50,10 +50,13 @@ const ModalManager = () => {
       <div className={`${styles["modal-wrapper"]} `}>
         <main>
           {activeModal === "filter" && <Filter />}
-          {activeModal === "RescheduleAppointment" && <RescheduleAppointment />}
-          {activeModal === "CancelAppointment" && <CancelAppointment/>}
-          {activeModal === "WriteReview" && <WriteReview/>}
-
+          {activeModal === "RescheduleAppointment" && (
+            <RescheduleAppointment data={data} />
+          )}
+          {activeModal === "CancelAppointment" && (
+            <CancelAppointment data={data} />
+          )}
+          {activeModal === "WriteReview" && <WriteReview data={data} />}
 
           {/* Modal Close Icon */}
           {closable && (

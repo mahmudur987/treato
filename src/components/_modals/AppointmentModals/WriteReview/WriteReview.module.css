@@ -93,10 +93,14 @@ input:focus {
 
 .button {
   display: flex;
-  justify-content: flex-end;
+  justify-content: end;
   gap: 16px;
 }
-
+.buttonWrapper {
+  width: 70%;
+  display: flex;
+  gap: 5px;
+}
 .rating {
   display: flex;
   flex-direction: row;
