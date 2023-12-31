@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import './CalendarModal.css'
 import { useState } from 'react'
 import rightIco from "../../../assets/images/SalonDetail/chevron-right.svg"
-import leftIco from "../../../assets/images/SalonDetail/chevron-left.svg"
+import leftIco from "../../../assets/images/SalonDetail/chevron-right.svg"
 import { useEffect } from 'react';
 
 export default function CalendarModal({getWorkerData}) {
@@ -57,7 +57,6 @@ const generateAllowedMonths = () => {
 
   const handleIncrement = () => {
       const allowedMonths = generateAllowedMonths();
-      console.log("increment");
 
     const nextMonth = (showMonth + 1) % 12;
     const nextYear = showMonth === 11 ? showYear + 1 : showYear;
@@ -72,7 +71,6 @@ const generateAllowedMonths = () => {
   };
 
   const handleDecrement = () => {
-    console.log("decrement");
 
     const allowedMonths = generateAllowedMonths();
 
@@ -154,9 +152,17 @@ const generateAllowedMonths = () => {
         <div>
             <div className={styles.service_timeC}>Date</div>
             <div className={styles.service_timeMonth}>
-                <img src={showMonth!==0?rightIco:leftIco} alt="left icon" onClick={handleDecrement} className={showMonth!==0?"rotateImg":""}/>
+                <img src={leftIco} alt="left icon" onClick={handleDecrement} className={ `${styles.leftarrowIcon} ${
+                  allowMonths[0] === `${months[showMonth]} ${showYear}`
+                    ? styles.disabled
+                    : ""
+                }`}/>
                 {`${months[showMonth]} ${showYear}`}
-                <img src={showMonth===2?leftIco:rightIco} alt="right icon" onClick={handleIncrement} className={showMonth===2?"rotateImg":""}/>
+                <img src={rightIco} alt="right icon" onClick={handleIncrement} className={`${styles.rightarrowIcon} ${
+                  allowMonths[2] === `${months[showMonth]} ${showYear}`
+                    ? styles.disabled
+                    : ""
+                }`}/>
             </div>
             <div className={`time_slick`}>
                 {

@@ -606,7 +606,7 @@ font-style: normal;
 font-weight: 500;
 line-height: 150%; /* 21px */
 letter-spacing: 0.14px;
-text-decoration-line: strikethrough;
+text-decoration: line-through;
 margin-right: 8px;
 }
 .firstLine{
@@ -859,7 +859,12 @@ line-height: 150%; /* 21px */
   height: 20px;
   background-color: #08090A;
 }
-
+.leftarrowIcon{
+  transform: scaleX(-1);
+}
+.disabled{
+ opacity: 0.3;
+}
 @media only screen and (max-width: 767px) {
     .service_timeF{
         gap:16px;

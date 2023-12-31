@@ -35,6 +35,7 @@ import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButt
 import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
 import CountrySelect from "../../../components/Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
+import { myFbLogin } from "../../../utils/facebookLogin";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -340,7 +341,7 @@ const LoginPage = () => {
               Google
             </SecondaryButton>
 
-            <SecondaryButton className={styles.facebook} onClick={facebookPassportLogin}>
+            <SecondaryButton className={styles.facebook} onClick={myFbLogin}>
                 <img src={Facebook_Logo}/>
                 Facebook
               </SecondaryButton>
