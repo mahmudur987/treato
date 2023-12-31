@@ -67,30 +67,22 @@ export default function AddressModal({
       landmark: landmark ? landmark : "",
       house: house ? house : "",
     };
-    let allData = { ...inputVal, address };
+    let allData = { ...inputVal, address, ...address };
     console.log(allData, "alldata ");
-    // allData.place.push(address);
     updateInputVal(allData);
-    updateUser(userJWt, allData)
-      .then((res) => {
-        console.log(res);
-        localStorage.setItem("userData", JSON.stringify(allData));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     setAddressModal(false);
     setShowSave(true);
   };
   let editAddress = (e) => {
     e.preventDefault();
     let allData = { ...inputVal };
-    allData.place[addressModal.index].house = e.target.house.value;
-    allData.place[addressModal.index].landmark = e.target.landmark.value;
-    allData.place[addressModal.index].house_type = e.target.house_type.value;
+    allData.house = e.target.house.value;
+    allData.landmark = e.target.landmark.value;
+    allData.house_type = e.target.house_type.value;
     setAddressModal(false);
     updateInputVal(allData);
   };
+  console.log(inputVal);
   let [updateSave, setUpdateSave] = useState(false);
   let [locType, setLocType] = useState(0);
   let [inputs, updateInputs] = useState({
@@ -107,7 +99,7 @@ export default function AddressModal({
       });
       setLocType(addressModal.data.house_type === "Home" ? 1 : 2);
     }
-  }, []);
+  }, [inputVal]);
   let onChangeInput = (e) => {
     let data = { ...inputs };
     data[e.target.name] = e.target.value;
@@ -136,7 +128,6 @@ export default function AddressModal({
   };
 
   const getAddressFromLatLng = async (lat, lng) => {
-    console.log(lat, lng);
     try {
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
@@ -149,7 +140,6 @@ export default function AddressModal({
       const data = await response.json();
 
       if (data.results && data.results.length > 0) {
-        console.log(data.results[0].formatted_address);
         setuserAddressText(data?.results[0]?.formatted_address);
         return data.results[0].formatted_address;
       } else {
@@ -312,7 +302,6 @@ export default function AddressModal({
             </div>
             <div className={styles.addressB}>
               <div className={styles.addressBA}>
-                {console.log(userAddressText)}
                 {userAddressText && userAddressText}
               </div>
               <div className={styles.addressBB} onClick={handleChange}>
