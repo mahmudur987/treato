@@ -15,6 +15,7 @@ import {
   facebook_Login,
   otpsignin,
   google_Login,
+  facebookAuth,
 } from "../../../services/auth";
 import {
   updateIsLoggedIn,
@@ -35,7 +36,7 @@ import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButt
 import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
 import CountrySelect from "../../../components/Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
-import { myFbLogin } from "../../../utils/facebookLogin";
+import { openFbDialog } from "../../../utils/facebookLogin";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -172,11 +173,32 @@ const LoginPage = () => {
       }
     },
   });
+  const redirectUri = "http://localhost:3000/test";
+   const myFbLogin = async () => {
+    try {
+        let token = await openFbDialog();
+        
+        console.log(":rocket: ~ file: Login.js:51 ~ myFbLogin ~ token:", token)
+        facebookAuth(token,redirectUri).then((res)=>{
+            console.log("manual fb login",res);
+            if(res?.res?.data?.data){
+                dispatch(updateIsLoggedIn(true));
+                dispatch(
+                  updateUserDetails(res?.res?.data?.data || res?.res?.data.data)
+                );
+                localStorage.setItem("jwtToken", res?.res?.data?.token);
+                navigate("/");
+                toast("Welcome to Treato! Start exploring now!");
+            }
+            else{
+                toast.error(`An unexpected error occurred. Please try again.`);
+            }
+        })
 
-
-  const facebookPassportLogin = () => {
-    window.open("http://localhost:4000/api/v1/auth/facebook", "_self");
-  };
+    } catch (ex) {
+        console.log("there was an error");
+    }
+}
 
 
   const facebookAuthLogin = (facebookResponse) => {
@@ -341,7 +363,7 @@ const LoginPage = () => {
               Google
             </SecondaryButton>
 
-            <SecondaryButton className={styles.facebook} onClick={myFbLogin}>
+             <SecondaryButton className={styles.facebook} onClick={()=>myFbLogin(dispatch)}>
                 <img src={Facebook_Logo}/>
                 Facebook
               </SecondaryButton>

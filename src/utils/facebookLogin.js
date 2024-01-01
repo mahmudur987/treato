@@ -1,5 +1,9 @@
 import 'regenerator-runtime/runtime'
 import axios from 'axios';
+import { facebookAuth } from '../services/auth';
+import { updateIsLoggedIn, updateUserDetails } from '../redux/slices/user';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const FB_ID = "848798153913042";
 const redirectUri = "http://localhost:3000/test"; // tricky test.
 const getUrlParameter = (e, uri) => {
@@ -17,7 +21,7 @@ const popupWindow = (url, windowName, win, w, h) => {
     const x = win.top.outerWidth / 2 + win.top.screenX - (w / 2);
     return win.open(url, windowName, `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${y}, left=${x}`);
 }
-const openFbDialog = async () => {
+export const openFbDialog = async () => {
     return new Promise((resolve, reject) => {
         let uri = buildUrlFb();
         let window01 = popupWindow(uri, "", window, 500, 500);
@@ -36,14 +40,29 @@ const openFbDialog = async () => {
         });
     });
 }
-export const myFbLogin = async () => {
+export const myFbLogin = async (dispatch) => {
     try {
         let token = await openFbDialog();
+        
         console.log(":rocket: ~ file: Login.js:51 ~ myFbLogin ~ token:", token)
-        let response = await axios.post("https://backend.treato.in/api/v1/auth/facebook", { "token": token, "redirectUri": redirectUri });
-        const data = response.data
-        console.log(":rocket: ~ file: Login.js:53 ~ myFbLogin ~ data:", data)
-        console.log(response);
+        facebookAuth(token,redirectUri).then((res)=>{
+            const navigate = useNavigate();
+            console.log("manual fb login",res);
+            if(res?.res?.data?.data){
+
+                dispatch(updateIsLoggedIn(true));
+                dispatch(
+                  updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+                );
+                localStorage.setItem("jwtToken", res?.res?.data?.token);
+                navigate("/");
+                toast("Welcome to Treato! Start exploring now!");
+            }
+            else{
+                toast.error(`An unexpected error occurred. Please try again.`);
+            }
+        })
+
     } catch (ex) {
         console.log("there was an error");
     }

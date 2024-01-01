@@ -84,6 +84,16 @@ export const getUserProfile = async (jwtToken) => {
     return { err: error, res: null };
   }
 };
+export const facebookAuth = async (token, redirectUri) => {
+  try {
+    const data = { token ,redirectUri };
+    console.log(data);
+    const res = await axiosInstance.post('/auth/facebook', data);
+    return { res: res, err: null };
+  } catch (error) {
+    return { err: error, res: null };
+  }
+};
 
 //Todo :We are temporarily using this API for Google and Facebook login and will switch to the Passport.js method once the bug in our Passport code is fixed
 //google and facebook login
