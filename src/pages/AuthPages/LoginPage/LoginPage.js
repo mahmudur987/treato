@@ -173,7 +173,7 @@ const LoginPage = () => {
       }
     },
   });
-  const redirectUri = "http://localhost:3000/test";
+  const redirectUri = "https://treato.netlify.app/";
    const myFbLogin = async () => {
     try {
         let token = await openFbDialog();
@@ -363,27 +363,11 @@ const LoginPage = () => {
               Google
             </SecondaryButton>
 
-             <SecondaryButton className={styles.facebook} onClick={()=>myFbLogin(dispatch)}>
+             <SecondaryButton className={styles.facebook} onClick={()=>myFbLogin()}>
                 <img src={Facebook_Logo}/>
                 Facebook
               </SecondaryButton>
 
-              
-              {/* //Todo: facebook login do uncommment if passort not work*/}
-            {/* <LoginSocialFacebook
-              appId={facebookAppId}
-              onResolve={(response) => {
-                facebookAuthLogin(response?.data);
-              }}
-              onReject={(error) => {
-                console.log(error);
-              }}
-            >
-              <SecondaryButton className={styles.facebook} onClick={facebookPassportLogin}>
-                <img src={Facebook_Logo}/>
-                Facebook
-              </SecondaryButton>
-            </LoginSocialFacebook> */}
           </div>
         </div>
       </div>

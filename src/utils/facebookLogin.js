@@ -1,10 +1,9 @@
 import 'regenerator-runtime/runtime'
-import axios from 'axios';
 import { facebookAuth } from '../services/auth';
 import { updateIsLoggedIn, updateUserDetails } from '../redux/slices/user';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-const FB_ID = "848798153913042";
+const FB_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
 const redirectUri = "http://localhost:3000/test"; // tricky test.
 const getUrlParameter = (e, uri) => {
     e = e.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

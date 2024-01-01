@@ -215,3 +215,9 @@ export const calculateSalonDistance = (lat1, lon1, lat2, lon2) => {
   return R * c;
 };
 
+
+export function convertToMonthYear(dateString) {
+  const options = { year: 'numeric', month: 'long' };
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', options);
+}
