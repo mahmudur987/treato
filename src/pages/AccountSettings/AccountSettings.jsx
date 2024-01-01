@@ -28,7 +28,7 @@ import FindLocationModal from "../../components/_modals/FindLocationModal/FindLo
 export default function AccountSettings() {
     let data = useSelector(state => state.user);
     let dispatch = useDispatch()
-
+    const [disble, setDisble] = useState(true)
     let [mobileOpt, updateMobileOpt] = useState(-1)
     let [passModal, setPassModal] = useState(false)
     let [profileModal, setProfileModal] = useState(false)
@@ -89,6 +89,7 @@ export default function AccountSettings() {
     let submitForm = (e) => {
         e.preventDefault();
         const userJWt = localStorage.getItem("jwtToken");
+        // console.log(inputVal, " ? inputVal?.address?.house,");
         let formData = {
             first_name: e.target.first_name.value,
             last_name: e.target.last_name.value,
@@ -156,7 +157,7 @@ export default function AccountSettings() {
         // console.log("starting data", data);
         updateInputVal(data)
         updateGender(userData.gender ? userData.gender : '')
-    }, [userData])
+    }, [userData, addressModal])
 
 
 

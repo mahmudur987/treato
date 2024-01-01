@@ -23,7 +23,6 @@ export default function AddressModal({
   userAddressText,
 }) {
   const [position, setPosition] = useState(null);
-  const [address, setAddress] = useState("");
   let [defaultProps, updateDefaultProps] = useState({
     center: {
       lat: "",
@@ -32,6 +31,7 @@ export default function AddressModal({
     zoom: 10,
   });
   const userDetails = useSelector((state) => state.user);
+
   let getLatLng = async () => {
     let lat =
       parseFloat(userDetails.user.latitude) !== NaN
@@ -68,21 +68,25 @@ export default function AddressModal({
       house: house ? house : "",
     };
     let allData = { ...inputVal, address, ...address };
-    console.log(allData, "alldata ");
+    console.log(allData, "alldata");
     updateInputVal(allData);
     setAddressModal(false);
     setShowSave(true);
   };
+  console.log(inputVal, " ? inputVal?.address?.house,");
+
   let editAddress = (e) => {
     e.preventDefault();
     let allData = { ...inputVal };
+    console.log("editAddress", allData);
     allData.house = e.target.house.value;
     allData.landmark = e.target.landmark.value;
     allData.house_type = e.target.house_type.value;
     setAddressModal(false);
     updateInputVal(allData);
+    setShowSave(true);
+    console.log(allData, "editAddress function");
   };
-  console.log(inputVal);
   let [updateSave, setUpdateSave] = useState(false);
   let [locType, setLocType] = useState(0);
   let [inputs, updateInputs] = useState({
@@ -153,7 +157,7 @@ export default function AddressModal({
 
   return (
     <>
-      {addressModal.data ? (
+      {addressModal?.data ? (
         <div className={styles.addressMain}>
           <div className={styles.addressBack}>
             <div className={styles.addressA}>
