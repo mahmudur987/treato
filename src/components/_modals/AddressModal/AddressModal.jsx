@@ -67,8 +67,14 @@ export default function AddressModal({
       landmark: landmark ? landmark : "",
       house: house ? house : "",
     };
+<<<<<<< HEAD
     let allData = { ...inputVal, address, ...address };
     console.log(allData, "alldata");
+=======
+    let allData = { ...inputVal, address,...address };
+    console.log(allData, "alldata ");
+    // allData.place.push(address);
+>>>>>>> 86946b05bff5110fa48a19092d8616ff7229783c
     updateInputVal(allData);
     setAddressModal(false);
     setShowSave(true);

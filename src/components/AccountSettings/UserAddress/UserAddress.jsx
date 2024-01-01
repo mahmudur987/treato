@@ -22,10 +22,18 @@ export default function UserAddress({ setAddressModal, address, updateInputVal, 
                 console.log(err)
             })
     }
+<<<<<<< HEAD
 
 
     console.log("UserAddress", inputVal);
+=======
+>>>>>>> 86946b05bff5110fa48a19092d8616ff7229783c
 
+    console.log("UserAddress",inputVal);
+// useEffect(() => {
+// console.log("address changed ");
+// }, [inputVal])
+console.log(inputVal);
     return (
         <div className={styles.user_address}>
 
@@ -35,11 +43,19 @@ export default function UserAddress({ setAddressModal, address, updateInputVal, 
             <div className={styles.addr_main} >
                 <div className={styles.addr_main_top}>
                     <div>{inputVal?.house_type}</div>
+<<<<<<< HEAD
                     <div><img src={moreVertical} alt="" className={styles.addr_edit_click} onClick={() => updateEditStatus(editStatus === 1 ? -1 : 1)} /></div>
                     <div className={editStatus === 1 ? `${styles.addr_edit_opt} ${styles.addr_edit_opt_show}` : styles.addr_edit_opt}>
                         <div onClick={() => { setAddressModal({ active: true, data: inputVal, }); updateEditStatus(-1); }}>Edit</div>
                         <div className={styles.addr_edit_del} onClick={() => deleteAddress(user?.location)}>Delete</div>
                     </div>
+=======
+                    {/* <div><img src={moreVertical} alt="" className={styles.addr_edit_click} onClick={() => updateEditStatus(editStatus === i ? -1 : i)} /></div> */}
+                    {/* <div className={editStatus === i ? `${styles.addr_edit_opt} ${styles.addr_edit_opt_show}` : styles.addr_edit_opt}>
+                        <div onClick={() => { setAddressModal({ active: true, data: v, index: i }); updateEditStatus(-1); }}>Edit</div>
+                        <div className={styles.addr_edit_del} onClick={() => deleteAddress(v)}>Delete</div>
+                    </div> */}
+>>>>>>> 86946b05bff5110fa48a19092d8616ff7229783c
                 </div>
                 <div className={styles.addr_stored}>
                     <div>{inputVal?.house}</div>

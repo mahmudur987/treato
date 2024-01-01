@@ -102,11 +102,18 @@ export default function AccountSettings() {
             instagram: "",
             house: inputVal?.address?.house ? inputVal?.address?.house : '',
             landmark: inputVal?.address?.landmark ? inputVal?.address?.landmark : '',
+<<<<<<< HEAD
             address_type: inputVal?.address?.house_type ? inputVal?.address?.house_type : "",
             place: userAddressText ? userAddressText : "",
 
         }
         if (e.target.phone.value !== userData.phone && e.target.phone.value !== "") {
+=======
+            address_type: inputVal?.address?.house_type?inputVal?.address?.house_type:"",
+            place: userAddressText?userAddressText:""
+        }
+        if (e.target.phone.value !== userData.phone &&  e.target.phone.value!=="") {
+>>>>>>> 86946b05bff5110fa48a19092d8616ff7229783c
             setOtpModal(true)
             localStorage.setItem('tempUserData', JSON.stringify(formData))
         } else {
@@ -154,7 +161,11 @@ export default function AccountSettings() {
             house_type: userData?.location?.address_type ? userData?.location?.address_type : '',
             gender: userData.gender ? userData.gender : ''
         }
+<<<<<<< HEAD
         // console.log("starting data", data);
+=======
+console.log("starting data",data);
+>>>>>>> 86946b05bff5110fa48a19092d8616ff7229783c
         updateInputVal(data)
         updateGender(userData.gender ? userData.gender : '')
     }, [userData, addressModal])
