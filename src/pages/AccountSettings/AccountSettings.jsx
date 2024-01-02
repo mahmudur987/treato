@@ -83,6 +83,7 @@ export default function AccountSettings() {
         e.preventDefault();
         const userJWt = localStorage.getItem("jwtToken");
         let formData = {
+            avatar:inputVal?.avatarFile,
             first_name: e.target.first_name.value,
             last_name: e.target.last_name.value,
             email: e.target.email.value,
@@ -144,7 +145,7 @@ export default function AccountSettings() {
 
         updateInputVal(data)
         updateGender(userData.gender ? userData.gender : '')
-    }, [userData,])
+    }, [userData])
 
 
 
@@ -159,7 +160,7 @@ export default function AccountSettings() {
                             <div className={mobileOpt === -1 ? styles.acc_head : styles.d_none}>Account Settings</div>
                             <div className={styles.acc_intro}>Manage your Treato profile. Changes will be reflected across all devices.</div>
                             <div className={styles.acc_setting_mid}>
-                                <ProfileView setProfileModal={setProfileModal} logOut={logOut} />
+                                <ProfileView setProfileModal={setProfileModal} logOut={logOut} inputVal={inputVal}/>
                                 <div className={styles.acc_setting_right}>
                                     <form id="acc_set_form" onSubmit={submitForm}>
                                         <UserDetails setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} />
@@ -177,7 +178,7 @@ export default function AccountSettings() {
                                 {
                                     mobileOpt === -1 ?
                                         <>
-                                            <ProfileView mobView="true" setProfileModal={setProfileModal} />
+                                            <ProfileView mobView="true" setProfileModal={setProfileModal} inputVal={inputVal}/>
                                             <div className={styles.acc_mob_options} onClick={() => updateMobileOpt(1)}>
                                                 <div className={styles.acc_mob_flex}>
                                                     <div><img src={userIco} alt="user" className={styles.acc_mob_opt_ico} /></div>
@@ -241,7 +242,7 @@ export default function AccountSettings() {
                                 <ChangePass setPassModal={setPassModal} updateMobileOpt={updateMobileOpt} />
                                 :
                                 profileModal ?
-                                    <ChangeProfile setProfileModal={setProfileModal} />
+                                    <ChangeProfile setProfileModal={setProfileModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave}/>
                                     :
                                     addressModal.active ?
                                         <AddressModal setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave} addressModal={addressModal} setlocationModal={setlocationModal} setuserAddressText={setuserAddressText} userAddressText={userAddressText} />

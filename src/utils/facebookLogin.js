@@ -4,7 +4,7 @@ import { updateIsLoggedIn, updateUserDetails } from '../redux/slices/user';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 const FB_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
-const redirectUri = "http://localhost:3000/test"; // tricky test.
+const redirectUri = "https://treato.netlify.app"; // tricky test.
 const getUrlParameter = (e, uri) => {
     e = e.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var t = new RegExp("[\\?&]" + e + "=([^&#]*)").exec(uri); return null === t ? null : decodeURIComponent(t[1].replace(/\+/g, " "))
