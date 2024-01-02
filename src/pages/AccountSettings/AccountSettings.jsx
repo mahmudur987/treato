@@ -24,6 +24,8 @@ import { useNavigate } from "react-router-dom";
 
 import { updateUserDetails } from "../../redux/slices/user";
 import FindLocationModal from "../../components/_modals/FindLocationModal/FindLocationModal";
+import { sendLoginOTP } from "../../services/auth";
+import { toast } from "react-toastify";
 
 export default function AccountSettings() {
     let data = useSelector(state => state.user);
@@ -38,6 +40,7 @@ export default function AccountSettings() {
     let [otpModal, setOtpModal] = useState(false)
     let [showSave, setShowSave] = useState(false)
     let [otpSuccess, setOtpSuccess] = useState(false)
+    const [userOTP, setuserOTP] = useState(null)
     let [inputState, updateInputState] = useState(
         {
             first_name: true,
@@ -98,7 +101,22 @@ export default function AccountSettings() {
             place: inputVal.place
         }
         if (e.target.phone.value !== userData.phone) {
-            setOtpModal(true)
+            sendLoginOTP({ phoneNumber: inputVal?.phone }).then((res)=>{
+                console.log(res);
+                if(res?.res?.data?.message==="OTP sent!"){
+                    setOtpModal(true)
+                    setuserOTP(res?.res?.data?.otp)
+                    console.log(res?.res?.data?.otp);
+                }
+                else {
+                    if(res?.err?.response?.data){
+                    toast.error(`${res?.err?.response?.data.error || res?.err?.response?.data.message}`);
+                    }
+                    else{
+                        toast.error("Invalid Phone Number");
+                    }
+                }
+            })
             localStorage.setItem('tempUserData', JSON.stringify(formData))
         } else {
             console.log(formData);
@@ -166,7 +184,7 @@ export default function AccountSettings() {
                                         <UserDetails setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} />
                                         <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal} />
                                         <SocialSettings />
-                                        <PasswordChange setPassModal={setPassModal} />
+                                        <PasswordChange setPassModal={setPassModal} inputVal={inputVal}/>
                                     </form>
                                     <div className={showSave ? styles.acc_settingA : styles.d_none}>
                                         <SecondaryButton children={"Cancel"} onClick={setDefault} />
@@ -237,6 +255,7 @@ export default function AccountSettings() {
                                 }
                             </div>
                         </div>
+   
                         {
                             passModal ?
                                 <ChangePass setPassModal={setPassModal} updateMobileOpt={updateMobileOpt} />
@@ -248,7 +267,7 @@ export default function AccountSettings() {
                                         <AddressModal setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} setShowSave={setShowSave} addressModal={addressModal} setlocationModal={setlocationModal} setuserAddressText={setuserAddressText} userAddressText={userAddressText} />
                                         :
                                         otpModal ?
-                                            <VerifyOtp setOtpModal={setOtpModal} setOtpSuccess={setOtpSuccess} otpSuccess={otpSuccess} setShowSave={setShowSave} updateInputState={updateInputState} />
+                                            <VerifyOtp setOtpModal={setOtpModal} setOtpSuccess={setOtpSuccess} otpSuccess={otpSuccess} setShowSave={setShowSave} updateInputState={updateInputState} updateInputVal={updateInputVal} inputVal={inputVal} userOTP={userOTP} setuserOTP={setuserOTP}/>
                                             :
                                             locationModal?
                                             <FindLocationModal setAddressModal={setAddressModal} setlocationModal={setlocationModal} addressModal={addressModal} setuserAddressText={setuserAddressText} userAddressText={userAddressText}/>
