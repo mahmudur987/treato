@@ -66,32 +66,26 @@ export default function AddressModal({
       house_type: e.target.house_type.value,
       landmark: landmark ? landmark : "",
       house: house ? house : "",
+      place: userAddressText ? userAddressText : ""
+
     };
-<<<<<<< HEAD
     let allData = { ...inputVal, address, ...address };
-    console.log(allData, "alldata");
-=======
-    let allData = { ...inputVal, address,...address };
-    console.log(allData, "alldata ");
-    // allData.place.push(address);
->>>>>>> 86946b05bff5110fa48a19092d8616ff7229783c
     updateInputVal(allData);
     setAddressModal(false);
     setShowSave(true);
   };
-  console.log(inputVal, " ? inputVal?.address?.house,");
 
   let editAddress = (e) => {
     e.preventDefault();
     let allData = { ...inputVal };
-    console.log("editAddress", allData);
     allData.house = e.target.house.value;
     allData.landmark = e.target.landmark.value;
     allData.house_type = e.target.house_type.value;
+    allData.place = e.target?.place?.value;
     setAddressModal(false);
     updateInputVal(allData);
+    console.log("editAddress", allData);
     setShowSave(true);
-    console.log(allData, "editAddress function");
   };
   let [updateSave, setUpdateSave] = useState(false);
   let [locType, setLocType] = useState(0);
@@ -103,13 +97,14 @@ export default function AddressModal({
   useEffect(() => {
     if (addressModal.data) {
       updateInputs({
+        place: addressModal?.data?.place,
         house: addressModal?.data?.house,
         landmark: addressModal?.data?.landmark,
         house_type: locType === 1 ? "Home" : "Other",
       });
       setLocType(addressModal.data.house_type === "Home" ? 1 : 2);
     }
-  }, [inputVal]);
+  }, []);
   let onChangeInput = (e) => {
     let data = { ...inputs };
     data[e.target.name] = e.target.value;
@@ -160,6 +155,7 @@ export default function AddressModal({
       return `Address for ${lat}, ${lng}`;
     }
   };
+
 
   return (
     <>

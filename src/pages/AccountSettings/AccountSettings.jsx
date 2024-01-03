@@ -28,7 +28,6 @@ import FindLocationModal from "../../components/_modals/FindLocationModal/FindLo
 export default function AccountSettings() {
     let data = useSelector(state => state.user);
     let dispatch = useDispatch()
-    const [disble, setDisble] = useState(true)
     let [mobileOpt, updateMobileOpt] = useState(-1)
     let [passModal, setPassModal] = useState(false)
     let [profileModal, setProfileModal] = useState(false)
@@ -89,7 +88,6 @@ export default function AccountSettings() {
     let submitForm = (e) => {
         e.preventDefault();
         const userJWt = localStorage.getItem("jwtToken");
-        // console.log(inputVal, " ? inputVal?.address?.house,");
         let formData = {
             first_name: e.target.first_name.value,
             last_name: e.target.last_name.value,
@@ -100,20 +98,12 @@ export default function AccountSettings() {
             google: "",
             fb: "",
             instagram: "",
-            house: inputVal?.address?.house ? inputVal?.address?.house : '',
-            landmark: inputVal?.address?.landmark ? inputVal?.address?.landmark : '',
-<<<<<<< HEAD
-            address_type: inputVal?.address?.house_type ? inputVal?.address?.house_type : "",
-            place: userAddressText ? userAddressText : "",
-
+            house: inputVal?.house ? inputVal?.house : '',
+            landmark: inputVal?.landmark ? inputVal?.landmark : '',
+            address_type: inputVal?.house_type ? inputVal?.house_type : "",
+            place: userAddressText ? userAddressText : ""
         }
         if (e.target.phone.value !== userData.phone && e.target.phone.value !== "") {
-=======
-            address_type: inputVal?.address?.house_type?inputVal?.address?.house_type:"",
-            place: userAddressText?userAddressText:""
-        }
-        if (e.target.phone.value !== userData.phone &&  e.target.phone.value!=="") {
->>>>>>> 86946b05bff5110fa48a19092d8616ff7229783c
             setOtpModal(true)
             localStorage.setItem('tempUserData', JSON.stringify(formData))
         } else {
@@ -122,6 +112,7 @@ export default function AccountSettings() {
             updateUser(userJWt, formData)
                 .then((res) => {
                     setShowSave(false)
+
                     dispatch(updateUserDetails(res?.res?.data?.data))
                     let states = {
                         first_name: true,
@@ -133,7 +124,6 @@ export default function AccountSettings() {
                     updateInputState(states)
 
 
-                    // console.log(res.data.data);
                 })
                 .catch((err) => {
                     console.log(err)
@@ -161,14 +151,11 @@ export default function AccountSettings() {
             house_type: userData?.location?.address_type ? userData?.location?.address_type : '',
             gender: userData.gender ? userData.gender : ''
         }
-<<<<<<< HEAD
-        // console.log("starting data", data);
-=======
-console.log("starting data",data);
->>>>>>> 86946b05bff5110fa48a19092d8616ff7229783c
         updateInputVal(data)
         updateGender(userData.gender ? userData.gender : '')
-    }, [userData, addressModal])
+    }, [userData,])
+
+
 
 
 
@@ -186,8 +173,7 @@ console.log("starting data",data);
                                 <div className={styles.acc_setting_right}>
                                     <form id="acc_set_form" onSubmit={submitForm}>
                                         <UserDetails setOtpModal={setOtpModal} setShowSave={setShowSave} updateInputState={updateInputState} inputState={inputState} updateInputVal={updateInputVal} inputVal={inputVal} activeGender={activeGender} updateGender={updateGender} />
-                                        {/* <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal} /> */}
-                                        <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} />
+                                        <UserAddress setShowSave={setShowSave} setuserAddressText={setuserAddressText} setAddressModal={setAddressModal} addressModal={addressModal} updateInputVal={updateInputVal} inputVal={inputVal} />
                                         <SocialSettings />
                                         <PasswordChange setPassModal={setPassModal} />
                                     </form>
@@ -250,7 +236,7 @@ console.log("starting data",data);
                                             :
                                             mobileOpt === 2 ?
                                                 <>
-                                                    <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} address={inputVal.place} updateInputVal={updateInputVal} inputVal={inputVal} />
+                                                    <UserAddress setShowSave={setShowSave} setAddressModal={setAddressModal} updateInputVal={updateInputVal} inputVal={inputVal} />
                                                 </>
                                                 :
                                                 mobileOpt === 3 ?

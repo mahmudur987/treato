@@ -8,7 +8,7 @@ import { useRef } from 'react'
 import { useEffect } from 'react'
 import { updateUser } from '../../../services/updateUser'
 
-export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess,setShowSave,updateInputState }) {
+export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess, setShowSave, updateInputState }) {
     let [timer, setTimer] = useState({
         min: 5,
         sec: 0
@@ -68,6 +68,8 @@ export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess,setSh
         }
     }, 1000)
     const tempUserData = JSON.parse(localStorage.getItem("tempUserData"));
+    console.log(tempUserData);
+    // const otpData=tempUserData.phone===
     let submitPass = () => {
         const userJWt = localStorage.getItem("jwtToken");
         updateUser(userJWt, tempUserData)
