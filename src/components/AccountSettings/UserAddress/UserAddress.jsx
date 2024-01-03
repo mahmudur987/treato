@@ -30,7 +30,6 @@ export default function UserAddress({ setAddressModal, setuserAddressText, updat
 
     return (
         <div className={styles.user_address}>
-            <pre>{JSON.stringify(inputVal, null, 2)}</pre>
             <div className={styles.addr_head}>
                 My Addresses
             </div>
