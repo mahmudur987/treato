@@ -9,6 +9,7 @@ import FormDateComponent from "./FormDateComponent";
 import { toast } from "react-toastify";
 import {
   rescheduleAppointment,
+  useTimeSlots,
   useUpcomingApponments,
 } from "../../../../services/Appointments";
 import { useDispatch } from "react-redux";
@@ -32,18 +33,6 @@ function SamplePrevArrow(props) {
   );
 }
 const RescheduleAppointment = ({ data }) => {
-  const [slidesToShow, setSlidesToShow] = useState(4); // Default value for mobile
-  let [actveCard, updateActiveCard] = useState(0);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [showMonth, setShowMonth] = useState(new Date().getMonth());
-  const [showYear, setShowYear] = useState(new Date().getFullYear());
-  let [allCalendar, setallCalendar] = useState(null);
-  const [showPrevButton, setShowPrevButton] = useState(false);
-  const [showNextButton, setShowNextButton] = useState(true);
-  const containerRef = React.createRef();
-  const dispatch = useDispatch();
-  const { refetch } = useUpcomingApponments();
-
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
     "January",
@@ -59,13 +48,15 @@ const RescheduleAppointment = ({ data }) => {
     "November",
     "December",
   ];
-  const timeSlots = [
-    "10:30 AM",
-    "01:30 PM",
-    "03:30 PM",
-    "06:30 PM",
-    "08:30 PM",
-  ];
+
+  const [slidesToShow, setSlidesToShow] = useState(4); // Default value for mobile
+  let [actveCard, updateActiveCard] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [showMonth, setShowMonth] = useState(new Date().getMonth());
+  const [showYear, setShowYear] = useState(new Date().getFullYear());
+  let [allCalendar, setallCalendar] = useState(null);
+  const [showPrevButton, setShowPrevButton] = useState(false);
+  const [showNextButton, setShowNextButton] = useState(true);
   const [selectedDate, setSelectedDate] = useState({
     date: new Date().getDate(),
     day: days[new Date().getDay()],
@@ -75,7 +66,41 @@ const RescheduleAppointment = ({ data }) => {
   );
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [allowMonths, setallowMonths] = useState([]);
+  const containerRef = React.createRef();
+  const dispatch = useDispatch();
+  const { refetch } = useUpcomingApponments();
+  const [subcategoriesIds, setSubcategoriesIds] = useState([]);
 
+  useEffect(() => {
+    const fetchData = () => {
+      const ids = data?.serviceData?.flatMap((serviceList) =>
+        serviceList.flatMap((service) =>
+          service.subCategories?.map((subcategory) => subcategory._id)
+        )
+      );
+      setSubcategoriesIds(ids);
+    };
+
+    fetchData();
+  }, []);
+  // console.log(data);
+  const genarateSlotsData = {
+    salons_id: data.salonData[0]?._id,
+    service_id: subcategoriesIds,
+    noPreference: true,
+    dateforService: "2023-07-23",
+  };
+
+  const { data: slots } = useTimeSlots(genarateSlotsData);
+
+  // const timeSlots = [
+  //   "10:30 AM",
+  //   "01:30 PM",
+  //   "03:30 PM",
+  //   "06:30 PM",
+  //   "08:30 PM",
+  // ];
+  // console.log(slots);
   const handleTimeSlotClick = (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
   };
@@ -329,7 +354,7 @@ const RescheduleAppointment = ({ data }) => {
           <div className={styles.startTime}>
             <h4>Start time</h4>
             <div className={styles.timeSlotsWrapper}>
-              {timeSlots.map((timeSlot, index) => (
+              {slots?.res?.data?.map((timeSlot, index) => (
                 <button
                   key={index}
                   className={`${styles.timeSlot} ${

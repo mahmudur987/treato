@@ -1,8 +1,6 @@
 import axiosInstance from "./axios";
 import { useQuery } from "react-query";
 export const getUpcomingAppointments = async () => {
-  console.log(55);
-
   try {
     // Retrieve the JWT token from localStorage
     const jwtToken = localStorage.getItem("jwtToken");
@@ -155,4 +153,35 @@ export const addReview = async (id, data) => {
   } catch (error) {
     return { err: error, res: null };
   }
+};
+
+const getTimeSlots = async (data) => {
+  try {
+    // Retrieve the JWT token from localStorage
+    const jwtToken = localStorage.getItem("jwtToken");
+    if (!jwtToken) {
+      // Handle the case where the token is not available
+      throw new Error("JWT token is not available");
+    }
+
+    // Set up headers with the JWT token
+    const headers = {
+      token: jwtToken,
+    };
+
+    // Make the GET request with headers
+    const res = await axiosInstance.post("/appointment/generateSloats", data, {
+      headers,
+    });
+    console.log(res.data);
+    return { res: res.data, err: null };
+  } catch (error) {
+    return { err: error, res: null };
+  }
+};
+export const useTimeSlots = (data) => {
+  return useQuery({
+    queryKey: ["appointment/generateSloats", data],
+    queryFn: () => getTimeSlots(data),
+  });
 };

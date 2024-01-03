@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AppointmentCard.module.css";
 import {
   checkCircleFill,
@@ -24,7 +24,18 @@ const AppointmentCard = ({ salon, cardType }) => {
     console.log(buttonType);
     dispatch(openModal({ type: `${buttonType}`, closable: true, data: salon }));
   };
-  // console.log(salon.serviceData);
+  let serveceIds = [];
+
+  const ids = () => {
+    return salon?.serviceData?.map((x) => {
+      return x.map((y) => {
+        return y.subCategories.map((item) => {
+          return serveceIds.pop(item._id);
+        });
+      });
+    });
+  };
+
   return (
     <div className={styles.cardWrapper}>
       {salon.payment_mode === "on-site" && (
@@ -133,56 +144,60 @@ const AppointmentCard = ({ salon, cardType }) => {
                     <div key={i}>
                       {x.map((y, j) => (
                         <div key={j}>
-                          {y?.subCategories.map((item, index) => (
-                            <div
-                              key={index}
-                              className={`${styles.sDetail} ${
-                                cardType !== "Upcoming"
-                                  ? styles.flexCol
-                                  : styles.flexRow
-                              }`}
-                            >
-                              <div className={styles.qty_Name}>
-                                <p className={styles.quantity}>
-                                  {item.quantity ?? 1}
-                                </p>
-                                <img src={cross} alt="cross" />
-                                <p className={styles.serviceName}>
-                                  {item.service_name}
-                                </p>
-                                <img
-                                  src={ellipse}
-                                  alt="ellipse"
-                                  className={`${styles.ellipse} ${
-                                    cardType !== "Upcoming" ? styles.d_none : ""
-                                  }`}
-                                />
-                              </div>
-                              <div className={styles.time_Amount}>
-                                <p className={styles.servicePeriod}>
-                                  {item.time_takenby_service}
-                                </p>
-                                <img src={ellipse} alt="ellipse" />
-                                <p className={styles.servicePrice}>
-                                  ₹ {item.price}
-                                </p>
-                                <p
-                                  className={`${
-                                    cardType !== "Completed"
-                                      ? styles.d_none
-                                      : styles.proName
-                                  }`}
-                                >
+                          {y?.subCategories.map((item, index) => {
+                            return (
+                              <div
+                                key={index}
+                                className={`${styles.sDetail} ${
+                                  cardType !== "Upcoming"
+                                    ? styles.flexCol
+                                    : styles.flexRow
+                                }`}
+                              >
+                                <div className={styles.qty_Name}>
+                                  <p className={styles.quantity}>
+                                    {item.quantity ?? 1}
+                                  </p>
+                                  <img src={cross} alt="cross" />
+                                  <p className={styles.serviceName}>
+                                    {item.service_name}
+                                  </p>
                                   <img
-                                    src={pro_Avatar}
-                                    alt="pro_Avatar"
-                                    className={styles.pro_Avatar}
+                                    src={ellipse}
+                                    alt="ellipse"
+                                    className={`${styles.ellipse} ${
+                                      cardType !== "Upcoming"
+                                        ? styles.d_none
+                                        : ""
+                                    }`}
                                   />
-                                  {item.professional}
-                                </p>
+                                </div>
+                                <div className={styles.time_Amount}>
+                                  <p className={styles.servicePeriod}>
+                                    {item.time_takenby_service}
+                                  </p>
+                                  <img src={ellipse} alt="ellipse" />
+                                  <p className={styles.servicePrice}>
+                                    ₹ {item.price}
+                                  </p>
+                                  <p
+                                    className={`${
+                                      cardType !== "Completed"
+                                        ? styles.d_none
+                                        : styles.proName
+                                    }`}
+                                  >
+                                    <img
+                                      src={pro_Avatar}
+                                      alt="pro_Avatar"
+                                      className={styles.pro_Avatar}
+                                    />
+                                    {item.professional}
+                                  </p>
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       ))}
                     </div>
