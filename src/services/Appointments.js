@@ -77,7 +77,37 @@ export const getUpcomingAppointments = async () => {
 
     console.log("slots Data",data);
     try {
-      const res = await axiosInstance.post(`/appointment/generateSlots`, data, {
+      const res = await axiosInstance.post(`/appointment/generateSloats`, data, {
+        headers: {
+          token: jwtToken,
+        },
+      });
+      return { res: res, err: null };
+    } catch (error) {
+      return { err: error, res: null };
+    }
+  };
+
+  export const getAvailableOffers = async (data) => {
+    const jwtToken = localStorage.getItem("jwtToken");
+
+    try {
+      const res = await axiosInstance.post(`appointment/salon/offers`, data, {
+        headers: {
+          token: jwtToken,
+        },
+      });
+      return { res: res, err: null };
+    } catch (error) {
+      return { err: error, res: null };
+    }
+  };
+
+  export const bookSalonAppointment = async (data) => {
+    const jwtToken = localStorage.getItem("jwtToken");
+
+    try {
+      const res = await axiosInstance.post(`/appointment/bookAppointment`, data, {
         headers: {
           token: jwtToken,
         },

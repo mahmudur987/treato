@@ -117,7 +117,6 @@ export default function AccountSettings() {
                     }
                 }
             })
-            localStorage.setItem('tempUserData', JSON.stringify(formData))
         } else {
             console.log(formData);
             updateUser(userJWt, formData)

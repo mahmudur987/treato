@@ -3,9 +3,17 @@ import ellipse from "../../../assets/images/SalonDetail/Ellipse.svg"
 import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
-export default function BookNow({innerText,updateActiveBookFlowBA,activeBookFlowBA,SalonDetails,setCompletedPay,salonId,totalSalonServices,salonServices,Disabled}) {
+export default function BookNow({innerText,updateActiveBookFlowBA,activeBookFlowBA,SalonDetails,setCompletedPay,salonId,totalSalonServices,salonServices,Disabled,displayFinalAmount}) {
     let [totalServicesPrice, setTotalServicesPrice] = useState(0);
+    const selectedOffer = useSelector(
+        (state) => state?.salonServices?.appliedOffer
+      );
+      const TotalServiceAmount = useSelector(
+        (state) => state?.salonServices?.Amount
+      );
+    
     useEffect(() => {
         if (salonServices?.length) {
             let prices = salonServices.map((v,i)=>{
@@ -57,8 +65,13 @@ export default function BookNow({innerText,updateActiveBookFlowBA,activeBookFlow
 
                 }
             </div>
+            {console.log(selectedOffer?.amount_for_discount,TotalServiceAmount-selectedOffer?.amount_for_discount,TotalServiceAmount)}
             <div className={styles.book_nowC}>
+                {displayFinalAmount && innerText==='Pay ₹'?
+                <Link to={updateActiveBookFlowBA?'':`/salons/${salonId}/book`}><button onClick={proceedPayment} className={styles.book_nowAA}>{innerText} {selectedOffer?.amount_for_discount?TotalServiceAmount-selectedOffer?.amount_for_discount:TotalServiceAmount}</button></Link>
+                :
                 <Link to={updateActiveBookFlowBA?'':`/salons/${salonId}/book`}><button onClick={proceedPayment} className={styles.book_nowAA}>{innerText?innerText:'Book Now'}</button></Link>
+            }
             </div>
         </div>
     )

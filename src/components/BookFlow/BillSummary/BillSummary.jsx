@@ -5,14 +5,14 @@ import rightBlue from "../../../assets/images/SalonDetail/rightBlue.svg";
 import calendar_cancel from "../../../assets/images/SalonDetail/calendar-cancel.svg";
 import cancelIco from "../../../assets/images/icons/cancelIco.svg";
 import taxIco from "../../../assets/images/icons/taxIco.svg";
-import { useNavigate, useParams } from "react-router-dom";
+import { useFormAction, useNavigate, useParams } from "react-router-dom";
 import BookNow from "../../SalonDetail/BookNow/BookNow";
 import PoliciesModal from "../../_modals/PoliciesModal/PoliciesModal";
 import { useEffect, useState } from "react";
 import { deleteOfferIcon, offerIcon } from "../../../assets/images/icons";
 import { getSingleSalonData } from "../../../services/salon";
-import { useSelector } from "react-redux";
-import salonServices from "../../../redux/slices/salonServices";
+import { useDispatch, useSelector } from "react-redux";
+import salonServices, { updateAmount, updateAppliedOffer } from "../../../redux/slices/salonServices";
 
 export default function BillSummary({
   setShowModal,
@@ -30,8 +30,15 @@ export default function BillSummary({
   const selectedServices = useSelector(
     (state) => state?.salonServices?.salonContent
   );
-  console.log(selectedServices);
+  const selectedOffer = useSelector(
+    (state) => state?.salonServices?.appliedOffer
+  );
+  const TotalServiceAmount = useSelector(
+    (state) => state?.salonServices?.Amount
+  );
+  console.log(selectedOffer);
   const navigate = useNavigate();
+  const dispatch=useDispatch();
   const { id } = useParams();
   let [openModal, setOpenModal] = useState({
     taxModal: false,
@@ -53,9 +60,22 @@ export default function BillSummary({
       let taxAmount = (totalPrice * 18) / 100;
       setTotalServicesPrice(totalPrice.toLocaleString());
       setTaxPrice(taxAmount.toLocaleString());
-      setamountToPay((totalPrice + taxAmount).toLocaleString());
+      if(selectedOffer?.amount_for_discount){
+        console.log("discount",((totalPrice + taxAmount)-selectedOffer?.amount_for_discount).toLocaleString());
+      setamountToPay(((totalPrice + taxAmount)-selectedOffer?.amount_for_discount).toLocaleString());
+      }
+      else{
+        console.log("without discount",(totalPrice + taxAmount).toLocaleString());
+        setamountToPay((totalPrice + taxAmount).toLocaleString());
+        dispatch(updateAmount(totalPrice + taxAmount ))
+      }
     }
-  }, [selectedServices]);
+  }, [selectedServices,selectedOffer]);
+
+
+const handleDeleteOffer=()=>{
+  dispatch(updateAppliedOffer(null))
+}
 
   return (
     <>
@@ -98,12 +118,17 @@ export default function BillSummary({
           <div className={styles.bill_sumF}>
             <div className={styles.bill_sumFA}>Amount to be paid</div>
             <div className={styles.bill_sumFB}>
-              <h1 className={styles.discountAmount}>₹245</h1> ₹{amountToPay}
+            {selectedOffer?.amount_for_discount && (
+              <h1 className={styles.discountAmount}>
+                ₹{TotalServiceAmount?.toLocaleString()}
+              </h1>
+            )}
+               ₹{amountToPay}
             </div>
           </div>
         </div>
         <div className={`${styles.bill_sumF} ${styles.applyOfferContainer}`}>
-          <div className={styles.applyOffer}>
+{!selectedOffer ?   <div className={styles.applyOffer}>
             <div className={`${styles.bill_sumFC}`}>
               <img src={discountIco} alt="" />
               <div>Offers & Benefits</div>
@@ -115,26 +140,25 @@ export default function BillSummary({
               <div>4 offers</div>
               <img src={rightBlue} alt="" />
             </div>
-          </div>
-          {/* //TODO will be display after applied offer  */}
-{/* 
+          </div>:
+
           <div className={styles.appliedOffer}>
             <div className={styles.offerDetails}>
               <div className={styles.firstLine}>
                 <img src={offerIcon} alt="offerIcon" />
-                <span className={styles.offerName}>'BEAUTY100' applied</span>
+                <span className={styles.offerName}>{selectedOffer?.title}</span>
               </div>
               <div className={styles.secondLine}>
-                ₹242 savings on this order
+                ₹{selectedOffer?.amount_for_discount} savings on this order
               </div>
             </div>
-            <div className={styles.deleteOption}>
+            <div className={styles.deleteOption} onClick={handleDeleteOffer}>
               <img src={deleteOfferIcon} alt="deleteIcon" />
             </div>
-          </div> */}
+          </div> }
         </div>
         {!showPay || paySelected ? (
-          <BookNow innerText={"Pay ₹1,177"} setCompletedPay={setCompletedPay} />
+          <BookNow innerText={"Confirm Booking"} setCompletedPay={setCompletedPay} />
         ) : (
           <div className={styles.bill_sumG}>
             <button>Pay ₹{amountToPay}</button>

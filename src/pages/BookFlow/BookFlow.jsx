@@ -41,7 +41,6 @@ export default function BookFlow() {
     let [completedPay, setCompletedPay] = useState(false);
     let { id } = useParams();
     const salonServices = useSelector(state => state.salonServices.salonContent);
-    const userDetails = useSelector(state => state.user?.user);
 useEffect(() => {
 console.log(activeBookFlowBA);
 }, [activeBookFlowBA])
@@ -211,7 +210,7 @@ console.log(activeBookFlowBA);
                             }
                         </div>
                         <div className={styles.book_flowMob}>
-                            <BookNow innerText={activeBookFlowBA === 4 ? 'Pay ₹1,177' : 'Proceed'} updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} salonServices={salonServices?salonServices:null}/>
+                            <BookNow innerText={activeBookFlowBA === 4 ? showPay?`Pay ₹`:"Confirm booking" : 'Proceed'} updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} salonServices={salonServices?salonServices:null} displayFinalAmount={true}/>
                         </div>
                     </>
             }

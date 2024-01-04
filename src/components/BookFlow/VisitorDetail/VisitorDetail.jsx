@@ -10,19 +10,20 @@ import { updateVisitorContent } from '../../../redux/slices/VisitorDetails'
 
 export default function VisitorDetail() {
     const dispatch = useDispatch();
-    const [guest, setGuest] = useState(0);
+    const [guest, setGuest] = useState(false);
     const [visitorPhone, setvisitorPhone] = useState("")
     const [countryCode, setcountryCode] = useState("+91")
     const { contact } = useSelector((state) => state?.VisitorDetails);
     const userDetails = useSelector((state) => state?.user?.user);
+    const isFirstRender = useRef(null);
 
-    useEffect(() => {
-        console.log(userDetails);
-        if(guest===0){
-            setvisitorPhone(userDetails?.phone?userDetails?.phone:"")
-        }
-    }, [guest])
     
+    useEffect(() => {
+        // Click the label when the component mounts
+        isFirstRender.current.click();
+    }, []); 
+
+
     const handleRadioChange = (value) => {
       setGuest(value);
       dispatch(
@@ -61,8 +62,8 @@ export default function VisitorDetail() {
                 <div className={styles.visitor_detailAA}>
                     Who are you booking for?
                 </div>
-                <div className={styles.visitor_detailAB}>
-                    <RadioInput Type={'radio'} NAME={'visitor'} setGuest={handleRadioChange} guest={false}/>
+                <div className={styles.visitor_detailAB} ref={isFirstRender}>
+                    <RadioInput Type={'radio'} NAME={'visitor'} setGuest={handleRadioChange} guest={false} />
                     <div>Booking for myself</div>
                 </div>
                 <div className={styles.visitor_detailAB}>
