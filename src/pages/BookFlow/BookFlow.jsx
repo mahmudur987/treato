@@ -11,15 +11,17 @@ import BackButton from '../../components/Buttons/BackButton/BackButton'
 import BookNow from '../../components/SalonDetail/BookNow/BookNow'
 import SalonServiceMain from '../../components/SalonDetail/SalonServiceMain/SalonServiceMain'
 import SalonDetailModal from '../../components/_modals/SalonDetailModal/SalonDetailModal'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { salon } from '../../services/salon'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './BookFlow.module.css'
 import { getAvailableSlots } from '../../services/Appointments'
+import { updateServiceDate } from '../../redux/slices/salonServices'
 
 export default function BookFlow() {
     let navigate = useNavigate();
+    let dispatch =useDispatch()
     let [activeBookFlowBA, updateActiveBookFlowBA] = useState(1);
     let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
     let [showPay, setShowPay] = useState(true);
@@ -102,6 +104,7 @@ console.log(activeBookFlowBA);
                     console.log("from selected Stylist");
                     getAvailableSlots(requiredData).then((res)=>{
                     setavailableSlots(res?.res?.data?.data)
+                    dispatch(updateServiceDate(requiredData?.dateforService))
                     })
                 }
         }
@@ -133,6 +136,7 @@ console.log(activeBookFlowBA);
                 }
             getAvailableSlots(requiredData).then((res)=>{
                     setavailableSlots(res?.res?.data?.data)
+                    dispatch(updateServiceDate(requiredData?.dateforService))
              })
             }
             oldData.dateData = e.target.value;
@@ -203,7 +207,7 @@ console.log(activeBookFlowBA);
                         <div className={styles.book_flowMainB}>
                             {
                                 activeBookFlowBA === 4 ?
-                                    <BillSummary setShowModal={setShowModal} updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} showPay={showPay} paySelected={paySelected} setCompletedPay={setCompletedPay}/>
+                                    <BillSummary setShowModal={setShowModal} updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} showPay={showPay} paySelected={paySelected} setCompletedPay={setCompletedPay} stepTwoDetails={stepTwoDetails}/>
                                     :
                                     <SelectedServiceCard updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} salonServices={salonServices?salonServices:null} SalonData={SalonData?SalonData:null} stepTwoDetails={stepTwoDetails?stepTwoDetails:null} setStepTwoDetails={setStepTwoDetails}/>
 

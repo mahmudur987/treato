@@ -9,7 +9,7 @@ import { useFormAction, useNavigate, useParams } from "react-router-dom";
 import BookNow from "../../SalonDetail/BookNow/BookNow";
 import PoliciesModal from "../../_modals/PoliciesModal/PoliciesModal";
 import { useEffect, useState } from "react";
-import { deleteOfferIcon, offerIcon } from "../../../assets/images/icons";
+import { TreatoLogo, deleteOfferIcon, offerIcon } from "../../../assets/images/icons";
 import { getSingleSalonData } from "../../../services/salon";
 import { useDispatch, useSelector } from "react-redux";
 import salonServices, { updateAmount, updateAppliedOffer } from "../../../redux/slices/salonServices";
@@ -21,12 +21,17 @@ export default function BillSummary({
   showPay,
   paySelected,
   setCompletedPay,
+  stepTwoDetails,
 }) {
+  console.log("stepTwoDetails",stepTwoDetails)
+
   const [salon, setSalon] = useState(null);
+  const [serviceIDs, setserviceIDs] = useState(null)
   const [totalServicesPrice, setTotalServicesPrice] = useState(0);
   const [taxPrice, setTaxPrice] = useState(0);
   const [amountToPay, setamountToPay] = useState(0);
-
+  const [selectedServiceSlot, setselectedServiceSlot] = useState(null)
+const {salonID}=useParams()
   const selectedServices = useSelector(
     (state) => state?.salonServices?.salonContent
   );
@@ -36,7 +41,91 @@ export default function BillSummary({
   const TotalServiceAmount = useSelector(
     (state) => state?.salonServices?.Amount
   );
-  console.log(selectedOffer);
+  const userDetails = useSelector(
+    (state) => state?.user?.user
+  );
+  const serviceDetails = useSelector(
+    (state) =>state?.salonServices
+  );
+  const visitorDetails = useSelector(
+    (state) => state?.visitorDetails
+  );
+
+  useEffect(() => {
+    let IDs=selectedServices?.map((e)=>{
+      return e?.service_id
+    })
+    setserviceIDs(IDs)
+  }, [selectedServices])
+  
+  useEffect(() => {
+    if(stepTwoDetails?.timeData){
+      console.log(stepTwoDetails?.timeData.replace(/AM|am|PM|pm/g, "").trim());
+      setselectedServiceSlot(stepTwoDetails?.timeData.replace(/AM|am|PM|pm/g, "").trim())
+    }
+  }, [stepTwoDetails])
+  
+// razorpay gateway
+
+const initPayment = () => {
+  const options = {
+    key: "rzp_test_VFkINI4WBpKEUY",
+    amount: `${amountToPay}`,
+    currency: "INR",
+    name: "Treato",
+    description: "test ",
+    image: TreatoLogo,
+    order_id: "order_1234",
+    handler: async (response) => {
+      try {
+        console.log(response);
+
+        let billInfo = {
+          user_id:userDetails?._id,
+          salons_id:salonID,
+          service_id:serviceIDs,
+          final_amount:`${selectedOffer?.amount_for_discount?TotalServiceAmount-selectedOffer?.amount_for_discount:TotalServiceAmount}`,
+          time : "",
+          selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
+          dateforService:serviceDetails?.serviceDate,
+          seletedSlot : selectedServiceSlot,
+          userData : visitorDetails
+        }
+console.log(billInfo);
+        bookSalonAppointment(billInfo).then((res)=>{
+          console.log(res);
+        })
+
+
+      } catch (error) {
+        console.log(error);
+        toast.error(`Payment failed`, {
+          duration: 6000,
+        });
+      }
+    },
+    theme: {
+      color: "#1aa05b",
+    },
+  };
+  const rzp1 = new window.Razorpay(options);
+  rzp1.open();
+};
+//?razorpay gateway
+const handlePayment = async () => {
+  try {
+    // const orderUrl = "http://43.205.39.232/api/payment/order";
+    // const { data } = await axios.post(orderUrl, {
+    //   amount: selectedOptionData.price,
+    // });
+    initPayment();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// -------------------
+
   const navigate = useNavigate();
   const dispatch=useDispatch();
   const { id } = useParams();
@@ -161,7 +250,7 @@ const handleDeleteOffer=()=>{
           <BookNow innerText={"Confirm Booking"} setCompletedPay={setCompletedPay} />
         ) : (
           <div className={styles.bill_sumG}>
-            <button>Pay ₹{amountToPay}</button>
+            <button onClick={handlePayment}>Pay ₹{amountToPay}</button>
           </div>
         )}
         <div
