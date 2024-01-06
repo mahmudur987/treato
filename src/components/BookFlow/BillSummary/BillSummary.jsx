@@ -13,6 +13,8 @@ import { TreatoLogo, deleteOfferIcon, offerIcon } from "../../../assets/images/i
 import { getSingleSalonData } from "../../../services/salon";
 import { useDispatch, useSelector } from "react-redux";
 import salonServices, { updateAmount, updateAppliedOffer } from "../../../redux/slices/salonServices";
+import { AppointmentVerify, bookSalonAppointment } from "../../../services/Appointments";
+import { toast } from "react-toastify";
 
 export default function BillSummary({
   setShowModal,
@@ -23,15 +25,14 @@ export default function BillSummary({
   setCompletedPay,
   stepTwoDetails,
 }) {
-  console.log("stepTwoDetails",stepTwoDetails)
-
+  // console.log("stepTwoDetails",stepTwoDetails)
+const [orderResponse,setOrderResponse]=useState(null)
   const [salon, setSalon] = useState(null);
   const [serviceIDs, setserviceIDs] = useState(null)
   const [totalServicesPrice, setTotalServicesPrice] = useState(0);
   const [taxPrice, setTaxPrice] = useState(0);
   const [amountToPay, setamountToPay] = useState(0);
   const [selectedServiceSlot, setselectedServiceSlot] = useState(null)
-const {salonID}=useParams()
   const selectedServices = useSelector(
     (state) => state?.salonServices?.salonContent
   );
@@ -48,7 +49,7 @@ const {salonID}=useParams()
     (state) =>state?.salonServices
   );
   const visitorDetails = useSelector(
-    (state) => state?.visitorDetails
+    (state) => state?.VisitorDetails
   );
 
   useEffect(() => {
@@ -60,83 +61,22 @@ const {salonID}=useParams()
   
   useEffect(() => {
     if(stepTwoDetails?.timeData){
-      console.log(stepTwoDetails?.timeData.replace(/AM|am|PM|pm/g, "").trim());
       setselectedServiceSlot(stepTwoDetails?.timeData.replace(/AM|am|PM|pm/g, "").trim())
     }
   }, [stepTwoDetails])
-  
-// razorpay gateway
-
-const initPayment = () => {
-  const options = {
-    key: "rzp_test_VFkINI4WBpKEUY",
-    amount: `${amountToPay}`,
-    currency: "INR",
-    name: "Treato",
-    description: "test ",
-    image: TreatoLogo,
-    order_id: "order_1234",
-    handler: async (response) => {
-      try {
-        console.log(response);
-
-        let billInfo = {
-          user_id:userDetails?._id,
-          salons_id:salonID,
-          service_id:serviceIDs,
-          final_amount:`${selectedOffer?.amount_for_discount?TotalServiceAmount-selectedOffer?.amount_for_discount:TotalServiceAmount}`,
-          time : "",
-          selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
-          dateforService:serviceDetails?.serviceDate,
-          seletedSlot : selectedServiceSlot,
-          userData : visitorDetails
-        }
-console.log(billInfo);
-        bookSalonAppointment(billInfo).then((res)=>{
-          console.log(res);
-        })
 
 
-      } catch (error) {
-        console.log(error);
-        toast.error(`Payment failed`, {
-          duration: 6000,
-        });
-      }
-    },
-    theme: {
-      color: "#1aa05b",
-    },
-  };
-  const rzp1 = new window.Razorpay(options);
-  rzp1.open();
-};
-//?razorpay gateway
-const handlePayment = async () => {
-  try {
-    // const orderUrl = "http://43.205.39.232/api/payment/order";
-    // const { data } = await axios.post(orderUrl, {
-    //   amount: selectedOptionData.price,
-    // });
-    initPayment();
-  } catch (error) {
-    console.log(error);
-  }
-};
 
-// -------------------
-
-  const navigate = useNavigate();
-  const dispatch=useDispatch();
-  const { id } = useParams();
-  let [openModal, setOpenModal] = useState({
-    taxModal: false,
-    cancelModal: false,
-  });
+const navigate = useNavigate();
+const dispatch=useDispatch();
+const { id } = useParams();
+let [openModal, setOpenModal] = useState({
+  taxModal: false,
+  cancelModal: false,
+});
   useEffect(() => {
     getSingleSalonData(id).then((res) => {
       setSalon(res?.res?.data?.salon);
-      console.log(res?.res?.data?.salon);
     });
   }, [id]);
   useEffect(() => {
@@ -150,11 +90,9 @@ const handlePayment = async () => {
       setTotalServicesPrice(totalPrice.toLocaleString());
       setTaxPrice(taxAmount.toLocaleString());
       if(selectedOffer?.amount_for_discount){
-        console.log("discount",((totalPrice + taxAmount)-selectedOffer?.amount_for_discount).toLocaleString());
       setamountToPay(((totalPrice + taxAmount)-selectedOffer?.amount_for_discount).toLocaleString());
       }
       else{
-        console.log("without discount",(totalPrice + taxAmount).toLocaleString());
         setamountToPay((totalPrice + taxAmount).toLocaleString());
         dispatch(updateAmount(totalPrice + taxAmount ))
       }
@@ -164,6 +102,111 @@ const handlePayment = async () => {
 
 const handleDeleteOffer=()=>{
   dispatch(updateAppliedOffer(null))
+}
+
+
+// razorpay gateway
+
+const initPayment = (order) => {
+  console.log(order?.id);
+  const options = {
+    key: "rzp_test_ZkJ3ids4GaOOTU",
+    amount: `${amountToPay}`,
+    currency: "INR",
+    name: "Treato",
+    description: "test ",
+    image: TreatoLogo,
+    order_id: order?.id,
+    handler: async (response) => {
+      try {
+        console.log(response);
+
+        let billInfo = {
+          user_id:userDetails?._id,
+          salons_id:id,
+          service_id:serviceIDs,
+          final_amount:`${selectedOffer?.amount_for_discount?TotalServiceAmount-selectedOffer?.amount_for_discount:TotalServiceAmount}`,
+          time : "",
+          selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
+          dateforService:serviceDetails?.serviceDate,
+          seletedSlot : selectedServiceSlot,
+          userData : visitorDetails
+        }
+        console.log(billInfo);
+        let verificationData={...response,order}
+        console.log(verificationData);
+        AppointmentVerify({...response,order}).then((res)=>{
+          console.log(res);
+        })
+      } catch (error) {
+        console.log(error);
+        toast.error(`Payment failed`, {
+          duration: 6000,
+        });
+      }
+    },
+    theme: {
+      color: "#000000",
+    },
+  };
+  const rzp1 = new window.Razorpay(options);
+  rzp1.open();
+};
+
+//?razorpay gateway
+
+const handlePayment = async () => {
+  try {
+    let billInfo = {
+      user_id:userDetails?._id,
+      salons_id:id,
+      service_id:serviceIDs,
+      final_amount:`${selectedOffer?.amount_for_discount?TotalServiceAmount-selectedOffer?.amount_for_discount:TotalServiceAmount}`,
+      time : "",
+      selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
+      dateforService:serviceDetails?.serviceDate,
+      seletedSlot : selectedServiceSlot,
+      userData : visitorDetails?.contact,
+      payment_mode:"online",
+    }
+    console.log(billInfo);
+    bookSalonAppointment(billInfo).then((res)=>{
+      console.log(res?.res?.data);
+      let response=res?.res?.data
+      if(response?.success){
+        setOrderResponse(response?.order)
+          initPayment(response?.order);
+      }
+    })
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+// -------------------
+const handleOfflinePayment=()=>{
+  let billInfo = {
+    user_id:userDetails?._id,
+    salons_id:id,
+    service_id:serviceIDs,
+    final_amount:`${selectedOffer?.amount_for_discount?TotalServiceAmount-selectedOffer?.amount_for_discount:TotalServiceAmount}`,
+    time : "",
+    selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
+    dateforService:serviceDetails?.serviceDate,
+    seletedSlot : selectedServiceSlot,
+    userData : visitorDetails?.contact,
+    payment_mode:"offline",
+  }
+  console.log(billInfo);
+  bookSalonAppointment(billInfo).then((res)=>{
+    console.log(res?.res?.data);
+    let response=res?.res?.data
+    if(response?.success){
+      setOrderResponse(response?.order)
+    }
+  })
 }
 
   return (
@@ -247,7 +290,7 @@ const handleDeleteOffer=()=>{
           </div> }
         </div>
         {!showPay || paySelected ? (
-          <BookNow innerText={"Confirm Booking"} setCompletedPay={setCompletedPay} />
+          <BookNow innerText={"Confirm Booking"} setCompletedPay={setCompletedPay} handleOfflinePayment={handleOfflinePayment} salonId={id}/>
         ) : (
           <div className={styles.bill_sumG}>
             <button onClick={handlePayment}>Pay ₹{amountToPay}</button>

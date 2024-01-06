@@ -33,7 +33,7 @@ export default function SalonDetailModal({ setShowModal }) {
       salons_id: id,
       totalAmount: parseFloat(serviceDetails?.Amount),
     };
-    if ((id, userDetails?.id, serviceDetails?.Amount)) {
+    if (id && userDetails?.id && serviceDetails?.Amount) {
       getAvailableOffers(getOfferData).then((res) => {
         setuserOffers(res?.res?.data?.data);
       });

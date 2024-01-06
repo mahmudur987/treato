@@ -117,3 +117,18 @@ export const getUpcomingAppointments = async () => {
       return { err: error, res: null };
     }
   };
+
+  export const AppointmentVerify = async (data) => {
+    const jwtToken = localStorage.getItem("jwtToken");
+
+    try {
+      const res = await axiosInstance.post(`/paymentVerify`, data, {
+        headers: {
+          token: jwtToken,
+        },
+      });
+      return { res: res, err: null };
+    } catch (error) {
+      return { err: error, res: null };
+    }
+  };
