@@ -24,12 +24,15 @@ import { useNavigate } from "react-router-dom";
 
 import { updateUserDetails } from "../../redux/slices/user";
 import FindLocationModal from "../../components/_modals/FindLocationModal/FindLocationModal";
+import SetPassword from "../../components/AccountSettings/PasswordChange/SetPassword";
+import PasswordActive from "../../components/_modals/PasswordActive/Passwordactive";
 
 export default function AccountSettings() {
   let data = useSelector((state) => state.user);
   let dispatch = useDispatch();
   let [mobileOpt, updateMobileOpt] = useState(-1);
   let [passModal, setPassModal] = useState(false);
+  let [passActiveModal, setPassActiveModal] = useState(false);
   let [profileModal, setProfileModal] = useState(false);
   let [locationModal, setlocationModal] = useState(false);
   let [addressModal, setAddressModal] = useState({ active: false, data: null });
@@ -148,7 +151,7 @@ export default function AccountSettings() {
     updateInputVal(data);
     updateGender(userData.gender ? userData.gender : "");
   }, [userData]);
-
+  console.log(passActiveModal);
   return (
     <>
       {userData ? (
@@ -189,6 +192,7 @@ export default function AccountSettings() {
                   />
                   <SocialSettings user={data} />
                   <PasswordChange setPassModal={setPassModal} />
+                  <SetPassword setPassActiveModal={setPassActiveModal} />
                 </form>
                 <div className={showSave ? styles.acc_settingA : styles.d_none}>
                   <SecondaryButton children={"Cancel"} onClick={setDefault} />
@@ -346,6 +350,8 @@ export default function AccountSettings() {
               setuserAddressText={setuserAddressText}
               userAddressText={userAddressText}
             />
+          ) : passActiveModal ? (
+            <PasswordActive setPassActiveModal={setPassActiveModal} />
           ) : null}
         </>
       ) : null}

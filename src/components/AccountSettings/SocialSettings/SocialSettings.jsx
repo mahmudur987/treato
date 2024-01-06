@@ -2,7 +2,6 @@ import styles from "./SocialSettings.module.css";
 import facebook from "../../../assets/images/AccountSettings/facebook.png";
 import instagram from "../../../assets/images/AccountSettings/Instagram.png";
 import google from "../../../assets/images/AccountSettings/google.png";
-import { useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,13 +15,9 @@ import { LoginSocialFacebook } from "reactjs-social-login";
 
 export default function SocialSettings({ user }) {
   const navigate = useNavigate();
-  let [connectStatus1, updateConnectStatus1] = useState(-1);
-  let [connectStatus2, updateConnectStatus2] = useState(-1);
-  let [connectStatus3, updateConnectStatus3] = useState(-1);
   const dispatch = useDispatch();
   const userChoice = useSelector((state) => state.authChoice);
   const facebookAppId = process.env.REACT_APP_FACEBOOK_APP_ID;
-
   const googleAuthLogin = useGoogleLogin({
     cookiePolicy: "single_host_origin",
     onSuccess: async (response) => {
@@ -36,7 +31,7 @@ export default function SocialSettings({ user }) {
               updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
             );
             localStorage.setItem("jwtToken", res?.res?.data?.token);
-            updateConnectStatus1(connectStatus1 === 1 ? -1 : 1);
+
             toast("Welcome to Treato! Start exploring now!");
           } else {
             toast.error(`An unexpected error occurred. Please try again.`);
@@ -86,15 +81,15 @@ export default function SocialSettings({ user }) {
           <div className={styles.social_opt_right}>
             <div
               className={
-                connectStatus1 === 1
-                  ? styles.social_opt_disconnect
-                  : styles.social_opt_connect
+                user?.user?.google === "disconnect"
+                  ? styles.social_opt_connect
+                  : styles.social_opt_disconnect
               }
               onClick={() => {
                 googleAuthLogin();
               }}
             >
-              {connectStatus1 === 1 ? "Disconnect" : "Connect"}
+              {user?.user?.google === "disconnect" ? "Connect" : "Disconnect"}
             </div>
           </div>
         </div>
@@ -115,15 +110,14 @@ export default function SocialSettings({ user }) {
             >
               <div
                 className={
-                  connectStatus2 === 1
-                    ? styles.social_opt_disconnect
-                    : styles.social_opt_connect
-                }
-                onClick={() =>
-                  updateConnectStatus2(connectStatus2 === 1 ? -1 : 1)
+                  user?.user?.facebook === "disconnect"
+                    ? styles.social_opt_connect
+                    : styles.social_opt_disconnect
                 }
               >
-                {connectStatus2 === 1 ? "Disconnect" : "Connect"}
+                {user?.user?.facebook === "disconnect"
+                  ? "Connect"
+                  : "Disconnect"}
               </div>
             </LoginSocialFacebook>
           </div>
@@ -136,15 +130,14 @@ export default function SocialSettings({ user }) {
           <div className={styles.social_opt_right}>
             <div
               className={
-                connectStatus3 === 1
-                  ? styles.social_opt_disconnect
-                  : styles.social_opt_connect
-              }
-              onClick={() =>
-                updateConnectStatus3(connectStatus3 === 1 ? -1 : 1)
+                user?.user?.instagram === "disconnect"
+                  ? styles.social_opt_connect
+                  : styles.social_opt_disconnect
               }
             >
-              {connectStatus3 === 1 ? "Disconnect" : "Connect"}
+              {user?.user?.instagram === "disconnect"
+                ? "Connect"
+                : "Disconnect"}
             </div>
           </div>
         </div>
