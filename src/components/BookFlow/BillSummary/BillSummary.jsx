@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { TreatoLogo, deleteOfferIcon, offerIcon } from "../../../assets/images/icons";
 import { getSingleSalonData } from "../../../services/salon";
 import { useDispatch, useSelector } from "react-redux";
-import salonServices, { updateAmount, updateAppliedOffer } from "../../../redux/slices/salonServices";
+import salonServices, { updateAmount, updateAppliedOffer, updateServiceTaxPrice } from "../../../redux/slices/salonServices";
 import { AppointmentVerify, bookSalonAppointment } from "../../../services/Appointments";
 import { toast } from "react-toastify";
 
@@ -87,6 +87,7 @@ let [openModal, setOpenModal] = useState({
       let totalPrice = prices.reduce((a, b) => a + b, 0);
       // Calculate 18% of the total price
       let taxAmount = (totalPrice * 18) / 100;
+      dispatch(updateServiceTaxPrice(taxAmount))
       setTotalServicesPrice(totalPrice.toLocaleString());
       setTaxPrice(taxAmount.toLocaleString());
       if(selectedOffer?.amount_for_discount){
@@ -108,7 +109,7 @@ const handleDeleteOffer=()=>{
 // razorpay gateway
 
 const initPayment = (order) => {
-  console.log(order?.id);
+  console.log(order);
   const options = {
     key: "rzp_test_ZkJ3ids4GaOOTU",
     amount: `${amountToPay}`,
@@ -136,6 +137,9 @@ const initPayment = (order) => {
         let verificationData={...response,order}
         console.log(verificationData);
         AppointmentVerify({...response,order}).then((res)=>{
+          if(res?.res?.data?.message==="Payment Verified and Order Created Successfully"){
+            setCompletedPay(true)
+          }
           console.log(res);
         })
       } catch (error) {
@@ -152,8 +156,6 @@ const initPayment = (order) => {
   const rzp1 = new window.Razorpay(options);
   rzp1.open();
 };
-
-//?razorpay gateway
 
 const handlePayment = async () => {
   try {
@@ -205,6 +207,7 @@ const handleOfflinePayment=()=>{
     let response=res?.res?.data
     if(response?.success){
       setOrderResponse(response?.order)
+      setCompletedPay(true)
     }
   })
 }

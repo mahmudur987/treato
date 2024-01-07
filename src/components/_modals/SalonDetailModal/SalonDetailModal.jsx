@@ -33,12 +33,12 @@ export default function SalonDetailModal({ setShowModal }) {
       salons_id: id,
       totalAmount: parseFloat(serviceDetails?.Amount),
     };
-    if (id && userDetails?.id && serviceDetails?.Amount) {
+    if (id && userDetails?._id && serviceDetails?.Amount) {
       getAvailableOffers(getOfferData).then((res) => {
         setuserOffers(res?.res?.data?.data);
       });
     }
-  }, [serviceDetails]);
+  }, [serviceDetails,userDetails]);
 
   const handleOfferClick = (Data) => {
     dispatch(updateAppliedOffer(Data));
@@ -79,7 +79,7 @@ export default function SalonDetailModal({ setShowModal }) {
                   handleOfferClick={handleOfferClick}
                 />
               ))
-            : "no offer available"}
+            : <div className="zeroResponse">No offer available</div>}
         </div>
         <div className={styles.ModalMainC}>
           <PrimaryButton

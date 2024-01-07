@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     salonContent: [],
     serviceDate: null,
+    serviceTime:null,
+    serviceTaxPrice:null,
     Amount: null,
     appliedOffer: null,
 };
@@ -23,8 +25,14 @@ const salonServices = createSlice({
         updateServiceDate: (state, action) => {
             state.serviceDate = action.payload;
         },
+        updateServiceTime: (state, action) => {
+            state.serviceTime = action.payload;
+        },
+        updateServiceTaxPrice: (state, action) => {
+            state.serviceTaxPrice = action.payload;
+        },
     },
 });
 
-export const { addService, updateAmount, updateAppliedOffer, updateServiceDate } = salonServices.actions;
+export const { addService, updateAmount, updateAppliedOffer, updateServiceDate,updateServiceTime,updateServiceTaxPrice } = salonServices.actions;
 export default salonServices.reducer;

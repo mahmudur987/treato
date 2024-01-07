@@ -122,7 +122,7 @@ export const getUpcomingAppointments = async () => {
     const jwtToken = localStorage.getItem("jwtToken");
 
     try {
-      const res = await axiosInstance.post(`/paymentVerify`, data, {
+      const res = await axiosInstance.post(`/order/paymentVerify`, data, {
         headers: {
           token: jwtToken,
         },

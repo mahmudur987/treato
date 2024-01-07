@@ -95,7 +95,6 @@ export const facebookAuth = async (token, redirectUri) => {
   }
 };
 
-//Todo :We are temporarily using this API for Google and Facebook login and will switch to the Passport.js method once the bug in our Passport code is fixed
 //google and facebook login
     export const facebook_Login = async (data) => {
       try {

@@ -13,11 +13,12 @@ import SalonServiceMain from '../../components/SalonDetail/SalonServiceMain/Salo
 import SalonDetailModal from '../../components/_modals/SalonDetailModal/SalonDetailModal'
 import { useDispatch, useSelector } from 'react-redux';
 import { salon } from '../../services/salon'
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './BookFlow.module.css'
-import { getAvailableSlots } from '../../services/Appointments'
-import { updateServiceDate } from '../../redux/slices/salonServices'
+import { AppointmentVerify, bookSalonAppointment, getAvailableSlots } from '../../services/Appointments'
+import { updateServiceDate, updateServiceTime } from '../../redux/slices/salonServices'
+import { TreatoLogo } from '../../assets/images/icons'
 
 export default function BookFlow() {
     let navigate = useNavigate();
@@ -27,6 +28,8 @@ export default function BookFlow() {
     let [showPay, setShowPay] = useState(true);
     let [paySelected, setPaySelected] = useState(false);
     let [SalonData, setSalonData] = useState(null);
+    const [serviceIDs, setserviceIDs] = useState(null);
+  const [selectedServiceSlot, setselectedServiceSlot] = useState(null)
     const [availableSlots, setavailableSlots] = useState([])
     const [selectedYear, setSelectedYear] = useState("")
     let [stepTwoDetails,setStepTwoDetails] = useState({
@@ -43,10 +46,29 @@ export default function BookFlow() {
     let [completedPay, setCompletedPay] = useState(false);
     let { id } = useParams();
     const salonServices = useSelector(state => state.salonServices.salonContent);
+    const userDetails = useSelector(
+        (state) => state?.user?.user
+      );
+      const serviceDetails = useSelector(
+        (state) =>state?.salonServices
+      );
 useEffect(() => {
 console.log(activeBookFlowBA);
 }, [activeBookFlowBA])
 
+
+useEffect(() => {
+    let IDs=serviceDetails?.salonContent?.map((e)=>{
+      return e?.service_id
+    })
+    setserviceIDs(IDs)
+  }, [serviceDetails?.salonContent])
+
+  useEffect(() => {
+    if(stepTwoDetails?.timeData){
+      setselectedServiceSlot(stepTwoDetails?.timeData.replace(/AM|am|PM|pm/g, "").trim())
+    }
+  }, [stepTwoDetails])
     useEffect(() => {
         let SalonDataFunc = async () => {
           const { res, err } = await salon();
@@ -109,6 +131,7 @@ console.log(activeBookFlowBA);
                 }
         }
         if(e.target.name==='time'&&e.target.value){
+            dispatch(updateServiceTime(e.target.value))
             oldData.timeData = e.target.value;
         }
         if(e.target.name==='date'&&e.target.value){
@@ -143,6 +166,96 @@ console.log(activeBookFlowBA);
         }
         setStepTwoDetails(oldData);
     }
+//function to handle mobile view online razorpay payment
+
+
+    const initPayment = (order) => {
+        console.log(order);
+        const options = {
+          key: "rzp_test_ZkJ3ids4GaOOTU",
+          amount: `${serviceDetails?.appliedOffer?.amount_for_discount?serviceDetails?.Amount-serviceDetails?.appliedOffer?.amount_for_discount:serviceDetails?.Amount}`,
+          currency: "INR",
+          name: "Treato",
+          description: "test ",
+          image: TreatoLogo,
+          order_id: order?.id,
+          handler: async (response) => {
+            try {
+              let verificationData={...response,order}
+              console.log(verificationData);
+              AppointmentVerify({...response,order}).then((res)=>{
+                if(res?.res?.data?.message==="Payment Verified and Order Created Successfully"){
+                  setCompletedPay(true)
+                }
+                console.log(res);
+              })
+            } catch (error) {
+              console.log(error);
+              toast.error(`Payment failed`, {
+                duration: 6000,
+              });
+            }
+          },
+          theme: {
+            color: "#000000",
+          },
+        };
+        const rzp1 = new window.Razorpay(options);
+        rzp1.open();
+      };
+      
+      const handlePayment = async () => {
+        try {
+          let billInfo = {
+            user_id:userDetails?._id,
+            salons_id:id,
+            service_id:serviceIDs,
+            final_amount:`${serviceDetails?.appliedOffer?.amount_for_discount?serviceDetails?.Amount-serviceDetails?.appliedOffer?.amount_for_discount:serviceDetails?.Amount}`,
+            time : "",
+            selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
+            dateforService:serviceDetails?.serviceDate,
+            seletedSlot : selectedServiceSlot,
+            userData : serviceDetails?.VisitorDetails?.contact,
+            payment_mode:"online",
+          }
+          console.log("online",billInfo);
+          bookSalonAppointment(billInfo).then((res)=>{
+            console.log(res?.res?.data);
+            let response=res?.res?.data
+            if(response?.success){
+                initPayment(response?.order);
+            }
+          })
+      
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+//function to handle mobile view offline payment
+
+    const handleOfflinePayment=()=>{
+        let billInfo = {
+          user_id:userDetails?._id,
+          salons_id:id,
+          service_id:serviceIDs,
+          final_amount:`${serviceDetails?.appliedOffer?.amount_for_discount?serviceDetails?.Amount-serviceDetails?.appliedOffer?.amount_for_discount:serviceDetails?.Amount}`,
+          time : "",
+          selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
+          dateforService:serviceDetails?.serviceDate,
+          seletedSlot : selectedServiceSlot,
+          userData : serviceDetails?.VisitorDetails?.contact,
+          payment_mode:"offline",
+        }
+        console.log("offline",billInfo);
+        bookSalonAppointment(billInfo).then((res)=>{
+          console.log(res?.res?.data);
+          let response=res?.res?.data
+          if(response?.success){
+            setCompletedPay(true)
+          }
+        })
+      }
 
     return (
         <div className={styles.book_flowMain}>
@@ -214,7 +327,7 @@ console.log(activeBookFlowBA);
                             }
                         </div>
                         <div className={styles.book_flowMob}>
-                            <BookNow innerText={activeBookFlowBA === 4 ? showPay?`Pay ₹`:"Confirm booking" : 'Proceed'} updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} salonServices={salonServices?salonServices:null} displayFinalAmount={true}/>
+                            <BookNow innerText={activeBookFlowBA === 4 ? showPay?`Pay ₹`:"Confirm Booking" : 'Proceed'} updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} salonServices={salonServices?salonServices:null} displayFinalAmount={true} handleOfflinePayment={handleOfflinePayment} handlePayment={handlePayment}/>
                         </div>
                     </>
             }
