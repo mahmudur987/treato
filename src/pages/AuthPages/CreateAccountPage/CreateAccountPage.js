@@ -322,7 +322,7 @@ const CreateAccountPage = () => {
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
-            <SecondaryButton className={styles.facebook} onClick={()=>myFbLogin()}>
+            <SecondaryButton className={styles.facebook} onClick={myFbLogin}>
                 <img src={Facebook_Logo}/>
                 Facebook
               </SecondaryButton>

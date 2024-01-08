@@ -363,7 +363,7 @@ const LoginPage = () => {
               Google
             </SecondaryButton>
 
-             <SecondaryButton className={styles.facebook} onClick={()=>myFbLogin()}>
+             <SecondaryButton className={styles.facebook} onClick={myFbLogin}>
                 <img src={Facebook_Logo}/>
                 Facebook
               </SecondaryButton>

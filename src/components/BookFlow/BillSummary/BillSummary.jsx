@@ -25,7 +25,6 @@ export default function BillSummary({
   setCompletedPay,
   stepTwoDetails,
 }) {
-  // console.log("stepTwoDetails",stepTwoDetails)
 const [orderResponse,setOrderResponse]=useState(null)
   const [salon, setSalon] = useState(null);
   const [serviceIDs, setserviceIDs] = useState(null)
@@ -109,9 +108,8 @@ const handleDeleteOffer=()=>{
 // razorpay gateway
 
 const initPayment = (order) => {
-  console.log(order);
   const options = {
-    key: "rzp_test_ZkJ3ids4GaOOTU",
+    key: process.env.REACT_APP_Razorpay_Key,
     amount: `${amountToPay}`,
     currency: "INR",
     name: "Treato",
@@ -158,9 +156,7 @@ const handlePayment = async () => {
       payment_mode:"online",
       serviceDetails:selectedServices,
     }
-    console.log(billInfo);
     bookSalonAppointment(billInfo).then((res)=>{
-      console.log(res?.res?.data);
       let response=res?.res?.data
       if(response?.success){
         setOrderResponse(response?.order)
@@ -189,9 +185,7 @@ const handleOfflinePayment=()=>{
     payment_mode:"offline",
     serviceDetails:selectedServices,
   }
-  console.log(billInfo);
   bookSalonAppointment(billInfo).then((res)=>{
-    console.log(res?.res?.data);
     let response=res?.res?.data
     if(response?.success){
       setOrderResponse(response?.order)
