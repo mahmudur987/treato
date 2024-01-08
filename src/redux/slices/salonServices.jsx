@@ -31,8 +31,11 @@ const salonServices = createSlice({
         updateServiceTaxPrice: (state, action) => {
             state.serviceTaxPrice = action.payload;
         },
+        resetSalonServicesState: (state) => {
+            Object.assign(state, initialState);
+          },
     },
 });
 
-export const { addService, updateAmount, updateAppliedOffer, updateServiceDate,updateServiceTime,updateServiceTaxPrice } = salonServices.actions;
+export const { addService, updateAmount, updateAppliedOffer, updateServiceDate,updateServiceTime,updateServiceTaxPrice,resetSalonServicesState } = salonServices.actions;
 export default salonServices.reducer;

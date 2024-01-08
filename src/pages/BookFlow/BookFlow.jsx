@@ -217,6 +217,8 @@ useEffect(() => {
             seletedSlot : selectedServiceSlot,
             userData : serviceDetails?.VisitorDetails?.contact,
             payment_mode:"online",
+            serviceDetails:serviceDetails?.salonContent,
+
           }
           console.log("online",billInfo);
           bookSalonAppointment(billInfo).then((res)=>{
@@ -246,6 +248,7 @@ useEffect(() => {
           seletedSlot : selectedServiceSlot,
           userData : serviceDetails?.VisitorDetails?.contact,
           payment_mode:"offline",
+          serviceDetails:serviceDetails?.salonContent,
         }
         console.log("offline",billInfo);
         bookSalonAppointment(billInfo).then((res)=>{

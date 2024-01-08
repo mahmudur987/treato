@@ -4,15 +4,18 @@ import styles from '../../../pages/BookFlow/BookFlow.module.css'
 import AddedService from "../AddedService/AddedService"
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react'
 import { cross } from "../../../assets/images/icons"
+import { resetSalonServicesState } from "../../../redux/slices/salonServices"
+import { resetVisitorState } from "../../../redux/slices/VisitorDetails"
 
 export default function CompletedPay() {
     const bookingDetails = useSelector(
         (state) => state?.salonServices
       );
   let navigate = useNavigate();
+  const dispatch=useDispatch()
 const [itemtotal, setItemtotal] = useState(null)
   const formatDate = (inputDate) => {
     console.log(inputDate);
@@ -31,6 +34,14 @@ const [itemtotal, setItemtotal] = useState(null)
       setItemtotal(totalPrice)
   }, [bookingDetails?.salonContent])
   
+const handleBackHomeBTn=()=>{
+    dispatch(resetSalonServicesState())
+    dispatch(resetVisitorState())
+    navigate('/')
+}
+
+
+
   return (
     <div className={styles.payMain}>
         <div className={styles.payMainA}>
@@ -83,7 +94,7 @@ const [itemtotal, setItemtotal] = useState(null)
                 </div>
             </div>
             <div className={styles.payMainF}>
-                <PrimaryButton children={"Back to home"} onClick={()=>navigate('/')}/>
+                <PrimaryButton children={"Back to home"} onClick={handleBackHomeBTn}/>
             </div>
         </div>
     </div>

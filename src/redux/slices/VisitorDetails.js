@@ -21,11 +21,13 @@ const VisitorDetails = createSlice({
         state.contact.email = action.payload.contact.email;
         state.contact.preferences = action.payload.contact.preferences;
     },
-
+    resetVisitorState: (state) => {
+      Object.assign(state, initialState);
+    },
   },
 });
 
-export const { updateVisitorContent } =
+export const { updateVisitorContent,resetVisitorState } =
   VisitorDetails.actions;
 
 

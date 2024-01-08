@@ -120,20 +120,6 @@ const initPayment = (order) => {
     order_id: order?.id,
     handler: async (response) => {
       try {
-        console.log(response);
-
-        let billInfo = {
-          user_id:userDetails?._id,
-          salons_id:id,
-          service_id:serviceIDs,
-          final_amount:`${selectedOffer?.amount_for_discount?TotalServiceAmount-selectedOffer?.amount_for_discount:TotalServiceAmount}`,
-          time : "",
-          selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
-          dateforService:serviceDetails?.serviceDate,
-          seletedSlot : selectedServiceSlot,
-          userData : visitorDetails
-        }
-        console.log(billInfo);
         let verificationData={...response,order}
         console.log(verificationData);
         AppointmentVerify({...response,order}).then((res)=>{
@@ -170,6 +156,7 @@ const handlePayment = async () => {
       seletedSlot : selectedServiceSlot,
       userData : visitorDetails?.contact,
       payment_mode:"online",
+      serviceDetails:selectedServices,
     }
     console.log(billInfo);
     bookSalonAppointment(billInfo).then((res)=>{
@@ -200,6 +187,7 @@ const handleOfflinePayment=()=>{
     seletedSlot : selectedServiceSlot,
     userData : visitorDetails?.contact,
     payment_mode:"offline",
+    serviceDetails:selectedServices,
   }
   console.log(billInfo);
   bookSalonAppointment(billInfo).then((res)=>{
