@@ -224,7 +224,7 @@ const Salons = React.memo(() => {
             alt="filterDeskIcon"
             className={styles.filterDeskIcon}
           />
-          filter
+          Filters
         </button>
       </div>
 

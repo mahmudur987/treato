@@ -101,6 +101,7 @@ export default function AccountSettings() {
             house: inputVal?.house ? inputVal?.house : '',
             landmark: inputVal?.landmark ? inputVal?.landmark : '',
             address_type: inputVal?.house_type ? inputVal?.house_type : "",
+            // place: inputVal?.place ? inputVal?.place : "",
             place: userAddressText ? userAddressText : ""
         }
         if (e.target.phone.value !== userData.phone && e.target.phone.value !== "") {

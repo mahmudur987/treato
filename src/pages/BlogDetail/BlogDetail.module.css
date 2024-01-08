@@ -104,7 +104,7 @@
 
 .header-right {
   color: #26262c;
-  font-family: Lato;
+  font-family: "Lato";
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
@@ -117,6 +117,7 @@
   display: flex;
   column-gap: 20px;
   align-items: center;
+ 
 }
 
 .social-icons {

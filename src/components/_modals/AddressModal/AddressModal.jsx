@@ -69,6 +69,7 @@ export default function AddressModal({
       place: userAddressText ? userAddressText : ""
 
     };
+    console.log(address);
     let allData = { ...inputVal, address, ...address };
     updateInputVal(allData);
     setAddressModal(false);

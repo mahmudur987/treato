@@ -6,19 +6,20 @@ import { useSelector } from "react-redux";
 
 export default function UserAddress({ setAddressModal, setuserAddressText, updateInputVal, inputVal, setShowSave }) {
     let [editStatus, updateEditStatus] = useState(-1);
-    let [updateSave, setUpdateSave] = useState(false);
+    let [SaveDelete, setSaveDelete] = useState();
 
     const { user } = useSelector(state => state.user)
     let deleteAddress = (data) => {
 
         const userJWt = localStorage.getItem("jwtToken");
+
         updateInputVal({ ...inputVal, landmark: "", house: "", house_type: "", place: "" });
         // setUpdateSave(true)
-        setShowSave(true)
 
         updateEditStatus(-1)
         updateUser(userJWt, { ...inputVal, landmark: "", house: "", address_type: "", place: "" }).then((res) => {
             console.log(res, 'userAddress');
+            setSaveDelete(res)
         })
             .catch((err) => {
                 console.log(err)
@@ -45,6 +46,7 @@ export default function UserAddress({ setAddressModal, setuserAddressText, updat
                     </div>
                 </div>
                 <div className={styles.addr_stored}>
+                    <div>{inputVal?.place}</div>
                     <div>{inputVal?.house}</div>
                     <div>{inputVal?.landmark}</div>
                 </div>

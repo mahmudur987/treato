@@ -211,7 +211,7 @@ const SalonFilterOptions = ({
           <SecondaryButton
             children={"Cancel"}
             className={styles.cancel}
-            func={handleCloseModal}
+            onClick={handleCloseModal}
           />
           <div onClick={handleApplyFilter}>
             <PrimaryButton children={"Apply"} className={styles.apply} />

@@ -24,7 +24,7 @@ const Footer = () => {
   const legalLinks = ["Privacy policy", "Terms of service", "Terms of use"];
 
   const handleFooterLinkClick = (link) => {
-    if (link === "Contact us") {
+    if (link === "Contact us" && link==="Blogs") {
       // Scroll to the "contactUs" section when "Contact Us" is clicked
       navigate("/"); // Navigate to the home page
       setTimeout(() => {

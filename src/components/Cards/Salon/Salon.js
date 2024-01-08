@@ -56,8 +56,9 @@ const Salon = ({ salonData, place }) => {
         </h4>
         {userDetails?.user.isLocationAllow && (
           <h4 className={styles.location}>
-            {salonData?.locationText} <img src={ellipse} />{" "}
-            {displayDistance(salonData?.distances)}
+            {salonData?.locationText}
+             {/* <img src={ellipse} /> */}
+            {/* {displayDistance(salonData?.distances)} */}
           </h4>
         )}
       </div>

@@ -4,23 +4,49 @@ import {
 import { getAllServices } from "../services/Services";
 import { getSalonListBySearchInput, getSalonListByServiceLocation, salon } from "../services/salon";
 
+// export const getFormattedDate = (argDate) => {
+ 
+//   const date = new Date(argDate);
+//   if (argDate === undefined) return "-";
+//   let year = date.getFullYear();
+//   let month = date.getMonth();
+//   let dateNum = date.getDate();
+//   month = month + 1;
+//   if (month < 10) {
+//     month = `0${month}`;
+//   }
+//   if (dateNum < 10) {
+//     dateNum = `0${dateNum}`;
+//   }
+//   let dateFormatted = `${year}-${month}-${dateNum}`;
+//   return dateFormatted;
+// };
 export const getFormattedDate = (argDate) => {
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
   const date = new Date(argDate);
   if (argDate === undefined) return "-";
+
   let year = date.getFullYear();
-  let month = date.getMonth();
+  let monthIndex = date.getMonth();
   let dateNum = date.getDate();
-  month = month + 1;
-  if (month < 10) {
-    month = `0${month}`;
+  let monthName = months[monthIndex];
+
+  monthIndex = monthIndex + 1;
+  if (monthIndex < 10) {
+    monthIndex = `0${monthIndex}`;
   }
   if (dateNum < 10) {
     dateNum = `0${dateNum}`;
   }
-  let dateFormatted = `${year}-${month}-${dateNum}`;
-  return dateFormatted;
-};
 
+  // let dateFormatted = `${year}-${monthIndex}-${dateNum} (${monthName})`;
+  let dateFormatted = `${dateNum} ${monthName} ${year} `;
+  return dateFormatted;
+}
 
 export const handleInputChange=(e, setFunction)=> {
   const inputValue = e.target.value;

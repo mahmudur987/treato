@@ -13,7 +13,7 @@ export const updatePass = async (userJWT,data) => {
        })
        if (res) {
          toast("Password Updated Successfully")
-       }
+      }
       return { res: res, err: null }
    } catch (error) {
       return { err: error, res: null }
