@@ -3,19 +3,22 @@ import clock from "../../../assets/images/icons/clock.svg"
 import styles from '../../../pages/BookFlow/BookFlow.module.css'
 import AddedService from "../AddedService/AddedService"
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton"
-import { useNavigate } from "react-router-dom"
+import { useNavigate,useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react'
 import { cross } from "../../../assets/images/icons"
 import { resetSalonServicesState } from "../../../redux/slices/salonServices"
 import { resetVisitorState } from "../../../redux/slices/VisitorDetails"
+import { getSingleSalonData } from "../../../services/salon"
 
 export default function CompletedPay() {
     const bookingDetails = useSelector(
         (state) => state?.salonServices
       );
+      const { id } = useParams();
   let navigate = useNavigate();
   const dispatch=useDispatch()
+  const [salon, setSalon] = useState(null);
 const [itemtotal, setItemtotal] = useState(null)
   const formatDate = (inputDate) => {
     console.log(inputDate);
@@ -34,13 +37,73 @@ const [itemtotal, setItemtotal] = useState(null)
       setItemtotal(totalPrice)
   }, [bookingDetails?.salonContent])
   
+  useEffect(() => {
+    getSingleSalonData(id).then((res) => {
+        console.log(res?.res?.data?.salon);
+      setSalon(res?.res?.data?.salon);
+    });
+  }, [id]);
+
 const handleBackHomeBTn=()=>{
     dispatch(resetSalonServicesState())
     dispatch(resetVisitorState())
     navigate('/')
 }
+let serviceDateTimeStart = new Date(bookingDetails?.serviceDate);
+let serviceDateTimeEnd = new Date(bookingDetails?.serviceDate);
+
+function convertTimeStringToDateTime(timeString,type) {
+    const timeRegex = /^(\d{1,2}):(\d{2})\s?([APMapm]{2})$/;
+    const match = timeString.match(timeRegex);
+  
+    if (!match) {
+      throw new Error('Invalid time format');
+    }
+  
+    let hours = parseInt(match[1], 10);
+    const minutes = parseInt(match[2], 10);
+    const period = match[3].toUpperCase();
+  
+    if (hours === 12) {
+        hours -= 12;
+    }
+    
+    if (period === 'PM') {
+        hours += 12;
+    }
+    if(type==="start"){
+        serviceDateTimeStart.setHours(hours, minutes, 0)
+        console.log(serviceDateTimeStart.setHours(hours, minutes, 0));
+  }else{
+    serviceDateTimeEnd.setHours(hours+1, minutes, 0)
+    console.log(serviceDateTimeEnd.setHours(hours+1, minutes, 0));
+  }
+    return {
+      hours,
+      minutes,
+      isAM: period === 'AM',
+    };
+  }
 
 
+const handleAddToCalendar = async () => {
+    // Construct the Google Calendar "Add to Calendar" link
+    let start= await convertTimeStringToDateTime(bookingDetails?.serviceTime,"start")
+    let end= await convertTimeStringToDateTime(bookingDetails?.serviceTime,"end")
+    console.log(start,end);
+    const calendarLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+        `Salon Appointment at ${salon?.salon_name}`
+      )}&dates=${encodeURIComponent(
+        serviceDateTimeStart.toISOString().replace(/-|:|\.\d+/g, '')
+      )}/${encodeURIComponent(
+        serviceDateTimeEnd.toISOString().replace(/-|:|\.\d+/g, '')
+      )}&details=${encodeURIComponent(`**Appointment Details**\n\nSalon: ${salon?.salon_name}\nTiming: ${bookingDetails?.serviceTime}\n\n`)}&location=${encodeURIComponent(
+        `${salon?.salon_name}`
+      )}`;
+
+    // Open the link in a new tab or window
+    window.open(calendarLink, '_blank');
+  };
 
   return (
     <div className={styles.payMain}>
@@ -49,12 +112,12 @@ const handleBackHomeBTn=()=>{
                 <img src={SuccessCircle} alt="success" />
             </div>
             <div className={styles.payMainC}>
-                Your appointment at <span>She Hair & Beauty</span> was successfully booked. {" "}
-                <span>Add to Calendar</span>
+                Your appointment at <span>{salon?.salon_name}</span> was successfully booked. {" "}
+                <span onClick={handleAddToCalendar} className={styles.AddCalendar}>Add to Calendar</span>
             </div>
             <div className={styles.payMainD}>
                 To reschedule or cancel, go to {" "}
-                <span>My Appointments</span>.
+                <span onClick={()=>{navigate("/my-appointments/upcoming")} }className={styles.myAppointment}>My Appointments</span>.
             </div>
             <div className={styles.payMainE}>
                 <div className={styles.payMainEA}>
