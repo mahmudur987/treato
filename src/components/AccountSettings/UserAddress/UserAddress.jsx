@@ -15,6 +15,7 @@ export default function UserAddress({ setAddressModal, setuserAddressText, updat
 
         updateInputVal({ ...inputVal, landmark: "", house: "", house_type: "", place: "" });
         // setUpdateSave(true)
+        // setShowSave(true)
 
         updateEditStatus(-1)
         updateUser(userJWt, { ...inputVal, landmark: "", house: "", address_type: "", place: "" }).then((res) => {
@@ -37,9 +38,13 @@ export default function UserAddress({ setAddressModal, setuserAddressText, updat
             <div className={styles.addr_main} >
                 <div className={styles.addr_main_top}>
                     <div>{inputVal?.house_type}</div>
-                    <div><img src={moreVertical} alt=""
-                        className={`${styles.addr_edit_click} ${!user.location ? styles.add_data : ''}`}
-                        onClick={() => updateEditStatus(editStatus === 1 ? -1 : 1)} /></div>
+
+                    {inputVal.house && inputVal.landmark && inputVal.place ? <div>
+                        <img src={moreVertical} alt=""
+                            className={`${styles.addr_edit_click} `}
+                            onClick={() => updateEditStatus(editStatus === 1 ? -1 : 1)} />
+                    </div> : ""}
+
                     <div className={editStatus === 1 ? `${styles.addr_edit_opt} ${styles.addr_edit_opt_show}` : styles.addr_edit_opt}>
                         <div onClick={() => { setAddressModal({ active: true, data: inputVal, }); updateEditStatus(-1); }}>Edit</div>
                         <div className={styles.addr_edit_del} onClick={() => deleteAddress(user?.location)}>Delete</div>
@@ -54,7 +59,7 @@ export default function UserAddress({ setAddressModal, setuserAddressText, updat
 
 
 
-            <div className={user.location ? `${styles.add_data}` : null}>
+            <div className={inputVal.house && inputVal.landmark && inputVal.place ? `${styles.add_data}` : null}>
 
                 <div
                     className={styles.new_addr_add}
