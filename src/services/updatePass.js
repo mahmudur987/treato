@@ -13,3 +13,23 @@ export const updatePass = async (userJWT,data) => {
       return { err: error, res: null }
    }
 }
+
+
+
+export const setPass = async (userJWT, data) => {
+   console.log(data);
+   try {
+     const res = await axiosInstance.patch(
+       `profile/setPassword`,
+       {
+         headers: {
+           "token": userJWT,
+         },
+       },
+       data
+     );
+     return { res: res, err: null };
+   } catch (error) {
+     return { err: error, res: null };
+   }
+ };
