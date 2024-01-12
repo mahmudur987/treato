@@ -25,7 +25,6 @@ import ResetPassword from "./pages/AuthPages/ResetPassword/ResetPassword";
 import { getUserProfile } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 import PrivateFormRoutes from "./layouts/PrivateRoutes";
-import LocationAutocomplete from "./components/locations/LocationAutocomplete";
 
 function App() {
   // Use the location hook to track route changes

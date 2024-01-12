@@ -6,17 +6,19 @@ import Cancelled from "../../components/MyAppointments/Cancelled/Cancelled";
 import { Link, NavLink, Route, Routes } from "react-router-dom";
 import Completed from "../../components/MyAppointments/Completed/Completed";
 import ModalManager from "../../components/_modals/ModalManager";
+import { useUpcomingApponments } from "../../services/Appointments";
 const MyAppointments = () => {
+  const { data } = useUpcomingApponments();
+  const count = data?.res?.data?.data.length;
   return (
     <div className={styles.MyAppointments}>
       <ModalManager />
       <h3 className={styles.title}>My Appointments</h3>
       <div className={styles.navWrapper}>
-
         <nav className={styles.nav}>
           <NavLink to="/my-appointments/upcoming" exact>
             Upcoming
-            <span className={styles.unSeenDot}></span>
+            {count > 0 && <span className={styles.unSeenDot}></span>}
           </NavLink>
           <NavLink to="/my-appointments/completed" exact>
             Completed
@@ -26,8 +28,6 @@ const MyAppointments = () => {
           </NavLink>
           {/* <div className={`${styles.animation} ${styles.starthome}`}/> */}
         </nav>
-
-
 
         {/* <hr className={styles.line} /> */}
       </div>

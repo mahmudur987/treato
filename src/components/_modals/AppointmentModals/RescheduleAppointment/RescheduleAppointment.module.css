@@ -56,7 +56,10 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  height: 150px;
   gap: 20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 .availableDate,
 .timeSlot {
@@ -100,6 +103,12 @@
   gap: 10px;
   flex-shrink: 0;
 }
+.selected {
+  border: 1px solid var(--primary-color);
+  background: rgba(13, 105, 215, 0.1);
+  color: var(--primary-color);
+}
+
 .timeSlot:hover,
 .availableDate:hover {
   border: 1px solid var(--primary-color);
@@ -116,7 +125,8 @@
   background: none;
 }
 
-.calendarWrapper button::before,.calendarWrapper button::before:hover {
+.calendarWrapper button::before,
+.calendarWrapper button::before:hover {
   color: var(--black-color);
 }
 
@@ -126,35 +136,35 @@
   margin: auto;
   overflow: visible;
 }
-.service_timeMonth{
+.service_timeMonth {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
 }
 
-  .slidersWrapper>div:last-child::before{
-      content: ""; /* Ensure content is set to an empty string */
-      background-size: cover; /* Adjust as needed */
-      width: 8px;
-      height: 14px;
-      display: inline-block; /* This is to make it display inline with the content */
-      background-image: url('../../../../assets/images/icons/chevronright.svg');
-  }
-  
-  .slidersWrapper>div:first-child::before {
-      content: ""; /* Ensure content is set to an empty string */
-      background-size: cover;
-      height: 20px;
-      width: 20px;
-      display: block; /* This is to make it display inline with the content */
-      background-image: url('../../../../assets/images/icons/chevronLeft.svg');
-  }
-.leftarrowIcon{
+.slidersWrapper > div:last-child::before {
+  content: ""; /* Ensure content is set to an empty string */
+  background-size: cover; /* Adjust as needed */
+  width: 8px;
+  height: 14px;
+  display: inline-block; /* This is to make it display inline with the content */
+  background-image: url("../../../../assets/images/icons/chevronright.svg");
+}
+
+.slidersWrapper > div:first-child::before {
+  content: ""; /* Ensure content is set to an empty string */
+  background-size: cover;
+  height: 20px;
+  width: 20px;
+  display: block; /* This is to make it display inline with the content */
+  background-image: url("../../../../assets/images/icons/chevronLeft.svg");
+}
+.leftarrowIcon {
   transform: scaleX(-1);
 }
-.disabled{
- opacity: 0.3;
+.disabled {
+  opacity: 0.3;
 }
 @media only screen and (max-width: 600px) {
   .RescheduleModal {
