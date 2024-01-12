@@ -3,10 +3,17 @@ import styles from "./CancelAppointment.module.css";
 import { frame1 } from "../../../../assets/images/Appointments";
 import { ellipse } from "../../../../assets/images/icons";
 import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
-const CancelAppointment = () => {
+import { toast } from "react-toastify";
+import {
+  cancelleUpcomingdAppointment,
+  cancelledAppointment,
+} from "../../../../services/Appointments";
+import { useDispatch } from "react-redux";
+import { closeModal } from "../../../../redux/slices/modal";
+const CancelAppointment = ({ data }) => {
   // State to manage the selected radio option
   const [selectedOption, setSelectedOption] = useState("");
-
+  const dispatch = useDispatch();
   // State to manage the textarea value
   const [textareaValue, setTextareaValue] = useState("");
 
@@ -19,8 +26,30 @@ const CancelAppointment = () => {
   // Function to handle textarea changes
   const handleTextareaChange = (event) => {
     const { value } = event.target;
+    setSelectedOption("");
     setTextareaValue(value);
   };
+
+  // handle Appointment canncel
+  const handleAppointmentCancel = async (id) => {
+    const cancelReason = {
+      reason: selectedOption ? selectedOption : textareaValue,
+    };
+    if (selectedOption || textareaValue) {
+      const res = await cancelleUpcomingdAppointment(data?._id, cancelReason);
+      console.log(res);
+      if (res.res) {
+        dispatch(closeModal());
+        return toast.success("The appointments is caceled", {
+          toastId: 1,
+        });
+      }
+      if (res.err) {
+        return toast.error("Not confirm please try again", { toastId: 2 });
+      }
+    } else toast.error("please select a option", { toastId: 3 });
+  };
+
   return (
     <div className={styles.CancelAppointment}>
       <h1 className={styles.modalTitle}>Cancel Appointment</h1>
@@ -43,8 +72,8 @@ const CancelAppointment = () => {
               <input
                 type="radio"
                 name="radioOption"
-                value="Option 1"
-                checked={selectedOption === "Option 1"}
+                value="Changed my mind"
+                checked={selectedOption === "Changed my mind"}
                 onChange={handleRadioChange}
               />
               Changed my mind
@@ -54,8 +83,8 @@ const CancelAppointment = () => {
               <input
                 type="radio"
                 name="radioOption"
-                value="Option 2"
-                checked={selectedOption === "Option 2"}
+                value="Salon asked to cancel"
+                checked={selectedOption === "Salon asked to cancel"}
                 onChange={handleRadioChange}
               />
               Salon asked to cancel
@@ -65,8 +94,8 @@ const CancelAppointment = () => {
               <input
                 type="radio"
                 name="radioOption"
-                value="Option 3"
-                checked={selectedOption === "Option 3"}
+                value="Timing is not suitable"
+                checked={selectedOption === "Timing is not suitable"}
                 onChange={handleRadioChange}
               />
               Timing is not suitable
@@ -76,8 +105,8 @@ const CancelAppointment = () => {
               <input
                 type="radio"
                 name="radioOption"
-                value="Option 4"
-                checked={selectedOption === "Option 4"}
+                value="Others"
+                checked={selectedOption === "Others"}
                 onChange={handleRadioChange}
               />
               Others
@@ -93,7 +122,10 @@ const CancelAppointment = () => {
         </div>
       </div>
       <div className={styles.bottomSection}>
-        <PrimaryButton children={"Cancel Appointment"} />
+        <PrimaryButton
+          onClick={handleAppointmentCancel}
+          children={"Cancel Appointment"}
+        />
         <p>
           Free cancellation till 4 hours before the start time, post that
           additional charge(s) applicable. <a href="#">Cancellation Policy.</a>

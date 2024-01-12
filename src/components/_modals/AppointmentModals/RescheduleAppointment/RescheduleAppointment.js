@@ -6,6 +6,14 @@ import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
 import Slider from "react-slick";
 import "./Carousal.css";
 import FormDateComponent from "./FormDateComponent";
+import { toast } from "react-toastify";
+import {
+  rescheduleAppointment,
+  useTimeSlots,
+  useUpcomingApponments,
+} from "../../../../services/Appointments";
+import { useDispatch } from "react-redux";
+import { closeModal } from "../../../../redux/slices/modal";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
 
@@ -24,17 +32,7 @@ function SamplePrevArrow(props) {
     </div>
   );
 }
-const RescheduleAppointment = () => {
-  const [slidesToShow, setSlidesToShow] = useState(4); // Default value for mobile
-  let [actveCard, updateActiveCard] = useState(0);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [showMonth, setShowMonth] = useState(new Date().getMonth());
-  const [showYear, setShowYear] = useState(new Date().getFullYear());
-  let [allCalendar, setallCalendar] = useState(null);
-  const [showPrevButton, setShowPrevButton] = useState(false);
-  const [showNextButton, setShowNextButton] = useState(true);
-  const containerRef = React.createRef();
-  
+const RescheduleAppointment = ({ data }) => {
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
     "January",
@@ -50,19 +48,62 @@ const RescheduleAppointment = () => {
     "November",
     "December",
   ];
-  const timeSlots = ["10:30 AM", "01:30 PM", "03:30 PM", "06:30 PM", "08:30 PM"];
+
+  const [slidesToShow, setSlidesToShow] = useState(4); // Default value for mobile
+  let [actveCard, updateActiveCard] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [showMonth, setShowMonth] = useState(new Date().getMonth());
+  const [showYear, setShowYear] = useState(new Date().getFullYear());
+  let [allCalendar, setallCalendar] = useState(null);
+  const [showPrevButton, setShowPrevButton] = useState(false);
+  const [showNextButton, setShowNextButton] = useState(true);
   const [selectedDate, setSelectedDate] = useState({
     date: new Date().getDate(),
     day: days[new Date().getDay()],
   });
-  const [selectedMonthYear, setSelectedMonthYear] = useState(`${months[new Date().getMonth()]} ${new Date().getFullYear()}`);
+  const [selectedMonthYear, setSelectedMonthYear] = useState(
+    `${months[new Date().getMonth()]} ${new Date().getFullYear()}`
+  );
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [allowMonths, setallowMonths] = useState([]);
+  const containerRef = React.createRef();
+  const dispatch = useDispatch();
+  const { refetch } = useUpcomingApponments();
+  const [subcategoriesIds, setSubcategoriesIds] = useState([]);
 
+  useEffect(() => {
+    const fetchData = () => {
+      const ids = data?.serviceData?.flatMap((serviceList) =>
+        serviceList.flatMap((service) =>
+          service.subCategories?.map((subcategory) => subcategory._id)
+        )
+      );
+      setSubcategoriesIds(ids);
+    };
+
+    fetchData();
+  }, []);
+  // console.log(data);
+  const genarateSlotsData = {
+    salons_id: data.salonData[0]?._id,
+    service_id: subcategoriesIds,
+    noPreference: true,
+    dateforService: "2023-07-23",
+  };
+
+  const { data: slots } = useTimeSlots(genarateSlotsData);
+
+  // const timeSlots = [
+  //   "10:30 AM",
+  //   "01:30 PM",
+  //   "03:30 PM",
+  //   "06:30 PM",
+  //   "08:30 PM",
+  // ];
+  // console.log(slots);
   const handleTimeSlotClick = (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
   };
-
 
   const generateAllowedMonths = () => {
     const currentMonth = new Date().getMonth();
@@ -89,7 +130,7 @@ const RescheduleAppointment = () => {
     if (allowedMonths.includes(nextMonthString)) {
       setShowMonth(nextMonth);
       setShowYear(nextYear);
-      setSelectedMonthYear(nextMonthString)
+      setSelectedMonthYear(nextMonthString);
     }
   };
 
@@ -104,15 +145,35 @@ const RescheduleAppointment = () => {
     if (allowedMonths.includes(prevMonthString)) {
       setShowMonth(prevMonth);
       setShowYear(prevYear);
-      setSelectedMonthYear(prevMonthString)
+      setSelectedMonthYear(prevMonthString);
     }
   };
 
-  const handleRescheduleAppointment = () => {
+  const handleRescheduleAppointment = async () => {
     // You can now access the selectedDate, selectedTime, and selectedTimeSlot
-    console.log("Selected Date:", selectedDate);
-    console.log("Selected Time:", selectedMonthYear);
-    console.log("Selected Time Slot:", selectedTimeSlot);
+    // console.log("Selected Date:", selectedDate);
+    // console.log("Selected Time:", selectedMonthYear);
+    // console.log("Selected Time Slot:", selectedTimeSlot);
+    if (!selectedDate || !selectedMonthYear || !selectedTimeSlot) {
+      return toast.error("please select your Time slot", { toastId: 1 });
+    }
+    const reschedule = {
+      date: (selectedDate.day =
+        " " + selectedDate.date + " " + selectedMonthYear),
+
+      time: selectedTimeSlot,
+    };
+
+    const res = await rescheduleAppointment(data?._id, reschedule);
+
+    if (res.res) {
+      dispatch(closeModal());
+      refetch();
+      return toast.success("The appointments Reschedule confirmd");
+    }
+    if (res.err) {
+      return toast.error("Not confirm please try again");
+    }
   };
 
   useEffect(() => {
@@ -227,13 +288,19 @@ const RescheduleAppointment = () => {
     <div className={styles.RescheduleModal}>
       <h1 className={styles.modalTitle}>Reschedule Appointment</h1>
       <div className={styles.modalContent}>
-        <div className={styles.salonInfo}>
-          <img src={frame1} alt="frame1" className={styles.salonProfileImg} />
-          <div className={styles.details}>
-            <h4 className={styles.salonName}>She Hair & Beauty</h4>
-            <p className={styles.salonLocation}>Ejipura, Bengaluru</p>
+        {data?.salonData.map((x, i) => (
+          <div key={i} className={styles.salonInfo}>
+            <img
+              src={x.salon_Img?.public_url}
+              alt="frame1"
+              className={styles.salonProfileImg}
+            />
+            <div className={styles.details}>
+              <h4 className={styles.salonName}>{x.salon_name}</h4>
+              <p className={styles.salonLocation}>{x.locationText}</p>
+            </div>
           </div>
-        </div>
+        ))}
         <hr className={styles.line} />
         <div className={styles.slotInfoWrapper}>
           <div className={styles.dateContainer}>
@@ -287,20 +354,25 @@ const RescheduleAppointment = () => {
           <div className={styles.startTime}>
             <h4>Start time</h4>
             <div className={styles.timeSlotsWrapper}>
-            {timeSlots.map((timeSlot, index) => (
-            <button
-              key={index}
-              className={styles.timeSlot}
-              onClick={() => handleTimeSlotClick(timeSlot)}
-            >
-              {timeSlot}
-            </button>
-          ))}
+              {slots?.res?.data?.map((timeSlot, index) => (
+                <button
+                  key={index}
+                  className={`${styles.timeSlot} ${
+                    selectedTimeSlot === timeSlot ? styles.selected : ""
+                  }`}
+                  onClick={() => handleTimeSlotClick(timeSlot)}
+                >
+                  {timeSlot}
+                </button>
+              ))}
             </div>
           </div>
         </div>
       </div>
-      <PrimaryButton children={"Reschedule Appointment"} onClick={handleRescheduleAppointment} />
+      <PrimaryButton
+        children={"Reschedule Appointment"}
+        onClick={handleRescheduleAppointment}
+      />
     </div>
   );
 };

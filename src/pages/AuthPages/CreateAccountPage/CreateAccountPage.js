@@ -22,9 +22,7 @@ import {
 } from "../../../redux/slices/user";
 import { LoginSocialFacebook } from "reactjs-social-login";
 import { useGoogleLogin } from "@react-oauth/google";
-import {
-  getCountryCallingCode,
-} from "react-phone-number-input/input";
+import { getCountryCallingCode } from "react-phone-number-input/input";
 import en from "react-phone-number-input/locale/en";
 import CountrySelect from "../../../components/Countrycode/CountrySelect";
 import { handleInputChange } from "../../../utils/utils";
@@ -83,7 +81,7 @@ const CreateAccountPage = () => {
       first_name: firstName,
       last_name: lastName,
       email,
-      phone: phone.length?`+${getCountryCallingCode(country)}${phone}`:"",
+      phone: phone.length ? `+${getCountryCallingCode(country)}${phone}` : "",
       password,
       role: userChoice?.role?.role,
       type: "register",
@@ -176,7 +174,7 @@ const CreateAccountPage = () => {
                 name="firstName"
                 placeholder="First name"
                 value={firstName}
-                onChange={(e) => handleInputChange(e,setFirstName)}
+                onChange={(e) => handleInputChange(e, setFirstName)}
                 pattern="[A-Za-z]*"
               />
               {formErrors.firstName && (
@@ -191,7 +189,7 @@ const CreateAccountPage = () => {
                 name="lastName"
                 placeholder="Last name"
                 value={lastName}
-                onChange={(e) => handleInputChange(e,setLastName)}
+                onChange={(e) => handleInputChange(e, setLastName)}
                 pattern="[A-Za-z]*"
               />
               {formErrors.lastName && (
@@ -215,22 +213,30 @@ const CreateAccountPage = () => {
           </div>
           <div className={`${styles.inputGroup}`}>
             <label htmlFor="phone">Phone</label>
-            <div className={`${styles.phoneNumberInput} ${styles.phoneInputWrapper}  ${phone.length?styles.bglightGray:""}`}>
+            <div
+              className={`${styles.phoneNumberInput} ${
+                styles.phoneInputWrapper
+              }  ${phone.length ? styles.bglightGray : ""}`}
+            >
               <CountrySelect
                 labels={en}
                 value={country}
                 onChange={setCountry}
                 phone={phone}
               />
-              <div className={`${styles.divider} ${phone.length?styles.bglightGray:""}`}></div>
+              <div
+                className={`${styles.divider} ${
+                  phone.length ? styles.bglightGray : ""
+                }`}
+              ></div>
               <input
                 value={phone}
-                type="text" 
-                inputMode="numeric" 
-                pattern="[0-9]*" 
-                maxLength={10} 
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                maxLength={10}
                 onChange={(e) => {
-                  const sanitizedValue = e.target.value.replace(/\D/g, ""); 
+                  const sanitizedValue = e.target.value.replace(/\D/g, "");
                   setPhone(sanitizedValue);
                 }}
                 placeholder="Enter your phone number"

@@ -1,7 +1,6 @@
-.cardWrapper{
+.cardWrapper {
   border-radius: 4px;
   border: 1px solid var(--Card-Stroke);
-
 }
 .salonCard {
   display: flex;
@@ -10,27 +9,27 @@
   padding: 1.5rem 1.188rem;
   box-sizing: border-box;
 }
-.shareOTPWrapper{
+.shareOTPWrapper {
   background-color: var(--primary-color);
   color: var(--White);
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 24px;
- font-weight: 400px;
- font-style: 16px;
- font-family: "Lato", sans-serif; 
+  font-weight: 400px;
+  font-style: 16px;
+  font-family: "Lato", sans-serif;
   padding: 0.625rem 1.5rem;
 }
-.shareOTPWrapper h3{
-font-family: "Poppins";
-font-size: 28px;
-font-weight: 600;
+.shareOTPWrapper h3 {
+  font-family: "Poppins";
+  font-size: 28px;
+  font-weight: 600;
 }
-.shareOTPWrapper p{
-font-family: "Lato";
-font-size: var(--font-medium);
-font-weight: 400;
+.shareOTPWrapper p {
+  font-family: "Lato";
+  font-size: var(--font-medium);
+  font-weight: 400;
 }
 .salonInfo {
   display: flex;
@@ -105,15 +104,16 @@ font-weight: 400;
   color: var(--primary-color);
 }
 
-.writeReview,.writeReview_mobo{
-font-family: "Poppins";
-font-size: var(--font-medium);
-font-weight: 600;
-text-decoration-line: underline;
-cursor:pointer;
+.writeReview,
+.writeReview_mobo {
+  font-family: "Poppins";
+  font-size: var(--font-medium);
+  font-weight: 600;
+  text-decoration-line: underline;
+  cursor: pointer;
 }
 
-.writeReview_mobo{
+.writeReview_mobo {
   display: none;
 }
 
@@ -121,43 +121,42 @@ cursor:pointer;
   display: flex;
 }
 .serviceDetails {
-    min-width: 50%;
-  }
-  .serviceDetails .title{
-  
-    font-weight: 600px;
-    font-size: 16px;
-    font-style: normal;
-  }
-  .serviceDetails .sDetail {
-    display: flex;
-    gap: 8px;
-    font-size: var(--font-medium);
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
-    flex-wrap:wrap;
+  min-width: 50%;
 }
-.flexRow{
-    flex-direction: row;
+.serviceDetails .title {
+  font-weight: 600px;
+  font-size: 16px;
+  font-style: normal;
 }
-.flexCol{
-    flex-direction: column;
+.serviceDetails .sDetail {
+  display: flex;
+  gap: 8px;
+  font-size: var(--font-medium);
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  flex-wrap: wrap;
 }
-.d_none{
-    display: none;
+.flexRow {
+  flex-direction: row;
 }
-.qty_Name,.time_Amount{
-    display: flex;
-    align-items: center;
-    gap: 4px;
+.flexCol {
+  flex-direction: column;
 }
-.ellipse{
-    height: 4px;
-    width: 4px;
+.d_none {
+  display: none;
 }
-.proName{
-    display: flex;
-    
+.qty_Name,
+.time_Amount {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.ellipse {
+  height: 4px;
+  width: 4px;
+}
+.proName {
+  display: flex;
 }
 .servicePeriod,
 .servicePrice,
@@ -178,12 +177,17 @@ cursor:pointer;
   font-weight: 600px;
 }
 .status,
-.buttons,
 .paymentStatus h4 {
   gap: 16px;
   align-items: center;
   display: flex;
   justify-content: space-between;
+}
+.buttons {
+  max-width: 300px;
+  width: 100%;
+  display: flex;
+  gap: 16px;
 }
 .paymentStatus h4 {
   font-family: "Lato", sans-serif;
@@ -204,8 +208,10 @@ cursor:pointer;
 }
 .pro_Avatar {
   border-radius: 50%;
+  width: 23px;
+  height: 23px;
 }
-.timing_mobo{
+.timing_mobo {
   align-items: center;
   font-size: var(--font-medium);
   gap: 8px;
@@ -215,66 +221,68 @@ cursor:pointer;
 }
 
 @media only screen and (max-width: 768px) {
-.status{
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-.salon{
-  gap:0px;
-}
-.timing{
-  display: none;
-}
-.timing_mobo{
-display: flex;
-}
-.salonCard{
-  padding: 0;
-  border: none;
-}
-.infos >img{
-  height: 48px;
-  width: 48px;
-}
-.line{
-  margin: 1rem 0;
-}
-.detailSection,.others{
-  flex-direction: column;
-  gap: 16px;
-}
-.buttons{
-  flex-direction: row-reverse;
-}
-.salon,
-.buttons,.buttons button{
-  width: 100%;
-} 
-.writeReview{
-  display: none;
-}
-.writeReview_mobo{
-  display: block;
-  padding: 1rem 0;
-  border-top: 1px solid var(--Grey-40);
-  border-bottom: 1px solid var(--Grey-40);
-}
-.cardWrapper{
-  border: none;
-}
-.shareOTPWrapper{
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-  padding: 0.625rem 1rem;
-  gap: 0px;
-  margin-bottom: 1rem;
-}
-.shareOTPWrapper h3{
-  font-size: 24px;
-}
-.shareOTPWrapper p{
-  font-size: var(--font-small);
-}
+  .status {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .salon {
+    gap: 0px;
+  }
+  .timing {
+    display: none;
+  }
+  .timing_mobo {
+    display: flex;
+  }
+  .salonCard {
+    padding: 0;
+    border: none;
+  }
+  .infos > img {
+    height: 48px;
+    width: 48px;
+  }
+  .line {
+    margin: 1rem 0;
+  }
+  .detailSection,
+  .others {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .buttons {
+    flex-direction: row-reverse;
+  }
+  .salon,
+  .buttons,
+  .buttons button {
+    width: 100%;
+  }
+  .writeReview {
+    display: none;
+  }
+  .writeReview_mobo {
+    display: block;
+    padding: 1rem 0;
+    border-top: 1px solid var(--Grey-40);
+    border-bottom: 1px solid var(--Grey-40);
+  }
+  .cardWrapper {
+    border: none;
+  }
+  .shareOTPWrapper {
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0.625rem 1rem;
+    gap: 0px;
+    margin-bottom: 1rem;
+  }
+  .shareOTPWrapper h3 {
+    font-size: 24px;
+  }
+  .shareOTPWrapper p {
+    font-size: var(--font-small);
+  }
 }
