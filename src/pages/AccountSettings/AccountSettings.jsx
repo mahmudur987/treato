@@ -26,6 +26,7 @@ import { updateUserDetails } from "../../redux/slices/user";
 import FindLocationModal from "../../components/_modals/FindLocationModal/FindLocationModal";
 import SetPassword from "../../components/AccountSettings/PasswordChange/SetPassword";
 import PasswordActive from "../../components/_modals/PasswordActive/Passwordactive";
+import { user } from "../../assets/images/icons";
 
 export default function AccountSettings() {
   let data = useSelector((state) => state.user);
@@ -151,7 +152,7 @@ export default function AccountSettings() {
     updateInputVal(data);
     updateGender(userData.gender ? userData.gender : "");
   }, [userData]);
-  console.log(passActiveModal);
+  console.log(data);
   return (
     <>
       {userData ? (
@@ -191,8 +192,12 @@ export default function AccountSettings() {
                     inputVal={inputVal}
                   />
                   <SocialSettings user={data} />
-                  <PasswordChange setPassModal={setPassModal} />
-                  <SetPassword setPassActiveModal={setPassActiveModal} />
+
+                  {data?.user.isPass ? (
+                    <PasswordChange setPassModal={setPassModal} />
+                  ) : (
+                    <SetPassword setPassActiveModal={setPassActiveModal} />
+                  )}
                 </form>
                 <div className={showSave ? styles.acc_settingA : styles.d_none}>
                   <SecondaryButton children={"Cancel"} onClick={setDefault} />

@@ -26,6 +26,8 @@ import { getUserProfile } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 import PrivateFormRoutes from "./layouts/PrivateRoutes";
 import LocationAutocomplete from "./components/locations/LocationAutocomplete";
+import PartnerPage from "./layouts/PartnerPageLayout/PartnerPage";
+import PartnerHome from "./pages/partner/PartnerHome/PartnerHome";
 
 function App() {
   // Use the location hook to track route changes
@@ -133,48 +135,54 @@ function App() {
   }, []);
 
   return (
-    <PageLayout>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/account-settings" element={<AccountSettings />} />
-        <Route path="/salons" element={<Salons />} />
-        <Route path="/salons/:id" element={<SalonDetail />} />
-        <Route path="/salons/:id/book" element={<BookFlow />} />
-        <Route path="/lookbook" element={<Lookbook />} />
-        <Route path="/lookbook-details/:id" element={<LookbookDetails />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/blogs/:id" element={<BlogDetail />} />
-        <Route path="/my-appointments/*" element={<MyAppointments />} />
-        <Route
-          path="/LocationAutocomplete"
-          element={<LocationAutocomplete />}
+    <>
+      <PageLayout>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
         />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/account-settings" element={<AccountSettings />} />
+          <Route path="/salons" element={<Salons />} />
+          <Route path="/salons/:id" element={<SalonDetail />} />
+          <Route path="/salons/:id/book" element={<BookFlow />} />
+          <Route path="/lookbook" element={<Lookbook />} />
+          <Route path="/lookbook-details/:id" element={<LookbookDetails />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:id" element={<BlogDetail />} />
+          <Route path="/my-appointments/*" element={<MyAppointments />} />
+          <Route
+            path="/LocationAutocomplete"
+            element={<LocationAutocomplete />}
+          />
 
-        {/* Auth routes */}
-        <Route element={<PrivateFormRoutes />}>
-          <Route path="/auth-choice" exact element={<AuthChoicePage />} />
-          <Route path="/create-account" element={<CreateAccountPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/verify-otp" element={<VerifyOTP />} />
-          <Route path="/reset-password/*" element={<ResetPassword />} />
-        </Route>
-        {/* Redirect to home for any wrong routes */}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </PageLayout>
+          {/* Auth routes */}
+          <Route element={<PrivateFormRoutes />}>
+            <Route path="/auth-choice" exact element={<AuthChoicePage />} />
+            <Route path="/create-account" element={<CreateAccountPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/verify-otp" element={<VerifyOTP />} />
+            <Route path="/reset-password/*" element={<ResetPassword />} />
+          </Route>
+          {/* Redirect to home for any wrong routes */}
+          <Route path="*" element={<Navigate to="/" />} />
+
+          <Route path="/partner" element={<PartnerPage />}>
+            <Route path="/partner" element={<PartnerHome />} />
+          </Route>
+        </Routes>
+      </PageLayout>
+    </>
   );
 }
 

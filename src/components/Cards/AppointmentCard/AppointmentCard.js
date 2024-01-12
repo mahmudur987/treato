@@ -24,23 +24,13 @@ const AppointmentCard = ({ salon, cardType }) => {
     console.log(buttonType);
     dispatch(openModal({ type: `${buttonType}`, closable: true, data: salon }));
   };
-  let serveceIds = [];
-
-  const ids = () => {
-    return salon?.serviceData?.map((x) => {
-      return x.map((y) => {
-        return y.subCategories.map((item) => {
-          return serveceIds.pop(item._id);
-        });
-      });
-    });
-  };
+  // console.log(salon);
 
   return (
     <div className={styles.cardWrapper}>
       {salon.payment_mode === "on-site" && (
         <div className={styles.shareOTPWrapper}>
-          <h3>6078</h3>
+          <h3>{salon?.otp}</h3>
           <p>
             is the 4-digit OTP for this booking. Please share the OTP at the
             salon to start the service.
@@ -53,7 +43,7 @@ const AppointmentCard = ({ salon, cardType }) => {
           <div key={i} className={styles.salonInfo}>
             <div className={styles.infos}>
               <img
-                src={x.salon_Img.public_url}
+                src={x.salon_Img?.public_url ?? x.salon_Img[0].public_url}
                 className={styles.frame1}
                 alt="frame1"
               />
@@ -290,7 +280,7 @@ const AppointmentCard = ({ salon, cardType }) => {
               onClick={
                 cardType == "Upcoming"
                   ? () => handleModal("RescheduleAppointment")
-                  : () => handleModal("BookAgainModal")
+                  : () => console.log("booking again modal")
               }
             />
           </div>
