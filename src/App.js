@@ -133,8 +133,6 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
           <Route path="/my-appointments/*" element={<MyAppointments />} />
-          <Route path="/LocationAutocomplete" element={<LocationAutocomplete />} />
-
            
         {/* Auth routes */}
         <Route element={<PrivateFormRoutes />}>
