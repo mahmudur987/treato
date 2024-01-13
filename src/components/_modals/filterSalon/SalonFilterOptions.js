@@ -29,11 +29,11 @@ const SalonFilterOptions = ({
         <div className={styles.sortBy}>
           {isMobile ? (
             <div className={styles.header}>
-              <h4>Sort By</h4>
+              <h4>Sort by</h4>
               <img src={Close} alt="close" onClick={handleCloseModal} />
             </div>
           ) : (
-            <h4>Sort By</h4>
+            <h4>Sort by</h4>
           )}
 
           <label>

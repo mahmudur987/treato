@@ -10,10 +10,11 @@ import {
   mapPin,
   mapPinBlue,
   search,
+  arrowleft
 } from "../../../assets/images/icons";
 import { getAllServices } from "../../../services/Services";
 import { salon } from "../../../services/salon";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import usePlacesAutocomplete, {
@@ -41,6 +42,7 @@ const MainSearchBar = ({ place }) => {
   const [filteredSalonData, setFilteredSalonData] = useState([]);
   const [locationLat, setlocationLat] = useState("");
   const [locationLng, setlocationLng] = useState("");
+  const [datanav, setDataNav] = useState()
 
   const userDetails = useSelector((state) => state?.user?.user);
   const navigate = useNavigate();
@@ -105,7 +107,6 @@ const MainSearchBar = ({ place }) => {
     // the searched suggestions by calling this method
     clearSuggestions();
   });
-
   const handleInput = (e) => {
     console.log(e.target.value);
     if (e.target.value === "") {
@@ -231,6 +232,7 @@ const MainSearchBar = ({ place }) => {
 
     // Create a Set to store unique locationText values
     const uniqueLocations = new Set();
+    
 
     // Filter the data and add unique locationText values to the Set
     const filtered = allSalonList.filter((item) => {
@@ -247,7 +249,6 @@ const MainSearchBar = ({ place }) => {
 
     setFilteredSalonData(filtered);
   };
-
   const handleSearch = () => {
     if (locationInputValue === "" && treatmentInputValue === "") {
       // Navigate to /salons with services and location as query parameters
@@ -260,6 +261,7 @@ const MainSearchBar = ({ place }) => {
           const { lat, lng } = getLatLng(results[0]);
           setlocationLat(lat);
           setlocationLng(lng);
+         
           navigate(
             `/salons?service=${treatmentInputValue}&lat=${lat ? lat : ""}&lng=${
               lng ? lng : ""
@@ -285,7 +287,14 @@ const MainSearchBar = ({ place }) => {
         {/* search Treatments */}
         <div className={styles["searchTreatment"]}>
           <div className={styles["inputIcon"]}>
-            <img src={search} alt="search" />
+          {/* { navigate(
+            `/salons?service=${treatmentInputValue}&lat=${lat ? lat : ""}&lng=${
+              lng ? lng : ""
+            }&location=${locationInputValue}`
+          )?<Link to="/"><img src={arrowleft}  alt="arrowleft" /></Link>: <img src={search} alt="search" />} */}
+            {location.pathname === "/salons"?<Link to="/"><img src={arrowleft}  alt="arrowleft" /></Link>: <img src={search} alt="search" />}
+            {/* {locationLng&&locationLat ?<img src={arrowleft}  alt="arrowleft" />: <img src={search} alt="search" />} */}
+            {/* <img src={arrowleft} alt="arrowleft" /> */}
           </div>
           <input
             className={styles["treatmentInput"]}

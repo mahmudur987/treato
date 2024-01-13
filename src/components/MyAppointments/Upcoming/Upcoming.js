@@ -12,13 +12,13 @@ const Upcoming = () => {
     const fetchData = async () => {
       const res = await getUpcomingAppointments();
       if (res) {
-        const upcomingDatas = res.res.data.data;
+        const upcomingDatas = res?.res?.data?.data;
         const uniqueObjects = new Set();
 
         for (const upcoming_res of upcomingDatas) {
           const e = await getSingleServices(upcoming_res.service_id);
-          if (e && e.res.data.data) {
-            const serviceResponse = e.res.data.data;
+          if (e && e.res?.data?.data) {
+            const serviceResponse = e.res?.data?.data;
             const obj = { ...upcoming_res,allServices:serviceResponse };
             uniqueObjects.add(JSON.stringify(obj));
           }

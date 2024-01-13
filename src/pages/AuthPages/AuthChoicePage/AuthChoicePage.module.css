@@ -55,6 +55,7 @@
 .arrowright1 {
   height: 24px;
   width: 24px;
+  flex-shrink: 0;
 }
 .signLink {
   font-size: var(--font-medium);

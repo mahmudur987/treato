@@ -14,9 +14,6 @@ export default function UserAddress({ setAddressModal, setuserAddressText, updat
         const userJWt = localStorage.getItem("jwtToken");
 
         updateInputVal({ ...inputVal, landmark: "", house: "", house_type: "", place: "" });
-        // setUpdateSave(true)
-        // setShowSave(true)
-
         updateEditStatus(-1)
         updateUser(userJWt, { ...inputVal, landmark: "", house: "", address_type: "", place: "" }).then((res) => {
             console.log(res, 'userAddress');

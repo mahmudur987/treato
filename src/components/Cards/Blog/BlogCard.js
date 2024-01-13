@@ -8,6 +8,7 @@ import ShareBlog from "../../_modals/ShareBlog/ShareBlog";
 
 const BlogCard = ({ blog, blogDetail, blogPage,shareBlog,setShareBlog,setActiveShare,setShareModal,activeShare,setBlogUrl}) => {
   const location = window.location.href;
+  
   if(setShareBlog){
     window.onclick = (e)=>{
       if(shareBlog!==null&&e.target.classList[0]!=='moreImg'){
@@ -29,12 +30,15 @@ const BlogCard = ({ blog, blogDetail, blogPage,shareBlog,setShareBlog,setActiveS
           </div>
           <div className={styles["more"]} onClick={()=>{
             setShareBlog(blog._id) 
-            setBlogUrl(`${location}blogs/${blog._id}`)}}>
+            setBlogUrl(`${location}blogs/${blog._id}`)
+          }}
+            >
             <img src={moreHorizontal} alt="more" className="moreImg"/>
             <div className={shareBlog===blog._id?styles["shareMain"]:styles["d_none"]} onMouseOver={()=>setActiveShare(true)} onMouseOut={()=>setActiveShare(false)} onClick={()=>{setShareModal(true); setShareBlog(null)}} >
               <img src={activeShare?share_forward_white:share_forward} alt="share" />
               <div>Share blog</div>
             </div>
+            <></>
           </div>
         </div>
 

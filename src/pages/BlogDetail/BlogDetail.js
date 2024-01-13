@@ -145,6 +145,7 @@ export default function BlogDetail(props) {
             <div className={styles["header-right"]}>
               <p>Share:</p>
               <div className={styles["social-icons"]}>
+              {/* <div className={styles.allborder}> */}
               <button onClick={shareOnFacebook}>
                 <img src={Facebook} alt="Facebook" />
                 </button>
@@ -160,6 +161,7 @@ export default function BlogDetail(props) {
                 <button onClick={copyLinkToClipboard}>
                 <img src={CopyLink} alt="CopyLink" />
                 </button>
+                {/* </div> */}
               </div>
             </div>
           </header>
@@ -265,7 +267,7 @@ export default function BlogDetail(props) {
               >
                 {blogData.map((blog, i) => {
                   return (
-                    <BlogCard blog={blog} key={i} blogDetail={true}/>
+                    <BlogCard blog={blog} key={i} blogDetail={true} />
                   )
                 })
                 }
