@@ -48,6 +48,8 @@ export { default as supportIcon } from "./supportIcon.svg";
 export { default as expandMoboImage } from "./expandMoboImage.svg";
 export { default as LoadSpinnerIcon } from "./LoadSpinner.svg";
 export { default as accountSetting } from "./accountSetting.svg";
+export { default as offerIcon } from "./offerIcon.svg";
+export { default as deleteOfferIcon } from "./deleteOfferIcon.svg";
 
 
 

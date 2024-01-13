@@ -7,6 +7,8 @@ import authChoice from "./slices/authChoice";
 import modalReducer from "./slices/modal";
 import salonServicesReducer from "./slices/salonServices";
 import lookbook from "./slices/lookbook";
+import VisitorDetails from "./slices/VisitorDetails";
+
 export const store = configureStore({
    reducer: {
       user: userReducer,
@@ -15,7 +17,8 @@ export const store = configureStore({
       authChoice:authChoice,
       modal: modalReducer,
       salonServices: salonServicesReducer,
-      lookbook:lookbook
+      lookbook:lookbook,
+      VisitorDetails:VisitorDetails
    },
    middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(),

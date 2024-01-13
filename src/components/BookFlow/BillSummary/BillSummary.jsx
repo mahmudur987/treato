@@ -1,104 +1,332 @@
-import styles from '../../../pages/BookFlow/BookFlow.module.css'
-import slide1 from "../../../assets/images/SalonDetail/slide1.png"
-import discountIco from "../../../assets/images/SalonDetail/discountIco.svg"
-import rightBlue from "../../../assets/images/SalonDetail/rightBlue.svg"
-import calendar_cancel from "../../../assets/images/SalonDetail/calendar-cancel.svg"
-import cancelIco from "../../../assets/images/icons/cancelIco.svg"
-import taxIco from "../../../assets/images/icons/taxIco.svg"
-import { useNavigate } from 'react-router-dom'
-import BookNow from '../../SalonDetail/BookNow/BookNow'
-import PoliciesModal from '../../_modals/PoliciesModal/PoliciesModal'
-import { useState } from 'react'
+import styles from "../../../pages/BookFlow/BookFlow.module.css";
+import slide1 from "../../../assets/images/SalonDetail/slide1.png";
+import discountIco from "../../../assets/images/SalonDetail/discountIco.svg";
+import rightBlue from "../../../assets/images/SalonDetail/rightBlue.svg";
+import calendar_cancel from "../../../assets/images/SalonDetail/calendar-cancel.svg";
+import cancelIco from "../../../assets/images/icons/cancelIco.svg";
+import taxIco from "../../../assets/images/icons/taxIco.svg";
+import { useFormAction, useNavigate, useParams } from "react-router-dom";
+import BookNow from "../../SalonDetail/BookNow/BookNow";
+import PoliciesModal from "../../_modals/PoliciesModal/PoliciesModal";
+import { useEffect, useState } from "react";
+import { TreatoLogo, deleteOfferIcon, offerIcon } from "../../../assets/images/icons";
+import { getSingleSalonData } from "../../../services/salon";
+import { useDispatch, useSelector } from "react-redux";
+import salonServices, { updateAmount, updateAppliedOffer, updateServiceTaxPrice } from "../../../redux/slices/salonServices";
+import { AppointmentVerify, bookSalonAppointment } from "../../../services/Appointments";
+import { toast } from "react-toastify";
 
-export default function BillSummary({ setShowModal, updateActiveBookFlowBA, activeBookFlowBA, showPay, paySelected,setCompletedPay }) {
-    const navigate = useNavigate();
-    let [openModal,setOpenModal] = useState(
-        {
-            taxModal:false,
-            cancelModal:false
-        }
-    )
-    return (
-        <>
-            <div className={styles.service_cardMain}>
-                <div className={styles.bill_sumA}>Bill Summary</div>
-                <div className={styles.bill_sumI}>
-                    <div className={styles.bill_sumB}>
-                        <img src={slide1} alt="" />
-                        <div>She Hair & Beauty</div>
-                    </div>
-                    <div className={styles.bill_sumC}>
-                        <div className={styles.bill_sumCA}>
-                            <div>1</div>
-                            <div>x</div>
-                            <div>Hair cut girls</div>
-                        </div>
-                        <div>₹399</div>
-                    </div>
-                    <div className={styles.bill_sumD}>
-                        <div className={styles.bill_sumDA}>
-                            <div>1</div>
-                            <div>x</div>
-                            <div>Blow drying ladies</div>
-                        </div>
-                        <div>₹599</div>
-                    </div>
-                    <div className={styles.bill_sumE}>
-                        <div>
-                            Item total
-                        </div>
-                        <div>₹998 </div>
-                    </div>
-                    <div className={styles.bill_sumE}>
-                        <div className={styles.bill_sumEA} onClick={()=>setOpenModal({taxModal:true,cancelModal:false})}>
-                            Taxes and fees
-                        </div>
-                        <div className={styles.bill_sumEB}>₹179</div>
-                    </div>
-                    <div className={styles.bill_sumF}>
-                        <div className={styles.bill_sumFA}>
-                            Amount to be paid
-                        </div>
-                        <div className={styles.bill_sumFB}>₹1,177</div>
-                    </div>
+export default function BillSummary({
+  setShowModal,
+  updateActiveBookFlowBA,
+  activeBookFlowBA,
+  showPay,
+  paySelected,
+  setCompletedPay,
+  stepTwoDetails,
+}) {
+const [orderResponse,setOrderResponse]=useState(null)
+  const [salon, setSalon] = useState(null);
+  const [serviceIDs, setserviceIDs] = useState(null)
+  const [totalServicesPrice, setTotalServicesPrice] = useState(0);
+  const [taxPrice, setTaxPrice] = useState(0);
+  const [amountToPay, setamountToPay] = useState(0);
+  const [selectedServiceSlot, setselectedServiceSlot] = useState(null)
+  const selectedServices = useSelector(
+    (state) => state?.salonServices?.salonContent
+  );
+  const selectedOffer = useSelector(
+    (state) => state?.salonServices?.appliedOffer
+  );
+  const TotalServiceAmount = useSelector(
+    (state) => state?.salonServices?.Amount
+  );
+  const userDetails = useSelector(
+    (state) => state?.user?.user
+  );
+  const serviceDetails = useSelector(
+    (state) =>state?.salonServices
+  );
+  const visitorDetails = useSelector(
+    (state) => state?.VisitorDetails
+  );
+
+  useEffect(() => {
+    let IDs=selectedServices?.map((e)=>{
+      return e?.service_id
+    })
+    setserviceIDs(IDs)
+  }, [selectedServices])
+  
+  useEffect(() => {
+    if(stepTwoDetails?.timeData){
+      setselectedServiceSlot(stepTwoDetails?.timeData.replace(/AM|am|PM|pm/g, "").trim())
+    }
+  }, [stepTwoDetails])
+
+
+
+const navigate = useNavigate();
+const dispatch=useDispatch();
+const { id } = useParams();
+let [openModal, setOpenModal] = useState({
+  taxModal: false,
+  cancelModal: false,
+});
+  useEffect(() => {
+    getSingleSalonData(id).then((res) => {
+      setSalon(res?.res?.data?.salon);
+    });
+  }, [id]);
+  useEffect(() => {
+    if (selectedServices?.length) {
+      let prices = selectedServices.map((v, i) => {
+        return v.service_price;
+      });
+      let totalPrice = prices.reduce((a, b) => a + b, 0);
+      // Calculate 18% of the total price
+      let taxAmount = (totalPrice * 18) / 100;
+      dispatch(updateServiceTaxPrice(taxAmount))
+      setTotalServicesPrice(totalPrice.toLocaleString());
+      setTaxPrice(taxAmount.toLocaleString());
+      if(selectedOffer?.amount_for_discount){
+      setamountToPay(((totalPrice + taxAmount)-selectedOffer?.amount_for_discount).toLocaleString());
+      }
+      else{
+        setamountToPay((totalPrice + taxAmount).toLocaleString());
+        dispatch(updateAmount(totalPrice + taxAmount ))
+      }
+    }
+  }, [selectedServices,selectedOffer]);
+
+
+const handleDeleteOffer=()=>{
+  dispatch(updateAppliedOffer(null))
+}
+
+
+// razorpay gateway
+
+const initPayment = (order) => {
+  const options = {
+    key: process.env.REACT_APP_Razorpay_Key,
+    amount: `${amountToPay}`,
+    currency: "INR",
+    name: "Treato",
+    description: "test ",
+    image: TreatoLogo,
+    order_id: order?.id,
+    handler: async (response) => {
+      try {
+        let verificationData={...response,order}
+        console.log(verificationData);
+        AppointmentVerify({...response,order}).then((res)=>{
+          if(res?.res?.data?.message==="Payment Verified and Order Created Successfully"){
+            setCompletedPay(true)
+          }
+          console.log(res);
+        })
+      } catch (error) {
+        console.log(error);
+        toast.error(`Payment failed`, {
+          duration: 6000,
+        });
+      }
+    },
+    theme: {
+      color: "#000000",
+    },
+  };
+  const rzp1 = new window.Razorpay(options);
+  rzp1.open();
+};
+
+const handlePayment = async () => {
+  try {
+    let billInfo = {
+      user_id:userDetails?._id,
+      salons_id:id,
+      service_id:serviceIDs,
+      final_amount:`${selectedOffer?.amount_for_discount?TotalServiceAmount-selectedOffer?.amount_for_discount:TotalServiceAmount}`,
+      time : "",
+      selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
+      dateforService:serviceDetails?.serviceDate,
+      seletedSlot : selectedServiceSlot,
+      userData : visitorDetails?.contact,
+      payment_mode:"online",
+      serviceDetails:selectedServices,
+    }
+    bookSalonAppointment(billInfo).then((res)=>{
+      let response=res?.res?.data
+      if(response?.success){
+        setOrderResponse(response?.order)
+          initPayment(response?.order);
+      }
+    })
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+// -------------------
+const handleOfflinePayment=()=>{
+  let billInfo = {
+    user_id:userDetails?._id,
+    salons_id:id,
+    service_id:serviceIDs,
+    final_amount:`${selectedOffer?.amount_for_discount?TotalServiceAmount-selectedOffer?.amount_for_discount:TotalServiceAmount}`,
+    time : "",
+    selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
+    dateforService:serviceDetails?.serviceDate,
+    seletedSlot : selectedServiceSlot,
+    userData : visitorDetails?.contact,
+    payment_mode:"offline",
+    serviceDetails:selectedServices,
+  }
+  bookSalonAppointment(billInfo).then((res)=>{
+    let response=res?.res?.data
+    if(response?.success){
+      setOrderResponse(response?.order)
+      setCompletedPay(true)
+    }
+  })
+}
+
+  return (
+    <>
+      <div className={styles.service_cardMain}>
+        <div className={styles.bill_sumA}>Bill Summary</div>
+        <div className={styles.bill_sumI}>
+          <div className={styles.bill_sumB}>
+            <img
+              src={salon?.salon_image ? salon?.salon_image?.public_url : slide1}
+              alt="salonImage"
+            />
+            <div>{salon?.salon_name}</div>
+          </div>
+          {selectedServices &&
+            selectedServices?.map((e) => (
+              <div className={styles.bill_sumC} key={e?.service_id}>
+                <div className={styles.bill_sumCA}>
+                  <div>{e?.service_count}</div>
+                  <div>x</div>
+                  <div>{e?.service_name}</div>
                 </div>
-                <div className={styles.bill_sumF}>
-                    <div className={styles.bill_sumFC}>
-                        <img src={discountIco} alt="" />
-                        <div>Offers & Benefits</div>
-                    </div>
-                    <div className={styles.bill_sumFD} onClick={() => setShowModal ? setShowModal(true) : ''}>
-                        <div>4 offers</div>
-                        <img src={rightBlue} alt="" />
-                    </div>
-                </div>
-                {
-                    !showPay || paySelected ?
-                        <BookNow innerText={'Pay ₹1,177'} setCompletedPay={setCompletedPay}/>
-                        :
-                        <div className={styles.bill_sumG}>
-                            <button>Pay ₹1,177</button>
-                        </div>
-                }
-                <div className={styles.service_cardBack} onClick={() => activeBookFlowBA === 1 ? navigate(-1) : activeBookFlowBA === 2 ? updateActiveBookFlowBA(activeBookFlowBA = 1) : activeBookFlowBA === 3 ? updateActiveBookFlowBA(activeBookFlowBA = 2) : updateActiveBookFlowBA(activeBookFlowBA = 3)}>
-                    Back to previous
-                </div>
+                <div>₹{e?.service_price}</div>
+              </div>
+            ))}
+          <div className={styles.bill_sumE}>
+            <div>Item total</div>
+            <div>₹{totalServicesPrice} </div>
+          </div>
+          <div className={styles.bill_sumE}>
+            <div
+              className={styles.bill_sumEA}
+              onClick={() =>
+                setOpenModal({ taxModal: true, cancelModal: false })
+              }
+            >
+              Taxes and fees
             </div>
-            <div className={styles.bill_sumH}>
-                <img src={calendar_cancel} alt="" />
-                <div className={styles.bill_sumHA}>
-                    Free cancellation & rescheduling till 4 hours before the start time, post that cancellation charge(s) apply. <span onClick={()=>setOpenModal({taxModal:false,cancelModal:true})}>Cancellation Policy.</span>
-                </div>
+            <div className={styles.bill_sumEB}>₹{taxPrice}</div>
+          </div>
+          <div className={styles.bill_sumF}>
+            <div className={styles.bill_sumFA}>Amount to be paid</div>
+            <div className={styles.bill_sumFB}>
+            {selectedOffer?.amount_for_discount && (
+              <h1 className={styles.discountAmount}>
+                ₹{TotalServiceAmount?.toLocaleString()}
+              </h1>
+            )}
+               ₹{amountToPay}
             </div>
-            {
-                openModal.taxModal?
-                <PoliciesModal setOpenModal={setOpenModal} mainIcon={taxIco} desc={"Taxes levied as per Govt. regulations, subject to change basis final service value. The fee goes towards training of partners and providing support & assistance during the service."} title={"Taxes and Fees"}/>
-                :
-                openModal.cancelModal?
-                <PoliciesModal setOpenModal={setOpenModal} mainIcon={cancelIco} desc={"Treato has a fair cancellation policy. Taxes levied as per Govt. regulations, subject to change basis final service value. The fee goes towards training of partners and providing support & assistance during the service."} title={"Cancellation Policy"}/>
-                :
-                null
-            }
-        </>
-    )
+          </div>
+        </div>
+        <div className={`${styles.bill_sumF} ${styles.applyOfferContainer}`}>
+{!selectedOffer ?   <div className={styles.applyOffer}>
+            <div className={`${styles.bill_sumFC}`}>
+              <img src={discountIco} alt="" />
+              <div>Offers & Benefits</div>
+            </div>
+            <div
+              className={styles.bill_sumFD}
+              onClick={() => (setShowModal ? setShowModal(true) : "")}
+            >
+              <div>4 offers</div>
+              <img src={rightBlue} alt="" />
+            </div>
+          </div>:
+
+          <div className={styles.appliedOffer}>
+            <div className={styles.offerDetails}>
+              <div className={styles.firstLine}>
+                <img src={offerIcon} alt="offerIcon" />
+                <span className={styles.offerName}>{selectedOffer?.title}</span>
+              </div>
+              <div className={styles.secondLine}>
+                ₹{selectedOffer?.amount_for_discount} savings on this order
+              </div>
+            </div>
+            <div className={styles.deleteOption} onClick={handleDeleteOffer}>
+              <img src={deleteOfferIcon} alt="deleteIcon" />
+            </div>
+          </div> }
+        </div>
+        {!showPay || paySelected ? (
+          <BookNow innerText={"Confirm Booking"} setCompletedPay={setCompletedPay} handleOfflinePayment={handleOfflinePayment} salonId={id}/>
+        ) : (
+          <div className={styles.bill_sumG}>
+            <button onClick={handlePayment}>Pay ₹{amountToPay}</button>
+          </div>
+        )}
+        <div
+          className={styles.service_cardBack}
+          onClick={() =>
+            activeBookFlowBA === 1
+              ? navigate(-1)
+              : activeBookFlowBA === 2
+              ? updateActiveBookFlowBA((activeBookFlowBA = 1))
+              : activeBookFlowBA === 3
+              ? updateActiveBookFlowBA((activeBookFlowBA = 2))
+              : updateActiveBookFlowBA((activeBookFlowBA = 3))
+          }
+        >
+          Back to previous
+        </div>
+      </div>
+      <div className={styles.bill_sumH}>
+        <img src={calendar_cancel} alt="" />
+        <div className={styles.bill_sumHA}>
+          Free cancellation & rescheduling till 4 hours before the start time,
+          post that cancellation charge(s) apply.{" "}
+          <span
+            onClick={() => setOpenModal({ taxModal: false, cancelModal: true })}
+          >
+            Cancellation Policy.
+          </span>
+        </div>
+      </div>
+      {openModal.taxModal ? (
+        <PoliciesModal
+          setOpenModal={setOpenModal}
+          mainIcon={taxIco}
+          desc={
+            "Taxes levied as per Govt. regulations, subject to change basis final service value. The fee goes towards training of partners and providing support & assistance during the service."
+          }
+          title={"Taxes and Fees"}
+        />
+      ) : openModal.cancelModal ? (
+        <PoliciesModal
+          setOpenModal={setOpenModal}
+          mainIcon={cancelIco}
+          desc={
+            "Treato has a fair cancellation policy. Taxes levied as per Govt. regulations, subject to change basis final service value. The fee goes towards training of partners and providing support & assistance during the service."
+          }
+          title={"Cancellation Policy"}
+        />
+      ) : null}
+    </>
+  );
 }
