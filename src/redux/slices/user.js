@@ -8,7 +8,7 @@ const initialState = {
     first_name: "",
     latitude: null,
     longitude: null,
-    isLocationAllow:false
+    isLocationAllow: false,
   },
   OTP: 0,
   tempLoginInfo: {},
@@ -21,8 +21,9 @@ const user = createSlice({
     updateIsLoggedIn: (state, { payload }) => {
       state.isLoggedIn = payload;
     },
-    updateUserDetails: (state, { payload }) => {     
-      state.user = { ...state.user, ...payload};
+    updateUserDetails: (state, { payload }) => {
+      state.user = { ...state.user, ...payload };
+      state.toggle = !state.toggle;
     },
    
     resetUserDetails: (state, { payload }) => {
@@ -38,7 +39,6 @@ const user = createSlice({
       state.tempLoginInfo = {};
     },
   },
-
 });
 
 export const {

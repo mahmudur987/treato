@@ -57,7 +57,7 @@ export const handleInputChange=(e, setFunction)=> {
 
 const R = 6371; // Radius of the Earth in kilometers
 
-const calculateDistance = (lat1, lon1, lat2, lon2) => {
+ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const radLat1 = degToRad(lat1);
   const radLon1 = degToRad(lon1);
   const radLat2 = degToRad(lat2);
@@ -225,3 +225,25 @@ export const getfilterSalonByServiceLatLng = async(userDetails,fetchType,service
     return salons
   }
 };
+
+
+export const calculateSalonDistance = (lat1, lon1, lat2, lon2) => {
+  const radLat1 = degToRad(lat1);
+  const radLon1 = degToRad(lon1);
+  const radLat2 = degToRad(lat2);
+  const radLon2 = degToRad(lon2);
+
+  const deltaLat = radLat2 - radLat1;
+  const deltaLon = radLon2 - radLon1;
+
+  const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(radLat1) * Math.cos(radLat2) * Math.sin(deltaLon / 2) ** 2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+};
+
+
+export function convertToMonthYear(dateString) {
+  const options = { year: 'numeric', month: 'long' };
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', options);
+}

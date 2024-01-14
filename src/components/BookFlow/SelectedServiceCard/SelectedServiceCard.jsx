@@ -6,8 +6,11 @@ import { useNavigate } from 'react-router-dom'
 import AddedServiceMain from '../AddedServiceMain/AddedServiceMain'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 export default function SelectedServiceCard({ updateActiveBookFlowBA, activeBookFlowBA, salonServices, SalonData,stepTwoDetails,setStepTwoDetails }) {
+    const { contact } = useSelector((state) => state?.VisitorDetails);
+
     let [totalServicesPrice, setTotalServicesPrice] = useState(0)
     let [workerData,setWorkerData] = useState(null)
     const navigate = useNavigate();
@@ -108,7 +111,8 @@ export default function SelectedServiceCard({ updateActiveBookFlowBA, activeBook
                             </>
             }
             <div className={styles.service_cardE}>
-                <BookNow innerText={'Proceed'} updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} Disabled = {activeBookFlowBA === 1 ? salonServices.length < 1 ? true : false : activeBookFlowBA === 2 ? stepTwoDetails.workerData===null||stepTwoDetails.dateData===null||stepTwoDetails.timeData===null ? true : false : false}/>
+ 
+                <BookNow innerText={'Proceed'} updateActiveBookFlowBA={updateActiveBookFlowBA ? updateActiveBookFlowBA : ''} activeBookFlowBA={activeBookFlowBA} Disabled = {activeBookFlowBA === 1 ? salonServices.length < 1 ? true : false : activeBookFlowBA === 2 ? stepTwoDetails.workerData===null||stepTwoDetails.dateData===null||stepTwoDetails.timeData===null ? true : false : activeBookFlowBA === 3 ? contact.name===""||contact.phone===""||contact.email==="" ? true : false: false}/>
             </div>
             <div className={styles.service_cardBack} onClick={() => {activeBookFlowBA === 1 ? navigate(-1) : activeBookFlowBA === 2 ? updateActiveBookFlowBA(activeBookFlowBA = 1) : activeBookFlowBA === 3 ? updateActiveBookFlowBA(activeBookFlowBA = 2) : updateActiveBookFlowBA(activeBookFlowBA = 3); setStepTwoDetails(initialData); setWorkerData(null)}}>
                 Back to previous

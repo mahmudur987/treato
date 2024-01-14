@@ -6,17 +6,18 @@ import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../../Buttons/SecondaryButton/SecondaryButton";
 import { closeModal } from "../../../../redux/slices/modal";
 import { useDispatch } from "react-redux";
-const WriteReview = () => {
+import { addReview } from "../../../../services/Appointments";
+import { toast } from "react-toastify";
+const WriteReview = ({ data }) => {
   const [textareaValue, setTextareaValue] = useState("");
   const [titleValue, settitleValue] = useState("");
-  const [rating, setRating] = useState(0);
-  const [stylistRating, setstylistRating] = useState(0);
- // Error states
- const [titleError, setTitleError] = useState("");
- const [textareaError, setTextareaError] = useState("");
- const [ratingError, setRatingError] = useState("");
- const [stylistratingError, setStylistRatingError] = useState("");
-
+  const [rating, setRating] = useState("");
+  const [stylistRating, setstylistRating] = useState("");
+  // Error states
+  const [titleError, setTitleError] = useState("");
+  const [textareaError, setTextareaError] = useState("");
+  const [ratingError, setRatingError] = useState("");
+  const [stylistratingError, setStylistRatingError] = useState("");
   const dispatch = useDispatch();
 
   const handleStarClick = (value) => {
@@ -37,7 +38,7 @@ const WriteReview = () => {
     setTextareaValue(event.target.value);
     setTextareaError(""); // Clear textarea error when the user types
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Validate input fields
     let isValid = true;
 
@@ -54,12 +55,26 @@ const WriteReview = () => {
       setRatingError("Rating is required");
       isValid = false;
     }
-    if(stylistRating===0){
-      setStylistRatingError("Rating is required")
+    if (stylistRating === 0) {
+      setStylistRatingError("Rating is required");
     }
     if (isValid) {
-      // Process form submission
-      // You can dispatch an action to submit the review here
+      const review = {
+        serviceRate: rating,
+        stylistRate: stylistRating,
+        review: titleValue,
+        description: textareaValue,
+      };
+      const res = await addReview(data._id, review);
+      console.log(res);
+
+      if (res.res) {
+        dispatch(closeModal());
+        toast.success("your review is successfully posted");
+      }
+      if (res.err) {
+        toast.error("Some Error");
+      }
     }
   };
   function handleClose() {
@@ -97,13 +112,14 @@ const WriteReview = () => {
                   </span>
                 ))}
               </div>
-              {ratingError && <div className={styles.errorText}>{ratingError}</div>}
-
+              {ratingError && (
+                <div className={styles.errorText}>{ratingError}</div>
+              )}
             </label>
           </div>
           <div className={styles.Rating}>
             <label>
-            How would you rate the stylist?
+              How would you rate the stylist?
               <div class={styles.rating}>
                 {[1, 2, 3, 4, 5].map((value) => (
                   <span
@@ -117,8 +133,9 @@ const WriteReview = () => {
                   </span>
                 ))}
               </div>
-              {stylistratingError && <div className={styles.errorText}>{stylistratingError}</div>}
-
+              {stylistratingError && (
+                <div className={styles.errorText}>{stylistratingError}</div>
+              )}
             </label>
           </div>
           <div className={styles.ReviewTitle}>
@@ -130,7 +147,9 @@ const WriteReview = () => {
                 placeholder="What’s most important to know?"
                 className={styles.titleInput}
               />
-                {titleError && <div className={styles.errorText}>{titleError}</div>}
+              {titleError && (
+                <div className={styles.errorText}>{titleError}</div>
+              )}
             </label>
           </div>
           <div className={styles.Review}>
@@ -143,15 +162,19 @@ const WriteReview = () => {
                   placeholder="What did you like or dislike about the treatment or venue?"
                   className={styles.textarea}
                 />
-                 {textareaError && <div className={styles.errorText}>{textareaError}</div>}
+                {textareaError && (
+                  <div className={styles.errorText}>{textareaError}</div>
+                )}
               </label>
             </div>
           </div>
         </div>
       </div>
       <div className={styles.button}>
-        <SecondaryButton children={"Cancel"} onClick={handleClose} />
-        <PrimaryButton children={"Submit"} onClick={handleSubmit}/>
+        <div className={styles.buttonWrapper}>
+          <SecondaryButton children={"Cancel"} onClick={handleClose} />
+          <PrimaryButton children={"Submit"} onClick={handleSubmit} />
+        </div>
       </div>
     </div>
   );

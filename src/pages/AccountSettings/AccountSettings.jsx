@@ -40,6 +40,7 @@ export default function AccountSettings() {
     let [showSave, setShowSave] = useState(false)
     const [userOTP, setuserOTP] = useState(null);
     let [otpSuccess, setOtpSuccess] = useState(false)
+    let [passActiveModal, setPassActiveModal] = useState(false);
     let [inputState, updateInputState] = useState(
         {
             first_name: true,
@@ -91,7 +92,9 @@ export default function AccountSettings() {
     let submitForm = (e) => {
         e.preventDefault();
         const userJWt = localStorage.getItem("jwtToken");
+
         let formData = {
+            avatar: inputVal?.avatarFile,
             first_name: e.target.first_name.value,
             last_name: e.target.last_name.value,
             email: e.target.email.value,

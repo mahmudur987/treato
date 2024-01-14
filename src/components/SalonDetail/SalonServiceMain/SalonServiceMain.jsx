@@ -41,9 +41,8 @@ export default function SalonServiceMain({ hideTitle, SalonData }) {
                             {
                                 allServices ?
                                     allServices.map((v, i) => {
-                                        return (<>
+                                        return (
                                             <li key={i} onClick={() => activeOptFunc(i)} className={activeOption[i].selected ? styles.active_salon_service : ''}>{v.category_name}</li>
-                                        </>
                                         )
                                     })
                                     :

@@ -23,6 +23,7 @@ import PrimaryButton from "../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton/SecondaryButton";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUserDetails, updateIsLoggedIn } from "../../redux/slices/user";
+import { useUpcomingApponments } from "../../services/Appointments";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -35,7 +36,8 @@ export default function Navbar() {
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
+  const { data } = useUpcomingApponments();
+  const count = data?.res?.data?.data.length;
   // Using to scroll to a particular section
   const scrollToSection = (navigate, sectionId) => {
     navigate("/"); // Navigate to the home page
@@ -219,7 +221,9 @@ export default function Navbar() {
                     <div className={styles.listtext}>
                       <img src={history} alt="history" />
                       My Appointments
-                      <span className={styles.unSeenCounter}>1</span>
+                      {count > 0 && (
+                        <span className={styles.unSeenCounter}>{count}</span>
+                      )}
                     </div>
                     <div className={styles.chevronright}>
                       <img src={chevronright} alt="chevronright" />
