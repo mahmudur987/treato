@@ -16,6 +16,10 @@ const BlogCard = ({ blog, blogDetail, blogPage,shareBlog,setShareBlog,setActiveS
       }
     }
   }
+  const locationBlog=()=>{
+    setShareBlog(blog._id) 
+    setBlogUrl(`${location}blogs/${blog._id}`)
+  }
   return (
 
     <div className={blogDetail ? `${styles["blog"]} ${styles["blogBig"]}` : blogPage?`${styles["blog"]} ${styles["blogPage"]}` : styles["blog"]}>
@@ -28,10 +32,8 @@ const BlogCard = ({ blog, blogDetail, blogPage,shareBlog,setShareBlog,setActiveS
             <img className={styles["userImg"]} src={blog ? blog?.blog_Img?.public_url : ''} alt="userImg" />
             <span className={styles["userName"]}>{blog ? blog?.writer_name : ''}</span>
           </div>
-          <div className={styles["more"]} onClick={()=>{
-            setShareBlog(blog._id) 
-            setBlogUrl(`${location}blogs/${blog._id}`)
-          }}
+          
+          <div className={styles["more"]} onClick={locationBlog}
             >
             <img src={moreHorizontal} alt="more" className="moreImg"/>
             <div className={shareBlog===blog._id?styles["shareMain"]:styles["d_none"]} onMouseOver={()=>setActiveShare(true)} onMouseOut={()=>setActiveShare(false)} onClick={()=>{setShareModal(true); setShareBlog(null)}} >
