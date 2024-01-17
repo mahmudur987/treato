@@ -28,7 +28,7 @@
   height: 24px;
 }
 .navMenu {
-  max-width: 700px;
+  max-width: 800px;
   width: 100%;
   display: flex;
   gap: 64px;
@@ -96,44 +96,88 @@
 .mobilemenu {
   display: none;
 }
-.menuImage {
+.humburger {
   width: 100%;
   height: 100%;
 }
-.mobileMenuContainer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  max-width: 600px;
-  width: 100%;
-  background-color: #771414;
-  min-height: 235px;
-}
+
 @media only screen and (max-width: 1024px) {
 }
 @media only screen and (max-width: 770px) {
 }
-@media only screen and (max-width: 600px) {
-  .container {
-    /* background-image: url("../../../assets/images/partner/Vector\ 11.png"); */
-
-    background-color: skyblue;
+@media only screen and (max-width: 960px) {
+  .mainContainer {
+    background: none;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 99;
   }
-
+  .siteNamewrapper {
+    display: none;
+  }
   .navMenu {
     display: none;
   }
   .mobilemenu {
-    max-width: 40px;
+    background: none;
+    max-width: 950px;
     width: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    padding: 20px;
+    position: relative;
   }
   .mobilemenu button {
     border: 0;
     background: none;
     width: 24px;
     height: 24px;
+  }
+  .mobileMenuContainer {
+    max-width: 600px;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .mobileMenhHEading {
+    display: flex;
+    justify-content: space-between;
+    margin: 18px 24px;
+  }
+  .mobileMenuItms {
+    margin: 18px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .mobileMenuItem {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mobileMenuItem a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .mobileMenuItem span {
+    color: var(--Grey-Black, #08090a);
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+    letter-spacing: 0.16px;
   }
 }

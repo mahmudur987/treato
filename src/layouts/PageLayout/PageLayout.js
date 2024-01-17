@@ -18,10 +18,11 @@ export default function PageLayout({ children }) {
     location.pathname === "/verify-otp" ||
     location.pathname === "/reset-password" ||
     location.pathname === "/forgot-password" ||
-    location.pathname === "/partner";
+    location.pathname === "/partner" ||
+    location.pathname === "/partner/authchoice";
 
   // remove footer  if the current route is "/myappointments "
-
+  console.log(location.pathname);
   const isMyAppointmentsRoute =
     location.pathname.startsWith("/my-appointments");
   return (

@@ -28,6 +28,7 @@ import PrivateFormRoutes from "./layouts/PrivateRoutes";
 import LocationAutocomplete from "./components/locations/LocationAutocomplete";
 import PartnerPage from "./layouts/PartnerPageLayout/PartnerPage";
 import PartnerHome from "./pages/partner/PartnerHome/PartnerHome";
+import AuthChoice from "./pages/partner/Auth/AuthChoice/AuthChoice";
 
 function App() {
   // Use the location hook to track route changes
@@ -179,6 +180,7 @@ function App() {
 
           <Route path="/partner" element={<PartnerPage />}>
             <Route path="/partner" element={<PartnerHome />} />
+            <Route path="/partner/authchoice" element={<AuthChoice />} />
           </Route>
         </Routes>
       </PageLayout>

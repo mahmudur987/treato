@@ -22,7 +22,15 @@ const WhyTreato = () => {
               so you can focus on serving your customers.
             </p>
           </div>
-          <ul>
+
+          <div className={styles.middle}>
+            <figure className={styles.middleimageWrapper}>
+              {" "}
+              <img src={phone} alt="Left Image" />
+            </figure>
+          </div>
+
+          <ul className={styles.items}>
             <li>
               {" "}
               <img src={check} />{" "}

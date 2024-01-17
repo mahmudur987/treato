@@ -94,3 +94,73 @@
   width: 100%;
   height: 100%;
 }
+@media only screen and (max-width: 1024px) {
+  .heroSection {
+    background: none;
+  }
+  .sectionWrapper {
+    width: 100%;
+  }
+  .content {
+    width: 100%;
+    flex-direction: column;
+  }
+  .textWrapper {
+    max-width: 1024px;
+    min-height: 700px;
+    width: 100%;
+    background-image: url("../../../assets/images/partner/Vector\ 5.png");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+  }
+  .text {
+    margin: 0 20px;
+    gap: 20px;
+    padding: 50px auto;
+    margin-top: 100px;
+  }
+  .imageWrapper {
+    margin: 0 auto;
+  }
+}
+@media only screen and (max-width: 770px) {
+  .heroSection {
+    background: none;
+  }
+
+  .content {
+    flex-direction: column;
+  }
+  .textWrapper {
+    background-image: url("../../../assets/images/partner/Vector\ 11.png");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    min-height: 0px;
+  }
+  .text {
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    margin: 10px auto;
+    margin-top: 100px;
+  }
+  .text h1 {
+    font-size: 28px;
+    min-height: 0;
+  }
+  .text p {
+    font-size: 16px;
+    min-height: 0;
+  }
+  .imageWrapper {
+    margin: 0 auto;
+    width: 342px;
+    height: 288.931px;
+    flex-shrink: 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+}
