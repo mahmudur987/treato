@@ -1,0 +1,37 @@
+.form {
+  max-width: 424px;
+  width: 100%;
+}
+
+.serviceType {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.serviceType select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 5px;
+  max-width: 424px;
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  padding: 13px 16px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid var(--Grey-Grey-30, #ced4da);
+}
+.serviceType option {
+  color: var(--Grey-Black, #08090a);
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.16px;
+}

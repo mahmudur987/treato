@@ -29,6 +29,8 @@ import LocationAutocomplete from "./components/locations/LocationAutocomplete";
 import PartnerPage from "./layouts/PartnerPageLayout/PartnerPage";
 import PartnerHome from "./pages/partner/PartnerHome/PartnerHome";
 import AuthChoice from "./pages/partner/Auth/AuthChoice/AuthChoice";
+import ServicePage from "./layouts/ServicePageLayout/ServicePagelLayout";
+import AddServices from "./pages/Services/AddServices/AddServices";
 
 function App() {
   // Use the location hook to track route changes
@@ -181,6 +183,9 @@ function App() {
           <Route path="/partner" element={<PartnerPage />}>
             <Route path="/partner" element={<PartnerHome />} />
             <Route path="/partner/authchoice" element={<AuthChoice />} />
+          </Route>
+          <Route path="/service" element={<ServicePage />}>
+            <Route path="/service" element={<AddServices />} />
           </Route>
         </Routes>
       </PageLayout>
