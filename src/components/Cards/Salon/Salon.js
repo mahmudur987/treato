@@ -22,7 +22,9 @@ const Salon = ({ salonData, place }) => {
     }
   };
   const userDetails = useSelector((state) => state.user);
-  return (
+  console.log(userDetails,"userDetails");
+  return (<>
+
     <div
       className={`${styles.card} ${
         place === "homePage" ? styles.card_Home : ""
@@ -56,8 +58,8 @@ const Salon = ({ salonData, place }) => {
         </h4>
         {userDetails?.user.isLocationAllow && (
           <h4 className={styles.location}>
-            {salonData?.locationText} <img src={ellipse} />{" "}
-            {displayDistance(salonData?.distances)}
+            {salonData?.locationText}
+            
           </h4>
         )}
       </div>
@@ -99,6 +101,8 @@ const Salon = ({ salonData, place }) => {
         </>
       ) : null}
     </div>
+  </>
+    
   );
 };
 

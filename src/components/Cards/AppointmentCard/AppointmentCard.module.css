@@ -121,7 +121,21 @@
   display: flex;
 }
 .serviceDetails {
-  min-width: 50%;
+    min-width: 50%;
+  }
+  .serviceDetails .title{
+  font-family: "Lato";
+    font-weight: 600px;
+    font-size: 16px;
+    font-style: normal;
+  }
+  .serviceDetails .sDetail {
+    display: flex;
+    gap: 8px;
+    font-size: var(--font-medium);
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    flex-wrap:wrap;
 }
 .serviceDetails .title {
   font-weight: 600px;
@@ -221,68 +235,70 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .status {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-  .salon {
-    gap: 0px;
-  }
-  .timing {
-    display: none;
-  }
-  .timing_mobo {
-    display: flex;
-  }
-  .salonCard {
-    padding: 0;
-    border: none;
-  }
-  .infos > img {
-    height: 48px;
-    width: 48px;
-  }
-  .line {
-    margin: 1rem 0;
-  }
-  .detailSection,
-  .others {
-    flex-direction: column;
-    gap: 16px;
-  }
-  .buttons {
-    flex-direction: row-reverse;
-  }
-  .salon,
-  .buttons,
-  .buttons button {
-    width: 100%;
-  }
-  .writeReview {
-    display: none;
-  }
-  .writeReview_mobo {
-    display: block;
-    padding: 1rem 0;
-    border-top: 1px solid var(--Grey-40);
-    border-bottom: 1px solid var(--Grey-40);
-  }
-  .cardWrapper {
-    border: none;
-  }
-  .shareOTPWrapper {
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 0.625rem 1rem;
-    gap: 0px;
-    margin-bottom: 1rem;
-  }
-  .shareOTPWrapper h3 {
-    font-size: 24px;
-  }
-  .shareOTPWrapper p {
-    font-size: var(--font-small);
-  }
+.status{
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.salon{
+  gap:0px;
+}
+.timing{
+  display: none;
+}
+.timing_mobo{
+display: flex;
+}
+.salonCard{
+  padding: 0;
+  border: none;
+}
+.infos >img{
+  height: 48px;
+  width: 48px;
+}
+.line{
+  margin: 1rem 0;
+}
+.detailSection,.others{
+  flex-direction: column;
+  gap: 16px;
+}
+.buttons{
+  flex-direction: row-reverse;
+}
+.salon,
+.buttons,.buttons button{
+  width: 100%;
+} 
+.writeReview{
+  display: none;
+}
+.writeReview_mobo{
+  display: block;
+  padding: 1rem 0;
+  border-top: 1px solid var(--Grey-40);
+  border-bottom: 1px solid var(--Grey-40);
+}
+.cardWrapper{
+  border: none;
+}
+.shareOTPWrapper{
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 0.625rem 1rem;
+  gap: 0px;
+  font-family: "Lato";
+  color: #FFFFFF;
+ margin-bottom: 1rem;
+  font-weight: 400px;
+ 
+}
+.shareOTPWrapper h3{
+  font-size: 24px;
+}
+.shareOTPWrapper p{
+  font-size: var(--font-small);
+}
 }

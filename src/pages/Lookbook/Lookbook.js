@@ -473,11 +473,14 @@ const Lookbook = () => {
               />
             ))}
       </Masonry>
-      {itemsToShow < filteredServiceData?.length && (
+      <button className={styles.showMore} onClick={handleShowMore}>
+          See more results
+        </button>
+      {/* {itemsToShow < filteredServiceData?.length && (
         <button className={styles.showMore} onClick={handleShowMore}>
           See more results
         </button>
-      )}
+      )} */}
     </div>
   );
 };

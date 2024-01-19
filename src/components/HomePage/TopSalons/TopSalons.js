@@ -116,7 +116,7 @@ const TopSalons = (props) => {
           <div ref={carouselRef} className={styles["trWrapper"]}>
             {topSalonData.length
               ? topSalonData.map((salon, index) => (
-                  <Salon salonData={salon} place={"homePage"} key={index} />
+                <Salon salonData={salon} place={"homePage"} key={index} />
                 ))
               : <p className={styles.notAvailable}>No salons available at the moment. Check back later!</p>}
           </div>

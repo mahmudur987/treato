@@ -42,8 +42,8 @@ const AppointmentCard = ({ salon, cardType }) => {
         <div className={styles.shareOTPWrapper}>
           <h3>6078</h3>
           <p>
-            is the 4-digit OTP for this booking. Please share the OTP at the
-            salon to start the service.
+          is the 4-digit OTP for this booking. Please share the OTP at the salon to start the service.
+        
           </p>
         </div>
       )}

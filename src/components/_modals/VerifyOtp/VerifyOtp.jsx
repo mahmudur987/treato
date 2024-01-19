@@ -10,7 +10,9 @@ import { updateUser } from '../../../services/updateUser'
 import { sendLoginOTP } from '../../../services/auth'
 import { toast } from 'react-toastify'
 
-export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess,setShowSave,updateInputState,updateInputVal, inputVal,userOTP, setuserOTP}) {
+
+export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess, setShowSave, updateInputState, updateInputVal, inputVal, userOTP, setuserOTP }) {
+
     let [timer, setTimer] = useState({
         min: 5,
         sec: 0
@@ -69,11 +71,12 @@ export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess,setSh
             setTimer(finalTime)
         }
     }, 1000)
+
     let submitPass = () => {
-        let givenOTP=parseInt(otpData.inp1 + otpData.inp2 + otpData.inp3 + otpData.inp4)
-        console.log(userOTP,givenOTP);
+        let givenOTP = parseInt(otpData.inp1 + otpData.inp2 + otpData.inp3 + otpData.inp4)
+        console.log(userOTP, givenOTP);
         const userJWt = localStorage.getItem("jwtToken");
-        if(userOTP===givenOTP){
+        if (userOTP === givenOTP) {
             updateUser(userJWt, inputVal)
                 .then((res) => {
                     setShowSave(false)
@@ -92,7 +95,7 @@ export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess,setSh
                 })
             setOtpSuccess(otpSuccess ? setOtpModal(false) : true)
         }
-        else{
+        else {
             console.log("Invalid OTP");
             toast.error("Invalid OTP")
             setOtpData({
@@ -104,7 +107,7 @@ export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess,setSh
         }
     }
 
-    
+
     return (
         <div className={styles.otpMain}>
             <div className={styles.otpA}>

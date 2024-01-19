@@ -39,7 +39,6 @@ const ModalManager = () => {
   }, [escFunction]);
 
   const handleBgClick = (event) => {
-    // event.preventDefault()
     if (event.target === event.currentTarget) {
       handleClose();
     }

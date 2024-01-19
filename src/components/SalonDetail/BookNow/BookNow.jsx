@@ -71,8 +71,7 @@ export default function BookNow({
     <div className={styles.book_nowA}>
       <div className={styles.book_nowB}>
         {SalonDetails ? (
-          `${
-            totalSalonServices ? totalSalonServices : null
+          `${totalSalonServices ? totalSalonServices : null
           } services to choose from`
         ) : activeBookFlowBA === 4 ? (
           <>
@@ -109,7 +108,7 @@ export default function BookNow({
               {innerText}{" "}
               {selectedOffer?.amount_for_discount
                 ? TotalServiceAmount -
-                  selectedOffer?.amount_for_discount?.toLocaleString()
+                selectedOffer?.amount_for_discount?.toLocaleString()
                 : TotalServiceAmount?.toLocaleString()}
             </button>
           </Link>

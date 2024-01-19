@@ -20,6 +20,10 @@ import { SingleBlog } from "../../services/SingleBlog";
 import { toast } from "react-toastify";
 
 export default function BlogDetail(props) {
+  let [shareBlog, setShareBlog] = useState(null);
+  let [BlogUrl,setBlogUrl] = useState(null)
+  let [activeShare, setActiveShare] = useState(false);
+  let [shareModal, setShareModal] = useState(false);
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -152,6 +156,7 @@ const handleServiceClick =(serviceName)=>{
             <div className={styles["header-right"]}>
               <p>Share:</p>
               <div className={styles["social-icons"]}>
+              {/* <div className={styles.allborder}> */}
               <button onClick={shareOnFacebook}>
                 <img src={Facebook} alt="Facebook" />
                 </button>
@@ -167,6 +172,7 @@ const handleServiceClick =(serviceName)=>{
                 <button onClick={copyLinkToClipboard}>
                 <img src={CopyLink} alt="CopyLink" />
                 </button>
+                {/* </div> */}
               </div>
             </div>
           </header>
@@ -270,9 +276,10 @@ const handleServiceClick =(serviceName)=>{
                 dotListClass="custom-dot-list-style"
                 itemClass="carousel-item-padding-40-px"
               >
+                {/* blog={blog} key={i} activeShare={activeShare}  setActiveShare={setActiveShare} setShareModal={setShareModal} shareBlog={shareBlog} setShareBlog={setShareBlog}   setBlogUrl={setBlogUrl} */}
                 {blogData.map((blog, i) => {
                   return (
-                    <BlogCard blog={blog} key={i} blogDetail={true}/>
+                    <BlogCard blog={blog} key={i} blogDetail={true} setActiveShare={setActiveShare} activeShare={activeShare} setShareModal={setShareModal} shareModal={shareModal} setShareBlog={setShareBlog} shareBlog={shareBlog} setBlogUrl={setBlogUrl} BlogUrl={BlogUrl}/>
                   )
                 })
                 }

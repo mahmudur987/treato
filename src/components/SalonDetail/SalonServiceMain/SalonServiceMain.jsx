@@ -4,7 +4,7 @@ import upIco from "../../../assets/images/SalonDetail/chevron-up.svg"
 import SalonServiceCard from '../SalonServiceCard/SalonServiceCard'
 import { useEffect } from 'react';
 
-export default function SalonServiceMain({ hideTitle, SalonData}) {
+export default function SalonServiceMain({ hideTitle, SalonData }) {
     let [allServices, setAllServices] = useState(null)
     let [activeOption, updateActiveOption] = useState(
         [
@@ -65,7 +65,7 @@ export default function SalonServiceMain({ hideTitle, SalonData}) {
                                                     v?.subCategories.length ?
                                                         v?.subCategories.map((val, i) => {
                                                             return (
-                                                                <SalonServiceCard salonServiceData={val} key={i} serviceCategory={v?.category_name} salonId = {SalonData?._id}/>
+                                                                <SalonServiceCard salonServiceData={val} key={i} serviceCategory={v?.category_name} salonId={SalonData?._id} />
                                                             )
                                                         })
                                                         :

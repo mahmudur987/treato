@@ -1,13 +1,19 @@
 import axiosInstance from './axios'
+import { toast } from "react-toastify";
 
 /** Register the user after Verifying the OTP `POST: /api/auth/register/` */
 export const updatePass = async (userJWT,data) => {
    try {
-      const res = await axiosInstance.patch(`profile/update_password`,{
+      console.log( userJWT,data);
+      const res = await axiosInstance.patch(`profile/update_password`, data,{
          headers: {
          'token': userJWT,
          }
-       },data)
+        
+       })
+       if (res) {
+         toast("Password Updated Successfully")
+      }
       return { res: res, err: null }
    } catch (error) {
       return { err: error, res: null }
