@@ -159,6 +159,9 @@ const Salons = React.memo(() => {
     setFilteredServiceData(allServices);
     setisServiceDropdownOpen(true);
   };
+  console.log(salonsState?.filterContent?.length);
+  console.log(totalPages);
+  console.log(currentPage);
   return (
     <div className={styles.container}>
       <div className={styles.mobo_ServiceBar}>

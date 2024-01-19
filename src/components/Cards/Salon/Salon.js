@@ -22,7 +22,9 @@ const Salon = ({ salonData, place }) => {
     }
   };
   const userDetails = useSelector((state) => state.user);
-  return (
+  console.log(userDetails,"userDetails");
+  return (<>
+
     <div
       className={`${styles.card} ${
         place === "homePage" ? styles.card_Home : ""
@@ -99,6 +101,8 @@ const Salon = ({ salonData, place }) => {
         </>
       ) : null}
     </div>
+  </>
+    
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "../../HomePage/Hero/hero.module.css";
 import navstyles from "./MainSearchBar.module.css";
 import Treatments from "../../HomePage/Hero/SearchContent/Treatments";
@@ -43,6 +43,7 @@ const MainSearchBar = ({ place }) => {
   const [locationLat, setlocationLat] = useState("");
   const [locationLng, setlocationLng] = useState("");
   const [datanav, setDataNav] = useState()
+  
 
   const userDetails = useSelector((state) => state?.user?.user);
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ const MainSearchBar = ({ place }) => {
   const handle_closeTrt_Modal = () => {
     setTrt_DesktopModal(false);
     setTrt_MoboModal(false);
+    setTreatmentInputValue("")
     document.body.style.overflow = "auto";
   };
   // functions to open/Close desktop location modal
@@ -79,6 +81,8 @@ const MainSearchBar = ({ place }) => {
   const handle_closeloc_Modal = () => {
     setloc_DesktopModal(false);
     setloc_MoboModal(false);
+    // setLocationInputValue(""); 
+    setValue("")
     document.body.style.overflow = "auto";
   };
 
@@ -108,8 +112,7 @@ const MainSearchBar = ({ place }) => {
     clearSuggestions();
   });
   const handleInput = (e) => {
-    console.log(e.target.value);
-    if (e.target.value === "") {
+   if (e.target.value === "") {
       setloc_DesktopModal(false);
       setLocationInputValue(e.target.value);
       setValue(e.target.value);
@@ -277,6 +280,23 @@ const MainSearchBar = ({ place }) => {
     }
   };
 
+//   useEffect(() => {
+//     const handleWindowClick = () => {
+//       console.log(value);
+//       console.log(treatmentInputValue);
+//       // Your condition goes here
+     
+//         handle_closeTrt_Modal();
+// };
+
+//     // Attach the event listener
+//     window.addEventListener('mousedown', handleWindowClick);
+
+//     // Detach the event listener when the component unmounts
+//     return () => {
+//       window.removeEventListener('mousedown', handleWindowClick);
+//     };
+//   }, [handle_closeTrt_Modal]);
   return (
     <>
       <div
@@ -287,14 +307,9 @@ const MainSearchBar = ({ place }) => {
         {/* search Treatments */}
         <div className={styles["searchTreatment"]}>
           <div className={styles["inputIcon"]}>
-          {/* { navigate(
-            `/salons?service=${treatmentInputValue}&lat=${lat ? lat : ""}&lng=${
-              lng ? lng : ""
-            }&location=${locationInputValue}`
-          )?<Link to="/"><img src={arrowleft}  alt="arrowleft" /></Link>: <img src={search} alt="search" />} */}
+         
             {location.pathname === "/salons"?<Link to="/"><img src={arrowleft}  alt="arrowleft" /></Link>: <img src={search} alt="search" />}
-            {/* {locationLng&&locationLat ?<img src={arrowleft}  alt="arrowleft" />: <img src={search} alt="search" />} */}
-            {/* <img src={arrowleft} alt="arrowleft" /> */}
+           
           </div>
           <input
             className={styles["treatmentInput"]}
@@ -313,19 +328,20 @@ const MainSearchBar = ({ place }) => {
             className={`${styles["treatmentsResults"]} ${
               Trt_DesktopModal ? "" : styles["hidden"]
             }`}
+            
           >
             {/* treatments Content*/}
             <Treatments
               allServices={filteredServiceData}
               setTreatmentInputValue={setTreatmentInputValue}
               handle_close={handle_closeTrt_Modal}
-            />
+             />
           </div>
 
           <img
             src={closeIcon}
             className={`${styles["close_trtBox"]} ${
-              Trt_DesktopModal ? "" : styles["hidden"]
+              Trt_DesktopModal  ? "" : styles["hidden"]
             }`}
             onClick={handle_closeTrt_Modal}
             alt="closeIcon"
@@ -339,10 +355,13 @@ const MainSearchBar = ({ place }) => {
           <div className={styles["inputIcon"]}>
             <img src={mapPin} alt="mapPinImg" />
           </div>
+         
           <input
             className={styles["locationInput"]}
             placeholder={
-              winWidthMain > 767 ? "Search by location" : "Current location"
+              winWidthMain > 767 
+              ? "Search by location" 
+              : "Current location"
             }
             onClick={() => {
               if (winWidthMain < 767) {
@@ -354,6 +373,7 @@ const MainSearchBar = ({ place }) => {
             value={value}
             onChange={winWidthMain > 767 ? handleInput : ""}
             disabled={!ready}
+            
           />
           <img
             className={`${styles["close_trtBox"]} ${

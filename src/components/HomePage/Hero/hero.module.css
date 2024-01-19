@@ -19,6 +19,7 @@
   box-sizing: border-box;
   padding: 0 6rem;
   font-family: "Poppins", sans-serif;
+  
 }
 .headingSpan {
   color: var(--primary-color);
@@ -39,6 +40,7 @@
   display: flex;
   align-items: center;
   position: relative;
+  
 }
 
 .inputIcon {

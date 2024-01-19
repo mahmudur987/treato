@@ -135,7 +135,7 @@ export default function Navbar() {
           </nav>
         </div>
         {/* search bar */}
-        {isMainSearchBar && <MainSearchBar place={"navbar"} />}
+        {isMainSearchBar && <MainSearchBar  place={"navbar"} />}
 
         {/* rightSide buttons */}
         <div className={styles.buttons}>
