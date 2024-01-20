@@ -85,13 +85,13 @@ const LookbookDetails = () => {
                 </div>
                 <hr className={styles.line} />
                 <div className={styles.serviceWrap}>
-                  <div className={styles.serviceInfo}>
+              {serviceData?    <div className={styles.serviceInfo}>
                     <div className={styles.serviceName}>
                       <h4>{serviceData?.service_name}</h4>
                       <small>{serviceData?.time_takenby_service}</small>
                     </div>
                     <span className={styles.serviceAmount}>₹{serviceData?.price}</span>
-                  </div>
+                  </div>:"service N/A"}
                 </div>
                 <hr className={styles.line} />
 

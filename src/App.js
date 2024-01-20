@@ -25,7 +25,6 @@ import ResetPassword from "./pages/AuthPages/ResetPassword/ResetPassword";
 import { getUserProfile } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 import PrivateFormRoutes from "./layouts/PrivateRoutes";
-import LocationAutocomplete from "./components/locations/LocationAutocomplete";
 import PartnerPage from "./layouts/PartnerPageLayout/PartnerPage";
 import PartnerHome from "./pages/partner/PartnerHome/PartnerHome";
 import AuthChoice from "./pages/partner/Auth/AuthChoice/AuthChoice";
@@ -110,33 +109,6 @@ function App() {
     dispatch(fetchSalonsData(userDetails));
   }, [dispatch, userDetails]);
 
-  //TODO:testing passportJS auth. setup
-  useEffect(() => {
-    const getUser = () => {
-      fetch("https://backend.treato.in/api/v1/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          console.log("PassportJS Google Response:", resObject.user);
-          // setUser(resObject.user);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getUser();
-  }, []);
-
   return (
     <>
       <PageLayout>
@@ -163,10 +135,10 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
           <Route path="/my-appointments/*" element={<MyAppointments />} />
-          <Route
+          {/* <Route
             path="/LocationAutocomplete"
             element={<LocationAutocomplete />}
-          />
+          /> */}
 
           {/* Auth routes */}
           <Route element={<PrivateFormRoutes />}>

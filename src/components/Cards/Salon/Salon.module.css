@@ -121,7 +121,9 @@
   width: 312px;
 }
 .cardImage_Home{
-height: 192px;
+  min-height: 192px;
+  min-width:312px;
+  max-height: 192px;
 }
 .Name_Home{
   font-size: var(--font-medium);

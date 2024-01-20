@@ -20,6 +20,8 @@
 
 .user_img {
     border-radius: 50%;
+    height:144px;
+    width: 144px;
 }
 
 .user_img_edit {

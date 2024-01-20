@@ -11,11 +11,21 @@ import BackButton from "../../components/Buttons/BackButton/BackButton";
 import BookNow from "../../components/SalonDetail/BookNow/BookNow";
 import SalonServiceMain from "../../components/SalonDetail/SalonServiceMain/SalonServiceMain";
 import SalonDetailModal from "../../components/_modals/SalonDetailModal/SalonDetailModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { salon } from "../../services/salon";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./BookFlow.module.css";
+import {
+  AppointmentVerify,
+  bookSalonAppointment,
+  getAvailableSlots,
+} from "../../services/Appointments";
+import {
+  updateServiceDate,
+  updateServiceTime,
+} from "../../redux/slices/salonServices";
+import { TreatoLogo } from "../../assets/images/icons";
 
 export default function BookFlow() {
   let navigate = useNavigate();
@@ -33,7 +43,6 @@ export default function BookFlow() {
     let winWidth = window.innerWidth;
     updateWinWidthMain(winWidth);
   }
-  console.log(activeBookFlowBA);
   window.onresize = reportWindowSize;
   let [showModal, setShowModal] = useState(false);
   let [completedPay, setCompletedPay] = useState(false);

@@ -15,6 +15,7 @@ import {
   facebook_Login,
   otpsignin,
   google_Login,
+  facebookAuth,
 } from "../../../services/auth";
 import {
   updateIsLoggedIn,
@@ -35,6 +36,7 @@ import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButt
 import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
 import CountrySelect from "../../../components/Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
+import { openFbDialog } from "../../../utils/facebookLogin";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -140,7 +142,7 @@ const LoginPage = () => {
 
           navigate("/verify-otp");
         } else if (res?.err != null) {
-          setresponseError(res?.err.response.data.error);
+          setresponseError(res?.err?.response?.data.error);
         }
       });
     }
@@ -171,14 +173,32 @@ const LoginPage = () => {
       }
     },
   });
-  const googlePassportLogin=()=>{
-    window.open("https://backend.treato.in/api/v1/auth/google", "_self");
+  const redirectUri = "https://treato.netlify.app/";
+   const myFbLogin = async () => {
+    try {
+        let token = await openFbDialog();
+        
+        console.log(":rocket: ~ file: Login.js:51 ~ myFbLogin ~ token:", token)
+        facebookAuth(token,redirectUri).then((res)=>{
+            console.log("manual fb login",res);
+            if(res?.res?.data?.data){
+                dispatch(updateIsLoggedIn(true));
+                dispatch(
+                  updateUserDetails(res?.res?.data?.data || res?.res?.data.data)
+                );
+                localStorage.setItem("jwtToken", res?.res?.data?.token);
+                navigate("/");
+                toast("Welcome to Treato! Start exploring now!");
+            }
+            else{
+                toast.error(`An unexpected error occurred. Please try again.`);
+            }
+        })
 
-  }
-
-  const facebookPassportLogin = () => {
-    window.open("https://backend.treato.in/api/v1/auth/facebook", "_self");
-  };
+    } catch (ex) {
+        console.log("there was an error");
+    }
+}
 
 
   const facebookAuthLogin = (facebookResponse) => {
@@ -337,33 +357,17 @@ const LoginPage = () => {
           <div className={styles.socialButtons}>
             <SecondaryButton
               className={styles.google}
-              onClick={googlePassportLogin}
+              onClick={googleAuthLogin}
             >
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
 
-            <SecondaryButton className={styles.facebook} onClick={facebookPassportLogin}>
+             <SecondaryButton className={styles.facebook} onClick={myFbLogin}>
                 <img src={Facebook_Logo}/>
                 Facebook
               </SecondaryButton>
 
-              
-              {/* //Todo: facebook login do uncommment if passort not work*/}
-            {/* <LoginSocialFacebook
-              appId={facebookAppId}
-              onResolve={(response) => {
-                facebookAuthLogin(response?.data);
-              }}
-              onReject={(error) => {
-                console.log(error);
-              }}
-            >
-              <SecondaryButton className={styles.facebook} onClick={facebookPassportLogin}>
-                <img src={Facebook_Logo}/>
-                Facebook
-              </SecondaryButton>
-            </LoginSocialFacebook> */}
           </div>
         </div>
       </div>

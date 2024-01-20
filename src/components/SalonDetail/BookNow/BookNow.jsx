@@ -25,7 +25,6 @@ export default function BookNow({
       setTotalServicesPrice(totalPrice);
     }
   }, [salonServices]);
-
   let proceedPayment = () => {
     if (Disabled) {
       toast.error("Please fill all required details!");

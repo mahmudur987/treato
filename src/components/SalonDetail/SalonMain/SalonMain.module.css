@@ -1,633 +1,653 @@
 .salon_main {
-    width: 69%;
+  width: 69%;
 }
 
 .salon_options ul {
-    list-style: none;
-    display: flex;
-    justify-content: start;
-    gap: 48px;
-    align-items: center;
-    border-bottom: 1px solid #EBEDF0;
+  list-style: none;
+  display: flex;
+  justify-content: start;
+  gap: 48px;
+  align-items: center;
+  border-bottom: 1px solid #ebedf0;
 }
 
 .salon_options ul li {
-    color: #08090A;
-    font-family: "Poppins", sans-serif;
-    font-size: 20px;
-    font-weight: 600;
-    padding-bottom: 4px;
+  color: #08090a;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 4px;
 }
 
 .salon_options ul li:hover {
-    border-bottom: 1px solid #08090A;
+  border-bottom: 1px solid #08090a;
 }
 
 .active_salon_option {
-    border-bottom: 1px solid #08090A;
+  border-bottom: 1px solid #08090a;
 }
 
 .salon_sections {
-    margin-top: 64px;
+  margin-top: 64px;
 }
 
 .salon_section_title {
-    font-family: "Poppins", sans-serif;
-    font-size: 40px;
-    font-weight: 600;
-    border-bottom: 3px solid #0D69D7;
+  font-family: "Poppins", sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  border-bottom: 3px solid #0d69d7;
 }
 
 .salon_section_main {
-    border-top: 1px solid #939CA3;
-    padding: 24px 0px;
+  border-top: 1px solid #939ca3;
+  padding: 24px 0px;
 }
 
 .salon_service_option {
-    width: 100%;
+  width: 100%;
 }
 
-
 .salon_service_option ul {
-    list-style: none;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 12px;
-    white-space: nowrap;
-    margin-bottom: 16px;
-    overflow-x: scroll;
+  list-style: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  margin-bottom: 16px;
+  overflow-x: scroll;
 }
 
 .salon_service_option ul li {
-    padding: 8px 16px;
-    border-radius: 200px;
-    border: 1px solid #6D747A;
-    color: #08090A;
-    cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 200px;
+  border: 1px solid #6d747a;
+  color: #08090a;
+  cursor: pointer;
 }
 
 .active_salon_service {
-    background-color: #08090A;
-    color: white !important;
+  background-color: #08090a;
+  color: white !important;
 }
 
 .salon_service_title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 32px 16px;
-    cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 32px 16px;
+  cursor: pointer;
 }
 
 .salon_serviceAB {
-    padding: 0px 16px;
-    border-bottom: 1px solid #EBEDF0;
+  padding: 0px 16px;
+  border-bottom: 1px solid #ebedf0;
 }
 
 .salon_serviceA {
-    display: flex;
-    justify-content: space-between;
-    gap: 24px;
-    align-items: center;
-    flex-wrap: wrap;
-    max-height: 0px;
-    overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+  max-height: 0px;
+  overflow: hidden;
 }
 
 .salon_serviceB {
-    width: 45%;
-    border-bottom: 1px solid #EBEDF0;
-    padding-bottom: 16px;
+  width: 45%;
+  border-bottom: 1px solid #ebedf0;
+  padding-bottom: 16px;
 }
 
 .salon_serviceC {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #08090A;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #08090a;
 }
 
 .salon_serviceE {
-    min-width: 62px;
-    border-radius: 4px;
-    border: 1px solid #08090A;
-    color: #08090A;
-    font-size: 14px;
-    background-color: unset;
+  min-width: 62px;
+  border-radius: 4px;
+  border: 1px solid #08090a;
+  color: #08090a;
+  font-size: 14px;
+  background-color: unset;
 }
 
 .salon_serviceF {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    margin-top: 5px;
-    gap: 12px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-top: 5px;
+  gap: 12px;
 }
 
 .salon_serviceF div:first-child {
-    color: #6D747A;
-    font-size: 14px;
+  color: #6d747a;
+  font-size: 14px;
 }
 
 .salon_serviceF div:last-child {
-    color: #08090A;
-    font-size: 14px;
+  color: #08090a;
+  font-size: 14px;
 }
 
 .rotate_img {
-    transform: rotateX(180deg);
-    transition: 0.3s;
-    cursor: pointer;
+  transform: rotateX(180deg);
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .rotate_imgA {
-    transform: rotateX(0deg);
-    transition: 0.3s;
-    cursor: pointer;
+  transform: rotateX(0deg);
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .showServices {
-    max-height: 2000px;
-    overflow: hidden;
+  max-height: 2000px;
+  overflow: hidden;
 }
 
 .salon_aboutA {
-    font-weight: 400;
-    line-height: 29px;
-    text-align: justify;
+  font-weight: 400;
+  line-height: 29px;
+  text-align: justify;
 }
 
 .salon_aboutB {
-    margin-top: 64px;
-    padding: 24px;
-    border-radius: 4px;
-    border: 1px solid #EBEDF0;
+  margin-top: 64px;
+  padding: 24px;
+  border-radius: 4px;
+  border: 1px solid #ebedf0;
 }
 
 .salon_aboutBA {
-    font-family: "Poppins", sans-serif;
-    font-size: 20px;
-    font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .salon_aboutBB {
-    margin-top: 24px;
-    margin-bottom: 12px;
-    font-weight: 400;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  font-weight: 400;
 }
 
 .salon_aboutBC {
-    font-weight: 400;
+  font-weight: 400;
 }
 
-.salon_offersModal{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+.salon_offersModal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .salon_offersA {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 24px;
-    margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 24px;
 }
 
 .salon_offersAA {
-    width: 46%;
-    min-height: 90px;
-    padding: 16px;
-    border-radius: 4px;
-    border: 1px solid #EBEDF0;
+  width: 46%;
+  min-height: 90px;
+  padding: 16px;
+  border-radius: 4px;
+  border: 1px solid #ebedf0;
 }
 
-.salon_offersModalA{
-    width: 90%;
-    padding: 16px 0px;
+.salon_offersModalA {
+  width: 90%;
+  padding: 16px 0px;
 }
 
-.salon_offersModalB{
-    width: 10%;
-    text-align: right;
+.salon_offersModalB {
+  width: 10%;
+  text-align: right;
 }
 
-.salon_offersModalB>input{
-    width: 24px;
-    height: 24px;
+.salon_offersModalB > input {
+  width: 24px;
+  height: 24px;
 }
 
 .salon_offersAB {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    gap: 10px;
-    font-size: 20px;
-    font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .salon_offersAC {
-    margin: 8px 0px;
-    font-weight: 400;
-    line-height: 24px;
+  margin: 8px 0px;
+  font-weight: 400;
+  line-height: 24px;
 }
 
-.salon_offersAE{
-    color: var(--Success-Green); 
-    font-size: 14px;
-    font-weight: 400;
+.salon_offersAE {
+  color: var(--Success-Green);
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .salon_teamA {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 48px;
-    flex-wrap: wrap;
-    padding-top: 24px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  padding-top: 24px;
 }
 
 .salon_teamAA {
-    width: 16%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 16%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .salon_teamAAA {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    text-align: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  text-align: center;
 }
 
 .salon_teamAAA img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .salon_teamAAB {
-    margin: 8px 0px;
-    text-align: center;
-    font-weight: 600;
+  margin: 8px 0px;
+  text-align: center;
+  font-weight: 600;
 }
 
 .salon_teamAAC {
-    color: #6D747A;
-    font-size: 14px;
-    font-weight: 400;
+  color: #6d747a;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .salon_reviewsA {
-    padding: 24px 0px;
-    border-bottom: 1px solid #EBEDF0;
+  padding: 24px 0px;
+  border-bottom: 1px solid #ebedf0;
 }
 
-.salon_reviewsA:last-child{
-    border: none;
+.salon_reviewsA:last-child {
+  border: none;
 }
 
 .salon_reviewsAA,
 .salon_reviewsAB {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 16px;
 }
 
 .salon_reviewsAAA {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
 }
 
 .salon_reviewsAAA img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .salon_reviewsAAB div:first-child {
-    color: #08090A;
-    font-weight: 600;
+  color: #08090a;
+  font-weight: 600;
 }
 
 .salon_reviewsAAB div:last-child {
-    color: #6D747A;
-    font-weight: 400;
-    font-size: 14px;
-    margin-top: 4px;
+  color: #6d747a;
+  font-weight: 400;
+  font-size: 14px;
+  margin-top: 4px;
 }
 
 .salon_teamAAD {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    width: 52px;
-    height: 24px;
-    padding: 2px 6px;
-    background-color: #08090A;
-    color: #fff;
-    border-radius: 40px;
-    font-weight: 700;
-    margin-top: 8px;
-    font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 52px;
+  height: 24px;
+  padding: 2px 6px;
+  background-color: #08090a;
+  color: #fff;
+  border-radius: 40px;
+  font-weight: 700;
+  margin-top: 8px;
+  font-size: 14px;
 }
 
 .salon_reviewsAB {
-    margin: 12px 0px;
-    color: #08090A;
-    font-weight: 600;
+  margin: 12px 0px;
+  color: #08090a;
+  font-weight: 600;
 }
 
 .salon_reviewsAB div:last-child {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 4px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 4px;
 }
 
 .salon_reviewsAC {
-    font-weight: 400;
-    line-height: 29px;
-    text-align: justify;
+  font-weight: 400;
+  line-height: 29px;
+  text-align: justify;
 }
 
-.salon_aboutC{
-    display: none;
+.salon_aboutC {
+  display: none;
 }
 
 .salon_MapA {
-    display: flex;
-    justify-content: start;
-    align-items: flex-start;
-    gap: 12px;
-    color: #08090A;
-    padding: 16px 0px;
-    border-top: 1px solid #EBEDF0;
-    line-height: 24px;
-    font-weight: 400;
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  gap: 12px;
+  color: #08090a;
+  padding: 16px 0px;
+  border-top: 1px solid #ebedf0;
+  line-height: 24px;
+  font-weight: 400;
 }
 
 .salon_MapB {
-    position: relative;
+  position: relative;
 }
 
-.salon_MapB >img{
-    width: 100%;
+.salon_MapB > img {
+  width: 100%;
 }
 
 .salon_MapBA {
-    position: absolute;
-    padding: 16px 24px;
-    color: #0D69D7;
-    background-color: unset;
-    border-radius: 4px;
-    border: 1px solid #0D69D7;
-    bottom: 5%;
-    right: 4%;
-    width: 200px;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    cursor: pointer;
+  position: absolute;
+  padding: 16px 24px;
+  color: #0d69d7;
+  background-color: unset;
+  border-radius: 4px;
+  border: 1px solid #0d69d7;
+  bottom: 5%;
+  right: 4%;
+  width: 200px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.book_nowB{
-    display: none;
+.book_nowB {
+  display: none;
 }
 
-.book_nowAA{
-    font-family: "Poppins", sans-serif;
-    padding: 16px 24px;
-    border-radius: 4px;
-    background: #08080B;
-    color: white;
+.book_nowAA {
+  font-family: "Poppins", sans-serif;
+  padding: 16px 24px;
+  border-radius: 4px;
+  background: #08080b;
+  color: white;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  margin: 16px 0px;
+}
+
+.serviceDetailClass {
+  border-top: none !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.salon_serviceEA {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #08090a;
+  color: white;
+  padding: 4px 6px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.salon_serviceEB {
+  padding: 4px 16px;
+  cursor: pointer;
+}
+.salon_aboutBA {
+  margin-bottom: 1.5rem;
+}
+.salonTimings {
+  color: var(--Grey-Black, #08090a);
+  font-family: "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 0.16px;
+}
+.salonTimings span {
+  color: var(--Grey-Black, #08090a);
+  font-family: "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.16px;
+}
+
+@media only screen and (max-width: 767px) {
+  .salon_main {
+    width: 100%;
+    width: 100%;
+  }
+
+  .salon_options {
+    width: 107%;
+  }
+
+  .salon_options ul {
+    gap: 24px;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+
+  .salon_options ul li {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .salon_service_option {
+    width: 107%;
+  }
+
+  .salon_sections {
+    margin-top: 36px;
+  }
+
+  .salon_section_title {
+    font-size: 20px;
+  }
+
+  .salon_section_main {
+    padding: 16px 0px;
+    border-top: 1px solid #ebedf0;
+  }
+
+  .salon_service_option ul li {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .salon_service_title {
+    padding: 24px 0px;
+    font-size: 16px;
+  }
+
+  .salon_serviceAB {
+    padding: 0px;
+  }
+
+  .salon_serviceA {
+    gap: 12px;
+  }
+
+  .salon_serviceB {
+    width: 100%;
+  }
+
+  .salon_aboutB {
+    padding: 16px 0px;
+    margin: 16px 0px;
+    border: none;
+    border-bottom: 1px solid #ebedf0;
+    border-top: 1px solid #ebedf0;
+  }
+
+  .salon_aboutBA {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .salon_aboutBB {
+    margin: 0px;
+    margin: 12px 0px;
+  }
+
+  .salon_aboutC {
+    display: block;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ebedf0;
+  }
+
+  .salon_aboutBC > img {
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .salon_offersAA {
     width: 100%;
     border: none;
-    cursor: pointer;
-    margin: 16px 0px;
-}
+    border-bottom: 1px solid #ebedf0;
+    padding: 8px 0px;
+  }
 
-.serviceDetailClass{
-    border-top: none !important;
-    margin: 0px !important;
-    padding: 0px !important;
-}
+  .salon_offersAB {
+    font-size: 16px;
+  }
 
-.salon_serviceEA{
-    width: 100%;
+  .salon_offersAC {
+    font-size: 14px;
+    font-weight: 400;
+    color: #6d747a;
+  }
+
+  .salon_teamA {
+    width: 107%;
+    overflow-x: scroll;
+    gap: 36px;
+    flex-wrap: nowrap;
+  }
+
+  .salon_teamAA {
+    width: 20%;
+  }
+
+  .salon_teamAAA {
+    width: 64px;
+    height: 64px;
+  }
+
+  .salon_teamAAB {
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .salon_teamAAC,
+  .salon_teamAAD {
+    text-align: center;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .book_nowB {
+    display: block;
+  }
+
+  .book_nowA {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #08090A;
-    color: white;
-    padding: 4px 6px;
+    padding: 0px 16px;
     box-sizing: border-box;
+    border-top: 1px solid #ced4da;
+    position: fixed;
+    width: 100%;
+    bottom: 0%;
+    left: 0%;
+    background-color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .book_nowAA {
+    border-radius: 100px;
+  }
+
+  .book_nowBA {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .book_nowBB {
+    font-weight: 600;
+  }
+
+  .book_nowD {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+  .book_nowD > span {
+    font-weight: 600;
+  }
+  .book_nowE {
+    font-size: 12px;
+    font-weight: 400;
+    color: #6d747a;
+    text-decoration: underline;
     cursor: pointer;
-}
-
-.salon_serviceEB{
-    padding: 4px 16px;
-    cursor: pointer;
-}
-
-@media only screen and (max-width:767px){
-
-    .salon_main{
-        width: 100%;
-        width: 100%;
-    }
-
-    .salon_options{
-        width: 107%;
-    }
-
-    .salon_options ul{
-        gap: 24px;
-        overflow-x: scroll;
-        white-space: nowrap;
-    }
-
-    .salon_options ul li{
-        font-size: 16px;
-        font-weight: 500;
-    }
-
-    .salon_service_option {
-        width: 107%;
-    }
-
-    .salon_sections{
-        margin-top: 36px;
-    }
-
-    .salon_section_title{
-        font-size: 20px;
-    }
-
-    .salon_section_main{
-        padding: 16px 0px;
-        border-top: 1px solid #EBEDF0;
-    }
-
-    .salon_service_option ul li{
-        padding: 8px 12px;
-        font-size: 14px;
-        font-weight: 400;
-    }
-    
-    .salon_service_title{
-        padding: 24px 0px;
-        font-size: 16px;
-    }
-
-    .salon_serviceAB{
-        padding: 0px;
-    }
-
-    .salon_serviceA{
-        gap: 12px;
-    }
-
-    .salon_serviceB{
-        width: 100%;
-    }
-
-    .salon_aboutB{
-        padding: 16px 0px;
-        margin: 16px 0px;
-        border: none;
-        border-bottom: 1px solid #EBEDF0;
-        border-top: 1px solid #EBEDF0;
-    }
-
-    .salon_aboutBA{
-        font-size: 16px;
-        font-weight: 500;
-    }
-
-    .salon_aboutBB{
-        margin: 0px;
-        margin: 12px 0px;
-    }
-
-    .salon_aboutC{
-        display: block;
-        padding-bottom: 16px;
-        border-bottom: 1px solid #EBEDF0;
-    }
-
-    .salon_aboutBC > img{
-        width: 100%;
-        margin-top: 12px;
-    }
-
-    .salon_offersAA{
-        width: 100%;
-        border: none;
-        border-bottom: 1px solid #EBEDF0;
-        padding: 8px 0px;
-    }
-
-    .salon_offersAB{
-        font-size: 16px;
-    }
-
-    .salon_offersAC{
-        font-size: 14px;
-        font-weight: 400;
-        color: #6D747A;
-    }
-
-    .salon_teamA{
-        width: 107%;
-        overflow-x: scroll;
-        gap: 36px;
-        flex-wrap: nowrap;
-    }
-
-    .salon_teamAA{
-        width: 20%;
-    }
-
-    .salon_teamAAA{
-        width: 64px;
-        height: 64px;
-    }
-
-    .salon_teamAAB{
-        text-align: center;
-        font-size: 14px;
-    }
-
-    .salon_teamAAC, .salon_teamAAD{
-        text-align: center;
-        font-size: 12px;
-        line-height: 18px;
-    }
-
-    .book_nowB{
-        display: block;
-    }
-
-    .book_nowA{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0px 16px;
-        box-sizing: border-box;
-        border-top: 1px solid #CED4DA;
-        position: fixed;
-        width: 100%;
-        bottom: 0%;
-        left: 0%;
-        background-color: #fff;
-        font-size: 14px;
-        font-weight: 400;
-    }
-
-    .book_nowAA{
-        border-radius: 100px;
-    }
-
-    .book_nowBA{
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 4px;
-    }
-
-    .book_nowBB{
-        font-weight: 600;
-    }
-
-    .book_nowD{
-        font-size: 14px;
-        font-weight: 400;
-        margin-bottom: 4px;
-    }
-    .book_nowD>span{
-        font-weight: 600;
-    }
-    .book_nowE{
-        font-size: 12px;
-        font-weight: 400;
-        color: #6D747A;
-        text-decoration: underline;
-        cursor: pointer;
-    }
+  }
 }

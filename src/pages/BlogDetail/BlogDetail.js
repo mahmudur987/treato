@@ -13,7 +13,7 @@ import BlogCard from "../../components/Cards/Blog/BlogCard";
 import Carousel from "react-multi-carousel";
 import { AllBlogs } from "../../services/blog";
 import { getAllServices } from "../../services/Services";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
 import PopularBlogCard from "../../components/Cards/PopularBlogCard/PopularBlogCard";
 import { SingleBlog } from "../../services/SingleBlog";
@@ -121,6 +121,13 @@ export default function BlogDetail(props) {
     navigator.clipboard.writeText(window.location.href);
     toast.info(`Link copied to clipboard!`);
   };
+const navigate=useNavigate();
+const handleServiceClick =(serviceName)=>{
+  navigate(
+    `/salons?service=${serviceName}&lat=&lng=&location=`
+  );
+}
+
   return (
     <div className={`${styles["container"]} page-section page-container`}>
       <BackButton/>
@@ -240,7 +247,7 @@ export default function BlogDetail(props) {
                   serviceData.length?
                   serviceData.map((v)=>{
                     return(
-                      <a key={v._id}>{v.service_name}</a>
+                      <Link to={`/salons?service=${v?.service_name}&lat=&lng=&location=`} key={v._id}>{v.service_name}</Link>
                     )
                   })
                   :

@@ -10,6 +10,7 @@ export default function PhoneInput({
   NAME,
   updateInputVal,
   inputVal,
+  onChange,
 }) {
   const [value, setValue] = useState("");
 
@@ -38,7 +39,7 @@ export default function PhoneInput({
         disabled={DISABLED ? DISABLED : false}
         id={ID ? ID : ""}
         name={NAME ? NAME : ""}
-        onChange={inputValue}
+        onChange={onChange ? onChange : inputValue}
       />
     </div>
   );
