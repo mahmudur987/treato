@@ -55,7 +55,7 @@ export default function BillSummary({
   const userDetails = useSelector((state) => state?.user?.user);
   const serviceDetails = useSelector((state) => state?.salonServices);
   const visitorDetails = useSelector((state) => state?.VisitorDetails);
-
+  console.log(visitorDetails);
   useEffect(() => {
     let IDs = selectedServices?.map((e) => {
       return e?.service_id;
@@ -206,11 +206,14 @@ export default function BillSummary({
       payment_mode: "on-site",
       serviceDetails: selectedServices,
     };
+    console.log(billInfo);
+
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
+      console.log(response);
       if (response?.success) {
-        setOrderResponse(response?.order);
-        setCompletedPay(true);
+        // setOrderResponse(response?.order);
+        // setCompletedPay(true);
       }
     });
   };
@@ -300,12 +303,15 @@ export default function BillSummary({
           )}
         </div>
         {!showPay || paySelected ? (
-          <BookNow
-            innerText={"Confirm Booking"}
-            setCompletedPay={setCompletedPay}
-            handleOfflinePayment={handleOfflinePayment}
-            salonId={id}
-          />
+          <>
+            <button onClick={handleOfflinePayment}>book now</button>
+            <BookNow
+              innerText={"Confirm Booking"}
+              setCompletedPay={setCompletedPay}
+              handleOfflinePayment={handleOfflinePayment}
+              salonId={id}
+            />
+          </>
         ) : (
           <div className={styles.bill_sumG}>
             <button onClick={handlePayment}>Pay ₹{amountToPay}</button>
