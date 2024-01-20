@@ -242,9 +242,10 @@ const LoginPage = () => {
                   type="email"
                   id="email"
                   name="email"
-                  placeholder="e.g. person@gmail.com"
+                  placeholder="person@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className={`${styles.pass}`}
                 />
                 {formErrors.email && (
                   <p className={styles.error}>{formErrors.email}</p>
@@ -257,10 +258,10 @@ const LoginPage = () => {
                   type={passwordVisible ? "text" : "password"}
                   id="password"
                   name="password"
-                  placeholder="Enter your password"
+                  placeholder="........"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className=""
+                  className={`${styles.pass}`}
                 />
                 <img
                   src={eyeline}

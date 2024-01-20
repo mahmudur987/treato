@@ -3,7 +3,10 @@
 .user_address {
     margin: 64px 0px;
 }
-
+.saveInactive{
+    background-color: #EBEDF0;
+    color: #939CA3;
+}
 .addr_head {
     font-size: 24px;
     font-family: "Poppins", sans-serif;
@@ -43,6 +46,9 @@
     color: #6D747A;
     width: 70%;
     padding-top: 8px;
+}
+.add_data{
+    display: none;
 }
 
 .new_addr_add {

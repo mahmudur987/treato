@@ -8,31 +8,31 @@ import BookNow from '../BookNow/BookNow'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
-export default function SalonCard({SalonData,salonId}) {
-    const currentTime = new Date().toLocaleTimeString(); 
-    let [checkSalonOpen,setCheckSalonOpen] = useState(false);
-    useEffect(()=>{
-        if(SalonData){
+export default function SalonCard({ SalonData, salonId }) {
+    const currentTime = new Date().toLocaleTimeString();
+    let [checkSalonOpen, setCheckSalonOpen] = useState(false);
+    useEffect(() => {
+        if (SalonData) {
             let salonTime = SalonData?.working_hours[0]?.closing_time.toLowerCase();
-            if(currentTime<salonTime){
+            if (currentTime < salonTime) {
                 setCheckSalonOpen(true)
             }
         }
-    },[SalonData])
+    }, [SalonData])
     return (
         <div className={styles.salon_card}>
             <div className={styles.salon_cardA}>
-                {SalonData?SalonData.salon_name:null}
+                {SalonData ? SalonData.salon_name : null}
             </div>
             <div className={styles.salon_cardB}>
-                <div>{SalonData?SalonData.rating:null} </div>
+                <div>{SalonData ? SalonData.rating : null} </div>
                 <img src={star} alt="" />
-                <div>(based on {SalonData?SalonData.total_rating:null} ratings)</div>
+                <div>(based on {SalonData ? SalonData.total_rating : null} ratings)</div>
                 <img src={ellipse} alt="" />
                 <div>See reviews</div>
             </div>
             <div className={styles.salon_cardC}>
-                <BookNow salonId={salonId?salonId:null}/>
+                <BookNow salonId={salonId ? salonId : null} />
             </div>
             <div className={styles.salon_cardD}>
                 <img src={discount} alt="" />
@@ -44,7 +44,7 @@ export default function SalonCard({SalonData,salonId}) {
                 <img src={clock} alt="" />
                 <div>
                     <div className={styles.salon_cardDA}>
-                        <div>{checkSalonOpen?"Open":"Closed"}</div>
+                        <div>{checkSalonOpen ? "Open" : "Closed"}</div>
                         <img src={ellipse} alt="" />
                         <div>Opens {SalonData?.working_hours[0]?.opening_time} {SalonData?.working_hours[0]?.day}</div>
                     </div>
@@ -53,7 +53,7 @@ export default function SalonCard({SalonData,salonId}) {
                     </div>
                 </div>
             </div>
-            <SalonMap SalonData={SalonData?SalonData:null}/>
+            <SalonMap SalonData={SalonData ? SalonData : null} />
         </div>
     )
 }

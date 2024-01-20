@@ -11,13 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addService } from '../../../redux/slices/salonServices';
 const LookbookDetails = () => {
   let [lookData, setLookData] = useState(null);
+  let [allLookData, setAllLookData] = useState(null);
   let [salonData, setSalonData] = useState(null);
   let [serviceData, setServiceData] = useState(null);
   let [salonId, setSalonId] = useState(null);
 
   const dispatch = useDispatch()
   const salonServices = useSelector(state => state.salonServices.salonContent);
-
   const id = useParams();
   let navigate = useNavigate();
   const handleGoBack = () => {
@@ -27,8 +27,9 @@ const LookbookDetails = () => {
     let getLooks = async () => {
       const { res, err } = await GetSingleLook(id.id)
       if (res) {
+       
         setLookData(res?.data?.data[0])
-        setSalonData(res?.data?.data[0].salon[0])
+        setSalonData(res?.data?.data[0].service[0])
         setServiceData(res?.data?.data[0].serviceSubCategoryData)
       }
     }
@@ -38,14 +39,17 @@ const LookbookDetails = () => {
   useEffect(() => {
     let getAllLooks = async () => {
       const { res, err } = await GetLooks()
+      console.log(res,"getAllLooks");
       if (res) {
         let data = res?.data?.data.filter(v => v._id === lookData?._id)
         setSalonId(data[0]?.salon);
+        setAllLookData(data)
+        console.log(data);
       }
     }
     getAllLooks();
   }, [lookData])
-
+console.log(lookData);
   let handleNavigation = () => {
     let services = {
       salon_id: salonId,
@@ -60,17 +64,17 @@ const LookbookDetails = () => {
     dispatch(addService(allServices));
     navigate(`/salons/${salonId}/book`);
   }
-
+console.log(serviceData);
+console.log(lookData);
   return (
     <div className={styles.LookbookDetails}>
       {
         lookData ?
           <>
             <div className={styles.imageSection}>
-              <div onClick={handleGoBack}><img src={arrowleft} alt="backBtn" className={styles.backBtn} /></div>
               <h3>{lookData?.name}</h3>
               <div className={styles.rating}>
-                {lookData?.rating} <img src={greyStar} alt="starIcon" /> (61 rating)
+                {lookData?.rating} <img src={greyStar} alt="starIcon" /> 
               </div>
               <p>
                 {lookData?.description}
@@ -80,8 +84,10 @@ const LookbookDetails = () => {
             <div className={styles.paymentContainer}>
               <div className={styles.paymentBox}>
                 <div className={styles.salonInfo}>
-                  <h3>{salonData?.salon_name}</h3>
-                  <span>{lookData?.locationText}</span>
+                  <h3>{salonData?.service_name}</h3>
+                  <span>
+                    {lookData?.locationText} 
+                   </span>
                 </div>
                 <hr className={styles.line} />
                 <div className={styles.serviceWrap}>
@@ -118,7 +124,7 @@ const LookbookDetails = () => {
                   {
                     salonId ?
                       <>
-                        <span> at </span><Link to={`/salons/${salonId}`}><span className={styles.salonName}>{salonData?.salon_name}</span></Link>
+                        <span> at </span><Link to={`/salons/${salonId}`}><span className={styles.salonName}>{serviceData?.service_name}</span></Link>
                       </>
                       :
                       null
@@ -126,8 +132,8 @@ const LookbookDetails = () => {
                 </div>
                 <hr className={styles.line} />
 
-                <button className={styles.addVenueBtn}>
-                  <span className={styles.plus}>+</span> Add another service from this venue
+                <button className={styles.addVenueBtn} onClick={handleNavigation}>
+                  <span className={styles.plus} >+</span> Add another service from this venue
                 </button>
                 <PrimaryButton className={styles.bookNow} onClick={handleNavigation}>Book now</PrimaryButton>
               </div>

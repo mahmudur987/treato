@@ -62,7 +62,7 @@
   gap: 16px;
   font-size: var(--font-medium);
   font-family: "Lato", sans-serif;
-  font-weight: 500;
+  /* font-weight: 500; */
 }
 .Price .header{
   margin-bottom: 2rem;

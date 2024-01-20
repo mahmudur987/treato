@@ -104,7 +104,6 @@ useEffect(() => {
           showDots={true}
           removeArrowOnDeviceType={["mobile"]}
           dotListClass={styles["custom-dot-list-style"]}
-          itemClass={styles["carousel-item-padding-40-px"]}
           className={styles.rmdWrapper}
           draggable={false}
           swipeable={false}
@@ -118,14 +117,14 @@ useEffect(() => {
             </a>
           ))}
         </Carousel>
-        <div className={styles.rmdWrapperMobo}>
+        {/* <div className={styles.rmdWrapperMobo}>
         {allServices.map((service, index) => (
             <a key={index} className={styles.rmdItem}>
               <img src={service?.service_img?.public_url} alt={service.service_name[0]} />
               <h4>{service.service_name}</h4>
             </a>
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

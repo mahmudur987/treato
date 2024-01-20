@@ -86,12 +86,14 @@
   letter-spacing: 0.16px;
   display: flex;
   align-items: center;
+  
 }
 
 .header-date>img {
   margin-left: 24px;
   margin-right: 8px;
   flex-shrink: 0;
+  
 }
 
 .line {
@@ -104,12 +106,13 @@
 
 .header-right {
   color: #26262c;
-  font-family: Lato;
+  font-family: "Lato";
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
   line-height: 180%;
   letter-spacing: 0.24px;
+
 }
 
 .header-right,
@@ -117,10 +120,15 @@
   display: flex;
   column-gap: 20px;
   align-items: center;
+  background-color: none !important;
+  border: none !important;
+ 
 }
 
 .social-icons {
   cursor: pointer;
+  background-color: none !important;
+  border: none !important;
 }
 
 .blog-image {

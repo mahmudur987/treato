@@ -77,11 +77,6 @@ export default function BookNow({
         )}
       </div>
       <div className={styles.book_nowC}>
-        {/* <Link>
-          <button onClick={proceedPayment}>
-            {innerText ? innerText : "Book Now"}
-          </button>
-        </Link> */}
         <Link to={updateActiveBookFlowBA ? "" : `/salons/${salonId}/book`}>
           <button onClick={proceedPayment} className={styles.book_nowAA}>
             {innerText ? innerText : "Book Now"}
