@@ -233,7 +233,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                 )}
                 {salon.payment_mode === "online" ? "paid" : "Due"}
                 <span className={styles.amount}>
-                  {salon.initial_amount ?? "00"}
+                  {salon.final_amount ?? "00"}
                 </span>
                 ({salon.payment_mode})
               </h4>
