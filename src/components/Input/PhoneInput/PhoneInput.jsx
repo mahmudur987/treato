@@ -14,7 +14,6 @@ export default function PhoneInput({
   const [value, setValue] = useState("");
 
   function inputValue(e) {
-    console.log(e.target.value);
     setValue(e.target.value);
     if (updateInputVal) {
       let allValue = { ...inputVal };
