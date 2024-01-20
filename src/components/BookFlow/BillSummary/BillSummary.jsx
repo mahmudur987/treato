@@ -206,14 +206,12 @@ export default function BillSummary({
       payment_mode: "on-site",
       serviceDetails: selectedServices,
     };
-    console.log(billInfo);
-
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
       console.log(response);
       if (response?.success) {
-        // setOrderResponse(response?.order);
-        // setCompletedPay(true);
+        setOrderResponse(response?.order);
+        setCompletedPay(true);
       }
     });
   };
@@ -304,7 +302,6 @@ export default function BillSummary({
         </div>
         {!showPay || paySelected ? (
           <>
-            <button onClick={handleOfflinePayment}>book now</button>
             <BookNow
               innerText={"Confirm Booking"}
               setCompletedPay={setCompletedPay}

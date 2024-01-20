@@ -14,6 +14,7 @@ export default function BookNow({
   totalSalonServices,
   salonServices,
   Disabled,
+  handleOfflinePayment,
 }) {
   let [totalServicesPrice, setTotalServicesPrice] = useState(0);
   useEffect(() => {
@@ -26,7 +27,9 @@ export default function BookNow({
     }
   }, [salonServices]);
   let proceedPayment = () => {
-    if (Disabled) {
+    if (handleOfflinePayment) {
+      return handleOfflinePayment();
+    } else if (Disabled) {
       toast.error("Please fill all required details!");
     } else {
       if (updateActiveBookFlowBA) {
@@ -74,6 +77,11 @@ export default function BookNow({
         )}
       </div>
       <div className={styles.book_nowC}>
+        {/* <Link>
+          <button onClick={proceedPayment}>
+            {innerText ? innerText : "Book Now"}
+          </button>
+        </Link> */}
         <Link to={updateActiveBookFlowBA ? "" : `/salons/${salonId}/book`}>
           <button onClick={proceedPayment} className={styles.book_nowAA}>
             {innerText ? innerText : "Book Now"}
