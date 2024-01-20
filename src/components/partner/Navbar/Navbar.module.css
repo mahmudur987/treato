@@ -48,11 +48,78 @@
   line-height: 100%; /* 16px */
   letter-spacing: -0.16px;
 }
+.actionWrapper {
+  max-width: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.account h3 {
+  color: var(--Primary-000, #08080b);
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%; /* 16px */
+  letter-spacing: -0.16px;
+}
+.account img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 .action {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+.profileContainer {
+  max-width: 350px;
+  width: 100%;
+  padding: 30px 0px;
+  background-color: #fff;
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  color: var(--Primary-000, #08080b);
+  cursor: pointer;
+}
+.profileContainer img {
+  height: 50px;
+  width: 50px;
+  border-radius: 10%;
+}
+.profileContainer h3 {
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%; /* 16px */
+  letter-spacing: -0.16px;
+}
+.profileContainer a {
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%; /* 16px */
+  letter-spacing: -0.16px;
 }
 .login {
   display: inline-flex;

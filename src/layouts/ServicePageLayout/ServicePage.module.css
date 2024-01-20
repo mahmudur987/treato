@@ -6,3 +6,6 @@
   position: relative;
   display: flex;
 }
+.downContainer {
+  flex-grow: 1;
+}

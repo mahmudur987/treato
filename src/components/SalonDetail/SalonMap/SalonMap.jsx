@@ -12,10 +12,7 @@ export default function SalonMap({ SalonData }) {
     setLatitude(SalonData?.location?.coordinates[0]);
     setLongitude(SalonData?.location?.coordinates[1]);
   }, [SalonData]);
-  useEffect(() => {
- console.log(Latitude, Longitude);
-  }, [Latitude, Longitude])
-  
+  useEffect(() => {}, [Latitude, Longitude]);
 
   const containerStyle = {
     width: "100%",
@@ -35,25 +32,25 @@ export default function SalonMap({ SalonData }) {
   return (
     <>
       <div className={styles.salon_MapA}>
-          <img src={map} alt="" />
+        <img src={map} alt="" />
         <div>{SalonData ? SalonData.locationText : null}</div>
       </div>
       <div className={styles.salon_MapB}>
-      {Latitude && Longitude ? (
-
-            <GoogleMap
-              mapContainerStyle={containerStyle}
-              center={{ lat: Latitude, lng: Longitude }}
-              zoom={15}
-            >
-              <Marker position={{ lat: Latitude, lng: Longitude }}
-               icon={{
-                url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // URL of the red pin icon
+        {Latitude && Longitude ? (
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={{ lat: Latitude, lng: Longitude }}
+            zoom={15}
+          >
+            <Marker
+              position={{ lat: Latitude, lng: Longitude }}
+              icon={{
+                url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // URL of the red pin icon
                 scaledSize: new window.google.maps.Size(30, 30), // Size of the pin
               }}
-              />
-            </GoogleMap>
-            ):null }
+            />
+          </GoogleMap>
+        ) : null}
         <button className={styles.salon_MapBA} onClick={openMapInNewWindow}>
           View on map
           <img src={mapBlue} alt="" />

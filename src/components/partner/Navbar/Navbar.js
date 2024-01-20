@@ -11,13 +11,24 @@ import user from "../../../assets/icons/partner/user.png";
 import pricing from "../../../assets/icons/partner/price.png";
 import download from "../../../assets/icons/partner/download.png";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [show, setshow] = useState(false);
+  const userData = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const [showProfile, setShowProfile] = useState(false);
+  const handleLogout = () => {
+    dispatch(updateIsLoggedIn(false));
+    dispatch(resetUserDetails({}));
+    localStorage.removeItem("userData");
+    localStorage.removeItem("jwtToken");
+    navigate("/partner");
+  };
   const scrollToSection = (navigate, sectionId) => {
     navigate("/partner"); // Navigate to the home page
-
     setTimeout(() => {
       const section = document.getElementById(sectionId);
       if (section) {
@@ -26,7 +37,7 @@ const Navbar = () => {
           behavior: "smooth",
         });
       }
-    }, 450); // Delay the scroll to ensure the navigation has completed
+    }, 450);
   };
   return (
     <section className={style.mainContainer}>
@@ -41,7 +52,7 @@ const Navbar = () => {
           <p className={style.navItems}>
             {" "}
             <Link to={"/"} className={style.navItem}>
-              For customar
+              For customers
             </Link>
             <Link
               onClick={() => scrollToSection(navigate, "AppDownload")}
@@ -53,16 +64,54 @@ const Navbar = () => {
               Pricing
             </Link>
           </p>
-          <p className={style.action}>
-            <Link to={"/login"}>
-              <button className={style.login}>Login</button>
-            </Link>
-            <Link to={"/partner/authchoice"}>
-              <button className={style.signup}>Sign up for free</button>
-            </Link>
+          <p className={style.actionWrapper}>
+            {userData?.isLoggedIn ? (
+              <div
+                onClick={() => setShowProfile((pre) => !pre)}
+                className={style.account}
+              >
+                <img src={userData?.user?.avatar?.public_url} alt="" />
+                <h3>{userData?.user?.first_name}</h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M6 9L12 15L18 9"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            ) : (
+              <p className={style.action}>
+                {" "}
+                <Link to={"/login"}>
+                  <button className={style.login}>Login</button>
+                </Link>
+                <Link to={"/partner/authchoice"}>
+                  <button className={style.signup}>Sign up for free</button>
+                </Link>
+              </p>
+            )}
           </p>
         </nav>
-
+        {showProfile && (
+          <div
+            onClick={() => setShowProfile((pre) => !pre)}
+            className={style.profileContainer}
+          >
+            <img src={userData?.user?.avatar?.public_url} alt="" />
+            <h3>{userData?.user?.first_name}</h3>
+            <Link to={"/"}>services</Link>
+            <Link onClick={handleLogout}>LogOut</Link>
+          </div>
+        )}
         {/* mobile menu */}
 
         <div className={style.mobilemenu}>
