@@ -21,7 +21,8 @@ import VerifyOtp from "../../components/_modals/VerifyOtp/VerifyOtp";
 import { updateUser } from "../../services/updateUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { sendLoginOTP } from "../../services/auth";
+import { toast } from "react-toastify";
 import { updateUserDetails } from "../../redux/slices/user";
 import FindLocationModal from "../../components/_modals/FindLocationModal/FindLocationModal";
 import SetPassword from "../../components/AccountSettings/PasswordChange/SetPassword";
@@ -41,6 +42,7 @@ export default function AccountSettings() {
   let [otpModal, setOtpModal] = useState(false);
   let [showSave, setShowSave] = useState(false);
   let [otpSuccess, setOtpSuccess] = useState(false);
+  const [userOTP, setuserOTP] = useState(null);
   let [inputState, updateInputState] = useState({
     first_name: true,
     last_name: true,
@@ -86,6 +88,7 @@ export default function AccountSettings() {
     e.preventDefault();
     const userJWt = localStorage.getItem("jwtToken");
     let formData = {
+      avatar: inputVal?.avatarFile,
       first_name: e.target.first_name.value,
       last_name: e.target.last_name.value,
       email: e.target.email.value,
@@ -104,8 +107,25 @@ export default function AccountSettings() {
       place: inputVal.place,
     };
     if (e.target.phone.value == userData.phone) {
-      setOtpModal(true);
-      localStorage.setItem("tempUserData", JSON.stringify(formData));
+      sendLoginOTP({ phoneNumber: inputVal?.phone }).then((res) => {
+        console.log(res);
+        if (res?.res?.data?.message === "OTP sent!") {
+          setOtpModal(true);
+          setuserOTP(res?.res?.data?.otp);
+          console.log(res?.res?.data?.otp);
+        } else {
+          if (res?.err?.response?.data) {
+            toast.error(
+              `${
+                res?.err?.response?.data.error ||
+                res?.err?.response?.data.message
+              }`
+            );
+          } else {
+            toast.error("Invalid Phone Number");
+          }
+        }
+      });
     } else {
       console.log(formData);
       updateUser(userJWt, formData)
@@ -171,6 +191,7 @@ export default function AccountSettings() {
                 setProfileModal={setProfileModal}
                 logOut={logOut}
                 user={data?.user}
+                inputVal={inputVal}
               />
               <div className={styles.acc_setting_right}>
                 <form id="acc_set_form" onSubmit={submitForm}>
@@ -214,6 +235,7 @@ export default function AccountSettings() {
                   <ProfileView
                     mobView="true"
                     setProfileModal={setProfileModal}
+                    inputVal={inputVal}
                   />
                   <div
                     className={styles.acc_mob_options}
@@ -327,7 +349,12 @@ export default function AccountSettings() {
               updateMobileOpt={updateMobileOpt}
             />
           ) : profileModal ? (
-            <ChangeProfile setProfileModal={setProfileModal} />
+            <ChangeProfile
+              setProfileModal={setProfileModal}
+              updateInputVal={updateInputVal}
+              inputVal={inputVal}
+              setShowSave={setShowSave}
+            />
           ) : addressModal.active ? (
             <AddressModal
               setAddressModal={setAddressModal}
@@ -346,6 +373,10 @@ export default function AccountSettings() {
               otpSuccess={otpSuccess}
               setShowSave={setShowSave}
               updateInputState={updateInputState}
+              updateInputVal={updateInputVal}
+              inputVal={inputVal}
+              userOTP={userOTP}
+              setuserOTP={setuserOTP}
             />
           ) : locationModal ? (
             <FindLocationModal

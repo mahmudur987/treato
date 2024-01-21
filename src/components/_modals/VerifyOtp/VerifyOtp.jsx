@@ -7,8 +7,10 @@ import { useState } from 'react'
 import { useRef } from 'react'
 import { useEffect } from 'react'
 import { updateUser } from '../../../services/updateUser'
+import { sendLoginOTP } from '../../../services/auth'
+import { toast } from 'react-toastify'
 
-export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess,setShowSave,updateInputState }) {
+export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess,setShowSave,updateInputState,updateInputVal, inputVal,userOTP, setuserOTP}) {
     let [timer, setTimer] = useState({
         min: 5,
         sec: 0
@@ -21,17 +23,17 @@ export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess,setSh
     })
     let otpBoxReference = useRef([]);
     let otpFunc = (e) => {
-        let data = { ...otpData }
-        if (e.target.value.length <= 1) {
+        let data = { ...otpData };
+        if (/^\d+$/.test(e.target.value) && e.target.value.length <= 1) {
             data[e.target.name] = e.target.value;
-            setOtpData(data)
+            setOtpData(data);
             otpBoxReference.current.map((v, i) => {
                 if (e.target.name === v.name && e.target.value !== '' && i < otpBoxReference.current.length - 1) {
                     otpBoxReference.current[i + 1].focus();
                 }
-            })
+            });
         }
-    }
+    };
     let onKeyPress = (e) => {
         if (e.keyCode === 8) {
             let data = { ...otpData }
@@ -67,28 +69,42 @@ export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess,setSh
             setTimer(finalTime)
         }
     }, 1000)
-    const tempUserData = JSON.parse(localStorage.getItem("tempUserData"));
     let submitPass = () => {
+        let givenOTP=parseInt(otpData.inp1 + otpData.inp2 + otpData.inp3 + otpData.inp4)
+        console.log(userOTP,givenOTP);
         const userJWt = localStorage.getItem("jwtToken");
-        updateUser(userJWt, tempUserData)
-            .then((res) => {
-                localStorage.setItem('userData', JSON.stringify(tempUserData))
-                setShowSave(false)
-                let states = {
-                    first_name: true,
-                    last_name: true,
-                    email: true,
-                    phone: true,
-                    dob: true
-                }
-                updateInputState(states)
-                console.log(res);
+        if(userOTP===givenOTP){
+            updateUser(userJWt, inputVal)
+                .then((res) => {
+                    setShowSave(false)
+                    let states = {
+                        first_name: true,
+                        last_name: true,
+                        email: true,
+                        phone: true,
+                        dob: true
+                    }
+                    updateInputState(states)
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            setOtpSuccess(otpSuccess ? setOtpModal(false) : true)
+        }
+        else{
+            console.log("Invalid OTP");
+            toast.error("Invalid OTP")
+            setOtpData({
+                inp1: '',
+                inp2: '',
+                inp3: '',
+                inp4: '',
             })
-            .catch((err) => {
-                console.log(err)
-            })
-        setOtpSuccess(otpSuccess ? setOtpModal(false) : true)
+        }
     }
+
+    
     return (
         <div className={styles.otpMain}>
             <div className={styles.otpA}>
@@ -107,7 +123,7 @@ export default function VerifyOtp({ setOtpModal, setOtpSuccess, otpSuccess,setSh
                         :
                         <>
                             <div className={styles.otpC}>
-                                Enter the OTP sent to to {tempUserData.phone}.
+                                Enter the OTP sent to to {inputVal?.phone}.
                             </div>
                             <div className={styles.otpD}>
                                 <div>

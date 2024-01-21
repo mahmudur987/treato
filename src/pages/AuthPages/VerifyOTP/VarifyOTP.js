@@ -30,7 +30,7 @@ const VerifyOTP = (props) => {
   const userDetails = useSelector((state) => state.user);
   useEffect(() => {
     inputRefs.current[0]?.focus();
-    if (localStorage.getItem("requiredRegisterData") !== undefined) {
+    if (localStorage.getItem("requiredRegisterData") != undefined || localStorage.getItem("requiredRegisterData") != null) {
       setRequiredRegisterData(
         JSON.parse(localStorage.getItem("requiredRegisterData"))
       );
@@ -125,11 +125,7 @@ const VerifyOTP = (props) => {
             res?.res?.data.message === "User Information Saved Successfully"
           ) {
             localStorage.setItem("jwtToken", res?.res?.data.token);
-            getUserProfile().then((res) => {
-              localStorage.setItem(
-                "userData",
-                JSON.stringify(res?.res?.data.data)
-              );
+            getUserProfile(res?.res?.data.token).then((res) => {
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(res?.res?.data?.data));
               dispatch(updateOTP(0));
@@ -139,7 +135,6 @@ const VerifyOTP = (props) => {
             });
             //TODO:need to add user data in localStorage
           } else {
-            console.log(res?.err.response.data.message);
             setOTPerror(true);
             seterrorMessage(res?.err.response.data.message);
           }

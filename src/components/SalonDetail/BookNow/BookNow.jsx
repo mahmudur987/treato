@@ -3,6 +3,8 @@ import ellipse from "../../../assets/images/SalonDetail/Ellipse.svg";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function BookNow({
   innerText,
@@ -14,8 +16,20 @@ export default function BookNow({
   totalSalonServices,
   salonServices,
   Disabled,
+  displayFinalAmount,
+  handleOfflinePayment,
+  handlePayment,
 }) {
   let [totalServicesPrice, setTotalServicesPrice] = useState(0);
+  let navigate = useNavigate();
+  const userDetails = useSelector((state) => state?.user);
+  const selectedOffer = useSelector(
+    (state) => state?.salonServices?.appliedOffer
+  );
+  const TotalServiceAmount = useSelector(
+    (state) => state?.salonServices?.Amount
+  );
+
   useEffect(() => {
     if (salonServices?.length) {
       let prices = salonServices.map((v, i) => {
@@ -25,18 +39,31 @@ export default function BookNow({
       setTotalServicesPrice(totalPrice);
     }
   }, [salonServices]);
-
   let proceedPayment = () => {
+    console.log("proceedPayment");
     if (Disabled) {
-      toast.error("Please fill all required details!");
+      if (activeBookFlowBA === 1) {
+        toast.error("Please select your required services ");
+      } else if (activeBookFlowBA === 2) {
+        toast.error("Please select a stylist, date, and time slot to proceed.");
+      } else {
+        toast.error("Please fill all required details!");
+      }
+      console.log(activeBookFlowBA);
     } else {
       if (updateActiveBookFlowBA) {
         updateActiveBookFlowBA(
           activeBookFlowBA !== 4 ? activeBookFlowBA + 1 : 4
         );
       }
+      if (innerText === "Confirm Booking") {
+        handleOfflinePayment();
+        console.log("handleOfflinePayment");
+      } else if (innerText === "Pay ₹") {
+        handlePayment();
+      }
       if (setCompletedPay) {
-        setCompletedPay(true);
+        // setCompletedPay(true);
       }
     }
   };
@@ -74,12 +101,32 @@ export default function BookNow({
           </>
         )}
       </div>
+      {/* {console.log(selectedOffer?.amount_for_discount,TotalServiceAmount-selectedOffer?.amount_for_discount,TotalServiceAmount)} */}
       <div className={styles.book_nowC}>
-        <Link to={updateActiveBookFlowBA ? "" : `/salons/${salonId}/book`}>
-          <button onClick={proceedPayment} className={styles.book_nowAA}>
-            {innerText ? innerText : "Book Now"}
+        {displayFinalAmount && innerText === "Pay ₹" ? (
+          <Link to={updateActiveBookFlowBA ? "" : `/salons/${salonId}/book`}>
+            <button onClick={proceedPayment} className={styles.book_nowAA}>
+              {innerText}{" "}
+              {selectedOffer?.amount_for_discount
+                ? TotalServiceAmount -
+                  selectedOffer?.amount_for_discount?.toLocaleString()
+                : TotalServiceAmount?.toLocaleString()}
+            </button>
+          </Link>
+        ) : !innerText && !userDetails?.isLoggedIn ? (
+          <button
+            onClick={() => navigate("/create-account")}
+            className={styles.book_nowAA}
+          >
+            {innerText ? `${innerText}` : "Book Now"}
           </button>
-        </Link>
+        ) : (
+          <Link to={updateActiveBookFlowBA ? "" : `/salons/${salonId}/book`}>
+            <button onClick={proceedPayment} className={styles.book_nowAA}>
+              {innerText ? `${innerText}` : "Book Now"}
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

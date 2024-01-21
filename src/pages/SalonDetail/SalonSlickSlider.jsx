@@ -26,7 +26,7 @@ export default function SalonSlickSLider({gallery,setShowGallery,SalonData}) {
             SalonData?
             <Slider {...settings}>
                 {
-                    SalonData?.salon_Img.map((v, i) => {
+                    SalonData?.salon_Img?.map((v, i) => {
                         return (
                             <img src={v.public_url} alt="salon image" key={i} />
                         )
@@ -37,7 +37,7 @@ export default function SalonSlickSLider({gallery,setShowGallery,SalonData}) {
             ''
         }
             <div className={styles.salon_slider_index} onClick={()=>setShowGallery(true)}>
-                {activeImg + 1}/{SalonData?.salon_Img.length}
+                {activeImg + 1}/{SalonData?.salon_Img?.length}
             </div>
         </>
     )
