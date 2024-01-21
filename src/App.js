@@ -139,8 +139,8 @@ function App() {
           <Route
             path="/LocationAutocomplete"
             element={<LocationAutocomplete />}
-          />
-
+          />{" "}
+          */}
           {/* Auth routes */}
           <Route element={<PrivateFormRoutes />}>
             <Route path="/auth-choice" exact element={<AuthChoicePage />} />
@@ -152,7 +152,6 @@ function App() {
           </Route>
           {/* Redirect to home for any wrong routes */}
           <Route path="*" element={<Navigate to="/" />} />
-
           <Route path="/partner" element={<PartnerPage />}>
             <Route path="/partner" element={<PartnerHome />} />
             <Route path="/partner/authchoice" element={<AuthChoice />} />

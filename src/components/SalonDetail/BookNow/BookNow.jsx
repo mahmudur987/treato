@@ -18,7 +18,6 @@ export default function BookNow({
   Disabled,
   displayFinalAmount,
   handleOfflinePayment,
-  handlePayment,
 }) {
   let [totalServicesPrice, setTotalServicesPrice] = useState(0);
   let navigate = useNavigate();

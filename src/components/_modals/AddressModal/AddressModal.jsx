@@ -23,7 +23,6 @@ export default function AddressModal({
   userAddressText,
 }) {
   const [position, setPosition] = useState(null);
-  const [address, setAddress] = useState("");
   let [defaultProps, updateDefaultProps] = useState({
     center: {
       lat: "",
@@ -32,6 +31,7 @@ export default function AddressModal({
     zoom: 10,
   });
   const userDetails = useSelector((state) => state.user);
+
   let getLatLng = async () => {
     let lat =
       parseFloat(userDetails.user.latitude) !== NaN
@@ -66,28 +66,27 @@ export default function AddressModal({
       house_type: e.target.house_type.value,
       landmark: landmark ? landmark : "",
       house: house ? house : "",
+      place: userAddressText ? userAddressText : ""
+
     };
-    let allData = { ...inputVal };
-    allData.place.push(address);
+    console.log(address);
+    let allData = { ...inputVal, address, ...address };
     updateInputVal(allData);
-    updateUser(userJWt, allData)
-      .then((res) => {
-        localStorage.setItem("userData", JSON.stringify(allData));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     setAddressModal(false);
     setShowSave(true);
   };
+
   let editAddress = (e) => {
     e.preventDefault();
     let allData = { ...inputVal };
-    allData.place[addressModal.index].house = e.target.house.value;
-    allData.place[addressModal.index].landmark = e.target.landmark.value;
-    allData.place[addressModal.index].house_type = e.target.house_type.value;
+    allData.house = e.target.house.value;
+    allData.landmark = e.target.landmark.value;
+    allData.house_type = e.target.house_type.value;
+    allData.place = e.target?.place?.value;
     setAddressModal(false);
     updateInputVal(allData);
+    console.log("editAddress", allData);
+    setShowSave(true);
   };
   let [updateSave, setUpdateSave] = useState(false);
   let [locType, setLocType] = useState(0);
@@ -99,8 +98,9 @@ export default function AddressModal({
   useEffect(() => {
     if (addressModal.data) {
       updateInputs({
-        house: addressModal.data.house,
-        landmark: addressModal.data.landmark,
+        place: addressModal?.data?.place,
+        house: addressModal?.data?.house,
+        landmark: addressModal?.data?.landmark,
         house_type: locType === 1 ? "Home" : "Other",
       });
       setLocType(addressModal.data.house_type === "Home" ? 1 : 2);
@@ -146,7 +146,6 @@ export default function AddressModal({
       const data = await response.json();
 
       if (data.results && data.results.length > 0) {
-        console.log(data.results[0].formatted_address);
         setuserAddressText(data?.results[0]?.formatted_address);
         return data.results[0].formatted_address;
       } else {
@@ -158,9 +157,10 @@ export default function AddressModal({
     }
   };
 
+
   return (
     <>
-      {addressModal.data ? (
+      {addressModal?.data ? (
         <div className={styles.addressMain}>
           <div className={styles.addressBack}>
             <div className={styles.addressA}>
@@ -309,7 +309,6 @@ export default function AddressModal({
             </div>
             <div className={styles.addressB}>
               <div className={styles.addressBA}>
-                {console.log(userAddressText)}
                 {userAddressText && userAddressText}
               </div>
               <div className={styles.addressBB} onClick={handleChange}>

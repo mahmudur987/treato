@@ -12,7 +12,9 @@ export default function SalonMap({ SalonData }) {
     setLatitude(SalonData?.location?.coordinates[0]);
     setLongitude(SalonData?.location?.coordinates[1]);
   }, [SalonData]);
-  useEffect(() => {}, [Latitude, Longitude]);
+  useEffect(() => {
+    console.log(Latitude, Longitude);
+  }, [Latitude, Longitude]);
 
   const containerStyle = {
     width: "100%",

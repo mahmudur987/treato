@@ -32,8 +32,8 @@ const AppointmentCard = ({ salon, cardType }) => {
         <div className={styles.shareOTPWrapper}>
           <h3>{salon?.otp}</h3>
           <p>
-            is the 4-digit OTP for this booking. Please share the OTP at the
-            salon to start the service.
+          is the 4-digit OTP for this booking. Please share the OTP at the salon to start the service.
+        
           </p>
         </div>
       )}
@@ -233,7 +233,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                 )}
                 {salon.payment_mode === "online" ? "paid" : "Due"}
                 <span className={styles.amount}>
-                  {salon.initial_amount ?? "00"}
+                  {Number(salon.final_amount).toFixed(2) ?? "00"}
                 </span>
                 ({salon.payment_mode})
               </h4>

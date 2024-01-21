@@ -84,18 +84,19 @@ export default function Navbar() {
       setisMainSearchBar(false);
     }
   }, [location.pathname]);
-
   useEffect(() => {
     if (userData.isLoggedIn) {
       setIsLoggedIn(true);
       setuserInfo(userData.user);
     }
-  }, [userData.isLoggedIn]);
+  }, [userData.isLoggedIn,userData.user]);
   // Add a useEffect to close menus when the route changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsDesktopMenuOpen(false);
   }, [location.pathname]);
+ 
+  
 
   return (
     <header
@@ -134,7 +135,7 @@ export default function Navbar() {
           </nav>
         </div>
         {/* search bar */}
-        {isMainSearchBar && <MainSearchBar place={"navbar"} />}
+        {isMainSearchBar && <MainSearchBar  place={"navbar"} />}
 
         {/* rightSide buttons */}
         <div className={styles.buttons}>

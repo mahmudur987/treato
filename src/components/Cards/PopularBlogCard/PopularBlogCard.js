@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import Timer from "../../../assets/icons/timer.svg";
 
 const PopularBlogCard = ({ blog }) => {
-  return (
-    <div className={styles["popular-blog"]}>
+  return (<>
+  <div className={styles["popular-blog"]}>
       <Link to={`/blogs/${blog._id}`}><header> {blog.blog_title} </header></Link>
       <div className={styles["popular-blog-content"]}>
         <p className={styles["popular-blog-author"]}>
@@ -19,6 +19,8 @@ const PopularBlogCard = ({ blog }) => {
         </p>
       </div>
     </div>
+  </>
+    
   );
 };
 
