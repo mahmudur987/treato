@@ -11,7 +11,7 @@ import {
   eyeline,
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { google_Login, facebook_Login, facebookAuth } from "../../../services/auth";
+import { google_Login, facebook_Login } from "../../../services/auth";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { sendLoginOTP } from "../../../services/auth";
@@ -26,7 +26,6 @@ import { getCountryCallingCode } from "react-phone-number-input/input";
 import en from "react-phone-number-input/locale/en";
 import CountrySelect from "../../../components/Countrycode/CountrySelect";
 import { handleInputChange } from "../../../utils/utils";
-import { openFbDialog } from "../../../utils/facebookLogin";
 
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -92,7 +91,7 @@ const CreateAccountPage = () => {
       localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
       localStorage.setItem("userPhoneNumber", JSON.stringify(formData.phone));
 
-      sendLoginOTP({ phoneNumber: formData?.phone }).then((res) => {
+      sendLoginOTP({ phoneNumber: phone }).then((res) => {
         if (res && res?.res?.data.status === true) {
           dispatch(updateOTP(res?.res.data.otp));
           navigate("/verify-otp");
@@ -155,32 +154,7 @@ const CreateAccountPage = () => {
       }
     });
   };
-  const redirectUri = "https://treato.netlify.app/";
-   const myFbLogin = async () => {
-    try {
-        let token = await openFbDialog();
-        
-        console.log(":rocket: ~ file: Login.js:51 ~ myFbLogin ~ token:", token)
-        facebookAuth(token,redirectUri).then((res)=>{
-            console.log("manual fb login",res);
-            if(res?.res?.data?.data){
-                dispatch(updateIsLoggedIn(true));
-                dispatch(
-                  updateUserDetails(res?.res?.data?.data || res?.res?.data.data)
-                );
-                localStorage.setItem("jwtToken", res?.res?.data?.token);
-                navigate("/");
-                toast("Welcome to Treato! Start exploring now!");
-            }
-            else{
-                toast.error(`An unexpected error occurred. Please try again.`);
-            }
-        })
 
-    } catch (ex) {
-        console.log("there was an error");
-    }
-}
   return (
     <AuthPage>
       <div className={styles.container}>
@@ -328,10 +302,20 @@ const CreateAccountPage = () => {
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
-            <SecondaryButton className={styles.facebook} onClick={myFbLogin}>
-                <img src={Facebook_Logo}/>
+            <LoginSocialFacebook
+              appId={facebookAppId}
+              onResolve={(response) => {
+                facebookAuthLogin(response?.data);
+              }}
+              onReject={(error) => {
+                console.log(error);
+              }}
+            >
+              <SecondaryButton className={styles.facebook}>
+                <img src={Facebook_Logo} />
                 Facebook
               </SecondaryButton>
+            </LoginSocialFacebook>
           </div>
         </div>
         <div className={styles.termsWrapper}>

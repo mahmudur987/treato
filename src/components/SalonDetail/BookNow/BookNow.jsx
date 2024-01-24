@@ -59,7 +59,7 @@ export default function BookNow({
         handleOfflinePayment();
         console.log("handleOfflinePayment");
       } else if (innerText === "Pay ₹") {
-        handlePayment();
+        // handlePayment();
       }
       if (setCompletedPay) {
         // setCompletedPay(true);

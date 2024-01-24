@@ -4,11 +4,13 @@
   margin: 0 auto;
   display: flex;
   justify-content: center;
+  gap: 24px;
 }
 .backLink {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  margin-top: 10px;
 }
 .container {
   max-width: 1208px;
@@ -66,4 +68,6 @@
 .formWrapper {
   max-width: 424px;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }

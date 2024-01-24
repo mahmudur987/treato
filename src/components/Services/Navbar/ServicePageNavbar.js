@@ -51,7 +51,7 @@ const ServicePageNavbar = () => {
           >
             <img src={userData?.user?.avatar?.public_url} alt="" />
             <h3>{userData?.user?.first_name}</h3>
-            <Link to={"/service"}>services</Link>
+            <Link to={"/service"}>servicess</Link>
             <Link onClick={handleLogout}>LogOut</Link>
           </div>
         )}

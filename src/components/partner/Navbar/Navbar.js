@@ -108,7 +108,7 @@ const Navbar = () => {
           >
             <img src={userData?.user?.avatar?.public_url} alt="" />
             <h3>{userData?.user?.first_name}</h3>
-            <Link to={"/"}>services</Link>
+            <Link to={"/service"}>services</Link>
             <Link onClick={handleLogout}>LogOut</Link>
           </div>
         )}
