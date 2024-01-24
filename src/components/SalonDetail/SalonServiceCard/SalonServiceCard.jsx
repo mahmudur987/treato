@@ -17,7 +17,7 @@ export default function SalonServiceCard({ salonServiceData, serviceCategory, sa
         if (isAlreadyAdded.length) {
             let allServices = salonServices.map((v) =>
                 v.service_name === isAlreadyAdded[0].service_name
-                    ? { ...v, service_count: inc ? itemCounter + 1 : itemCounter - 1,service_price: inc ? salonServiceData?.price*(itemCounter + 1) : salonServiceData?.price*(itemCounter - 1) }
+                    ? { ...v, service_count: inc ? itemCounter + 1 : itemCounter - 1, service_price: inc ? salonServiceData?.price * (itemCounter + 1) : salonServiceData?.price * (itemCounter - 1) }
                     : v
             );
 
@@ -32,7 +32,7 @@ export default function SalonServiceCard({ salonServiceData, serviceCategory, sa
                 service_name: salonServiceData?.service_name,
                 service_time: salonServiceData?.time_takenby_service,
                 service_price: salonServiceData?.price,
-                service_count: itemCounter+1,
+                service_count: itemCounter + 1,
             }
             let allServices = [...salonServices, services]
             dispatch(addService(allServices))

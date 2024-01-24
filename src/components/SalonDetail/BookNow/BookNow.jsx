@@ -122,7 +122,7 @@ export default function BookNow({
         ) : (
           <Link to={updateActiveBookFlowBA ? "" : `/salons/${salonId}/book`}>
             <button onClick={proceedPayment} className={styles.book_nowAA}>
-              {innerText ? `${innerText}` : "Book Now"}
+              {innerText ? `${innerText}` : "Book an appointment"}
             </button>
           </Link>
         )}

@@ -34,7 +34,7 @@ export default function UserAddress({ setAddressModal, setuserAddressText, updat
             </div>
             <div className={styles.addr_main} >
                 <div className={styles.addr_main_top}>
-                    <div>{inputVal?.house_type}</div>
+
 
                     {inputVal.house && inputVal.landmark && inputVal.place ? <div>
                         <img src={moreVertical} alt=""
@@ -48,6 +48,7 @@ export default function UserAddress({ setAddressModal, setuserAddressText, updat
                     </div>
                 </div>
                 <div className={styles.addr_stored}>
+                    <div>{inputVal?.house_type}</div>
                     <div>{inputVal?.place}</div>
                     <div>{inputVal?.house}</div>
                     <div>{inputVal?.landmark}</div>

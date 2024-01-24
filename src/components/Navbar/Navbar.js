@@ -118,8 +118,7 @@ export default function Navbar() {
                   <img src={TreatoLogo} alt="TreatoLogo" />
                 </Link>
               </li>
-              {!isMainSearchBar && (
-                <>
+             
                   <li>
                     <Link to="/blogs">Blog</Link>
                   </li>
@@ -129,14 +128,13 @@ export default function Navbar() {
                   <li onClick={() => scrollToSection(navigate, "contactUs")}>
                     <Link to="#">Contact us</Link>
                   </li>
-                </>
-              )}
+             
             </ul>
           </nav>
         </div>
         {/* search bar */}
-        {isMainSearchBar && <MainSearchBar  place={"navbar"} />}
-
+      
+        {/* {isMainSearchBar && <MainSearchBar/>} */}
         {/* rightSide buttons */}
         <div className={styles.buttons}>
           <button

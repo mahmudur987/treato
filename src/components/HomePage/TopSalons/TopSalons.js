@@ -5,6 +5,7 @@ import { scrollright } from "../../../assets/images/icons";
 import { salon } from "../../../services/salon";
 import Title from "../../Typography/Title/Title";
 import { useSelector } from "react-redux";
+import MainSearchBar from "../../Input/mainSearchBar/MainSearchBar";
 
 const TopSalons = (props) => {
   const salonsState = useSelector((state) => state.salons);
@@ -90,8 +91,9 @@ const TopSalons = (props) => {
     updateWinWidthMain(winWidth);
   }
   window.onresize = reportWindowSize;
-  return (
-    <section className={styles["container"]}>
+  return (<>
+   <section className={styles["container"]}>
+    
       <div className={styles["top-ratedSalons"]}>
         <div className={styles["trHeadWrapper"]}>
           {winWidthMain <= 768 ? (
@@ -131,6 +133,8 @@ const TopSalons = (props) => {
         </div>
       </div>
     </section>
+  </>
+   
   );
 };
 

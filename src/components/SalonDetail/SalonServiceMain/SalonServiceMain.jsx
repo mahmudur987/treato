@@ -81,7 +81,7 @@ export default function SalonServiceMain({ hideTitle, SalonData }) {
                     }
 
                 </div>
-            </div>
+            </div >
         </>
     )
 }

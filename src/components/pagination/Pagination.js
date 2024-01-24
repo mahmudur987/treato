@@ -5,9 +5,9 @@ import arrowLeft from "../../assets/images/SalonsPageImages/arrow-left.png"
 import chevronright from "../../assets/images/SalonsPageImages/chevron-right.png";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+ 
   const MAX_VISIBLE_PAGES = 5; // Maximum number of visible page buttons
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
-
   const calculateVisiblePages = () => {
     const halfMax = Math.floor(MAX_VISIBLE_PAGES / 2);
     let startPage = currentPage - halfMax;
@@ -15,6 +15,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       startPage = 1;
     }
     let endPage = startPage + MAX_VISIBLE_PAGES - 1;
+    
     if (endPage > totalPages) {
       endPage = totalPages;
       startPage = Math.max(endPage - MAX_VISIBLE_PAGES + 1, 1);

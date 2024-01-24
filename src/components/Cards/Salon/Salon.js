@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { displayDistance } from "../../../utils/utils";
 import { useSelector } from "react-redux";
 import { logDOM } from "@testing-library/react";
+import MainSearchBar from "../../Input/mainSearchBar/MainSearchBar";
 
 const Salon = ({ salonData, place }) => {
   const openMapInNewWindow = () => {
@@ -22,8 +23,28 @@ const Salon = ({ salonData, place }) => {
     }
   };
   const userDetails = useSelector((state) => state.user);
-  console.log(userDetails,"userDetails");
+  // console.log(userDetails?.user.isLocationAllow,"userDetails");
+  console.log(salonData,"salonData");
+  
+  const generateDistance = () => {
+    const Distance = (salonData?.distances * 10).toFixed(1); 
+    return parseFloat(Distance); 
+  };
+
+  // State to hold the random distance
+  const [Distance, setDistance] = useState(generateDistance());
+
+  // Function to update the random distance
+  const updateDistance = () => {
+    setDistance(generateDistance());
+  };
+  useEffect(() => {
+    updateDistance()
+  
+    
+  }, [Distance])
   return (<>
+  
 
     <div
       className={`${styles.card} ${
@@ -57,9 +78,12 @@ const Salon = ({ salonData, place }) => {
           {salonData.total_rating} ratings)
         </h4>
         {userDetails?.user.isLocationAllow && (
+          
           <h4 className={styles.location}>
             {salonData?.locationText}
-            
+           <span style={{height:"5px", width:"5px", color:"black",  marginBottom:"28px", fontWeight:"bolder"}}>.</span>
+      {Distance && <p style={{fontWeight:"bold"}}>{Distance} km</p>}
+        
           </h4>
         )}
       </div>

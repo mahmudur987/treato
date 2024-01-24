@@ -16,6 +16,7 @@ const Cancelled = () => {
           toastId: 1,
         });
       }
+      console.log(res.err.message);
     };
 
     fetchData();
