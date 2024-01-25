@@ -1,0 +1,49 @@
+/* CheckBoxComponent.module.css */
+.mainContainer {
+  max-width: 424px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sectionHeading {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sectionHeading h3 {
+    color: var(--Grey-Black, #08090A);
+
+    /* Header/Header H5 */
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 30px */
+}
+.sectionHeading  p{
+    color: var(--Grey-Grey-05, #2E3032);
+
+    /* Body Text/Body Text B3 */
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+    letter-spacing: 0.16px;
+}
+
+.checkboxContainer {
+  margin: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+button {
+  margin-top: 10px;
+}

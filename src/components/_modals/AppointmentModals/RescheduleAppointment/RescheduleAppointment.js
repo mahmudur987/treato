@@ -73,17 +73,12 @@ const RescheduleAppointment = ({ data }) => {
 
   useEffect(() => {
     const fetchData = () => {
-      const ids = data?.serviceData?.flatMap((serviceList) =>
-        serviceList.flatMap((service) =>
-          service.subCategories?.map((subcategory) => subcategory._id)
-        )
-      );
+      const ids = data?.serviceData?.flatMap((serviceList) => serviceList._id);
       setSubcategoriesIds(ids);
     };
-
     fetchData();
   }, []);
-  // console.log(data);
+
   const genarateSlotsData = {
     salons_id: data.salonData[0]?._id,
     service_id: subcategoriesIds,

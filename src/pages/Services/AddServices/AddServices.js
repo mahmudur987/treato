@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "./AddServices.module.css";
 import { Link } from "react-router-dom";
-import BasicDetailsForm from "../../../components/Services/AddServices/BasicDetailsForm";
+import BasicDetailsForm from "../../../components/Services/AddServices/BasicDetailsForm/BasicDetailsForm";
+import TeamMembers from "../../../components/Services/AddServices/TeamMembers/TeamMembers";
 const AddServices = () => {
   return (
     <main className={styles.mainContainer}>
@@ -47,7 +48,7 @@ const AddServices = () => {
             </div>
           </div>
           <div>
-            <h3>Assign team member </h3>
+            <TeamMembers />
           </div>
         </div>
       </section>

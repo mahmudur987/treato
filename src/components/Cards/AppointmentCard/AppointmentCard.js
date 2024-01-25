@@ -24,7 +24,7 @@ const AppointmentCard = ({ salon, cardType }) => {
     console.log(buttonType);
     dispatch(openModal({ type: `${buttonType}`, closable: true, data: salon }));
   };
-  // console.log(salon);
+  console.log(salon);
 
   return (
     <div className={styles.cardWrapper}>
@@ -32,8 +32,8 @@ const AppointmentCard = ({ salon, cardType }) => {
         <div className={styles.shareOTPWrapper}>
           <h3>{salon?.otp}</h3>
           <p>
-          is the 4-digit OTP for this booking. Please share the OTP at the salon to start the service.
-        
+            is the 4-digit OTP for this booking. Please share the OTP at the
+            salon to start the service.
           </p>
         </div>
       )}
@@ -52,7 +52,11 @@ const AppointmentCard = ({ salon, cardType }) => {
                 <h5 className={styles.location}>{x.locationText}</h5>
                 <div className={styles.timing}>
                   <img src={clock} alt="clock" />
-                  {salon.start_date} at {salon.time}
+                  <p>
+                    <span>{salon.start_date}</span>
+                    <span>at</span>
+                    <span> {salon.time}</span>
+                  </p>
                   <button
                     onClick={() => settoggleDetails(!toggleDetails)}
                     className={styles.toggledetails}
@@ -127,79 +131,69 @@ const AppointmentCard = ({ salon, cardType }) => {
         {toggleDetails && (
           <>
             <div className={styles.detailSection}>
+              {/* details section */}
               <div className={styles.serviceDetails}>
                 <h4 className={styles.title}>Service Details</h4>
                 <div className={styles.sDetailWrapper}>
-                  {salon?.serviceData.map((x, i) => (
-                    <div key={i}>
-                      {x.map((y, j) => (
-                        <div key={j}>
-                          {y?.subCategories.map((item, index) => {
-                            return (
-                              <div
-                                key={index}
-                                className={`${styles.sDetail} ${
-                                  cardType !== "Upcoming"
-                                    ? styles.flexCol
-                                    : styles.flexRow
-                                }`}
-                              >
-                                <div className={styles.qty_Name}>
-                                  <p className={styles.quantity}>
-                                    {item.quantity ?? 1}
-                                  </p>
-                                  <img src={cross} alt="cross" />
-                                  <p className={styles.serviceName}>
-                                    {item.service_name}
-                                  </p>
-                                  <img
-                                    src={ellipse}
-                                    alt="ellipse"
-                                    className={`${styles.ellipse} ${
-                                      cardType !== "Upcoming"
-                                        ? styles.d_none
-                                        : ""
-                                    }`}
-                                  />
-                                </div>
-                                <div className={styles.time_Amount}>
-                                  <p className={styles.servicePeriod}>
-                                    {item.time_takenby_service}
-                                  </p>
-                                  <img src={ellipse} alt="ellipse" />
-                                  <p className={styles.servicePrice}>
-                                    ₹ {item.price}
-                                  </p>
-                                  <p
-                                    className={`${
-                                      cardType !== "Completed"
-                                        ? styles.d_none
-                                        : styles.proName
-                                    }`}
-                                  >
-                                    <img
-                                      src={pro_Avatar}
-                                      alt="pro_Avatar"
-                                      className={styles.pro_Avatar}
-                                    />
-                                    {item.professional}
-                                  </p>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
+                  {salon?.serviceData.map((item, index) => {
+                    console.log(item);
 
-                {/* Add more service details here */}
+                    return (
+                      <div
+                        key={index}
+                        className={`${styles.sDetail} ${
+                          cardType !== "Upcoming"
+                            ? styles.flexCol
+                            : styles.flexRow
+                        }`}
+                      >
+                        <div className={styles.qty_Name}>
+                          <p className={styles.quantity}>
+                            {item.quantity ?? 1}
+                          </p>
+                          <img src={cross} alt="cross" />
+                          <p className={styles.serviceName}>
+                            {item.service_name}
+                          </p>
+                          <img
+                            src={ellipse}
+                            alt="ellipse"
+                            className={`${styles.ellipse} ${
+                              cardType !== "Upcoming" ? styles.d_none : ""
+                            }`}
+                          />
+                        </div>
+                        <div className={styles.time_Amount}>
+                          <p className={styles.servicePeriod}>
+                            {item.time_takenby_service}
+                          </p>
+                          <img src={ellipse} alt="ellipse" />
+                          <p className={styles.servicePrice}>₹ {item.price}</p>
+                          <p
+                            className={`${
+                              cardType !== "Completed"
+                                ? styles.d_none
+                                : styles.proName
+                            }`}
+                          >
+                            <img
+                              src={pro_Avatar}
+                              alt="pro_Avatar"
+                              className={styles.pro_Avatar}
+                            />
+                            {item.professional}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
+              {/* booked on */}
               <div className={styles.others}>
                 <div className={styles.bookedOn}>
                   <h4 className={styles.title}>Booked on</h4>
-                  <p className={styles.dateTime}>{salon.end_date}</p>
+                  <p className={styles.dateTime}>{salon.end_date ?? "N/A"}</p>
                 </div>
                 {salon?.stylistData?.map((x, i) => (
                   <div
