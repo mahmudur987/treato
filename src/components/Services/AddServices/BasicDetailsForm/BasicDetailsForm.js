@@ -3,7 +3,7 @@ import styles from "./BasicDetailForm.module.css";
 const BasicDetailsForm = () => {
   return (
     <form className={styles.form}>
-      <div className={styles.nameOfService}>
+      <div className={styles.serviceType}>
         <label htmlFor="serviceType">Service Type</label>
         <div className={styles.selectWrapper}>
           <select name="serviceType" id="serviceType">

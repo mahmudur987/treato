@@ -31,6 +31,7 @@ import PartnerHome from "./pages/partner/PartnerHome/PartnerHome";
 import AuthChoice from "./pages/partner/Auth/AuthChoice/AuthChoice";
 import ServicePage from "./layouts/ServicePageLayout/ServicePagelLayout";
 import AddServices from "./pages/Services/AddServices/AddServices";
+import AddAppoinment from "./pages/Services/AddAppoinment/AddAppoinment";
 
 function App() {
   // Use the location hook to track route changes
@@ -140,7 +141,6 @@ function App() {
             path="/LocationAutocomplete"
             element={<LocationAutocomplete />}
           />{" "}
-          */}
           {/* Auth routes */}
           <Route element={<PrivateFormRoutes />}>
             <Route path="/auth-choice" exact element={<AuthChoicePage />} />
@@ -158,6 +158,7 @@ function App() {
           </Route>
           <Route path="/service" element={<ServicePage />}>
             <Route path="/service" element={<AddServices />} />
+            <Route path="/service/addappoinment" element={<AddAppoinment />} />
           </Route>
         </Routes>
       </PageLayout>

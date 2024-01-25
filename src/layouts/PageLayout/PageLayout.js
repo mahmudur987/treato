@@ -19,21 +19,23 @@ export default function PageLayout({ children }) {
     location.pathname === "/reset-password" ||
     location.pathname === "/forgot-password" ||
     location.pathname === "/partner" ||
-    location.pathname === "/service" ||
     location.pathname === "/partner/authchoice";
 
   // remove footer  if the current route is "/myappointments "
 
   const isMyAppointmentsRoute =
     location.pathname.startsWith("/my-appointments");
+
+  const isServicePage = location.pathname.startsWith("/service");
+
   return (
     <div>
-      {!isSpecialPage && <Navbar />}
+      {!isSpecialPage && !isServicePage && <Navbar />}
       {/* <ModalManager /> */}
       {showModal && !isMobileView && <SalonFilterModalDesktop />}
       {showModal && isMobileView && <SalonFilterModalMobile />}
       {children}
-      {!isMyAppointmentsRoute && !isSpecialPage && <Footer />}
+      {!isMyAppointmentsRoute && !isServicePage && !isSpecialPage && <Footer />}
     </div>
   );
 }

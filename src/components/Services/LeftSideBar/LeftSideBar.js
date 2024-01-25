@@ -1,13 +1,18 @@
 import React from "react";
 import styles from "./LeftSideBar.module.css";
 import treao from "../../../assets/icons/services/treato.png";
+import { Link } from "react-router-dom";
+
 const LeftSideBar = () => {
   return (
     <div className={styles.container}>
+      {/* logo */}
       <div className={styles.imageWrapper}>
         <img src={treao} alt="" />
       </div>
-      <p>
+      {/* routes */}
+      {/* 1 */}
+      <Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -22,8 +27,9 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </p>
-      <p>
+      </Link>
+      {/* 2  add apponment*/}
+      <Link to={"/service/addappoinment"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -36,8 +42,10 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </p>
-      <p>
+      </Link>
+      {/* 3   add services*/}
+
+      <Link to={"/service"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -50,8 +58,9 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </p>
-      <p>
+      </Link>
+      {/* 4 */}
+      <Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -66,9 +75,9 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </p>
-
-      <p>
+      </Link>
+      {/* 5 */}
+      <Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -81,8 +90,9 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </p>
-      <p>
+      </Link>
+      {/* 6 */}
+      <Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -104,8 +114,9 @@ const LeftSideBar = () => {
             </clipPath>
           </defs>
         </svg>
-      </p>
-      <p>
+      </Link>
+      {/* 7 */}
+      <Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -120,7 +131,7 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </p>
+      </Link>
     </div>
   );
 };
