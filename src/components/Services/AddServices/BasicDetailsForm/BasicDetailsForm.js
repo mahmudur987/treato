@@ -70,7 +70,6 @@ const BasicDetailsForm = () => {
       <div className={styles.selectsContainer}>
         <div className={styles.content}>
           <h3>Duration of Service</h3>
-
           <div className={styles.selectWrapper}>
             <select name="" id="">
               <option value="30minn">30 min</option>
@@ -99,7 +98,6 @@ const BasicDetailsForm = () => {
 
         <div className={styles.content}>
           <h3>Available for</h3>
-
           <div className={styles.selectWrapper}>
             <select name="" id="">
               <option value="30minn">30 min</option>
@@ -136,8 +134,6 @@ const BasicDetailsForm = () => {
         <textarea
           name=""
           id=""
-          cols="30"
-          rows="10"
           placeholder="Briefly describe the service and add relevant details such as aftercare."
         ></textarea>
       </div>

@@ -47,9 +47,14 @@ const AddServices = () => {
               <BasicDetailsForm />
             </div>
           </div>
-          <div>
+          <div className={styles.rightContent}>
             <TeamMembers />
           </div>
+        </div>
+
+        <div className={styles.buttontContainer}>
+          <button className={styles.cancel}>Cancel</button>
+          <button className={styles.submit}>Submit</button>
         </div>
       </section>
     </main>
