@@ -32,6 +32,7 @@ import AuthChoice from "./pages/partner/Auth/AuthChoice/AuthChoice";
 import ServicePage from "./layouts/ServicePageLayout/ServicePagelLayout";
 import AddServices from "./pages/Services/AddServices/AddServices";
 import AddAppoinment from "./pages/Services/AddAppoinment/AddAppoinment";
+import ServiceCatalog from "./pages/Services/ServiceCatalog/ServiceCatalog";
 
 function App() {
   // Use the location hook to track route changes
@@ -157,7 +158,8 @@ function App() {
             <Route path="/partner/authchoice" element={<AuthChoice />} />
           </Route>
           <Route path="/service" element={<ServicePage />}>
-            <Route path="/service" element={<AddServices />} />
+            <Route path="/service" element={<ServiceCatalog />} />
+            <Route path="/service/addservice" element={<AddServices />} />
             <Route path="/service/addappoinment" element={<AddAppoinment />} />
           </Route>
         </Routes>

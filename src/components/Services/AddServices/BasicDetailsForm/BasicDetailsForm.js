@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./BasicDetailForm.module.css";
+import CustomSelect from "../../../Select/CustomeSelect";
 const BasicDetailsForm = () => {
+  const [selectedOption, setSelectedOption] = useState("Option 1");
+  const options = ["Option 1", "Option 2", "Option 3"];
+
+  const handleSelectChange = (value) => {
+    setSelectedOption(value);
+  };
   return (
     <form className={styles.form}>
       <div className={styles.serviceType}>
         <label htmlFor="serviceType">Service Type</label>
         <div className={styles.selectWrapper}>
-          <select name="serviceType" id="serviceType">
-            <option value="Hair">Hair</option>
-            <option value="Hair">Hair</option>
-            <option value="Hair">Hair</option>
-          </select>
+          <CustomSelect
+            options={options}
+            value={selectedOption}
+            onChange={handleSelectChange}
+          />
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -71,11 +78,11 @@ const BasicDetailsForm = () => {
         <div className={styles.content}>
           <h3>Duration of Service</h3>
           <div className={styles.selectWrapper}>
-            <select name="" id="">
-              <option value="30minn">30 min</option>
-              <option value="30minn">40 min</option>
-              <option value="30minn">50 min</option>
-            </select>
+            <CustomSelect
+              options={options}
+              value={selectedOption}
+              onChange={handleSelectChange}
+            />
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -99,11 +106,11 @@ const BasicDetailsForm = () => {
         <div className={styles.content}>
           <h3>Available for</h3>
           <div className={styles.selectWrapper}>
-            <select name="" id="">
-              <option value="30minn">30 min</option>
-              <option value="30minn">40 min</option>
-              <option value="30minn">50 min</option>
-            </select>
+            <CustomSelect
+              options={options}
+              value={selectedOption}
+              onChange={handleSelectChange}
+            />
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -152,11 +159,11 @@ const BasicDetailsForm = () => {
             <h3>Taxes & Fees</h3>
 
             <div className={styles.selectWrapper}>
-              <select name="" id="">
-                <option value="30minn">30 min</option>
-                <option value="30minn">40 min</option>
-                <option value="30minn">50 min</option>
-              </select>
+              <CustomSelect
+                options={options}
+                value={selectedOption}
+                onChange={handleSelectChange}
+              />
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

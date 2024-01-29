@@ -18,6 +18,7 @@
   align-items: center;
   border-radius: 10px;
   background: #fff;
+  margin-bottom: 24px;
 }
 .imageWrapper img {
   width: 100%;
