@@ -7,12 +7,12 @@
 }
 
 .container {
-  max-width: 1208px;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 48px;
+  padding: 0px 0px 0px 60px;
 }
 .header {
   width: 100%;
@@ -28,7 +28,7 @@
   line-height: 150%; /* 42px */
 }
 .headerRight {
-  max-width: 500px;
+  max-width: 550px;
   width: 100%;
   display: flex;
   gap: 16px;
@@ -54,7 +54,7 @@
 }
 
 .headerAction {
-  max-width: 170px;
+  max-width: 190px;
   width: 100%;
 }
 
@@ -110,10 +110,8 @@
   letter-spacing: 0.16px;
 }
 .content {
-  max-width: 1208px;
   width: 100%;
   height: 100%;
-  display: flex;
 }
 
 .buttontContainer {
@@ -145,15 +143,13 @@
 .submit {
   display: flex;
   height: 48px;
-  padding: 16px 24px;
-  flex-direction: column;
+  padding: 16px 24px 16px 20px;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   border-radius: 4px;
   background: var(--Primary-000, #08080b);
   color: #fff;
-  text-align: center;
   font-family: Poppins;
   font-size: 16px;
   font-style: normal;

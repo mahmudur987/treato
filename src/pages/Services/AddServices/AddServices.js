@@ -6,7 +6,7 @@ import TeamMembers from "../../../components/Services/AddServices/TeamMembers/Te
 const AddServices = () => {
   return (
     <main className={styles.mainContainer}>
-      <Link className={styles.backLink}>
+      <Link to={"/service"} className={styles.backLink}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

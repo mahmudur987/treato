@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ServiceCatalog.module.css";
 import CustomSelect from "../../../components/Select/CustomeSelect";
+import ServicesDropDown from "../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
+import { serviceData } from "../../../utils/data";
 const ServiceCatalog = () => {
   const [showAddMenu, setshowAddmenu] = useState(false);
 
@@ -11,6 +13,11 @@ const ServiceCatalog = () => {
   const handleSelectChange = (value) => {
     setSelectedOption(value);
   };
+
+  const data = serviceData.data.find(
+    (x) => x._id === "6512eb2766a528b5132f8ef0"
+  );
+
   return (
     <main className={styles.mainContainer}>
       <section className={styles.container}>
@@ -74,13 +81,13 @@ const ServiceCatalog = () => {
                     stroke-linejoin="round"
                   />
                 </svg>
-                Add service
+                <span>Add service</span>
               </button>
             </div>
 
             {showAddMenu && (
               <div className={styles.addMenu}>
-                <Link>Add a new Service</Link>
+                <Link to={"/service/addservice"}>Add a new Service</Link>
                 <button>Add a new Category</button>
               </div>
             )}
@@ -89,13 +96,7 @@ const ServiceCatalog = () => {
         {/* details */}
 
         <div className={styles.content}>
-          <div className={styles.leftContent}>
-            <h2>Basic Details </h2>
-          </div>
-        </div>
-
-        <div className={styles.buttontContainer}>
-          <button className={styles.cancel}>Cancel</button>
+          <ServicesDropDown data={data} />
         </div>
       </section>
     </main>
