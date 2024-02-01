@@ -5,13 +5,14 @@ import ServiceTime from '../ServiceTime/ServiceTime'
 import RadioInput from '../../Input/RadioInput/RadioInput'
 import { useEffect, useRef } from 'react'
 
-export default function WorkerDetail({ SalonData, getWorkerData, availableSlots }) {
+export default function WorkerDetail({ SalonData, getWorkerData, availableSlots, updateItemCounter, itemCounter }) {
     const noneLabelRef = useRef(null);
 
     useEffect(() => {
         // Click the label when the component mounts
         noneLabelRef.current.click();
     }, []);
+    console.log(SalonData);
     return (
         <div className={styles.worker_detailMain}>
             <label htmlFor="none" onClick={getWorkerData} ref={noneLabelRef}>
@@ -31,6 +32,7 @@ export default function WorkerDetail({ SalonData, getWorkerData, availableSlots 
                 </div>
             </label>
             <div className={styles.worker_detailB}>
+
                 {
                     SalonData?.stylists?.map((v, i) => {
                         return (

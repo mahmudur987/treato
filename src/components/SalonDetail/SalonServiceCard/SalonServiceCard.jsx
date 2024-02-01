@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addService } from '../../../redux/slices/salonServices';
 import { useEffect } from 'react';
 
-export default function SalonServiceCard({ salonServiceData, serviceCategory, salonId }) {
+export default function SalonServiceCard({ salonServiceData, serviceCategory, salonId, }) {
     let [itemCounter, updateItemCounter] = useState(0)
     const dispatch = useDispatch()
 
@@ -24,6 +24,7 @@ export default function SalonServiceCard({ salonServiceData, serviceCategory, sa
             allServices = allServices.filter((v) => v.service_count > 0); // Remove services with count 0
 
             dispatch(addService(allServices));
+
         } else {
             let services = {
                 salon_id: salonId,
@@ -44,6 +45,8 @@ export default function SalonServiceCard({ salonServiceData, serviceCategory, sa
         // Trigger a re-render to update the component with the new value
         updateItemCounter(isAlreadyAdded[0]?.service_count || 0);
     }, [salonServiceData, salonServices]);
+
+
 
     return (
         <>

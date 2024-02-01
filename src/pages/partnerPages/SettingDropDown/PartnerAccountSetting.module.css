@@ -1,0 +1,48 @@
+
+.container{
+    margin: 10px;
+}
+.mainTitle{
+    font-family: Poppins;
+font-size: 28px;
+font-style: normal;
+font-weight: 600;
+line-height: 150%; 
+color: black;
+padding-left: 20px;
+}
+.Business{
+  display: flex;
+width: 536px;
+align-items: center;
+padding: 20px;
+gap: 12px;
+background-color: #FFF;
+}
+
+.BusinessProfile{
+color: var(--Grey-Black, #08090A);
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 150%; 
+padding: 10px;
+}
+.BusinessContent{
+    color: #6D747A;
+    font-family: Lato;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%; /* 24px */
+letter-spacing: 0.16px;
+padding: 10px;
+}
+
+.horizontalLine {
+    width: 536px;
+    height: 1px;
+    background: var(--Grey-Grey-40, #EBEDF0);
+  }
+ 

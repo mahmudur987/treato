@@ -25,6 +25,10 @@ import ResetPassword from "./pages/AuthPages/ResetPassword/ResetPassword";
 import { getUserProfile } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 import PrivateFormRoutes from "./layouts/PrivateRoutes";
+import Dropdown from "./pages/partnerPages/SettingDropDown/DropDown";
+import PartnerProfile from "./pages/partnerPages/SettingDropDown/PartnerProfile";
+import PaymentProfile from "./pages/partnerPages/SettingDropDown/PaymentProfile";
+import PartnerAccountSetting from "./pages/partnerPages/SettingDropDown/PartnerAccountSetting";
 
 function App() {
   // Use the location hook to track route changes
@@ -144,6 +148,12 @@ function App() {
         </Route>
         {/* Redirect to home for any wrong routes */}
         <Route path="*" element={<Navigate to="/" />} />
+    
+
+      
+       <Route path="/partnerDropDown/" element={<Dropdown/>}/>
+        {/* <Route path="/PartnerProfile/" element={<PartnerProfile/>}/>
+        <Route path="/PaymentProfile/" element={<PaymentProfile/>}/> */}
       </Routes>
     </PageLayout>
   );
