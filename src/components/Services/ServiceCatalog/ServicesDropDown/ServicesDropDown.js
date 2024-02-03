@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styles from "./ServicesDropDown.module.css";
+import { Link } from "react-router-dom";
 const ServicesDropDown = ({ data }) => {
-  console.log(data);
+  // console.log(data);
   const [openCategory, setOpenCategory] = useState(null);
 
   const toggleCategory = (categoryId) => {
@@ -9,6 +10,8 @@ const ServicesDropDown = ({ data }) => {
       prevOpenCategory === categoryId ? null : categoryId
     );
   };
+  // console.log(data);
+
   return (
     <section className={styles.mainContainer}>
       <div className={styles.container}>
@@ -116,22 +119,26 @@ const ServicesDropDown = ({ data }) => {
                           <span>₹ {service.price}</span>
                         </p>
                       </div>
-                      <button className={styles.editButton}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="17"
-                          viewBox="0 0 16 17"
-                          fill="none"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M13.422 2.60727C12.6409 1.82622 11.3746 1.82622 10.5936 2.60727L10.1222 3.07867L13.422 6.37851L13.8934 5.9071C14.6745 5.12605 14.6745 3.85973 13.8934 3.07867L13.422 2.60727ZM12.4792 7.32133L9.17932 4.02149L3.11869 10.0821C2.98616 10.2147 2.89355 10.3818 2.85141 10.5644L2.16604 13.5343C2.05513 14.0149 2.48586 14.4455 2.96634 14.3346L5.93628 13.6493C6.1189 13.6071 6.286 13.5145 6.41852 13.382L12.4792 7.32133Z"
-                            fill="#0D69D7"
-                          />
-                        </svg>
-                      </button>
+                      <Link
+                        to={`/service/editservice?category=${category._id}&subcategory=${service._id}`}
+                      >
+                        <button className={styles.editButton}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="17"
+                            viewBox="0 0 16 17"
+                            fill="none"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M13.422 2.60727C12.6409 1.82622 11.3746 1.82622 10.5936 2.60727L10.1222 3.07867L13.422 6.37851L13.8934 5.9071C14.6745 5.12605 14.6745 3.85973 13.8934 3.07867L13.422 2.60727ZM12.4792 7.32133L9.17932 4.02149L3.11869 10.0821C2.98616 10.2147 2.89355 10.3818 2.85141 10.5644L2.16604 13.5343C2.05513 14.0149 2.48586 14.4455 2.96634 14.3346L5.93628 13.6493C6.1189 13.6071 6.286 13.5145 6.41852 13.382L12.4792 7.32133Z"
+                              fill="#0D69D7"
+                            />
+                          </svg>
+                        </button>
+                      </Link>
                     </div>
                   ))}
                 </div>

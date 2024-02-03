@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import styles from "./ServiceCatalog.module.css";
 import CustomSelect from "../../../components/Select/CustomeSelect";
 import ServicesDropDown from "../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
-import { serviceData } from "../../../utils/data";
+import { singleSalon } from "../../../utils/data";
+import AddCategory from "../../../components/_modals/Addcategory/AddCategory";
+
 const ServiceCatalog = () => {
   const [showAddMenu, setshowAddmenu] = useState(false);
+  const data = singleSalon.salon.services[0];
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Option 1");
   const options = ["Option 1", "Option 2", "Option 3"];
 
@@ -14,9 +18,13 @@ const ServiceCatalog = () => {
     setSelectedOption(value);
   };
 
-  const data = serviceData.data.find(
-    (x) => x._id === "6512eb2766a528b5132f8ef0"
-  );
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <main className={styles.mainContainer}>
@@ -88,7 +96,7 @@ const ServiceCatalog = () => {
             {showAddMenu && (
               <div className={styles.addMenu}>
                 <Link to={"/service/addservice"}>Add a new Service</Link>
-                <button>Add a new Category</button>
+                <button onClick={openModal}>Add a new Category</button>
               </div>
             )}
           </div>
@@ -99,6 +107,7 @@ const ServiceCatalog = () => {
           <ServicesDropDown data={data} />
         </div>
       </section>
+      <AddCategory showModal={isModalOpen} onClose={closeModal} />
     </main>
   );
 };

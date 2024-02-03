@@ -8,11 +8,12 @@ import RescheduleAppointment from "./AppointmentModals/RescheduleAppointment/Res
 import { cross } from "../../assets/images/icons";
 import CancelAppointment from "./AppointmentModals/CancelAppointment/CancelAppointment";
 import WriteReview from "./AppointmentModals/WriteReview/WriteReview";
+import AddCategory from "./Addcategory/AddCategory";
 
 const ModalManager = () => {
   const dispatch = useDispatch();
-  const { activeModal, closable, data } = useSelector((state) => state.modal);
-
+  const state = useSelector((state) => state.modal);
+  const { activeModal, closable, data } = state;
   function handleClose() {
     dispatch(closeModal());
   }
@@ -43,12 +44,13 @@ const ModalManager = () => {
       handleClose();
     }
   };
-
+  console.log(state);
   return (
     <Modal open={Boolean(activeModal)} onClose={() => handleClose(true)}>
       <div className={`${styles["modal-wrapper"]} `}>
         <main>
           {activeModal === "filter" && <Filter />}
+
           {activeModal === "RescheduleAppointment" && (
             <RescheduleAppointment data={data} />
           )}
