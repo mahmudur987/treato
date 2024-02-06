@@ -53,6 +53,10 @@ const CheckBoxComponent = () => {
 
   return (
     <div className={styles.checkboxContainer}>
+      <div className={styles.sectionHeading}>
+        <h3>Assign Team Members</h3>
+        <p>Select professionals who provide this service</p>
+      </div>
       <form className={styles.CheckBoxForm}>
         <label className={styles.topLabel}>
           <input
@@ -202,16 +206,14 @@ const SchedulingCheckBox = () => {
   );
 };
 
-const TeamMembers = () => {
+const TeamMembers = ({ mobile, currentStep }) => {
   return (
     <section className={styles.mainContainer}>
-      <div className={styles.sectionHeading}>
-        <h3>Assign Team Members</h3>
-        <p>Select professionals who provide this service</p>
-      </div>
-      <CheckBoxComponent />
+      {currentStep === 2 && mobile && <CheckBoxComponent />}
+      {!mobile && <CheckBoxComponent />}
 
-      <SchedulingCheckBox />
+      {currentStep === 3 && mobile && <SchedulingCheckBox />}
+      {!mobile && <SchedulingCheckBox />}
     </section>
   );
 };

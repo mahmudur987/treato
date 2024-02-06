@@ -5,7 +5,8 @@ import CustomSelect from "../../../components/Select/CustomeSelect";
 import ServicesDropDown from "../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
 import { singleSalon } from "../../../utils/data";
 import AddCategory from "../../../components/_modals/Addcategory/AddCategory";
-
+import { BiMenuAltLeft } from "react-icons/bi";
+import { FaPlus } from "react-icons/fa";
 const ServiceCatalog = () => {
   const [showAddMenu, setshowAddmenu] = useState(false);
   const data = singleSalon.salon.services[0];
@@ -100,6 +101,36 @@ const ServiceCatalog = () => {
               </div>
             )}
           </div>
+
+          <div className={styles.headrMobile}>
+            <button>
+              <BiMenuAltLeft />
+            </button>
+            <div className={styles.selectWrapper}>
+              <CustomSelect
+                options={options}
+                value={selectedOption}
+                onChange={handleSelectChange}
+              />
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M6 9L12 15L18 9"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
         </header>
         {/* details */}
 
@@ -108,6 +139,12 @@ const ServiceCatalog = () => {
         </div>
       </section>
       <AddCategory showModal={isModalOpen} onClose={closeModal} />
+
+      <div className={styles.plusButtonWrapper}>
+        <button>
+          <FaPlus />
+        </button>
+      </div>
     </main>
   );
 };

@@ -52,3 +52,33 @@
 .selected {
   background-color: #ddd;
 }
+
+@media only screen and (max-width: 700px) {
+  .selected {
+    background: none;
+  }
+
+  .backgroundOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 2, 2, 0.8);
+    z-index: 98;
+    opacity: 0.3;
+  }
+  .optionsContainer {
+    background-color: white;
+    position: fixed;
+    z-index: 99; /* Higher z-index than backgroundOverlay */
+    top: 50%;
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+}

@@ -1,6 +1,7 @@
 .mainContainer {
   max-width: 896px;
   width: 100%;
+  font-family: Lato;
 }
 
 .container {
@@ -21,6 +22,7 @@
   display: flex;
   flex-direction: column;
   gap: 48px;
+  position: relative;
 }
 
 .accordionTop {
@@ -89,4 +91,65 @@
 .editButton {
   background: none;
   border: none;
+}
+
+.menuItems {
+  position: absolute;
+  right: 0px;
+  top: 100%;
+  z-index: 10;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-shadow: 2px 2px 2px 2px rgb(202, 196, 196);
+}
+.menuItems p {
+  width: 150px;
+  padding: 10px;
+}
+.menuItems p:hover {
+  background-color: burlywood;
+}
+.delete {
+  color: rgb(216, 57, 57);
+}
+.overlay {
+  display: none;
+}
+@media only screen and (max-width: 700px) {
+  .container {
+    padding: 5px;
+  }
+  .accordion {
+    gap: 15px;
+  }
+  .accordionContent {
+    gap: 20px;
+  }
+  .serviceItem {
+    border-bottom: 1px solid rgb(228, 202, 202);
+    padding-bottom: 5px;
+  }
+  .overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: black;
+    opacity: 0.1;
+  }
+  .menuItems {
+    border-radius: 20px;
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+    z-index: 3;
+  }
 }

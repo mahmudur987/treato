@@ -7,9 +7,13 @@ import ServicePageNavbar from "../../components/Services/Navbar/ServicePageNavba
 const ServicePage = () => {
   return (
     <div className={style.container}>
-      <LeftSideBar />
+      <div className={style.left}>
+        <LeftSideBar />
+      </div>
       <div className={style.downContainer}>
-        <ServicePageNavbar />
+        <div className={style.Navbar}>
+          <ServicePageNavbar />
+        </div>
         <Outlet />
       </div>
     </div>

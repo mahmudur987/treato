@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styles from "./AddCategory.module.css";
 import CustomSelect from "../../Select/CustomeSelect";
+import ColorSelect from "../../Select/ColorSelect/ColorSelect";
 
 const AddCategory = ({ showModal, onClose }) => {
   const [selectedOption, setSelectedOption] = useState("Option 1");
@@ -88,11 +89,7 @@ const AddCategory = ({ showModal, onClose }) => {
             <label htmlFor="servicetype"> Appointment color</label>
 
             <div className={styles.selectWrapper}>
-              <CustomSelect
-                options={options}
-                value={selectedOption}
-                onChange={handleSelectChange}
-              />
+              <ColorSelect />
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

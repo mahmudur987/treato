@@ -35,6 +35,7 @@ const CustomSelect = ({ options, onChange, value }) => {
           ))}
         </div>
       )}
+      {isOpen && <div className={styles.backgroundOverlay}></div>}
     </div>
   );
 };

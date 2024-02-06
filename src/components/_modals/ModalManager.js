@@ -44,7 +44,7 @@ const ModalManager = () => {
       handleClose();
     }
   };
-  console.log(state);
+
   return (
     <Modal open={Boolean(activeModal)} onClose={() => handleClose(true)}>
       <div className={`${styles["modal-wrapper"]} `}>

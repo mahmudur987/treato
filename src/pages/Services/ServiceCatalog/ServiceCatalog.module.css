@@ -160,3 +160,52 @@
 .submit svg {
   margin-right: 8px;
 }
+.headrMobile {
+  display: none;
+}
+.plusButtonWrapper {
+  display: none;
+}
+@media only screen and (max-width: 700px) {
+  .container {
+    padding: 20px;
+  }
+  .headerRight {
+    display: none;
+  }
+  .header {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .header h1 {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .headrMobile {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+  .headrMobile button {
+    padding: 10px;
+    border-radius: 40%;
+    font-size: 25px;
+  }
+  .selectWrapper {
+    border-radius: 10px;
+  }
+  .plusButtonWrapper {
+    display: block;
+    position: fixed;
+    top: 80%;
+    right: 10%;
+  }
+  .plusButtonWrapper button {
+    background-color: rgb(38, 38, 231);
+    color: white;
+    font-size: 40px;
+    padding: 30px;
+    border-radius: 50%;
+  }
+}
