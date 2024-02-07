@@ -85,7 +85,7 @@ const AddServices = () => {
 
         {/* mobile slider */}
         <div onClick={handlePrevStep} className={styles.slider}>
-          .
+          .{" "}
           <div
             className={styles.step}
             style={{ backgroundColor: `${currentStep >= 1 ? "blue" : "#ddd"}` }}

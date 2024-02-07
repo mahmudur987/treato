@@ -26,7 +26,7 @@ const ServiceCatalog = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
+  console.log(showAddMenu);
   return (
     <main className={styles.mainContainer}>
       <section className={styles.container}>
@@ -95,7 +95,10 @@ const ServiceCatalog = () => {
             </div>
 
             {showAddMenu && (
-              <div className={styles.addMenu}>
+              <div
+                className={styles.addMenu}
+                onClick={() => setshowAddmenu((pre) => !pre)}
+              >
                 <Link to={"/service/addservice"}>Add a new Service</Link>
                 <button onClick={openModal}>Add a new Category</button>
               </div>
@@ -140,7 +143,10 @@ const ServiceCatalog = () => {
       </section>
       <AddCategory showModal={isModalOpen} onClose={closeModal} />
 
-      <div className={styles.plusButtonWrapper}>
+      <div
+        onClick={() => setshowAddmenu((pre) => !pre)}
+        className={styles.plusButtonWrapper}
+      >
         <button>
           <FaPlus />
         </button>

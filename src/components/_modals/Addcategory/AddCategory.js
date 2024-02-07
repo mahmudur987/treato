@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./AddCategory.module.css";
 import CustomSelect from "../../Select/CustomeSelect";
 import ColorSelect from "../../Select/ColorSelect/ColorSelect";
-
+import { IoMdArrowBack } from "react-icons/io";
 const AddCategory = ({ showModal, onClose }) => {
   const [selectedOption, setSelectedOption] = useState("Option 1");
   const options = ["Option 1", "Option 2", "Option 3"];
@@ -25,7 +25,9 @@ const AddCategory = ({ showModal, onClose }) => {
         <span className={styles.close} onClick={onClose}>
           &times;
         </span>
-
+        <span className={styles.back} onClick={onClose}>
+          <IoMdArrowBack />
+        </span>
         <h2 className={styles.modalHeading}>Add A new category</h2>
 
         <form className={styles.form}>
