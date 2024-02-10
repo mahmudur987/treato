@@ -157,7 +157,6 @@ const LeftSideBar = () => {
   ];
 
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <section
@@ -175,7 +174,7 @@ const LeftSideBar = () => {
           <Link
             key={index}
             to={link.to}
-            style={{ backgroundColor: `${pathname === link.to && "blue"}` }}
+            style={{ backgroundColor: `${pathname === link.to ? "blue" : ""}` }}
           >
             {link.svg}
             {show && <span>{link.text}</span>}
