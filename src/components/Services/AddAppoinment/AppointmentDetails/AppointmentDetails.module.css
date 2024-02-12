@@ -39,13 +39,21 @@
   gap: 10px;
 }
 
-.selectService {
+.selectService,
+.selectedService {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  justify-content: center;
 }
-
+.selectedService p {
+  height: 48px;
+  border: 1px solid var(--Grey-30);
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
 .addMoreService {
   font-weight: 600;
   color: rgb(8, 89, 104);

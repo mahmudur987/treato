@@ -5,8 +5,13 @@ import styles from "./SelectServiceModal.module.css";
 import { IoMdArrowBack } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { singleSalon } from "../../../utils/data";
-const SelectServiceModal = ({ showModal, onClose }) => {
-  const [selectedServices, setSelectedServices] = useState([]);
+const SelectServiceModal = ({
+  showModal,
+  onClose,
+  selectedServices,
+  setSelectedServices,
+  mainCategories,
+}) => {
   const [all, setall] = useState(false);
   const toggleService = (serviceId) => {
     setSelectedServices((prevSelected) =>
@@ -49,7 +54,6 @@ const SelectServiceModal = ({ showModal, onClose }) => {
   const handleCancel = () => {
     onClose();
   };
-  const mainCategories = singleSalon.salon.services[0].mainCategories;
 
   return (
     <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
