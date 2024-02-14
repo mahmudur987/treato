@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import styles from "./CusomeSelect3.module.css";
-
+import { CiSearch } from "react-icons/ci";
 const CustomSelect3 = ({ options, onChange, value }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,6 +26,14 @@ const CustomSelect3 = ({ options, onChange, value }) => {
         </div>
         {isOpen && (
           <div className={styles.optionsContainer}>
+            <p className={styles.searchClient}>
+              <span>
+                <CiSearch />
+              </span>
+
+              <input name="search" type="text" placeholder="find client" />
+            </p>
+
             {options.map((option) => (
               <div
                 key={option}

@@ -35,6 +35,7 @@ import AddAppoinment from "./pages/Services/AddAppoinment/AddAppoinment";
 import ServiceCatalog from "./pages/Services/ServiceCatalog/ServiceCatalog";
 import EditService from "./pages/Services/EditService/EditService";
 import ModalManager from "./components/_modals/ModalManager";
+import Dashboard from "./pages/Services/Dashboard/Dashboard";
 
 function App() {
   // Use the location hook to track route changes
@@ -160,8 +161,10 @@ function App() {
             <Route path="/partner" element={<PartnerHome />} />
             <Route path="/partner/authchoice" element={<AuthChoice />} />
           </Route>
+          {/* partner dashboard */}
           <Route path="/service" element={<ServicePage />}>
             <Route path="/service" element={<ServiceCatalog />} />
+            <Route path="/service/dashboard" element={<Dashboard />} />
             <Route path="/service/addservice" element={<AddServices />} />
             <Route path="/service/editservice" element={<EditService />} />
             <Route path="/service/addappoinment" element={<AddAppoinment />} />

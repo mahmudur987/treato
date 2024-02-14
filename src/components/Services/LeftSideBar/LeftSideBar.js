@@ -7,7 +7,7 @@ const LeftSideBar = () => {
   const [show, setShow] = useState(false);
   const links = [
     {
-      to: "/dashboard",
+      to: "/service/dashboard",
       svg: (
         <svg
           style={{ margin: `${show ? "" : "auto"}` }}

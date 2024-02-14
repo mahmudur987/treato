@@ -69,7 +69,16 @@
   display: flex;
   gap: 10px;
 }
-
+.durationOfService {
+  height: 48px;
+  border: 1px solid var(--Grey-30);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  border-radius: 8px;
+  font-size: 18px;
+}
 .comments {
   width: 100%;
   display: flex;
@@ -78,5 +87,6 @@
 }
 .comments textarea {
   width: 100%;
-  border: 1px solid gray;
+  border: 1px solid var(--Grey-30);
+  border-radius: 8px;
 }

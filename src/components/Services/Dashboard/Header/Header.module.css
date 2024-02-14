@@ -1,0 +1,62 @@
+/* styles.module.css */
+
+.mainContainer {
+  width: 98%;
+  margin: 0px 30px;
+  font-family: var(--primary-font);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.heading {
+  font-size: 25px;
+}
+
+.selectWrapper {
+  /* styles for selectWrapper */
+  width: 130px;
+}
+.selectWrapper div {
+  border: none;
+  background: none;
+}
+
+.contents {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.card {
+  max-width: 370px;
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+
+  border-radius: 8px;
+}
+
+.cardLeft {
+  width: 20%;
+  font-size: 40px;
+  text-align: center;
+}
+
+.cardMiddle {
+  flex-grow: 1;
+}
+.cardMiddle p {
+  font-size: 15px;
+}
+.cardMiddle h3 {
+  font-size: 45px;
+}
+
+.cardRight {
+  width: 30%;
+}

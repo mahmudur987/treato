@@ -3,12 +3,20 @@ import styles from "./ClientDetails.module.css";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import CustomSelect3 from "../../../Select/CustomeSelect3/CustomSelect3";
 import AddNewClient from "../../../_modals/AddNewClient/AddNewClient";
+import { singleSalon } from "../../../../utils/data";
 const ClientsDetails = () => {
-  const [selectedteamMember, setSelectedTeamMember] = useState({
-    name: "mahmud",
-    imageUrl:
-      "https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg",
+  const teamMembers = singleSalon.salon.stylists.map((x) => {
+    return { name: x.stylist_name, imageUrl: x.stylist_Img.public_url };
   });
+  const [selectedteamMember, setSelectedTeamMember] = useState(
+    teamMembers
+      ? teamMembers[0]
+      : {
+          name: "mahmud",
+          imageUrl:
+            "https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg",
+        }
+  );
   const [selectedClient, setSelectedclient] = useState({
     name: "mahmud",
     email: "mahmud@gmail.com",
@@ -36,24 +44,6 @@ const ClientsDetails = () => {
     },
   ];
 
-  const teamMembers = [
-    {
-      name: "mahmud",
-      imageUrl:
-        "https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg",
-    },
-    {
-      name: "polash",
-      imageUrl:
-        "https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg",
-    },
-    {
-      name: "mamun",
-      imageUrl:
-        "https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg",
-    },
-  ];
-
   const handleSelectteamMember = (value) => {
     setSelectedTeamMember(value);
   };
@@ -70,6 +60,8 @@ const ClientsDetails = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  // console.log(members);
 
   return (
     <section className={styles.mainContainer}>
