@@ -1,3 +1,14 @@
 .mainContainer {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+}
+.salesTrandContainer {
+  width: 60%;
 }
