@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../../../components/Services/Dashboard/Header/Header";
 import styles from "./Dashboard.module.css";
 import SalesTrand from "../../../components/Services/Dashboard/SalesTrend/SalesTrand";
+import RecentActivity from "../../../components/Services/Dashboard/RecentActivity/RecentActivity";
 const Dashboard = () => {
   return (
     <main className={styles.mainContainer}>
@@ -10,6 +11,9 @@ const Dashboard = () => {
       <section className={styles.container}>
         <div className={styles.salesTrandContainer}>
           <SalesTrand />
+        </div>
+        <div className={styles.salesTrandContainer}>
+          <RecentActivity />
         </div>
       </section>
     </main>

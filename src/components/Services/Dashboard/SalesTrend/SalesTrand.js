@@ -73,7 +73,7 @@ const SalesTrand = () => {
 
       <div className={styles.rechart}>
         <ComposedChart
-          width={600}
+          width={550}
           height={400}
           data={data}
           margin={{
@@ -89,7 +89,7 @@ const SalesTrand = () => {
           <Tooltip />
 
           <Bar dataKey="pv" stackId="a" barSize={45} fill="gray" />
-          <Bar dataKey="cb" stackId="a" fill="#82ca9d" />
+          {/* <Bar dataKey="cb" stackId="a" fill="#82ca9d" /> */}
           <Line type="monotone" dataKey="uv" stroke="blue" />
         </ComposedChart>
       </div>
