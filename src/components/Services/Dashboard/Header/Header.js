@@ -39,9 +39,9 @@ const Header = () => {
           <div className={styles.cardLeft}>
             <BsClipboardCheck />
             <div className={styles.cardMiddle}>
-              <p>New user</p>
+              <p>Average Sales</p>
 
-              <h3>24</h3>
+              <h3>₹8.4K  </h3>
             </div>
           </div>
 
@@ -54,7 +54,7 @@ const Header = () => {
           <div className={styles.cardLeft}>
             <BsClipboard2Check />
             <div className={styles.cardMiddle}>
-              <p>New user</p>
+              <p>Total Appointments</p>
               <h3>24</h3>
             </div>
           </div>

@@ -17,3 +17,16 @@
 .header p {
   font-size: 20px;
 }
+.rechart {
+  position: relative;
+  min-height: 450px;
+}
+.bar {
+  width: 100%;
+  display: flex;
+}
+.line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}

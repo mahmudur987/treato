@@ -1,64 +1,79 @@
 import React from "react";
 import styles from "./SalesTrand.module.css";
 import {
-  ComposedChart,
   Line,
-  Area,
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
-  Scatter,
-  ResponsiveContainer,
+  LabelList,
+  BarChart,
+  LineChart,
 } from "recharts";
 
 const data = [
   {
     name: "Sun",
     uv: 590,
-    pv: 800,
-    cb: 9,
+    price: 800,
+    cb: 5,
   },
   {
     name: "Mon",
     uv: 868,
-    pv: 967,
-    cb: 9,
+    price: 967,
+    cb: 8,
   },
   {
     name: "Tue",
     uv: 1397,
-    pv: 1098,
-    cb: 9,
+    price: 1098,
+    cb: 15,
   },
   {
     name: "Wed",
     uv: 1480,
-    pv: 1200,
+    price: 1200,
     cb: 9,
   },
   {
     name: "Thu",
-    uv: 1920,
-    pv: 1108,
-    cb: 9,
+    uv: 920,
+    price: 1108,
+    cb: 18,
   },
   {
     name: "Fri",
     uv: 1400,
-    pv: 680,
-    cb: 9,
+    price: 680,
+    cb: 7,
   },
   {
     name: "sat",
     uv: 1480,
-    pv: 780,
+    price: 780,
     cb: 9,
   },
 ];
+const renderCustomizedLabel = (props) => {
+  const { x, y, width, height, value } = props;
+  const radius = 10;
 
+  return (
+    <g>
+      <circle cx={x + width / 2} cy={y - radius} r={radius} fill="#8884d8" />
+      <text
+        x={x + width / 2}
+        y={y - radius}
+        fill="#fff"
+        textAnchor="middle"
+        dominantBaseline="middle"
+      >
+        {value}
+      </text>
+    </g>
+  );
+};
 const SalesTrand = () => {
   return (
     <div className={styles.mainContainer}>
@@ -72,26 +87,51 @@ const SalesTrand = () => {
       </div>
 
       <div className={styles.rechart}>
-        <ComposedChart
-          width={550}
-          height={400}
-          data={data}
-          margin={{
-            top: 20,
-            right: 0,
-            bottom: 20,
-            left: 0,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
+        <div className={styles.bar}>
+          <BarChart
+            width={600}
+            height={400}
+            data={data}
+            margin={{
+              top: 20,
+              right: 0,
+              bottom: 20,
+              left: 55,
+            }}
+          >
+            <XAxis dataKey="name" hide />
+            <YAxis hide />
 
-          <Bar dataKey="pv" stackId="a" barSize={45} fill="gray" />
-          {/* <Bar dataKey="cb" stackId="a" fill="#82ca9d" /> */}
-          <Line type="monotone" dataKey="uv" stroke="blue" />
-        </ComposedChart>
+            <Bar dataKey="cb" stackId="a" barSize={45} fill="gray" unit="left">
+              <LabelList dataKey={"cb"} content={renderCustomizedLabel} />
+            </Bar>
+          </BarChart>
+        </div>
+        <div className={styles.line}>
+          <LineChart
+            width={600}
+            height={420}
+            data={data}
+            margin={{
+              top: 20,
+              right: 0,
+              bottom: 20,
+              left: 0,
+            }}
+          >
+            <XAxis dataKey="name" padding={{ left: 35, right: 30 }} />
+            <YAxis />
+            <Tooltip />
+
+            <Line
+              type="monotone"
+              dataKey="price"
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
+              minPointSize={10}
+            />
+          </LineChart>
+        </div>
       </div>
     </div>
   );
