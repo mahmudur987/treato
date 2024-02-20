@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SalesTrand.module.css";
 import {
   Line,
@@ -75,6 +75,19 @@ const renderCustomizedLabel = (props) => {
   );
 };
 const SalesTrand = () => {
+  const [chartWidth, setChartWidth] = useState(600);
+  useEffect(() => {
+    const handleResize = () => {
+      const newWidth = window.innerWidth < 700 ? 400 : 600;
+      setChartWidth(newWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div className={styles.mainContainer}>
       <div className={styles.header}>
@@ -89,7 +102,7 @@ const SalesTrand = () => {
       <div className={styles.rechart}>
         <div className={styles.bar}>
           <BarChart
-            width={600}
+            width={chartWidth}
             height={400}
             data={data}
             margin={{
@@ -109,7 +122,7 @@ const SalesTrand = () => {
         </div>
         <div className={styles.line}>
           <LineChart
-            width={600}
+            width={chartWidth}
             height={420}
             data={data}
             margin={{

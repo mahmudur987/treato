@@ -153,3 +153,23 @@
   letter-spacing: 0em;
   text-align: right;
 }
+
+@media only screen and (max-width: 700px) {
+  .maincontainer {
+    padding: 0;
+    margin: 0;
+  }
+  .container {
+    padding: 0;
+  }
+  .card {
+    margin: 0;
+    padding: 0;
+  }
+  .cardLeft {
+    flex-grow: 0;
+  }
+  .date {
+    display: none;
+  }
+}

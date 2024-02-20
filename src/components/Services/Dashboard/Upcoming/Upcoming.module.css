@@ -79,3 +79,9 @@
 .status {
   color: #333;
 }
+
+@media only screen and (max-width: 700px) {
+  .table {
+    overflow: scroll;
+  }
+}

@@ -4,6 +4,7 @@ import styles from "./Header.module.css";
 import { FaUsers } from "react-icons/fa";
 import { BsClipboardCheck } from "react-icons/bs";
 import { BsClipboard2Check } from "react-icons/bs";
+import { IoIosArrowUp } from "react-icons/io";
 const Header = () => {
   const [selectedOption, setSelectedOption] = useState("last 30 days");
   const options = ["last 30 days", "last 50 days", "last 90 days"];
@@ -32,7 +33,10 @@ const Header = () => {
             </div>
           </div>
 
-          <div className={styles.cardRight}>^ 8(13.6%)</div>
+          <div className={styles.cardRight}>
+            <IoIosArrowUp />
+            8(13.6%)
+          </div>
         </div>
         {/* avarage sale  */}
         <div style={{ backgroundColor: "skyblue" }} className={styles.card}>
@@ -41,11 +45,14 @@ const Header = () => {
             <div className={styles.cardMiddle}>
               <p>Average Sales</p>
 
-              <h3>₹8.4K  </h3>
+              <h3>₹8.4K </h3>
             </div>
           </div>
 
-          <div className={styles.cardRight}>^ 8(13.6%)</div>
+          <div className={styles.cardRight}>
+            <IoIosArrowUp />
+            8(13.6%)
+          </div>
         </div>
 
         {/* total appoinments */}
@@ -59,7 +66,10 @@ const Header = () => {
             </div>
           </div>
 
-          <div className={styles.cardRight}>^ 8(13.6%)</div>
+          <div className={styles.cardRight}>
+            <IoIosArrowUp />
+            8(13.6%)
+          </div>
         </div>
       </div>
     </section>

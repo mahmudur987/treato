@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./TeamSales.module.css";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
@@ -13,6 +13,7 @@ const TeamSales = () => {
     { name: "Group D", value: 200 },
   ];
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+
   return (
     <div className={styles.maincontainer}>
       <div className={styles.container}>
@@ -32,10 +33,10 @@ const TeamSales = () => {
             <PieChart width={400} height={400}>
               <Pie
                 data={data}
-                cx={190}
-                cy={150}
-                innerRadius={150}
-                outerRadius={190}
+                cx={window.innerWidth < 700 ? 100 : 190}
+                cy={window.innerWidth < 700 ? 100 : 150}
+                innerRadius={window.innerWidth < 700 ? 80 : 150}
+                outerRadius={window.innerWidth < 700 ? 100 : 190}
                 fill="#8884d8"
                 paddingAngle={5}
                 dataKey="value"
