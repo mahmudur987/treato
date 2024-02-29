@@ -1,23 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./EditService.module.css";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import BasicDetailsForm from "../../../components/Services/EditService/BasicDetailsForm/BasicDetailsForm";
 import TeamMembers from "../../../components/Services/EditService/TeamMembers/TeamMembers";
-import { singleSalon } from "../../../utils/data";
+import {} from "../../../utils/data";
+
+import { useSingleSalon } from "../../../services/salon";
+import { toast } from "react-toastify";
+
 const EditService = () => {
+  const { data: singleSalon, isLoading, isError, error } = useSingleSalon();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+  const service_id = queryParams.get("servicetype");
   const category_id = queryParams.get("category");
   const subcategory_id = queryParams.get("subcategory");
-  const salonServices = singleSalon.salon.services[0];
-  const { category, subCategories } = findServiceData(
-    salonServices,
-    category_id,
-    subcategory_id
-  );
+  const salonServices = singleSalon?.salon?.services[0];
+  const navigate = useNavigate();
+  const [basicDetails, setBasicDetails] = useState({});
+  const [teamMember, setTeamMember] = useState([]);
+  const [days, setdays] = useState([]);
+  const { service, category, subcategory } =
+    findServiceData(singleSalon, service_id, category_id, subcategory_id) || {};
+  if (isLoading) {
+    return <p>Loading</p>;
+  }
 
-  console.log(singleSalon.salon);
-
+  if (isError) {
+    return toast.error(error.message);
+  }
   return (
     <main className={styles.mainContainer}>
       <Link to={"/service"} className={styles.backLink}>
@@ -58,11 +69,17 @@ const EditService = () => {
           <div className={styles.leftContent}>
             <h2>Basic Details </h2>
             <div className={styles.formWrapper}>
-              <BasicDetailsForm />
+              <BasicDetailsForm
+                salon={singleSalon.salon}
+                service={service}
+                setBasicDetails={setBasicDetails}
+                category={category}
+                subcategory={subcategory}
+              />
             </div>
           </div>
           <div className={styles.rightContent}>
-            <TeamMembers />
+            <TeamMembers setTeamMember={setTeamMember} setdays={setdays} />
           </div>
         </div>
 
@@ -77,19 +94,22 @@ const EditService = () => {
 
 export default EditService;
 
-const findServiceData = (data, category_id, subcategory_id) => {
+const findServiceData = (data, service_id, category_id, subcategory_id) => {
   // Iterate through mainCategories to find the specified category
-  const category = data.mainCategories.find(
+
+  const service = data?.salon?.services?.find((x) => x._id === service_id);
+
+  const category = service?.mainCategories?.find(
     (category) => category._id === category_id
   );
 
   if (category) {
-    const subcategory = category.subCategories.find(
+    const subcategory = category?.subCategories.find(
       (subcategory) => subcategory._id === subcategory_id
     );
 
     if (subcategory) {
-      return { category, subcategory };
+      return { service, category, subcategory };
     }
   }
   return null;

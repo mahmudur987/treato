@@ -21,7 +21,7 @@ const ServicesDropDown = ({ data }) => {
       window.removeEventListener("resize", checkWindowWidth);
     };
   }, []);
-  console.log(showbtnMenu, 55);
+
   return (
     <section className={styles.mainContainer}>
       <div className={styles.container}>
@@ -88,8 +88,13 @@ const ServicesDropDown = ({ data }) => {
                         )
                       }
                     >
-                      <p>Add a new service</p>
-                      <p>Edit service</p>
+                      <p>
+                        <Link to={"/service/addservice"}>
+                          {" "}
+                          Add a new service
+                        </Link>
+                      </p>
+                      <p>Edit Category</p>
                       <p className={styles.delete}>Delete Category</p>
                     </div>
                   )}
@@ -118,7 +123,7 @@ const ServicesDropDown = ({ data }) => {
                         </p>
                       </div>
                       <Link
-                        to={`/service/editservice?category=${category._id}&subcategory=${service._id}`}
+                        to={`/service/editservice?servicetype=${data._id}&category=${category._id}&subcategory=${service._id}`}
                       >
                         <button className={styles.editButton}>
                           <svg
@@ -239,8 +244,12 @@ const ServicesDropDown = ({ data }) => {
                   </button>
                   {category._id === showbtnMenu && (
                     <div className={styles.menuItems}>
-                      <p>Add a new service</p>
-                      <p>Edit service</p>
+                      <p>
+                        <Link to={"/service/addservice"}>
+                          Add a new service
+                        </Link>
+                      </p>
+                      <p>Edit category</p>
                       <p className={styles.delete}>Delete Category</p>
                     </div>
                   )}
@@ -266,7 +275,7 @@ const ServicesDropDown = ({ data }) => {
                           </p>
                         </div>
                         <Link
-                          to={`/service/editservice?category=${category._id}&subcategory=${service._id}`}
+                          to={`/service/editservice?servicetype=${data._id}&category=${category._id}&subcategory=${service._id}`}
                         >
                           <button className={styles.editButton}>
                             <svg

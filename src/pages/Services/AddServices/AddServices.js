@@ -1,18 +1,67 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddServices.module.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import BasicDetailsForm from "../../../components/Services/AddServices/BasicDetailsForm/BasicDetailsForm";
 import TeamMembers from "../../../components/Services/AddServices/TeamMembers/TeamMembers";
+import {
+  addNewService,
+  getSingleSalonData,
+  useSingleSalon,
+} from "../../../services/salon";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { toast } from "react-toastify";
+import axiosInstance from "../../../services/axios";
+
 const AddServices = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [mobile, setIsMobile] = useState(false);
+
+  const [basicDetails, setBasicDetails] = useState({});
+  const [teamMember, setTeamMember] = useState([]);
+  const [days, setdays] = useState([]);
+
+  //api fetching
+  const { data, isLoading, isError, error } = useSingleSalon();
+  // console.log(basicDetails, teamMember, days);
+
+  const handleSubmit = async () => {
+    if (!basicDetails.serviceName || teamMember.length <= 0) {
+      return toast.error("please write a service name and add a team member");
+    }
+
+    const newService = {
+      service_name: basicDetails.selectedServiceType,
+      service_description: basicDetails.description,
+      stylists: teamMember,
+      mainCategories: [
+        {
+          category_name: basicDetails.selectCategory,
+          subCategories: [
+            {
+              service_name: basicDetails.serviceName,
+              price: Number(basicDetails.price),
+              time_takenby_service: basicDetails.duration,
+            },
+          ],
+        },
+      ],
+    };
+
+    console.log(newService);
+
+    const res = await addNewService(newService);
+    console.log(res);
+  };
+
+  // for the ui
   const handleNextStep = () => {
     setCurrentStep((prevStep) => (prevStep < 3 ? prevStep + 1 : prevStep));
   };
-
   const handlePrevStep = () => {
     setCurrentStep((prevStep) => (prevStep > 1 ? prevStep - 1 : prevStep));
   };
+
   useEffect(() => {
     const checkWindowWidth = () => {
       const newIsMobile = window.innerWidth < 700;
@@ -24,6 +73,26 @@ const AddServices = () => {
       window.removeEventListener("resize", checkWindowWidth);
     };
   }, []);
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          minHeight: "400px",
+          margin: "auto",
+        }}
+      >
+        <LoadSpinner />
+      </div>
+    );
+  }
+  if (isError) {
+    toast.error(error.message, { toastId: 1 });
+  }
+
   return (
     <main className={styles.mainContainer}>
       <Link to={"/service"} className={styles.backLink}>
@@ -108,18 +177,40 @@ const AddServices = () => {
             {!mobile && <h2>Basic Details </h2>}
 
             <div className={styles.formWrapper}>
-              {currentStep === 1 && mobile && <BasicDetailsForm />}
-              {!mobile && <BasicDetailsForm />}
+              {currentStep === 1 && mobile && (
+                <BasicDetailsForm
+                  salon={data.salon}
+                  setBasicDetails={setBasicDetails}
+                />
+              )}
+              {!mobile && (
+                <BasicDetailsForm
+                  setBasicDetails={setBasicDetails}
+                  salon={data.salon}
+                />
+              )}
             </div>
           </div>
           <div className={styles.rightContent}>
-            <TeamMembers currentStep={currentStep} mobile={mobile} />
+            <TeamMembers
+              setdays={setdays}
+              setTeamMember={setTeamMember}
+              currentStep={currentStep}
+              mobile={mobile}
+            />
           </div>
         </div>
 
         <div className={styles.buttontContainer}>
-          <button className={styles.cancel}>Cancel</button>
-          <button className={styles.submit}>Submit</button>
+          <button
+            onClick={() => navigate("/service")}
+            className={styles.cancel}
+          >
+            Cancel
+          </button>
+          <button onClick={handleSubmit} className={styles.submit}>
+            Submit
+          </button>
           <button onClick={handleNextStep} className={styles.save}>
             Save and Continue
           </button>

@@ -33,6 +33,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  cursor: pointer;
 }
 .subCategory h5 {
   color: var(--Secondary-colour, #0d69d7);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./TeamMember.module.css";
 import img1 from "../../../../assets/icons/services/a-1.png";
 import img2 from "../../../../assets/icons/services/a-2.png";
@@ -7,20 +7,38 @@ import img4 from "../../../../assets/icons/services/a-4.png";
 import img5 from "../../../../assets/icons/services/a-5.png";
 import img6 from "../../../../assets/icons/services/a-6.png";
 import img7 from "../../../../assets/icons/services/a-7.png";
+import { useSingleSalon } from "../../../../services/salon";
+import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
+import { toast } from "react-toastify";
 
-const CheckBoxComponent = () => {
+const TeamMembers = ({ mobile, currentStep, setTeamMember, setdays }) => {
+  return (
+    <section className={styles.mainContainer}>
+      {currentStep === 2 && mobile && (
+        <CheckBoxComponent setTeamMember={setTeamMember} />
+      )}
+      {!mobile && <CheckBoxComponent setTeamMember={setTeamMember} />}
+
+      {currentStep === 3 && mobile && <SchedulingCheckBox setdays={setdays} />}
+      {!mobile && <SchedulingCheckBox setdays={setdays} />}
+    </section>
+  );
+};
+
+const CheckBoxComponent = ({ setTeamMember }) => {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const [filterValue, setFilterValue] = useState("");
+  const { data, isLoading, isError, error } = useSingleSalon();
 
-  const allPeople = [
-    { name: "Person 1", avatar: img1 },
-    { name: "Person 2", avatar: img2 },
-    { name: "Person 3", avatar: img3 },
-    { name: "Person 4", avatar: img4 },
-    { name: "Person 5", avatar: img5 },
-    { name: "Person 6", avatar: img6 },
-    { name: "Person 7", avatar: img7 },
-  ];
+  const allPeople = data.salon
+    ? data?.salon?.stylists?.map((x) => {
+        return {
+          name: x.stylist_name,
+          avatar: x.stylist_Img.public_url,
+          id: x._id,
+        };
+      })
+    : [{ name: "Person 1", avatar: img1, id: "25" }];
 
   const filteredPeople = allPeople.filter((person) =>
     person.name.toLowerCase().includes(filterValue.toLowerCase())
@@ -50,6 +68,16 @@ const CheckBoxComponent = () => {
       setSelectedCheckboxes(filteredPeople.map((person) => person.name));
     }
   };
+  useEffect(() => {
+    setTeamMember(selectedCheckboxes);
+  }, [selectedCheckboxes]);
+  if (isLoading) {
+    return <LoadSpinner />;
+  }
+
+  if (isError) {
+    return toast.error(error.message, { toastId: 1 });
+  }
 
   return (
     <div className={styles.checkboxContainer}>
@@ -77,8 +105,8 @@ const CheckBoxComponent = () => {
             <label key={person.name} className={styles.people}>
               <input
                 type="checkbox"
-                onChange={() => handleCheckboxChange(person.name)}
-                checked={selectedCheckboxes.includes(person.name)}
+                onChange={() => handleCheckboxChange(person.id)}
+                checked={selectedCheckboxes.includes(person.id)}
               />
 
               <p>
@@ -93,9 +121,10 @@ const CheckBoxComponent = () => {
   );
 };
 
-const SchedulingCheckBox = () => {
+const SchedulingCheckBox = ({ setdays }) => {
   const [selectedDays, setSelectedDays] = useState([]);
-
+  const [startTime, setStartTime] = useState("09:00");
+  const [closeTime, setCloseTime] = useState("09:00");
   const allDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const handleDayClick = (day) => {
@@ -111,7 +140,15 @@ const SchedulingCheckBox = () => {
       return setSelectedDays([]);
     } else setSelectedDays(allDays);
   };
+  useEffect(() => {
+    const data = {
+      days: selectedDays,
+      startTime,
+      closeTime,
+    };
 
+    setdays(data);
+  }, [selectedDays, startTime, closeTime]);
   return (
     <div className={styles.checkboxContainer}>
       <div className={styles.scheHeading}>
@@ -148,7 +185,11 @@ const SchedulingCheckBox = () => {
           <div className={styles.content}>
             <h3>Available from (optional)</h3>
             <div className={styles.selectWrapper}>
-              <select name="" id="">
+              <select
+                onChange={(e) => setStartTime(e.target.value)}
+                name=""
+                id=""
+              >
                 <option value="30minn">09:00 AM</option>
                 <option value="30minn">08:00 AM</option>
                 <option value="30minn">07:00 AM</option>
@@ -176,7 +217,11 @@ const SchedulingCheckBox = () => {
           <div className={styles.content}>
             <h3>Till (optional)</h3>
             <div className={styles.selectWrapper}>
-              <select name="" id="">
+              <select
+                onChange={(e) => setCloseTime(e.target.value)}
+                name=""
+                id=""
+              >
                 <option value="30minn">30 min</option>
                 <option value="30minn">40 min</option>
                 <option value="30minn">50 min</option>
@@ -206,18 +251,4 @@ const SchedulingCheckBox = () => {
   );
 };
 
-const TeamMembers = ({ mobile, currentStep }) => {
-  return (
-    <section className={styles.mainContainer}>
-      {currentStep === 2 && mobile && <CheckBoxComponent />}
-      {!mobile && <CheckBoxComponent />}
-
-      {currentStep === 3 && mobile && <SchedulingCheckBox />}
-      {!mobile && <SchedulingCheckBox />}
-    </section>
-  );
-};
-
 export default TeamMembers;
-
-// CheckBoxComponent.jsx

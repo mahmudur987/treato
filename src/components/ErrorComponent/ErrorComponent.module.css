@@ -1,0 +1,27 @@
+/* Error.module.css */
+.error {
+  background-color: #ff4757; /* Coral red background color */
+  color: #fff; /* White text color */
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow for depth */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.error span {
+  margin-right: 10px;
+}
+
+.error svg {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.error svg:hover {
+  transform: scale(1.2);
+}

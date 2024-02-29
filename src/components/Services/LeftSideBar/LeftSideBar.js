@@ -167,7 +167,9 @@ const LeftSideBar = () => {
       <div className={`${show ? styles.containerHover : styles.container}`}>
         {/* logo */}
         <div className={styles.imageWrapper}>
-          <img src={treao} alt="" />
+          <Link to={"/"}>
+            <img src={treao} alt="" />
+          </Link>
         </div>
         {/* routes */}
         {links.map((link, index) => (

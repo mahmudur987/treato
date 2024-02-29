@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ServiceCatalog.module.css";
 import CustomSelect from "../../../components/Select/CustomeSelect";
@@ -7,14 +7,32 @@ import { singleSalon } from "../../../utils/data";
 import AddCategory from "../../../components/_modals/Addcategory/AddCategory";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa";
+import { useSingleSalon } from "../../../services/salon";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { toast } from "react-toastify";
+import { getAllServices } from "../../../services/Services";
+import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
 const ServiceCatalog = () => {
   const [showAddMenu, setshowAddmenu] = useState(false);
-  const data = singleSalon.salon.services[0];
-
+  const { data, isLoading, isError, error } = useSingleSalon();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Option 1");
   const options = ["Option 1", "Option 2", "Option 3"];
-
+  const [selectedServiceType, setSelectedServiceType] = useState("All");
+  const [serviceType, setserviceType] = useState(null);
+  useEffect(() => {
+    async function fetchAllServices() {
+      try {
+        const { res, err } = await getAllServices();
+        if (res) {
+          const data = res?.data?.data.map((x) => x.service_name);
+          setserviceType(data);
+        } else {
+        }
+      } catch (error) {}
+    }
+    fetchAllServices();
+  }, []);
   const handleSelectChange = (value) => {
     setSelectedOption(value);
   };
@@ -26,7 +44,33 @@ const ServiceCatalog = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  console.log(showAddMenu);
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          minHeight: "400px",
+          margin: "auto",
+        }}
+      >
+        <LoadSpinner />
+      </div>
+    );
+  }
+
+  if (isError) {
+    toast.error(error.message, { toastId: 1 });
+  }
+  const filtereddata = data.salon.services.filter((x) => {
+    if (selectedServiceType === "All") {
+      return x;
+    } else {
+      return x.service_name === selectedServiceType;
+    }
+  });
+
   return (
     <main className={styles.mainContainer}>
       <section className={styles.container}>
@@ -40,9 +84,9 @@ const ServiceCatalog = () => {
               <p>Service Type</p>
               <div className={styles.selectWrapper}>
                 <CustomSelect
-                  options={options}
-                  value={selectedOption}
-                  onChange={handleSelectChange}
+                  options={["All", ...serviceType]}
+                  value={selectedServiceType}
+                  onChange={setSelectedServiceType}
                 />
                 <span>
                   <svg
@@ -111,9 +155,9 @@ const ServiceCatalog = () => {
             </button>
             <div className={styles.selectWrapper}>
               <CustomSelect
-                options={options}
-                value={selectedOption}
-                onChange={handleSelectChange}
+                options={["All", ...serviceType]}
+                value={selectedServiceType}
+                onChange={setSelectedServiceType}
               />
               <span>
                 <svg
@@ -138,7 +182,25 @@ const ServiceCatalog = () => {
         {/* details */}
 
         <div className={styles.content}>
-          <ServicesDropDown data={data} />
+          {data &&
+            data?.salon?.services
+              ?.filter((x) => {
+                if (selectedServiceType === "All") {
+                  return x;
+                } else {
+                  return x.service_name === selectedServiceType;
+                }
+              })
+              .map((data, i) => <ServicesDropDown key={i} data={data} />)}
+
+          {data &&
+            data?.salon?.services?.filter((x) => {
+              if (selectedServiceType === "All") {
+                return x;
+              } else {
+                return x.service_name === selectedServiceType;
+              }
+            }).length <= 0 && <ErrorComponent message={"No data to show"} />}
         </div>
       </section>
       <AddCategory showModal={isModalOpen} onClose={closeModal} />

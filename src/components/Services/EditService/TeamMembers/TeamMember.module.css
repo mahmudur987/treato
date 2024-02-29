@@ -133,6 +133,7 @@
   column-gap: 85px;
   row-gap: 16px;
   flex-wrap: wrap;
+  cursor: pointer;
 }
 .date {
   color: var(--Grey-Black, #08090a);
