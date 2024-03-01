@@ -10,25 +10,32 @@ export default function PageLayout({ children }) {
   const showModal = useSelector((state) => state?.salonModal.showModal);
   const isMobileView = useSelector((state) => state.salonModal.isMobileView);
   const location = useLocation();
-  // remove Navbar and footer  if any of the below  routes 
+  // remove Navbar and footer  if any of the below  routes
   const isSpecialPage =
     location.pathname === "/auth-choice" ||
     location.pathname === "/create-account" ||
     location.pathname === "/login" ||
     location.pathname === "/verify-otp" ||
     location.pathname === "/reset-password" ||
-    location.pathname === "/forgot-password";
+    location.pathname === "/forgot-password" ||
+    location.pathname === "/partner" ||
+    location.pathname === "/partner/authchoice";
+
   // remove footer  if the current route is "/myappointments "
+
   const isMyAppointmentsRoute =
     location.pathname.startsWith("/my-appointments");
+
+  const isServicePage = location.pathname.startsWith("/service");
+
   return (
     <div>
-      {!isSpecialPage && <Navbar />}
+      {!isSpecialPage && !isServicePage && <Navbar />}
       {/* <ModalManager /> */}
       {showModal && !isMobileView && <SalonFilterModalDesktop />}
       {showModal && isMobileView && <SalonFilterModalMobile />}
       {children}
-      {!isMyAppointmentsRoute && !isSpecialPage && <Footer />}
+      {!isMyAppointmentsRoute && !isServicePage && !isSpecialPage && <Footer />}
     </div>
   );
 }

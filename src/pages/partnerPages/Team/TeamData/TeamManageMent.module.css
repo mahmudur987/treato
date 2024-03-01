@@ -1,0 +1,16 @@
+
+.hideTeamDetails{display: block;}
+.hideTimeSchedule{display: block;}
+
+@media (max-width: 600px) {
+  .hideTeamDetails{display: none;}
+  .hideTimeSchedule{display: block;}
+ 
+
+}
+/* @media (max-width: 600px) {
+  .hideTimeSchedule{display: none;}
+  .hideTeamDetails{display: block;}
+} */
+
+

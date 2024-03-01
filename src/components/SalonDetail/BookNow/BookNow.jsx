@@ -18,7 +18,6 @@ export default function BookNow({
   Disabled,
   displayFinalAmount,
   handleOfflinePayment,
-  handlePayment,
 }) {
   let [totalServicesPrice, setTotalServicesPrice] = useState(0);
   let navigate = useNavigate();
@@ -60,7 +59,7 @@ export default function BookNow({
         handleOfflinePayment();
         console.log("handleOfflinePayment");
       } else if (innerText === "Pay ₹") {
-        handlePayment();
+        // handlePayment();
       }
       if (setCompletedPay) {
         // setCompletedPay(true);
@@ -71,7 +70,8 @@ export default function BookNow({
     <div className={styles.book_nowA}>
       <div className={styles.book_nowB}>
         {SalonDetails ? (
-          `${totalSalonServices ? totalSalonServices : null
+          `${
+            totalSalonServices ? totalSalonServices : null
           } services to choose from`
         ) : activeBookFlowBA === 4 ? (
           <>
@@ -108,7 +108,7 @@ export default function BookNow({
               {innerText}{" "}
               {selectedOffer?.amount_for_discount
                 ? TotalServiceAmount -
-                selectedOffer?.amount_for_discount?.toLocaleString()
+                  selectedOffer?.amount_for_discount?.toLocaleString()
                 : TotalServiceAmount?.toLocaleString()}
             </button>
           </Link>

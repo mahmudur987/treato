@@ -7,7 +7,7 @@ import linkedin_black from "../../../assets/images/icons/linkedin_black.svg"
 import instagram_black from "../../../assets/images/icons/instagram_black.svg"
 import { toast } from 'react-toastify';
 
-export default function ShareBlog({ setShareModal,BlogUrl }) {
+export default function ShareBlog({ setShareModal, BlogUrl }) {
 
     return (
         <div className={styles.shareMain}>
@@ -29,15 +29,15 @@ export default function ShareBlog({ setShareModal,BlogUrl }) {
                     </div>
                 </div>
                 <div className={styles.shareD}>
-                    <a className={styles.shareDA} href={`https://www.facebook.com/sharer/sharer.php?u=${BlogUrl?BlogUrl:''}`} target="_blank">
+                    <a className={styles.shareDA} href={`https://www.facebook.com/sharer/sharer.php?u=${BlogUrl ? BlogUrl : ''}`} target="_blank">
                         <div className={styles.shareDAA}><img src={facebook_black} alt="facebook" /></div>
                         <div>Facebook</div>
                     </a>
-                    <a className={styles.shareDA} href={`https://twitter.com/intent/tweet?text=${BlogUrl?BlogUrl:''}`} target="_blank">
+                    <a className={styles.shareDA} href={`https://twitter.com/intent/tweet?text=${BlogUrl ? BlogUrl : ''}`} target="_blank">
                         <div className={styles.shareDAA}><img src={twitter_black} alt="twitter" /></div>
                         <div>Twitter</div>
                     </a>
-                    <a className={styles.shareDA} href={`https://www.linkedin.com/sharing/share-offsite/?url=${BlogUrl?BlogUrl:''}`} target="_blank">
+                    <a className={styles.shareDA} href={`https://www.linkedin.com/sharing/share-offsite/?url=${BlogUrl ? BlogUrl : ''}`} target="_blank">
                         <div className={styles.shareDAA}><img src={linkedin_black} alt="linkedin" /></div>
                         <div>LinkedIn</div>
                     </a>
@@ -47,8 +47,8 @@ export default function ShareBlog({ setShareModal,BlogUrl }) {
                     </a>
                 </div>
                 <div className={styles.shareE}>
-                    <div className={styles.shareEA}>{BlogUrl?BlogUrl:''}</div>
-                    <div className={styles.shareEB} onClick={()=>{navigator.clipboard.writeText(BlogUrl?BlogUrl:''); toast.success('Copied URL')}}>Copy link</div>
+                    <div className={styles.shareEA}>{BlogUrl ? BlogUrl : ''}</div>
+                    <div className={styles.shareEB} onClick={() => { navigator.clipboard.writeText(BlogUrl ? BlogUrl : ''); toast.success('Copied URL') }}>Copy link</div>
                 </div>
             </div>
         </div>

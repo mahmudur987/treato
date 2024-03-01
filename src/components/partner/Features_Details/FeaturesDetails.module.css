@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+.mainContainer {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header {
+  max-width: 1096px;
+  width: 100%;
+  min-height: 204px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+.header h1 {
+  max-width: 872px;
+  width: 100%;
+  color: var(--Grey-Black, #08090a);
+  text-align: center;
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 60px */
+}
+.header p {
+  max-width: 1096;
+  width: 100%;
+  color: var(--Grey-Grey-10, #6d747a);
+  text-align: center;
+
+  font-family: Lato;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.2px;
+}
+
+.cardContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+/* CompanyCard.module.css */
+.card {
+  display: flex;
+  max-width: 424px;
+  width: 100%;
+  min-height: 324px;
+  padding: 36px 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.logo {
+  max-width: 56px;
+  width: 100%;
+  min-height: 56px;
+  padding: 4px 6.736px 4px 7px;
+  justify-content: center;
+  align-items: center;
+}
+.logo img {
+  height: 100%;
+  width: 100%;
+}
+
+.cardHeader {
+  align-self: stretch;
+  color: var(--Grey-Black, #08090a);
+
+  /* Header/Header H4 */
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 36px */
+}
+
+.description {
+  align-self: stretch;
+  color: var(--Grey-10, #6d747a);
+  font-family: Noto Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+}
+@media only screen and (max-width: 1024px) {
+}
+@media only screen and (max-width: 770px) {
+}
+@media only screen and (max-width: 600px) {
+  .header h1 {
+    font-size: 24px;
+  }
+  .header p,
+  .description {
+    font-size: 16px;
+  }
+  .card {
+    align-items: center;
+    text-align: center;
+    margin: 10px auto;
+    min-height: 216px;
+  }
+  .cardHeader {
+    font-size: 20px;
+  }
+}

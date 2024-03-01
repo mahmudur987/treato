@@ -414,7 +414,25 @@ export default function BookFlow() {
               displayFinalAmount={true}
               handleOfflinePayment={handleOfflinePayment}
               handlePayment={handlePayment}
-              Disabled={activeBookFlowBA === 1 ? salonServices.length < 1 ? true : false : activeBookFlowBA === 2 ? stepTwoDetails.workerData === null || stepTwoDetails.dateData === null || stepTwoDetails.timeData === null ? true : false : activeBookFlowBA === 3 ? contact.name === "" || contact.phone === "" || contact.email === "" ? true : false : false}
+              Disabled={
+                activeBookFlowBA === 1
+                  ? salonServices.length < 1
+                    ? true
+                    : false
+                  : activeBookFlowBA === 2
+                    ? stepTwoDetails.workerData === null ||
+                      stepTwoDetails.dateData === null ||
+                      stepTwoDetails.timeData === null
+                      ? true
+                      : false
+                    : activeBookFlowBA === 3
+                      ? contact.name === "" ||
+                        contact.phone === "" ||
+                        contact.email === ""
+                        ? true
+                        : false
+                      : false
+              }
             />
           </div>
         </>

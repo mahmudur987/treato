@@ -25,10 +25,24 @@ import ResetPassword from "./pages/AuthPages/ResetPassword/ResetPassword";
 import { getUserProfile } from "./services/auth";
 import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 import PrivateFormRoutes from "./layouts/PrivateRoutes";
-import Dropdown from "./pages/partnerPages/SettingDropDown/DropDown";
-import PartnerProfile from "./pages/partnerPages/SettingDropDown/PartnerProfile";
-import PaymentProfile from "./pages/partnerPages/SettingDropDown/PaymentProfile";
+import LocationAutocomplete from "./components/locations/LocationAutocomplete";
+import PartnerPage from "./layouts/PartnerPageLayout/PartnerPage";
+import PartnerHome from "./pages/partner/PartnerHome/PartnerHome";
+import AuthChoice from "./pages/partner/Auth/AuthChoice/AuthChoice";
+import ServicePage from "./layouts/ServicePageLayout/ServicePagelLayout";
+import AddServices from "./pages/Services/AddServices/AddServices";
+import AddAppoinment from "./pages/Services/AddAppoinment/AddAppoinment";
 import PartnerAccountSetting from "./pages/partnerPages/SettingDropDown/PartnerAccountSetting";
+import PaymentProfile from "./pages/partnerPages/SettingDropDown/PaymentProfile";
+import Bussness from "./pages/partnerPages/Bussness/Bussness";
+import PicturesGallery from "./pages/partnerPages/Bussness/Gallery/PicturesGallery";
+import ServiceOffer from "./pages/partnerPages/Bussness/ServiceOffer";
+import ServiceLocation from "./pages/partnerPages/Bussness/ServiceLocation";
+import TeamManageMent from "./pages/partnerPages/Team/TeamData/TeamManageMent";
+import AddMemberProfile from "./pages/partnerPages/Team/TeamData/AddTeamMember/AddMemberProfile";
+import EditTeamData from "./pages/partnerPages/Team/TeamData/EditTeamData/EditTeamData";
+import EmployeeSchedule from "./pages/partnerPages/Team/TeamData/EmployeeSchedule/EmployeeSchedule";
+
 
 function App() {
   // Use the location hook to track route changes
@@ -108,25 +122,23 @@ function App() {
     dispatch(fetchSalonsData(userDetails));
   }, [dispatch, userDetails]);
 
-
-
-
   return (
-    <PageLayout>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <Routes>
-        <Route path="/" element={<Home />} />
+    <>
+      <PageLayout>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/account-settings" element={<AccountSettings />} />
           <Route path="/salons" element={<Salons />} />
           <Route path="/salons/:id" element={<SalonDetail />} />
@@ -136,26 +148,43 @@ function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
           <Route path="/my-appointments/*" element={<MyAppointments />} />
-           
-        {/* Auth routes */}
-        <Route element={<PrivateFormRoutes />}>
-          <Route path="/auth-choice" exact element={<AuthChoicePage />} />
-          <Route path="/create-account" element={<CreateAccountPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/verify-otp" element={<VerifyOTP />} />
-          <Route path="/reset-password/*" element={<ResetPassword />} />
-        </Route>
-        {/* Redirect to home for any wrong routes */}
-        <Route path="*" element={<Navigate to="/" />} />
-    
+          <Route
+            path="/LocationAutocomplete"
+            element={<LocationAutocomplete />}
+          />{" "}
+          {/* Auth routes */}
+          <Route element={<PrivateFormRoutes />}>
+            <Route path="/auth-choice" exact element={<AuthChoicePage />} />
+            <Route path="/create-account" element={<CreateAccountPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/verify-otp" element={<VerifyOTP />} />
+            <Route path="/reset-password/*" element={<ResetPassword />} />
+          </Route>
+          {/* Redirect to home for any wrong routes */}
+          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/partner" element={<PartnerPage />}>
+            <Route path="/partner" element={<PartnerHome />} />
+            <Route path="/partner/authchoice" element={<AuthChoice />} />
+          </Route>
+          <Route path="/service" element={<ServicePage />}>
+            <Route path="/service" element={<AddServices />} />
+            <Route path="/service/addappoinment" element={<AddAppoinment />} />
+            <Route path="/service/PartnerAccountSetting" element={<PartnerAccountSetting />} />
+            <Route path="/service/serviceBussness" element={<Bussness />} />
+            <Route path="/service/PaymentProfile" element={<PaymentProfile />} />
+            <Route path="/service/storetime" element={<ServiceOffer />} />
+            <Route path="/service/location" element={<ServiceLocation />} />
+            <Route path="/service/PicturesGallery" element={<PicturesGallery />} />
+            <Route path="/service/TeamManageMent" element={<TeamManageMent />} />
+            <Route path="/service/AddMemberProfile" element={<AddMemberProfile />} />
+            <Route path="/service/EditMemberProfile" element={<EditTeamData />} />
+            <Route path="/service/EmployeeSchedule" element={<EmployeeSchedule />} />
 
-      
-       <Route path="/partnerDropDown/" element={<Dropdown/>}/>
-        {/* <Route path="/PartnerProfile/" element={<PartnerProfile/>}/>
-        <Route path="/PaymentProfile/" element={<PaymentProfile/>}/> */}
-      </Routes>
-    </PageLayout>
+          </Route>
+        </Routes>
+      </PageLayout>
+    </>
   );
 }
 

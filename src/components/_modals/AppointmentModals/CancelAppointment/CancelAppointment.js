@@ -40,7 +40,7 @@ const CancelAppointment = ({ data }) => {
       console.log(res);
       if (res.res) {
         dispatch(closeModal());
-        return toast.success("The appointments is caceled", {
+        return toast.success("The appointment is cancellled successfully ", {
           toastId: 1,
         });
       }

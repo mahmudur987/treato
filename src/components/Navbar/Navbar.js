@@ -159,11 +159,13 @@ export default function Navbar() {
               <img src={x} alt="closeIcon" />
             )}
           </button>
-          <SecondaryButton
-            className={styles.partnerButton}
-            onClick={() => scrollToSection(navigate, "partnerSection")}
-            children={"Become a partner"}
-          />
+          <Link to={"/partner"}>
+            <SecondaryButton
+              className={styles.partnerButton}
+              onClick={() => scrollToSection(navigate, "partnerSection")}
+              children={"Become a partner"}
+            />
+          </Link>
           {!isLoggedIn ? (
             <PrimaryButton
               children={"Sign up"}

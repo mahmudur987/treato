@@ -3,23 +3,58 @@ import styles from "../ChangePass/ChangePass.module.css";
 import Grey_Close from "../../../assets/images/icons/Grey_Close.svg";
 import BasicInput from "../../Input/BasicInput/BasicInput";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
-import { updatePass } from "../../../services/updatePass";
-
+import { toast } from "react-toastify";
+import { setPass } from "../../../services/updatePass";
+import styles2 from "./passwordactive.module.css";
 const PasswordActive = ({ setPassActiveModal, updateMobileOpt }) => {
   let [error, showError] = useState(false);
+  const [password, setPassword] = useState("");
+  const [isValid, setIsValid] = useState(true);
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    validatePassword(newPassword);
+  };
+
+  const validatePassword = (password) => {
+    // Define the regular expressions for each validation rule
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const isLengthValid = password.length >= 8;
+
+    // Check if all validation rules are met
+    const isValidPassword =
+      hasLetter && hasNumber && hasSpecialCharacter && isLengthValid;
+
+    setIsValid(isValidPassword);
+  };
+
   let passUpdate = (e) => {
     e.preventDefault();
+
+    if (e.target.newPass.value !== e.target.rePass.value) {
+      return toast.error("password not match", { toastId: 5 });
+    }
+
     const userJWt = localStorage.getItem("jwtToken");
     if (e.target.newPass.value !== "" && e.target.rePass.value !== "") {
       let formData = {
-        currentPassword: e.target.currentPass.value,
-        newPassword: e.target.newPass.value,
+        password: e.target.newPass.value,
+        confirmPassword: e.target.rePass.value,
       };
-      updatePass(userJWt, formData)
+
+      console.log(userJWt, formData);
+      setPass(userJWt, formData)
         .then((res) => {
           console.log(res);
-          setPassActiveModal(false);
-          updateMobileOpt(-1);
+          if (res.res) {
+            setPassActiveModal(false);
+            toast.success("successfully set your password", { toastId: 6 });
+          } else {
+            toast.error("Error");
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -52,7 +87,14 @@ const PasswordActive = ({ setPassActiveModal, updateMobileOpt }) => {
                   id={"newPass"}
                   PlaceHolder={"Enter the new password"}
                   NAME={"newPass"}
+                  onChange={handlePasswordChange}
                 />
+                {!isValid && (
+                  <p className={styles2.isvalid}>
+                    Password should contain at least one letter, one number, one
+                    special character, and be 8 characters long.
+                  </p>
+                )}
               </div>
             </label>
           </div>

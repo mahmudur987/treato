@@ -9,11 +9,22 @@ import { useFormAction, useNavigate, useParams } from "react-router-dom";
 import BookNow from "../../SalonDetail/BookNow/BookNow";
 import PoliciesModal from "../../_modals/PoliciesModal/PoliciesModal";
 import { useEffect, useState } from "react";
-import { TreatoLogo, deleteOfferIcon, offerIcon } from "../../../assets/images/icons";
+import {
+  TreatoLogo,
+  deleteOfferIcon,
+  offerIcon,
+} from "../../../assets/images/icons";
 import { getSingleSalonData } from "../../../services/salon";
 import { useDispatch, useSelector } from "react-redux";
-import salonServices, { updateAmount, updateAppliedOffer, updateServiceTaxPrice } from "../../../redux/slices/salonServices";
-import { AppointmentVerify, bookSalonAppointment } from "../../../services/Appointments";
+import salonServices, {
+  updateAmount,
+  updateAppliedOffer,
+  updateServiceTaxPrice,
+} from "../../../redux/slices/salonServices";
+import {
+  AppointmentVerify,
+  bookSalonAppointment,
+} from "../../../services/Appointments";
 import { toast } from "react-toastify";
 
 export default function BillSummary({
@@ -25,13 +36,13 @@ export default function BillSummary({
   setCompletedPay,
   stepTwoDetails,
 }) {
-const [orderResponse,setOrderResponse]=useState(null)
+  const [orderResponse, setOrderResponse] = useState(null);
   const [salon, setSalon] = useState(null);
-  const [serviceIDs, setserviceIDs] = useState(null)
+  const [serviceIDs, setserviceIDs] = useState(null);
   const [totalServicesPrice, setTotalServicesPrice] = useState(0);
   const [taxPrice, setTaxPrice] = useState(0);
   const [amountToPay, setamountToPay] = useState(0);
-  const [selectedServiceSlot, setselectedServiceSlot] = useState(null)
+  const [selectedServiceSlot, setselectedServiceSlot] = useState(null);
   const selectedServices = useSelector(
     (state) => state?.salonServices?.salonContent
   );
@@ -41,38 +52,32 @@ const [orderResponse,setOrderResponse]=useState(null)
   const TotalServiceAmount = useSelector(
     (state) => state?.salonServices?.Amount
   );
-  const userDetails = useSelector(
-    (state) => state?.user?.user
-  );
-  const serviceDetails = useSelector(
-    (state) =>state?.salonServices
-  );
-  const visitorDetails = useSelector(
-    (state) => state?.VisitorDetails
-  );
+  const userDetails = useSelector((state) => state?.user?.user);
+  const serviceDetails = useSelector((state) => state?.salonServices);
+  const visitorDetails = useSelector((state) => state?.VisitorDetails);
 
   useEffect(() => {
-    let IDs=selectedServices?.map((e)=>{
-      return e?.service_id
-    })
-    setserviceIDs(IDs)
-  }, [selectedServices])
-  
+    let IDs = selectedServices?.map((e) => {
+      return e?.service_id;
+    });
+    setserviceIDs(IDs);
+  }, [selectedServices]);
+
   useEffect(() => {
-    if(stepTwoDetails?.timeData){
-      setselectedServiceSlot(stepTwoDetails?.timeData.replace(/AM|am|PM|pm/g, "").trim())
+    if (stepTwoDetails?.timeData) {
+      setselectedServiceSlot(
+        stepTwoDetails?.timeData.replace(/AM|am|PM|pm/g, "").trim()
+      );
     }
-  }, [stepTwoDetails])
+  }, [stepTwoDetails]);
 
-
-
-const navigate = useNavigate();
-const dispatch=useDispatch();
-const { id } = useParams();
-let [openModal, setOpenModal] = useState({
-  taxModal: false,
-  cancelModal: false,
-});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  let [openModal, setOpenModal] = useState({
+    taxModal: false,
+    cancelModal: false,
+  });
   useEffect(() => {
     getSingleSalonData(id).then((res) => {
       setSalon(res?.res?.data?.salon);
@@ -86,113 +91,129 @@ let [openModal, setOpenModal] = useState({
       let totalPrice = prices.reduce((a, b) => a + b, 0);
       // Calculate 18% of the total price
       let taxAmount = (totalPrice * 18) / 100;
-      dispatch(updateServiceTaxPrice(taxAmount))
+      dispatch(updateServiceTaxPrice(taxAmount));
       setTotalServicesPrice(totalPrice.toLocaleString());
       setTaxPrice(taxAmount.toLocaleString());
-      if(selectedOffer?.amount_for_discount){
-      setamountToPay(((totalPrice + taxAmount)-selectedOffer?.amount_for_discount).toLocaleString());
-      }
-      else{
+      if (selectedOffer?.amount_for_discount) {
+        setamountToPay(
+          (
+            totalPrice +
+            taxAmount -
+            selectedOffer?.amount_for_discount
+          ).toLocaleString()
+        );
+      } else {
         setamountToPay((totalPrice + taxAmount).toLocaleString());
-        dispatch(updateAmount(totalPrice + taxAmount ))
+        dispatch(updateAmount(totalPrice + taxAmount));
       }
     }
-  }, [selectedServices,selectedOffer]);
+  }, [selectedServices, selectedOffer]);
 
-
-const handleDeleteOffer=()=>{
-  dispatch(updateAppliedOffer(null))
-}
-
-
-// razorpay gateway
-
-const initPayment = (order) => {
-  const options = {
-    key: process.env.REACT_APP_Razorpay_Key,
-    amount: `${amountToPay}`,
-    currency: "INR",
-    name: "Treato",
-    description: "test ",
-    image: TreatoLogo,
-    order_id: order?.id,
-    handler: async (response) => {
-      try {
-        let verificationData={...response,order}
-        console.log(verificationData);
-        AppointmentVerify({...response,order}).then((res)=>{
-          if(res?.res?.data?.message==="Payment Verified and Order Created Successfully"){
-            setCompletedPay(true)
-          }
-          console.log(res);
-        })
-      } catch (error) {
-        console.log(error);
-        toast.error(`Payment failed`, {
-          duration: 6000,
-        });
-      }
-    },
-    theme: {
-      color: "#000000",
-    },
+  const handleDeleteOffer = () => {
+    dispatch(updateAppliedOffer(null));
   };
-  const rzp1 = new window.Razorpay(options);
-  rzp1.open();
-};
 
-const handlePayment = async () => {
-  try {
-    let billInfo = {
-      user_id:userDetails?._id,
-      salons_id:id,
-      service_id:serviceIDs,
-      final_amount:`${selectedOffer?.amount_for_discount?TotalServiceAmount-selectedOffer?.amount_for_discount:TotalServiceAmount}`,
-      time : "",
-      selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
-      dateforService:serviceDetails?.serviceDate,
-      seletedSlot : selectedServiceSlot,
-      userData : visitorDetails?.contact,
-      payment_mode:"online",
-      serviceDetails:selectedServices,
-    }
-    bookSalonAppointment(billInfo).then((res)=>{
-      let response=res?.res?.data
-      if(response?.success){
-        setOrderResponse(response?.order)
+  // razorpay gateway
+
+  const initPayment = (order) => {
+    const options = {
+      key: process.env.REACT_APP_Razorpay_Key,
+      amount: `${amountToPay}`,
+      currency: "INR",
+      name: "Treato",
+      description: "test ",
+      image: TreatoLogo,
+      order_id: order?.id,
+      handler: async (response) => {
+        try {
+          let verificationData = { ...response, order };
+          console.log(verificationData);
+          AppointmentVerify({ ...response, order }).then((res) => {
+            if (
+              res?.res?.data?.message ===
+              "Payment Verified and Order Created Successfully"
+            ) {
+              setCompletedPay(true);
+            }
+            console.log(res);
+          });
+        } catch (error) {
+          console.log(error);
+          toast.error(`Payment failed`, {
+            duration: 6000,
+          });
+        }
+      },
+      theme: {
+        color: "#000000",
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
+
+  const handlePayment = async () => {
+    try {
+      let billInfo = {
+        user_id: userDetails?._id,
+        salons_id: id,
+        service_id: serviceIDs,
+        final_amount: `${
+          selectedOffer?.amount_for_discount
+            ? TotalServiceAmount - selectedOffer?.amount_for_discount
+            : TotalServiceAmount
+        }`,
+        time: "",
+        selectedStylistId: stepTwoDetails?.workerData[0]?._id
+          ? stepTwoDetails?.workerData[0]?._id
+          : "",
+        dateforService: serviceDetails?.serviceDate,
+        seletedSlot: selectedServiceSlot,
+        userData: visitorDetails?.contact,
+        payment_mode: "online",
+        serviceDetails: selectedServices,
+      };
+      bookSalonAppointment(billInfo).then((res) => {
+        let response = res?.res?.data;
+        if (response?.success) {
+          setOrderResponse(response?.order);
           initPayment(response?.order);
-      }
-    })
-
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-
-// -------------------
-const handleOfflinePayment=()=>{
-  let billInfo = {
-    user_id:userDetails?._id,
-    salons_id:id,
-    service_id:serviceIDs,
-    final_amount:`${selectedOffer?.amount_for_discount?TotalServiceAmount-selectedOffer?.amount_for_discount:TotalServiceAmount}`,
-    time : "",
-    selectedStylistId :stepTwoDetails?.workerData[0]?._id?stepTwoDetails?.workerData[0]?._id:"",
-    dateforService:serviceDetails?.serviceDate,
-    seletedSlot : selectedServiceSlot,
-    userData : visitorDetails?.contact,
-    payment_mode:"offline",
-    serviceDetails:selectedServices,
-  }
-  bookSalonAppointment(billInfo).then((res)=>{
-    let response=res?.res?.data
-    if(response?.success){
-      setOrderResponse(response?.order)
-      setCompletedPay(true)
+        }
+      });
+    } catch (error) {
+      console.log(error);
     }
-  })
-}
+  };
+
+  // -------------------
+  const handleOfflinePayment = () => {
+    let billInfo = {
+      user_id: userDetails?._id,
+      salons_id: id,
+      service_id: serviceIDs,
+      final_amount: `${
+        selectedOffer?.amount_for_discount
+          ? TotalServiceAmount - selectedOffer?.amount_for_discount
+          : TotalServiceAmount
+      }`,
+      time: "",
+      selectedStylistId: stepTwoDetails?.workerData[0]?._id
+        ? stepTwoDetails?.workerData[0]?._id
+        : "",
+      dateforService: serviceDetails?.serviceDate,
+      seletedSlot: selectedServiceSlot,
+      userData: visitorDetails?.contact,
+      payment_mode: "on-site",
+      serviceDetails: selectedServices,
+    };
+    bookSalonAppointment(billInfo).then((res) => {
+      let response = res?.res?.data;
+      if (response?.success) {
+        setOrderResponse(response?.order);
+        setCompletedPay(true);
+      }
+    });
+  };
 
   return (
     <>
@@ -235,47 +256,56 @@ const handleOfflinePayment=()=>{
           <div className={styles.bill_sumF}>
             <div className={styles.bill_sumFA}>Amount to be paid</div>
             <div className={styles.bill_sumFB}>
-            {selectedOffer?.amount_for_discount && (
-              <h1 className={styles.discountAmount}>
-                ₹{TotalServiceAmount?.toLocaleString()}
-              </h1>
-            )}
-               ₹{amountToPay}
+              {selectedOffer?.amount_for_discount && (
+                <h1 className={styles.discountAmount}>
+                  ₹{TotalServiceAmount?.toLocaleString()}
+                </h1>
+              )}
+              ₹{amountToPay}
             </div>
           </div>
         </div>
         <div className={`${styles.bill_sumF} ${styles.applyOfferContainer}`}>
-{!selectedOffer ?   <div className={styles.applyOffer}>
-            <div className={`${styles.bill_sumFC}`}>
-              <img src={discountIco} alt="" />
-              <div>Offers & Benefits</div>
-            </div>
-            <div
-              className={styles.bill_sumFD}
-              onClick={() => (setShowModal ? setShowModal(true) : "")}
-            >
-              <div>4 offers</div>
-              <img src={rightBlue} alt="" />
-            </div>
-          </div>:
-
-          <div className={styles.appliedOffer}>
-            <div className={styles.offerDetails}>
-              <div className={styles.firstLine}>
-                <img src={offerIcon} alt="offerIcon" />
-                <span className={styles.offerName}>{selectedOffer?.title}</span>
+          {!selectedOffer ? (
+            <div className={styles.applyOffer}>
+              <div className={`${styles.bill_sumFC}`}>
+                <img src={discountIco} alt="" />
+                <div>Offers & Benefits</div>
               </div>
-              <div className={styles.secondLine}>
-                ₹{selectedOffer?.amount_for_discount} savings on this order
+              <div
+                className={styles.bill_sumFD}
+                onClick={() => (setShowModal ? setShowModal(true) : "")}
+              >
+                <div>4 offers</div>
+                <img src={rightBlue} alt="" />
               </div>
             </div>
-            <div className={styles.deleteOption} onClick={handleDeleteOffer}>
-              <img src={deleteOfferIcon} alt="deleteIcon" />
+          ) : (
+            <div className={styles.appliedOffer}>
+              <div className={styles.offerDetails}>
+                <div className={styles.firstLine}>
+                  <img src={offerIcon} alt="offerIcon" />
+                  <span className={styles.offerName}>
+                    {selectedOffer?.title}
+                  </span>
+                </div>
+                <div className={styles.secondLine}>
+                  ₹{selectedOffer?.amount_for_discount} savings on this order
+                </div>
+              </div>
+              <div className={styles.deleteOption} onClick={handleDeleteOffer}>
+                <img src={deleteOfferIcon} alt="deleteIcon" />
+              </div>
             </div>
-          </div> }
+          )}
         </div>
         {!showPay || paySelected ? (
-          <BookNow innerText={"Confirm Booking"} setCompletedPay={setCompletedPay} handleOfflinePayment={handleOfflinePayment} salonId={id}/>
+          <BookNow
+            innerText={"Confirm Booking"}
+            setCompletedPay={setCompletedPay}
+            handleOfflinePayment={handleOfflinePayment}
+            salonId={id}
+          />
         ) : (
           <div className={styles.bill_sumG}>
             <button onClick={handlePayment}>Pay ₹{amountToPay}</button>

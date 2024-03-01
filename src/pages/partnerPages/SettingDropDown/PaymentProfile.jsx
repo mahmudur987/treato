@@ -3,6 +3,7 @@ import styles from "./PaymentProfile.module.css"
 // import styles from "../../../components/HomePage/Contactus/Contactus.module.css"
 import InputField from '../../../components/Input/Input'
 import arrowLeft from "../../../assets/images/AccountSettings/arrow-left.svg"
+import { Link } from 'react-router-dom'
 
 
 const PaymentProfile = ({ mainData }) => {
@@ -38,27 +39,29 @@ const PaymentProfile = ({ mainData }) => {
       <div className={styles["contactWrapper"]}>
 
         <div className={styles["formContainer"]}>
-          <div className={styles["heading"]}>
 
-            <span>
-              <img src={arrowLeft} alt="arrowLeft" className={styles["arrowLeft"]} />
-            </span>
+          <div className={styles["heading"]}>
+            <Link to={"/service/PartnerAccountSetting"}>
+
+              <span>
+                <img src={arrowLeft} alt="arrowLeft" className={styles["arrowLeft"]} />
+              </span>
+            </Link>
 
             Payments
           </div>
 
+
           <form onSubmit={handleSubmit} className={styles["formFields"]}>
 
             <div className={styles["inputField"]}>
-              <InputField
-                label="Bank Name"
-                type="text"
-                name="bankName"
-                value={formData.bankName}
-                onChange={handleChange}
-                placeholder="State Bank of India"
-              // styles={styles.input}
-              />
+
+              <select name="" id="">
+                <option value="">SBI</option>
+                <option value="">HDFC</option>
+                <option value="">B OF M</option>
+              </select>
+
             </div>
             <div className={styles["inputField"]}>
               <InputField

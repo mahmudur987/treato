@@ -1,7 +1,8 @@
 import styles from './BasicInputs.module.css'
 
-export default function BasicInputs({ PlaceHolder, Type, VALUE, DISABLED, id, NAME, updateInputVal, inputVal, required, className, onChange, checked }) {
+export default function BasicInputs(props) {
 
+    const { placeholder, type, VALUE, DISABLED, id, NAME, updateInputVal, inputVal, required, className, onChange, checked, label, style } = props;
     function inputValue(e) {
         if (updateInputVal) {
             let allValue = { ...inputVal };
@@ -11,44 +12,44 @@ export default function BasicInputs({ PlaceHolder, Type, VALUE, DISABLED, id, NA
     }
     return (
         <>
-            <label
-            // className={inputStyles.label}
-            >
-                {Type === 'checkbox' ? (
+            <label className={styles.label}>
+                {type === 'checkbox' ? (
                     <>
-                        <input Type="checkbox" name={NAME} checked={checked} onChange={onChange} />
+                        <input type="checkbox" name={NAME} checked={checked} onChange={onChange} />
                     </>
-                ) : Type === 'textarea' ? (
+                ) : type === 'textarea' ? (
                     <>
                         {/* {props.label} */}
+                        {/* {label} */}
                         <textarea
                             name={NAME}
                             value={VALUE}
                             onChange={onChange}
-                            placeholder={PlaceHolder}
-                            className={styles.textareaContent}
+                            placeholder={placeholder}
+                            className={style}
                         />
                     </>
                 ) : (
                     <>
                         {/* {props.label} */}
+                        {/* {label} */}
                         <input
-                            Type={Type}
+                            type={type}
                             name={NAME}
                             value={VALUE}
                             onChange={onChange}
-                            placeholder={PlaceHolder}
-                        // className={inputStyles.input}
+                            placeholder={placeholder}
+                            className={styles.input}
                         />
                     </>
                 )}
             </label>
-            {
+            {/* {
                 VALUE ?
-                    <input Type={Type ? Type : ''} placeholder={PlaceHolder ? PlaceHolder : ''} className={className ? `${className} ${styles.basic_input}` : styles.basic_input} value={VALUE ? VALUE : ''} disabled={DISABLED ? DISABLED : false} id={id ? id : ''} name={NAME ? NAME : ''} required={required ? required : false} onChange={onChange ? onChange : inputValue} />
+                    <input type={type ? type : ''} placeholder={placeholder ? placeholder : ''} className={className ? `${className} ${styles.basic_input}` : styles.basic_input} value={VALUE ? VALUE : ''} disabled={DISABLED ? DISABLED : false} id={id ? id : ''} name={NAME ? NAME : ''} required={required ? required : false} onChange={onChange ? onChange : inputValue} />
                     :
-                    <input Type={Type ? Type : ''} placeholder={PlaceHolder ? PlaceHolder : ''} className={className ? `${className} ${styles.basic_input}` : styles.basic_input} disabled={DISABLED ? DISABLED : false} id={id ? id : ''} name={NAME ? NAME : ''} onChange={onChange ? onChange : null} required={required ? required : false} />
-            }
+                    <input type={type ? type : ''} placeholder={placeholder ? placeholder : ''} className={className ? `${className} ${styles.basic_input}` : styles.basic_input} disabled={DISABLED ? DISABLED : false} id={id ? id : ''} name={NAME ? NAME : ''} onChange={onChange ? onChange : null} required={required ? required : false} />
+            } */}
         </>
     )
 }

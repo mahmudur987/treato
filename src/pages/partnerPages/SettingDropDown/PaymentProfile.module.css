@@ -1,7 +1,7 @@
-.container {
+/* .container {
     padding: 2rem 6rem;
     font-family: "Lato", sans-serif;
-  }
+  } */
   .heading {
     font-family: "Poppins", sans-serif;
     font-weight: 600;
@@ -11,11 +11,10 @@
   .arrowLeft{
    margin-right: 25px;
   }
-  .contactWrapper {
+  /* .contactWrapper {
     height: 614px;
     display: flex;
-    margin-top: 3rem;
-  }
+  } */
  
   .formContainer {
     width: 424px;
@@ -61,7 +60,50 @@
   .inputField{
     padding:20px;
   }
+ /* SELETE option start */
+ select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+  padding: 0.5em;
+  width: 100%;
+  font-size: inherit;
+
+  padding: 13px 16px;
+  border-radius: 4px;
+  border: 1px solid #CED4DA;
+  width: 100%;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+select {
+  background-image: url('../../../assets/images/partner/partnerSetting/chevron-down.png');
+  background-repeat: no-repeat;
+  background-position: right 0.7em top 50%;
+  background-size: 20px 20px;
  
+}
+
+select:hover, select:focus {
+  border-color: #aaa;
+}
+
+select:active {
+  border-color: #555;
+}
+
+select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+ /* Select option start */
  
   @media only screen and (max-width: 1025px) {
     .container {
@@ -109,4 +151,4 @@
       font-weight: 400;
     }
   }
-  
+ 

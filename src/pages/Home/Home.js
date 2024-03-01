@@ -36,8 +36,6 @@ export default function Home(props) {
       <PartnerBanner mainData={homeData.partner_section?homeData.partner_section:''}/>
       <Testimonials />
       <Contactus mainData={homeData.contact_us_image?homeData.contact_us_image:''}/>
-      {/* <PartnerAccountSetting /> */}
-      <ServiceLocation/>
     </div>
   </>
   );

@@ -1,0 +1,85 @@
+.editContent1 {
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editContent {
+    
+   margin-bottom: 10px;
+   position: absolute;
+   width: 220px;
+   height: 192px;
+ background-color: #FFFFFF;
+   top: 1000px;
+   left: 600px;
+   right: 0px;
+   padding: 2px;
+   border-radius: 4px;
+   text-align: start;
+   line-height: 45px;
+   border: 1px solid #EBEDF0;
+   color: #08090A;
+ font-family: Lato;
+ font-size: 18px;
+ font-weight: 500;
+ letter-spacing: 0.01em;
+ 
+ }
+ .Delete{
+  color:#DE2929;
+ }
+ .editContent p:hover{
+   background-color: #EBEDF0;
+ 
+ }
+ /* .container{padding: 6rem,6rem;} */
+ 
+ @media only screen and (max-width: 768px) {
+  .container{padding: 1rem,1rem;}
+  .editContent1 {
+
+ align-items: flex-end;
+
+/* margin-right: 48px; */
+width: 390px;
+height: 216px;
+top: 628px;
+padding: 24px;
+border-radius: 12px, 12px, 0px, 0px;
+/* gap: 36px */
+
+  }
+
+
+
+  .editContent {
+    position: relative; 
+    width: 342px;
+    background-color: white;
+    top: 24px;
+    bottom: 0; 
+    left: 0px;
+    height: 168px;
+    /* font-size: 30px; */
+    text-align: center;
+    right: 0px;
+    z-index: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e8e9eb;
+  
+  }
+  
+  .Delete {
+    color: #DE2929;
+  }
+  
+  .editContent p:hover {
+    background-color: #EBEDF0;
+  }
+  
+ 
+  
+}

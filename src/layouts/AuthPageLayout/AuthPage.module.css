@@ -6,14 +6,21 @@
   overflow: hidden;
 }
 .AuthImage,
-.AuthContent {
+.AuthContent,
+.PartnerAuthImage {
   width: 50%;
   height: 100%;
 }
-.AuthImage{
+.AuthImage {
   background-image: url("../../assets/images/AuthImages/Hero_Signup.png");
   background-size: cover;
-  background-position:center;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.PartnerAuthImage {
+  background-image: url("../../assets/images/AuthImages/partnerauthchoice.png");
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
 }
 .AuthContent {
@@ -22,8 +29,8 @@
   align-items: center;
   gap: 36px;
 }
-.arrowLeft{
- display: none;
+.arrowLeft {
+  display: none;
 }
 @media only screen and (max-width: 768px) {
   .AuthContent {
@@ -31,17 +38,17 @@
     box-sizing: border-box;
   }
 }
-@media only screen and (max-width: 440px) {   
-    .AuthContent {
-        width: 100%;
-      }
-    .AuthImage {
-      display: none;
-    }
-    .arrowLeft{
-      display: block;
-      position: absolute;
-      top: 3%;
-      left:3%;
-    }
+@media only screen and (max-width: 440px) {
+  .AuthContent {
+    width: 100%;
+  }
+  .AuthImage {
+    display: none;
+  }
+  .arrowLeft {
+    display: block;
+    position: absolute;
+    top: 3%;
+    left: 3%;
+  }
 }

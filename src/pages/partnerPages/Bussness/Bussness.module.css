@@ -1,0 +1,57 @@
+.container {
+    padding: 2rem 6rem;
+    font-family: "Lato", sans-serif;
+  }
+.saveBtn{
+    
+    background-color: black;
+    color: white;
+    width: 4%;
+    padding: 8px 8px 8px 8px;
+    border: solid black 1px;
+    border-radius: 20%;
+    margin-top: 2%; 
+}
+.saveBtnDiv{
+    display: flex;
+    justify-content: end;
+    align-items: end; 
+}
+
+.SalonPicturesSmallScreen
+.ServiceOfferSmallScreen
+.ServiceLocationSmallScreen
+{
+  display: none;
+}
+
+ 
+  
+  @media screen and (max-width: 768px) {
+    .container {
+        padding: 1rem 1rem; 
+        width: 100%;
+    }
+
+    .saveBtn {
+        /* padding: 6px;  */
+        outline: none;
+        border:#EBEDF0 ;
+        color: #939CA3;
+        border-radius: 4px; 
+        height: 48px;
+       background-color: #EBEDF0; 
+        width: 342px;
+        text-align: center;
+    }
+
+    .saveBtnDiv {
+       display: flex;
+       justify-content: center;
+       align-items: center; 
+       margin-right: 30%;
+    }
+   
+   
+    
+}
