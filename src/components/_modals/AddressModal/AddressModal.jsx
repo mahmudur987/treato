@@ -161,42 +161,32 @@ export default function AddressModal({
   return (
     <>
       {addressModal?.data ? (
-        <div className={styles.addressMain}>
-          <div className={styles.addressBack}>
-            <div className={styles.addressA}>
-              <div className={styles.addressAA}>Edit address</div>
-              <img
-                src={DarkCross}
-                alt="close"
-                onClick={() => setAddressModal({ active: false, data: null })}
-              />
-            </div>
-            <div className={styles.addressB}>
-              <div className={styles.addressBA}>
-                {userAddressText && userAddressText}
-              </div>
-              <div className={styles.addressBB} onClick={handleChange}>
-                <SecondaryButton
-                  children={"Change"}
-                  className={styles.addressBB_btn}
+        <div class={styles.addressContainer}>
+          <div className={styles.addressMain}>
+            <div className={styles.addressBack}>
+              <div className={styles.addressA}>
+                <div className={styles.addressAA}>Edit address</div>
+                <img
+                  src={DarkCross}
+                  alt="close"
+                  onClick={() => setAddressModal({ active: false, data: null })}
                 />
               </div>
-            </div>
-            <div className={styles.addressC}>
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={{
-                  lat: userDetails?.user?.isLocationAllow
-                    ? userDetails?.user?.latitude
-                    : 19.2856,
-                  lng: userDetails?.user?.isLocationAllow
-                    ? userDetails?.user?.longitude
-                    : 72.8691,
-                }}
-                zoom={15}
-              >
-                <Marker
-                  position={{
+              <div className={styles.addressB}>
+                <div className={styles.addressBA}>
+                  {userAddressText && userAddressText}
+                </div>
+                <div className={styles.addressBB} onClick={handleChange}>
+                  <SecondaryButton
+                    children={"Change"}
+                    className={styles.addressBB_btn}
+                  />
+                </div>
+              </div>
+              <div className={styles.addressC}>
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={{
                     lat: userDetails?.user?.isLocationAllow
                       ? userDetails?.user?.latitude
                       : 19.2856,
@@ -204,223 +194,237 @@ export default function AddressModal({
                       ? userDetails?.user?.longitude
                       : 72.8691,
                   }}
-                />
-              </GoogleMap>
-            </div>
-            <form id="addressForm" onSubmit={editAddress}>
-              <div
-                className={styles.addressD}
-                onChange={() => setUpdateSave(true)}
-              >
-                <label htmlFor="house">
-                  <div className={styles.addressDA}>House/Flat Number*</div>
-                  <BasicInput
-                    PlaceHolder={"House or flat number"}
-                    NAME={"house"}
-                    required={true}
-                    id={"house"}
-                    VALUE={inputs.house}
-                    onChange={onChangeInput}
+                  zoom={15}
+                >
+                  <Marker
+                    position={{
+                      lat: userDetails?.user?.isLocationAllow
+                        ? userDetails?.user?.latitude
+                        : 19.2856,
+                      lng: userDetails?.user?.isLocationAllow
+                        ? userDetails?.user?.longitude
+                        : 72.8691,
+                    }}
                   />
-                </label>
+                </GoogleMap>
               </div>
-              <div className={styles.addressD}>
-                <label htmlFor="landmark" onChange={() => setUpdateSave(true)}>
-                  <div className={styles.addressDA}>Landmark (optional)</div>
-                  <BasicInput
-                    PlaceHolder={"e.g. opp. AXN Center"}
-                    NAME={"landmark"}
-                    id={"landmark"}
-                    VALUE={inputs.landmark}
-                    onChange={onChangeInput}
-                  />
-                </label>
-              </div>
-              <div className={styles.addressE}>
-                <div className={styles.addressEA}>Save as</div>
-                <div className={styles.addressEB}>
-                  <label
-                    htmlFor="home"
-                    onChange={() => setUpdateSave(true)}
-                    onClick={() => setLocType(1)}
-                  >
+              <form id="addressForm" onSubmit={editAddress}>
+                <div
+                  className={styles.addressD}
+                  onChange={() => setUpdateSave(true)}
+                >
+                  <label htmlFor="house">
+                    <div className={styles.addressDA}>House/Flat Number*</div>
                     <BasicInput
-                      Type={"radio"}
-                      className={styles.d_none}
-                      id="home"
-                      NAME={"house_type"}
-                      VALUE={"Home"}
+                      PlaceHolder={"House or flat number"}
+                      NAME={"house"}
+                      required={true}
+                      id={"house"}
+                      VALUE={inputs.house}
+                      onChange={onChangeInput}
                     />
-                    <div
-                      className={
-                        locType === 1
-                          ? `${styles.addressEBB} ${styles.addressEBA}`
-                          : styles.addressEBA
-                      }
-                    >
-                      Home
-                    </div>
-                  </label>
-                  <label
-                    htmlFor="other"
-                    onChange={() => setUpdateSave(true)}
-                    onClick={() => setLocType(2)}
-                  >
-                    <BasicInput
-                      Type={"radio"}
-                      className={styles.d_none}
-                      id="other"
-                      NAME={"house_type"}
-                      VALUE={"Other"}
-                    />
-                    <div
-                      className={
-                        locType === 2
-                          ? `${styles.addressEBB} ${styles.addressEBA}`
-                          : styles.addressEBA
-                      }
-                    >
-                      Other
-                    </div>
                   </label>
                 </div>
-              </div>
-              <div className={styles.addressF}>
-                <PrimaryButton
-                  children={"Save Address"}
-                  className={updateSave ? null : styles.saveInactive}
-                  form="addressForm"
-                  disabled={updateSave ? false : true}
-                />
-              </div>
-            </form>
+                <div className={styles.addressD}>
+                  <label htmlFor="landmark" onChange={() => setUpdateSave(true)}>
+                    <div className={styles.addressDA}>Landmark (optional)</div>
+                    <BasicInput
+                      PlaceHolder={"e.g. opp. AXN Center"}
+                      NAME={"landmark"}
+                      id={"landmark"}
+                      VALUE={inputs.landmark}
+                      onChange={onChangeInput}
+                    />
+                  </label>
+                </div>
+                <div className={styles.addressE}>
+                  <div className={styles.addressEA}>Save as</div>
+                  <div className={styles.addressEB}>
+                    <label
+                      htmlFor="home"
+                      onChange={() => setUpdateSave(true)}
+                      onClick={() => setLocType(1)}
+                    >
+                      <BasicInput
+                        Type={"radio"}
+                        className={styles.d_none}
+                        id="home"
+                        NAME={"house_type"}
+                        VALUE={"Home"}
+                      />
+                      <div
+                        className={
+                          locType === 1
+                            ? `${styles.addressEBB} ${styles.addressEBA}`
+                            : styles.addressEBA
+                        }
+                      >
+                        Home
+                      </div>
+                    </label>
+                    <label
+                      htmlFor="other"
+                      onChange={() => setUpdateSave(true)}
+                      onClick={() => setLocType(2)}
+                    >
+                      <BasicInput
+                        Type={"radio"}
+                        className={styles.d_none}
+                        id="other"
+                        NAME={"house_type"}
+                        VALUE={"Other"}
+                      />
+                      <div
+                        className={
+                          locType === 2
+                            ? `${styles.addressEBB} ${styles.addressEBA}`
+                            : styles.addressEBA
+                        }
+                      >
+                        Other
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div className={styles.addressF}>
+                  <PrimaryButton
+                    children={"Save Address"}
+                    className={updateSave ? null : styles.saveInactive}
+                    form="addressForm"
+                    disabled={updateSave ? false : true}
+                  />
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       ) : (
-        <div className={styles.addressMain}>
-          <div className={styles.addressBack}>
-            <div className={styles.addressA}>
-              <div className={styles.addressAA}>Add new address</div>
-              <img
-                src={DarkCross}
-                alt="close"
-                onClick={() => setAddressModal({ active: false, data: null })}
-              />
-            </div>
-            <div className={styles.addressB}>
-              <div className={styles.addressBA}>
-                {userAddressText && userAddressText}
-              </div>
-              <div className={styles.addressBB} onClick={handleChange}>
-                <SecondaryButton
-                  children={"Change"}
-                  className={styles.addressBB_btn}
+        <div class={styles.addressContainer}>
+          <div className={styles.addressMain}>
+            <div className={styles.addressBack}>
+              <div className={styles.addressA}>
+                <div className={styles.addressAA}>Add new address</div>
+                <img
+                  src={DarkCross}
+                  alt="close"
+                  onClick={() => setAddressModal({ active: false, data: null })}
                 />
               </div>
-            </div>
-            <div className={styles.addressC}>
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={{
-                  lat: userDetails?.user?.isLocationAllow
-                    ? userDetails?.user?.latitude
-                    : 19.2856,
-                  lng: userDetails?.user?.isLocationAllow
-                    ? userDetails?.user?.longitude
-                    : 72.8691,
-                }}
-                zoom={15}
-                onClick={handleMapClick}
-              >
-                {position && (
-                  <Marker position={position} label="Clicked Point" />
-                )}
-              </GoogleMap>
-            </div>
-            <form id="addressForm" onSubmit={updateAddress}>
-              <div
-                className={styles.addressD}
-                onChange={() => setUpdateSave(true)}
-              >
-                <label htmlFor="house">
-                  <div className={styles.addressDA}>House/Flat Number*</div>
-                  <BasicInput
-                    PlaceHolder={"House or flat number"}
-                    NAME={"house"}
-                    required={true}
-                    id={"house"}
+              <div className={styles.addressB}>
+                <div className={styles.addressBA}>
+                  {userAddressText && userAddressText}
+                </div>
+                <div className={styles.addressBB} onClick={handleChange}>
+                  <SecondaryButton
+                    children={"Change"}
+                    className={styles.addressBB_btn}
                   />
-                </label>
-              </div>
-              <div className={styles.addressD}>
-                <label htmlFor="landmark" onChange={() => setUpdateSave(true)}>
-                  <div className={styles.addressDA}>Landmark (optional)</div>
-                  <BasicInput
-                    PlaceHolder={"e.g. opp. AXN Center"}
-                    NAME={"landmark"}
-                    id={"landmark"}
-                  />
-                </label>
-              </div>
-              <div className={styles.addressE}>
-                <div className={styles.addressEA}>Save as</div>
-                <div className={styles.addressEB}>
-                  <label
-                    htmlFor="home"
-                    onChange={() => setUpdateSave(true)}
-                    onClick={() => setLocType(1)}
-                  >
-                    <BasicInput
-                      Type={"radio"}
-                      className={styles.d_none}
-                      id="home"
-                      NAME={"house_type"}
-                      VALUE={"Home"}
-                      required={true}
-                    />
-                    <div
-                      className={
-                        locType === 1
-                          ? `${styles.addressEBB} ${styles.addressEBA}`
-                          : styles.addressEBA
-                      }
-                    >
-                      Home
-                    </div>
-                  </label>
-                  <label
-                    htmlFor="other"
-                    onChange={() => setUpdateSave(true)}
-                    onClick={() => setLocType(2)}
-                  >
-                    <BasicInput
-                      Type={"radio"}
-                      className={styles.d_none}
-                      id="other"
-                      NAME={"house_type"}
-                      VALUE={"Other"}
-                      required={true}
-                    />
-                    <div
-                      className={
-                        locType === 2
-                          ? `${styles.addressEBB} ${styles.addressEBA}`
-                          : styles.addressEBA
-                      }
-                    >
-                      Other
-                    </div>
-                  </label>
                 </div>
               </div>
-              <div className={styles.addressF}>
-                <PrimaryButton
-                  children={"Add Address"}
-                  className={updateSave ? null : styles.saveInactive}
-                  form="addressForm"
-                />
+              <div className={styles.addressC}>
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={{
+                    lat: userDetails?.user?.isLocationAllow
+                      ? userDetails?.user?.latitude
+                      : 19.2856,
+                    lng: userDetails?.user?.isLocationAllow
+                      ? userDetails?.user?.longitude
+                      : 72.8691,
+                  }}
+                  zoom={15}
+                  onClick={handleMapClick}
+                >
+                  {position && (
+                    <Marker position={position} label="Clicked Point" />
+                  )}
+                </GoogleMap>
               </div>
-            </form>
+              <form id="addressForm" onSubmit={updateAddress}>
+                <div
+                  className={styles.addressD}
+                  onChange={() => setUpdateSave(true)}
+                >
+                  <label htmlFor="house">
+                    <div className={styles.addressDA}>House/Flat Number*</div>
+                    <BasicInput
+                      PlaceHolder={"House or flat number"}
+                      NAME={"house"}
+                      required={true}
+                      id={"house"}
+                    />
+                  </label>
+                </div>
+                <div className={styles.addressD}>
+                  <label htmlFor="landmark" onChange={() => setUpdateSave(true)}>
+                    <div className={styles.addressDA}>Landmark (optional)</div>
+                    <BasicInput
+                      PlaceHolder={"e.g. opp. AXN Center"}
+                      NAME={"landmark"}
+                      id={"landmark"}
+                    />
+                  </label>
+                </div>
+                <div className={styles.addressE}>
+                  <div className={styles.addressEA}>Save as</div>
+                  <div className={styles.addressEB}>
+                    <label
+                      htmlFor="home"
+                      onChange={() => setUpdateSave(true)}
+                      onClick={() => setLocType(1)}
+                    >
+                      <BasicInput
+                        Type={"radio"}
+                        className={styles.d_none}
+                        id="home"
+                        NAME={"house_type"}
+                        VALUE={"Home"}
+                        required={true}
+                      />
+                      <div
+                        className={
+                          locType === 1
+                            ? `${styles.addressEBB} ${styles.addressEBA}`
+                            : styles.addressEBA
+                        }
+                      >
+                        Home
+                      </div>
+                    </label>
+                    <label
+                      htmlFor="other"
+                      onChange={() => setUpdateSave(true)}
+                      onClick={() => setLocType(2)}
+                    >
+                      <BasicInput
+                        Type={"radio"}
+                        className={styles.d_none}
+                        id="other"
+                        NAME={"house_type"}
+                        VALUE={"Other"}
+                        required={true}
+                      />
+                      <div
+                        className={
+                          locType === 2
+                            ? `${styles.addressEBB} ${styles.addressEBA}`
+                            : styles.addressEBA
+                        }
+                      >
+                        Other
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div className={styles.addressF}>
+                  <PrimaryButton
+                    children={"Add Address"}
+                    className={updateSave ? null : styles.saveInactive}
+                    form="addressForm"
+                  />
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       )}

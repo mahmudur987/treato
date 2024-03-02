@@ -98,8 +98,9 @@ export default function Navbar() {
  
   
 
-  return (
-    <header
+  return (<>
+    
+  <header
       className={`${styles.header} ${
         isMobileMenuOpen ? `${styles.menuopen} ${styles.whiteBackground}` : ""
       } page-section`}
@@ -112,14 +113,14 @@ export default function Navbar() {
           }`}
         >
           <nav className={styles.navigation}>
+       
             <ul>
               <li className={styles.logo}>
                 <Link to="/">
                   <img src={TreatoLogo} alt="TreatoLogo" />
                 </Link>
               </li>
-              {!isMainSearchBar && (
-                <>
+             
                   <li>
                     <Link to="/blogs">Blog</Link>
                   </li>
@@ -129,14 +130,14 @@ export default function Navbar() {
                   <li onClick={() => scrollToSection(navigate, "contactUs")}>
                     <Link to="#">Contact us</Link>
                   </li>
-                </>
-              )}
+               
+             
             </ul>
           </nav>
         </div>
         {/* search bar */}
-        {isMainSearchBar && <MainSearchBar  place={"navbar"} />}
-
+      
+        {/* {isMainSearchBar && <MainSearchBar/>} */}
         {/* rightSide buttons */}
         <div className={styles.buttons}>
           <button
@@ -288,6 +289,7 @@ export default function Navbar() {
                     </div>
                   </Link>
                 </li>
+               
                 <li onClick={() => scrollToSection(navigate, "partnerSection")}>
                   <div className={styles.listtext}>
                     <img src={briefcase} alt="briefcase" />
@@ -326,5 +328,7 @@ export default function Navbar() {
         </nav>
       )}
     </header>
+  </>
+   
   );
 }

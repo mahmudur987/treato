@@ -4,7 +4,7 @@ import upIco from "../../../assets/images/SalonDetail/chevron-up.svg"
 import SalonServiceCard from '../SalonServiceCard/SalonServiceCard'
 import { useEffect } from 'react';
 
-export default function SalonServiceMain({ hideTitle, SalonData }) {
+export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
     let [allServices, setAllServices] = useState(null)
     let [activeOption, updateActiveOption] = useState(
         [
@@ -42,6 +42,7 @@ export default function SalonServiceMain({ hideTitle, SalonData }) {
                                 allServices ?
                                     allServices.map((v, i) => {
                                         return (
+
                                             <li key={i} onClick={() => activeOptFunc(i)} className={activeOption[i].selected ? styles.active_salon_service : ''}>{v.category_name}</li>
                                         )
                                     })
@@ -65,7 +66,7 @@ export default function SalonServiceMain({ hideTitle, SalonData }) {
                                                     v?.subCategories.length ?
                                                         v?.subCategories.map((val, i) => {
                                                             return (
-                                                                <SalonServiceCard salonServiceData={val} key={i} serviceCategory={v?.category_name} salonId={SalonData?._id} />
+                                                                <SalonServiceCard salonServiceData={val} key={i} serviceCategory={v?.category_name} salonId={SalonData?._id} setCount={setCount} />
                                                             )
                                                         })
                                                         :
@@ -81,7 +82,7 @@ export default function SalonServiceMain({ hideTitle, SalonData }) {
                     }
 
                 </div>
-            </div>
+            </div >
         </>
     )
 }

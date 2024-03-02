@@ -27,3 +27,11 @@
     display: none;
   }
 }
+@media only screen and (max-width: 768px) {
+  .LeftSideBarHide {
+    display: none;
+  }
+  .ForSmallScreen {
+    display: none;
+  }
+}

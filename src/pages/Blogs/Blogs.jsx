@@ -15,7 +15,7 @@ export default function Blogs(props) {
    let [firstBlogData, setFirstBlogData] = useState('');
    let [showBlogs, setShowBlogs] = useState([]);
    let [totalPage, setTotalPage] = useState([]);
-   let [currentPage,setCurrentPage] = useState(1);
+   let [currentPage, setCurrentPage] = useState(1);
 
    const perPage = 6;
    useEffect(() => {
@@ -50,12 +50,12 @@ export default function Blogs(props) {
          let startNum = 0;
          let blogArr = []
          if (pageNum !== 1) {
-            let diff = pageNum*perPage - blogData.length
-            startNum = pageNum>2?blogData.length-diff:perPage;
-            for (let index = startNum; index < (pageNum>2?startNum+diff:startNum+perPage); index++) {
+            let diff = pageNum * perPage - blogData.length
+            startNum = pageNum > 2 ? blogData.length - diff : perPage;
+            for (let index = startNum; index < (pageNum > 2 ? startNum + diff : startNum + perPage); index++) {
                blogArr.push(blogData[index])
             }
-         }else{
+         } else {
             for (let index = startNum; index < perPage; index++) {
                blogArr.push(blogData[index])
             }
@@ -121,18 +121,18 @@ export default function Blogs(props) {
             totalPage.length ?
                <div className={styles.pagination}>
                   <button
-                     className={currentPage===totalPage[0]?`${styles.prev} ${styles.lowOpacity}`:styles.prev}
-                     onClick={()=>handlePagination(currentPage===1?1:currentPage-1)}
+                     className={currentPage === totalPage[0] ? `${styles.prev} ${styles.lowOpacity}` : styles.prev}
+                     onClick={() => handlePagination(currentPage === 1 ? 1 : currentPage - 1)}
                   >
                      <img src={chevronLeft} alt={'left'} /> Prev
                   </button>
                   <div className={styles.paginationButton}>
                      {
-                        totalPage.map((v,i) => {
+                        totalPage.map((v, i) => {
                            return (
                               <button
-                                 className={v===currentPage?styles.active:null}
-                                 onClick={()=>handlePagination(v)}
+                                 className={v === currentPage ? styles.active : null}
+                                 onClick={() => handlePagination(v)}
                                  key={i}
                               >
                                  {v}
@@ -142,8 +142,8 @@ export default function Blogs(props) {
                      }
                   </div>
                   <button
-                     className={currentPage===totalPage[totalPage.length-1]?`${styles.next} ${styles.lowOpacity}`:styles.next}
-                     onClick={()=>handlePagination(currentPage===totalPage[totalPage.length-1]?currentPage:currentPage+1)}
+                     className={currentPage === totalPage[totalPage.length - 1] ? `${styles.next} ${styles.lowOpacity}` : styles.next}
+                     onClick={() => handlePagination(currentPage === totalPage[totalPage.length - 1] ? currentPage : currentPage + 1)}
                   >
                      Next <img src={chevronLeft} alt={'right'} />
                   </button>

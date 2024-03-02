@@ -1,7 +1,7 @@
 .phone_inputMain{
     border: 1px solid #CED4DA;
     border-radius: 4px;
-    padding: 13px 16px;
+    /* padding: 13px 16px; */
     width: 100%;
     display: flex;
     justify-content: start;
@@ -20,6 +20,7 @@
 .phone_select{
     border: none;
     background-color: unset;
+    width: 80px;
 }
 
 .phone_inputBorder{

@@ -36,6 +36,16 @@ import ServiceCatalog from "./pages/Services/ServiceCatalog/ServiceCatalog";
 import EditService from "./pages/Services/EditService/EditService";
 import ModalManager from "./components/_modals/ModalManager";
 import Dashboard from "./pages/Services/Dashboard/Dashboard";
+import PartnerAccountSetting from "./pages/partnerPages/SettingDropDown/PartnerAccountSetting";
+import PaymentProfile from "./pages/partnerPages/SettingDropDown/PaymentProfile";
+import Bussness from "./pages/partnerPages/Bussness/Bussness";
+import PicturesGallery from "./pages/partnerPages/Bussness/Gallery/PicturesGallery";
+import ServiceOffer from "./pages/partnerPages/Bussness/ServiceOffer";
+import ServiceLocation from "./pages/partnerPages/Bussness/ServiceLocation";
+import TeamManageMent from "./pages/partnerPages/Team/TeamData/TeamManageMent";
+import AddMemberProfile from "./pages/partnerPages/Team/TeamData/AddTeamMember/AddMemberProfile";
+import EditTeamData from "./pages/partnerPages/Team/TeamData/EditTeamData/EditTeamData";
+import EmployeeSchedule from "./pages/partnerPages/Team/TeamData/EmployeeSchedule/EmployeeSchedule";
 
 function App() {
   // Use the location hook to track route changes
@@ -168,6 +178,37 @@ function App() {
             <Route path="/service/addservice" element={<AddServices />} />
             <Route path="/service/editservice" element={<EditService />} />
             <Route path="/service/addappoinment" element={<AddAppoinment />} />
+            <Route
+              path="/service/PartnerAccountSetting"
+              element={<PartnerAccountSetting />}
+            />
+            <Route path="/service/serviceBussness" element={<Bussness />} />
+            <Route
+              path="/service/PaymentProfile"
+              element={<PaymentProfile />}
+            />
+            <Route path="/service/storetime" element={<ServiceOffer />} />
+            <Route path="/service/location" element={<ServiceLocation />} />
+            <Route
+              path="/service/PicturesGallery"
+              element={<PicturesGallery />}
+            />
+            <Route
+              path="/service/TeamManageMent"
+              element={<TeamManageMent />}
+            />
+            <Route
+              path="/service/AddMemberProfile"
+              element={<AddMemberProfile />}
+            />
+            <Route
+              path="/service/EditMemberProfile"
+              element={<EditTeamData />}
+            />
+            <Route
+              path="/service/EmployeeSchedule"
+              element={<EmployeeSchedule />}
+            />
           </Route>
         </Routes>
       </PageLayout>
@@ -176,3 +217,13 @@ function App() {
 }
 
 export default App;
+
+// {
+//   "email":"jery192@gmail.com",
+//   "password":"Test@123456"
+// }
+
+// // /api/v1/service/new   service_name,
+//       service_description,
+//       stylists,
+//       mainCategories,

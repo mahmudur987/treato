@@ -10,6 +10,8 @@ import Contactus from "../../components/HomePage/Contactus/Contactus";
 import LatestBlog from "../../components/HomePage/LatestBlog/LatestBlog";
 import { HomePage } from "../../services/HomePage";
 import { useState,useEffect } from "react";
+import PartnerAccountSetting from "../partnerPages/SettingDropDown/PartnerAccountSetting";
+import ServiceLocation from "../partnerPages/Bussness/ServiceLocation";
 
 export default function Home(props) {
   let [homeData,setHomeData] = useState([])
@@ -23,7 +25,7 @@ export default function Home(props) {
     getHomeData();
   }, [])
 
-  return (
+  return (<>
     <div className={styles["container"]}>
       <HeroSection mainData={homeData.main_heading?homeData.main_heading:''}/>
       <RecommendedSection mainData={homeData.recommended_section?homeData.recommended_section:''}/>
@@ -35,5 +37,6 @@ export default function Home(props) {
       <Testimonials />
       <Contactus mainData={homeData.contact_us_image?homeData.contact_us_image:''}/>
     </div>
+  </>
   );
 }

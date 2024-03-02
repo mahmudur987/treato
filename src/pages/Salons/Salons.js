@@ -21,6 +21,7 @@ import {
 import { arrowleft, closeIcon } from "../../assets/images/icons/index.js";
 import { getAllServices } from "../../services/Services.js";
 import Treatments from "../../components/HomePage/Hero/SearchContent/Treatments.js";
+import MainSearchBar from "../../components/Input/mainSearchBar/MainSearchBar.js";
 const Salons = React.memo(() => {
   const salonsState = useSelector((state) => state.salons);
   const userDetails = useSelector((state) => state.user);
@@ -105,6 +106,9 @@ const Salons = React.memo(() => {
     ));
   }, [salonsState.filterContent]);
 
+console.log(Math.ceil(items?.length / ITEMS_PER_PAGE));
+console.log(salonsState);
+
   const totalPages = Math.ceil(items?.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -162,7 +166,8 @@ const Salons = React.memo(() => {
   console.log(salonsState?.filterContent?.length);
   console.log(totalPages);
   console.log(currentPage);
-  return (
+  return (<>
+   
     <div className={styles.container}>
       <div className={styles.mobo_ServiceBar}>
         <button className={styles.backbutton} onClick={handleBack}>
@@ -213,6 +218,8 @@ const Salons = React.memo(() => {
           Venue Type <img src={chevronDown} alt="chevronDown" />
         </button>
       </div>
+   { <MainSearchBar/>}
+
       <div className={styles.venueInfo}>
         <h4>
           Showing {visibleItems?.length} of {salonsState?.filterContent?.length}{" "}
@@ -250,6 +257,8 @@ const Salons = React.memo(() => {
         />
       )}
     </div>
+  </>
+     
   );
 });
 
