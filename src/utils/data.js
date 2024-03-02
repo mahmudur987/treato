@@ -696,7 +696,13 @@ export const singleSalon = {
           key: "productImg-1699438687139.png",
         },
         _id: "654b605f499a6ba9f0cd58cf",
-        services: [],
+        services: [
+          {
+            servicetype: "",
+            maincategory: "",
+            subCategory: "",
+          },
+        ],
         stylist_name: "Nayanika",
         stylist_service: ["Hair Styling Specialist"],
         rating: 4.2,

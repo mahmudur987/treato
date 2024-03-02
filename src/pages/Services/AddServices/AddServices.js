@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddServices.module.css";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BasicDetailsForm from "../../../components/Services/AddServices/BasicDetailsForm/BasicDetailsForm";
 import TeamMembers from "../../../components/Services/AddServices/TeamMembers/TeamMembers";
-import {
-  addNewService,
-  getSingleSalonData,
-  useSingleSalon,
-} from "../../../services/salon";
+import { addNewService, useSingleSalon } from "../../../services/salon";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
-import axiosInstance from "../../../services/axios";
 
 const AddServices = () => {
   const navigate = useNavigate();

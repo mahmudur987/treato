@@ -78,11 +78,26 @@ export const addNewService = async (data) => {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2EzOWI2NmI5NjM4OWFmOTIzN2U4YyIsImlhdCI6MTcwODc4NDg3NywiZXhwIjoxNzA5MjE2ODc3fQ.bRdI2LX63GKUAW2Kl2WfhbeXw743s7zzAohWO0xezLE",
   };
   try {
-    const { data } = await axiosInstance.post("/service/new", data, {
+    const res = await axiosInstance.post("/service/new", data, {
       headers,
     });
 
-    return { res: data, err: null };
+    return { res: res.data, err: null };
+  } catch (error) {
+    return { res: null, err: error };
+  }
+};
+export const editService = async (data) => {
+  const headers = {
+    token:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2EzOWI2NmI5NjM4OWFmOTIzN2U4YyIsImlhdCI6MTcwODc4NDg3NywiZXhwIjoxNzA5MjE2ODc3fQ.bRdI2LX63GKUAW2Kl2WfhbeXw743s7zzAohWO0xezLE",
+  };
+  try {
+    const res = await axiosInstance.post("/service/editService", data, {
+      headers,
+    });
+
+    return { res: res.data, err: null };
   } catch (error) {
     return { res: null, err: error };
   }

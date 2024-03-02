@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./ServiceCatalog.module.css";
 import CustomSelect from "../../../components/Select/CustomeSelect";
 import ServicesDropDown from "../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
-import { singleSalon } from "../../../utils/data";
+
 import AddCategory from "../../../components/_modals/Addcategory/AddCategory";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa";
@@ -16,8 +16,6 @@ const ServiceCatalog = () => {
   const [showAddMenu, setshowAddmenu] = useState(false);
   const { data, isLoading, isError, error } = useSingleSalon();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Option 1");
-  const options = ["Option 1", "Option 2", "Option 3"];
   const [selectedServiceType, setSelectedServiceType] = useState("All");
   const [serviceType, setserviceType] = useState(null);
   useEffect(() => {
@@ -33,9 +31,6 @@ const ServiceCatalog = () => {
     }
     fetchAllServices();
   }, []);
-  const handleSelectChange = (value) => {
-    setSelectedOption(value);
-  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -46,15 +41,7 @@ const ServiceCatalog = () => {
   };
   if (isLoading) {
     return (
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          minHeight: "400px",
-          margin: "auto",
-        }}
-      >
+      <div>
         <LoadSpinner />
       </div>
     );
@@ -62,14 +49,12 @@ const ServiceCatalog = () => {
 
   if (isError) {
     toast.error(error.message, { toastId: 1 });
+    return null; // or handle error in some way
   }
-  const filtereddata = data.salon.services.filter((x) => {
-    if (selectedServiceType === "All") {
-      return x;
-    } else {
-      return x.service_name === selectedServiceType;
-    }
-  });
+
+  if (!data || !data.salon) {
+    return <ErrorComponent message={"No data available"} />;
+  }
 
   return (
     <main className={styles.mainContainer}>
