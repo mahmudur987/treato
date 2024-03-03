@@ -19,8 +19,6 @@ const PartnerHome = () => {
     getHomeData();
   }, []);
 
-  console.log(homeData);
-
   return (
     <main className={styles.container}>
       <PartnerHero />

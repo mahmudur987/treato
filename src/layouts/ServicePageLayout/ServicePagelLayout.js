@@ -4,23 +4,31 @@ import { Outlet } from "react-router-dom";
 import LeftSideBar from "../../components/Services/LeftSideBar/LeftSideBar";
 import ServicePageNavbar from "../../components/Services/Navbar/ServicePageNavbar";
 import PartnerAccountSetting from "../../pages/partnerPages/SettingDropDown/PartnerAccountSetting";
+import BottomNav from "../../components/Services/BottomNav/BottomNav";
 
 const ServicePage = () => {
   return (
-    <div className={style.container}>
-      <div className={style.LeftSideBarHide}>
-
-      <LeftSideBar />
-      </div>
-      <div className={style.downContainer}>
-        <div className={style.ForSmallScreen}>
-
-        <ServicePageNavbar />
+    <main className={style.mainContainer}>
+      <section className={style.container}>
+        <div className={style.LeftSideBarHide}>
+          <div className={style.left}>
+            <LeftSideBar />
+          </div>
         </div>
-        {/* <PartnerAccountSetting/> */}
-        <Outlet />
-      </div>
-    </div>
+        <div className={style.downContainer}>
+          <div className={style.ForSmallScreen}>
+            <div className={style.Navbar}>
+              <ServicePageNavbar />
+            </div>
+            {/* <PartnerAccountSetting/> */}
+          </div>
+          <Outlet />
+        </div>
+      </section>
+      <section className={style.bottomNav}>
+        <BottomNav />
+      </section>
+    </main>
   );
 };
 

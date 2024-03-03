@@ -1,0 +1,92 @@
+/* AppointmentDetails.module.css */
+
+.mainContainer {
+  max-width: 424px;
+  width: 100%;
+  height: 100%;
+  font-family: var(--primary-font);
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.heading {
+  font-weight: 600;
+  font-size: 20px;
+}
+.dateWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dateWrapper input {
+  width: 90%;
+  height: 48px;
+  border-radius: 4px;
+  border: 1px solid var(--Grey-Grey-30, #ced4da);
+  background: #fff;
+  padding: 0px 5%;
+}
+.serviceCategory {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.selectService,
+.selectedService {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+.selectedService p {
+  height: 48px;
+  border: 1px solid var(--Grey-30);
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+.addMoreService {
+  font-weight: 600;
+  color: rgb(8, 89, 104);
+  font-size: 20px;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.timeWrapper {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+.durationOfService {
+  height: 48px;
+  border: 1px solid var(--Grey-30);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+.comments {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.comments textarea {
+  width: 100%;
+  border: 1px solid var(--Grey-30);
+  border-radius: 8px;
+}

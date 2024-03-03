@@ -1,0 +1,37 @@
+.mainContainer {
+  width: 100%;
+  font-family: var(--primary-font);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header h2 {
+  font-size: 22px;
+}
+.header p {
+  font-size: 20px;
+}
+.rechart {
+  position: relative;
+  min-height: 450px;
+}
+.bar {
+  width: 100%;
+  display: flex;
+}
+.line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+@media only screen and (max-width: 700px) {
+  .mainContainer {
+  }
+}

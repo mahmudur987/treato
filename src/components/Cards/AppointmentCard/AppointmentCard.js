@@ -24,7 +24,7 @@ const AppointmentCard = ({ salon, cardType }) => {
     console.log(buttonType);
     dispatch(openModal({ type: `${buttonType}`, closable: true, data: salon }));
   };
-  console.log(salon);
+  // console.log(salon);
 
   return (
     <div className={styles.cardWrapper}>

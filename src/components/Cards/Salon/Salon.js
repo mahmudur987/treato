@@ -24,11 +24,11 @@ const Salon = ({ salonData, place }) => {
   };
   const userDetails = useSelector((state) => state.user);
   // console.log(userDetails?.user.isLocationAllow,"userDetails");
-  console.log(salonData,"salonData");
-  
+  console.log(salonData, "salonData");
+
   const generateDistance = () => {
-    const Distance = (salonData?.distances * 10).toFixed(1); 
-    return parseFloat(Distance); 
+    const Distance = (salonData?.distances * 10).toFixed(1);
+    return parseFloat(Distance);
   };
 
   // State to hold the random distance
@@ -39,94 +39,85 @@ const Salon = ({ salonData, place }) => {
     setDistance(generateDistance());
   };
   useEffect(() => {
-    updateDistance()
-  
-    
-  }, [Distance])
-  return (<>
-  
+    updateDistance();
+  }, [Distance]);
 
-    <div
-      className={`${styles.card} ${
-        place === "homePage" ? styles.card_Home : ""
-      }`}
-    >
-      <Link to={salonData ? `/salons/${salonData._id}` : null}>
-        <img
-          src={salonData.salon_image ? salonData.salon_image.public_url : ""}
-          alt="cardImage"
-          className={`${styles.cardImage} ${
-            place === "homePage" ? styles.cardImage_Home : ""
-          }`}
-        />
-      </Link>
+  return (
+    <>
       <div
-        className={`${styles.salonDetails} ${
-          place === "homePage" ? styles.salonDetails_Home : ""
+        className={`${styles.card} ${
+          place === "homePage" ? styles.card_Home : ""
         }`}
       >
-        <Link
-          to={salonData ? `/salons/${salonData._id}` : null}
-          className={`${styles.Name} ${
-            place === "homePage" ? styles.Name_Home : ""
+        <Link to={salonData ? `/salons/${salonData._id}` : null}>
+          <img
+            src={salonData.salon_image ? salonData.salon_image.public_url : ""}
+            alt="cardImage"
+            className={`${styles.cardImage} ${
+              place === "homePage" ? styles.cardImage_Home : ""
+            }`}
+          />
+        </Link>
+        <div
+          className={`${styles.salonDetails} ${
+            place === "homePage" ? styles.salonDetails_Home : ""
           }`}
         >
-          {salonData.salon_name ? salonData.salon_name : "Salon Name"}
-        </Link>
-        <h4 className={styles.ratings}>
-          {salonData.rating} <img src={starBlack} alt="star" /> (
-          {salonData.total_rating} ratings)
-        </h4>
-        {userDetails?.user.isLocationAllow && (
-          
-          <h4 className={styles.location}>
-            {salonData?.locationText}
-           <span style={{height:"5px", width:"5px", color:"black",  marginBottom:"28px", fontWeight:"bolder"}}>.</span>
-      {Distance && <p style={{fontWeight:"bold"}}>{Distance} km</p>}
-        
+          <Link
+            to={salonData ? `/salons/${salonData._id}` : null}
+            className={`${styles.Name} ${
+              place === "homePage" ? styles.Name_Home : ""
+            }`}
+          >
+            {salonData.salon_name ? salonData.salon_name : "Salon Name"}
+          </Link>
+          <h4 className={styles.ratings}>
+            {salonData.rating} <img src={starBlack} alt="star" /> (
+            {salonData.total_rating} ratings)
           </h4>
-        )}
+          {userDetails?.user.isLocationAllow && (
+            <h4 className={styles.location}>{salonData?.locationText}</h4>
+          )}
+        </div>
+        {place != "homePage" ? (
+          <>
+            <div className={styles.servicesWrapper}>
+              {salonData?.services?.map((service, index) => (
+                <div className={styles.service} key={index}>
+                  <div className={styles.details}>
+                    <h4 className={styles.serviceName}>
+                      {service.service_name
+                        ? service.service_name
+                        : "Service Name(N/A)"}
+                    </h4>
+                    <small className={styles.timing}>
+                      {service?.service_timing
+                        ? service?.service_timing
+                        : "45 mins"}
+                    </small>
+                  </div>
+                  <div className={styles.pricing}>
+                    ₹{service?.price ? service.price : 400}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className={styles.buttons}>
+              <Link to={salonData ? `/salons/${salonData._id}` : null}>
+                <button className={styles.viewDetails}>
+                  View details
+                  <img src={chevronright} alt="chevronRight" />
+                </button>
+              </Link>
+              <button className={styles.viewMap} onClick={openMapInNewWindow}>
+                View on map
+                <img src={mapBlue} alt="mapPin" />
+              </button>
+            </div>
+          </>
+        ) : null}
       </div>
-      {place != "homePage" ? (
-        <>
-          <div className={styles.servicesWrapper}>
-            {salonData?.services?.map((service, index) => (
-              <div className={styles.service} key={index}>
-                <div className={styles.details}>
-                  <h4 className={styles.serviceName}>
-                    {service.service_name
-                      ? service.service_name
-                      : "Service Name(N/A)"}
-                  </h4>
-                  <small className={styles.timing}>
-                    {service?.service_timing
-                      ? service?.service_timing
-                      : "45 mins"}
-                  </small>
-                </div>
-                <div className={styles.pricing}>
-                  ₹{service?.price ? service.price : 400}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className={styles.buttons}>
-            <Link to={salonData ? `/salons/${salonData._id}`:null} >
-            <button className={styles.viewDetails}>
-              View details
-              <img src={chevronright} alt="chevronRight" />
-            </button>
-            </Link>
-            <button className={styles.viewMap} onClick={openMapInNewWindow}>
-              View on map
-              <img src={mapBlue} alt="mapPin" />
-            </button>
-          </div>
-        </>
-      ) : null}
-    </div>
-  </>
-    
+    </>
   );
 };
 

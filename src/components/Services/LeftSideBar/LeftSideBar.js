@@ -1,19 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./LeftSideBar.module.css";
 import treao from "../../../assets/icons/services/treato.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const LeftSideBar = () => {
-  return (
-    <div className={styles.container}>
-      {/* logo */}
-      <div className={styles.imageWrapper}>
-        <img src={treao} alt="" />
-      </div>
-      {/* routes */}
-      {/* 1 */}
-      <Link>
+  const [show, setShow] = useState(false);
+  const links = [
+    {
+      to: "/partner/dashboard",
+      svg: (
         <svg
+          style={{ margin: `${show ? "" : "auto"}` }}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -27,10 +24,14 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </Link>
-      {/* 2  add apponment*/}
-      <Link to={"/service/addappoinment"}>
+      ),
+      text: "Dashboard",
+    },
+    {
+      to: "/partner/dashboard/addappoinment",
+      svg: (
         <svg
+          style={{ margin: `${show ? "" : "auto"}` }}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -42,11 +43,14 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </Link>
-      {/* 3   add services*/}
-
-      <Link to={"/service"}>
+      ),
+      text: "Appointments",
+    },
+    {
+      to: "/partner/dashboard/service",
+      svg: (
         <svg
+          style={{ margin: `${show ? "" : "auto"}` }}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -58,10 +62,14 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </Link>
-      {/* 4 */}
-      <Link to="/service/">
+      ),
+      text: "Services",
+    },
+    {
+      to: "/partner/dashboard/TeamManageMent",
+      svg: (
         <svg
+          style={{ margin: `${show ? "" : "auto"}` }}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -75,10 +83,14 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </Link>
-      {/* 5 */}
-      <Link >
+      ),
+      text: "Team",
+    },
+    {
+      to: "/partner/dashboard/report",
+      svg: (
         <svg
+          style={{ margin: `${show ? "" : "auto"}` }}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -90,10 +102,14 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </Link>
-      {/* 6 */}
-      <Link to="/service/TeamManageMent">
+      ),
+      text: "Reports",
+    },
+    {
+      to: "/partner/dashboard/look",
+      svg: (
         <svg
+          style={{ margin: `${show ? "" : "auto"}` }}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -114,10 +130,14 @@ const LeftSideBar = () => {
             </clipPath>
           </defs>
         </svg>
-      </Link>
-      {/* 7 */}
-      <Link to={"/service/PartnerAccountSetting"}>
+      ),
+      text: "Looks",
+    },
+    {
+      to: "/partner/dashboard/PartnerAccountSetting",
+      svg: (
         <svg
+          style={{ margin: `${show ? "" : "auto"}` }}
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -131,8 +151,39 @@ const LeftSideBar = () => {
             fill="white"
           />
         </svg>
-      </Link>
-    </div>
+      ),
+      text: "Account Settings",
+    },
+  ];
+
+  const { pathname } = useLocation();
+
+  return (
+    <section
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
+      className={styles.mainContainer}
+    >
+      <div className={`${show ? styles.containerHover : styles.container}`}>
+        {/* logo */}
+        <div className={styles.imageWrapper}>
+          <Link to={"/"}>
+            <img src={treao} alt="" />
+          </Link>
+        </div>
+        {/* routes */}
+        {links.map((link, index) => (
+          <Link
+            key={index}
+            to={link.to}
+            style={{ backgroundColor: `${pathname === link.to ? "blue" : ""}` }}
+          >
+            {link.svg}
+            {show && <span>{link.text}</span>}
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 };
 

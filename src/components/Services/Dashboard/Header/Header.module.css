@@ -1,0 +1,94 @@
+/* styles.module.css */
+
+.mainContainer {
+  width: 100%;
+  font-family: var(--primary-font);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.heading {
+  font-size: 25px;
+}
+
+.selectWrapper {
+  width: 130px;
+}
+.selectWrapper div {
+  border: none;
+  background: none;
+}
+
+.contents {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+.card {
+  max-width: 396px;
+  width: 100%;
+  min-height: 112px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+}
+
+.cardLeft {
+  font-size: 40px;
+  text-align: center;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.cardMiddle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cardMiddle p {
+  font-size: 15px;
+}
+.cardMiddle h3 {
+  font-size: 45px;
+}
+
+.cardRight {
+  width: 30%;
+}
+
+@media only screen and (max-width: 700px) {
+  .mainContainer {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .contents {
+    flex-wrap: nowrap;
+  }
+  .card {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .cardMiddle p {
+    display: none;
+  }
+  .cardMiddle h3 {
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    text-align: left;
+  }
+  .cardRight {
+    width: 100%;
+    text-align: center;
+  }
+}

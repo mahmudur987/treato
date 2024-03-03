@@ -26,7 +26,7 @@ export default function PageLayout({ children }) {
   const isMyAppointmentsRoute =
     location.pathname.startsWith("/my-appointments");
 
-  const isServicePage = location.pathname.startsWith("/service");
+  const isServicePage = location.pathname.startsWith("/partner/dashboard");
 
   return (
     <div>

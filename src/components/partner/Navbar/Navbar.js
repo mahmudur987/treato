@@ -13,6 +13,7 @@ import download from "../../../assets/icons/partner/download.png";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
+import mask from "../../../assets/images/NavbarImages/Mask.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -70,7 +71,11 @@ const Navbar = () => {
                 onClick={() => setShowProfile((pre) => !pre)}
                 className={style.account}
               >
-                <img src={userData?.user?.avatar?.public_url} alt="" />
+                <img
+                  src={userData?.user?.avatar?.public_url ?? ""}
+                  alt=""
+                  onError={(e) => (e.target.src = mask)}
+                />
                 <h3>{userData?.user?.first_name}</h3>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -106,9 +111,13 @@ const Navbar = () => {
             onClick={() => setShowProfile((pre) => !pre)}
             className={style.profileContainer}
           >
-            <img src={userData?.user?.avatar?.public_url} alt="" />
+            <img
+              src={userData?.user?.avatar?.public_url ?? ""}
+              alt=""
+              onError={(e) => (e.target.src = mask)}
+            />
             <h3>{userData?.user?.first_name}</h3>
-            <Link to={"/service"}>services</Link>
+            <Link to={"/partner/dashboard"}>Dashboard</Link>
             <Link onClick={handleLogout}>LogOut</Link>
           </div>
         )}

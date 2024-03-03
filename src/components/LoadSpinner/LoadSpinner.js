@@ -3,7 +3,16 @@ import styles from "./LoadSpinner.module.css";
 import { LoadSpinnerIcon } from "../../assets/images/icons";
 const LoadSpinner = () => {
   return (
-    <div className={styles.loaderContainer}>
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        minHeight: "400px",
+        margin: "auto",
+      }}
+      className={styles.loaderContainer}
+    >
       <img
         src={LoadSpinnerIcon} // Replace with the actual path to your SVG file
         alt="Loading Spinner"
