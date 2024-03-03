@@ -139,7 +139,7 @@ margin: 5px;
 
  }
  .times1{
- 
+ flex-direction: row;
 font-family: Lato;
 font-size: 14px;
 font-weight: 500;
@@ -148,8 +148,8 @@ letter-spacing: 0em;
 text-align: left;
 
  }
-
  
+ .selectedTime {border: 1px solid #0D69D7;}
  
 @media (max-width: 600px) {
   .container{

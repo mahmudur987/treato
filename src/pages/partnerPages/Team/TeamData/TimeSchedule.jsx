@@ -68,9 +68,13 @@ const TimeSchedule = () => {
 
     ]
     const [handleShift, sethandleShift] = useState(false);
+    const [selectedCellIndex, setSelectedCellIndex] = useState(null);
 
-    const handleShiftFun1 = () => {
+
+    const handleShiftFun = (index) => {
         sethandleShift(!handleShift)
+        setSelectedCellIndex(index === selectedCellIndex ? null : index);
+
     }
 
     const [isEdit, setIsEdit] = useState(false);
@@ -159,8 +163,8 @@ const TimeSchedule = () => {
 
                     <tbody>
 
-                        {TeamDetailsData.map((item, i) => <>
-                            <tr onClick={handleShiftFun1} key={i}>
+                        {TeamDetailsData?.map((item, index) => <>
+                            <tr key={index}>
 
                                 <td><div className={sty.nameProfile}>
 
@@ -169,17 +173,27 @@ const TimeSchedule = () => {
                                 </div>
                                 </td>
                                 <td><button className={sty.Closed}>Closed</button> </td>
+                                {/* <td className={sty.times1}>
+                                    <div
+                                        className={`${sty.times} ${selectedCellIndex === index ? sty.selectedTime : ''}`}
+                                        onClick={() => handleShiftFun(index)}
+                                        style={{ border: selectedCellIndex === index ? '1px solid #0D69D7' : 'none' }}
+                                    >
+                                        {item.time}
+                                    </div>
+                                </td> */}
 
-                                <td className={sty.times1}><div className={sty.times} >{item.time}</div></td>
-                                <td className={sty.times1}><div className={sty.times} >{item.time}</div></td>
-                                <td className={sty.times1}><div className={sty.times} >{item.time}</div></td>
-                                <td className={sty.times1}><div className={sty.times} >{item.time}</div></td>
-                                <td className={sty.times1}><div className={sty.times} >{item.time}</div></td>
-                                <td className={sty.times1}><div className={sty.times} >{item.time}</div></td>
+                                <td className={sty.times1}><div className={sty.times} onClick={e => handleShiftFun()} style={{ border: "1px #0D69D7" }}>{item.time}</div></td>
+                                <td className={sty.times1}><div className={sty.times} onClick={e => handleShiftFun()} style={{ border: "1px #0D69D7" }}>{item.time}</div></td>
+                                <td className={sty.times1}><div className={sty.times} onClick={e => handleShiftFun()} style={{ border: "1px #0D69D7" }}>{item.time}</div></td>
+                                <td className={sty.times1}><div className={sty.times} onClick={e => handleShiftFun()} style={{ border: "1px #0D69D7" }}>{item.time}</div></td>
+                                <td className={sty.times1}><div className={sty.times} onClick={e => handleShiftFun()} style={{ border: "1px #0D69D7" }}>{item.time}</div></td>
+                                <td className={sty.times1}><div className={sty.times} onClick={e => handleShiftFun()} style={{ border: "1px #0D69D7" }}>{item.time}</div></td>
 
 
                             </tr >
                         </>)}
+
 
 
                     </tbody>
