@@ -32,41 +32,24 @@ const AddServices = () => {
     if (!basicDetails.serviceName || teamMember.length <= 0) {
       return toast.error("please write a service name and add a team member");
     }
-
-    // const newService = {
-    //   service_name: basicDetails.selectedServiceType,
-    //   service_description: basicDetails.description,
-    //   stylists: teamMember,
-    //   mainCategories: [
-    //     {
-    //       category_name: basicDetails.selectCategory,
-    //       subCategories: [
-    //         {
-    //           service_name: basicDetails.serviceName,
-    //           price: Number(basicDetails.price),
-    //           time_takenby_service: basicDetails.duration,
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // };
-    const newdata = {
+    const newService = {
       serviceId: service._id,
       mainCategoryId: maincategory._id,
-      subCategoryData: {
-        service_name: basicDetails.serviceName,
-        price: Number(basicDetails.price),
-        time_takenby_service: basicDetails.duration,
-      },
+      stylists: teamMember,
+      subCategoryData: [
+        {
+          service_name: basicDetails.serviceName,
+          price: Number(basicDetails.price),
+          time_takenby_service: basicDetails.duration,
+        },
+      ],
     };
 
-    console.log(newdata);
-
-    const res = await addNewService(newdata);
+    const res = await addNewService(newService);
 
     if (res.res) {
-      console.log(res.res);
-      toast.success("Added A new service ");
+      // console.log(res.res);
+      toast.success(res.res ? res.res : "Added A new service ");
       navigate("/partner/dashboard/service");
     } else {
       console.log(res.err);

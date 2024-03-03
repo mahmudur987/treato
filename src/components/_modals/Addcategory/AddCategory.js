@@ -45,7 +45,6 @@ const AddCategory = ({ showModal, onClose }) => {
   const handleSubmit = async () => {
     const newCategory = {
       serviceId,
-
       mainCategoryData: {
         category_name: selectCategory,
         subCategories: [],
@@ -54,24 +53,27 @@ const AddCategory = ({ showModal, onClose }) => {
 
     console.log(newCategory);
 
-    // try {
-    //   const headers = {
-    //     token: localStorage.getItem("jwtToken"),
-    //   };
-    //   const { data } = await axiosInstance.patch(
-    //     "/service/addNewCategory",
-    //     newCategory,
-    //     { headers }
-    //   );
+    try {
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+      const { data } = await axiosInstance.patch(
+        "/service/addNewCategory",
+        newCategory,
+        { headers }
+      );
 
-    //   console.log(data);
-    //   toast.success("A New Category Added Successfully", { toastId: 1 });
-    //   refetch();
-    //   navigate("/partner/dashboard/service");
-    // } catch (error) {
-    //   console.error("eror", error);
-    //   toast.error(`Error happn ${error.message}`, { toastId: 2 });
-    // }
+      console.log(data);
+      toast.success(data ? data.message : "A New Category Added Successfully", {
+        toastId: 1,
+      });
+      refetch();
+      navigate("/partner/dashboard/service");
+      setselectCategory("");
+    } catch (error) {
+      console.error("eror", error);
+      toast.error(`Error happn ${error.message}`, { toastId: 2 });
+    }
     onClose();
   };
 

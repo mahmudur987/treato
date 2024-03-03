@@ -14,7 +14,7 @@ import { getAllServices } from "../../../../services/Services";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
 const ServiceCatalog = () => {
   const [showAddMenu, setshowAddmenu] = useState(false);
-  const { data, isLoading, isError, error } = useSingleSalon();
+  const { data, isLoading, isError, error, refetch } = useSingleSalon();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedServiceType, setSelectedServiceType] = useState("All");
   const [serviceType, setserviceType] = useState([]);
@@ -49,7 +49,7 @@ const ServiceCatalog = () => {
 
   if (isError) {
     toast.error(error.message, { toastId: 1 });
-    return null; // or handle error in some way
+    return null;
   }
 
   if (!data || !data.salon) {

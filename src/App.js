@@ -50,8 +50,7 @@ import AuthChoice from "./pages/partnerPages/Auth/AuthChoice/AuthChoice";
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
-  const [fetchUserData, setfetchUserData] = useState({});
-  const [error, setError] = useState(null);
+
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user);
   const [isLocationBlocked, setisLocationBlocked] = useState(false);
@@ -77,8 +76,8 @@ function App() {
           dispatch(
             updateUserDetails({
               isLocationAllow: false,
-              latitude: 28.6139, // Latitude of Delhi
-              longitude: 77.209, // Longitude of Delhi
+              latitude: 28.6139,
+              longitude: 77.209,
             })
           );
           setUserGeolocationAvailable(false);
@@ -98,14 +97,12 @@ function App() {
   }, [isLocationBlocked]);
 
   useEffect(() => {
-    // Fetch user's location if not available
     if (!userDetails.latitude || !userDetails.longitude) {
       askForLocationPermission();
     }
   }, [userDetails.latitude, userDetails.longitude]);
 
   useEffect(() => {
-    //fetching user data through jwttoken and storing in user state
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
       getUserProfile(isTokenExist).then((res) => {
@@ -115,13 +112,11 @@ function App() {
     }
   }, []);
 
-  // Scroll to the top when the route changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
   useEffect(() => {
-    // Call the action to fetch salon data, passing userDetails as an argument
     dispatch(fetchSalonsData(userDetails));
   }, [dispatch, userDetails]);
 
