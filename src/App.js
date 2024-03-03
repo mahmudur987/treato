@@ -194,7 +194,7 @@ function App() {
               path="/partner/dashboard/addappoinment"
               element={<AddAppoinment />}
             />
-            {/* partner acountsetting */}
+            {/* partner accountsetting */}
             <Route
               path="/partner/dashboard/PartnerAccountSetting"
               element={<PartnerAccountSetting />}

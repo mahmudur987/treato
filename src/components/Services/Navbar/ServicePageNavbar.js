@@ -3,6 +3,7 @@ import styles from "./ServicePageNavbar.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
+import mask from "../../../assets/images/NavbarImages/Mask.png";
 const ServicePageNavbar = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
@@ -25,7 +26,11 @@ const ServicePageNavbar = () => {
               className={styles.account}
               onClick={() => setShowProfile((pre) => !pre)}
             >
-              <img src={userData?.user?.avatar?.public_url} alt="" />
+              <img
+                src={userData?.user?.avatar?.public_url}
+                onError={(e) => (e.target.src = mask)}
+                alt=""
+              />
               <h3>{userData?.user?.first_name}</h3>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +55,11 @@ const ServicePageNavbar = () => {
             onClick={() => setShowProfile((pre) => !pre)}
             className={styles.profileContainer}
           >
-            <img src={userData?.user?.avatar?.public_url} alt="" />
+            <img
+              src={userData?.user?.avatar?.public_url}
+              onError={(e) => (e.target.src = mask)}
+              alt=""
+            />
             <h3>{userData?.user?.first_name}</h3>
             <Link to={"/partner/dashboard"}>Dashboard</Link>
             <Link onClick={handleLogout}>LogOut</Link>
