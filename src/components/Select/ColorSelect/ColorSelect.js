@@ -17,7 +17,6 @@ const ColorSelect = () => {
     { label: "Blue", color: "#0000FF" },
     { label: "Blue", color: "#0000FF" },
     { label: "Blue", color: "#0000FF" },
-    // Add more custom options as needed
   ];
   const handleColorChange = (color) => {
     setSelectedColor(color);

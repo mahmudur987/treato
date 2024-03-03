@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddServices.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import BasicDetailsForm from "../../../components/Services/AddServices/BasicDetailsForm/BasicDetailsForm";
-import TeamMembers from "../../../components/Services/AddServices/TeamMembers/TeamMembers";
-import { addNewService, useSingleSalon } from "../../../services/salon";
-import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import BasicDetailsForm from "../../../../components/Services/AddServices/BasicDetailsForm/BasicDetailsForm";
+import TeamMembers from "../../../../components/Services/AddServices/TeamMembers/TeamMembers";
+import { addNewService, useSingleSalon } from "../../../../services/salon";
+import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
 
 const AddServices = () => {
@@ -18,35 +18,60 @@ const AddServices = () => {
 
   //api fetching
   const { data, isLoading, isError, error } = useSingleSalon();
-  // console.log(basicDetails, teamMember, days);
+
+  const service = data?.salon.services.find(
+    (x) => x.service_name === basicDetails.selectedServiceType
+  );
+  const maincategory = service?.mainCategories.find(
+    (x) => x.category_name === basicDetails.selectCategory
+  );
+
+  // console.log(maincategory);
 
   const handleSubmit = async () => {
     if (!basicDetails.serviceName || teamMember.length <= 0) {
       return toast.error("please write a service name and add a team member");
     }
 
-    const newService = {
-      service_name: basicDetails.selectedServiceType,
-      service_description: basicDetails.description,
-      stylists: teamMember,
-      mainCategories: [
-        {
-          category_name: basicDetails.selectCategory,
-          subCategories: [
-            {
-              service_name: basicDetails.serviceName,
-              price: Number(basicDetails.price),
-              time_takenby_service: basicDetails.duration,
-            },
-          ],
-        },
-      ],
+    // const newService = {
+    //   service_name: basicDetails.selectedServiceType,
+    //   service_description: basicDetails.description,
+    //   stylists: teamMember,
+    //   mainCategories: [
+    //     {
+    //       category_name: basicDetails.selectCategory,
+    //       subCategories: [
+    //         {
+    //           service_name: basicDetails.serviceName,
+    //           price: Number(basicDetails.price),
+    //           time_takenby_service: basicDetails.duration,
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // };
+    const newdata = {
+      serviceId: service._id,
+      mainCategoryId: maincategory._id,
+      subCategoryData: {
+        service_name: basicDetails.serviceName,
+        price: Number(basicDetails.price),
+        time_takenby_service: basicDetails.duration,
+      },
     };
 
-    console.log(newService);
+    console.log(newdata);
 
-    const res = await addNewService(newService);
-    console.log(res);
+    const res = await addNewService(newdata);
+
+    if (res.res) {
+      console.log(res.res);
+      toast.success("Added A new service ");
+      navigate("/partner/dashboard/service");
+    } else {
+      console.log(res.err);
+      toast.error("Error happen,sevice not added");
+    }
   };
 
   // for the ui
@@ -90,7 +115,7 @@ const AddServices = () => {
 
   return (
     <main className={styles.mainContainer}>
-      <Link to={"/service"} className={styles.backLink}>
+      <Link to={"/partner/dashboard/service"} className={styles.backLink}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -117,7 +142,7 @@ const AddServices = () => {
 
       <section className={styles.container}>
         <header className={styles.header}>
-          <Link to={"/service"} className={styles.backLink}>
+          <Link to={"/partner/dashboard/service"} className={styles.backLink}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

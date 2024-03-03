@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EditService.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import BasicDetailsForm from "../../../components/Services/EditService/BasicDetailsForm/BasicDetailsForm";
-import TeamMembers from "../../../components/Services/EditService/TeamMembers/TeamMembers";
-
-import { editService } from "../../../services/salon";
-import { useSingleSalon } from "../../../services/salon";
+import BasicDetailsForm from "../../../../components/Services/EditService/BasicDetailsForm/BasicDetailsForm";
+import TeamMembers from "../../../../components/Services/EditService/TeamMembers/TeamMembers";
+import { useSingleSalon } from "../../../../services/salon";
 import { toast } from "react-toastify";
 
 const EditService = () => {

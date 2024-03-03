@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./AddAppointment.module.css";
 import { Link } from "react-router-dom";
-import AppointmentDetails from "../../../components/Services/AddAppoinment/AppointmentDetails/AppointmentDetails";
-import ClientsDetails from "../../../components/Services/AddAppoinment/ClientDetails/ClientDetails";
+import AppointmentDetails from "../../../../components/Services/AddAppoinment/AppointmentDetails/AppointmentDetails";
+import ClientsDetails from "../../../../components/Services/AddAppoinment/ClientDetails/ClientDetails";
 
 const AddAppoinment = () => {
   return (

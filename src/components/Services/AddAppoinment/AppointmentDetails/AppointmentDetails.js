@@ -98,7 +98,7 @@ const AppointmentDetails = () => {
             <label htmlFor="">Start Time </label>
             {slots && !isLoading && (
               <CustomSelect2
-                options={times ? times : [error.message]}
+                options={times ? times : [error?.message]}
                 value={time}
                 onChange={setTime}
               />

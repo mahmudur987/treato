@@ -60,8 +60,7 @@ export const useSingleSalon = () => {
     queryKey: [""],
     queryFn: async () => {
       const headers = {
-        token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2EzOWI2NmI5NjM4OWFmOTIzN2U4YyIsImlhdCI6MTcwODc4NDg3NywiZXhwIjoxNzA5MjE2ODc3fQ.bRdI2LX63GKUAW2Kl2WfhbeXw743s7zzAohWO0xezLE",
+        token: localStorage.getItem("jwtToken"),
       };
       const { data } = await axiosInstance.get(`salon/getOneSalon`, {
         headers,
@@ -74,11 +73,10 @@ export const useSingleSalon = () => {
 
 export const addNewService = async (data) => {
   const headers = {
-    token:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2EzOWI2NmI5NjM4OWFmOTIzN2U4YyIsImlhdCI6MTcwODc4NDg3NywiZXhwIjoxNzA5MjE2ODc3fQ.bRdI2LX63GKUAW2Kl2WfhbeXw743s7zzAohWO0xezLE",
+    token: localStorage.getItem("jwtToken"),
   };
   try {
-    const res = await axiosInstance.post("/service/new", data, {
+    const res = await axiosInstance.patch("service/addNewSubcategory", data, {
       headers,
     });
 
@@ -89,8 +87,7 @@ export const addNewService = async (data) => {
 };
 export const editService = async (data) => {
   const headers = {
-    token:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2EzOWI2NmI5NjM4OWFmOTIzN2U4YyIsImlhdCI6MTcwODc4NDg3NywiZXhwIjoxNzA5MjE2ODc3fQ.bRdI2LX63GKUAW2Kl2WfhbeXw743s7zzAohWO0xezLE",
+    token: localStorage.getItem("jwtToken"),
   };
   try {
     const res = await axiosInstance.post("/service/editService", data, {

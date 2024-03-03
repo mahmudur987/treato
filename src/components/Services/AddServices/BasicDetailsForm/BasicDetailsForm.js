@@ -51,7 +51,9 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
     fetchAllServices();
   }, []);
   useEffect(() => {
-    setselectCategory(categories[0]);
+    if (categories && !selectCategory) {
+      setselectCategory(categories[0]);
+    }
   }, [categories]);
 
   const data = useMemo(

@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ServiceCatalog.module.css";
-import CustomSelect from "../../../components/Select/CustomeSelect";
-import ServicesDropDown from "../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
+import CustomSelect from "../../../../components/Select/CustomeSelect";
+import ServicesDropDown from "../../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
 
-import AddCategory from "../../../components/_modals/Addcategory/AddCategory";
+import AddCategory from "../../../../components/_modals/Addcategory/AddCategory";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa";
-import { useSingleSalon } from "../../../services/salon";
-import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { useSingleSalon } from "../../../../services/salon";
+import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
-import { getAllServices } from "../../../services/Services";
-import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
+import { getAllServices } from "../../../../services/Services";
+import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
 const ServiceCatalog = () => {
   const [showAddMenu, setshowAddmenu] = useState(false);
   const { data, isLoading, isError, error } = useSingleSalon();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedServiceType, setSelectedServiceType] = useState("All");
-  const [serviceType, setserviceType] = useState(null);
+  const [serviceType, setserviceType] = useState([]);
   useEffect(() => {
     async function fetchAllServices() {
       try {
@@ -128,7 +128,9 @@ const ServiceCatalog = () => {
                 className={styles.addMenu}
                 onClick={() => setshowAddmenu((pre) => !pre)}
               >
-                <Link to={"/service/addservice"}>Add a new Service</Link>
+                <Link to={"/partner/dashboard/service/addservice"}>
+                  Add a new Service
+                </Link>
                 <button onClick={openModal}>Add a new Category</button>
               </div>
             )}

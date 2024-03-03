@@ -7,7 +7,7 @@ const LeftSideBar = () => {
   const [show, setShow] = useState(false);
   const links = [
     {
-      to: "/service/dashboard",
+      to: "/partner/dashboard",
       svg: (
         <svg
           style={{ margin: `${show ? "" : "auto"}` }}
@@ -28,7 +28,7 @@ const LeftSideBar = () => {
       text: "Dashboard",
     },
     {
-      to: "/service/addappoinment",
+      to: "/partner/dashboard/addappoinment",
       svg: (
         <svg
           style={{ margin: `${show ? "" : "auto"}` }}
@@ -47,7 +47,7 @@ const LeftSideBar = () => {
       text: "Appointments",
     },
     {
-      to: "/service",
+      to: "/partner/dashboard/service",
       svg: (
         <svg
           style={{ margin: `${show ? "" : "auto"}` }}
@@ -66,7 +66,7 @@ const LeftSideBar = () => {
       text: "Services",
     },
     {
-      to: "/service/team",
+      to: "/partner/dashboard/TeamManageMent",
       svg: (
         <svg
           style={{ margin: `${show ? "" : "auto"}` }}
@@ -84,9 +84,10 @@ const LeftSideBar = () => {
           />
         </svg>
       ),
+      text: "Team",
     },
     {
-      to: "/service/report",
+      to: "/partner/dashboard/report",
       svg: (
         <svg
           style={{ margin: `${show ? "" : "auto"}` }}
@@ -105,7 +106,7 @@ const LeftSideBar = () => {
       text: "Reports",
     },
     {
-      to: "/service/look",
+      to: "/partner/dashboard/look",
       svg: (
         <svg
           style={{ margin: `${show ? "" : "auto"}` }}
@@ -133,7 +134,7 @@ const LeftSideBar = () => {
       text: "Looks",
     },
     {
-      to: "/service/accountsettings",
+      to: "/partner/dashboard/PartnerAccountSetting",
       svg: (
         <svg
           style={{ margin: `${show ? "" : "auto"}` }}

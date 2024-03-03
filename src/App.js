@@ -27,15 +27,9 @@ import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 import PrivateFormRoutes from "./layouts/PrivateRoutes";
 import LocationAutocomplete from "./components/locations/LocationAutocomplete";
 import PartnerPage from "./layouts/PartnerPageLayout/PartnerPage";
-import PartnerHome from "./pages/partner/PartnerHome/PartnerHome";
-import AuthChoice from "./pages/partner/Auth/AuthChoice/AuthChoice";
 import ServicePage from "./layouts/ServicePageLayout/ServicePagelLayout";
-import AddServices from "./pages/Services/AddServices/AddServices";
-import AddAppoinment from "./pages/Services/AddAppoinment/AddAppoinment";
-import ServiceCatalog from "./pages/Services/ServiceCatalog/ServiceCatalog";
-import EditService from "./pages/Services/EditService/EditService";
 import ModalManager from "./components/_modals/ModalManager";
-import Dashboard from "./pages/Services/Dashboard/Dashboard";
+import Dashboard from "./pages/partnerPages/Dashboard/Dashboard";
 import PartnerAccountSetting from "./pages/partnerPages/SettingDropDown/PartnerAccountSetting";
 import PaymentProfile from "./pages/partnerPages/SettingDropDown/PaymentProfile";
 import Bussness from "./pages/partnerPages/Bussness/Bussness";
@@ -46,6 +40,12 @@ import TeamManageMent from "./pages/partnerPages/Team/TeamData/TeamManageMent";
 import AddMemberProfile from "./pages/partnerPages/Team/TeamData/AddTeamMember/AddMemberProfile";
 import EditTeamData from "./pages/partnerPages/Team/TeamData/EditTeamData/EditTeamData";
 import EmployeeSchedule from "./pages/partnerPages/Team/TeamData/EmployeeSchedule/EmployeeSchedule";
+import ServiceCatalog from "./pages/partnerPages/Services/ServiceCatalog/ServiceCatalog";
+import AddServices from "./pages/partnerPages/Services/AddServices/AddServices";
+import EditService from "./pages/partnerPages/Services/EditService/EditService";
+import AddAppoinment from "./pages/partnerPages/Services/AddAppoinment/AddAppoinment";
+import PartnerHome from "./pages/partnerPages/PartnerHome/PartnerHome";
+import AuthChoice from "./pages/partnerPages/Auth/AuthChoice/AuthChoice";
 
 function App() {
   // Use the location hook to track route changes
@@ -172,41 +172,69 @@ function App() {
             <Route path="/partner/authchoice" element={<AuthChoice />} />
           </Route>
           {/* partner dashboard */}
-          <Route path="/service" element={<ServicePage />}>
-            <Route path="/service" element={<ServiceCatalog />} />
-            <Route path="/service/dashboard" element={<Dashboard />} />
-            <Route path="/service/addservice" element={<AddServices />} />
-            <Route path="/service/editservice" element={<EditService />} />
-            <Route path="/service/addappoinment" element={<AddAppoinment />} />
+          <Route path="/partner/dashboard" element={<ServicePage />}>
+            <Route path="/partner/dashboard" element={<Dashboard />} />
+
             <Route
-              path="/service/PartnerAccountSetting"
+              path="/partner/dashboard/service"
+              element={<ServiceCatalog />}
+            />
+            <Route
+              path="/partner/dashboard/service/addservice"
+              element={<AddServices />}
+            />
+            <Route
+              path="/partner/dashboard/service/editservice"
+              element={<EditService />}
+            />
+
+            {/* add appoinment */}
+
+            <Route
+              path="/partner/dashboard/addappoinment"
+              element={<AddAppoinment />}
+            />
+            {/* partner acountsetting */}
+            <Route
+              path="/partner/dashboard/PartnerAccountSetting"
               element={<PartnerAccountSetting />}
             />
-            <Route path="/service/serviceBussness" element={<Bussness />} />
             <Route
-              path="/service/PaymentProfile"
+              path="/partner/dashboard/serviceBussness"
+              element={<Bussness />}
+            />
+            <Route
+              path="/partner/dashboard/PaymentProfile"
               element={<PaymentProfile />}
             />
-            <Route path="/service/storetime" element={<ServiceOffer />} />
-            <Route path="/service/location" element={<ServiceLocation />} />
             <Route
-              path="/service/PicturesGallery"
-              element={<PicturesGallery />}
+              path="/partner/dashboard/storetime"
+              element={<ServiceOffer />}
             />
             <Route
-              path="/service/TeamManageMent"
+              path="/partner/dashboard/location"
+              element={<ServiceLocation />}
+            />
+            <Route
+              path="/partner/dashboard/PicturesGallery"
+              element={<PicturesGallery />}
+            />
+            {/* team manage ment */}
+
+            <Route
+              path="/partner/dashboard/TeamManageMent"
               element={<TeamManageMent />}
             />
             <Route
-              path="/service/AddMemberProfile"
+              path="/partner/dashboard/AddMemberProfile"
               element={<AddMemberProfile />}
             />
             <Route
-              path="/service/EditMemberProfile"
+              path="/partner/dashboard/EditMemberProfile"
               element={<EditTeamData />}
             />
             <Route
-              path="/service/EmployeeSchedule"
+              path="/partner/dashboard/EmployeeSchedule"
               element={<EmployeeSchedule />}
             />
           </Route>
@@ -227,3 +255,6 @@ export default App;
 //       service_description,
 //       stylists,
 //       mainCategories,
+
+// http://localhost:4000/api/v1/service/addNewSubcategory
+// http://localhost:4000/api/v1/service/addNewCategory
