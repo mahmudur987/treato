@@ -25,7 +25,7 @@ export default function SalonDetail() {
   let [firstImage, setFirstImage] = useState(null);
 
   const userDetails = useSelector((state) => state?.user?.user);
-
+  console.log(id);
   useEffect(() => {
     let SalonDataFunc = async () => {
       const { res, err } = await salon();

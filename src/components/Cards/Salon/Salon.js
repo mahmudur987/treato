@@ -24,7 +24,7 @@ const Salon = ({ salonData, place }) => {
   };
   const userDetails = useSelector((state) => state.user);
   // console.log(userDetails?.user.isLocationAllow,"userDetails");
-  console.log(salonData, "salonData");
+  // console.log(salonData, "salonData");
 
   const generateDistance = () => {
     const Distance = (salonData?.distances * 10).toFixed(1);

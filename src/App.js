@@ -253,3 +253,7 @@ export default App;
 
 // http://localhost:4000/api/v1/service/addNewSubcategory
 // http://localhost:4000/api/v1/service/addNewCategory
+
+// Route
+// /editCategory
+// serviceId, mainCategoryId, newCategoryName

@@ -44,8 +44,7 @@ export const getSingleSalonData = async (id) => {
 
     // Set up headers with the JWT token
     const headers = {
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1M2EzOWI2NmI5NjM4OWFmOTIzN2U4YyIsImlhdCI6MTcwODc4NDg3NywiZXhwIjoxNzA5MjE2ODc3fQ.bRdI2LX63GKUAW2Kl2WfhbeXw743s7zzAohWO0xezLE",
+      token: localStorage.getItem("jwtToken"),
     };
     const res = await axiosInstance.get(`salon/getOneSalon`, { headers });
 
@@ -90,7 +89,7 @@ export const editService = async (data) => {
     token: localStorage.getItem("jwtToken"),
   };
   try {
-    const res = await axiosInstance.post("/service/editService", data, {
+    const res = await axiosInstance.patch("/service/editSubCategory", data, {
       headers,
     });
 

@@ -3,19 +3,24 @@ import styles from "./EditService.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import BasicDetailsForm from "../../../../components/Services/EditService/BasicDetailsForm/BasicDetailsForm";
 import TeamMembers from "../../../../components/Services/EditService/TeamMembers/TeamMembers";
-import { useSingleSalon } from "../../../../services/salon";
+import { editService, useSingleSalon } from "../../../../services/salon";
 import { toast } from "react-toastify";
+import axiosInstance from "../../../../services/axios";
 
 const EditService = () => {
-  const { data: singleSalon, isLoading, isError, error } = useSingleSalon();
+  const {
+    data: singleSalon,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useSingleSalon();
   const location = useLocation();
-
-  const [diesabled, setDiesabled] = useState(false);
-
   const queryParams = new URLSearchParams(location.search);
   const service_id = queryParams.get("servicetype");
   const category_id = queryParams.get("category");
   const subcategory_id = queryParams.get("subcategory");
+  const [diesabled, setDiesabled] = useState(false);
   const navigate = useNavigate();
   const [basicDetails, setBasicDetails] = useState({});
   const [teamMember, setTeamMember] = useState([]);
@@ -23,32 +28,59 @@ const EditService = () => {
   const { service, category, subcategory } =
     findServiceData(singleSalon, service_id, category_id, subcategory_id) || {};
 
+  const allPeople = singleSalon?.salon?.stylists?.map((x) => {
+    return {
+      name: x.stylist_name,
+      avatar: x.stylist_Img.public_url,
+      id: x._id,
+      servicesIds: x.services,
+    };
+  });
+  const alredySelected = allPeople
+    ?.filter((people) => people.servicesIds.includes(subcategory_id))
+    .map((people) => people.id);
+
   const handleSubmit = async () => {
     const neweditService = {
-      service_name: basicDetails.selectedServiceType,
-      service_description: basicDetails.description,
-      stylists: teamMember,
-      mainCategories: [
-        {
-          category_name: basicDetails.selectCategory,
-          subCategories: [
-            {
-              service_name: basicDetails.serviceName,
-              price: Number(basicDetails.price),
-              time_takenby_service: basicDetails.duration,
-            },
-          ],
-        },
-      ],
+      serviceId: service_id,
+      mainCategoryId: category_id,
+      subCategoryId: subcategory_id,
+      oldStylist: alredySelected,
+      newStylist: teamMember.map((people) => people.id),
+      subCategoryData: {
+        service_name: basicDetails.serviceName,
+        price: Number(basicDetails.price),
+        time_takenby_service: basicDetails.duration,
+      },
+    };
+    console.log(neweditService);
+    const res = await editService(neweditService);
+    if (res.res) {
+      console.log(res.res);
+      toast.success(res.res ? res.res : "Added A new service ");
+      navigate("/partner/dashboard/service");
+    } else {
+      console.log(res.err);
+      toast.error("Error happen,sevice not added");
+    }
+  };
+  const handleDeleteService = async () => {
+    let url = `service/deleteSubCategory/${service_id}/${category_id}/${subcategory_id}`;
+    const headers = {
+      token: localStorage.getItem("jwtToken"),
     };
 
-    // const res = await editService(neweditService);
-
-    console.log(neweditService);
+    try {
+      const { data } = await axiosInstance.delete(url, { headers });
+      console.log(data);
+      toast.success("service delete successfully");
+      navigate("/partner/dashboard/service");
+      refetch();
+    } catch (error) {
+      console.log("Erroor deleting data", error);
+      toast.error(error.message);
+    }
   };
-  useEffect(() => {
-    setDiesabled((pre) => !pre);
-  }, [basicDetails, teamMember, days]);
   if (isLoading) {
     return <p>Loading</p>;
   }
@@ -58,7 +90,7 @@ const EditService = () => {
   }
   return (
     <main className={styles.mainContainer}>
-      <Link to={"/service"} className={styles.backLink}>
+      <Link to={"/partner/dashboard/service"} className={styles.backLink}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -84,12 +116,18 @@ const EditService = () => {
       </Link>
 
       <section className={styles.container}>
-        <header className={styles.header}>
-          <h1>
-            <span> Edit Service</span>
-          </h1>
-          <p>Enter details to add a service to your salon’s catalog.</p>
-        </header>
+        <div className={styles.headrWrapper}>
+          <header className={styles.header}>
+            <h1>
+              <span> Edit Service</span>
+            </h1>
+            <p>Enter details to add a service to your salon’s catalog.</p>
+          </header>
+          <p className={styles.delete}>
+            <button onClick={handleDeleteService}> Delete Service</button>
+          </p>
+        </div>
+
         {/* details */}
 
         <div className={styles.content}>

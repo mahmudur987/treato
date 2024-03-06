@@ -93,24 +93,6 @@
   border: none;
 }
 
-.menuItems {
-  position: absolute;
-  right: 0px;
-  top: 100%;
-  z-index: 10;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  box-shadow: 2px 2px 2px 2px rgb(202, 196, 196);
-}
-.menuItems p {
-  width: 150px;
-  padding: 10px;
-}
-.menuItems p:hover {
-  background-color: burlywood;
-}
 .delete {
   color: rgb(216, 57, 57);
 }

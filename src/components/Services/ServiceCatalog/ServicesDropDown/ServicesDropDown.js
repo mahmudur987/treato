@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ServicesDropDown.module.css";
 import { Link } from "react-router-dom";
+import Menu from "../Menu/Menu";
 const ServicesDropDown = ({ data }) => {
   const [openCategory, setOpenCategory] = useState(null);
   const [showbtnMenu, setShowBtnMenu] = useState("");
@@ -80,23 +81,7 @@ const ServicesDropDown = ({ data }) => {
                     </svg>
                   </button>
                   {category._id === showbtnMenu && (
-                    <div
-                      className={styles.menuItems}
-                      onClick={() =>
-                        setShowBtnMenu((pre) =>
-                          pre === category._id ? null : category._id
-                        )
-                      }
-                    >
-                      <p>
-                        <Link to={"/service/addservice"}>
-                          {" "}
-                          Add a new service
-                        </Link>
-                      </p>
-                      <p>Edit Category</p>
-                      <p className={styles.delete}>Delete Category</p>
-                    </div>
+                    <Menu setShowBtnMenu={setShowBtnMenu} />
                   )}
                 </div>
                 {category._id === showbtnMenu && (
@@ -243,15 +228,11 @@ const ServicesDropDown = ({ data }) => {
                     </svg>
                   </button>
                   {category._id === showbtnMenu && (
-                    <div className={styles.menuItems}>
-                      <p>
-                        <Link to={"/service/addservice"}>
-                          Add a new service
-                        </Link>
-                      </p>
-                      <p>Edit category</p>
-                      <p className={styles.delete}>Delete Category</p>
-                    </div>
+                    <Menu
+                      setShowBtnMenu={setShowBtnMenu}
+                      data={data}
+                      category={category}
+                    />
                   )}
                 </div>
                 {openCategory === category._id && (
@@ -275,7 +256,7 @@ const ServicesDropDown = ({ data }) => {
                           </p>
                         </div>
                         <Link
-                          to={`/service/editservice?servicetype=${data._id}&category=${category._id}&subcategory=${service._id}`}
+                          to={`/partner/dashboard/service/editservice?servicetype=${data._id}&category=${category._id}&subcategory=${service._id}`}
                         >
                           <button className={styles.editButton}>
                             <svg

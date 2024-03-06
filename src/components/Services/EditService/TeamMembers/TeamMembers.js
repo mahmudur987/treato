@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./TeamMember.module.css";
 import img1 from "../../../../assets/icons/services/a-1.png";
-import img2 from "../../../../assets/icons/services/a-2.png";
-import img3 from "../../../../assets/icons/services/a-3.png";
-import img4 from "../../../../assets/icons/services/a-4.png";
-import img5 from "../../../../assets/icons/services/a-5.png";
-import img6 from "../../../../assets/icons/services/a-6.png";
-import img7 from "../../../../assets/icons/services/a-7.png";
+
 import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 
 const TeamMembers = ({ mobile, currentStep, setTeamMember, setdays }) => {
   return (
@@ -26,48 +22,58 @@ const TeamMembers = ({ mobile, currentStep, setTeamMember, setdays }) => {
 };
 
 const CheckBoxComponent = ({ setTeamMember }) => {
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
-  const [filterValue, setFilterValue] = useState("");
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const subcategory_id = queryParams.get("subcategory");
   const { data, isLoading, isError, error } = useSingleSalon();
-
   const allPeople = data.salon
     ? data?.salon?.stylists?.map((x) => {
         return {
           name: x.stylist_name,
           avatar: x.stylist_Img.public_url,
           id: x._id,
+          servicesIds: x.services,
         };
       })
     : [{ name: "Person 1", avatar: img1, id: "25" }];
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState(() => {
+    const alredySelected = allPeople.find((people) =>
+      people.servicesIds.includes(subcategory_id)
+    );
+    return alredySelected ? [alredySelected] : [];
+  });
+  const [filterValue, setFilterValue] = useState("");
 
   const filteredPeople = allPeople.filter((person) =>
     person.name.toLowerCase().includes(filterValue.toLowerCase())
   );
 
   const handleCheckboxChange = (person) => {
-    const isSelected = selectedCheckboxes.includes(person);
+    const isSelected = selectedCheckboxes.some(
+      (selectedPerson) => selectedPerson.id === person.id
+    );
 
     let updatedCheckboxes;
 
     if (isSelected) {
-      // If the person is already selected, remove them
       updatedCheckboxes = selectedCheckboxes.filter(
-        (selectedPerson) => selectedPerson !== person
+        (selectedPerson) => selectedPerson.id !== person.id
       );
     } else {
-      // If the person is not selected, add them
       updatedCheckboxes = [...selectedCheckboxes, person];
     }
 
     setSelectedCheckboxes(updatedCheckboxes);
   };
+
   const handleSelectAll = () => {
     if (selectedCheckboxes.length === filteredPeople.length) {
       setSelectedCheckboxes([]);
     } else {
-      setSelectedCheckboxes(filteredPeople.map((person) => person.name));
+      setSelectedCheckboxes(filteredPeople);
     }
   };
+
   useEffect(() => {
     setTeamMember(selectedCheckboxes);
   }, [selectedCheckboxes]);
@@ -78,7 +84,6 @@ const CheckBoxComponent = ({ setTeamMember }) => {
   if (isError) {
     return toast.error(error.message, { toastId: 1 });
   }
-
   return (
     <div className={styles.checkboxContainer}>
       <div className={styles.sectionHeading}>
@@ -105,8 +110,10 @@ const CheckBoxComponent = ({ setTeamMember }) => {
             <label key={person.name} className={styles.people}>
               <input
                 type="checkbox"
-                onChange={() => handleCheckboxChange(person.id)}
-                checked={selectedCheckboxes.includes(person.id)}
+                onChange={() => handleCheckboxChange(person)}
+                checked={selectedCheckboxes.some(
+                  (selectedPerson) => selectedPerson.id === person.id
+                )}
               />
 
               <p>
