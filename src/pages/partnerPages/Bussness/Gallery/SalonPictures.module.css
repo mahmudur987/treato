@@ -65,7 +65,91 @@
 /* SalonPictures css start */
 
 /* here open Onclick verticaly ican start */
-.dropdown {
+.dropbtn {
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 20%;
+  margin-top: -18px;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdownContent a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdownContent a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+.dropdownContentA{color: #08090A !important; 
+  font-size: large;
+  background-color: #FFFFFF;
+  font-family: "Lato";
+  width: 180px;
+height: 30px;
+padding: 13px, 16px, 13px, 16px;
+border-radius: 4px;
+gap: 16px}
+
+.Delete{
+  color: red !important; 
+font-size: large;
+background-color: #FFFFFF;
+font-family: "Lato";
+width: 180px;
+height: 30px;
+padding: 13px, 16px, 13px, 16px;
+border-radius: 4px;
+gap: 16px
+}
+
+.dropdown:hover .dropbtn {
+  background-color: white;
+}
+
+.UploadInp{
+  
+  height: 200px;
+  max-width: 100%;
+  width: 290px;
+  padding: 0px, 95.5px, 0px, 96.5px;
+  border-radius: 6px;
+  border: 1px;
+  border: 1px solid #0D69D7;
+
+}
+
+/* .UploadImg{
+  position: relative;
+  height: 200px;
+  max-width: 100%;
+  width: 290px;
+  padding: 0px, 95.5px, 0px, 96.5px;
+  border-radius: 6px;
+  border: 1px
+  
+} */
+
+/* .dropdown {
   display: inline-block;
   position: relative;
 }
@@ -77,7 +161,7 @@
   cursor: pointer;
 }
 
-.dropdown-content a:hover {
+.dropdownContent a:hover {
   background-color: #f1f1f1;
 }
 
@@ -117,7 +201,7 @@
   border-radius: 4px;
   padding: 13px, 16px, 13px, 16px;
   gap: 16px
-}
+} */
 
 /* here open Onclick verticaly ican End */
 .horizontalLine {
@@ -132,33 +216,57 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .mainDiv {
+ 
+  /* .mainDiv {
    
-    width: 70%;
+    width: 50%;
     margin-top: 5%;
     margin-bottom: 10%;
-  }
+  } */
   .mainDiv1{width: 270px;}
   .gridContainer {
-   display: grid;
+  display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 16px; 
+}
+.UploadInp{
+  height: 100px;
+  width: 342px;
+  padding: 0px, 95.5px, 0px, 96.5px;
+  border-radius: 6px;
+  border: 1px;
+  border: 1px solid #0D69D7;
+
 }
 
 .mapPic{
   position: relative !important;
    height: 100px;
-    width: 290px;
+    width: 342px;
     padding: 0px, 95.5px, 0px, 96.5px;
     border-radius: 6px;
     border: 1px;
+  }
+  .dropdownContent{
+    position: fixed;
+    width: 330px;
+height: 168px;
+top: 430px;
+padding: 14px;
+left:0px;
+right: 0px;
+border-radius: 12px, 12px, 3px, 0px;
+gap: 36px;
+text-align: center;
+
   }
   .imgarrowLeft {
     display: flex;
     align-items: center;
   }
   .Pictures{
-    margin-right: 20px;}
+    margin-right: 20px;
+  }
     .openOnSmallScreen{
       display: block !important;
     }

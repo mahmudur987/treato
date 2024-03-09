@@ -104,7 +104,7 @@ const TimeSchedule = () => {
         }
     };
     const employeeSchedule = () => {
-        navigate("/service/EmployeeSchedule")
+        navigate("/partner/dashboard/EmployeeSchedule")
     }
     return (
         <div className={sty.container}>
@@ -182,6 +182,7 @@ const TimeSchedule = () => {
                                         {item.time}
                                     </div>
                                 </td> */}
+
 
                                 <td className={sty.times1}><div className={sty.times} onClick={e => handleShiftFun()} style={{ border: "1px #0D69D7" }}>{item.time}</div></td>
                                 <td className={sty.times1}><div className={sty.times} onClick={e => handleShiftFun()} style={{ border: "1px #0D69D7" }}>{item.time}</div></td>

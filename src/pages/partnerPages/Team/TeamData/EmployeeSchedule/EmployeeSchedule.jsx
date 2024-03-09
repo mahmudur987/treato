@@ -62,7 +62,7 @@ const EmployeeSchedule = () => {
     return (
         <div className={styles.container}>
             <div className={styles.usr_detail_head}>
-                <Link to={"/service/TeamManageMent"}>
+                <Link to={"/partner/dashboard/TeamManageMent"}>
                     <span><img src={arrowLeft} alt="arrowLeft" className={styles.Pictures} /></span>
                 </Link>
                 Edit Employee Schedule

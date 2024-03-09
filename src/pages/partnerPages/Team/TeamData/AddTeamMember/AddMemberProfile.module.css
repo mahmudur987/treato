@@ -212,7 +212,7 @@ border: 2px;
       }
    .inputtextLoc1{ margin-top: 100px; }
    .inputtextLoc{  width: 302px;}
-  .inputtextPick{flex-direction: column; width: 302px; }
+  .inputtextPick{display: flex; gap: 0px; width: 310px; }
     .horizontalLine{width: 302px;}
     .CancelBtn{display: none;}
     .SaveBtn{width: 302px; background-color: #EBEDF0; color: #939CA3;}

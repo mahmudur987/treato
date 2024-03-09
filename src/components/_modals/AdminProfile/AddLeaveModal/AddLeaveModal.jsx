@@ -55,7 +55,7 @@ const AddLeaveModal = ({ onClose }) => {
                         </div>
 
 
-                        <div className={styles.Profile_Time} >
+                        <div className={styles.Profile_Time1} >
                             <div className={styles.dateInput}>
                                 <label htmlFor="">
                                     <div className={styles.labelText}>Schedule Starts</div>

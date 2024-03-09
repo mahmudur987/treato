@@ -10,8 +10,7 @@ import Contactus from "../../components/HomePage/Contactus/Contactus";
 import LatestBlog from "../../components/HomePage/LatestBlog/LatestBlog";
 import { HomePage } from "../../services/HomePage";
 import { useState,useEffect } from "react";
-import PartnerAccountSetting from "../partnerPages/SettingDropDown/PartnerAccountSetting";
-import ServiceLocation from "../partnerPages/Bussness/ServiceLocation";
+
 
 export default function Home(props) {
   let [homeData,setHomeData] = useState([])

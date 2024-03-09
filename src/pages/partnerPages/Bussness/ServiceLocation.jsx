@@ -4,27 +4,24 @@ import styles from "./ServiceLocation.module.css"
 import BasicInputs from '../Input/BasicInputs';
 import map from "../../../assets/images/partner/partnerSetting/Input_Field_Icons.png";
 import CollaseIcon from "../../../assets/images/TeamDetails/chevron-down.png";
+import { GoogleMap, Marker } from '@react-google-maps/api';
 
-const ServiceLocation = () => {
-    const handleChange = () => {
-    }
+const ServiceLocation = ({ setSalonData, salonData }) => {
+
     const [isCollapsed, setIsCollapsed] = useState(false);
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 768) {
-                setIsCollapsed(false); // Set to false on small screens
+                setIsCollapsed(false);
             } else {
-                setIsCollapsed(true); // Set to true on browser screens
+                setIsCollapsed(true);
             }
         };
 
-        // Initial check on component mount
         handleResize();
 
-        // Listen to window resize events
         window.addEventListener('resize', handleResize);
 
-        // Cleanup
         return () => window.removeEventListener('resize', handleResize);
     }, []);
     const toggleCollapse = () => {
@@ -54,42 +51,43 @@ const ServiceLocation = () => {
 
                     <div className={styles.inputtextLoc}>
 
-                        <label htmlFor="">
+                        <label htmlFor="location">
                             <div className={styles.labelText}>Business Location</div>
                             <BasicInputs
                                 type="text"
-                                name="landmark"
-                                // value={formData.firstName}
-                                onChange={handleChange}
+                                NAME="location"
+
+                                value={salonData.location}
+                                onChange={e => setSalonData({ ...salonData, location: e.target.value })}
                                 placeholder="Search location"
                                 styles={`${styles.locationInput}`}
                             />
                         </label>
-                        <img src={map} alt="" className={styles.mapLogo} />
+                        <img src={map} alt="map" className={styles.mapLogo} />
                     </div>
 
                     <div>
                         <div className={styles.inputtextNumber}>
-                            <label htmlFor="">
+                            <label htmlFor="building_number">
                                 <div className={styles.labelText}>Building Number</div>
                                 <BasicInputs
                                     type="text"
-                                    name="buildingNumber"
-                                    //   value={formData.firstName}
-                                    onChange={handleChange}
+                                    NAME="building_number"
+                                    value={salonData.building_number}
+                                    onChange={e => setSalonData({ ...salonData, building_number: e.target.value })}
                                     placeholder="Search location"
                                     styles={`${styles.BasicInputsFild}`}
 
                                 />
                             </label>
-                            <label htmlFor="">
+                            <label htmlFor="landmark">
                                 <div className={styles.labelText}>Landmark <span className={styles.optional}>(optional)</span></div>
                                 <BasicInputs
 
                                     type="text"
-                                    name="landmark"
-                                    // value={formData.firstName}
-                                    onChange={handleChange}
+                                    NAME="landmark"
+                                    value={salonData.landmark}
+                                    onChange={e => setSalonData({ ...salonData, landmark: e.target.value })}
                                     placeholder="Search location"
                                     styles={`${styles.BasicInputsFild}`}
 
@@ -98,27 +96,26 @@ const ServiceLocation = () => {
 
                         </div>
                         <div className={`${styles.inputtext} ${styles.inputtextForSS}`}>
-                            <label htmlFor="" className={styles.inputtextCity}>
+                            <label htmlFor="city" className={styles.inputtextCity}>
                                 <div className={styles.labelText}>City</div>
                                 <BasicInputs
                                     type="text"
-                                    name="city"
-                                    // value={formData.firstName}
-                                    onChange={handleChange}
+                                    NAME="city"
+                                    value={salonData.city}
+                                    onChange={e => setSalonData({ ...salonData, city: e.target.value })}
                                     placeholder="Search location"
                                     styles={`${styles.BasicInputsFild}`}
 
                                 />
                             </label>
-                            <label htmlFor="" className={styles.inputtextCode}>
+                            <label htmlFor="postal_code" className={styles.inputtextCode}>
                                 <div className={styles.labelText}>Postal Code</div>
                                 <BasicInputs
                                     type="text"
-                                    name="postaCode"
-                                    // value={formData.firstName}
-                                    onChange={handleChange}
+                                    NAME="postal_code"
+                                    value={salonData.postal_code}
+                                    onChange={e => setSalonData({ ...salonData, postal_code: e.target.value })}
                                     placeholder="Search location"
-
                                     styles={`${styles.BasicInputsFild}`}
 
                                 />
@@ -130,6 +127,33 @@ const ServiceLocation = () => {
                 </div>
                 <div >
                     <p className={styles.mapImg1}>Drag the pin to the correct location</p>
+                    {/* <GoogleMap
+                        mapContainerStyle={{
+                            width: '400px',
+                            height: '400px'
+                        }}
+                        // center={{
+                        //     lat: userDetails?.user?.isLocationAllow
+                        //         ? userDetails?.user?.latitude
+                        //         : 19.2856,
+                        //     lng: userDetails?.user?.isLocationAllow
+                        //         ? userDetails?.user?.longitude
+                        //         : 72.8691,
+                        // }}
+
+                        zoom={15}
+                    >
+                        <Marker
+                        // position={{
+                        //     lat: userDetails?.user?.isLocationAllow
+                        //         ? userDetails?.user?.latitude
+                        //         : 19.2856,
+                        //     lng: userDetails?.user?.isLocationAllow
+                        //         ? userDetails?.user?.longitude
+                        //         : 72.8691,
+                        // }}
+                        />
+                    </GoogleMap> */}
                     <img src={mapImg} alt="mapImg" className={styles.mapImg} />
                 </div>
             </div>}

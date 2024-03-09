@@ -31,13 +31,13 @@ export const SalonPictures = () => {
     const allComponentOpenSmallScreen = (title) => {
         switch (title) {
             case "Store timings":
-                navigate("/service/storetime")
+                navigate("/partner/dashboard/storetime")
                 break
             case "Location":
-                navigate("/service/location")
+                navigate("/partner/dashboard/location")
                 break
             case "Salon Pictures":
-                navigate("/service/PicturesGallery")
+                navigate("/partner/dashboard/PicturesGallery")
                 break
             default:
                 // Handle default case
@@ -77,7 +77,7 @@ export const SalonPictures = () => {
 const SalonPicturesDefaultScreen = () => {
     const navigate = useNavigate()
     const PicturesGalleryFun = () => {
-        navigate("/service/PicturesGallery")
+        navigate("/partner/dashboard/PicturesGallery")
     }
     return (<>
 
