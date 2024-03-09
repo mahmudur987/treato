@@ -26,8 +26,6 @@ const AddServices = () => {
     (x) => x.category_name === basicDetails.selectCategory
   );
 
-  // console.log(maincategory);
-
   const handleSubmit = async () => {
     if (!basicDetails.serviceName || teamMember.length <= 0) {
       return toast.error("please write a service name and add a team member");
@@ -48,8 +46,7 @@ const AddServices = () => {
     const res = await addNewService(newService);
 
     if (res.res) {
-      // console.log(res.res);
-      toast.success(res.res ? res.res : "Added A new service ");
+      toast.success("Added A new service ");
       navigate("/partner/dashboard/service");
     } else {
       console.log(res.err);

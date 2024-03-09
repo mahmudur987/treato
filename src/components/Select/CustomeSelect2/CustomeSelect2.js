@@ -28,7 +28,10 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
           )}
         </div>
         {isOpen && (
-          <div className={styles.optionsContainer}>
+          <div
+            style={{ backgroundColor: "white" }}
+            className={styles.optionsContainer}
+          >
             {options?.map((option) => (
               <div
                 key={option}

@@ -1,31 +1,39 @@
 import React, { useState } from "react";
 import styles from "./TopService.module.css";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
+import { useQuery } from "react-query";
+import axiosInstance from "../../../../services/axios";
+import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
+import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 const TopService = () => {
   const [selectedOption, setSelectedOption] = useState("last 30 days");
   const options = ["last 30 days", "last 50 days", "last 90 days"];
-  const data = [
-    {
-      name: "Hair cut Man",
-      quantity: 25,
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["sales/topServicesWithinNDays?", selectedOption],
+    queryFn: async () => {
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+      const { data } = await axiosInstance(
+        `sales/topServicesWithinNDays?days=${Number(
+          selectedOption.slice(5, 7)
+        )}`,
+        {
+          headers,
+        }
+      );
+
+      return data?.servicesWithPercentage;
     },
-    {
-      name: "Hair extensions women",
-      quantity: 19,
-    },
-    {
-      name: "Hair color women",
-      quantity: 13,
-    },
-    {
-      name: "Hair cut Girl",
-      quantity: 12,
-    },
-    {
-      name: "Hair cutting women",
-      quantity: 5,
-    },
-  ];
+  });
+
+  if (isLoading) {
+    <LoadSpinner />;
+  }
+  if (isError) {
+    return <ErrorComponent message={error.message} />;
+  }
 
   return (
     <div className={styles.maincontainer}>
@@ -40,15 +48,18 @@ const TopService = () => {
             />
           </p>
         </div>
-        <div>
-          {data.map((item, index) => (
-            <ProgressBar
-              key={index}
-              name={item.name}
-              quantity={item.quantity}
-            />
-          ))}
-        </div>
+        {data && (
+          <div>
+            {data?.map((item, index) => (
+              <ProgressBar
+                key={index}
+                name={item.serviceName}
+                quantity={item.count}
+                progressWidth={item.percentage}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -56,8 +67,8 @@ const TopService = () => {
 
 export default TopService;
 
-const ProgressBar = ({ name, quantity }) => {
-  const progressWidth = (quantity / 25) * 100; // Assuming 25 is the maximum quantity
+const ProgressBar = ({ name, quantity, progressWidth }) => {
+  // const progressWidth = (quantity / 25) * 100; // Assuming 25 is the maximum quantity
 
   return (
     <div className={styles.progressBarContainer}>
@@ -66,7 +77,9 @@ const ProgressBar = ({ name, quantity }) => {
           className={styles.progress}
           style={{ width: `${progressWidth}%` }}
         ></div>
-        <p className={styles.progressquantyty}>{quantity}(15%) </p>
+        <p className={styles.progressquantyty}>
+          {quantity}({progressWidth}%){" "}
+        </p>
       </div>
       <div className={styles.progressLabel}>{name}</div>
     </div>
