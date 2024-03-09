@@ -37,12 +37,6 @@ export const getSalonListByServiceLocation = async (
 };
 export const getSingleSalonData = async (id) => {
   try {
-    // const jwtToken = localStorage.getItem("jwtToken");
-    // if (!jwtToken) {
-    //   throw new Error("JWT token is not available");
-    // }
-
-    // Set up headers with the JWT token
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };

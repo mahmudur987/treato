@@ -75,8 +75,6 @@ const Upcoming = () => {
               <tbody className={styles.tbody}>
                 {data &&
                   data?.data?.slice(0, 72).map((item, i) => {
-                    console.log(item.time);
-
                     return (
                       <tr key={i}>
                         <td className={styles.date_row}>

@@ -10,7 +10,6 @@ import axiosInstance from "../../../../services/axios";
 const TeamSales = () => {
   const [selectedOption, setSelectedOption] = useState("last 30 days");
   const options = ["last 30 days", "last 50 days", "last 90 days"];
-  console.log();
   const generateRandomColor = () => {
     return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
       Math.random() * 256
