@@ -17,6 +17,16 @@
 .header p {
   font-size: 20px;
 }
+
+.weeks {
+  display: flex;
+  gap: 5px;
+}
+.weeks button {
+  border: none;
+  background: none;
+  font-size: 25px;
+}
 .rechart {
   position: relative;
   min-height: 450px;

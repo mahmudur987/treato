@@ -14,6 +14,7 @@ import { useQuery } from "react-query";
 import axiosInstance from "../../../../services/axios";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
+import WeekNavigator from "./WeekNavigator";
 
 const renderCustomizedLabel = (props) => {
   const { x, y, width, height, value } = props;
@@ -35,20 +36,21 @@ const renderCustomizedLabel = (props) => {
   );
 };
 const SalesTrand = () => {
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: [""],
+  const [startDate, setstartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ["salesData", { startDate, endDate }],
+    enabled: false,
     queryFn: async () => {
       const headers = {
         token: localStorage.getItem("jwtToken"),
       };
-      const { data } = await axiosInstance(
-        `sales/getAppointmentandAmtPerDay?startDate=2024-03-03&endDate=2024-03-10`,
-        {
-          headers,
-        }
-      );
+      let url = `sales/getAppointmentandAmtPerDay?startDate=${startDate}&endDate=${endDate}`;
+      const { data } = await axiosInstance(url, {
+        headers,
+      });
 
-      return data?.appointmentsAndFinalAmount.map((x) => {
+      return data?.appointmentsAndFinalAmount?.map((x) => {
         return {
           name: new Date(x.date).toLocaleString("en-US", { weekday: "short" }),
           price: x.totalFinalAmount,
@@ -57,7 +59,9 @@ const SalesTrand = () => {
       });
     },
   });
-
+  useEffect(() => {
+    refetch();
+  }, [startDate, endDate, refetch]);
   const [chartWidth, setChartWidth] = useState(600);
   useEffect(() => {
     const handleResize = () => {
@@ -79,18 +83,14 @@ const SalesTrand = () => {
   }
   return (
     <>
-      {data && (
-        <div className={styles.mainContainer}>
-          <div className={styles.header}>
-            <h2>Sales Trand</h2>
-            <p>
-              <span>{"<"}</span>
-              {"11 Oct,2023"}- {"17 Oct,2023"}
-              <span>{">"}</span>
-            </p>
-          </div>
+      <div className={styles.mainContainer}>
+        <div className={styles.header}>
+          <h2>Sales Trand</h2>
+          <WeekNavigator setStartDate={setstartDate} setEndDate={setEndDate} />
+        </div>
 
-          <div className={styles.rechart}>
+        <div className={styles.rechart}>
+          {data && !isLoading && !isError && (
             <div className={styles.bar}>
               <BarChart
                 width={chartWidth}
@@ -117,6 +117,8 @@ const SalesTrand = () => {
                 </Bar>
               </BarChart>
             </div>
+          )}
+          {data && !isLoading && !isError && (
             <div className={styles.line}>
               <LineChart
                 width={chartWidth}
@@ -141,19 +143,19 @@ const SalesTrand = () => {
                 />
               </LineChart>
             </div>
-          </div>
-          <div className={styles.footer}>
-            <p className={styles.footerLeft}>
-              <span className={styles.salesColor}></span>
-              <span>sales</span>
-            </p>
-            <p className={styles.footerRight}>
-              <span className={styles.appointmentColor}></span>
-              <span>Appoinment</span>
-            </p>
-          </div>
+          )}
         </div>
-      )}
+        <div className={styles.footer}>
+          <p className={styles.footerLeft}>
+            <span className={styles.salesColor}></span>
+            <span>sales</span>
+          </p>
+          <p className={styles.footerRight}>
+            <span className={styles.appointmentColor}></span>
+            <span>Appoinment</span>
+          </p>
+        </div>
+      </div>
     </>
   );
 };

@@ -10,24 +10,18 @@ const ServicePage = () => {
   return (
     <main className={style.mainContainer}>
       <section className={style.container}>
-        <div className={style.LeftSideBarHide}>
-          <div className={style.left}>
-            <LeftSideBar />
-          </div>
+        <div className={style.left}>
+          <LeftSideBar />
         </div>
+
         <div className={style.downContainer}>
-          <div className={style.ForSmallScreen}>
-            <div className={style.Navbar}>
-              <ServicePageNavbar />
-            </div>
-            {/* <PartnerAccountSetting/> */}
+          <div className={style.navbar}>
+            <ServicePageNavbar />
           </div>
           <Outlet />
         </div>
       </section>
-      <section className={style.bottomNav}>
-        <BottomNav />
-      </section>
+      <BottomNav />
     </main>
   );
 };

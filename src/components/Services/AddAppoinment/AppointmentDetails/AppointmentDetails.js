@@ -18,7 +18,6 @@ const AppointmentDetails = () => {
   const { data: slots, isLoading, error } = useTimeSlots(genarateSlotsData);
   const times = slots?.res?.data;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Option 1");
   const [selectedServices, setSelectedServices] = useState([]);
   const [category, setcategory] = useState(categories[0]);
   const [time, setTime] = useState(times ? times[0] : "option");
@@ -42,11 +41,7 @@ const AppointmentDetails = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  const options = ["Option 1", "Option 2", "Option 3"];
 
-  const handleSelectChange = (value) => {
-    setSelectedOption(value);
-  };
   return (
     <section className={styles.mainContainer}>
       <div className={styles.container}>

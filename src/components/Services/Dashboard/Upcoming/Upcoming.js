@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Upcoming.module.css";
 import RecentActivity from "../RecentActivity/RecentActivity";
 import axiosInstance from "../../../../services/axios";
@@ -6,6 +6,7 @@ import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 import { useQuery } from "react-query";
 import { toast } from "react-toastify";
+import MobileView from "./MobileView";
 const TimeAddition = (initialTime, additionalTime) => {
   const match = additionalTime.match(/(\d+)\s*hr\s*(\d*)\s*min/);
   const hoursToAdd = match ? parseInt(match[1], 10) : 0;
@@ -28,6 +29,8 @@ const TimeAddition = (initialTime, additionalTime) => {
   return formattedNewTime;
 };
 const Upcoming = () => {
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["sales/upcomingAppointments"],
     queryFn: async () => {
@@ -42,6 +45,19 @@ const Upcoming = () => {
     },
   });
 
+  useEffect(() => {
+    const handleResize = () => {
+      setInnerWidth(window.innerWidth);
+    };
+
+    // Attach the event listener when the component mounts
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []); // E
   if (isLoading) {
     <LoadSpinner />;
   }
@@ -51,9 +67,9 @@ const Upcoming = () => {
 
   return (
     <>
-      {window.innerWidth < 600 ? (
+      {innerWidth < 600 ? (
         <div className={styles.maincontainer}>
-          <RecentActivity />
+          {data && <MobileView data={data?.data} />}
         </div>
       ) : (
         <div className={styles.maincontainer}>
