@@ -8,6 +8,7 @@ import modalReducer from "./slices/modal";
 import salonServicesReducer from "./slices/salonServices";
 import lookbook from "./slices/lookbook";
 import VisitorDetails from "./slices/VisitorDetails";
+import  adminBasicSlice from "./slices/adminSlice/adminBasicSlice"
 
 export const store = configureStore({
    reducer: {
@@ -18,7 +19,8 @@ export const store = configureStore({
       modal: modalReducer,
       salonServices: salonServicesReducer,
       lookbook:lookbook,
-      VisitorDetails:VisitorDetails
+      VisitorDetails:VisitorDetails,
+      adinBasicData:adminBasicSlice,
    },
    middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(),

@@ -23,14 +23,14 @@ const EditTeamData = () => {
 
     }
     const employeeSchedule = () => {
-        navigate("/service/EmployeeSchedule")
+        navigate("/partner/dashboard/EmployeeSchedule")
     }
     return (
 
         <div className={styles.container}>
             <div>
                 <div className={styles.usr_detail_head}>
-                    <Link to={"/service/TeamManageMent"}>
+                    <Link to={"/partner/dashboard/TeamManageMent"}>
 
                         <span><img src={arrowLeft} alt="arrowLeft" className={styles.Pictures} /></span>
 

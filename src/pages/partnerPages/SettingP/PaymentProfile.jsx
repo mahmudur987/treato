@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./PaymentProfile.module.css"
-// import styles from "../../../components/HomePage/Contactus/Contactus.module.css"
 import InputField from '../../../components/Input/Input'
 import arrowLeft from "../../../assets/images/AccountSettings/arrow-left.svg"
 import { Link } from 'react-router-dom'
 
 
-const PaymentProfile = ({ mainData }) => {
+
+
+const PaymentProfile = () => {
+
   const [formData, setFormData] = useState({
 
     bankName: "",
@@ -14,6 +16,11 @@ const PaymentProfile = ({ mainData }) => {
     accountName: "",
     ifscCode: "",
   });
+
+  const handleSubmit = async (e, formData) => {
+    e.preventDefault();
+
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -30,18 +37,19 @@ const PaymentProfile = ({ mainData }) => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // submission logic here
-  };
+
+
+
   return (<>
+
     <section className={styles["container"]} >
+
       <div className={styles["contactWrapper"]}>
 
         <div className={styles["formContainer"]}>
 
           <div className={styles["heading"]}>
-            <Link to={"/service/PartnerAccountSetting"}>
+            <Link to={"/partner/dashboard/PartnerAccountSetting"}>
 
               <span>
                 <img src={arrowLeft} alt="arrowLeft" className={styles["arrowLeft"]} />
@@ -56,10 +64,10 @@ const PaymentProfile = ({ mainData }) => {
 
             <div className={styles["inputField"]}>
 
-              <select name="" id="">
-                <option value="">SBI</option>
-                <option value="">HDFC</option>
-                <option value="">B OF M</option>
+              <select name="bankName" id="bankName" onChange={handleChange}>
+                <option value="SBI">SBI</option>
+                <option value="HDFC">HDFC</option>
+                <option value="B OF M">B OF M</option>
               </select>
 
             </div>

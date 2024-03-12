@@ -213,6 +213,7 @@ color: #08090A;
                 border-radius: 10px;
                 gap: 89px
             }
+            .SubHeading{display: flex;justify-content: flex-start;}
           .shareC{padding-left: 0px; font-weight: 600;}  
           .shareB{padding-right: 60px;} 
         

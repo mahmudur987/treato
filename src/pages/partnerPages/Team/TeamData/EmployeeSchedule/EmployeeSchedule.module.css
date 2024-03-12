@@ -203,22 +203,21 @@ margin-top: 20px;
  @media only screen and (max-width: 768px) {
     .container{  padding: 1rem 1rem ; }
     .Profile_Pic_Main {
-      margin-bottom: 5px;
       width: 342px;
       gap: 4px;
       flex-direction: column; 
-        height: 184px;
+        height: 250px;
         }
-        .dateInput {
-            width: 116px; /* Set width to 100% on smaller screens */
-            margin-bottom: 20px; /* Optional: Add margin to create space between items */
-        }
+        /* .dateInput {
+            width: 116px;
+            margin-bottom: 20px; 
+        } */
         .EplyShiptcheckRes{display: flex; gap: 3px;}
     .EplyShiptcheck{ flex-direction: row;  align-items: flex-start;}
     .EplyShiptSelect{display: flex; gap: 6px;}
         .copyImgRespons{display: block; margin-left: 187px;}
          
-          .selectPro{width: 342px;}
+          .selectPro{width: 310px; margin-bottom: 25px;}
          
           .usr_detail_Para{display: none;}
           .headingShift1{display: none;}

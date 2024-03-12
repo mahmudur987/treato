@@ -151,14 +151,13 @@ text-align: left;
  
  .selectedTime {border: 1px solid #0D69D7;}
  
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .container{
     height: 844px;
     width: 390px;
   }
   .tableContainer {
     overflow-x: auto;
-    max-width: 100%;
    
 }
  

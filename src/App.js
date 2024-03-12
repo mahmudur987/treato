@@ -30,8 +30,8 @@ import PartnerPage from "./layouts/PartnerPageLayout/PartnerPage";
 import ServicePage from "./layouts/ServicePageLayout/ServicePagelLayout";
 import ModalManager from "./components/_modals/ModalManager";
 import Dashboard from "./pages/partnerPages/Dashboard/Dashboard";
-import PartnerAccountSetting from "./pages/partnerPages/SettingDropDown/PartnerAccountSetting";
-import PaymentProfile from "./pages/partnerPages/SettingDropDown/PaymentProfile";
+import PartnerAccountSetting from "./pages/partnerPages/SettingP/PartnerAccountSetting";
+import PaymentProfile from "./pages/partnerPages/SettingP/PaymentProfile";
 import Bussness from "./pages/partnerPages/Bussness/Bussness";
 import PicturesGallery from "./pages/partnerPages/Bussness/Gallery/PicturesGallery";
 import ServiceOffer from "./pages/partnerPages/Bussness/ServiceOffer";
@@ -192,7 +192,7 @@ function App() {
             {/* partner accountsetting */}
             <Route
               path="/partner/dashboard/PartnerAccountSetting"
-              element={<PartnerAccountSetting />}
+              element={<PartnerAccountSetting/>}
             />
             <Route
               path="/partner/dashboard/serviceBussness"
@@ -200,7 +200,7 @@ function App() {
             />
             <Route
               path="/partner/dashboard/PaymentProfile"
-              element={<PaymentProfile />}
+              element={<PaymentProfile/>}
             />
             <Route
               path="/partner/dashboard/storetime"

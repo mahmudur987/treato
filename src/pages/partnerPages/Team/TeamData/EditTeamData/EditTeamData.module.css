@@ -203,8 +203,11 @@ color:#EBEDF0;
 
 }
 
-@media only screen and (max-width: 600px) {
-  .container{padding: 1rem 1.5rem ; width: 302px; }
+@media only screen and (max-width: 768px) {
+  .container{ 
+    /* padding: 1rem 1.5rem ; */
+    width: 302px; 
+  }
   .mainDiv {flex-direction: column; width: 302px;}
     .usr_detail_Para{display: none;} 
     .names{width: 141px;}

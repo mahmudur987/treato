@@ -295,10 +295,10 @@ const TeamDetails = () => {
   };
 
   const AddTeamMemberData = () => {
-    navigate("/service/AddMemberProfile")
+    navigate("/partner/dashboard/AddMemberProfile")
   }
   const EditTeamMemberData = () => {
-    navigate("/service/EditMemberProfile")
+    navigate("/partner/dashboard/EditMemberProfile")
   }
 
   return (

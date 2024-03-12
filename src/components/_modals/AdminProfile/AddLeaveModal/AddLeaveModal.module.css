@@ -110,7 +110,7 @@ margin-bottom: 5px;
     margin-top: 15px;
 }
 
-
+.Profile_Time1,
   .Profile_Time {
       display:flex ;
       gap: 24px;
@@ -216,6 +216,9 @@ color: #08090A;
                  margin-left: 0% !important; 
                 
             }
+            .SubHeading{display: flex; justify-content: flex-start;}
+            .labelText{display: flex; justify-content: flex-start;}
+            .Profile_Time1{display: flex; gap: 5px;}
             .shareA {
                width: 100%;
                 height:600px;

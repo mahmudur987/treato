@@ -2,7 +2,7 @@ import styles from './BasicInputs.module.css'
 
 export default function BasicInputs(props) {
 
-    const { placeholder, type, VALUE, DISABLED, id, NAME, updateInputVal, inputVal, required, className, onChange, checked, label, style } = props;
+    const { placeholder, type, value, DISABLED, id, NAME, updateInputVal, inputVal, required, className, onChange, checked, label, style } = props;
     function inputValue(e) {
         if (updateInputVal) {
             let allValue = { ...inputVal };
@@ -23,7 +23,7 @@ export default function BasicInputs(props) {
                         {/* {label} */}
                         <textarea
                             name={NAME}
-                            value={VALUE}
+                            value={value}
                             onChange={onChange}
                             placeholder={placeholder}
                             className={style}
@@ -36,7 +36,7 @@ export default function BasicInputs(props) {
                         <input
                             type={type}
                             name={NAME}
-                            value={VALUE}
+                            value={value}
                             onChange={onChange}
                             placeholder={placeholder}
                             className={styles.input}
