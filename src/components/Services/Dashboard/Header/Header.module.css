@@ -59,7 +59,9 @@
 }
 
 .cardRight {
-  width: 30%;
+  width: 35%;
+  display: flex;
+  gap: 5px;
 }
 
 @media only screen and (max-width: 700px) {

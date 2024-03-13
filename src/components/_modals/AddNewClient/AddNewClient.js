@@ -1,33 +1,41 @@
 // Modal.js
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./AddNewClient.module.css";
 import CustomSelect from "../../Select/CustomeSelect";
 import en from "react-phone-number-input/locale/en";
 import { IoMdArrowBack } from "react-icons/io";
 import CountrySelect from "../../Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
+import { AddAppoinmentContext } from "../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
 const AddNewClient = ({ showModal, onClose }) => {
+  const { setCustomarDeails } = useContext(AddAppoinmentContext);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [comments, setComments] = useState("");
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("IN");
-  const [password, setPassword] = useState("");
   const [selectedOption, setSelectedOption] = useState("Male");
   const options = ["Male", "Female", "Other"];
 
   const handleSelectChange = (value) => {
     setSelectedOption(value);
   };
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Corrected typo here
+    const data = {
+      phone: phone.length ? `+${getCountryCallingCode(country)}${phone}` : "",
+      name: firstName + " " + lastName,
+      email: email,
+    };
+
+    setCustomarDeails(data);
+
     onClose();
   };
 
   const handleCancel = () => {
     onClose();
-  };
-
-  const handleformSubmit = () => {
-    const data = {
-      phone: phone.length ? `+${getCountryCallingCode(country)}${phone}` : "",
-    };
   };
 
   return (
@@ -41,20 +49,36 @@ const AddNewClient = ({ showModal, onClose }) => {
         </span>
         <h2 className={styles.modalHeading}>Add a new client</h2>
 
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formItemsWrapper}>
             <div className={styles.formItems}>
               <label htmlFor="servicetype">Frst Name</label>
-              <input type="text" placeholder="Client first name" />
+              <input
+                onChange={(e) => setFirstName(e.target.value)}
+                value={firstName}
+                type="text"
+                placeholder="Client first name"
+                required
+              />
             </div>
             <div className={styles.formItems}>
               <label htmlFor="servicetype">Last Name</label>
-              <input type="text" placeholder="Client last name" />
+              <input
+                onChange={(e) => setLastName(e.target.value)}
+                value={lastName}
+                type="text"
+                placeholder="Client last name"
+              />
             </div>
           </div>
           <div className={styles.formItems}>
             <label htmlFor="servicetype">Email</label>
-            <input type="text" placeholder="Enter clients email address" />
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              type="email"
+              placeholder="Enter clients email address"
+            />
           </div>
           <div className={styles.formItemsWrapper}>
             <div className={styles.formItems}>
@@ -66,7 +90,12 @@ const AddNewClient = ({ showModal, onClose }) => {
                   onChange={setCountry}
                   phone={phone}
                 />
-                <input type="text" placeholder="phone number" />
+                <input
+                  onChange={(e) => setPhone(e.target.value)}
+                  type="number"
+                  placeholder="phone number"
+                  required
+                />
               </p>
             </div>
             <div className={styles.formItems}>
@@ -119,11 +148,7 @@ const AddNewClient = ({ showModal, onClose }) => {
             >
               Cancel
             </button>
-            <button
-              className={styles.save}
-              type="button"
-              onClick={handleSubmit}
-            >
+            <button className={styles.save} type="submit">
               Save
             </button>
           </div>

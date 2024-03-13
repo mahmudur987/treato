@@ -63,7 +63,10 @@
   gap: 10px;
   cursor: pointer;
 }
-
+.noservice {
+  color: red;
+  padding: 20px 0px;
+}
 .timeWrapper {
   width: 100%;
   display: flex;
@@ -89,4 +92,5 @@
   width: 100%;
   border: 1px solid var(--Grey-30);
   border-radius: 8px;
+  padding: 10px 0 0 10px;
 }

@@ -81,7 +81,7 @@ const SelectServiceModal = ({
               checked={
                 selectedServices.length ===
                 mainCategories.flatMap((category) =>
-                  category.subCategories.map((service) => service._id)
+                  category?.subCategories?.map((service) => service._id)
                 ).length
               }
             />

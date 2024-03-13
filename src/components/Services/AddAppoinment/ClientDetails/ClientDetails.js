@@ -1,48 +1,48 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import styles from "./ClientDetails.module.css";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import CustomSelect3 from "../../../Select/CustomeSelect3/CustomSelect3";
 import AddNewClient from "../../../_modals/AddNewClient/AddNewClient";
 import { singleSalon } from "../../../../utils/data";
+import { useSingleSalon } from "../../../../services/salon";
+import { AddAppoinmentContext } from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
+const clients = [
+  {
+    name: "mahmud",
+    email: "mahmud1@gmail.com",
+  },
+  {
+    name: "mahmud2",
+    email: "mahmud2@gmail.com",
+  },
+  {
+    name: "mahmud3",
+    email: "mahmud3@gmail.com",
+  },
+  {
+    name: "polash",
+    email: "polash@gmail.com",
+  },
+  {
+    name: "mamun",
+    email: "mamun@gmail.com",
+  },
+];
 const ClientsDetails = () => {
-  const teamMembers = singleSalon.salon.stylists.map((x) => {
-    return { name: x.stylist_name, imageUrl: x.stylist_Img.public_url };
-  });
-  const [selectedteamMember, setSelectedTeamMember] = useState(
-    teamMembers
-      ? teamMembers[0]
-      : {
-          name: "mahmud",
-          imageUrl:
-            "https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg",
-        }
-  );
+  const {
+    teamMembers,
+    selectedteamMember,
+    setSelectedTeamMember,
+    price,
+    setPrice,
+    discount,
+    setdiscount,
+  } = useContext(AddAppoinmentContext);
+
   const [selectedClient, setSelectedclient] = useState({
     name: "mahmud",
     email: "mahmud@gmail.com",
   });
-  const clients = [
-    {
-      name: "mahmud",
-      email: "mahmud@gmail.com",
-    },
-    {
-      name: "mahmud",
-      email: "mahmud@gmail.com",
-    },
-    {
-      name: "mahmud",
-      email: "mahmud@gmail.com",
-    },
-    {
-      name: "polash",
-      email: "polash@gmail.com",
-    },
-    {
-      name: "mamun",
-      email: "mamun@gmail.com",
-    },
-  ];
 
   const handleSelectteamMember = (value) => {
     setSelectedTeamMember(value);
@@ -60,8 +60,6 @@ const ClientsDetails = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  // console.log(members);
 
   return (
     <section className={styles.mainContainer}>
@@ -92,7 +90,12 @@ const ClientsDetails = () => {
             <div className={styles.price}>
               <label htmlFor="">price </label>
               <p>
-                <input type="text" placeholder="$1.199.00" />
+                <input
+                  onChange={(e) => setPrice(e.target.value)}
+                  value={price}
+                  type="text"
+                  placeholder="$1.199.00"
+                />
 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +116,12 @@ const ClientsDetails = () => {
             <div className={styles.price}>
               <label htmlFor="">Discount (optional)</label>
               <p>
-                <input type="text" placeholder="$0.00" />
+                <input
+                  onChange={(e) => setdiscount(e.target.value)}
+                  type="text"
+                  value={discount}
+                  placeholder="$0.00"
+                />
 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
