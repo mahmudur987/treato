@@ -13,12 +13,11 @@ const TimeScheduleModal = ({
   employeeSchedule,
 }) => {
   return (
-    <div>
+    <>
       <div className={sty.editContent1}>
         {handleShift && (
           <div className={sty.editContent}>
             <div>
-              {isEdit && <EditAdminModal onClose={closeEditModal} />}
               <p
                 onClick={() => {
                   openEditModal();
@@ -29,7 +28,6 @@ const TimeScheduleModal = ({
             </div>
             <p onClick={employeeSchedule}>Edit Employee Schedule</p>
             <div>
-              {isLeave && <AddLeaveModal onClose={closeLeaveModal} />}
               <p
                 onClick={() => {
                   openLeaveModal();
@@ -42,7 +40,9 @@ const TimeScheduleModal = ({
           </div>
         )}
       </div>
-    </div>
+      {isEdit && <EditAdminModal onClose={closeEditModal} />}
+      {isLeave && <AddLeaveModal onClose={closeLeaveModal} />}
+    </>
   );
 };
 

@@ -71,7 +71,6 @@ const AppointmentDetails = () => {
 
   const { data: slots, isLoading, error } = useTimeSlots(generateSlotsData);
   const times = slots?.res?.data || ["09:00", "9:30", "10:00"];
-  console.log(generateSlotsData, slots);
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -135,7 +134,6 @@ const AppointmentDetails = () => {
   if (salonIsError) {
     return <ErrorComponent message={salonError.message} />;
   }
-
   return (
     <section className={styles.mainContainer}>
       <div className={styles.container}>

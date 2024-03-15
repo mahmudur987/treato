@@ -1,132 +1,163 @@
-import React, { useState } from 'react'
-import styles from './SelectServiceModal.module.css'
-import Grey_Close from '../../../../assets/images/icons/Grey_Close.svg'
-// import search from "../../../../assets/images/TeamDetails/search.png"
-import search from "../../../../assets/images/TeamDetails/search.png"
-import Ellipse from "../../../../assets/images/TeamDetails/Ellipse 294.png"
-import { toast } from 'react-toastify';
-import BasicInputTeam from '../../../../pages/partnerPages/Team/TeamData/AddTeamMember/input/BasicInputTeam'
+// Modal.js
+import React, { useState } from "react";
+import styles from "./SelectServiceModal.module.css";
+import { IoMdArrowBack } from "react-icons/io";
+import { CiSearch } from "react-icons/ci";
+const SelectServiceModal = ({
+  showModal,
+  onClose,
+  selectedServices,
+  setSelectedServices,
+  mainCategories,
+}) => {
+  const [all, setall] = useState(false);
+  const toggleService = (serviceId) => {
+    setSelectedServices((prevSelected) =>
+      prevSelected.includes(serviceId)
+        ? prevSelected.filter((id) => id !== serviceId)
+        : [...prevSelected, serviceId]
+    );
+  };
 
-export default function SelectServiceModal({ onClose }) {
-    const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
-    const [filterValue, setFilterValue] = useState("");
-
-    const allService = [
-        { service: "Colours and Highlights (7 items)", },
-        { service: "Hair cut ladies", time: "1 hr 15 mins", price: "₹499", Ellipse },
-        { service: "Hair cut ladies", time: "1 hr 15 mins", price: "₹499", Ellipse },
-        { service: "Blow drying ladies", time: "1 hr 15 mins", price: "₹499", Ellipse },
-        { service: "Hair cut ladies", time: "1 hr 15 mins", price: "₹499", Ellipse },
-        { service: "Blow drying ladies", time: "1 hr 15 mins", price: "₹499", Ellipse },
-        { service: "Hair cut ladies", time: "1 hr 15 mins", price: "₹499", Ellipse },
-        { service: "Cutting & Styling (11 items)", },
-        { service: "Hair cut ladies", time: "1 hr 15 mins", price: "₹499", Ellipse },
-
-    ];
-
-    const filteredPeople = allService.filter((person) =>
-        person.service.toLowerCase().includes(filterValue.toLowerCase())
+  const toggleCategory = (categoryId) => {
+    const categoryServices = mainCategories
+      .find((category) => category._id === categoryId)
+      .subCategories.map((service) => service._id);
+    setSelectedServices((prevSelected) =>
+      prevSelected.some((id) => categoryServices.includes(id))
+        ? prevSelected.filter((id) => !categoryServices.includes(id))
+        : [...prevSelected, ...categoryServices]
+    );
+  };
+  const handleSelectAll = () => {
+    const allServices = mainCategories.flatMap((category) =>
+      category.subCategories.map((service) => service._id)
+    );
+    setall(!all);
+    // Check if all services are already selected
+    const allSelected = allServices.every((serviceId) =>
+      selectedServices.includes(serviceId)
     );
 
-    const handleCheckboxChange = (person) => {
-        const isSelected = selectedCheckboxes.includes(person);
+    // Toggle selection based on the current state
+    setSelectedServices((prevSelected) =>
+      allSelected ? [] : [...prevSelected, ...allServices]
+    );
+  };
 
-        let updatedCheckboxes;
+  const handleSubmit = () => {
+    onClose();
+  };
 
-        if (isSelected) {
-            // If the person is already selected, remove them
-            updatedCheckboxes = selectedCheckboxes.filter(
-                (selectedPerson) => selectedPerson !== person
-            );
-        } else {
-            // If the person is not selected, add them
-            updatedCheckboxes = [...selectedCheckboxes, person];
-        }
+  const handleCancel = () => {
+    onClose();
+  };
 
-        setSelectedCheckboxes(updatedCheckboxes);
-    };
-    const handleSelectAll = () => {
-        if (selectedCheckboxes.length === filteredPeople.length) {
-            setSelectedCheckboxes([]);
-        } else {
-            setSelectedCheckboxes(filteredPeople.map((person) => person.service));
-        }
-    };
-    return (
-        <div className={styles.shareMain}>
-            <div className={styles.shareA}>
-                <form>
-                    <div className={styles.ModalHeader}>
-                        <div className={styles.mob_d}>
-                            <div className={styles.crossIcon}>
-                                <img src={Grey_Close} alt="close" onClick={onClose} />
-                            </div>
-                            <div className={styles.SelectHeading}>
-                                Select services
-                            </div>
-                        </div>
-                        <div className={styles.searchBox1}>
-                            <span className={styles.searchBox}>
-
-                                <img src={search} alt="search" className={styles.searchBoxImg} />
-                                <input type="search" placeholder='Find service' className={styles.searchInp} />
-                            </span>
-                        </div>
-
-                        <div className={styles.SelectAllDiv}>
-                            <label className={styles.topLabel}>
-                                <input
-                                    type="checkbox"
-                                    onChange={handleSelectAll}
-                                    checked={selectedCheckboxes.length === filteredPeople.length}
-                                />
-                                <span>Select all (53 items)</span>
-                            </label>
-                            <input
-                                type="text"
-                                placeholder=""
-                                value={filterValue}
-                                onChange={(e) => setFilterValue(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
-                    <div className={styles.peoples}>
-
-                        {filteredPeople.map((person) => (<div>
-
-                            <div className={styles.serviceMain}>
-
-                                <label key={person.name} className={styles.people}>
-                                    <input
-                                        type="checkbox"
-                                        onChange={() => handleCheckboxChange(person.service)}
-                                        checked={selectedCheckboxes.includes(person.service)}
-                                    />
-
-                                    <p>
-
-                                        <span className={styles.serviceName}>{person.service}</span>
-
-                                    </p>
-                                </label>
-                                <div>
-                                    <span className={styles.timing}>{person.time}</span>
-                                    <span className={styles.dot}> <img src={person.Ellipse} alt="" /></span>
-                                    <span className={styles.prices}>{person.price}</span>
-                                </div>
-                            </div>
-                            <div className={styles.horizontalLine}></div>
-                        </div>
-                        ))}
-                    </div>
-                    <div className={styles.horizontalLine}></div>
-                    <div className={styles.SubmitBtn}>
-                        <button className={styles.CancelBtn} onClick={onClose}>Cancel</button>
-                        <button className={styles.SaveBtn}>Apply</button>
-                    </div>
-                </form>
-            </div>
+  return (
+    <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
+      <div className={styles.modalContent}>
+        <span className={styles.close} onClick={onClose}>
+          &times;
+        </span>
+        <span className={styles.back} onClick={onClose}>
+          <IoMdArrowBack />
+        </span>
+        <h2 className={styles.modalHeading}>Select Service</h2>
+        {/* search */}
+        <div className={styles.search}>
+          <span>
+            <CiSearch />
+          </span>
+          <input type="text" placeholder="Find service" />
         </div>
-    )
-}
+        {/* selectall */}
+        <div className={styles.selectAll}>
+          <label>
+            <input
+              type="checkbox"
+              onChange={handleSelectAll}
+              checked={
+                selectedServices.length ===
+                mainCategories.flatMap((category) =>
+                  category?.subCategories?.map((service) => service._id)
+                ).length
+              }
+            />
+            <span>Select All</span>
+          </label>
+        </div>
+        <hr className={styles.hrDivider} />
+
+        <form className={styles.form}>
+          <div className={styles.serviceForm}>
+            <div className={styles.categories}>
+              {mainCategories.map((category) => (
+                <div key={category._id} className={styles.category}>
+                  <div
+                    className={styles.categoryHeader}
+                    onClick={() => toggleCategory(category._id)}
+                  >
+                    <input
+                      checked={
+                        all
+                          ? all
+                          : JSON.stringify(
+                              category.subCategories.map((x) => x._id)
+                            ) == JSON.stringify(selectedServices)
+                      }
+                      type="checkbox"
+                      name=""
+                      id=""
+                    />{" "}
+                    {category.category_name} ({category.subCategories.length})
+                    item
+                  </div>
+                  {category.subCategories && (
+                    <div className={`${styles.services} `}>
+                      {category.subCategories.map((service) => (
+                        <div
+                          key={service._id}
+                          className={`${styles.service} `}
+                          onClick={() => toggleService(service._id)}
+                        >
+                          <p>
+                            <input
+                              checked={selectedServices.includes(service._id)}
+                              type="checkbox"
+                              name=""
+                              id=""
+                            />
+
+                            <span>{service.service_name}</span>
+                          </p>
+                          <p>
+                            <span>{service.time_takenby_service}</span>.
+                            <span>$ {service.price}</span>
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </form>
+        <div className={styles.buttonContainer}>
+          <button
+            className={styles.cancel}
+            type="button"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+          <button className={styles.save} type="button" onClick={handleSubmit}>
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SelectServiceModal;

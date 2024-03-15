@@ -60,13 +60,13 @@ const TimeSchedule = () => {
   const sevenDates = data?.data[0]?.time_for_service
     .slice(startPoint, endPoint)
     .map((x) => {
-      const date = formatCustomDate(x.date);
+      const date = formatCustomDate(x?.date);
       return date;
     });
-  const SD = data?.data[0]?.time_for_service[startPoint].date;
-  const Ed = data?.data[0]?.time_for_service[endPoint - 1].date;
+  const SD = data?.data[0]?.time_for_service[startPoint]?.date;
+  const Ed = data?.data[0]?.time_for_service[endPoint - 1]?.date;
   const { startDate, endDate } = formatDateRange(SD, Ed);
-  const TeamDetailsData = data?.data.map((x) => {
+  const TeamDetailsData = data?.data?.map((x) => {
     const data = {
       profile: x.stylist_Img.public_url || "",
       name: x.stylist_name,
@@ -105,31 +105,33 @@ const TimeSchedule = () => {
           <img src={arrowLeft} alt="arrowLeft" className={sty.arrowLeft} />
           <h1 className={sty.headingTeam}>Team Schedule</h1>
         </div>
-        <div className={sty.teamCal}>
-          <p className={sty.teamCalIcon}>
-            <span onClick={handledecrease}>
-              <img
-                src={chevronLeft}
-                alt="chevronLeft"
-                className={sty.chevronLeft}
-              />
-            </span>
-            <span className={sty.cal}>
-              {startDate} - {endDate}{" "}
-              <img src={calendar_line} alt="calendar_line" />
-            </span>
-            <span onClick={handleIncrease}>
-              <img
-                src={chevronRight}
-                alt="chevronRight"
-                className={sty.chevronRight}
-              />{" "}
-            </span>
-          </p>
-          <div onClick={scrollToLeft}>
-            <img src={Scroller} alt="Scroller" className={sty.ScrollerImg} />
+        {data?.data[0]?.time_for_service.length > 0 && (
+          <div className={sty.teamCal}>
+            <p className={sty.teamCalIcon}>
+              <span onClick={handledecrease}>
+                <img
+                  src={chevronLeft}
+                  alt="chevronLeft"
+                  className={sty.chevronLeft}
+                />
+              </span>
+              <span className={sty.cal}>
+                {startDate} - {endDate}{" "}
+                <img src={calendar_line} alt="calendar_line" />
+              </span>
+              <span onClick={handleIncrease}>
+                <img
+                  src={chevronRight}
+                  alt="chevronRight"
+                  className={sty.chevronRight}
+                />{" "}
+              </span>
+            </p>
+            <div onClick={scrollToLeft}>
+              <img src={Scroller} alt="Scroller" className={sty.ScrollerImg} />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className={sty.downloadButtonContainer}>
           <button className={sty.dBtn}>
@@ -166,7 +168,7 @@ const TimeSchedule = () => {
               {sevenDates &&
                 sevenDates.map((x, i) => (
                   <th key={i}>
-                    {x?.day.slice(0, 3)} - {x.month} {x.date}
+                    {x?.day.slice(0, 3)} - {x?.month} {x?.date}
                   </th>
                 ))}
             </tr>
@@ -194,11 +196,11 @@ const TimeSchedule = () => {
                       <button className={sty.Closed}>Closed</button>{" "}
                     </td> */}
 
-                    {item?.schedule &&
+                    {item?.schedule && item?.schedule.length > 0 ? (
                       item?.schedule.map((y, i) => {
                         const { startTime, endTime } = DateAndTime(
-                          y.date,
-                          y.time_slots
+                          y?.date,
+                          y?.time_slots
                         );
 
                         return (
@@ -212,7 +214,12 @@ const TimeSchedule = () => {
                             </div>
                           </td>
                         );
-                      })}
+                      })
+                    ) : (
+                      <td>
+                        <ErrorComponent message={"No data found"} />
+                      </td>
+                    )}
                   </tr>
                 </>
               );

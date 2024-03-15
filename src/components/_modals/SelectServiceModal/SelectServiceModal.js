@@ -1,10 +1,8 @@
 // Modal.js
 import React, { useState } from "react";
 import styles from "./SelectServiceModal.module.css";
-
 import { IoMdArrowBack } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
-import { singleSalon } from "../../../utils/data";
 const SelectServiceModal = ({
   showModal,
   onClose,
@@ -64,7 +62,7 @@ const SelectServiceModal = ({
         <span className={styles.back} onClick={onClose}>
           <IoMdArrowBack />
         </span>
-        <h2 className={styles.modalHeading}>Select Service</h2>
+        <h2 className={styles.modalHeading}>Select Service </h2>
         {/* search */}
         <div className={styles.search}>
           <span>
@@ -80,7 +78,7 @@ const SelectServiceModal = ({
               onChange={handleSelectAll}
               checked={
                 selectedServices.length ===
-                mainCategories.flatMap((category) =>
+                mainCategories?.flatMap((category) =>
                   category?.subCategories?.map((service) => service._id)
                 ).length
               }
