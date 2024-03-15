@@ -91,55 +91,63 @@ const SelectServiceModal = ({
         <form className={styles.form}>
           <div className={styles.serviceForm}>
             <div className={styles.categories}>
-              {mainCategories.map((category) => (
-                <div key={category._id} className={styles.category}>
-                  <div
-                    className={styles.categoryHeader}
-                    onClick={() => toggleCategory(category._id)}
-                  >
-                    <input
-                      checked={
-                        all
-                          ? all
-                          : JSON.stringify(
-                              category.subCategories.map((x) => x._id)
-                            ) == JSON.stringify(selectedServices)
-                      }
-                      type="checkbox"
-                      name=""
-                      id=""
-                    />{" "}
-                    {category.category_name} ({category.subCategories.length})
-                    item
-                  </div>
-                  {category.subCategories && (
-                    <div className={`${styles.services} `}>
-                      {category.subCategories.map((service) => (
-                        <div
-                          key={service._id}
-                          className={`${styles.service} `}
-                          onClick={() => toggleService(service._id)}
-                        >
-                          <p>
-                            <input
-                              checked={selectedServices.includes(service._id)}
-                              type="checkbox"
-                              name=""
-                              id=""
-                            />
+              {mainCategories.map((category) => {
+                const isHidden =
+                  JSON.stringify(category.subCategories.map((x) => x._id)) ==
+                  JSON.stringify(selectedServices);
 
-                            <span>{service.service_name}</span>
-                          </p>
-                          <p>
-                            <span>{service.time_takenby_service}</span>.
-                            <span>$ {service.price}</span>
-                          </p>
-                        </div>
-                      ))}
+                console.log(isHidden);
+                return (
+                  <div key={category._id} className={styles.category}>
+                    <div
+                      style={{ display: `${isHidden ? "none" : ""}` }}
+                      className={styles.categoryHeader}
+                      onClick={() => toggleCategory(category._id)}
+                    >
+                      <input
+                        checked={
+                          all
+                            ? all
+                            : JSON.stringify(
+                                category.subCategories.map((x) => x._id)
+                              ) == JSON.stringify(selectedServices)
+                        }
+                        type="checkbox"
+                        name=""
+                        id=""
+                      />{" "}
+                      {category.category_name}({category.subCategories.length})
+                      item
                     </div>
-                  )}
-                </div>
-              ))}
+                    {category.subCategories && (
+                      <div className={`${styles.services} `}>
+                        {category.subCategories.map((service) => (
+                          <div
+                            key={service._id}
+                            className={`${styles.service} `}
+                            onClick={() => toggleService(service._id)}
+                          >
+                            <p>
+                              <input
+                                checked={selectedServices.includes(service._id)}
+                                type="checkbox"
+                                name=""
+                                id=""
+                              />
+
+                              <span>{service.service_name}</span>
+                            </p>
+                            <p>
+                              <span>{service.time_takenby_service}</span>.
+                              <span>$ {service.price}</span>
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </form>

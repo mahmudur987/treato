@@ -196,7 +196,7 @@ const AddMemberProfile = () => {
                 <p className={styles.offerTeam}>
                   Add the services this team member can offer
                 </p>
-                {data && allMainCategories.length > 0 ? (
+                {data && allMainCategories?.length > 0 ? (
                   <div className={styles.AllServices}>
                     <h4 className={styles.AllServicesText}>
                       All services (32)
@@ -210,7 +210,7 @@ const AddMemberProfile = () => {
                   </div>
                 ) : (
                   <ErrorComponent
-                    message={error.message ?? "no service available"}
+                    message={error?.message ?? "no service available"}
                   />
                 )}
                 <div className={styles.horizontalLine}></div>
