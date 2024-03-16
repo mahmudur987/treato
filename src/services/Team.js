@@ -15,16 +15,19 @@ export const useGetAllTeamMembers = () => {
     },
   });
 };
-export const useGetAllTeamMemSche = () => {
+export const useGetAllTeamMemSche = (startDate, endDate) => {
   const headers = {
     token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
-    queryKey: ["stylist/teamSchedule"],
+    queryKey: ["stylist/teamSchedule", startDate, endDate],
     queryFn: async () => {
-      const { data } = await axiosInstance.get("stylist/teamSchedule", {
-        headers,
-      });
+      const { data } = await axiosInstance.get(
+        `/stylist/teamSchedule?startDate=${startDate}&endDate=${endDate}`,
+        {
+          headers,
+        }
+      );
 
       return data;
     },

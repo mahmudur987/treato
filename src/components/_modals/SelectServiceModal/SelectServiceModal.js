@@ -18,7 +18,6 @@ const SelectServiceModal = ({
         : [...prevSelected, serviceId]
     );
   };
-
   const toggleCategory = (categoryId) => {
     const categoryServices = mainCategories
       .find((category) => category._id === categoryId)
@@ -34,12 +33,9 @@ const SelectServiceModal = ({
       category.subCategories.map((service) => service._id)
     );
     setall(!all);
-    // Check if all services are already selected
     const allSelected = allServices.every((serviceId) =>
       selectedServices.includes(serviceId)
     );
-
-    // Toggle selection based on the current state
     setSelectedServices((prevSelected) =>
       allSelected ? [] : [...prevSelected, ...allServices]
     );
@@ -95,8 +91,6 @@ const SelectServiceModal = ({
                 const isHidden =
                   JSON.stringify(category.subCategories.map((x) => x._id)) ==
                   JSON.stringify(selectedServices);
-
-                console.log(isHidden);
                 return (
                   <div key={category._id} className={styles.category}>
                     <div

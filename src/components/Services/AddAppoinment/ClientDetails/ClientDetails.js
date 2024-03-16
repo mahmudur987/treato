@@ -3,31 +3,11 @@ import styles from "./ClientDetails.module.css";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import CustomSelect3 from "../../../Select/CustomeSelect3/CustomSelect3";
 import AddNewClient from "../../../_modals/AddNewClient/AddNewClient";
-import { singleSalon } from "../../../../utils/data";
-import { useSingleSalon } from "../../../../services/salon";
+
+import { useGetTemMembers } from "../../../../services/salon";
 import { AddAppoinmentContext } from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
-const clients = [
-  {
-    name: "mahmud",
-    email: "mahmud1@gmail.com",
-  },
-  {
-    name: "mahmud2",
-    email: "mahmud2@gmail.com",
-  },
-  {
-    name: "mahmud3",
-    email: "mahmud3@gmail.com",
-  },
-  {
-    name: "polash",
-    email: "polash@gmail.com",
-  },
-  {
-    name: "mamun",
-    email: "mamun@gmail.com",
-  },
-];
+import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
+
 const ClientsDetails = () => {
   const {
     teamMembers,
@@ -37,18 +17,27 @@ const ClientsDetails = () => {
     setPrice,
     discount,
     setdiscount,
+    setCustomarDeails,
+    isError: teamIsError,
+    error: teamError,
   } = useContext(AddAppoinmentContext);
 
-  const [selectedClient, setSelectedclient] = useState({
-    name: "mahmud",
-    email: "mahmud@gmail.com",
-  });
+  const { data, isLoading, isError, error } = useGetTemMembers();
+  const clients = data?.data;
+  const [selectedClient, setSelectedclient] = useState(
+    clients
+      ? clients[0]
+      : {
+          name: "please select ",
+        }
+  );
 
   const handleSelectteamMember = (value) => {
     setSelectedTeamMember(value);
   };
   const handleSelectClient = (value) => {
     setSelectedclient(value);
+    setCustomarDeails(value);
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,12 +59,15 @@ const ClientsDetails = () => {
 
         <div className={styles.existingClient}>
           <label htmlFor="">Select an existing client</label>
-
-          <CustomSelect3
-            options={clients}
-            value={selectedClient}
-            onChange={handleSelectClient}
-          />
+          {data && !isError && !isLoading ? (
+            <CustomSelect3
+              options={clients}
+              value={selectedClient}
+              onChange={handleSelectClient}
+            />
+          ) : (
+            <ErrorComponent message={error.message} />
+          )}
         </div>
 
         <p onClick={() => openModal()} className={styles.addNewCliente}>
@@ -146,12 +138,16 @@ const ClientsDetails = () => {
         <h3 className={styles.heding}>Assign Professional</h3>
 
         <div className={styles.professional}>
-          <CustomSelect2
-            options={null}
-            value={selectedteamMember}
-            onChange={handleSelectteamMember}
-            teamMembers={teamMembers}
-          />
+          {teamMembers && !teamIsError ? (
+            <CustomSelect2
+              options={null}
+              value={selectedteamMember}
+              onChange={handleSelectteamMember}
+              teamMembers={teamMembers}
+            />
+          ) : (
+            <ErrorComponent message={teamError.message} />
+          )}
         </div>
       </div>
       <AddNewClient showModal={isModalOpen} onClose={closeModal} />

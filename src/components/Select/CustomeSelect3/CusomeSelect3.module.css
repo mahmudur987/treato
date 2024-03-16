@@ -48,8 +48,6 @@
   gap: 8px;
 }
 .headerItem {
-  width: 10%;
-  height: 50%;
   color: var(--Grey-Black, #08090a);
   font-family: Lato;
   font-size: 18px;
@@ -58,8 +56,6 @@
   letter-spacing: 0.16px;
 }
 .headerItem2 {
-  width: 10%;
-  height: 50%;
   color: var(--Grey-Black, #08090a);
   font-family: Lato;
   font-size: 14px;
@@ -120,6 +116,13 @@
   font-style: normal;
   font-weight: 600;
   letter-spacing: 0.16px;
+}
+.option span {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: var(--Grey-Black, #08090a);
+  font-family: Lato;
 }
 
 .option:hover {

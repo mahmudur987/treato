@@ -135,10 +135,11 @@
   border-radius: 4px;
   border: 1px;
   gap: 10px;
-
   margin: 5px;
+  border: 1px solid #ebedf0;
 }
 .times1 {
+  position: relative;
   flex-direction: row;
   font-family: Lato;
   font-size: 14px;
@@ -147,7 +148,15 @@
   letter-spacing: 0em;
   text-align: left;
 }
+.modalWrapper {
+  max-width: 200px;
+  width: 100%;
+  min-height: 200px;
+  position: absolute;
+  top: 70%;
 
+  z-index: 33;
+}
 .selectedTime {
   border: 1px solid #0d69d7;
 }

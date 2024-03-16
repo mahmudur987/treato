@@ -92,3 +92,17 @@ export const editService = async (data) => {
     return { res: null, err: error };
   }
 };
+export const useGetTemMembers = () => {
+  const headers = {
+    token: localStorage.getItem("jwtToken"),
+  };
+  return useQuery({
+    queryKey: ["appointment/getSalonClients"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get("appointment/getSalonClients", {
+        headers,
+      });
+      return data;
+    },
+  });
+};

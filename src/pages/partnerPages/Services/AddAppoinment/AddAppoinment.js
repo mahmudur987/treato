@@ -17,12 +17,7 @@ const AddAppoinment = () => {
     name: "",
     email: "",
   });
-  const {
-    data,
-    isLoading: salonLoading,
-    isError: salonIsError,
-    error: salonError,
-  } = useSingleSalon();
+  const { data, isLoading, isError, error } = useSingleSalon();
 
   const teamMembers = data?.salon?.stylists.map((x) => {
     return {
@@ -33,7 +28,6 @@ const AddAppoinment = () => {
   });
   const [price, setPrice] = useState("");
   const [discount, setdiscount] = useState("");
-
   const [selectedteamMember, setSelectedTeamMember] = useState(
     teamMembers ? teamMembers[0] : ""
   );
@@ -41,6 +35,29 @@ const AddAppoinment = () => {
     const { name, email, phone } = customarDeatils;
     const { service_id, time, dateforService, additionalComments, duration } =
       servicesDetails;
+    if (!dateforService) {
+      return toast.error("select date ");
+    }
+    if (service_id.length === 0) {
+      return toast.error("select services ");
+    }
+    if (!time) {
+      return toast.error("select a time ");
+    }
+
+    if (!name) {
+      return toast.error("not available customar name");
+    }
+    if (!email) {
+      return toast.error("not available customar email");
+    }
+    if (!phone) {
+      return toast.error("not available customar phone in Database");
+    }
+    if (!price) {
+      return toast.error("select price ");
+    }
+
     const newdata = {
       service_id,
       final_amount: Number(price),
@@ -91,6 +108,9 @@ const AddAppoinment = () => {
         setPrice,
         discount,
         setdiscount,
+        isLoading,
+        isError,
+        error,
       }}
     >
       <main className={styles.mainContainer}>

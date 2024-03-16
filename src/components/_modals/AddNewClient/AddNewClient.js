@@ -22,7 +22,7 @@ const AddNewClient = ({ showModal, onClose }) => {
     setSelectedOption(value);
   };
   const handleSubmit = (e) => {
-    e.preventDefault(); // Corrected typo here
+    e.preventDefault();
     const data = {
       phone: phone.length ? `+${getCountryCallingCode(country)}${phone}` : "",
       name: firstName + " " + lastName,

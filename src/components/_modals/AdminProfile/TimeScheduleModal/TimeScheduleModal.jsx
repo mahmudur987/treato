@@ -7,38 +7,33 @@ const TimeScheduleModal = ({
   openEditModal,
   closeLeaveModal,
   openLeaveModal,
-  handleShift,
   isLeave,
   isEdit,
   employeeSchedule,
 }) => {
   return (
     <>
-      <div className={sty.editContent1}>
-        {handleShift && (
-          <div className={sty.editContent}>
-            <div>
-              <p
-                onClick={() => {
-                  openEditModal();
-                }}
-              >
-                Edit this shift
-              </p>
-            </div>
-            <p onClick={employeeSchedule}>Edit Employee Schedule</p>
-            <div>
-              <p
-                onClick={() => {
-                  openLeaveModal();
-                }}
-              >
-                Add Leave
-              </p>
-            </div>
-            <p className={sty.Delete}>Delete shift</p>
-          </div>
-        )}
+      <div className={sty.editContent}>
+        <div>
+          <p
+            onClick={() => {
+              openEditModal();
+            }}
+          >
+            Edit this shift
+          </p>
+        </div>
+        <p onClick={employeeSchedule}>Edit Employee Schedule</p>
+        <div>
+          <p
+            onClick={() => {
+              openLeaveModal();
+            }}
+          >
+            Add Leave
+          </p>
+        </div>
+        <p className={sty.Delete}>Delete shift</p>
       </div>
       {isEdit && <EditAdminModal onClose={closeEditModal} />}
       {isLeave && <AddLeaveModal onClose={closeLeaveModal} />}

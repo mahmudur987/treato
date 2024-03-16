@@ -10,32 +10,82 @@ import chevronLeft from "../../../../assets/images/TeamDetails/chevron-right (4)
 import downLondIcon from "../../../../assets/images/TeamDetails/download-minimalistic-svgrepo-com 1.png";
 import calendar_line from "../../../../assets/images/TeamDetails/calendar_line (1) 1.png";
 import bottomImg from "../../../../assets/images/TeamDetails/Vector.png";
-import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./../../../../components/AccountSettings/UserDetails/ReactCalendar.css";
-import EditAdminModal from "../../../../components/_modals/AdminProfile/EditAdminData/EditAdminModal";
-import AddLeaveModal from "../../../../components/_modals/AdminProfile/AddLeaveModal/AddLeaveModal";
 import TimeScheduleModal from "../../../../components/_modals/AdminProfile/TimeScheduleModal/TimeScheduleModal";
 import { useNavigate } from "react-router-dom";
 import { useGetAllTeamMemSche } from "../../../../services/Team";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
-import { DateAndTime, formatCustomDate, formatDateRange } from "./utils";
+import {
+  DateAndTime,
+  formatCustomDate,
+  formatDateRange,
+  formatStateDate,
+} from "./utils";
 
 const TimeSchedule = () => {
   const navigate = useNavigate();
-  const [startPoint, setstartPoint] = useState(0);
-  const [endPoint, setEndPoint] = useState(7);
-  const { data, isLoading, isError, error } = useGetAllTeamMemSche();
+  const [startDate, setStartDate] = useState(formatStateDate(new Date()));
+  const [endDate, setEndDate] = useState(
+    formatStateDate(new Date(Date.now() + 6 * 24 * 60 * 60 * 1000))
+  ); // Adding 7 days
+  const { data, isLoading, isError, error } = useGetAllTeamMemSche(
+    startDate,
+    endDate
+  );
   const [handleShift, sethandleShift] = useState(false);
-  const [selectedCellIndex, setSelectedCellIndex] = useState(null);
-  const handleShiftFun = (index) => {
+  const [schedule, setschedule] = useState(null);
+  const [member, setMember] = useState(null);
+  const handleShiftFun = (item, mem) => {
     sethandleShift(!handleShift);
-    setSelectedCellIndex(index === selectedCellIndex ? null : index);
+    setschedule(item);
+    setMember(mem);
   };
   const [isEdit, setIsEdit] = useState(false);
   const [isLeave, setIsLeave] = useState(false);
   const tableContainerRef = useRef(null);
+  const team = data?.data[0]?.time_for_service;
+  // startdate to enddate function
+  const SD = data?.data[0]?.time_for_service[0]?.date;
+  const Ed = data?.data[0]?.time_for_service[team.length - 1]?.date;
+  const { startDate: sD, endDate: eD } = formatDateRange(SD, Ed);
+
+  // table top 7 dates with days
+  const sevenDates = data?.data[0]?.time_for_service?.map((x) => {
+    const date = formatCustomDate(x?.date);
+    return date;
+  });
+  // team deta as schedule
+  const TeamDetailsData = data?.data?.map((x) => {
+    const data = {
+      profile: x?.stylist_Img.public_url || "",
+      name: x?.stylist_name,
+      schedule: x.time_for_service,
+    };
+
+    return data;
+  });
+
+  const increaseDates = () => {
+    const newStartDate = new Date(startDate);
+    newStartDate.setDate(newStartDate.getDate() + 1);
+    setStartDate(formatStateDate(newStartDate));
+
+    const newEndDate = new Date(endDate);
+    newEndDate.setDate(newEndDate.getDate() + 1);
+    setEndDate(formatStateDate(newEndDate));
+  };
+
+  const decreaseDates = () => {
+    const newStartDate = new Date(startDate);
+    newStartDate.setDate(newStartDate.getDate() - 1);
+    setStartDate(formatStateDate(newStartDate));
+
+    const newEndDate = new Date(endDate);
+    newEndDate.setDate(newEndDate.getDate() - 1);
+    setEndDate(formatStateDate(newEndDate));
+  };
   const closeEditModal = () => {
     setIsEdit(false);
   };
@@ -56,42 +106,6 @@ const TimeSchedule = () => {
   const employeeSchedule = () => {
     navigate("/partner/dashboard/EmployeeSchedule");
   };
-
-  const sevenDates = data?.data[0]?.time_for_service
-    .slice(startPoint, endPoint)
-    .map((x) => {
-      const date = formatCustomDate(x?.date);
-      return date;
-    });
-  const SD = data?.data[0]?.time_for_service[startPoint]?.date;
-  const Ed = data?.data[0]?.time_for_service[endPoint - 1]?.date;
-  const { startDate, endDate } = formatDateRange(SD, Ed);
-  const TeamDetailsData = data?.data?.map((x) => {
-    const data = {
-      profile: x.stylist_Img.public_url || "",
-      name: x.stylist_name,
-      schedule: x.time_for_service.slice(0, 7),
-    };
-
-    return data;
-  });
-  const handleIncrease = () => {
-    if (endPoint === data?.data[0]?.time_for_service.length) {
-      return;
-    } else {
-      setstartPoint((pre) => pre + 1);
-      setEndPoint((pre) => pre + 1);
-    }
-  };
-  const handledecrease = () => {
-    if (startPoint === 0) {
-      return;
-    } else {
-      setstartPoint((pre) => pre - 1);
-      setEndPoint((pre) => pre - 1);
-    }
-  };
-
   if (isLoading) {
     return <LoadSpinner />;
   }
@@ -108,7 +122,7 @@ const TimeSchedule = () => {
         {data?.data[0]?.time_for_service.length > 0 && (
           <div className={sty.teamCal}>
             <p className={sty.teamCalIcon}>
-              <span onClick={handledecrease}>
+              <span onClick={decreaseDates}>
                 <img
                   src={chevronLeft}
                   alt="chevronLeft"
@@ -116,10 +130,9 @@ const TimeSchedule = () => {
                 />
               </span>
               <span className={sty.cal}>
-                {startDate} - {endDate}{" "}
-                <img src={calendar_line} alt="calendar_line" />
+                {sD} - {eD} <img src={calendar_line} alt="calendar_line" />
               </span>
-              <span onClick={handleIncrease}>
+              <span onClick={increaseDates}>
                 <img
                   src={chevronRight}
                   alt="chevronRight"
@@ -191,13 +204,32 @@ const TimeSchedule = () => {
                       </div>
                     </td>
 
-                    {/* closebutton */}
-                    {/* <td>
-                      <button className={sty.Closed}>Closed</button>{" "}
-                    </td> */}
-
                     {item?.schedule && item?.schedule.length > 0 ? (
                       item?.schedule.map((y, i) => {
+                        {
+                          /* closebutton */
+                        }
+                        if (y.isClosed) {
+                          return (
+                            <td>
+                              <button className={sty.Closed}>Closed</button>{" "}
+                            </td>
+                          );
+                        }
+
+                        if (y.isOnLeave) {
+                          return (
+                            <td key={i} className={sty.times1}>
+                              <div
+                                className={sty.times}
+                                style={{ border: "1px solid pink" }}
+                              >
+                                leave
+                              </div>
+                            </td>
+                          );
+                        }
+
                         const { startTime, endTime } = DateAndTime(
                           y?.date,
                           y?.time_slots
@@ -206,12 +238,32 @@ const TimeSchedule = () => {
                         return (
                           <td key={i} className={sty.times1}>
                             <div
-                              className={sty.times}
-                              onClick={(e) => handleShiftFun()}
-                              style={{ border: "1px solid #EBEDF0" }}
+                              className={`${sty.times} ${
+                                item?.name === member?.name &&
+                                schedule?._id === y._id &&
+                                sty.selectedTime
+                              }`}
+                              onClick={() => handleShiftFun(y, item)}
                             >
                               {startTime}-{endTime}
                             </div>
+                            {schedule?._id === y._id &&
+                              handleShift &&
+                              item.name === member.name && (
+                                <div className={sty.modalWrapper}>
+                                  <TimeScheduleModal
+                                    openLeaveModal={openLeaveModal}
+                                    closeLeaveModal={closeLeaveModal}
+                                    openEditModal={openEditModal}
+                                    closeEditModal={closeEditModal}
+                                    isLeave={isLeave}
+                                    isEdit={isEdit}
+                                    handleShift={handleShift}
+                                    employeeSchedule={employeeSchedule}
+                                    handleShiftFun={handleShiftFun}
+                                  />
+                                </div>
+                              )}
                           </td>
                         );
                       })
@@ -227,18 +279,6 @@ const TimeSchedule = () => {
           </tbody>
         </table>
       </div>
-
-      <TimeScheduleModal
-        openLeaveModal={openLeaveModal}
-        closeLeaveModal={closeLeaveModal}
-        openEditModal={openEditModal}
-        closeEditModal={closeEditModal}
-        isLeave={isLeave}
-        isEdit={isEdit}
-        handleShift={handleShift}
-        employeeSchedule={employeeSchedule}
-        handleShiftFun={handleShiftFun}
-      />
     </div>
   );
 };

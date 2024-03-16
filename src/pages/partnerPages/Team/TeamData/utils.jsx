@@ -25,7 +25,7 @@ export function formatCustomDate(dateString) {
 }
 
 function formatTime(time) {
-  const [hours, minutes] = time.split(":");
+  const [hours, minutes] = time?.split(":");
   const suffix = hours >= 12 ? "pm" : "am";
   const formattedHours = hours % 12 || 12;
   return `${formattedHours}:${minutes}${suffix}`;
@@ -52,7 +52,18 @@ export function DateAndTime(date, timeSlots) {
   const firstSlot = timeSlots[0];
   const lastSlot = timeSlots[timeSlots.length - 1];
 
-  const dateObject = getDateObject(date, firstSlot.slot, lastSlot.slot);
+  const dateObject = getDateObject(date, firstSlot?.slot, lastSlot?.slot);
 
   return dateObject;
+}
+export function formatStateDate(date) {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  let month = `${d.getMonth() + 1}`;
+  let day = `${d.getDate()}`;
+
+  if (month.length < 2) month = `0${month}`;
+  if (day.length < 2) day = `0${day}`;
+
+  return [year, month, day].join("-");
 }
