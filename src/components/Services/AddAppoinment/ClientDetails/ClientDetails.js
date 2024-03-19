@@ -66,7 +66,7 @@ const ClientsDetails = () => {
               onChange={handleSelectClient}
             />
           ) : (
-            <ErrorComponent message={error.message} />
+            <ErrorComponent message={error?.message} />
           )}
         </div>
 
@@ -146,7 +146,7 @@ const ClientsDetails = () => {
               teamMembers={teamMembers}
             />
           ) : (
-            <ErrorComponent message={teamError.message} />
+            <ErrorComponent message={teamError?.message} />
           )}
         </div>
       </div>

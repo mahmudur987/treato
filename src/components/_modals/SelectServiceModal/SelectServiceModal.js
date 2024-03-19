@@ -72,11 +72,11 @@ const SelectServiceModal = ({
             <input
               type="checkbox"
               onChange={handleSelectAll}
-              checked={
-                selectedServices.length ===
+              defaultChecked={
+                selectedServices?.length ===
                 mainCategories?.flatMap((category) =>
                   category?.subCategories?.map((service) => service._id)
-                ).length
+                )?.length
               }
             />
             <span>Select All</span>
@@ -87,12 +87,12 @@ const SelectServiceModal = ({
         <form className={styles.form}>
           <div className={styles.serviceForm}>
             <div className={styles.categories}>
-              {mainCategories.map((category) => {
+              {mainCategories.map((category, i) => {
                 const isHidden =
                   JSON.stringify(category.subCategories.map((x) => x._id)) ==
                   JSON.stringify(selectedServices);
                 return (
-                  <div key={category._id} className={styles.category}>
+                  <div key={i} className={styles.category}>
                     <div
                       style={{ display: `${isHidden ? "none" : ""}` }}
                       className={styles.categoryHeader}
@@ -110,20 +110,22 @@ const SelectServiceModal = ({
                         name=""
                         id=""
                       />{" "}
-                      {category.category_name}({category.subCategories.length})
+                      {category.category_name}({category.subCategories?.length})
                       item
                     </div>
                     {category.subCategories && (
                       <div className={`${styles.services} `}>
-                        {category.subCategories.map((service) => (
+                        {category.subCategories.map((service, i) => (
                           <div
-                            key={service._id}
+                            key={i}
                             className={`${styles.service} `}
                             onClick={() => toggleService(service._id)}
                           >
                             <p>
                               <input
-                                checked={selectedServices.includes(service._id)}
+                                checked={selectedServices?.includes(
+                                  service._id
+                                )}
                                 type="checkbox"
                                 name=""
                                 id=""

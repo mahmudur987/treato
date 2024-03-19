@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { createContext, useRef, useState } from "react";
 import editImg from "../../../../assets/images/AccountSettings/edit.svg";
 import Mask1 from "../../../../assets/images/TeamDetails/Mask group.png";
 import sty from "./TimeSchedule.module.css";
@@ -23,14 +23,14 @@ import {
   formatDateRange,
   formatStateDate,
 } from "./utils";
-
+export const TimeScheContext = createContext();
 const TimeSchedule = () => {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(formatStateDate(new Date()));
   const [endDate, setEndDate] = useState(
     formatStateDate(new Date(Date.now() + 6 * 24 * 60 * 60 * 1000))
   ); // Adding 7 days
-  const { data, isLoading, isError, error } = useGetAllTeamMemSche(
+  const { data, isLoading, isError, error, refetch } = useGetAllTeamMemSche(
     startDate,
     endDate
   );
@@ -59,6 +59,7 @@ const TimeSchedule = () => {
   // team deta as schedule
   const TeamDetailsData = data?.data?.map((x) => {
     const data = {
+      id: x?._id,
       profile: x?.stylist_Img.public_url || "",
       name: x?.stylist_name,
       schedule: x.time_for_service,
@@ -113,173 +114,214 @@ const TimeSchedule = () => {
     return <ErrorComponent message={error.message} />;
   }
   return (
-    <div className={sty.container}>
-      <div className={sty.TeamSchedule}>
-        <div className={sty.TeamScheduleForResponsive}>
-          <img src={arrowLeft} alt="arrowLeft" className={sty.arrowLeft} />
-          <h1 className={sty.headingTeam}>Team Schedule</h1>
-        </div>
-        {data?.data[0]?.time_for_service.length > 0 && (
-          <div className={sty.teamCal}>
-            <p className={sty.teamCalIcon}>
-              <span onClick={decreaseDates}>
-                <img
-                  src={chevronLeft}
-                  alt="chevronLeft"
-                  className={sty.chevronLeft}
-                />
-              </span>
-              <span className={sty.cal}>
-                {sD} - {eD} <img src={calendar_line} alt="calendar_line" />
-              </span>
-              <span onClick={increaseDates}>
-                <img
-                  src={chevronRight}
-                  alt="chevronRight"
-                  className={sty.chevronRight}
-                />{" "}
-              </span>
-            </p>
-            <div onClick={scrollToLeft}>
-              <img src={Scroller} alt="Scroller" className={sty.ScrollerImg} />
-            </div>
+    <TimeScheContext.Provider
+      value={{ schedule, member, refetch, sethandleShift }}
+    >
+      <div className={sty.container}>
+        <div className={sty.TeamSchedule}>
+          <div className={sty.TeamScheduleForResponsive}>
+            <img src={arrowLeft} alt="arrowLeft" className={sty.arrowLeft} />
+            <h1 className={sty.headingTeam}>Team Schedule</h1>
           </div>
-        )}
+          {data?.data[0]?.time_for_service.length > 0 && (
+            <div className={sty.teamCal}>
+              <p className={sty.teamCalIcon}>
+                <span onClick={decreaseDates}>
+                  <img
+                    src={chevronLeft}
+                    alt="chevronLeft"
+                    className={sty.chevronLeft}
+                  />
+                </span>
+                <span className={sty.cal}>
+                  {sD} - {eD} <img src={calendar_line} alt="calendar_line" />
+                </span>
+                <span onClick={increaseDates}>
+                  <img
+                    src={chevronRight}
+                    alt="chevronRight"
+                    className={sty.chevronRight}
+                  />{" "}
+                </span>
+              </p>
+              <div onClick={scrollToLeft}>
+                <img
+                  src={Scroller}
+                  alt="Scroller"
+                  className={sty.ScrollerImg}
+                />
+              </div>
+            </div>
+          )}
 
-        <div className={sty.downloadButtonContainer}>
-          <button className={sty.dBtn}>
-            Download CSV
-            <img
-              src={downLondIcon}
-              alt="downLondIcon"
-              className={sty.dBtnImg}
-            />
-          </button>
+          <div className={sty.downloadButtonContainer}>
+            <button className={sty.dBtn}>
+              Download CSV
+              <img
+                src={downLondIcon}
+                alt="downLondIcon"
+                className={sty.dBtnImg}
+              />
+            </button>
+          </div>
         </div>
-      </div>
-      <div className={sty.tableContainer} ref={tableContainerRef}>
-        <table className={sty.styledTable}>
-          <thead>
-            <tr>
-              <th
-                className={sty.headingDiv}
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                <span style={{ margin: "10px" }}>Name</span>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    marginTop: "5px",
-                    gap: "2px",
-                  }}
+        <div className={sty.tableContainer} ref={tableContainerRef}>
+          <table className={sty.styledTable}>
+            <thead>
+              <tr>
+                <th
+                  className={sty.headingDiv}
+                  style={{ display: "flex", alignItems: "center" }}
                 >
-                  <img src={topImg} alt="" />
-                  <img src={bottomImg} alt="" />
-                </div>
-              </th>
-              {sevenDates &&
-                sevenDates.map((x, i) => (
-                  <th key={i}>
-                    {x?.day.slice(0, 3)} - {x?.month} {x?.date}
-                  </th>
-                ))}
-            </tr>
-          </thead>
+                  <span style={{ margin: "10px" }}>Name</span>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      marginTop: "5px",
+                      gap: "2px",
+                    }}
+                  >
+                    <img src={topImg} alt="" />
+                    <img src={bottomImg} alt="" />
+                  </div>
+                </th>
+                {sevenDates &&
+                  sevenDates.map((x, i) => (
+                    <th key={i}>
+                      {x?.day.slice(0, 3)} - {x?.month} {x?.date}
+                    </th>
+                  ))}
+              </tr>
+            </thead>
 
-          <tbody>
-            {TeamDetailsData?.map((item, index) => {
-              return (
-                <>
-                  <tr key={index}>
-                    {/* img */}
-                    <td>
-                      <div className={sty.nameProfile}>
-                        <img
-                          src={item.profile}
-                          alt="profile"
-                          className={sty.profile}
-                        />
-                        <span className={sty.name}>{item.name}</span>
-                      </div>
-                    </td>
+            <tbody>
+              {TeamDetailsData?.map((item, index) => {
+                return (
+                  <>
+                    <tr key={index}>
+                      {/* img */}
+                      <td>
+                        <div className={sty.nameProfile}>
+                          <img
+                            src={item.profile}
+                            alt="profile"
+                            className={sty.profile}
+                          />
+                          <span className={sty.name}>{item.name}</span>
+                        </div>
+                      </td>
 
-                    {item?.schedule && item?.schedule.length > 0 ? (
-                      item?.schedule.map((y, i) => {
-                        {
-                          /* closebutton */
-                        }
-                        if (y.isClosed) {
-                          return (
-                            <td>
-                              <button className={sty.Closed}>Closed</button>{" "}
-                            </td>
-                          );
-                        }
+                      {item?.schedule && item?.schedule.length > 0 ? (
+                        item?.schedule.map((y, i) => {
+                          {
+                            /* closebutton */
+                          }
+                          if (y.isClosed) {
+                            return (
+                              <td>
+                                <button className={sty.Closed}>Closed</button>{" "}
+                              </td>
+                            );
+                          }
 
-                        if (y.isOnLeave) {
+                          if (y.isOnLeave) {
+                            return (
+                              <td key={i} className={sty.times1}>
+                                <div
+                                  className={sty.times}
+                                  style={{ border: "1px solid pink" }}
+                                >
+                                  leave
+                                </div>
+                              </td>
+                            );
+                          }
+                          if (y.time_slots.length > 0) {
+                            const { startTime, endTime } = DateAndTime(
+                              y?.date,
+                              y?.time_slots
+                            );
+
+                            return (
+                              <td key={i} className={sty.times1}>
+                                <div
+                                  className={`${sty.times} ${
+                                    item?.name === member?.name &&
+                                    schedule?._id === y._id &&
+                                    sty.selectedTime
+                                  }`}
+                                  onClick={() => handleShiftFun(y, item)}
+                                >
+                                  {startTime}-{endTime}
+                                </div>
+                                {schedule?._id === y._id &&
+                                  handleShift &&
+                                  item.name === member.name && (
+                                    <div className={sty.modalWrapper}>
+                                      <TimeScheduleModal
+                                        openLeaveModal={openLeaveModal}
+                                        closeLeaveModal={closeLeaveModal}
+                                        openEditModal={openEditModal}
+                                        closeEditModal={closeEditModal}
+                                        isLeave={isLeave}
+                                        isEdit={isEdit}
+                                        handleShift={handleShift}
+                                        employeeSchedule={employeeSchedule}
+                                        handleShiftFun={handleShiftFun}
+                                      />
+                                    </div>
+                                  )}
+                              </td>
+                            );
+                          }
+
                           return (
                             <td key={i} className={sty.times1}>
                               <div
-                                className={sty.times}
-                                style={{ border: "1px solid pink" }}
+                                className={`${sty.times} ${
+                                  item?.name === member?.name &&
+                                  schedule?._id === y._id &&
+                                  sty.selectedTime
+                                }`}
+                                onClick={() => handleShiftFun(y, item)}
                               >
-                                leave
+                                N/A
                               </div>
+                              {schedule?._id === y._id &&
+                                handleShift &&
+                                item.name === member.name && (
+                                  <div className={sty.modalWrapper}>
+                                    <TimeScheduleModal
+                                      openLeaveModal={openLeaveModal}
+                                      closeLeaveModal={closeLeaveModal}
+                                      openEditModal={openEditModal}
+                                      closeEditModal={closeEditModal}
+                                      isLeave={isLeave}
+                                      isEdit={isEdit}
+                                      handleShift={handleShift}
+                                      employeeSchedule={employeeSchedule}
+                                      handleShiftFun={handleShiftFun}
+                                    />
+                                  </div>
+                                )}
                             </td>
                           );
-                        }
-
-                        const { startTime, endTime } = DateAndTime(
-                          y?.date,
-                          y?.time_slots
-                        );
-
-                        return (
-                          <td key={i} className={sty.times1}>
-                            <div
-                              className={`${sty.times} ${
-                                item?.name === member?.name &&
-                                schedule?._id === y._id &&
-                                sty.selectedTime
-                              }`}
-                              onClick={() => handleShiftFun(y, item)}
-                            >
-                              {startTime}-{endTime}
-                            </div>
-                            {schedule?._id === y._id &&
-                              handleShift &&
-                              item.name === member.name && (
-                                <div className={sty.modalWrapper}>
-                                  <TimeScheduleModal
-                                    openLeaveModal={openLeaveModal}
-                                    closeLeaveModal={closeLeaveModal}
-                                    openEditModal={openEditModal}
-                                    closeEditModal={closeEditModal}
-                                    isLeave={isLeave}
-                                    isEdit={isEdit}
-                                    handleShift={handleShift}
-                                    employeeSchedule={employeeSchedule}
-                                    handleShiftFun={handleShiftFun}
-                                  />
-                                </div>
-                              )}
-                          </td>
-                        );
-                      })
-                    ) : (
-                      <td>
-                        <ErrorComponent message={"No data found"} />
-                      </td>
-                    )}
-                  </tr>
-                </>
-              );
-            })}
-          </tbody>
-        </table>
+                        })
+                      ) : (
+                        <td>
+                          <ErrorComponent message={"No data found"} />
+                        </td>
+                      )}
+                    </tr>
+                  </>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </TimeScheContext.Provider>
   );
 };
 

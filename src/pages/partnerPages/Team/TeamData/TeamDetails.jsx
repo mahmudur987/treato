@@ -6,7 +6,7 @@ import VectorBlue from "../../../../assets/images/TeamDetails/VectorBlue.png";
 import sty from "./TeamDetails.module.css";
 import topImg from "../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../assets/images/TeamDetails/Vector.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import arrowLeft from "../../../../assets/images/TeamDetails/arrow-left.png";
 import rightIcon from "../../../../assets/images/TeamDetails/chevron-right (3).png";
 import dot from "../../../../assets/images/TeamDetails/Ellipse 294.png";
@@ -61,18 +61,20 @@ const TeamDetails = () => {
 
   const TeamDetailsData = data?.data?.map((x) => {
     return {
+      id: x._id,
       profile: x.stylist_Img.public_url || Mask1,
       name: x.stylist_name,
       serviceProfile: x.stylist_service[0] || "N/A",
       tenure: x.tenure || "N/A",
       phone: x.stylist_number || "N/A",
       rating: x.rating || "N/A",
-      address: x.address || "N/A",
+      address: x.stylist_address || "N/A",
       service: x.stylist_service.length || 0,
       bookingToday: x.appointments,
       editPencil: editImg,
     };
   });
+
   const navigate = useNavigate();
   const [isViewAll, setIsViewAll] = useState(false);
 
@@ -117,7 +119,7 @@ const TeamDetails = () => {
                 <img
                   src={rightIcon}
                   alt="rightIcon"
-                  onClick={EditTeamMemberData}
+                  onClick={() => EditTeamMemberData}
                 />
               </div>
             </div>
@@ -178,11 +180,11 @@ const TeamDetails = () => {
                   <td>{item.service}</td>
                   <td>{item.bookingToday}</td>
                   <td>
-                    <img
-                      src={item.editPencil}
-                      alt="editPencil"
-                      onClick={EditTeamMemberData}
-                    />
+                    <Link
+                      to={`/partner/dashboard/EditMemberProfile/${item.id}`}
+                    >
+                      <img src={item.editPencil} alt="editPencil" />
+                    </Link>
                   </td>
                 </tr>
 

@@ -1,17 +1,16 @@
 .container {
-    padding: 3rem 3rem ; 
-    font-family: "Lato", sans-serif;
-  
-  }
-  .usr_detail_head {
-    font-family: "Poppins", sans-serif;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 40px;
-    line-height: 42px;
-  }
-  .usr_detail_Para{
-    color: #08090A;
+  padding: 3rem 3rem;
+  font-family: "Lato", sans-serif;
+}
+.usr_detail_head {
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 40px;
+  line-height: 42px;
+}
+.usr_detail_Para {
+  color: #08090a;
   font-family: "Lato";
   font-size: 20px;
   font-weight: 400;
@@ -19,155 +18,163 @@
   letter-spacing: 0.01em;
   text-align: left;
   margin-left: 40px;
-  
-  }
-  .Pictures{margin-right: 20px;}
-  .Profile_Pic_Main{
-    width: 1208px;
-    height: 80px;
-    display: flex;
-    /* flex-direction: row; */
-    gap: 48px;
-   margin-bottom: 30px;
-  
-  }
-  
-
-
-
- .labelText ,
- .SubHeading{
-    color: #08090A;
-font-family: Lato;
-font-size: 16px;
-font-weight: 600;
-letter-spacing: 0.01em;
-margin-bottom: 5px;
-
+}
+.Pictures {
+  margin-right: 20px;
+}
+.Profile_Pic_Main {
+  width: 1208px;
+  height: 80px;
+  display: flex;
+  /* flex-direction: row; */
+  gap: 48px;
+  margin-bottom: 30px;
 }
 
-
-  .selectPro{
-    width: 424px;
-height:48px;
-padding: 0px, 12px, 0px, 12px;
-border-radius: 4px;
-border: 1px;
-
-}
-.Profile_Pic{
-    margin-top: 25px;
-    width: 424px;
-    height: 48px;
-    padding: 0px 12px;
-    border-radius: 4px;
-    border: 1px solid #CED4DA;
-    display: flex;
-    justify-content: space-between;
-    
-}
-.Profile_Icon{
-    margin-top: 10px;
+.labelText,
+.SubHeading {
+  color: #08090a;
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 5px;
 }
 
-   
-.Profile_Img{
-  position: absolute;
-  left: 1px;
+.selectPro {
+  width: 424px;
+  height: 48px;
+  padding: 0px, 12px, 0px, 12px;
+  border-radius: 4px;
+  border: 1px;
+}
+.Profile_Pic {
+  margin-top: 25px;
+  width: 424px;
+  height: 48px;
+  padding: 0px 12px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  display: flex;
+  justify-content: space-between;
+}
+.Profile_Icon {
+  margin-top: 10px;
+}
+
+.Profile_Img {
   width: 24px;
   height: 24px;
   margin-top: 10px;
   padding: 3px;
-  border-radius: 50px;}
-  
-  .selectContainer {
-    position: relative;
+  border-radius: 50px;
 }
 
-.Select{padding-left: 30px;}
+.selectContainer {
+}
+
+.Select {
+  padding-left: 30px;
+}
 /* ////////////////map content////////////////////////// */
-.headingShift1{
-  display: flex; 
+.headingShift1 {
+  display: flex;
   gap: 140px;
   width: 612px;
-  max-width:612px ;
+  max-width: 612px;
   color: "#08090A";
   font: "Lato";
   font-weight: 600;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
-.headingShift{
-color: #08090A ;
-font-family: "Lato";
-font-size: 20px;
-font-weight: 600;
-line-height: 30px;
-letter-spacing: 0em;
-text-align: left;
-margin-top: 20px;
+.headingShift {
+  color: #08090a;
+  font-family: "Lato";
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-top: 20px;
 }
-.mainMapDiv1{  width: 612px !important;}
-.mainMapDiv{
-  display: flex; 
-  gap: 40px; 
+.mainMapDiv1 {
+  width: 612px !important;
+}
+.mainMapDiv {
+  display: flex;
+  gap: 40px;
   width: 612px !important;
   /* max-width:612px ; */
   color: "#08090A";
   font: "Lato";
   font-weight: 600;
-  margin-top: 20px; 
+  margin-top: 20px;
+  align-items: center;
 }
-.EplyShiptcheckRes{display: none;}
- .EplyShiptcheck {
-    display:flex ;
-    gap: 8px;
-    width: 116px !important;
-  }
-  .EplyShiptcheck input{margin-bottom: 30px;width: 16px; height: 16px;  }
+.EplyShiptcheckRes {
+  display: none;
+}
+.EplyShiptcheck {
+  display: flex;
+  gap: 8px;
+  width: 116px !important;
+}
+.EplyShiptcheck input {
+  margin-bottom: 30px;
+  width: 16px;
+  height: 16px;
+}
 
-    .EplyShiptSelect{
-      display: flex; 
-    gap: 8px;
-    }
-    .EplyShiptSelectBox{width: 160px;}
-    .closeBtn{
-      display: flex;
-      gap: 8px;
-  }
-  .closeB{
-      border:1px solid #CED4DA;
-      background-color: white;
-      width:160px;
+.EplyShiptSelect {
+  display: flex;
+  gap: 8px;
+}
+.EplyShiptSelectBox {
+  width: 160px;
+}
+.closeBtn {
+  display: flex;
+  gap: 8px;
+}
+.closeB {
+  border: 1px solid #ced4da;
+  background-color: white;
+  width: 160px;
   height: 48px;
   padding: 13px, 16px, 13px, 16px;
   border-radius: 4px;
-  gap: 4px
-  
-  }
-  .plusImgDiv{display: flex; 
-    align-items: center; 
-    justify-content: center;
-     margin-right: 160px; 
-    }
+  gap: 4px;
+}
+.plusImgDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 160px;
+}
 
-.plusImgDiv p{color: #0D69D7; font-weight: 500;}
-.copyImgRespons{display: none;}
-.SubmitBtn{
+.plusImgDiv p {
+  color: #0d69d7;
+  font-weight: 500;
+}
+.copyImgRespons {
+  display: none;
+}
+.SubmitBtn {
   display: flex;
   justify-content: end;
   gap: 10px;
   margin-top: 65px;
   margin-bottom: 10px;
 }
-.CancelBtn{
-  width:  88px;
-  height:  48px;
+.CancelBtn {
+  width: 88px;
+  height: 48px;
   padding: 16px, 24px, 16px, 24px;
   border-radius: 4px;
   gap: 10px;
-  color: #08080B;
-  background-color:white;
-  border: 1px solid #08080B ;
+  color: #08080b;
+  background-color: white;
+  border: 1px solid #08080b;
   font-family: Poppins;
   font-size: 16px;
   font-weight: 600;
@@ -175,67 +182,81 @@ margin-top: 20px;
   letter-spacing: -0.01em;
   text-align: center;
 }
-.SaveBtn{
-  width:  88px;
-  height:  48px;
+.SaveBtn {
+  width: 88px;
+  height: 48px;
   padding: 16px, 24px, 16px, 24px;
   border-radius: 4px;
   gap: 10px;
   color: white;
-  background-color: #08080B;
+  background-color: #08080b;
   font-family: Poppins;
   font-size: 16px;
   font-weight: 600;
   line-height: 16px;
   letter-spacing: -0.01em;
   text-align: center;
-}    
-        
-.horizontalLine{
+}
+
+.horizontalLine {
   width: 1208px;
-  border: 1px solid #EBEDF0;
+  border: 1px solid #ebedf0;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: 1rem 1rem;
   }
- 
-
-
-
-
- @media only screen and (max-width: 768px) {
-    .container{  padding: 1rem 1rem ; }
-    .Profile_Pic_Main {
-      width: 342px;
-      gap: 4px;
-      flex-direction: column; 
-        height: 250px;
-        }
-        /* .dateInput {
+  .Profile_Pic_Main {
+    width: 342px;
+    gap: 4px;
+    flex-direction: column;
+    height: 250px;
+  }
+  /* .dateInput {
             width: 116px;
             margin-bottom: 20px; 
         } */
-        .EplyShiptcheckRes{display: flex; gap: 3px;}
-    .EplyShiptcheck{ flex-direction: row;  align-items: flex-start;}
-    .EplyShiptSelect{display: flex; gap: 6px;}
-        .copyImgRespons{display: block; margin-left: 187px;}
-         
-          .selectPro{width: 310px; margin-bottom: 25px;}
-         
-          .usr_detail_Para{display: none;}
-          .headingShift1{display: none;}
-          .horizontalLine{width: 342px;}
+  .EplyShiptcheckRes {
+    display: flex;
+    gap: 3px;
+  }
+  .EplyShiptcheck {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .EplyShiptSelect {
+    display: flex;
+    gap: 6px;
+  }
+  .copyImgRespons {
+    display: block;
+    margin-left: 187px;
+  }
 
-            .SubmitBtn{width: 342px;}
-            .copyImgR{display: none;}
-            .SaveBtn,
-            .CancelBtn{
-                width: 163px;
-            }
-            
-        }
-        
-       
-      
-        
-      
-        
-   
-      
+  .selectPro {
+    width: 310px;
+    margin-bottom: 25px;
+  }
+
+  .usr_detail_Para {
+    display: none;
+  }
+  .headingShift1 {
+    display: none;
+  }
+  .horizontalLine {
+    width: 342px;
+  }
+
+  .SubmitBtn {
+    width: 342px;
+  }
+  .copyImgR {
+    display: none;
+  }
+  .SaveBtn,
+  .CancelBtn {
+    width: 163px;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./AddMemberProfile.module.css";
 // import BasicInputs from '../../../Input/BasicInputs'
 import profileImg from "../../../../../assets/images/TeamDetails/user_3_fill 1.png";
@@ -15,23 +15,24 @@ import Pick from "../../../Date/Pic";
 import { useSingleSalon } from "../../../../../services/salon";
 import SelectServiceModal from "../../../../../components/_modals/SelectServiceModal/SelectServiceModal";
 import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
+import { toast } from "react-toastify";
+import axiosInstance from "../../../../../services/axios";
 
 const AddMemberProfile = () => {
-  const { data, isLoading, isError, error } = useSingleSalon();
+  const fileInputRef = useRef(null);
+  const { data, error } = useSingleSalon();
   const [selectedServices, setSelectedServices] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const [AProfileModal, setAProfileModal] = useState(false);
-  const AdminProfileModalFun = () => {
-    setAProfileModal(!AProfileModal);
-  };
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
+  const [picture, setPicture] = useState(null);
   const [address, setAddress] = useState("");
   const [serviceTitle, setServiceTitle] = useState("");
   const [serviceStartDate, setServiceStartDate] = useState("");
   const [serviceEndDate, setServiceEndDate] = useState("");
+  const [time_for_service, setTimeForService] = useState([]);
   const updateInputValues = (updatedValues) => {
     if (updatedValues.firstName !== undefined) {
       setFirstName(updatedValues.firstName);
@@ -40,30 +41,88 @@ const AddMemberProfile = () => {
       setLastName(updatedValues.lastName);
     }
     if (updatedValues.serviceTitle !== undefined) {
-      setServiceTitle(updatedValues.phone);
+      setServiceTitle(updatedValues.serviceTitle);
     }
     if (updatedValues.address !== undefined) {
       setAddress(updatedValues.address);
+    }
+    if (updatedValues.phoneNumber !== undefined) {
+      setPhone(updatedValues.address);
     }
   };
 
   const allMainCategories = data?.salon?.services.reduce(
     (accumulator, service) => {
-      // Concatenating mainCategories arrays
       return accumulator.concat(service.mainCategories);
     },
     []
   );
 
-  //   console.log(allMainCategories);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!firstName) {
+      return toast.error("write your first name");
+    }
+    if (!serviceTitle) {
+      return toast.error("write your Service Title");
+    }
+    if (!picture) {
+      return toast.error("Select a picture");
+    }
+    if (!phone) {
+      return toast.error("write your phone number ");
+    }
+    if (selectedServices.length === 0) {
+      return toast.error("select a service ");
+    }
+    console.log(phone);
+    const phoneAsNumber = Number(phone);
+    if (isNaN(phoneAsNumber)) {
+      return toast.error("Phone number is not valid");
+    }
+    const formData = new FormData();
+    formData.append("stylist_name", `${firstName} ${lastName}`);
+    formData.append("stylist_service", serviceTitle);
+    formData.append("stylist_Img", picture); // Assuming 'picture' is the file object
+    formData.append("rating", "4.5");
+    formData.append("stylist_number", phoneAsNumber);
+    time_for_service.forEach((time) => {
+      formData.append("time_for_service[]", time);
+    });
+    selectedServices.forEach((service) => {
+      formData.append("services[]", service); // Appending services as array
+    });
 
-  const handleSubmt = () => {};
+    // Construct headers
+    const headers = {
+      token: localStorage.getItem("jwtToken"),
+    };
+
+    try {
+      const { data } = await axiosInstance.post("stylist/new", formData, {
+        headers,
+      });
+      console.log(data);
+      toast.success(data.message);
+      navigate("/partner/dashboard/TeamManageMent");
+    } catch (error) {
+      console.log("error", error);
+      toast.error(error.message);
+    }
+  };
 
   const employeeSchedule = () => {
     navigate("/partner/dashboard/EmployeeSchedule");
   };
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setPicture(file);
   };
 
   return (
@@ -91,8 +150,18 @@ const AddMemberProfile = () => {
               <div>
                 <h4>Basic Details of employee</h4>
                 <div className={styles.profileRounded1}>
-                  <div className={styles.profileRounded}>
+                  <div
+                    className={styles.profileRounded}
+                    onClick={handleButtonClick}
+                  >
                     <img src={profileImg} alt="profileImg" />
+
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleFileChange}
+                      style={{ display: "none" }}
+                    />
                     <img
                       src={Profile_Pic}
                       alt="Profile_Pic"
@@ -106,6 +175,7 @@ const AddMemberProfile = () => {
                       <label htmlFor="">
                         <div className={styles.labelText}>First Name</div>
                         <BasicInputTeam
+                          required={true}
                           type="text"
                           name="firstName"
                           value={firstName}
@@ -138,6 +208,8 @@ const AddMemberProfile = () => {
                         name="phone"
                         Type={"tel"}
                         placeholder="Phone number"
+                        VALUE={phone}
+                        setPhone={setPhone}
                       />
                     </label>
                     <div></div>
@@ -224,7 +296,13 @@ const AddMemberProfile = () => {
                 </p>
                 <div className={styles.SubmitBtn}>
                   <button className={styles.CancelBtn}>Cancel</button>
-                  <button className={styles.SaveBtn}>Save</button>
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    className={styles.SaveBtn}
+                  >
+                    Save
+                  </button>
                 </div>
               </div>
             </div>

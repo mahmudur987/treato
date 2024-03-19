@@ -33,3 +33,18 @@ export const useGetAllTeamMemSche = (startDate, endDate) => {
     },
   });
 };
+
+export const useGetSingleMember = (id) => {
+  const headers = {
+    token: localStorage.getItem("jwtToken"),
+  };
+  return useQuery({
+    queryKey: [id],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(`stylist//getOneStylist/${id}`, {
+        headers,
+      });
+      return data;
+    },
+  });
+};

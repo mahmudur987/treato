@@ -1,250 +1,422 @@
-import React, { useState } from 'react'
-import styles from "./EmployeeSchedule.module.css"
-import arrowLeft from "../../../../../assets/images/AccountSettings/arrow-left.svg"
-import { Link } from 'react-router-dom'
-import search from "../../../../../assets/images/TeamDetails/search.png";
-import chevron_down from "../../../../../assets/images/TeamDetails/chevron-down.png";
+import React, { useEffect, useState } from "react";
+import styles from "./EmployeeSchedule.module.css";
+import arrowLeft from "../../../../../assets/images/AccountSettings/arrow-left.svg";
+import { Link } from "react-router-dom";
 import plus from "../../../../../assets/images/TeamDetails/plus.png";
 import copy from "../../../../../assets/images/TeamDetails/copy.png";
-import Profile_Pic from "../../../../../assets/images/TeamDetails/pexels-stefan-stefancik-91227 1.png";
-import Pick from '../../../Date/Pic';
+import Pick from "../../../Date/Pic";
+import { useGetAllTeamMemSche } from "../../../../../services/Team";
+import { formatStateDate } from "../utils";
+import CustomSelect2 from "../../../../../components/Select/CustomeSelect2/CustomeSelect2";
+import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
+import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
+import axiosInstance from "../../../../../services/axios";
+import { toast } from "react-toastify";
 
-const editEmployeeSchedule = [
-    {
-        day: "Monday",
-        copyImg: copy,
-        plusImg: plus,
-        AddShift: "Add shift"
-    },
-    {
-        day: "Tuesday",
-        copyImg: copy,
-        plusImg: plus,
-        AddShift: "Add shift"
-    },
-    {
-        day: "Wednesday",
-        copyImg: copy,
-        plusImg: plus,
-        AddShift: "Add shift"
-    },
-    {
-        day: "Thursday",
-        copyImg: copy,
-        plusImg: plus,
-        AddShift: "Add shift"
-    },
-    {
-        day: "Friday",
-        copyImg: copy,
-        plusImg: plus,
-        AddShift: "Add shift"
-    },
-    {
-        day: "Saturday",
-        copyImg: copy,
-        plusImg: plus,
-        AddShift: "Add shift"
-    },
-    {
-        day: "Sunday"
-    },
-]
+const Days = [
+  {
+    day: "Monday",
+  },
+  {
+    day: "Tuesday",
+  },
+  {
+    day: "Wednesday",
+  },
+  {
+    day: "Thursday",
+  },
+  {
+    day: "Friday",
+  },
+  {
+    day: "Saturday",
+  },
+  {
+    day: "Sunday",
+  },
+];
 
 const EmployeeSchedule = () => {
-    const [shiftTimesVisible, setShiftTimesVisible] = useState(Array(editEmployeeSchedule.length).fill(false));
+  const [shiftTimesVisible, setShiftTimesVisible] = useState(
+    Array(Days.length).fill(false)
+  );
+  const [selectedMember, setSelectedMember] = useState(null);
+  const [selectedSlots, setSelectedSlots] = useState([]);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
-    const toggleShiftTimes = (index) => {
-        const newShiftTimesVisible = [...shiftTimesVisible];
-        newShiftTimesVisible[index] = !newShiftTimesVisible[index];
-        setShiftTimesVisible(newShiftTimesVisible);
+  const { data, isLoading, isError, error, refetch } = useGetAllTeamMemSche();
+  const toggleShiftTimes = (index) => {
+    const newShiftTimesVisible = [...shiftTimesVisible];
+    newShiftTimesVisible[index] = !newShiftTimesVisible[index];
+    setShiftTimesVisible(newShiftTimesVisible);
+  };
+  const teamMembers = data?.data.map((x) => {
+    return {
+      id: x._id,
+      name: x.stylist_name,
+      imageUrl: x.stylist_Img.public_url,
     };
-    return (
-        <div className={styles.container}>
-            <div className={styles.usr_detail_head}>
-                <Link to={"/partner/dashboard/TeamManageMent"}>
-                    <span><img src={arrowLeft} alt="arrowLeft" className={styles.Pictures} /></span>
-                </Link>
-                Edit Employee Schedule
-                <p className={styles.usr_detail_Para}>Set weekly schedule. Changes will apply to all upcoming shifts from the schedule start date</p>
+  });
+  const slots = [
+    {
+      slot: "09:00",
+      isBooked: false,
+      _id: "65f8769c997155e777b9782e",
+    },
+    {
+      slot: "09:30",
+      isBooked: false,
+      _id: "65f8769c997155e777b9782f",
+    },
+    {
+      slot: "10:00",
+      isBooked: false,
+      _id: "65f8769c997155e777b97830",
+    },
+    {
+      slot: "10:30",
+      isBooked: false,
+      _id: "65f8769c997155e777b97831",
+    },
+    {
+      slot: "11:00",
+      isBooked: false,
+      _id: "65f8769c997155e777b97832",
+    },
+    {
+      slot: "14:00",
+      isBooked: false,
+      _id: "65f8769c997155e777b97833",
+    },
+    {
+      slot: "14:30",
+      isBooked: false,
+      _id: "65f8769c997155e777b97834",
+    },
+    {
+      slot: "15:00",
+      isBooked: false,
+      _id: "65f8769c997155e777b97835",
+    },
+    {
+      slot: "15:30",
+      isBooked: false,
+      _id: "65f8769c997155e777b97836",
+    },
+    {
+      slot: "16:00",
+      isBooked: false,
+      _id: "65f8769c997155e777b97837",
+    },
+    {
+      slot: "16:30",
+      isBooked: false,
+      _id: "65f8769c997155e777b97838",
+    },
+    {
+      slot: "17:00",
+      isBooked: false,
+      _id: "65f8769c997155e777b97839",
+    },
+    {
+      slot: "17:30",
+      isBooked: false,
+      _id: "65f8769c997155e777b9783a",
+    },
+    {
+      slot: "18:00",
+      isBooked: false,
+      _id: "65f8769c997155e777b9783b",
+    },
+    {
+      slot: "18:30",
+      isBooked: false,
+      _id: "65f8769c997155e777b9783c",
+    },
+    {
+      slot: "19:00",
+      isBooked: false,
+      _id: "65f8769c997155e777b9783d",
+    },
+    {
+      slot: "19:30",
+      isBooked: false,
+      _id: "65f8769c997155e777b9783e",
+    },
+    {
+      slot: "20:00",
+      isBooked: false,
+      _id: "65f8769c997155e777b9783f",
+    },
+  ];
+
+  useEffect(() => {
+    setSelectedMember(teamMembers ? teamMembers[0] : null);
+  }, [data]);
+
+  const handleDaySelect = (e, selectedDay) => {
+    const { name, value } = e.target;
+    const updatedSelectedSlots = [...selectedSlots];
+    const index = updatedSelectedSlots.findIndex(
+      (slot) => slot.day === selectedDay.day
+    );
+
+    if (value === "Close") {
+      // If "Close" is selected, set isClosed to true and empty the slots
+      if (index !== -1) {
+        updatedSelectedSlots[index].isClosed = true;
+        updatedSelectedSlots[index].slots = [];
+      } else {
+        updatedSelectedSlots.push({
+          day: selectedDay.day,
+          isClosed: true,
+          slots: [],
+        });
+      }
+    } else {
+      // If not "Close", update the slot values
+      if (index !== -1) {
+        if (name === "startTime") {
+          updatedSelectedSlots[index].slots[0].start_time = value;
+          updatedSelectedSlots[index].isClosed = false; // Reset isClosed if startTime is selected
+        } else if (name === "endTime") {
+          updatedSelectedSlots[index].slots[0].end_time = value;
+          updatedSelectedSlots[index].isClosed = false; // Reset isClosed if endTime is selected
+        }
+      } else {
+        updatedSelectedSlots.push({
+          day: selectedDay.day,
+          isClosed: false,
+          slots: [
+            {
+              start_time: name === "startTime" ? value : "",
+              end_time: name === "endTime" ? value : "",
+            },
+          ],
+        });
+      }
+    }
+
+    setSelectedSlots(updatedSelectedSlots);
+  };
+
+  const handleSubmit = async () => {
+    if (!startDate) {
+      return toast.error("select start date");
+    }
+    if (!endDate) {
+      return toast.error("select end date");
+    }
+    if (!selectedMember) {
+      return toast.error("select member");
+    }
+    if (selectedSlots.length === 0) {
+      return toast.error("select slots");
+    }
+
+    const scheduleStart = formatStateDate(startDate);
+    const scheduleEnd = formatStateDate(endDate);
+    const submitData = {
+      scheduleStart,
+      scheduleEnd,
+      stylistId: selectedMember.id,
+      dayWiseShift: selectedSlots,
+    };
+
+    console.log(submitData);
+
+    const headers = {
+      token: localStorage.getItem("jwtToken"),
+    };
+    try {
+      const { data } = await axiosInstance.patch(
+        "stylist/editEmployeeSchedule",
+        submitData,
+        { headers }
+      );
+      console.log(data);
+      toast.success(data?.message || "");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  if (isLoading) {
+    return <LoadSpinner />;
+  }
+  if (isError) {
+    return <ErrorComponent message={error ? error.message : "Error"} />;
+  }
+  return (
+    <div className={styles.container}>
+      <div className={styles.usr_detail_head}>
+        <Link to={"/partner/dashboard/TeamManageMent"}>
+          <span>
+            <img src={arrowLeft} alt="arrowLeft" className={styles.Pictures} />
+          </span>
+        </Link>
+        Edit Employee Schedule
+        <p className={styles.usr_detail_Para}>
+          Set weekly schedule. Changes will apply to all upcoming shifts from
+          the schedule start date
+        </p>
+      </div>
+
+      <div>
+        <form>
+          <div className={styles.mainDiv}>
+            <div className={styles.Profile_Pic_Main}>
+              <div className={styles.selectPro}>
+                <div className={styles.SubHeading}>Employee</div>
+
+                <div className={styles.selectContainer}>
+                  {teamMembers ? (
+                    <CustomSelect2
+                      options={null}
+                      value={selectedMember}
+                      onChange={setSelectedMember}
+                      teamMembers={teamMembers}
+                    />
+                  ) : (
+                    <ErrorComponent message={"Error"} />
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.dateInput}>
+                <label htmlFor="">
+                  <div className={styles.labelText}>Schedule Starts</div>
+                  <Pick
+                    ondateChange={(data) => setStartDate(data)}
+                    className={styles.customPickWidth}
+                  />
+                </label>
+              </div>
+              <div className={styles.dateInput}>
+                <label htmlFor="">
+                  <div className={styles.labelText}>Schedule Date</div>
+                  <Pick
+                    ondateChange={(data) => setEndDate(data)}
+                    className={styles.customPickWidth}
+                  />
+                </label>
+              </div>
+            </div>
+            <div className={styles.horizontalLine}></div>
+            <div className={styles.headingShift}>Day-wise Shifts</div>
+            <div className={styles.headingShift1}>
+              <p>Day</p>
+              <p>start Time</p>
+              <p>End Time</p>
             </div>
 
-            <div>
-                <form>
-                    <div className={styles.mainDiv}>
-                        <div className={styles.Profile_Pic_Main}>
+            {Days.map((item, index) => (
+              <div className={styles.mainMapDiv1} key={index}>
+                <div className={styles.mainMapDiv}>
+                  <div className={styles.EplyShiptcheck}>
+                    <input
+                      checked={selectedSlots.find((x) => x.day === item.day)}
+                      type="checkbox"
+                      disabled
+                    />
+                    <p>{item.day}</p>
+                  </div>
+                  <div>
+                    <div className={styles.EplyShiptSelect}>
+                      <div>
+                        <select
+                          name="startTime"
+                          className={styles.EplyShiptSelectBox}
+                          onChange={(e) => handleDaySelect(e, item)}
+                        >
+                          <option value="">please select</option>
 
+                          {slots.map((x, i) => (
+                            <option key={i} value={x.slot}>
+                              {x.slot}{" "}
+                            </option>
+                          ))}
+                          <option value="Close">Close</option>
+                        </select>
+                      </div>
+                      <div>
+                        <select
+                          name="endTime"
+                          className={styles.EplyShiptSelectBox}
+                          onChange={(e) => handleDaySelect(e, item)}
+                        >
+                          <option value="">please select</option>
 
-                            <div className={styles.selectPro}>
-                                <div className={styles.SubHeading}>Employee</div>
-
-                                <div className={styles.selectContainer}>
-                                    <select name="" id="" className={styles.Select}>
-                                        <option value="">Anirban Banerjee</option>
-                                    </select>
-                                    <img src={Profile_Pic} alt="Profile_Pic" className={styles.Profile_Img} />
-                                </div>
-                            </div>
-
-
-                            <div className={styles.dateInput}>
-                                <label htmlFor="">
-                                    <div className={styles.labelText}>Schedule Starts</div>
-                                    <Pick className={styles.customPickWidth} />
-                                </label>
-                            </div>
-                            <div className={styles.dateInput}>
-                                <label htmlFor="">
-                                    <div className={styles.labelText}>Schedule Date</div>
-                                    <Pick className={styles.customPickWidth} />
-                                </label>
-                            </div>
-
-
-
-
-                        </div>
-                        <div className={styles.horizontalLine}></div>
-                        <div className={styles.headingShift}>Day-wise Shifts</div>
-                        <div className={styles.headingShift1}>
-                            <p>Day</p>
-                            <p>start Time</p>
-                            <p>End Time</p>
-                        </div>
-                        {/* {editEmployeeSchedule.map((item, index) => (
-                            <div className={styles.mainMapDiv1}>
-
-                                <div className={styles.mainMapDiv} key={index}>
-                                    <div className={styles.EplyShiptcheck}>
-
-                                        <input type="checkbox" name="" id="" />
-                                        <p>{item.day}</p>
-                                    </div>
-                                    {item.day !== "Sunday" ? (
-                                        <>
-                                            <div>
-                                                <div className={styles.EplyShiptSelect}>
-                                                    <div>
-                                                        <select name="" id="" className={styles.EplyShiptSelectBox}>
-                                                            <option value="">10am-4pm</option>
-                                                            <option value="">09am-5pm</option>
-                                                            <option value="">08am-6pm</option>
-                                                        </select>
-                                                    </div>
-                                                    <div>
-                                                        <select name="" id="" className={styles.EplyShiptSelectBox}>
-                                                            <option value="">10am-4pm</option>
-                                                            <option value="">09am-5pm</option>
-                                                            <option value="">08am-6pm</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-
-                                                <div className={styles.plusImgDiv}>
-                                                    <img src={item.plusImg} alt="" />
-                                                    <p>{item.AddShift}</p>
-                                                    <img src={item.copyImg} alt="copyImg" className={styles.copyImgRespons} />
-                                                </div>
-                                            </div>
-                                            <div className={styles.copyImgR}>
-                                                <img src={item.copyImg} alt="copyImg" />
-                                            </div>
-
-                                        </>
-                                    ) : (
-                                        <div className={styles.closeBtn}>
-                                            <button className={styles.closeB}>Close</button>
-                                            <button className={styles.closeB}>Close</button>
-                                        </div>
-                                    )}
-
-
-
-
-                                </div>
-                               
-
-
-
-                            </div>
-
-                        ))} */}
-                        {editEmployeeSchedule.map((item, index) => (
-                            <div className={styles.mainMapDiv1} key={index}>
-                                <div className={styles.mainMapDiv}>
-                                    <div className={styles.EplyShiptcheck}>
-                                        <input type="checkbox" name="" id="" />
-                                        <p>{item.day}</p>
-                                    </div>
-                                    {item.day !== "Sunday" ? (
-                                        <>
-                                            <div>
-                                                <div className={styles.EplyShiptSelect}>
-                                                    <div>
-                                                        <select name="" id="" className={styles.EplyShiptSelectBox}>
-                                                            <option value="">10am-4pm</option>
-                                                            <option value="">09am-5pm</option>
-                                                            <option value="">08am-6pm</option>
-                                                        </select>
-                                                    </div>
-                                                    <div>
-                                                        <select name="" id="" className={styles.EplyShiptSelectBox}>
-                                                            <option value="">10am-4pm</option>
-                                                            <option value="">09am-5pm</option>
-                                                            <option value="">08am-6pm</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div className={styles.plusImgDiv} onClick={() => toggleShiftTimes(index)}>
-                                                    <img src={item.plusImg} alt="" />
-                                                    <p>{item.AddShift}</p>
-                                                    <img src={item.copyImg} alt="copyImg" className={styles.copyImgRespons} />
-                                                </div>
-
-                                                {shiftTimesVisible[index] && (
-                                                    <div className={styles.EplyShiptSelect}>
-                                                        <div>
-                                                            <select name="" id="" className={styles.EplyShiptSelectBox}>
-                                                                <option value="">10am-4pm</option>
-                                                                <option value="">09am-5pm</option>
-                                                                <option value="">08am-6pm</option>
-                                                            </select>
-                                                        </div>
-                                                        <div>
-                                                            <select name="" id="" className={styles.EplyShiptSelectBox}>
-                                                                <option value="">10am-4pm</option>
-                                                                <option value="">09am-5pm</option>
-                                                                <option value="">08am-6pm</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <div className={styles.copyImgR}>
-                                                <img src={item.copyImg} alt="copyImg" />
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <div className={styles.closeBtn}>
-                                            <button className={styles.closeB}>Close</button>
-                                            <button className={styles.closeB}>Close</button>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
+                          {slots.map((x, i) => (
+                            <option key={i} value={x.slot}>
+                              {x.slot}{" "}
+                            </option>
+                          ))}
+                          <option value="Close">Close</option>
+                        </select>
+                      </div>
                     </div>
-                    <div className={styles.SubmitBtn}>
-                        <button className={styles.CancelBtn}>Cancel</button>
-                        <button className={styles.SaveBtn}>Save</button>
+                    {shiftTimesVisible[index] && (
+                      <div className={styles.EplyShiptSelect}>
+                        <div>
+                          <select className={styles.EplyShiptSelectBox}>
+                            <option value="">please select</option>
+
+                            {slots.map((x, i) => (
+                              <option key={i} value="">
+                                {x.slot}{" "}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <select className={styles.EplyShiptSelectBox}>
+                            <option value="">please select</option>
+
+                            {slots.map((x, i) => (
+                              <option key={i} value="">
+                                {x.slot}{" "}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    )}
+                    <div
+                      className={styles.plusImgDiv}
+                      onClick={() => toggleShiftTimes(index)}
+                    >
+                      <img src={plus} alt="" />
+                      <p>Add Shift</p>
+                      <img
+                        src={copy}
+                        alt="copyImg"
+                        className={styles.copyImgRespons}
+                      />
                     </div>
-                </form >
-            </div >
+                  </div>
+                  <div className={styles.copyImgR}>
+                    <img src={copy} alt="copyImg" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className={styles.SubmitBtn}>
+            <button className={styles.CancelBtn}>Cancel</button>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className={styles.SaveBtn}
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
 
-        </div >
-    )
-}
-
-export default EmployeeSchedule
+export default EmployeeSchedule;

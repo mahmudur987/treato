@@ -14,25 +14,21 @@ const TimeScheduleModal = ({
   return (
     <>
       <div className={sty.editContent}>
-        <div>
-          <p
-            onClick={() => {
-              openEditModal();
-            }}
-          >
-            Edit this shift
-          </p>
-        </div>
+        <p
+          onClick={() => {
+            openEditModal();
+          }}
+        >
+          Edit this shift
+        </p>
         <p onClick={employeeSchedule}>Edit Employee Schedule</p>
-        <div>
-          <p
-            onClick={() => {
-              openLeaveModal();
-            }}
-          >
-            Add Leave
-          </p>
-        </div>
+        <p
+          onClick={() => {
+            openLeaveModal();
+          }}
+        >
+          Add Leave
+        </p>
         <p className={sty.Delete}>Delete shift</p>
       </div>
       {isEdit && <EditAdminModal onClose={closeEditModal} />}

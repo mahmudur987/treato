@@ -192,7 +192,7 @@ function App() {
             {/* partner accountsetting */}
             <Route
               path="/partner/dashboard/PartnerAccountSetting"
-              element={<PartnerAccountSetting/>}
+              element={<PartnerAccountSetting />}
             />
             <Route
               path="/partner/dashboard/serviceBussness"
@@ -200,7 +200,7 @@ function App() {
             />
             <Route
               path="/partner/dashboard/PaymentProfile"
-              element={<PaymentProfile/>}
+              element={<PaymentProfile />}
             />
             <Route
               path="/partner/dashboard/storetime"
@@ -225,7 +225,7 @@ function App() {
               element={<AddMemberProfile />}
             />
             <Route
-              path="/partner/dashboard/EditMemberProfile"
+              path="/partner/dashboard/EditMemberProfile/:id"
               element={<EditTeamData />}
             />
             <Route

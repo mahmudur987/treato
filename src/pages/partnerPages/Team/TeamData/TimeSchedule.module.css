@@ -149,12 +149,10 @@
   text-align: left;
 }
 .modalWrapper {
-  max-width: 200px;
-  width: 100%;
+  width: 230px;
   min-height: 200px;
   position: absolute;
   top: 70%;
-
   z-index: 33;
 }
 .selectedTime {

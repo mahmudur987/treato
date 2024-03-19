@@ -22,8 +22,8 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
           {options && <p className={styles.wrapper}>{value}</p>}
           {teamMembers && (
             <p className={styles.wrapper}>
-              <img src={value.imageUrl} alt="" />
-              <span>{value.name}</span>
+              <img src={value?.imageUrl} alt="" />
+              <span>{value?.name}</span>
             </p>
           )}
         </div>
@@ -52,8 +52,8 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
                 onClick={() => handleSelect(option)}
               >
                 <p className={styles.wrapper}>
-                  <img src={option.imageUrl} alt="" />
-                  <span>{option.name}</span>
+                  <img src={option?.imageUrl} alt="" />
+                  <span>{option?.name}</span>
                 </p>
               </div>
             ))}

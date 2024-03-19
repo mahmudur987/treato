@@ -24,6 +24,7 @@ export default function BasicInputTeam(props) {
         {type === "checkbox" ? (
           <>
             <input
+              required={required}
               type="checkbox"
               name={NAME}
               checked={checked}
@@ -35,6 +36,7 @@ export default function BasicInputTeam(props) {
             {/* {props.label} */}
             {/* {label} */}
             <textarea
+              required={required}
               name={NAME}
               value={VALUE}
               onChange={onChange}
@@ -47,6 +49,7 @@ export default function BasicInputTeam(props) {
             {/* {props.label} */}
             {/* {label} */}
             <input
+              required={required}
               type={type}
               name={NAME}
               value={VALUE}

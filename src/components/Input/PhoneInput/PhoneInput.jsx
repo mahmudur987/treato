@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./PhoneInput.module.css";
 
 export default function PhoneInput({
@@ -11,8 +11,10 @@ export default function PhoneInput({
   updateInputVal,
   inputVal,
   onChange,
+  setPhone,
 }) {
   const [value, setValue] = useState("");
+  const [country, setcountry] = useState("+91");
 
   function inputValue(e) {
     setValue(e.target.value);
@@ -22,10 +24,19 @@ export default function PhoneInput({
       updateInputVal(allValue);
     }
   }
-
+  useEffect(() => {
+    if (setPhone) {
+      setPhone(country + value);
+    }
+  }, [country, value]);
   return (
     <div className={styles.phone_inputMain}>
-      <select name="country" id="" className={styles.phone_select}>
+      <select
+        onChange={(e) => setcountry(e.target.value)}
+        name="country"
+        id=""
+        className={styles.phone_select}
+      >
         <option value="+91">+91</option>
         <option value="+88">+88</option>
         <option value="+66">+66</option>
@@ -35,7 +46,7 @@ export default function PhoneInput({
         type={Type ? Type : "text"}
         placeholder={PlaceHolder ? PlaceHolder : ""}
         className={styles.phone_input}
-        value={VALUE ? VALUE : value}
+        value={value}
         disabled={DISABLED ? DISABLED : false}
         id={ID ? ID : ""}
         name={NAME ? NAME : ""}

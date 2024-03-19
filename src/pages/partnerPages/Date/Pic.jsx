@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import calendarIcon from "../../../assets/images/TeamDetails/calenderImg.png";
 import sty from "./Pic.module.css";
 
-const Pick = ({ ondateChange }) => {
+const Pick = ({ ondateChange, date }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const inputRef = useRef(null);
 
@@ -23,27 +23,13 @@ const Pick = ({ ondateChange }) => {
         className={sty.dateInp}
         selected={selectedDate}
         onChange={handleDateChange}
-        placeholderText="DD/MM/YYYY"
+        placeholderText={
+          date ? date : selectedDate ? selectedDate : "DD/MM/YYYY"
+        }
         popperPlacement="bottom-end"
         toggleCalendarOnIconClick
         showIcon
         icon={<img className={sty.calIcon} src={calendarIcon} alt="icon" />}
-        // popperModifiers={[
-        //     {
-        //         name: 'offset',
-        //         options: {
-        //             offset: ["5px", "10px"],
-        //         },
-        //     },
-        //     {
-        //         name: 'preventOverflow',
-        //         options: {
-        //             enabled: true,
-        //             escapeWithReference: false,
-        //             boundariesElement: "viewport",
-        //         },
-        //     },
-        // ]}
       />
     </div>
   );
