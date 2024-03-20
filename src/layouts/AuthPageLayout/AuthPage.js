@@ -12,7 +12,7 @@ const AuthPage = ({ children }) => {
   const location = useLocation();
 
   const userChoice = useSelector((state) => state.authChoice);
-  console.log(userChoice.role.role);
+
   return (
     <div className={styles.container}>
       {/* Left side common content */}

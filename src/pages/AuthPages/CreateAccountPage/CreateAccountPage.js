@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
 import styles from "./CreateAccountPage.module.css";
@@ -111,8 +111,9 @@ const CreateAccountPage = () => {
     onSuccess: async (response) => {
       try {
         const { access_token } = response;
+        const role = userChoice.role.role;
         // Make a request to your backend API
-        google_Login(access_token).then((res) => {
+        google_Login(access_token, role).then((res) => {
           if (res?.res?.data && res?.res.status === 200) {
             dispatch(updateIsLoggedIn(true));
             dispatch(
@@ -154,7 +155,11 @@ const CreateAccountPage = () => {
       }
     });
   };
-
+  useEffect(() => {
+    if (!userChoice.role) {
+      navigate("/auth-choice");
+    }
+  }, [userChoice]);
   return (
     <AuthPage>
       <div className={styles.container}>
@@ -286,7 +291,16 @@ const CreateAccountPage = () => {
               Create account
             </PrimaryButton>
             <p className={styles.alreadyHaveAccount}>
-              Already have an account? <Link to="/login">Log in</Link>
+              Already have an account?{" "}
+              <Link
+                to={`${
+                  userChoice.role.role === "partner"
+                    ? "/partner/login"
+                    : "/login"
+                }`}
+              >
+                Log in
+              </Link>
             </p>
           </div>
         </form>

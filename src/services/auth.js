@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import axiosInstance from "./axios";
 
 /** Register the user after Verifying the OTP `POST: /api/auth/register/` */
@@ -86,9 +87,9 @@ export const getUserProfile = async (jwtToken) => {
 };
 export const facebookAuth = async (token, redirectUri) => {
   try {
-    const data = { token ,redirectUri };
+    const data = { token, redirectUri };
     console.log(data);
-    const res = await axiosInstance.post('/auth/facebook', data);
+    const res = await axiosInstance.post("/auth/facebook", data);
     return { res: res, err: null };
   } catch (error) {
     return { err: error, res: null };
@@ -96,20 +97,24 @@ export const facebookAuth = async (token, redirectUri) => {
 };
 
 //google and facebook login
-    export const facebook_Login = async (data) => {
-      try {
-        const res = await axiosInstance.post(`/facebook`, data);
-        return { res, err: null };
-      } catch (error) {
-        return { err: error, res: null };
-      }
-    };
+export const facebook_Login = async (data) => {
+  try {
+    const res = await axiosInstance.post(`/facebook`, data);
+    return { res, err: null };
+  } catch (error) {
+    return { err: error, res: null };
+  }
+};
 
-    export const google_Login = async (access_token) => {
-      try {
-        const res = await axiosInstance.post(`/google`, {access_token});
-        return { res, err: null };
-      } catch (error) {
-        return { err: error, res: null };
-      }
-    };
+export const google_Login = async (access_token, role) => {
+  if (!role) {
+    return toast.error("role is missing");
+  }
+
+  try {
+    const res = await axiosInstance.post(`/google`, { access_token, role });
+    return { res, err: null };
+  } catch (error) {
+    return { err: error, res: null };
+  }
+};

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./LoginPage.module.css";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import "react-phone-number-input/style.css";
@@ -8,7 +8,7 @@ import {
   Google_Logo,
   eyeline,
 } from "../../../assets/images/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   getUserProfile,
   login,
@@ -37,6 +37,7 @@ import SecondaryButton from "../../../components/Buttons/SecondaryButton/Seconda
 import CountrySelect from "../../../components/Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
 import { openFbDialog } from "../../../utils/facebookLogin";
+import { chooseRole } from "../../../redux/slices/authChoice";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,11 +51,20 @@ const LoginPage = () => {
   const facebookAppId = process.env.REACT_APP_FACEBOOK_APP_ID;
   const userChoice = useSelector((state) => state.authChoice);
   const navigate = useNavigate();
+  const location = useLocation();
+
   const dispatch = useDispatch();
   const handleOTPForm = () => {
     setShowEmailPassword(false);
   };
-
+  useEffect(() => {
+    if (location.pathname === "/partner/login") {
+      dispatch(chooseRole({ role: "partner" }));
+    } else {
+      dispatch(chooseRole({ role: "normal" }));
+    }
+  }, []);
+  console.log(userChoice);
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -88,7 +98,10 @@ const LoginPage = () => {
     const formData = {
       email,
       password,
-      phone: phone.length && Object.keys(errors).length === 0?`+${getCountryCallingCode(country)}${phone}`:"",
+      phone:
+        phone.length && Object.keys(errors).length === 0
+          ? `+${getCountryCallingCode(country)}${phone}`
+          : "",
     };
 
     if (Object.keys(errors).length === 0 && showEmailPassword) {
@@ -146,20 +159,45 @@ const LoginPage = () => {
         }
       });
     }
-
   };
 
-  const googleAuthLogin=useGoogleLogin({
-    cookiePolicy: 'single_host_origin',
+  const googleAuthLogin = useGoogleLogin({
+    cookiePolicy: "single_host_origin",
     onSuccess: async (response) => {
       try {
         const { access_token } = response;
+        const role = userChoice.role.role;
         // Make a request to your backend API
-       google_Login(access_token).then((res)=>{
-        if (res?.res?.data && res?.res.status === 200) {
+        google_Login(access_token, role).then((res) => {
+          if (res?.res?.data && res?.res.status === 200) {
+            dispatch(updateIsLoggedIn(true));
+            dispatch(
+              updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+            );
+            localStorage.setItem("jwtToken", res?.res?.data?.token);
+            navigate("/");
+            toast("Welcome to Treato! Start exploring now!");
+          } else {
+            toast.error(`An unexpected error occurred. Please try again.`);
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  });
+  const redirectUri = "https://treato.netlify.app/";
+  const myFbLogin = async () => {
+    try {
+      let token = await openFbDialog();
+
+      console.log(":rocket: ~ file: Login.js:51 ~ myFbLogin ~ token:", token);
+      facebookAuth(token, redirectUri).then((res) => {
+        console.log("manual fb login", res);
+        if (res?.res?.data?.data) {
           dispatch(updateIsLoggedIn(true));
           dispatch(
-            updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+            updateUserDetails(res?.res?.data?.data || res?.res?.data.data)
           );
           localStorage.setItem("jwtToken", res?.res?.data?.token);
           navigate("/");
@@ -167,39 +205,11 @@ const LoginPage = () => {
         } else {
           toast.error(`An unexpected error occurred. Please try again.`);
         }
-       });
-      } catch (err) {
-        console.log(err);
-      }
-    },
-  });
-  const redirectUri = "https://treato.netlify.app/";
-   const myFbLogin = async () => {
-    try {
-        let token = await openFbDialog();
-        
-        console.log(":rocket: ~ file: Login.js:51 ~ myFbLogin ~ token:", token)
-        facebookAuth(token,redirectUri).then((res)=>{
-            console.log("manual fb login",res);
-            if(res?.res?.data?.data){
-                dispatch(updateIsLoggedIn(true));
-                dispatch(
-                  updateUserDetails(res?.res?.data?.data || res?.res?.data.data)
-                );
-                localStorage.setItem("jwtToken", res?.res?.data?.token);
-                navigate("/");
-                toast("Welcome to Treato! Start exploring now!");
-            }
-            else{
-                toast.error(`An unexpected error occurred. Please try again.`);
-            }
-        })
-
+      });
     } catch (ex) {
-        console.log("there was an error");
+      console.log("there was an error");
     }
-}
-
+  };
 
   const facebookAuthLogin = (facebookResponse) => {
     const { email, first_name, last_name, picture } = facebookResponse;
@@ -267,7 +277,7 @@ const LoginPage = () => {
                   src={eyeline}
                   className={styles.eyeline}
                   onClick={() => {
-                    setPasswordVisible(!passwordVisible)
+                    setPasswordVisible(!passwordVisible);
                     setPasswordError(false);
                   }}
                 />
@@ -296,31 +306,37 @@ const LoginPage = () => {
           {!showEmailPassword && (
             <div className={styles.inputGroup}>
               <label htmlFor="phone">Phone</label>
-              <div className={`${styles.phoneNumberInput} ${styles.phoneInputWrapper} ${phone.length?styles.bglightGray:""}`}>
-              <CountrySelect
-                labels={en}
-                value={country}
-                onChange={setCountry}
-                phone={phone}
+              <div
+                className={`${styles.phoneNumberInput} ${
+                  styles.phoneInputWrapper
+                } ${phone.length ? styles.bglightGray : ""}`}
+              >
+                <CountrySelect
+                  labels={en}
+                  value={country}
+                  onChange={setCountry}
+                  phone={phone}
+                />
+                <div
+                  className={`${styles.divider} ${
+                    phone.length ? styles.bglightGray : ""
+                  }`}
+                ></div>
+                <input
+                  value={phone}
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={10}
+                  onChange={(e) => {
+                    const sanitizedValue = e.target.value.replace(/\D/g, "");
+                    setPhone(sanitizedValue);
 
-              />
-               <div className={`${styles.divider} ${phone.length?styles.bglightGray:""}`}></div>
-              <input
-                value={phone}
-                type="text" 
-                inputMode="numeric" 
-                pattern="[0-9]*" 
-                maxLength={10} 
-                onChange={(e) => {
-                  const sanitizedValue = e.target.value.replace(/\D/g, ""); 
-                  setPhone(sanitizedValue);
-
-                  formErrors.phone = "";
-
-                }}
-                placeholder="Enter your phone number"
-              />
-            </div>
+                    formErrors.phone = "";
+                  }}
+                  placeholder="Enter your phone number"
+                />
+              </div>
               {formErrors.phone && (
                 <p className={styles.error}>{formErrors.phone}</p>
               )}
@@ -364,11 +380,10 @@ const LoginPage = () => {
               Google
             </SecondaryButton>
 
-             <SecondaryButton className={styles.facebook} onClick={myFbLogin}>
-                <img src={Facebook_Logo}/>
-                Facebook
-              </SecondaryButton>
-
+            <SecondaryButton className={styles.facebook} onClick={myFbLogin}>
+              <img src={Facebook_Logo} />
+              Facebook
+            </SecondaryButton>
           </div>
         </div>
       </div>

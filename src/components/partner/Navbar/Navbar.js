@@ -96,7 +96,7 @@ const Navbar = () => {
             ) : (
               <p className={style.action}>
                 {" "}
-                <Link to={"/login"}>
+                <Link to={"/partner/login"}>
                   <button className={style.login}>Login</button>
                 </Link>
                 <Link to={"/partner/authchoice"}>
@@ -152,6 +152,7 @@ const Navbar = () => {
                     <img src={right} />
                   </button>
                 </div>
+                s
                 <div className={style.mobileMenuItem}>
                   <Link to={"/"}>
                     <img src={user} /> <span>For Customers</span>

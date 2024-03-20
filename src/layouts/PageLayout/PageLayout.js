@@ -19,7 +19,8 @@ export default function PageLayout({ children }) {
     location.pathname === "/reset-password" ||
     location.pathname === "/forgot-password" ||
     location.pathname === "/partner" ||
-    location.pathname === "/partner/authchoice";
+    location.pathname === "/partner/authchoice" ||
+    location.pathname === "/partner/login";
 
   // remove footer  if the current route is "/myappointments "
 
