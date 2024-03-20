@@ -46,6 +46,7 @@ import EditService from "./pages/partnerPages/Services/EditService/EditService";
 import AddAppoinment from "./pages/partnerPages/Services/AddAppoinment/AddAppoinment";
 import PartnerHome from "./pages/partnerPages/PartnerHome/PartnerHome";
 import AuthChoice from "./pages/partnerPages/Auth/AuthChoice/AuthChoice";
+import CustomerPageLayout from "./layouts/CustomarPageLayout/CustomerPageLayout";
 
 function App() {
   // Use the location hook to track route changes
@@ -137,28 +138,30 @@ function App() {
         />
         <ModalManager />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/account-settings" element={<AccountSettings />} />
-          <Route path="/salons" element={<Salons />} />
-          <Route path="/salons/:id" element={<SalonDetail />} />
-          <Route path="/salons/:id/book" element={<BookFlow />} />
-          <Route path="/lookbook" element={<Lookbook />} />
-          <Route path="/lookbook-details/:id" element={<LookbookDetails />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blogs/:id" element={<BlogDetail />} />
-          <Route path="/my-appointments/*" element={<MyAppointments />} />
-          <Route
-            path="/LocationAutocomplete"
-            element={<LocationAutocomplete />}
-          />{" "}
-          {/* Auth routes */}
-          <Route element={<PrivateFormRoutes />}>
-            <Route path="/auth-choice" exact element={<AuthChoicePage />} />
-            <Route path="/create-account" element={<CreateAccountPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/verify-otp" element={<VerifyOTP />} />
-            <Route path="/reset-password/*" element={<ResetPassword />} />
+          <Route element={<CustomerPageLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/account-settings" element={<AccountSettings />} />
+            <Route path="/salons" element={<Salons />} />
+            <Route path="/salons/:id" element={<SalonDetail />} />
+            <Route path="/salons/:id/book" element={<BookFlow />} />
+            <Route path="/lookbook" element={<Lookbook />} />
+            <Route path="/lookbook-details/:id" element={<LookbookDetails />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:id" element={<BlogDetail />} />
+            <Route path="/my-appointments/*" element={<MyAppointments />} />
+            <Route
+              path="/LocationAutocomplete"
+              element={<LocationAutocomplete />}
+            />{" "}
+            {/* Auth routes */}
+            <Route element={<PrivateFormRoutes />}>
+              <Route path="/auth-choice" exact element={<AuthChoicePage />} />
+              <Route path="/create-account" element={<CreateAccountPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/verify-otp" element={<VerifyOTP />} />
+              <Route path="/reset-password/*" element={<ResetPassword />} />
+            </Route>
           </Route>
           {/* Redirect to home for any wrong routes */}
           <Route path="*" element={<Navigate to="/" />} />
