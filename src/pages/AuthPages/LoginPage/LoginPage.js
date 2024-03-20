@@ -64,7 +64,7 @@ const LoginPage = () => {
       dispatch(chooseRole({ role: "normal" }));
     }
   }, []);
-  console.log(userChoice);
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -123,7 +123,12 @@ const LoginPage = () => {
               // localStorage.setItem("userData", JSON.stringify(profileData));
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(profileData));
-              navigate("/");
+              if (userChoice.role.role === "partner") {
+                navigate("/partner/dashboard");
+              } else {
+                navigate("/");
+              }
+
               toast("Welcome to Treato! Start exploring now!");
             }
           })();
