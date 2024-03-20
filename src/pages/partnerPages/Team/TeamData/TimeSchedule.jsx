@@ -113,6 +113,9 @@ const TimeSchedule = () => {
   if (isError) {
     return <ErrorComponent message={error.message} />;
   }
+
+  // console.log(data);
+
   return (
     <TimeScheContext.Provider
       value={{ schedule, member, refetch, sethandleShift }}
@@ -217,6 +220,7 @@ const TimeSchedule = () => {
                           {
                             /* closebutton */
                           }
+
                           if (y.isClosed) {
                             return (
                               <td>

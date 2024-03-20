@@ -43,7 +43,7 @@ const AddLeaveModal = ({ onClose }) => {
     }
 
     let url = `stylist/addLeave?stylistId=${member?.id}&date=${convertedDate}`;
-
+    console.log(url);
     console.log(url);
 
     try {

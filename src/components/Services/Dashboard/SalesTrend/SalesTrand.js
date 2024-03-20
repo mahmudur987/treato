@@ -85,7 +85,7 @@ const SalesTrand = () => {
     <>
       <div className={styles.mainContainer}>
         <div className={styles.header}>
-          <h2>Sales Trand</h2>
+          <h2>Sales Trend</h2>
           <WeekNavigator setStartDate={setstartDate} setEndDate={setEndDate} />
         </div>
 
@@ -152,7 +152,7 @@ const SalesTrand = () => {
           </p>
           <p className={styles.footerRight}>
             <span className={styles.appointmentColor}></span>
-            <span>Appoinment</span>
+            <span>Appointments</span>
           </p>
         </div>
       </div>

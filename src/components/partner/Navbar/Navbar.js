@@ -117,7 +117,9 @@ const Navbar = () => {
               onError={(e) => (e.target.src = mask)}
             />
             <h3>{userData?.user?.first_name}</h3>
-            <Link to={"/partner/dashboard"}>Dashboard</Link>
+            {userData.user.role === "partner" && (
+              <Link to={"/partner/dashboard"}>Dashboard</Link>
+            )}
             <Link onClick={handleLogout}>LogOut</Link>
           </div>
         )}
@@ -174,6 +176,16 @@ const Navbar = () => {
                     <img src={right} />
                   </button>
                 </div>
+                {userData.user.role === "partner" && (
+                  <div className={style.mobileMenuItem}>
+                    {userData.user.role === "partner" && (
+                      <Link to={"/partner/dashboard"}>Dashboard</Link>
+                    )}
+                    <button onClick={() => setshow((pre) => !pre)}>
+                      <img src={right} />
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )}

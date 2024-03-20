@@ -17,6 +17,7 @@ import SelectServiceModal from "../../../../../components/_modals/SelectServiceM
 import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../../../services/axios";
+import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
 
 const AddMemberProfile = () => {
   const fileInputRef = useRef(null);
@@ -33,6 +34,9 @@ const AddMemberProfile = () => {
   const [serviceStartDate, setServiceStartDate] = useState("");
   const [serviceEndDate, setServiceEndDate] = useState("");
   const [time_for_service, setTimeForService] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
   const updateInputValues = (updatedValues) => {
     if (updatedValues.firstName !== undefined) {
       setFirstName(updatedValues.firstName);
@@ -72,10 +76,12 @@ const AddMemberProfile = () => {
     if (!phone) {
       return toast.error("write your phone number ");
     }
+    if (!address) {
+      return toast.error("write your address ");
+    }
     if (selectedServices.length === 0) {
       return toast.error("select a service ");
     }
-    console.log(phone);
     const phoneAsNumber = Number(phone);
     if (isNaN(phoneAsNumber)) {
       return toast.error("Phone number is not valid");
@@ -86,6 +92,7 @@ const AddMemberProfile = () => {
     formData.append("stylist_Img", picture); // Assuming 'picture' is the file object
     formData.append("rating", "4.5");
     formData.append("stylist_number", phoneAsNumber);
+    formData.append("stylist_address", address);
     time_for_service.forEach((time) => {
       formData.append("time_for_service[]", time);
     });
@@ -97,16 +104,19 @@ const AddMemberProfile = () => {
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };
-
+    setLoading(true);
     try {
       const { data } = await axiosInstance.post("stylist/new", formData, {
         headers,
       });
       console.log(data);
       toast.success(data.message);
+      setLoading(false);
+
       navigate("/partner/dashboard/TeamManageMent");
     } catch (error) {
       console.log("error", error);
+      setLoading(false);
       toast.error(error.message);
     }
   };
@@ -124,7 +134,9 @@ const AddMemberProfile = () => {
     const file = e.target.files[0];
     setPicture(file);
   };
-
+  if (loading) {
+    <LoadSpinner />;
+  }
   return (
     <>
       <div className={styles.container}>
@@ -154,7 +166,12 @@ const AddMemberProfile = () => {
                     className={styles.profileRounded}
                     onClick={handleButtonClick}
                   >
-                    <img src={profileImg} alt="profileImg" />
+                    <img
+                      src={picture ? URL.createObjectURL(picture) : profileImg}
+                      alt="profileImg"
+                      style={{ maxWidth: "100%" }}
+                      className={styles.Rounded}
+                    />
 
                     <input
                       type="file"

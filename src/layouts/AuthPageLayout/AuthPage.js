@@ -18,6 +18,7 @@ const AuthPage = ({ children }) => {
       {/* Left side common content */}
 
       {location.pathname === "/partner/authchoice" ||
+      location.pathname === "/partner/login" ||
       userChoice.role.role === "partner" ? (
         <div className={styles.PartnerAuthImage}></div>
       ) : (

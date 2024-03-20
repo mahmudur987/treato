@@ -165,6 +165,7 @@ function App() {
           <Route path="/partner" element={<PartnerPage />}>
             <Route path="/partner" element={<PartnerHome />} />
             <Route path="/partner/authchoice" element={<AuthChoice />} />
+            <Route path="/partner/login" element={<LoginPage />} />
           </Route>
           {/* partner dashboard */}
           <Route path="/partner/dashboard" element={<ServicePage />}>

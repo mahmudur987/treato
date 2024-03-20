@@ -31,6 +31,7 @@ const EditTeamData = () => {
     isError: memIsError,
     isLoading: memLoading,
     error: memError,
+    refetch,
   } = useGetSingleMember(id);
 
   const fileInputRef = useRef(null);
@@ -47,7 +48,7 @@ const EditTeamData = () => {
   const [serviceStartDate, setServiceStartDate] = useState("");
   const [serviceEndDate, setServiceEndDate] = useState("");
   const [time_for_service, setTimeForService] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   const updateInputValues = (updatedValues) => {
     if (updatedValues.firstName !== undefined) {
       setFirstName(updatedValues.firstName);
@@ -71,30 +72,24 @@ const EditTeamData = () => {
     },
     []
   );
+  console.log(phone);
   useEffect(() => {
     setSelectedServices(member?.data?.services);
-    setFirstName(member?.data.stylist_name);
+    setFirstName(member?.data.stylist_name.split(" ")[0]);
+    setLastName(member?.data?.stylist_name?.split(" ")[1]);
+    setPhone(member?.data?.stylist_number);
+    setAddress(member?.data?.stylist_address);
+    setServiceTitle(member?.data?.stylist_service[0]);
+    setServiceStartDate(member?.data?.created);
+    setSelectedServices(member?.data.services);
   }, [member]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!firstName) {
-      return toast.error("write your first name");
-    }
-    if (!serviceTitle) {
-      return toast.error("write your Service Title");
-    }
-
-    if (!phone) {
-      return toast.error("write your phone number ");
-    }
-    if (selectedServices.length === 0) {
-      return toast.error("select a service ");
-    }
     const phoneAsNumber = Number(phone);
     if (isNaN(phoneAsNumber)) {
       return toast.error("Phone number is not valid");
     }
-    console.log(address);
+
     const formData = new FormData();
     formData.append(
       "stylist_name",
@@ -111,12 +106,10 @@ const EditTeamData = () => {
     selectedServices.forEach((service) => {
       formData.append("services[]", service); // Appending services as array
     });
-
-    // Construct headers
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };
-
+    setLoading(true);
     try {
       const { data } = await axiosInstance.patch(
         `stylist/updateStylist/${id}`,
@@ -125,13 +118,14 @@ const EditTeamData = () => {
           headers,
         }
       );
-
       console.log(data);
-
       toast.success(data.message);
-      navigate("/partner/dashboard/TeamManageMent");
+      setLoading(false);
+      refetch();
     } catch (error) {
       console.log("error", error);
+      setLoading(false);
+
       toast.error(error.message);
     }
   };
@@ -149,7 +143,7 @@ const EditTeamData = () => {
     const file = e.target.files[0];
     setPicture(file);
   };
-  if (memLoading) {
+  if (memLoading || loading) {
     return <LoadSpinner />;
   }
   if (memIsError) {
@@ -187,7 +181,9 @@ const EditTeamData = () => {
                     <img
                       className={styles.profileRounded}
                       src={
-                        member?.data?.stylist_Img?.public_url
+                        picture
+                          ? URL.createObjectURL(picture)
+                          : member?.data?.stylist_Img?.public_url
                           ? member?.data?.stylist_Img?.public_url
                           : img1
                       }

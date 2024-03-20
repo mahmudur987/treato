@@ -9,6 +9,8 @@ import { TimeScheContext } from "../../../../pages/partnerPages/Team/TeamData/Ti
 import { formatCustomDate } from "../../../../pages/partnerPages/Team/TeamData/utils";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../../services/axios";
+import { useGetSlots } from "../../../../services/Team";
+import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 
 const EditAdminModal = ({ onClose }) => {
   const { schedule, member, refetch, sethandleShift } =
@@ -21,9 +23,11 @@ const EditAdminModal = ({ onClose }) => {
   const [endTime2, setEndTime2] = useState("");
   const handleAddTimeFields = () => {
     setTimeFieldsCount((prevCount) => prevCount + 1);
-    // toast.error("you can not add a new shift now");
   };
-  // console.log(member);
+
+  const { data, isLoading, isError, error } = useGetSlots();
+  const { slots } = data?.slotsPerDay[0] || {};
+
   const handleEditShift = async () => {
     const headers = {
       token: localStorage.getItem("jwtToken"),
@@ -131,11 +135,17 @@ const EditAdminModal = ({ onClose }) => {
                     >
                       <option value="">please select</option>
 
-                      {schedule?.time_slots?.map((x, i) => (
-                        <option key={i} value={x?.slot}>
-                          {x?.slot}
-                        </option>
-                      ))}
+                      {slots && !isLoading && !isError ? (
+                        slots.map((x, i) => (
+                          <option key={i} value={x?.slot}>
+                            {x}
+                          </option>
+                        ))
+                      ) : (
+                        <ErrorComponent
+                          message={error ? error.message : "slots error"}
+                        />
+                      )}
                     </select>
                   </div>
                   <div className={styles["inputField"]}>
@@ -148,11 +158,17 @@ const EditAdminModal = ({ onClose }) => {
                     >
                       <option value="">please select</option>
 
-                      {schedule?.time_slots?.map((x, i) => (
-                        <option key={i} value={x?.slot}>
-                          {x?.slot}
-                        </option>
-                      ))}
+                      {slots && !isLoading && !isError ? (
+                        slots.map((x, i) => (
+                          <option key={i} value={x?.slot}>
+                            {x}
+                          </option>
+                        ))
+                      ) : (
+                        <ErrorComponent
+                          message={error ? error.message : "slots error"}
+                        />
+                      )}
                     </select>
                   </div>
                 </div>

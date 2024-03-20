@@ -13,26 +13,22 @@ export default function PhoneInput({
   onChange,
   setPhone,
 }) {
-  const [value, setValue] = useState("");
-  const [country, setcountry] = useState("+91");
+  const [country, setCountry] = useState("+91");
 
   function inputValue(e) {
-    setValue(e.target.value);
+    const phoneNumber = e.target.value.replace(country, ""); // Extract phone number without country code
+    setPhone(country + phoneNumber);
     if (updateInputVal) {
       let allValue = { ...inputVal };
       allValue[e.target.name] = e.target.value;
       updateInputVal(allValue);
     }
   }
-  useEffect(() => {
-    if (setPhone) {
-      setPhone(country + value);
-    }
-  }, [country, value]);
+
   return (
     <div className={styles.phone_inputMain}>
       <select
-        onChange={(e) => setcountry(e.target.value)}
+        onChange={(e) => setCountry(e.target.value)}
         name="country"
         id=""
         className={styles.phone_select}
@@ -46,7 +42,7 @@ export default function PhoneInput({
         type={Type ? Type : "text"}
         placeholder={PlaceHolder ? PlaceHolder : ""}
         className={styles.phone_input}
-        value={value}
+        value={VALUE}
         disabled={DISABLED ? DISABLED : false}
         id={ID ? ID : ""}
         name={NAME ? NAME : ""}

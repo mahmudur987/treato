@@ -48,3 +48,17 @@ export const useGetSingleMember = (id) => {
     },
   });
 };
+export const useGetSlots = () => {
+  const headers = {
+    token: localStorage.getItem("jwtToken"),
+  };
+  return useQuery({
+    queryKey: ["slotsByDay"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(`/salon/slotsByDay`, {
+        headers,
+      });
+      return data;
+    },
+  });
+};

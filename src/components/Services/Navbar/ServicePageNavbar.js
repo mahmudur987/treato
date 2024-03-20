@@ -61,7 +61,9 @@ const ServicePageNavbar = () => {
               alt=""
             />
             <h3>{userData?.user?.first_name}</h3>
-            <Link to={"/partner/dashboard"}>Dashboard</Link>
+            {userData.user.role === "partner" && (
+              <Link to={"/partner/dashboard"}>Dashboard</Link>
+            )}
             <Link onClick={handleLogout}>LogOut</Link>
           </div>
         )}
