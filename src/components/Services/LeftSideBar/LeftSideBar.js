@@ -167,7 +167,7 @@ const LeftSideBar = () => {
       <div className={`${show ? styles.containerHover : styles.container}`}>
         {/* logo */}
         <div className={styles.imageWrapper}>
-          <Link to={"/"}>
+          <Link to={"/partner/dashboard"}>
             <img src={treao} alt="" />
           </Link>
         </div>
