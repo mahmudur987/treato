@@ -6,12 +6,20 @@ import ServicePageNavbar from "../../components/Services/Navbar/ServicePageNavba
 import BottomNav from "../../components/Services/BottomNav/BottomNav";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { getUserProfile } from "../../services/auth";
 
 const ServicePage = () => {
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.user);
-
+  useEffect(() => {
+    let isTokenExist = localStorage.getItem("jwtToken");
+    if (isTokenExist) {
+      getUserProfile(isTokenExist).then((res) => {
+        console.log(res?.res?.data?.data);
+      });
+    }
+  }, []);
   if (user.role !== "partner") {
     toast.error("Please login as a partner", { id: 1 });
     return navigate("/partner");

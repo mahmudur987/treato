@@ -30,7 +30,6 @@ export default function CustomerPageLayout() {
   const isServicePage = location.pathname.startsWith("/partner/dashboard");
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-  console.log(user);
 
   useEffect(() => {
     if (user.role === "partner") {

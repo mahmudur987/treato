@@ -106,3 +106,74 @@ export const useGetTemMembers = () => {
     },
   });
 };
+
+export const createSalon = async () => {
+  const headers = {
+    token: localStorage.getItem("jwtToken"),
+  };
+  const data = {
+    salon_name: "New Salon Name",
+    salons_description: "New Salon Description",
+    salons_address: "New Salon Address",
+    services_provided: [],
+    website: "www.example.com",
+    location_details: {
+      location: "Business Location",
+      building_number: "HB-072",
+      landmark: "Near XYZ",
+      city: "Mumbai",
+      postal_code: "100102",
+    },
+    locationText: "Address",
+    location: {
+      type: "Point",
+      coordinates: [17.385, 78.4867],
+    },
+    working_hours: [
+      {
+        day: "Monday",
+        opening_time: "9:00 AM",
+        closing_time: "9:00 PM",
+      },
+      {
+        day: "Tuesday",
+        opening_time: "9:00 AM",
+        closing_time: "9:00 PM",
+      },
+      {
+        day: "Wednesday",
+        opening_time: "9:00 AM",
+        closing_time: "9:00 PM",
+      },
+      {
+        day: "Thursday",
+        opening_time: "9:00 AM",
+        closing_time: "9:00 PM",
+      },
+      {
+        day: "Friday",
+        opening_time: "9:00 AM",
+        closing_time: "9:00 PM",
+      },
+      {
+        day: "Saturday",
+        opening_time: "9:00 AM",
+        closing_time: "9:00 PM",
+      },
+      {
+        day: "Sunday",
+        opening_time: "9:00 AM",
+        closing_time: "5:30 PM",
+      },
+    ],
+  };
+  try {
+    const res = await axiosInstance.patch("/salon/new", data, {
+      headers,
+    });
+
+    return { res: res.data, err: null };
+  } catch (error) {
+    return { res: null, err: error };
+  }
+};
