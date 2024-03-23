@@ -14,7 +14,7 @@ import { getAllServices } from "../../../../services/Services";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
 const ServiceCatalog = () => {
   const [showAddMenu, setshowAddmenu] = useState(false);
-  const { data, isLoading, isError, error, refetch } = useSingleSalon();
+  const { data, isLoading, isError, error } = useSingleSalon();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedServiceType, setSelectedServiceType] = useState("All");
   const [serviceType, setserviceType] = useState([]);
@@ -40,19 +40,17 @@ const ServiceCatalog = () => {
     setIsModalOpen(false);
   };
   if (isLoading) {
-    return (
-      <div>
-        <LoadSpinner />
-      </div>
-    );
+    return <LoadSpinner />;
   }
 
   if (isError) {
     toast.error(error.message, { toastId: 1 });
-    return null;
+    return (
+      <ErrorComponent message={error ? error.message : "No data available"} />
+    );
   }
 
-  if (!data || !data.salon) {
+  if (!data || !data.salon || isError) {
     return <ErrorComponent message={"No data available"} />;
   }
 

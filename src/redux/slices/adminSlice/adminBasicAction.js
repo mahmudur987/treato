@@ -1,19 +1,23 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
-import api from "./api"
-export const adminBasicDetails = createAsyncThunk("admindata/add", async ( data, {getState, rejectWithValue }) => {
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axiosInstance from "../../../services/axios";
 
-    console.log("salonData",data);
+export const adminBasicDetails = createAsyncThunk(
+  "admindata/add",
+  async (requestData, { getState, rejectWithValue }) => {
+    console.log("salonData", requestData);
     try {
-       
-        const { data } = await api.post("/salon/new",data,{
-            headers:{
-                token: localStorage.getItem("jwtToken"),
-              }
-        })
-        // console.log("data");
-        return data
+      const response = await axiosInstance.patch(
+        "/salon/updateSalon",
+        requestData,
+        {
+          headers: {
+            token: localStorage.getItem("jwtToken"),
+          },
+        }
+      );
+      return response.data;
     } catch (error) {
-        return rejectWithValue(error.message)
+      return rejectWithValue(error.message);
     }
-
-})
+  }
+);

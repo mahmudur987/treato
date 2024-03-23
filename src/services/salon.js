@@ -50,7 +50,7 @@ export const getSingleSalonData = async (id) => {
 
 export const useSingleSalon = () => {
   return useQuery({
-    queryKey: [""],
+    queryKey: ["salon/getOneSalon"],
     queryFn: async () => {
       const headers = {
         token: localStorage.getItem("jwtToken"),

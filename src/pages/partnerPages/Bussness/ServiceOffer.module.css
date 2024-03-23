@@ -3,7 +3,7 @@
   font-family: "Lato", sans-serif;
 }
 
-.mainDiv{
+.mainDiv {
   display: flex;
   justify-content: space-between;
   gap: 100px;
@@ -12,7 +12,7 @@
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px; 
+  gap: 10px;
 }
 
 /* .mainContainer {
@@ -22,36 +22,36 @@
   flex-direction: column;
   gap: 48px;
 } */
-.offerTitle{
+.offerTitle {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.offerTitle h4{
+.offerTitle h4 {
   color: var(--Grey-Black, #08090a);
 
   font-family: Poppins;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%; 
+  line-height: 150%;
 }
-.offerTitle p{
+.offerTitle p {
   color: var(--Grey-Black, #08090a);
   font-family: Lato;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; 
+  line-height: 150%;
   letter-spacing: 0.16px;
 }
 .offerDiv {
-  width: 120px;
-  height: 22px;
-  padding: 12px 41px 12px 42px; 
+  max-width: 150px;
+  width: 100%;
+  padding: 10px;
   border-radius: 4px;
   gap: 10px;
-  border: 1px solid #CED4DA;
+  border: 1px solid #ced4da;
   outline: none;
 }
 .sectionHeading {
@@ -66,7 +66,7 @@
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%; 
+  line-height: 150%;
 }
 .sectionHeading p {
   color: var(--Grey-Grey-05, #2e3032);
@@ -75,7 +75,7 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; 
+  line-height: 150%;
   letter-spacing: 0.16px;
 }
 
@@ -101,8 +101,8 @@
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 34px;
 }
 
@@ -114,17 +114,17 @@
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 50%;
 }
 
 input:checked + .toggleSlider {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 input:focus + .toggleSlider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .toggleSlider:before {
@@ -152,8 +152,6 @@ input:checked + .toggleSlider:before {
   background-color: #999;
 }
 
-
-
 /* switch Toggle css End */
 
 .CheckBoxForm {
@@ -172,16 +170,15 @@ input:checked + .toggleSlider:before {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; 
+  line-height: 150%;
   letter-spacing: 0.16px;
-
 }
 
-.HolidaysDiv{
-  color: #0D69D7;
-   font-family: "Lato";
+.HolidaysDiv {
+  color: #0d69d7;
+  font-family: "Lato";
   font-weight: 600;
-  }
+}
 
 .scheHeading {
   width: 100%;
@@ -196,7 +193,7 @@ input:checked + .toggleSlider:before {
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%; 
+  line-height: 150%;
 }
 .scheHeading p {
   color: var(--Grey-Black, #08090a);
@@ -222,10 +219,9 @@ input:checked + .toggleSlider:before {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; 
+  line-height: 150%;
   letter-spacing: 0.16px;
 }
-
 
 .selectsContainer {
   display: flex;
@@ -244,10 +240,12 @@ input:checked + .toggleSlider:before {
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%; 
+  line-height: 150%;
   letter-spacing: 0.16px;
 }
-.content h4{display: none;}
+.content h4 {
+  display: none;
+}
 .selectWrapper {
   width: 100%;
   height: 48px;
@@ -267,66 +265,72 @@ input:checked + .toggleSlider:before {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; 
+  line-height: 150%;
   letter-spacing: 0.16px;
   margin: 0;
   border: 0;
   padding-left: 16px;
 }
 
-
-.store_closed_today{
+.store_closed_today {
   display: flex;
   gap: 33%;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
-
-
-.horizontalLine{
+.horizontalLine {
   margin-top: 30px;
   width: 1132px;
-border: 1px solid;
-color:#EBEDF0;
-
+  border: 1px solid;
+  color: #ebedf0;
 }
-.horizontalLineSelete{
+.horizontalLineSelete {
   width: 400px;
-border: 1px solid;
-color:#EBEDF0;
-
+  border: 1px solid;
+  color: #ebedf0;
 }
-.collapseForSmallScreen{display: none;}
+.collapseForSmallScreen {
+  display: none;
+}
 
 @media only screen and (max-width: 768px) {
   .mainDiv {
     flex-direction: column;
-    }
-    .offerTitle{width: 70%;}
-   .offerTitle p{
+  }
+  .offerTitle {
+    width: 70%;
+  }
+  .offerTitle p {
     color: var(--Grey-Black, #08090a);
     font-family: Lato;
-   font-style: normal;
+    font-style: normal;
     width: 100%;
   }
-  
+
   .gridContainer {
     display: flex;
     flex-direction: column;
-}
+  }
 
-.offerDiv{
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  width: 70%;
-}
-.store_closed_today{display: flex; gap: 30px;}
+  .offerDiv {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 70%;
+  }
+  .store_closed_today {
+    display: flex;
+    gap: 30px;
+  }
 
-.scheHeading1{width: 80%;}
+  .scheHeading1 {
+    width: 80%;
+  }
 
-  .toggle{width:20%}
+  .toggle {
+    width: 20%;
+  }
 
   .toggle input[type="checkbox"]:checked + .toggleSlider:before {
     height: 20px;
@@ -340,32 +344,42 @@ color:#EBEDF0;
     left: 1%;
     bottom: 2px;
   }
-  .horizontalLineSelete{width: 90%;}
-  .content {width: 130px;}
-  .content h3{display: none;}
-  .content h4{display: block;}
+  .horizontalLineSelete {
+    width: 90%;
+  }
+  .content {
+    width: 130px;
+  }
+  .content h3 {
+    display: none;
+  }
+  .content h4 {
+    display: block;
+  }
   .days {
     display: flex;
     column-gap: 38px;
     row-gap: 16px;
     flex-wrap: wrap;
-   
   }
-.CollaseIconImg{width: 24px; height: 24px;} 
+  .CollaseIconImg {
+    width: 24px;
+    height: 24px;
+  }
 
-.collapseForSmallScreen{
-  display: flex;
-  gap: 20px;
-  margin-top: 30px;
+  .collapseForSmallScreen {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  .collapseForSmallScreen p {
+    color: #6d747a;
+    font-family: "Lato";
+    font-weight: 400;
+    line-height: 24px;
+  }
+
+  .horizontalLine {
+    width: 70%;
+  }
 }
-.collapseForSmallScreen p{
-  color: #6D747A;
-  font-family: "Lato";
-  font-weight: 400;
-  line-height: 24px;
-}
-
-  .horizontalLine{width: 70%;}
-}
-
-
