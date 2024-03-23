@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
 import mask from "../../../assets/images/NavbarImages/Mask.png";
+// import mask from "../../../assets/images/NavbarImages/Mask.png";
 const ServicePageNavbar = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
@@ -27,7 +28,7 @@ const ServicePageNavbar = () => {
               onClick={() => setShowProfile((pre) => !pre)}
             >
               <img
-                src={userData?.user?.avatar?.public_url}
+                src={userData?.user?.avatar?.public_url ?? ""}
                 onError={(e) => (e.target.src = mask)}
                 alt=""
               />

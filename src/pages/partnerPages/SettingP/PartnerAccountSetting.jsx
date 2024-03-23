@@ -2,8 +2,6 @@ import React from "react";
 import style from "./PartnerAccountSetting.module.css";
 import RightIcon from "../../../assets/images/AccountSettings/chevron-right.svg";
 import { Link } from "react-router-dom";
-import Bussness from "../Bussness/Bussness";
-import ServiceLocation from "../Bussness/ServiceLocation";
 
 const PartnerAccountSetting = () => {
   const AccountData = [

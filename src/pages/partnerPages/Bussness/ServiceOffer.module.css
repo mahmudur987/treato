@@ -1,6 +1,7 @@
 .container {
   padding: 2rem 6rem;
   font-family: "Lato", sans-serif;
+  margin: 0px auto;
 }
 
 .mainDiv {

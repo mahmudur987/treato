@@ -1,15 +1,16 @@
- .container {
+.container {
   padding: 2rem 6rem;
   font-family: "Lato", sans-serif;
 }
-.Heading1{margin-bottom: 30px;}
+.Heading1 {
+  margin-bottom: 30px;
+}
 .usr_detail_head {
   font-family: "Poppins", sans-serif;
   font-size: 42px;
   display: flex;
   gap: 8px;
   margin-bottom: 20px;
-  
 }
 
 .Pictures {
@@ -49,15 +50,15 @@
   right: 3%;
   cursor: pointer;
 }
-.usr_detail_edit_text{
+.usr_detail_edit_text {
   position: absolute;
   left: 46%;
   top: 50px;
   right: 3%;
   cursor: pointer;
 }
-.optional{
-  color: #6D747A;
+.optional {
+  color: #6d747a;
 }
 .input {
   height: 48px;
@@ -68,8 +69,7 @@
   resize: none;
 }
 .input,
-.textarea
- {
+.textarea {
   border: 1px solid var(--Grey-30);
   border-radius: 4px;
   margin-top: 0.5rem;
@@ -80,43 +80,39 @@
   padding-top: 1rem;
 }
 
-.input::placeholder,.textarea::placeholder {
+.input::placeholder,
+.textarea::placeholder {
   color: var(--Grey-10);
   font-family: "Lato", sans-serif;
   font-size: var(--font-medium);
 }
-.horizontalLine{
+.horizontalLine {
   margin-top: 30px;
   width: 1132px;
-border: 1px solid;
-color:#EBEDF0;
-
+  border: 1px solid;
+  color: #ebedf0;
 }
-
-
-
 
 @media only screen and (max-width: 767px) {
   .usr_detail_head {
     display: flex;
     font-size: 33px;
   }
-.usr_detail_body {
-    
+  .usr_detail_body {
     flex-direction: column;
-    width: 70%; 
+    width: 70%;
+  }
+  .textarea {
+    width: 70%;
+  }
+  .usr_detail_edit_text {
+    position: absolute;
+    left: 65%;
+    top: 50px;
+    right: 3%;
+    cursor: pointer;
+  }
+  .horizontalLine {
+    width: 70%;
+  }
 }
-.textarea{ width: 70%; }
-.usr_detail_edit_text{
-  position: absolute;
-  left: 65%;
-  top: 50px;
-  right: 3%;
-  cursor: pointer;
-}
-.horizontalLine{
-  width: 70%; 
-}
-} 
-
- 

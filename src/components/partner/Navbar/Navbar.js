@@ -145,14 +145,14 @@ const Navbar = () => {
               </div>
               <div className={style.mobileMenuItms}>
                 <div className={style.mobileMenuItem}>
-                  <Link to={"/"}>
+                  <Link to={"/partner/authchoice"}>
                     <img src={signin} /> <span>Sign up / Sign-in</span>
                   </Link>
                   <button onClick={() => setshow((pre) => !pre)}>
                     <img src={right} />
                   </button>
                 </div>
-                s
+
                 <div className={style.mobileMenuItem}>
                   <Link to={"/"}>
                     <img src={user} /> <span>For Customers</span>
@@ -162,7 +162,7 @@ const Navbar = () => {
                   </button>
                 </div>
                 <div className={style.mobileMenuItem}>
-                  <Link to={"/"}>
+                  <Link to={"#"}>
                     <img src={pricing} /> <span>Pricing</span>
                   </Link>
                   <button onClick={() => setshow((pre) => !pre)}>
@@ -180,7 +180,10 @@ const Navbar = () => {
                 {userData.user.role === "partner" && (
                   <div className={style.mobileMenuItem}>
                     {userData.user.role === "partner" && (
-                      <Link to={"/partner/dashboard"}>Dashboard</Link>
+                      <Link to={"/partner/dashboard"}>
+                        <img src={user} />
+                        <span> Dashboard</span>
+                      </Link>
                     )}
                     <button onClick={() => setshow((pre) => !pre)}>
                       <img src={right} />
