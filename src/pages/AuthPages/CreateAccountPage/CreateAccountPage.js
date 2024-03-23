@@ -122,7 +122,6 @@ const CreateAccountPage = () => {
                 createSalon()
                   .then((res) => console.log(res.res))
                   .catch((err) => console.error(err));
-
                 navigate("/partner/dashboard/PartnerAccountSetting");
               }
               dispatch(updateIsLoggedIn(true));

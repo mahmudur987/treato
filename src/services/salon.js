@@ -168,7 +168,7 @@ export const createSalon = async () => {
     ],
   };
   try {
-    const res = await axiosInstance.patch("/salon/new", data, {
+    const res = await axiosInstance.post("/salon/new", data, {
       headers,
     });
 
