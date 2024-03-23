@@ -11,7 +11,11 @@ import {
   eyeline,
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { google_Login, facebook_Login } from "../../../services/auth";
+import {
+  google_Login,
+  facebook_Login,
+  getUserProfile,
+} from "../../../services/auth";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { sendLoginOTP } from "../../../services/auth";
@@ -26,6 +30,7 @@ import { getCountryCallingCode } from "react-phone-number-input/input";
 import en from "react-phone-number-input/locale/en";
 import CountrySelect from "../../../components/Countrycode/CountrySelect";
 import { handleInputChange } from "../../../utils/utils";
+import { createSalon } from "../../../services/salon";
 
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
