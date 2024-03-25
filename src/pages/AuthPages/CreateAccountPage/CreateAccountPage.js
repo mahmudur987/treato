@@ -160,13 +160,23 @@ const CreateAccountPage = () => {
     };
     facebook_Login(data).then((res) => {
       if (res?.res?.data && res?.res.status === 200) {
+        const user = res?.res?.data?.data;
         dispatch(updateIsLoggedIn(true));
         dispatch(
           updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
         );
         localStorage.setItem("jwtToken", res?.res?.data?.token);
-        navigate("/");
-        toast("Welcome to Treato! Start exploring now!");
+        if (user?.role === "partner") {
+          createSalon()
+            .then((res) => console.log(res.res))
+            .catch((err) => console.error(err));
+          navigate("/partner/dashboard/PartnerAccountSetting");
+        }
+
+        if (user?.role !== "partner") {
+          navigate("/");
+          toast("Welcome to Treato! Start exploring now!");
+        }
       } else {
         toast.error(`An unexpected error occurred. Please try again.`);
       }
