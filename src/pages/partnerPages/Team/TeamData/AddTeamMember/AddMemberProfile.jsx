@@ -109,7 +109,6 @@ const AddMemberProfile = () => {
       console.log(data);
       toast.success(data.message);
       setLoading(false);
-
       navigate("/partner/dashboard/TeamManageMent");
     } catch (error) {
       console.log("error", error);
