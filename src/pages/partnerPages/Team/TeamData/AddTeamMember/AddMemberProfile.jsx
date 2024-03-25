@@ -79,9 +79,6 @@ const AddMemberProfile = () => {
     if (!address) {
       return toast.error("write your address ");
     }
-    if (selectedServices.length === 0) {
-      return toast.error("select a service ");
-    }
     const phoneAsNumber = Number(phone);
     if (isNaN(phoneAsNumber)) {
       return toast.error("Phone number is not valid");

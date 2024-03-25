@@ -240,6 +240,7 @@ const LoginPage = () => {
           updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
         );
         localStorage.setItem("jwtToken", res?.res?.data?.token);
+        const user = res?.res?.data?.data;
         if (user?.role === "partner") {
           createSalon()
             .then((res) => console.log(res.res))
