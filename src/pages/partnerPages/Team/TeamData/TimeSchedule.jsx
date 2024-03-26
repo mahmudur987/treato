@@ -126,6 +126,7 @@ const TimeSchedule = () => {
             <img src={arrowLeft} alt="arrowLeft" className={sty.arrowLeft} />
             <h1 className={sty.headingTeam}>Team Schedule</h1>
           </div>
+
           {data?.data[0]?.time_for_service.length > 0 && (
             <div className={sty.teamCal}>
               <p className={sty.teamCalIcon}>
@@ -147,13 +148,13 @@ const TimeSchedule = () => {
                   />{" "}
                 </span>
               </p>
-              <div onClick={scrollToLeft}>
+              {/* <div onClick={scrollToLeft}>
                 <img
                   src={Scroller}
                   alt="Scroller"
                   className={sty.ScrollerImg}
                 />
-              </div>
+              </div> */}
             </div>
           )}
 
@@ -201,87 +202,50 @@ const TimeSchedule = () => {
             <tbody>
               {TeamDetailsData?.map((item, index) => {
                 return (
-                  <>
-                    <tr key={index}>
-                      {/* img */}
-                      <td>
-                        <div className={sty.nameProfile}>
-                          <img
-                            src={item.profile}
-                            alt="profile"
-                            className={sty.profile}
-                          />
-                          <span className={sty.name}>{item.name}</span>
-                        </div>
-                      </td>
+                  <tr className={sty.tr} key={index}>
+                    {/* img */}
+                    <td>
+                      <div className={sty.nameProfile}>
+                        <img
+                          src={item.profile}
+                          alt="profile"
+                          className={sty.profile}
+                        />
+                        <span className={sty.name}>{item.name}</span>
+                      </div>
+                    </td>
 
-                      {item?.schedule && item?.schedule.length > 0 ? (
-                        item?.schedule.map((y, i) => {
-                          {
-                            /* closebutton */
-                          }
+                    {item?.schedule && item?.schedule.length > 0 ? (
+                      item?.schedule.map((y, i) => {
+                        {
+                          /* closebutton */
+                        }
 
-                          if (y.isClosed) {
-                            return (
-                              <td>
-                                <button className={sty.Closed}>Closed</button>{" "}
-                              </td>
-                            );
-                          }
+                        if (y.isClosed) {
+                          return (
+                            <td>
+                              <button className={sty.Closed}>Closed</button>{" "}
+                            </td>
+                          );
+                        }
 
-                          if (y.isOnLeave) {
-                            return (
-                              <td key={i} className={sty.times1}>
-                                <div
-                                  className={sty.times}
-                                  style={{ border: "1px solid pink" }}
-                                >
-                                  leave
-                                </div>
-                              </td>
-                            );
-                          }
-                          if (y.time_slots.length > 0) {
-                            const { startTime, endTime } = DateAndTime(
-                              y?.date,
-                              y?.time_slots
-                            );
-
-                            return (
-                              <td key={i} className={sty.times1}>
-                                <div
-                                  className={`${sty.times} ${
-                                    item?.name === member?.name &&
-                                    schedule?._id === y._id &&
-                                    sty.selectedTime
-                                  }`}
-                                  onClick={() => handleShiftFun(y, item)}
-                                >
-                                  {startTime}-{endTime}
-                                </div>
-                                {schedule?._id === y._id &&
-                                  handleShift &&
-                                  item.name === member.name && (
-                                    <div className={sty.modalWrapper}>
-                                      <TimeScheduleModal
-                                        openLeaveModal={openLeaveModal}
-                                        closeLeaveModal={closeLeaveModal}
-                                        openEditModal={openEditModal}
-                                        closeEditModal={closeEditModal}
-                                        isLeave={isLeave}
-                                        isEdit={isEdit}
-                                        handleShift={handleShift}
-                                        employeeSchedule={employeeSchedule}
-                                        handleShiftFun={handleShiftFun}
-                                        schedule={schedule}
-                                        member={member}
-                                        refetch={refetch}
-                                      />
-                                    </div>
-                                  )}
-                              </td>
-                            );
-                          }
+                        if (y.isOnLeave) {
+                          return (
+                            <td key={i} className={sty.times1}>
+                              <div
+                                className={sty.times}
+                                style={{ border: "1px solid pink" }}
+                              >
+                                leave
+                              </div>
+                            </td>
+                          );
+                        }
+                        if (y.time_slots.length > 0) {
+                          const { startTime, endTime } = DateAndTime(
+                            y?.date,
+                            y?.time_slots
+                          );
 
                           return (
                             <td key={i} className={sty.times1}>
@@ -293,7 +257,7 @@ const TimeSchedule = () => {
                                 }`}
                                 onClick={() => handleShiftFun(y, item)}
                               >
-                                N/A
+                                {startTime}-{endTime}
                               </div>
                               {schedule?._id === y._id &&
                                 handleShift &&
@@ -317,18 +281,63 @@ const TimeSchedule = () => {
                                 )}
                             </td>
                           );
-                        })
-                      ) : (
-                        <td>
-                          <ErrorComponent message={"No data found"} />
-                        </td>
-                      )}
-                    </tr>
-                  </>
+                        }
+
+                        return (
+                          <td key={i} className={sty.times1}>
+                            <div
+                              className={`${sty.times} ${
+                                item?.name === member?.name &&
+                                schedule?._id === y._id &&
+                                sty.selectedTime
+                              }`}
+                              onClick={() => handleShiftFun(y, item)}
+                            >
+                              N/A
+                            </div>
+                            {schedule?._id === y._id &&
+                              handleShift &&
+                              item.name === member.name && (
+                                <div className={sty.modalWrapper}>
+                                  <TimeScheduleModal
+                                    openLeaveModal={openLeaveModal}
+                                    closeLeaveModal={closeLeaveModal}
+                                    openEditModal={openEditModal}
+                                    closeEditModal={closeEditModal}
+                                    isLeave={isLeave}
+                                    isEdit={isEdit}
+                                    handleShift={handleShift}
+                                    employeeSchedule={employeeSchedule}
+                                    handleShiftFun={handleShiftFun}
+                                    schedule={schedule}
+                                    member={member}
+                                    refetch={refetch}
+                                  />
+                                </div>
+                              )}
+                          </td>
+                        );
+                      })
+                    ) : (
+                      <td>
+                        <ErrorComponent message={"No data found"} />
+                      </td>
+                    )}
+                  </tr>
                 );
               })}
             </tbody>
           </table>
+        </div>
+        <div className={sty.downloadButtonContainer2}>
+          <button className={sty.dBtn}>
+            Download CSV
+            <img
+              src={downLondIcon}
+              alt="downLondIcon"
+              className={sty.dBtnImg}
+            />
+          </button>
         </div>
       </div>
     </TimeScheContext.Provider>

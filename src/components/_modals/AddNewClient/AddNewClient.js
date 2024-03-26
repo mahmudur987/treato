@@ -7,6 +7,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import CountrySelect from "../../Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
 import { AddAppoinmentContext } from "../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
+
 const AddNewClient = ({ showModal, onClose }) => {
   const { setCustomarDeails } = useContext(AddAppoinmentContext);
   const [firstName, setFirstName] = useState("");

@@ -64,7 +64,7 @@ const TeamDetails = () => {
       id: x._id,
       profile: x.stylist_Img.public_url || Mask1,
       name: x.stylist_name,
-      serviceProfile: x.stylist_service[0] || "N/A",
+      serviceProfile: x.stylist_service || "N/A",
       tenure: x.tenure || "N/A",
       phone: x.stylist_number || "N/A",
       rating: x.rating || "N/A",
@@ -74,6 +74,7 @@ const TeamDetails = () => {
       editPencil: editImg,
     };
   });
+  console.log(data?.data);
 
   const navigate = useNavigate();
   const [isViewAll, setIsViewAll] = useState(false);
@@ -187,47 +188,60 @@ const TeamDetails = () => {
                     </Link>
                   </td>
                 </tr>
-
-                <div>
-                  <div className={sty.nameProfileResponsive}>
-                    <div>
-                      <div className={sty.nameProfileR}>
-                        <img
-                          src={item.profile}
-                          alt="profile"
-                          className={sty.profile}
-                        />
-                        <span className={sty.name}>{item.name}</span>
-                        <span className={sty.name}>
-                          <img src={retingStar} alt="" />
-                        </span>
-                        <span className={sty.rating}>{item.rating}</span>
-                      </div>
-                      <div className={sty.serviceDiv}>
-                        <p>{item.serviceProfile} </p>
-                        <span>{item.bookingToday}</span>
-                        <span>
-                          <img src={dot} alt="" />
-                        </span>
-                        <span>booking</span>
-                      </div>
-                    </div>
-
-                    <div className={sty.rightIconR}>
-                      <img
-                        src={rightIcon}
-                        alt="rightIcon"
-                        onClick={EditTeamMemberData}
-                      />
-                    </div>
-                  </div>
-                  <div className={sty.horizontalLine}></div>
-                </div>
               </>
             ))}
           </tbody>
         </table>
       )}
+
+      {TeamDetailsData &&
+        TeamDetailsData.map((item, i) => {
+          return (
+            <div key={i}>
+              <div className={sty.nameProfileResponsive}>
+                <div>
+                  <div className={sty.nameProfileR}>
+                    <img
+                      src={item.profile}
+                      alt="profile"
+                      className={sty.profile}
+                    />
+                    <span className={sty.name}>{item.name}</span>
+                    <span className={sty.name}>
+                      <img src={retingStar} alt="" />
+                    </span>
+                    <span className={sty.rating}>{item.rating}</span>
+                  </div>
+                  <div className={sty.serviceDiv}>
+                    <p>{item.serviceProfile} </p>
+
+                    <span style={{ marginLeft: " 10px", marginRight: "10px" }}>
+                      <img src={dot} alt="" />
+                    </span>
+                    <span>{item.bookingToday} </span>
+                    <span>booking Today</span>
+                  </div>
+                </div>
+
+                <div className={sty.rightIconR}>
+                  <Link to={`/partner/dashboard/EditMemberProfile/${item.id}`}>
+                    <img
+                      src={rightIcon}
+                      alt="rightIcon"
+                      onClick={EditTeamMemberData}
+                    />
+                  </Link>
+                </div>
+              </div>
+              <div className={sty.horizontalLine}></div>
+            </div>
+          );
+        })}
+      <div className={sty.addBtnWrapper}>
+        <button className={sty.teamMemberBtn2} onClick={AddTeamMemberData}>
+          + Add team member
+        </button>
+      </div>
       {TeamDetailsData?.length > 8 && (
         <div className={sty.viewAllBtnDiv}>
           <span className={sty.viewAllBtn1}>

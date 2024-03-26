@@ -21,14 +21,6 @@
   display: flex;
   gap: 5px;
 }
-/* .headingIcon{
-      display: 'flex';
-      flex-direction: column;
-     
-    }
-    .topImg{
-       margin-right: '60px' ;
-    } */
 
 .searchBox {
   margin-right: 20px;
@@ -122,7 +114,9 @@
   display: none;
 }
 /* .addBtn{display: none;}  */
-
+.addBtnWrapper {
+  display: none;
+}
 @media only screen and (max-width: 776px) {
   .container {
     padding: 1rem 1rem;
@@ -184,7 +178,7 @@
     height: 814px;
     width: 342px;
   }
-  thead {
+  .styledTable {
     display: none;
   }
   .viewAllBtnDiv {
@@ -192,11 +186,11 @@
   }
   .nameProfileResponsive {
     display: flex;
-    justify-content: space-between !important;
-    width: 342px;
-    /* top: 117px; */
-    margin-top: 20px;
-    padding: 2px 2px 2px 2px;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    padding: 10px 0px;
   }
 
   .nameProfileResponsive .nameProfileR {
@@ -239,18 +233,16 @@
     font-size: 20px;
   }
   .addBtn {
+    display: none;
     position: absolute;
-    top: 810px;
-    bottom: 0;
-    right: 0px;
-    left: 25px;
+    bottom: 30px;
     width: 342px;
     padding: 8px;
     background-color: #fff;
     /* z-index: 999;  */
   }
   .addBtn .teamMemberBtn {
-    width: 342px;
+    width: 100%;
     height: 50px;
     border: 1px solid black;
     border-radius: 10px;
@@ -263,5 +255,19 @@
     width: 342px;
     border: 1px solid;
     color: #ebedf0;
+  }
+  .addBtnWrapper {
+    display: block;
+    max-width: 600px;
+    width: 100%;
+  }
+  .teamMemberBtn2 {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: black;
+    color: #fff;
+    font-size: x-large;
+    padding: 10px 0px;
   }
 }

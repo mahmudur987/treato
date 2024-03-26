@@ -8,6 +8,8 @@ import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 import { useContext } from "react";
+
+import { useGetSlots } from "../../../../services/Team";
 import { AddAppoinmentContext } from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
 
 const AppointmentDetails = () => {
@@ -60,17 +62,8 @@ const AppointmentDetails = () => {
     .find((x) => x.category_name === category)
     ?.subCategories.map((x) => x.service_name);
 
-  const generateSlotsData = useMemo(() => {
-    return {
-      salons_id: data?.salon?._id || "",
-      service_id: selectedServices,
-      noPreference: true,
-      dateforService: date,
-    };
-  }, [data?.salon?._id, selectedServices, date]);
-
-  const { data: slots, isLoading, error } = useTimeSlots(generateSlotsData);
-  const times = slots?.res?.data || ["09:00", "9:30", "10:00"];
+  const { data: slots, isLoading, error } = useGetSlots();
+  const times = slots?.slotsPerDay[0]?.slots || ["09:00", "9:30", "10:00"];
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -183,9 +176,7 @@ const AppointmentDetails = () => {
             />
           </div>
         ) : (
-          <p className={styles.noservice}>
-            no service available please in this category.please add a service
-          </p>
+          <p className={styles.noservice}>No Service Available</p>
         )}
         {services &&
           services.length > 0 &&

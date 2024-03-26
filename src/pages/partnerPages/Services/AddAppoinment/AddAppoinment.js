@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import styles from "./AddAppointment.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import AppointmentDetails from "../../../../components/Services/AddAppoinment/AppointmentDetails/AppointmentDetails";
@@ -28,9 +28,12 @@ const AddAppoinment = () => {
   });
   const [price, setPrice] = useState("");
   const [discount, setdiscount] = useState("");
-  const [selectedteamMember, setSelectedTeamMember] = useState(
-    teamMembers ? teamMembers[0] : ""
-  );
+  const [selectedteamMember, setSelectedTeamMember] = useState("");
+
+  useEffect(() => {
+    setSelectedTeamMember(teamMembers ? teamMembers[0] : "");
+  }, [data]);
+
   const handleSubmit = async () => {
     const { name, email, phone } = customarDeatils;
     const { service_id, time, dateforService, additionalComments, duration } =
