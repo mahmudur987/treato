@@ -19,14 +19,13 @@ const convertDate = (inputDate) => {
   return `${year}-${month}-${day}`;
 };
 const AddLeaveModal = ({ onClose }) => {
-  const { schedule, member, refetch, sethandleShift } =
+  const { schedule, member, sethandleShift, refetch } =
     useContext(TimeScheContext);
   const [timeFieldsCount, setTimeFieldsCount] = useState(1);
   const [isFullDayLeave, setIsFullDayLeave] = useState(false);
   const { day, month, date } = formatCustomDate(schedule?.date);
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
-
   const [endTime, setEndTime] = useState("");
   const [endDate, setEndDate] = useState("");
   const convertedDate = convertDate(startDate ? startDate : null);
@@ -38,17 +37,28 @@ const AddLeaveModal = ({ onClose }) => {
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };
-    if (!startDate && !endDate) {
+    if (!startDate || !endDate) {
       return toast.error("select start/end date");
     }
 
-    let url = `stylist/addLeave?stylistId=${member?.id}&date=${convertedDate}`;
-    console.log(url);
-    console.log(url);
+    if ((!isFullDayLeave && !startTime) || (!isFullDayLeave && !endTime)) {
+      return toast.error("select start/end Time");
+    }
 
+    const leaveData = {
+      stylistId: member?.id,
+      startDate: convertDate(startDate ? startDate : null),
+      endDate: convertDate(endDate ? endDate : null),
+      fullDay: isFullDayLeave,
+      start_time: isFullDayLeave ? "" : startTime,
+      end_time: isFullDayLeave ? "" : endTime,
+    };
+
+    console.log(leaveData);
+
+    let url = `stylist/addLeave`;
     try {
-      const { data } = await axiosInstance.patch(url, {}, { headers });
-
+      const { data } = await axiosInstance.patch(url, leaveData, { headers });
       console.log(data);
       toast.success(data.message);
       onClose();

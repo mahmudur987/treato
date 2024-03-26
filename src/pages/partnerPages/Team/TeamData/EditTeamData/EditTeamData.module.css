@@ -13,10 +13,32 @@
   font-family: "Poppins", sans-serif;
   font-size: 28px;
   font-weight: 600;
-  margin-bottom: 40px;
   line-height: 42px;
 }
-.usr_detail_Para {
+.usr_detail_head p {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+
+  line-height: 42px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.newBtnWrapper {
+  border: 1px solid salmon;
+  background-color: white;
+  color: salmon;
+  font-weight: 700;
+  padding: 8px;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+.btnWrapper .usr_detail_Para {
   color: #6d747a;
   font-family: Lato;
   font-size: 20px;

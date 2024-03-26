@@ -17,6 +17,7 @@ const EditService = () => {
   } = useSingleSalon();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+  const [loading, setLoading] = useState(false);
   const service_id = queryParams.get("servicetype");
   const category_id = queryParams.get("category");
   const subcategory_id = queryParams.get("subcategory");
@@ -54,15 +55,18 @@ const EditService = () => {
       },
     };
     console.log(neweditService);
+
+    setLoading(true);
     const res = await editService(neweditService);
     if (res.res) {
       console.log(res.res);
-      toast.success(res.res ? res.res : "Added A new service ");
+      toast.success(res.res ? res.res : "Edit service ");
       navigate("/partner/dashboard/service");
     } else {
       console.log(res.err);
       toast.error("Error happen,sevice not added");
     }
+    setLoading(false);
   };
   const handleDeleteService = async () => {
     let url = `service/deleteSubCategory/${service_id}/${category_id}/${subcategory_id}`;

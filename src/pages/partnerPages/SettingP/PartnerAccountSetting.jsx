@@ -40,7 +40,7 @@ const PartnerAccountSetting = () => {
       profile: "Team",
       content: "Add/edit team members and details on your Team page.",
       link: (
-        <Link to="/partner/dashboard/TeamManageMents">
+        <Link to="/partner/dashboard/TeamManageMent">
           <img src={RightIcon} alt="" />
         </Link>
       ),

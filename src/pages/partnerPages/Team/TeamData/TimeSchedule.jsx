@@ -273,6 +273,9 @@ const TimeSchedule = () => {
                                         handleShift={handleShift}
                                         employeeSchedule={employeeSchedule}
                                         handleShiftFun={handleShiftFun}
+                                        schedule={schedule}
+                                        member={member}
+                                        refetch={refetch}
                                       />
                                     </div>
                                   )}
@@ -306,6 +309,9 @@ const TimeSchedule = () => {
                                       handleShift={handleShift}
                                       employeeSchedule={employeeSchedule}
                                       handleShiftFun={handleShiftFun}
+                                      schedule={schedule}
+                                      member={member}
+                                      refetch={refetch}
                                     />
                                   </div>
                                 )}

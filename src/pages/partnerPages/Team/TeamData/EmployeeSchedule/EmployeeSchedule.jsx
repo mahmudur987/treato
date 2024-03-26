@@ -157,6 +157,8 @@ const EmployeeSchedule = () => {
   }, [data]);
 
   const handleDaySelect = (e, selectedDay) => {
+    // console.log(e.target.checked);
+
     const { name, value } = e.target;
     const updatedSelectedSlots = [...selectedSlots];
     const index = updatedSelectedSlots.findIndex(
@@ -166,33 +168,34 @@ const EmployeeSchedule = () => {
     if (value === "Close") {
       // If "Close" is selected, set isClosed to true and empty the slots
       if (index !== -1) {
-        updatedSelectedSlots[index].isClosed = true;
+        updatedSelectedSlots[index].isOnLeave = true;
         updatedSelectedSlots[index].slots = [];
       } else {
         updatedSelectedSlots.push({
           day: selectedDay.day,
-          isClosed: true,
+          isOnLeave: true,
           slots: [],
         });
       }
     } else {
       // If not "Close", update the slot values
+
       if (index !== -1) {
         if (name === "startTime") {
-          updatedSelectedSlots[index].slots[0].start_time = value;
-          updatedSelectedSlots[index].isClosed = false; // Reset isClosed if startTime is selected
+          updatedSelectedSlots[index].slots[0].start_time = value ?? "09:00";
+          updatedSelectedSlots[index].isOnLeave = false; // Reset isOnLeave if startTime is selected
         } else if (name === "endTime") {
-          updatedSelectedSlots[index].slots[0].end_time = value;
-          updatedSelectedSlots[index].isClosed = false; // Reset isClosed if endTime is selected
+          updatedSelectedSlots[index].slots[0].end_time = value ?? "20:00";
+          updatedSelectedSlots[index].isOnLeave = false; // Reset isOnLeave if endTime is selected
         }
       } else {
         updatedSelectedSlots.push({
           day: selectedDay.day,
-          isClosed: false,
+          isOnLeave: false,
           slots: [
             {
-              start_time: name === "startTime" ? value : "",
-              end_time: name === "endTime" ? value : "",
+              start_time: name === "startTime" ? value : "09:00",
+              end_time: name === "endTime" ? value : "20:00",
             },
           ],
         });
@@ -286,7 +289,7 @@ const EmployeeSchedule = () => {
 
               <div className={styles.dateInput}>
                 <label htmlFor="">
-                  <div className={styles.labelText}>Schedule Starts</div>
+                  <div className={styles.labelText}>Schedule Start </div>
                   <Pick
                     ondateChange={(data) => setStartDate(data)}
                     className={styles.customPickWidth}
@@ -295,7 +298,7 @@ const EmployeeSchedule = () => {
               </div>
               <div className={styles.dateInput}>
                 <label htmlFor="">
-                  <div className={styles.labelText}>Schedule Date</div>
+                  <div className={styles.labelText}>Schedule End </div>
                   <Pick
                     ondateChange={(data) => setEndDate(data)}
                     className={styles.customPickWidth}
@@ -316,9 +319,11 @@ const EmployeeSchedule = () => {
                 <div className={styles.mainMapDiv}>
                   <div className={styles.EplyShiptcheck}>
                     <input
-                      checked={selectedSlots.find((x) => x.day === item.day)}
+                      checked={
+                        selectedSlots.find((x) => x.day === item.day) ?? false
+                      }
                       type="checkbox"
-                      disabled
+                      onChange={(e) => handleDaySelect(e, item)}
                     />
                     <p>{item.day}</p>
                   </div>
@@ -337,7 +342,7 @@ const EmployeeSchedule = () => {
                               {x.slot}{" "}
                             </option>
                           ))}
-                          <option value="Close">Close</option>
+                          <option value="Close">Leave</option>
                         </select>
                       </div>
                       <div>
@@ -353,7 +358,7 @@ const EmployeeSchedule = () => {
                               {x.slot}{" "}
                             </option>
                           ))}
-                          <option value="Close">Close</option>
+                          <option value="Close">Leave</option>
                         </select>
                       </div>
                     </div>

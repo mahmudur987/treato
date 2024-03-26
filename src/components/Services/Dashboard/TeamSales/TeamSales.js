@@ -94,7 +94,7 @@ const TeamSales = () => {
                     <span style={{ backgroundColor: `${item.color}` }}></span>
                     <h3>{item.name}</h3>
                   </p>
-                  <p className={styles.col2}>₹{item.value.toFixed(2)}K</p>
+                  <p className={styles.col2}>₹{item.value.toFixed(2)}</p>
                   <p className={styles.col3}>{item.parcent.slice(0, 5)}%</p>
                 </div>
               ))}

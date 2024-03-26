@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import EditAdminModal from "../EditAdminData/EditAdminModal";
 import AddLeaveModal from "../AddLeaveModal/AddLeaveModal";
 import sty from "./TimeScheduleModal.module.css";
+import axiosInstance from "../../../../services/axios";
+import { toast } from "react-toastify";
 const TimeScheduleModal = ({
   closeEditModal,
   openEditModal,
@@ -10,7 +12,25 @@ const TimeScheduleModal = ({
   isLeave,
   isEdit,
   employeeSchedule,
+  schedule,
+  member,
+  refetch,
 }) => {
+  const handleDeleteShift = async () => {
+    try {
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+      let url = `stylist/deleteShift?stylistId=${member.id}&date=${schedule?.date}&shiftId=${schedule?.shifts[0]._id}`;
+
+      const { data } = await axiosInstance.patch(url, {}, { headers });
+      refetch();
+      toast.success(data ? data.message : "delete shift ");
+    } catch (error) {
+      toast.error(error ? error.message : "Error");
+    }
+  };
+
   return (
     <>
       <div className={sty.editContent}>
@@ -29,7 +49,9 @@ const TimeScheduleModal = ({
         >
           Add Leave
         </p>
-        <p className={sty.Delete}>Delete shift</p>
+        <p onClick={handleDeleteShift} className={sty.Delete}>
+          Delete shift
+        </p>
       </div>
       {isEdit && <EditAdminModal onClose={closeEditModal} />}
       {isLeave && <AddLeaveModal onClose={closeLeaveModal} />}

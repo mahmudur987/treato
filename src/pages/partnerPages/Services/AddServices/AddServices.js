@@ -42,7 +42,7 @@ const AddServices = () => {
         },
       ],
     };
-
+    console.log(newService);
     const res = await addNewService(newService);
 
     if (res.res) {

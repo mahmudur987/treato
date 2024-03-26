@@ -72,7 +72,6 @@ const EditTeamData = () => {
     },
     []
   );
-  console.log(phone);
   useEffect(() => {
     setSelectedServices(member?.data?.services);
     setFirstName(member?.data.stylist_name.split(" ")[0]);
@@ -143,6 +142,23 @@ const EditTeamData = () => {
     const file = e.target.files[0];
     setPicture(file);
   };
+
+  const handleDeleteMember = async () => {
+    try {
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+      let url = `stylist/deleteStylist/${id}`;
+      console.log(url);
+      const { data } = await axiosInstance.delete(url, { headers });
+      refetch();
+      toast.success(data ? data.message : "delete shift ");
+    } catch (error) {
+      console.error(error);
+      toast.error(error ? error.message : "Error");
+    }
+  };
+
   if (memLoading || loading) {
     return <LoadSpinner />;
   }
@@ -153,22 +169,28 @@ const EditTeamData = () => {
     <>
       <div className={styles.container}>
         <div>
-          <div className={styles.usr_detail_head}>
-            <Link to={"/partner/dashboard/TeamManageMent"}>
-              <span>
-                <img
-                  src={arrowLeft}
-                  alt="arrowLeft"
-                  className={styles.Pictures}
-                />
-              </span>
-            </Link>
-            Add team member
-            <p className={styles.usr_detail_Para}>
-              Enter employee details and add a team member to your salon.
-            </p>
+          <div className={styles.header}>
+            <div className={styles.usr_detail_head}>
+              <Link to={"/partner/dashboard/TeamManageMent"}>
+                <span>
+                  <img
+                    src={arrowLeft}
+                    alt="arrowLeft"
+                    className={styles.Pictures}
+                  />
+                </span>
+              </Link>
+              Edit team member
+              <p className={styles.usr_detail_Para}>
+                Enter employee details and add a team member to your salon.
+              </p>
+            </div>
+            <div className={styles.newBtnWrapper}>
+              <button type="button" onClick={handleDeleteMember}>
+                Delete
+              </button>
+            </div>
           </div>
-
           <form>
             <div className={styles.mainDiv}>
               <div>
