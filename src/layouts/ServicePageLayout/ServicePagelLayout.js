@@ -26,21 +26,23 @@ const ServicePage = () => {
   }
 
   return (
-    <main className={style.mainContainer}>
-      <section className={style.container}>
-        <div className={style.left}>
-          <LeftSideBar />
-        </div>
-
-        <div className={style.downContainer}>
-          <div className={style.navbar}>
-            <ServicePageNavbar />
+    <>
+      <main className={style.mainContainer}>
+        <section className={style.container}>
+          <div className={style.left}>
+            <LeftSideBar />
           </div>
-          <Outlet />
-        </div>
-      </section>
+
+          <div className={style.downContainer}>
+            <div className={style.navbar}>
+              <ServicePageNavbar />
+            </div>
+            <Outlet />
+          </div>
+        </section>
+      </main>
       <BottomNav />
-    </main>
+    </>
   );
 };
 

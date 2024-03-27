@@ -153,7 +153,7 @@ const BottomNav = () => {
   const { pathname } = useLocation();
 
   return (
-    <div className={styles.mainContainer}>
+    <div className={styles.mainContainers}>
       <div className={styles.container}>
         {links.map((link, index) => (
           <Link
