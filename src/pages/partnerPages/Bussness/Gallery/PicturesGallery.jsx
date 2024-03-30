@@ -97,7 +97,7 @@ const PicturesGallery = () => {
       );
       console.log(data);
       refetch();
-      toast.success("Image Delete  successfully");
+      toast.success("image delete successfully");
     } catch (error) {
       toast.error(error ? error.message : "Error happen");
     }
@@ -117,7 +117,7 @@ const PicturesGallery = () => {
       );
       console.log(data);
       refetch();
-      toast.success("Make This Image primary  successfully");
+      toast.success("make this image primary successfully");
     } catch (error) {
       toast.error(error ? error.message : "Error happen");
     }

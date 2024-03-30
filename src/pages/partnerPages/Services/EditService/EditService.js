@@ -74,6 +74,7 @@ const EditService = () => {
       const { data } = await axiosInstance.delete(url, { headers });
       console.log(data);
       toast.success("service delete successfully");
+
       navigate("/partner/dashboard/service");
       refetch();
     } catch (error) {
