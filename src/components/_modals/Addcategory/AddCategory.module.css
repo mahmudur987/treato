@@ -76,6 +76,7 @@
   border: none;
   background: #fff;
   position: relative;
+  padding-left: 10px;
 }
 
 .selectWrapper span {
