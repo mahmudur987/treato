@@ -148,13 +148,6 @@ const TimeSchedule = () => {
                   />{" "}
                 </span>
               </p>
-              {/* <div onClick={scrollToLeft}>
-                <img
-                  src={Scroller}
-                  alt="Scroller"
-                  className={sty.ScrollerImg}
-                />
-              </div> */}
             </div>
           )}
 
@@ -198,6 +191,7 @@ const TimeSchedule = () => {
                   ))}
               </tr>
             </thead>
+            <br />
 
             <tbody>
               {TeamDetailsData?.map((item, index) => {

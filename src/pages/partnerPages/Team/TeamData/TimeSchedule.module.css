@@ -79,7 +79,7 @@
 .tableContainer {
   max-width: 1300px;
   width: 100%;
-  overflow: auto;
+  overflow-x: auto;
 }
 .styledTable {
   min-width: 1000px;
@@ -105,7 +105,7 @@
   font-weight: 400;
   line-height: 21px;
   letter-spacing: 0em;
-  padding: 30px 0px;
+  height: 70px;
 }
 
 .nameProfile {
@@ -234,17 +234,9 @@
     height: 24px;
   }
 
-  tbody {
-    width: 366px;
-    height: 374px;
-    top: 212px;
-    left: 24px;
-    border: 1px, 0px, 0px, 0px;
-    gap: 12px;
-  }
   .downloadButtonContainer2 {
-    display: none;
-    margin: 20px auto;
+    display: block;
+    margin: 20px 5px;
   }
   .dBtn {
     width: 100%;

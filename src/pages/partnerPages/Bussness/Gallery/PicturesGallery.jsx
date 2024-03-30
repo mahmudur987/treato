@@ -50,7 +50,6 @@ const PicturesGallery = () => {
       console.log(data);
       refetch();
       toast.success("Images upload successfully");
-      //   setImages([]);
     } catch (error) {
       toast.error(error ? error.message : "Error happen");
     }
