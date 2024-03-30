@@ -74,10 +74,11 @@
   margin: 0;
   padding: 0;
 }
-.buttontContainer {
+.buttonContainer {
   display: flex;
   justify-content: end;
   gap: 8px;
+  cursor: pointer;
 }
 .cancel {
   display: flex;

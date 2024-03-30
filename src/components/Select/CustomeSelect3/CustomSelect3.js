@@ -1,11 +1,24 @@
 // CustomSelect.js
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import styles from "./CusomeSelect3.module.css";
 import { CiSearch } from "react-icons/ci";
 const CustomSelect3 = ({ options, onChange, value }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const selectRef = useRef(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectRef.current && !selectRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -16,7 +29,7 @@ const CustomSelect3 = ({ options, onChange, value }) => {
   };
 
   return (
-    <div className={styles.selectWrapper}>
+    <div className={styles.selectWrapper} ref={selectRef}>
       <div className={styles.customSelect}>
         <div className={styles.selectHeader} onClick={handleToggle}>
           <p className={styles.headerItems}>
@@ -26,13 +39,15 @@ const CustomSelect3 = ({ options, onChange, value }) => {
         </div>
         {isOpen && (
           <div className={styles.optionsContainer}>
-            <p className={styles.searchClient}>
-              <span>
-                <CiSearch />
-              </span>
+            <div className={styles.searchClientWrapper}>
+              <p className={styles.searchClient}>
+                <span>
+                  <CiSearch />
+                </span>
 
-              <input name="search" type="text" placeholder="find client" />
-            </p>
+                <input name="search" type="text" placeholder="find client" />
+              </p>
+            </div>
 
             {options.map((option) => (
               <div

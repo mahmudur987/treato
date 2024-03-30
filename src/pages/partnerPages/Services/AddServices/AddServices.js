@@ -27,7 +27,7 @@ const AddServices = () => {
   );
 
   const handleSubmit = async () => {
-    if (!basicDetails.serviceName) {
+    if (!basicDetails.serviceName || teamMember.length <= 0) {
       return toast.error("please write a service name and add a team member");
     }
     const newService = {
@@ -42,7 +42,7 @@ const AddServices = () => {
         },
       ],
     };
-    console.log(newService);
+
     const res = await addNewService(newService);
 
     if (res.res) {

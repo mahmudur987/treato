@@ -19,18 +19,37 @@
   font-size: 20px;
 }
 .dateWrapper {
+  max-width: 424px;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  cursor: pointer;
 }
-.dateWrapper input {
+.dateWrapper p {
+  max-width: 424px;
   width: 90%;
   height: 48px;
   border-radius: 4px;
   border: 1px solid var(--Grey-Grey-30, #ced4da);
   background: #fff;
   padding: 0px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  position: relative;
+}
+
+/* Style for the span displaying the formatted date */
+.dateWrapper span {
+  width: 89%;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  background-color: #fff;
+  color: #555;
+  font-size: 14px;
 }
 .serviceCategory {
   width: 100%;

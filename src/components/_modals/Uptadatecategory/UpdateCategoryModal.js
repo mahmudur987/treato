@@ -12,22 +12,39 @@ import { useNavigate } from "react-router-dom";
 const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
   const { refetch } = useSingleSalon();
   const [error, setError] = useState(null);
-  const [serviceType, setserviceType] = useState([]);
-  const [selectedServiceType, setSelectedServiceType] = useState("");
+  const [serviceType, setserviceType] = useState(null);
+  const [selectedServiceType, setSelectedServiceType] = useState(
+    data.service_name
+  );
   const [selectCategory, setselectCategory] = useState(category.category_name);
   const [service, setservice] = useState([]);
   const navigate = useNavigate();
-
-  // console.log(data);
-
   useEffect(() => {
-    setserviceType([data?.service_name]);
-    setSelectedServiceType(data?.service_name);
-  }, [data]);
+    async function fetchAllServices() {
+      try {
+        const { res, err } = await getAllServices();
+        if (res) {
+          const data = res?.data?.data.map((x) => x.service_name);
+          setservice(res?.data?.data);
+          setserviceType(data);
+        } else {
+          setError(err);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    }
+    fetchAllServices();
+  }, []);
+  const serviceId = service?.find((x) => {
+    if (x.service_name === selectedServiceType) {
+      return x._id;
+    }
+  })?._id;
 
   const handleSubmit = async () => {
     const newCategory = {
-      serviceId: data?._id,
+      serviceId,
       mainCategoryId: category._id,
       newCategoryName: selectCategory,
     };
@@ -45,7 +62,7 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
       );
 
       console.log(data);
-      toast.success(data ? data.message : " update Successfully", {
+      toast.success(data ? data.message : "A New Category Added Successfully", {
         toastId: 1,
       });
       refetch();

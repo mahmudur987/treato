@@ -8,8 +8,6 @@ import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 import { useContext } from "react";
-
-import { useGetSlots } from "../../../../services/Team";
 import { AddAppoinmentContext } from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
 
 const AppointmentDetails = () => {
@@ -20,7 +18,7 @@ const AppointmentDetails = () => {
     error: salonError,
   } = useSingleSalon();
 
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState("Oct 8 ,2022");
   const { setServiceDetails } = useContext(AddAppoinmentContext);
   const [serviceType, setServiceType] = useState([]);
   const [selectedServiceType, setSelectedServiceType] = useState("");
@@ -62,8 +60,17 @@ const AppointmentDetails = () => {
     .find((x) => x.category_name === category)
     ?.subCategories.map((x) => x.service_name);
 
-  const { data: slots, isLoading, error } = useGetSlots();
-  const times = slots?.slotsPerDay[0]?.slots || ["09:00", "9:30", "10:00"];
+  const generateSlotsData = useMemo(() => {
+    return {
+      salons_id: data?.salon?._id || "",
+      service_id: selectedServices,
+      noPreference: true,
+      dateforService: date,
+    };
+  }, [data?.salon?._id, selectedServices, date]);
+
+  const { data: slots, isLoading, error } = useTimeSlots(generateSlotsData);
+  const times = slots?.res?.data || ["09:00", "9:30", "10:00"];
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -134,12 +141,28 @@ const AppointmentDetails = () => {
         {/* date select */}
         <div className={styles.dateWrapper}>
           <label htmlFor="date">Date</label>
-          <input
-            onChange={(e) => setDate(e.target.value)}
-            type="date"
-            name="appointment date"
-            id=""
-          />
+          <p>
+            <span>{date}</span>
+
+            <input
+              onChange={(e) => {
+                const selectedDate = new Date(e.target.value);
+                const options = {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                };
+                const formattedDate = selectedDate.toLocaleDateString(
+                  "en-US",
+                  options
+                );
+                setDate(formattedDate);
+              }}
+              type="date"
+              name="appointment date"
+              id=""
+            />
+          </p>
         </div>
         {/* servce category */}
 
@@ -176,7 +199,9 @@ const AppointmentDetails = () => {
             />
           </div>
         ) : (
-          <p className={styles.noservice}>No Service Available</p>
+          <p className={styles.noservice}>
+            No service available at selected category.please add a service
+          </p>
         )}
         {services &&
           services.length > 0 &&

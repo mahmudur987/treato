@@ -1,11 +1,24 @@
 // CustomSelect.js
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import styles from "./customeSelect.module.css";
 
 const CustomSelect = ({ options, onChange, value }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const selectRef = useRef(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectRef.current && !selectRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -16,7 +29,7 @@ const CustomSelect = ({ options, onChange, value }) => {
   };
 
   return (
-    <div className={styles.customSelect}>
+    <div className={styles.customSelect} ref={selectRef}>
       <div className={styles.selectHeader} onClick={handleToggle}>
         <p>{value}</p>
       </div>

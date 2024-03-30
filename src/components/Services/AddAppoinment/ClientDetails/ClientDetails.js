@@ -5,9 +5,8 @@ import CustomSelect3 from "../../../Select/CustomeSelect3/CustomSelect3";
 import AddNewClient from "../../../_modals/AddNewClient/AddNewClient";
 
 import { useGetTemMembers } from "../../../../services/salon";
-
-import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 import { AddAppoinmentContext } from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
+import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 
 const ClientsDetails = () => {
   const {

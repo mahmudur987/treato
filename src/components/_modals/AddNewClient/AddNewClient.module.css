@@ -41,6 +41,7 @@
   justify-content: space-between;
   gap: 10px;
   font-family: Lato;
+  margin-top: 10px;
 }
 .formItemsWrapper {
   display: flex;
@@ -78,7 +79,7 @@
 .formItems textarea {
   width: 90%;
   border: 1px solid var(--Grey-30);
-  padding: 5%;
+  padding: 10px;
 }
 .selectWrapper {
   max-width: 424px;
@@ -126,6 +127,7 @@
   color: black;
   border: 1px solid gray;
   border-radius: 5px;
+  cursor: pointer;
 }
 .save {
   padding: 10px;
@@ -133,6 +135,7 @@
   color: white;
   border: 1px solid gray;
   border-radius: 5px;
+  cursor: pointer;
 }
 .back {
   display: none;

@@ -26,14 +26,18 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { LoginSocialFacebook } from "reactjs-social-login";
-import { useGoogleLogin } from "@react-oauth/google";
+import {
+  GoogleOAuthProvider,
+  GoogleLogin,
+  useGoogleLogin,
+} from "@react-oauth/google";
+import axios from "axios";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
 import CountrySelect from "../../../components/Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
 import { openFbDialog } from "../../../utils/facebookLogin";
 import { chooseRole } from "../../../redux/slices/authChoice";
-import { createSalon } from "../../../services/salon";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -171,25 +175,13 @@ const LoginPage = () => {
         // Make a request to your backend API
         google_Login(access_token, role).then((res) => {
           if (res?.res?.data && res?.res.status === 200) {
+            dispatch(updateIsLoggedIn(true));
+            dispatch(
+              updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
+            );
             localStorage.setItem("jwtToken", res?.res?.data?.token);
-            getUserProfile(res?.res?.data.token).then((res) => {
-              const user = res?.res?.data?.data;
-              if (user?.role === "partner") {
-                createSalon()
-                  .then((res) => console.log(res.res))
-                  .catch((err) => console.error(err));
-                navigate("/partner/dashboard/PartnerAccountSetting");
-              }
-              dispatch(updateIsLoggedIn(true));
-              dispatch(updateUserDetails(res?.res?.data?.data));
-              dispatch(updateOTP(0));
-
-              toast("Welcome to Treato! Start exploring now!");
-              localStorage.removeItem("requiredRegisterData");
-              if (user?.role !== "partner") {
-                navigate("/");
-              }
-            });
+            navigate("/");
+            toast("Welcome to Treato! Start exploring now!");
           } else {
             toast.error(`An unexpected error occurred. Please try again.`);
           }
@@ -240,18 +232,8 @@ const LoginPage = () => {
           updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
         );
         localStorage.setItem("jwtToken", res?.res?.data?.token);
-        const user = res?.res?.data?.data;
-        if (user?.role === "partner") {
-          createSalon()
-            .then((res) => console.log(res.res))
-            .catch((err) => console.error(err));
-          navigate("/partner/dashboard/PartnerAccountSetting");
-        }
-
-        if (user?.role !== "partner") {
-          navigate("/");
-          toast("Welcome to Treato! Start exploring now!");
-        }
+        navigate("/");
+        toast("Welcome to Treato! Start exploring now!");
       } else {
         toast.error(`An unexpected error occurred. Please try again.`);
       }
@@ -403,20 +385,10 @@ const LoginPage = () => {
               Google
             </SecondaryButton>
 
-            <LoginSocialFacebook
-              appId={facebookAppId}
-              onResolve={(response) => {
-                facebookAuthLogin(response?.data);
-              }}
-              onReject={(error) => {
-                console.log(error);
-              }}
-            >
-              <SecondaryButton className={styles.facebook}>
-                <img src={Facebook_Logo} />
-                Facebook
-              </SecondaryButton>
-            </LoginSocialFacebook>
+            <SecondaryButton className={styles.facebook} onClick={myFbLogin}>
+              <img src={Facebook_Logo} />
+              Facebook
+            </SecondaryButton>
           </div>
         </div>
       </div>

@@ -46,6 +46,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  cursor: pointer;
 }
 .headerItem {
   color: var(--Grey-Black, #08090a);
@@ -75,6 +76,16 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
+.searchClientWrapper {
+  border-bottom: 6px solid rgba(211, 211, 211, 0.8);
+  cursor: pointer;
+}
+
+.searchClientWrapper {
+  width: 100%;
+
+  border-bottom: 6px solid rgb(214, 209, 209);
+}
 .searchClient {
   width: 90%;
   height: 48px;
@@ -85,6 +96,7 @@
   border: 1px solid gray;
   gap: 20px;
   border-radius: 8px;
+  /* border-bottom: 6px solid rgba(211, 211, 211, 0); */
 }
 .searchClient span {
   width: 10%;
@@ -105,6 +117,7 @@
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
+  cursor: pointer;
 }
 .option p {
   padding: 10px;

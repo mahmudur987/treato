@@ -5,12 +5,12 @@ import AppointmentDetails from "../../../../components/Services/AddAppoinment/Ap
 import ClientsDetails from "../../../../components/Services/AddAppoinment/ClientDetails/ClientDetails";
 import { useSingleSalon } from "../../../../services/salon";
 import axiosInstance from "../../../../services/axios";
-import { Toast } from "@coreui/coreui";
 import { toast } from "react-toastify";
+import Loader from "../../../../components/LoadSpinner/Loader";
 export const AddAppoinmentContext = createContext();
 const AddAppoinment = () => {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   const [servicesDetails, setServiceDetails] = useState({});
   const [customarDeatils, setCustomarDeails] = useState({
     phone: "",
@@ -28,7 +28,7 @@ const AddAppoinment = () => {
   });
   const [price, setPrice] = useState("");
   const [discount, setdiscount] = useState("");
-  const [selectedteamMember, setSelectedTeamMember] = useState("");
+  const [selectedteamMember, setSelectedTeamMember] = useState({});
 
   useEffect(() => {
     setSelectedTeamMember(teamMembers ? teamMembers[0] : "");
@@ -76,7 +76,7 @@ const AddAppoinment = () => {
       additionalComments,
     };
 
-    console.log(newdata);
+    setLoading(true);
 
     try {
       const headers = {
@@ -89,15 +89,12 @@ const AddAppoinment = () => {
           headers,
         }
       );
-      console.log(data);
-
-      toast.success("A new appoinment successfully");
-      navigate("/partner/dashboard");
+      toast.success(data ? data.message : "A new appoinment successfully");
     } catch (error) {
       console.log("error", error);
-
       toast.error(error ? error.message : "Failed");
     }
+    setLoading(false);
   };
   return (
     <AddAppoinmentContext.Provider
@@ -185,10 +182,10 @@ const AddAppoinment = () => {
             </div>
           </div>
 
-          <div className={styles.buttontContainer}>
+          <div className={styles.buttonContainer}>
             <button className={styles.cancel}>Cancel</button>
             <button className={styles.submit} onClick={handleSubmit}>
-              Submit
+              {loading ? <Loader /> : "Submit"}
             </button>
             <button className={styles.save}>Save and Continue</button>
           </div>
