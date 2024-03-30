@@ -59,7 +59,7 @@ const ServiceCatalog = () => {
       <section className={styles.container}>
         <header className={styles.header}>
           <h1>
-            <span> Service catalog</span>
+            <span> Service Catalog</span>
           </h1>
 
           <div className={styles.headerRight}>
@@ -117,7 +117,7 @@ const ServiceCatalog = () => {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <span>Add service</span>
+                <span>Add Service</span>
               </button>
             </div>
 

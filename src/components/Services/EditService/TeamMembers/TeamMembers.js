@@ -186,7 +186,7 @@ const SchedulingCheckBox = ({ setdays }) => {
           ))}
         </div>
 
-        {/* slescts  */}
+        {/* Selects  */}
 
         <div className={styles.selectsContainer}>
           <div className={styles.content}>

@@ -85,33 +85,6 @@ const RecentActivity = () => {
               </div>
             </div>
           ))}
-        {/* <div className={styles.card}>
-          <div className={styles.cardLeft}>
-            <div className={styles.date}>
-              <p>12</p>
-              <span>Oct</span>
-            </div>
-
-            <div className={styles.contents}>
-              <p>
-                <span className={styles.appointmentDate}>
-                  wed 11 oct 5:45pm
-                </span>{" "}
-                <span className={styles.appointmentStatus}>completed</span>
-              </p>
-              <p>
-                <span className={styles.appointmentName}>
-                  Haircut women (1h 15m)
-                </span>
-                <span className={styles.appointmentFor}>Nayanika</span>
-              </p>
-            </div>
-          </div>
-          <div className={styles.cardRight}>
-            <p className={styles.price}>₹599</p>
-            <p className={styles.paymentType}>online</p>
-          </div>
-        </div> */}
       </div>
     </div>
   );

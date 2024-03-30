@@ -75,19 +75,7 @@ const AddServices = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          minHeight: "400px",
-          margin: "auto",
-        }}
-      >
-        <LoadSpinner />
-      </div>
-    );
+    return <LoadSpinner />;
   }
   if (isError) {
     toast.error(error.message, { toastId: 1 });

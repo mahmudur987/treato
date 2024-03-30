@@ -47,12 +47,12 @@ const AddNewClient = ({ showModal, onClose }) => {
         <span className={styles.back} onClick={onClose}>
           <IoMdArrowBack />
         </span>
-        <h2 className={styles.modalHeading}>Add a new client</h2>
+        <h2 className={styles.modalHeading}>Add A New Client</h2>
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formItemsWrapper}>
             <div className={styles.formItems}>
-              <label htmlFor="servicetype">Frst Name</label>
+              <label htmlFor="serviceType">First Name</label>
               <input
                 onChange={(e) => setFirstName(e.target.value)}
                 value={firstName}
@@ -62,7 +62,7 @@ const AddNewClient = ({ showModal, onClose }) => {
               />
             </div>
             <div className={styles.formItems}>
-              <label htmlFor="servicetype">Last Name</label>
+              <label htmlFor="serviceType">Last Name</label>
               <input
                 onChange={(e) => setLastName(e.target.value)}
                 value={lastName}
@@ -72,7 +72,7 @@ const AddNewClient = ({ showModal, onClose }) => {
             </div>
           </div>
           <div className={styles.formItems}>
-            <label htmlFor="servicetype">Email</label>
+            <label htmlFor="serviceType">Email</label>
             <input
               onChange={(e) => setEmail(e.target.value)}
               value={email}
@@ -82,7 +82,7 @@ const AddNewClient = ({ showModal, onClose }) => {
           </div>
           <div className={styles.formItemsWrapper}>
             <div className={styles.formItems}>
-              <label htmlFor="servicetype">phone</label>
+              <label htmlFor="serviceType">phone</label>
               <p className={styles.phone}>
                 <CountrySelect
                   labels={en}
@@ -128,7 +128,7 @@ const AddNewClient = ({ showModal, onClose }) => {
           </div>
           <div className={styles.formItems}>
             <label htmlFor="servicetype">
-              Addional comments{" "}
+              Additional comments{" "}
               <span className={styles.optional}>(optional)</span>
             </label>
             <textarea
@@ -136,7 +136,7 @@ const AddNewClient = ({ showModal, onClose }) => {
               id=""
               cols="30"
               rows="10"
-              placeholder="Add any spacific info or requirements on the booking"
+              placeholder="Add any specific info or requirements on the booking"
             ></textarea>
           </div>
 

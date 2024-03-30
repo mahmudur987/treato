@@ -52,7 +52,7 @@ const TeamSales = () => {
     <div className={styles.maincontainer}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.heading}>Team slaes breakup </h2>
+          <h2 className={styles.heading}>Team sales breakup</h2>
           <p className={styles.selectWrapper}>
             <CustomSelect2
               options={options}

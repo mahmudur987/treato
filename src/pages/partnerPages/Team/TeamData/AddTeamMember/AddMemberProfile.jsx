@@ -303,7 +303,7 @@ const AddMemberProfile = () => {
                 <p className={styles.Employee1}>
                   Go to{" "}
                   <span className={styles.Employee} onClick={employeeSchedule}>
-                    Employee Schedule
+                    Employee schedules
                   </span>{" "}
                   to view and edit employee schedule.
                 </p>

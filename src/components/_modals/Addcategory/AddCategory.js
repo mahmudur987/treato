@@ -8,7 +8,6 @@ import { getAllServices } from "../../../services/Services";
 import { useSingleSalon } from "../../../services/salon";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../services/axios";
-import { useNavigate } from "react-router-dom";
 const AddCategory = ({ showModal, onClose }) => {
   const { refetch } = useSingleSalon();
 
@@ -17,7 +16,6 @@ const AddCategory = ({ showModal, onClose }) => {
   const [selectedServiceType, setSelectedServiceType] = useState(["Error"]);
   const [selectCategory, setselectCategory] = useState("");
   const [service, setservice] = useState([]);
-  const navigate = useNavigate();
   useEffect(() => {
     async function fetchAllServices() {
       try {
@@ -43,6 +41,11 @@ const AddCategory = ({ showModal, onClose }) => {
   })?._id;
 
   const handleSubmit = async () => {
+    if (!selectCategory) {
+      toast.error("Please select a category.");
+      return;
+    }
+
     const newCategory = {
       serviceId,
       mainCategoryData: {
@@ -50,8 +53,6 @@ const AddCategory = ({ showModal, onClose }) => {
         subCategories: [],
       },
     };
-
-    console.log(newCategory);
 
     try {
       const headers = {
@@ -63,16 +64,15 @@ const AddCategory = ({ showModal, onClose }) => {
         { headers }
       );
 
-      console.log(data);
       toast.success(data ? data.message : "A New Category Added Successfully", {
         toastId: 1,
       });
       refetch();
-      navigate("/partner/dashboard/service");
+
       setselectCategory("");
     } catch (error) {
-      console.error("eror", error);
-      toast.error(`Error happn ${error.message}`, { toastId: 2 });
+      console.error("error", error);
+      toast.error(`An error occurred: ${error.message}`, { toastId: 2 });
     }
     onClose();
   };
@@ -89,7 +89,7 @@ const AddCategory = ({ showModal, onClose }) => {
         <span className={styles.back} onClick={onClose}>
           <IoMdArrowBack />
         </span>
-        <h2 className={styles.modalHeading}>Add A new category</h2>
+        <h2 className={styles.modalHeading}>Add a new category</h2>
 
         <form className={styles.form}>
           <div className={styles.formItems}>

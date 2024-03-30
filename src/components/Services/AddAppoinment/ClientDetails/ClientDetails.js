@@ -55,7 +55,7 @@ const ClientsDetails = () => {
       <div className={styles.container}>
         <h3 className={styles.heding}>Client Details</h3>
 
-        {/* Select an existing client< */}
+        {/* Select an existing client */}
 
         <div className={styles.existingClient}>
           <label htmlFor="">Select an existing client</label>
@@ -134,7 +134,7 @@ const ClientsDetails = () => {
           </div>
         </div>
 
-        {/* assign pro fessional*/}
+        {/* assign professional*/}
         <h3 className={styles.heding}>Assign Professional</h3>
 
         <div className={styles.professional}>

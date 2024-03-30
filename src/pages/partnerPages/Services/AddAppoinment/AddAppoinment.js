@@ -8,7 +8,7 @@ import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
 import Loader from "../../../../components/LoadSpinner/Loader";
 export const AddAppoinmentContext = createContext();
-const AddAppoinment = () => {
+const AddAppointment = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [servicesDetails, setServiceDetails] = useState({});
@@ -49,14 +49,15 @@ const AddAppoinment = () => {
     }
 
     if (!name) {
-      return toast.error("not available customar name");
+      return toast.error("customer name not available");
     }
     if (!email) {
-      return toast.error("not available customar email");
+      return toast.error("customer email not available");
     }
     if (!phone) {
-      return toast.error("not available customar phone in Database");
+      return toast.error("customer phone not available in Database");
     }
+
     if (!price) {
       return toast.error("select price ");
     }
@@ -89,7 +90,9 @@ const AddAppoinment = () => {
           headers,
         }
       );
-      toast.success(data ? data.message : "A new appoinment successfully");
+      toast.success(
+        data ? data.message : "A new appointment has been successfully added."
+      );
     } catch (error) {
       console.log("error", error);
       toast.error(error ? error.message : "Failed");
@@ -195,4 +198,4 @@ const AddAppoinment = () => {
   );
 };
 
-export default AddAppoinment;
+export default AddAppointment;

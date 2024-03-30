@@ -182,7 +182,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
             </div>
           ) : (
             <p style={{ color: "red" }}>
-              ## please add a category before add a service
+              please add a category before add a service
             </p>
           )}
         </>
