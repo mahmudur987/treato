@@ -10,6 +10,7 @@ import img7 from "../../../../assets/icons/services/a-7.png";
 import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
+import { useGetSlots } from "../../../../services/Team";
 
 const TeamMembers = ({ mobile, currentStep, setTeamMember, setdays }) => {
   return (
@@ -123,10 +124,12 @@ const CheckBoxComponent = ({ setTeamMember }) => {
 
 const SchedulingCheckBox = ({ setdays }) => {
   const [selectedDays, setSelectedDays] = useState([]);
-  const [startTime, setStartTime] = useState("09:00");
-  const [closeTime, setCloseTime] = useState("09:00");
+  const [startTime, setStartTime] = useState("08:00");
+  const [closeTime, setCloseTime] = useState("08:00");
   const allDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+  const { data } = useGetSlots();
+  const slots = data?.slotsPerDay[0].slots;
   const handleDayClick = (day) => {
     const updatedDays = selectedDays.includes(day)
       ? selectedDays.filter((selectedDay) => selectedDay !== day)
@@ -190,9 +193,12 @@ const SchedulingCheckBox = ({ setdays }) => {
                 name=""
                 id=""
               >
-                <option value="30minn">09:00 AM</option>
-                <option value="30minn">08:00 AM</option>
-                <option value="30minn">07:00 AM</option>
+                {slots &&
+                  slots.map((x, i) => (
+                    <option value={x} key={i}>
+                      {x}
+                    </option>
+                  ))}
               </select>
               <span>
                 <svg
@@ -222,9 +228,12 @@ const SchedulingCheckBox = ({ setdays }) => {
                 name=""
                 id=""
               >
-                <option value="30minn">30 min</option>
-                <option value="30minn">40 min</option>
-                <option value="30minn">50 min</option>
+                {slots &&
+                  slots.map((x, i) => (
+                    <option value={x} key={i}>
+                      {x}
+                    </option>
+                  ))}
               </select>
               <span>
                 <svg
