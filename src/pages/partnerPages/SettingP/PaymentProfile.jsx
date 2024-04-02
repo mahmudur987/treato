@@ -29,7 +29,7 @@ const PaymentProfile = () => {
 
     dispatch(adminBasicDetails(data));
     refetch();
-    toast.success("update successfully", { id: 5 });
+    toast.success("Salon update successfully", { id: 5 });
   };
 
   const handleChange = (e) => {

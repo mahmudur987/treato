@@ -50,7 +50,7 @@ const AddServices = () => {
       navigate("/partner/dashboard/service");
     } else {
       console.log(res.err);
-      toast.error("Error happen,sevice not added");
+      toast.error("Error");
     }
   };
 

@@ -57,11 +57,13 @@ const EditService = () => {
     const res = await editService(neweditService);
     if (res.res) {
       console.log(res.res);
-      toast.success(res.res ? res.res : "Added A new service ");
+      toast.success(
+        res.res ? res.res.message : "Service updated successfully. "
+      );
       navigate("/partner/dashboard/service");
     } else {
       console.log(res.err);
-      toast.error("Error happen,sevice not added");
+      toast.error("Error");
     }
   };
   const handleDeleteService = async () => {
@@ -78,8 +80,8 @@ const EditService = () => {
       navigate("/partner/dashboard/service");
       refetch();
     } catch (error) {
-      console.log("Erroor deleting data", error);
-      toast.error(error.message);
+      console.log("Error", error);
+      toast.error(error.message ?? "Error");
     }
   };
   if (isLoading) {

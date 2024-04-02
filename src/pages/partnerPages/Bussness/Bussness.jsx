@@ -60,7 +60,7 @@ const Bussness = () => {
     };
     dispatch(adminBasicDetails(submitData));
     refetch();
-    toast.success("update successfully", { id: 5 });
+    toast.success("Salon updated successfully.", { id: 5 });
   };
 
   const handleChange = (event) => {
