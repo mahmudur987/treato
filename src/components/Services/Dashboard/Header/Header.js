@@ -62,7 +62,7 @@ const Header = () => {
       {data && (
         <div className={styles.contents}>
           {/* new user */}
-          <div style={{ backgroundColor: "yellow" }} className={styles.card}>
+          <div style={{ backgroundColor: "#FFCE6E" }} className={styles.card}>
             <div className={styles.cardLeft}>
               <FaUsers />
               <div className={styles.cardMiddle}>
