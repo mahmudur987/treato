@@ -3,6 +3,7 @@ import sty from "./ServiceOffer.module.css";
 import CollaseIcon from "../../../assets/images/TeamDetails/chevron-down.png";
 import { useGetSlots } from "../../../services/Team";
 import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
+import ManageHolidays from "../../../components/_modals/ManageHolyDays/ManageHolidays";
 
 const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
   const allDays = [
@@ -14,7 +15,7 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
     "Saturday",
     "Sunday",
   ];
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDays, setSelectedDays] = useState([]);
   const [startTime, setStartTime] = useState("09:00");
   const [endTime, setEndTime] = useState("09:00");
@@ -64,7 +65,12 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div>
       <div className={sty.collapseForSmallScreen}>
@@ -190,13 +196,16 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
                   <span className={sty.toggleSlider}></span>
                 </label>
               </div>
-              <div className={sty.HolidaysDiv}>Manage Holidays</div>
+              <div onClick={openModal} className={sty.HolidaysDiv}>
+                Manage Holidays
+              </div>
             </div>
           </div>
         </div>
       )}
 
       <div className={sty.horizontalLine}></div>
+      <ManageHolidays showModal={isModalOpen} onClose={closeModal} />
     </div>
   );
 };

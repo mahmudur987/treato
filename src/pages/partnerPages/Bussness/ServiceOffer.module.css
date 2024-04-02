@@ -179,6 +179,7 @@ input:checked + .toggleSlider:before {
   color: #0d69d7;
   font-family: "Lato";
   font-weight: 600;
+  cursor: pointer;
 }
 
 .scheHeading {
@@ -350,6 +351,7 @@ input:checked + .toggleSlider:before {
   }
   .content {
     width: 130px;
+    cursor: pointer;
   }
   .content h3 {
     display: none;
