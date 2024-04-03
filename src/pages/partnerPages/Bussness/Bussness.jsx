@@ -11,12 +11,11 @@ import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
 import { toast } from "react-toastify";
 
-const Bussness = () => {
+const Business = () => {
   const { data, isLoading, isError, error, refetch } = useSingleSalon();
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.adminBasicData.loading);
   const updateError = useSelector((state) => state.adminBasicData.error);
-  const update = useSelector((state) => state.adminBasicData.data);
   const [salonData, setSalonData] = useState({
     salon_name: "",
     salons_description: "",
@@ -60,7 +59,7 @@ const Bussness = () => {
     };
     dispatch(adminBasicDetails(submitData));
     refetch();
-    toast.success("Salon updated successfully.", { id: 5 });
+    toast.success("Salon details updated successfully.", { id: 5 });
   };
 
   const handleChange = (event) => {
@@ -139,7 +138,11 @@ const Bussness = () => {
 
           {/* <SalonPictures /> */}
           <div className={sty.saveBtnDiv}>
-            <button type="submit" className={sty.saveBtn}>
+            <button
+              style={{ cursor: "pointer" }}
+              type="submit"
+              className={sty.saveBtn}
+            >
               Save
             </button>
           </div>
@@ -149,4 +152,4 @@ const Bussness = () => {
   );
 };
 
-export default Bussness;
+export default Business;

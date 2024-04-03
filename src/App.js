@@ -32,7 +32,7 @@ import ModalManager from "./components/_modals/ModalManager";
 import Dashboard from "./pages/partnerPages/Dashboard/Dashboard";
 import PartnerAccountSetting from "./pages/partnerPages/SettingP/PartnerAccountSetting";
 import PaymentProfile from "./pages/partnerPages/SettingP/PaymentProfile";
-import Bussness from "./pages/partnerPages/Bussness/Bussness";
+import Business from "./pages/partnerPages/Bussness/Bussness";
 import PicturesGallery from "./pages/partnerPages/Bussness/Gallery/PicturesGallery";
 import ServiceOffer from "./pages/partnerPages/Bussness/ServiceOffer";
 import ServiceLocation from "./pages/partnerPages/Bussness/ServiceLocation";
@@ -193,14 +193,14 @@ function App() {
               path="/partner/dashboard/addappoinment"
               element={<AddAppoinment />}
             />
-            {/* partner accountsetting */}
+            {/* partner account setting */}
             <Route
               path="/partner/dashboard/PartnerAccountSetting"
               element={<PartnerAccountSetting />}
             />
             <Route
               path="/partner/dashboard/serviceBussness"
-              element={<Bussness />}
+              element={<Business />}
             />
             <Route
               path="/partner/dashboard/PaymentProfile"

@@ -136,7 +136,7 @@ const PicturesGallery = () => {
     <>
       <div className={sty.container}>
         <div className={sty.imgarrowLeft}>
-          <Link to={"/partner/dashboard/PartnerAccountSetting"}>
+          <Link to={"/partner/dashboard/serviceBussness"}>
             <img src={arrowLeft} alt="arrowLeft" className={sty.Pictures} />
           </Link>
           Pictures

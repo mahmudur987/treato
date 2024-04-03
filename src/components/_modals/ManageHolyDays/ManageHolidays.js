@@ -6,20 +6,86 @@ import ToggleButton from "../../Buttons/Toggle/ToggleButton";
 import { useSingleSalon } from "../../../services/salon";
 import { useGetHolidays } from "../../../services/holidays";
 import ErrorComponent from "../../ErrorComponent/ErrorComponent";
+import Loader from "../../LoadSpinner/Loader";
+import axiosInstance from "../../../services/axios";
+import { toast } from "react-toastify";
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const options = { weekday: "short", month: "short", day: "numeric" };
   return date.toLocaleDateString("en-US", options);
 };
 const ManageHolidays = ({ showModal, onClose }) => {
-  const { data, isError, isLoading, error } = useGetHolidays();
+  const { data, isError, isLoading, error, refetch } = useGetHolidays();
+  const [loading, setLoading] = useState(false);
   const dateInputRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState("Fri,Mar 29");
+  const [date, setDate] = useState(null);
+  const [eventName, setEventName] = useState(null);
   const [show, setShow] = useState(false);
-  const [isToggled, setIsToggled] = useState("");
-  const handleToggle = (id) => {
-    setIsToggled(id);
-    console.log(id);
+  const [updateId, setUpdateId] = useState("");
+  const { data: salon } = useSingleSalon();
+  const handleAddHoliday = async () => {
+    if (!date) {
+      return toast.error("Please select a date");
+    }
+    if (!eventName) {
+      return toast.error("Please write the event name");
+    }
+
+    setLoading(true);
+    const updateData = {
+      event: eventName,
+      date,
+      status: "closed",
+    };
+
+    console.log(updateData);
+
+    try {
+      const id = salon?.salon?._id;
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+      let url = `holidays/${id}/addHoliday`;
+      const { data } = await axiosInstance.post(url, updateData, { headers });
+      console.log(data);
+      refetch();
+      toast.success("Holidays added successfully");
+
+      setLoading(false);
+      setShow(!show);
+    } catch (error) {
+      toast.error(error ? error.message : "Error");
+      console.log(error);
+      setLoading(false);
+    }
+  };
+  const handleToggle = async (data) => {
+    setUpdateId(data._id);
+    setLoading(true);
+
+    const updateData = [
+      {
+        date: data.date,
+        event: data.event,
+        status: data.status === "closed" ? "open" : "closed",
+      },
+    ];
+    try {
+      const id = salon?.salon?._id;
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+      let url = `holidays/${id}/updateHoliday`;
+      const { data } = await axiosInstance.patch(url, updateData, { headers });
+      console.log(data);
+      refetch();
+      setLoading(false);
+    } catch (error) {
+      toast.error(error ? error.message : "Error");
+      console.log(error);
+      setLoading(false);
+    }
   };
   const openDatePicker = () => {
     dateInputRef.current.showPicker();
@@ -45,7 +111,7 @@ const ManageHolidays = ({ showModal, onClose }) => {
               <div className={styles.topPart}>
                 <h4>Add a new holiday</h4>
                 <p className={styles.ToggleButtonWrapper}>
-                  <ToggleButton /> <span>close</span>
+                  <ToggleButton isOn={false} /> <span>close</span>
                 </p>
               </div>
               <div className={styles.bottomPart}>
@@ -71,6 +137,7 @@ const ManageHolidays = ({ showModal, onClose }) => {
                     style={{ display: "none", position: "absolute" }}
                     onChange={(e) => {
                       const selectedDate = e.target.value;
+                      setDate(selectedDate);
                       const formattedDate = new Date(
                         selectedDate
                       ).toLocaleDateString("en-US", {
@@ -84,10 +151,15 @@ const ManageHolidays = ({ showModal, onClose }) => {
                 </p>
                 <p className={styles.eventWrapper}>
                   <span style={{ fontWeight: "600" }}>Event</span>
-                  <input type="text " placeholder="Enter holidays name" />
+                  <input
+                    onChange={(e) => setEventName(e.target.value)}
+                    type="text "
+                    placeholder="Enter holidays name"
+                  />
                 </p>
                 <button
-                  onClick={() => setShow(!show)}
+                  type="button"
+                  onClick={handleAddHoliday}
                   className={styles.addHolidaySave}
                 >
                   save
@@ -138,15 +210,23 @@ const ManageHolidays = ({ showModal, onClose }) => {
               <div key={x._id} className={styles.row1}>
                 <span className={styles.col1}>{formatDate(x.date)}</span>
                 <span className={styles.col2}>{x.event}</span>
+
                 <span
                   className={styles.col3}
-                  style={{ color: `${x.status === "closed" ? "#6D747A" : ""}` }}
+                  style={{
+                    color: `${x.status === "closed" ? "#6D747A" : ""}`,
+                  }}
                 >
-                  <ToggleButton
-                    isOn={isToggled === x._id}
-                    handleToggle={handleToggle}
-                    data={x}
-                  />
+                  {loading && updateId === x._id ? (
+                    <Loader />
+                  ) : (
+                    <ToggleButton
+                      isOn={x.status === "closed" ? false : true}
+                      handleToggle={handleToggle}
+                      data={x}
+                    />
+                  )}
+
                   {x.status}
                 </span>
               </div>
@@ -159,14 +239,11 @@ const ManageHolidays = ({ showModal, onClose }) => {
 
         <div className={styles.buttonContainer}>
           <button
-            className={styles.cancel}
-            type="button"
             onClick={() => onClose()}
+            className={styles.save}
+            type="button"
           >
-            Cancel
-          </button>
-          <button className={styles.save} type="button">
-            Save
+            Close
           </button>
         </div>
       </div>

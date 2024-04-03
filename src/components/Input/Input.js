@@ -1,17 +1,33 @@
-import React from 'react';
-import inputStyles from "./Input.module.css"
+import React from "react";
+import inputStyles from "./Input.module.css";
 
-const InputField = (props) => {
-  const { name, value, onChange, type, placeholder, checked, styles,label, setValue, error } = props;
+const InputField = ({
+  name,
+  value,
+  onChange,
+  type,
+  placeholder,
+  checked,
+  styles,
+  label,
+  setValue,
+  error,
+}) => {
   return (
     <label className={inputStyles.label}>
-      {type === 'checkbox' ? (
+      {type === "checkbox" ? (
         <>
-          <input type="checkbox" name={name} checked={checked} onChange={onChange} className={""} />
+          <input
+            type="checkbox"
+            name={name}
+            checked={checked}
+            onChange={onChange}
+            className={""}
+          />
         </>
-      ) : type === 'textarea' ? (
+      ) : type === "textarea" ? (
         <>
-          {props.label}
+          {label}
           <textarea
             name={name}
             value={value}
@@ -22,7 +38,7 @@ const InputField = (props) => {
         </>
       ) : (
         <>
-          {props.label}
+          {label}
           <input
             type={type}
             name={name}

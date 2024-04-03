@@ -6,11 +6,9 @@ import { Link } from "react-router-dom";
 import BasicInputs from "../Input/BasicInputs";
 
 const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
-  // let updateInput = (data) => {
-  //     let newInputState = { ...salonData }
-  //     newInputState[Object.keys(data)[0]] === true ? newInputState[Object.keys(data)[0]] = false : newInputState[Object.keys(data)[0]] = true;
-  //     setSalonData(newInputState)
-  // }
+  const [name, setName] = useState(true);
+  const [about, setAbout] = useState(true);
+  const [web, setWeb] = useState(true);
 
   return (
     <>
@@ -40,6 +38,7 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
                   id={"salon_name"}
                   value={salonData.salon_name}
                   onChange={handleChange}
+                  DISABLED={name}
                 />
               </label>
 
@@ -47,7 +46,7 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
                 src={editImg}
                 alt=""
                 className={styles.usr_detail_edit}
-                //  onClick={() => updateInput(inputState?.salon_name ? { salon_name: false } : { salon_name: true })}
+                onClick={() => setName(!name)}
               />
             </div>
             <div className={styles.usr_detail_box}>
@@ -62,6 +61,7 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
                   NAME={"website"}
                   value={salonData.website}
                   onChange={handleChange}
+                  DISABLED={web}
                 />
               </label>
 
@@ -69,7 +69,7 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
                 src={editImg}
                 alt="editImg"
                 className={styles.usr_detail_edit}
-                // onClick={() => updateInput(inputState?.website ? { website: false } : { website: true })}
+                onClick={() => setWeb(!web)}
               />
             </div>
           </div>
@@ -86,13 +86,14 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
               value={salonData.salons_description}
               onChange={handleChange}
               style={`${styles.input} ${styles.textarea}`}
+              DISABLED={about}
             />
 
             <img
               src={editImg}
               alt="editImg"
               className={styles.usr_detail_edit_text}
-              // onClick={() => updateInput(inputState?.salons_description ? { salons_description: false } : { salons_description: true })}
+              onClick={() => setAbout(!about)}
             />
           </div>
         </div>

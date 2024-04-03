@@ -57,7 +57,7 @@ const ServicePageNavbar = () => {
             className={styles.profileContainer}
           >
             <img
-              src={userData?.user?.avatar?.public_url}
+              src={userData?.user?.avatar?.public_url ?? ""}
               onError={(e) => (e.target.src = mask)}
               alt=""
             />

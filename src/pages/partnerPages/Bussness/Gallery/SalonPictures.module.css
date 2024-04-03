@@ -8,7 +8,6 @@
   font-family: "Poppins", sans-serif;
   font-size: 42px;
   margin-bottom: 40px;
-
 }
 
 .mainDiv {
@@ -23,12 +22,13 @@
   color: gray !important;
 }
 
-
+.mainDiv2 {
+  cursor: pointer;
+}
 
 .Pictures {
   max-width: 100%;
   margin-right: 10px;
-
 }
 
 .gridContainer {
@@ -49,7 +49,7 @@
   width: 290px;
   padding: 0px, 95.5px, 0px, 96.5px;
   border-radius: 6px;
-  border: 1px
+  border: 1px;
 }
 
 .modalLeft {
@@ -57,9 +57,8 @@
   top: 0;
   right: 1px;
   left: 91%;
-  color: #6D747A;
+  color: #6d747a;
   background-color: rgb(245, 249, 249);
-  
 }
 
 /* SalonPictures css start */
@@ -73,8 +72,6 @@
   cursor: pointer;
 }
 
-
-
 .dropdownContent {
   display: none;
   position: absolute;
@@ -83,7 +80,7 @@
   margin-top: -18px;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -94,48 +91,50 @@
   display: block;
 }
 
-.dropdownContent a:hover {background-color: #f1f1f1;}
+.dropdownContent a:hover {
+  background-color: #f1f1f1;
+}
 
 .dropdown:hover .dropdownContent {
   display: block;
 }
 
-.dropdownContentA{color: #08090A !important; 
+.dropdownContentA {
+  color: #08090a !important;
   font-size: large;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   font-family: "Lato";
   width: 180px;
-height: 30px;
-padding: 13px, 16px, 13px, 16px;
-border-radius: 4px;
-gap: 16px}
+  height: 30px;
+  padding: 13px, 16px, 13px, 16px;
+  border-radius: 4px;
+  gap: 16px;
+}
 
-.Delete{
-  color: red !important; 
-font-size: large;
-background-color: #FFFFFF;
-font-family: "Lato";
-width: 180px;
-height: 30px;
-padding: 13px, 16px, 13px, 16px;
-border-radius: 4px;
-gap: 16px
+.Delete {
+  color: red !important;
+  font-size: large;
+  background-color: #ffffff;
+  font-family: "Lato";
+  width: 180px;
+  height: 30px;
+  padding: 13px, 16px, 13px, 16px;
+  border-radius: 4px;
+  gap: 16px;
 }
 
 .dropdown:hover .dropbtn {
   background-color: white;
 }
 
-.UploadInp{
-  
+.UploadInp {
   height: 200px;
   max-width: 100%;
   width: 290px;
   padding: 0px, 95.5px, 0px, 96.5px;
   border-radius: 6px;
   border: 1px;
-  border: 1px solid #0D69D7;
-
+  border: 1px solid #0d69d7;
 }
 
 /* .UploadImg{
@@ -208,67 +207,67 @@ gap: 16px
   margin-top: 30px;
   width: 1132px;
   border: 1px solid;
-  color: #EBEDF0;
-
+  color: #ebedf0;
 }
-.byDefaultScreen{
+.byDefaultScreen {
   display: none;
 }
 
 @media only screen and (max-width: 768px) {
- 
   /* .mainDiv {
    
     width: 50%;
     margin-top: 5%;
     margin-bottom: 10%;
   } */
-  .mainDiv1{width: 270px;}
+  .mainDiv1 {
+    width: 270px;
+  }
   .gridContainer {
-  display: grid;
+    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    gap: 16px; 
-}
-.UploadInp{
-  height: 100px;
-  width: 342px;
-  padding: 0px, 95.5px, 0px, 96.5px;
-  border-radius: 6px;
-  border: 1px;
-  border: 1px solid #0D69D7;
+    gap: 16px;
+  }
+  .UploadInp {
+    height: 100px;
+    width: 342px;
+    padding: 0px, 95.5px, 0px, 96.5px;
+    border-radius: 6px;
+    border: 1px;
+    border: 1px solid #0d69d7;
+  }
 
-}
-
-.mapPic{
-  position: relative !important;
-   height: 100px;
+  .mapPic {
+    position: relative !important;
+    height: 100px;
     width: 342px;
     padding: 0px, 95.5px, 0px, 96.5px;
     border-radius: 6px;
     border: 1px;
   }
-  .dropdownContent{
+  .dropdownContent {
     position: fixed;
     width: 330px;
-height: 168px;
-top: 430px;
-padding: 14px;
-left:0px;
-right: 0px;
-border-radius: 12px, 12px, 3px, 0px;
-gap: 36px;
-text-align: center;
-
+    height: 168px;
+    top: 430px;
+    padding: 14px;
+    left: 0px;
+    right: 0px;
+    border-radius: 12px, 12px, 3px, 0px;
+    gap: 36px;
+    text-align: center;
   }
   .imgarrowLeft {
     display: flex;
     align-items: center;
   }
-  .Pictures{
+  .Pictures {
     margin-right: 20px;
   }
-    .openOnSmallScreen{
-      display: block !important;
-    }
-    .horizontalLine{width: 70%;}
+  .openOnSmallScreen {
+    display: block !important;
   }
+  .horizontalLine {
+    width: 70%;
+  }
+}
