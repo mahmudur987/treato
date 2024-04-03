@@ -74,7 +74,6 @@ const TeamDetails = () => {
       editPencil: editImg,
     };
   });
-  console.log(data?.data);
 
   const navigate = useNavigate();
   const [isViewAll, setIsViewAll] = useState(false);

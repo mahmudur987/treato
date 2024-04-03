@@ -16,8 +16,12 @@ export default function PhoneInput({
   const [country, setCountry] = useState("+91");
 
   function inputValue(e) {
-    const phoneNumber = e.target.value.replace(country, ""); // Extract phone number without country code
-    setPhone(country + phoneNumber);
+    const phoneNumber = country + e.target.value;
+
+    if (phoneNumber.length > 12) {
+      alert("The phone number has 11 digit");
+    }
+    setPhone(phoneNumber);
     if (updateInputVal) {
       let allValue = { ...inputVal };
       allValue[e.target.name] = e.target.value;
@@ -42,7 +46,7 @@ export default function PhoneInput({
         type={Type ? Type : "text"}
         placeholder={PlaceHolder ? PlaceHolder : ""}
         className={styles.phone_input}
-        value={VALUE}
+        value={VALUE ? VALUE.replace(country, "") : ""}
         disabled={DISABLED ? DISABLED : false}
         id={ID ? ID : ""}
         name={NAME ? NAME : ""}

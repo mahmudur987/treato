@@ -73,7 +73,7 @@ const AddMemberProfile = () => {
     if (!picture) {
       return toast.error("Select a picture");
     }
-    if (!phone) {
+    if (!phone || phone.length < 3 || phone.length > 12) {
       return toast.error("write your phone number ");
     }
     if (!address) {
@@ -94,10 +94,8 @@ const AddMemberProfile = () => {
       formData.append("time_for_service[]", time);
     });
     selectedServices.forEach((service) => {
-      formData.append("services[]", service); // Appending services as array
+      formData.append("services[]", service);
     });
-
-    // Construct headers
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };
@@ -107,7 +105,7 @@ const AddMemberProfile = () => {
         headers,
       });
       console.log(data);
-      toast.success(data.message);
+      toast.success("Team member added successfullys");
       setLoading(false);
       navigate("/partner/dashboard/TeamManageMent");
     } catch (error) {
@@ -130,6 +128,7 @@ const AddMemberProfile = () => {
     const file = e.target.files[0];
     setPicture(file);
   };
+
   if (loading) {
     <LoadSpinner />;
   }
