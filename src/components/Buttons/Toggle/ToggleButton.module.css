@@ -5,6 +5,7 @@
   display: inline-block;
   width: 40px;
   height: 16px;
+  cursor: pointer;
 }
 
 .switch input {
