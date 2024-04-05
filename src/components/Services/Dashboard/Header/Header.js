@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import styles from "./Header.module.css";
+import userIcon from"../../../../assets/icons/Dashboard/header/Snapshot_Icons (2).png";
 import { FaUsers } from "react-icons/fa";
 import { BsClipboardCheck } from "react-icons/bs";
 import { BsClipboard2Check } from "react-icons/bs";
@@ -64,7 +65,8 @@ const Header = () => {
           {/* new user */}
           <div style={{ backgroundColor: "#FFCE6E" }} className={styles.card}>
             <div className={styles.cardLeft}>
-              <FaUsers />
+              {/* <FaUsers /> */}
+              <img src={userIcon} width={36} height={36} alt="New user" srcset="" title="New user icon" />
               <div className={styles.cardMiddle}>
                 <p>New user</p>
 
@@ -73,7 +75,7 @@ const Header = () => {
             </div>
 
             <div className={styles.cardRight}>
-              <IoIosArrowUp />
+              <IoIosArrowUp className={styles.UpArrow} />
               {incrementOfNewUsers}({incrementOfNewUsersPercentage}%)
             </div>
           </div>
