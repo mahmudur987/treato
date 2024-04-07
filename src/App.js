@@ -47,6 +47,7 @@ import AddAppoinment from "./pages/partnerPages/Services/AddAppoinment/AddAppoin
 import PartnerHome from "./pages/partnerPages/PartnerHome/PartnerHome";
 import AuthChoice from "./pages/partnerPages/Auth/AuthChoice/AuthChoice";
 import CustomerPageLayout from "./layouts/CustomarPageLayout/CustomerPageLayout";
+import AboutUsPage from "./layouts/AboutUsPageLayout/AboutUsPage";
 
 function App() {
   // Use the location hook to track route changes
@@ -237,6 +238,7 @@ function App() {
               element={<EmployeeSchedule />}
             />
           </Route>
+          <Route path="/Aboutuspage" element={<AboutUsPage/>}/>
         </Routes>
       </PageLayout>
     </>
