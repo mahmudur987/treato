@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, RouterProvider } from "react-router-dom";
 import PageLayout from "./layouts/PageLayout/PageLayout";
 import Home from "./pages/Home/Home";
 import Blogs from "./pages/Blogs/Blogs";
@@ -48,6 +48,10 @@ import PartnerHome from "./pages/partnerPages/PartnerHome/PartnerHome";
 import AuthChoice from "./pages/partnerPages/Auth/AuthChoice/AuthChoice";
 import CustomerPageLayout from "./layouts/CustomarPageLayout/CustomerPageLayout";
 import AboutUsPage from "./layouts/AboutUsPageLayout/AboutUsPage";
+import Privacy from "./layouts/PrivacyPolicyLayout/Privacy";
+import { privacyrouter } from "./layouts/PrivacyPolicyLayout/Privacy";
+import SubBar from "./components/PrivacyPolicy/PrivacyBar/SubBar";
+import Termoptions from "./components/PrivacyPolicy/TermOptions/TermMenu";
 
 function App() {
   // Use the location hook to track route changes
@@ -239,6 +243,9 @@ function App() {
             />
           </Route>
           <Route path="/Aboutuspage" element={<AboutUsPage/>}/>
+          <Route path="/Privacy" element={<Privacy/>}>
+            <Route path="/Privacy" element={<SubBar/>}/>
+          </Route>
         </Routes>
       </PageLayout>
     </>
