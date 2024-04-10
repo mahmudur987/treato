@@ -1,9 +1,28 @@
 .container{
-    position: absolute;
+    border: 1px solid red;
+    position: inherit;
     width: 214px;
     height: 180px;
     display: flex;
     flex-direction: column;
     gap:15px;
     top: 228px;
+    margin-left: 60px;
+}
+.container h6{
+    height: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: Poppins;
+    line-height: 24px;
+}
+.rightContainer{
+    overflow-y: auto;
+    position: initial;
+    border: 1px solid black;
+    width: 984px;
+    height: 1845px;
+    margin-top: -180px;
+    margin-left: 396px;
+
 }

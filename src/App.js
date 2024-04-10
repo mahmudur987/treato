@@ -244,7 +244,10 @@ function App() {
           </Route>
           <Route path="/Aboutuspage" element={<AboutUsPage/>}/>
           <Route path="/Privacy" element={<Privacy/>}>
-            <Route path="/Privacy" element={<SubBar/>}/>
+            <Route path="/Privacy" element={<SubBar/>}>
+            <Route path="/Privacy/" element={<Termoptions/>}/></Route>
+              
+          
           </Route>
         </Routes>
       </PageLayout>
