@@ -52,6 +52,7 @@ import Privacy from "./layouts/PrivacyPolicyLayout/Privacy";
 import { privacyrouter } from "./layouts/PrivacyPolicyLayout/Privacy";
 import SubBar from "./components/PrivacyPolicy/PrivacyBar/SubBar";
 import Termoptions from "./components/PrivacyPolicy/TermOptions/TermMenu";
+import PrivacyService from "./components/PrivacyPolicy/PrivacyPolicy/PrivacyPolicy";
 
 function App() {
   // Use the location hook to track route changes
@@ -245,7 +246,9 @@ function App() {
           <Route path="/Aboutuspage" element={<AboutUsPage/>}/>
           <Route path="/Privacy" element={<Privacy/>}>
             <Route path="/Privacy" element={<SubBar/>}>
-            <Route path="/Privacy/" element={<Termoptions/>}/></Route>
+            <Route path="/Privacy/termofuse" element={<Termoptions/>}/>
+            <Route path="/Privacy/policy" element={<PrivacyService/>}/>
+            </Route>
               
           
           </Route>

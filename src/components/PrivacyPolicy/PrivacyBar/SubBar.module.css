@@ -21,11 +21,18 @@
     margin-left: 60px;
 
 }
+
 .termPrivacy div h5{
     height: 30px;
     font-size: 20px;
     font-weight: 600;
     font-family: Poppins;
     line-height: 30px;
+    cursor: pointer;
 
 }
+.selected {
+    border-radius: 3px;
+    border-bottom: 3px solid #0D69D7;
+    
+  }
