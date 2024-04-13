@@ -53,6 +53,7 @@ import { privacyrouter } from "./layouts/PrivacyPolicyLayout/Privacy";
 import SubBar from "./components/PrivacyPolicy/PrivacyBar/SubBar";
 import Termoptions from "./components/PrivacyPolicy/TermOptions/TermMenu";
 import PrivacyService from "./components/PrivacyPolicy/PrivacyPolicy/PrivacyPolicy";
+import FrequentlyAskedQuestionsPage from "./layouts/FrequentlyAskedQuestionsLayout/FrequentlyAskedQuestionsPage";
 
 function App() {
   // Use the location hook to track route changes
@@ -243,15 +244,18 @@ function App() {
               element={<EmployeeSchedule />}
             />
           </Route>
+          {/* About page */}
           <Route path="/Aboutuspage" element={<AboutUsPage/>}/>
+          {/* Privacy page */}
           <Route path="/Privacy" element={<Privacy/>}>
             <Route path="/Privacy" element={<SubBar/>}>
             <Route path="/Privacy/termofuse" element={<Termoptions/>}/>
             <Route path="/Privacy/policy" element={<PrivacyService/>}/>
             </Route>
-              
-          
+           
           </Route>
+           {/* FrequentlyAskedQuestions page  */}
+           <Route path="/frequentlyaskedquestions" element={<FrequentlyAskedQuestionsPage/>}/>
         </Routes>
       </PageLayout>
     </>
