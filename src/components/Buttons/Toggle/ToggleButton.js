@@ -9,11 +9,7 @@ const ToggleButton = ({ isOn, handleToggle, data }) => {
       <input
         type="checkbox"
         checked={isOn}
-        onChange={() => {
-          if (handleToggle) {
-            handleToggle(data);
-          }
-        }}
+        onChange={(e) => handleToggle(data._id)}
       />
       <span className={styles.slider}></span>
     </label>

@@ -41,7 +41,7 @@ export const useGetSingleMember = (id) => {
   return useQuery({
     queryKey: [id],
     queryFn: async () => {
-      const { data } = await axiosInstance.get(`stylist/getOneStylist/${id}`, {
+      const { data } = await axiosInstance.get(`stylist//getOneStylist/${id}`, {
         headers,
       });
       return data;

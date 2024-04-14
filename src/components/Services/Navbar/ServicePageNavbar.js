@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import styles from "./ServicePageNavbar.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,8 +6,6 @@ import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
 import mask from "../../../assets/images/NavbarImages/Mask.png";
 // import mask from "../../../assets/images/NavbarImages/Mask.png";
 const ServicePageNavbar = () => {
-  const [isToggled, setIsToggled] = useState(true);
-  const toggleRef = useRef(null);
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -20,27 +18,8 @@ const ServicePageNavbar = () => {
     navigate("/partner");
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (toggleRef.current && !toggleRef.current.contains(event.target)) {
-        setIsToggled(true);
-        setShowProfile(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
-
-  const handleToggle = () => {
-    setIsToggled(prevState => !prevState);
-  };
-
   return (
-    <div ref={toggleRef} className={styles.mainContainer}>
+    <div className={styles.mainContainer}>
       <div className={styles.container}>
         <p className={styles.actionWrapper}>
           {userData?.isLoggedIn && (
@@ -54,8 +33,7 @@ const ServicePageNavbar = () => {
                 alt=""
               />
               <h3>{userData?.user?.first_name}</h3>
-              {isToggled ? <svg
-                onClick={handleToggle}
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -69,15 +47,7 @@ const ServicePageNavbar = () => {
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 />
-              </svg> : <svg 
-              onClick={handleToggle}
-              xmlns="http://www.w3.org/2000/svg"
-               width="24"
-                height="24" 
-                fill="none"
-                 id="up-arrow">
-                  <path fill="#000" fill-rule="evenodd" d="M5.306 15.694a1.043 1.043 0 0 0 1.476 0L12 10.47l5.218 5.224a1.043 1.043 0 0 0 1.476 0 1.046 1.046 0 0 0 0-1.478l-5.904-5.91a1.04 1.04 0 0 0-.79-.305 1.04 1.04 0 0 0-.79.305l-5.904 5.91a1.046 1.046 0 0 0 0 1.478Z" clip-rule="evenodd"></path></svg>}
-
+              </svg>
             </div>
           )}
         </p>
@@ -87,7 +57,7 @@ const ServicePageNavbar = () => {
             className={styles.profileContainer}
           >
             <img
-              src={userData?.user?.avatar?.public_url ?? ""}
+              src={userData?.user?.avatar?.public_url}
               onError={(e) => (e.target.src = mask)}
               alt=""
             />

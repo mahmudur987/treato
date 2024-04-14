@@ -16,7 +16,7 @@ export const useGetHolidays = () => {
       const { data } = await axiosInstance.get(url, {
         headers,
       });
-
+      console.log(data);
       return data;
     },
   });
