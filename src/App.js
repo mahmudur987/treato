@@ -47,6 +47,9 @@ import AddAppoinment from "./pages/partnerPages/Services/AddAppoinment/AddAppoin
 import PartnerHome from "./pages/partnerPages/PartnerHome/PartnerHome";
 import AuthChoice from "./pages/partnerPages/Auth/AuthChoice/AuthChoice";
 import CustomerPageLayout from "./layouts/CustomarPageLayout/CustomerPageLayout";
+import AdminPageLayout from "./layouts/Admin/AdminPageLayout";
+import AdminDashboard from "./pages/AdminPages/Dashboard/AdminDashboard";
+import Reports from "./pages/AdminPages/Reports/Reports";
 
 function App() {
   // Use the location hook to track route changes
@@ -236,6 +239,13 @@ function App() {
               path="/partner/dashboard/EmployeeSchedule"
               element={<EmployeeSchedule />}
             />
+          </Route>
+
+          {/* admin dashboard */}
+
+          <Route path="/admin" element={<AdminPageLayout />}>
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/reports" element={<Reports />} />
           </Route>
         </Routes>
       </PageLayout>
