@@ -249,15 +249,3 @@ export default App;
 //   "email":"jery192@gmail.com",
 //   "password":"Test@123456"
 // }
-
-// // /api/v1/service/new   service_name,
-//       service_description,
-//       stylists,
-//       mainCategories,
-
-// http://localhost:4000/api/v1/service/addNewSubcategory
-// http://localhost:4000/api/v1/service/addNewCategory
-
-// Route
-// /editCategory
-// serviceId, mainCategoryId, newCategoryName
