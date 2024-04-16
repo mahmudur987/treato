@@ -55,6 +55,7 @@ import Termoptions from "./components/PrivacyPolicy/TermOptions/TermMenu";
 import PrivacyService from "./components/PrivacyPolicy/PrivacyPolicy/PrivacyPolicy";
 import FrequentlyAskedQuestionsPage from "./layouts/FrequentlyAskedQuestionsLayout/FrequentlyAskedQuestionsPage";
 import PricingPage from "./layouts/PricingLayout/PricingPage";
+import ContactUsLayout from "./layouts/ContactUsLayout/ContactUsLayout";
 
 function App() {
   // Use the location hook to track route changes
@@ -259,6 +260,8 @@ function App() {
            <Route path="/frequentlyaskedquestions" element={<FrequentlyAskedQuestionsPage/>}/>
            {/* Pricing page  */}
            <Route path="/Pricing" element={<PricingPage/>}/>
+           {/* contact us page  */}
+           <Route path="/contactus" element={<ContactUsLayout/>}/>
         </Routes>
       </PageLayout>
     </>
