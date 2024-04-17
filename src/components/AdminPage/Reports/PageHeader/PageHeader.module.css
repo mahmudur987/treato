@@ -10,6 +10,7 @@
   width: 95%;
   height: 40px;
   display: flex;
+  flex-wrap: nowrap;
   gap: 30px;
 }
 .container h3 {
@@ -21,4 +22,13 @@
   text-align: left;
   cursor: pointer;
   padding: 0;
+}
+@media only screen and (max-width: 700px) {
+  .container {
+    padding: 10px;
+    justify-content: space-between;
+  }
+  .container h3 {
+    font-size: 16px;
+  }
 }
