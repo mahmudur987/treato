@@ -36,7 +36,13 @@ const Footer = () => {
           });
         }
       }, 450);
-    } else {
+    } else if(link === "Privacy policy") {
+      navigate("/Privacy/policy");
+    }
+     else if(link === "Terms of use") {
+      navigate("/Privacy/Termofuse");
+    }
+     else  {
       // Handle other links as needed
       // For example, you can navigate to a different page
     }
@@ -91,11 +97,9 @@ const Footer = () => {
         <div className={styles.legalLinks}>
           <h4 className={styles.heading}>Legal</h4>
           <div className={styles.links}>
-            {legalLinks.map((link, index) => (
-              <a key={index} href="#">
-                {link}
-              </a>
-            ))}
+            <Link to="/Privacy/policy">Privacy policy</Link>
+            <Link>Terms of service</Link>
+            <Link to="/Privacy/Termofuse" >Terms of use</Link>
           </div>
         </div>
         <div className={styles.social}>

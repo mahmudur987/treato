@@ -1,0 +1,38 @@
+.subBar{
+    width: 100%;
+    height: 115px;
+    background-color: #FFFFFF;
+    
+    top: 87px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.subBar hr{
+    border: 1px solid #EBEDF0;
+    width: 100%;
+}
+.termPrivacy{
+    width: 360px;
+    height: 39px;
+    display: flex;
+    gap: 48px;
+    float: left;
+    margin-left: 60px;
+
+}
+
+.termPrivacy div h5{
+    height: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: Poppins;
+    line-height: 30px;
+    cursor: pointer;
+
+}
+.selected {
+    border-radius: 3px;
+    border-bottom: 3px solid #0D69D7;
+    
+  }
