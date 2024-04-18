@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  RouterProvider,
-} from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import PageLayout from "./layouts/PageLayout/PageLayout";
 import Home from "./pages/Home/Home";
 import Blogs from "./pages/Blogs/Blogs";
@@ -58,7 +52,6 @@ import AdminDashboard from "./pages/AdminPages/Dashboard/AdminDashboard";
 import Reports from "./pages/AdminPages/Reports/Reports";
 import AboutUsPage from "./layouts/AboutUsPageLayout/AboutUsPage";
 import Privacy from "./layouts/PrivacyPolicyLayout/Privacy";
-import { privacyrouter } from "./layouts/PrivacyPolicyLayout/Privacy";
 import SubBar from "./components/PrivacyPolicy/PrivacyBar/SubBar";
 import Termoptions from "./components/PrivacyPolicy/TermOptions/TermMenu";
 import PrivacyService from "./components/PrivacyPolicy/PrivacyPolicy/PrivacyPolicy";
