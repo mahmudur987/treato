@@ -56,6 +56,8 @@ import PrivacyService from "./components/PrivacyPolicy/PrivacyPolicy/PrivacyPoli
 import FrequentlyAskedQuestionsPage from "./layouts/FrequentlyAskedQuestionsLayout/FrequentlyAskedQuestionsPage";
 import PricingPage from "./layouts/PricingLayout/PricingPage";
 import ContactUsLayout from "./layouts/ContactUsLayout/ContactUsLayout";
+import CareersPage from "./layouts/CareersLayout/CareersPage";
+import CurrentOpenings from "./components/Careers/CurrentOpenings/CurrentOpenings";
 
 function App() {
   // Use the location hook to track route changes
@@ -262,6 +264,12 @@ function App() {
            <Route path="/Pricing" element={<PricingPage/>}/>
            {/* contact us page  */}
            <Route path="/contactus" element={<ContactUsLayout/>}/>
+
+           {/* Careers page routes */}
+           <Route path="/careers" element={<CareersPage/>} >
+            <Route path="/careers/currentopenings" element={<CurrentOpenings/>}/>
+
+           </Route>
         </Routes>
       </PageLayout>
     </>
