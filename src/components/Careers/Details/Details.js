@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Details() {
+function JobDetails() {
   return (
     <div>
-      <h1>Details</h1>
+      <h1>JobDetails</h1>
     </div>
   )
 }
 
-export default Details
+export default JobDetails;
