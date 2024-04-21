@@ -58,6 +58,7 @@ import PricingPage from "./layouts/PricingLayout/PricingPage";
 import ContactUsLayout from "./layouts/ContactUsLayout/ContactUsLayout";
 import CareersPage from "./layouts/CareersLayout/CareersPage";
 import CurrentOpenings from "./components/Careers/CurrentOpenings/CurrentOpenings";
+import JobDescription from "./components/Careers/JobDescription/JobDescription";
 
 function App() {
   // Use the location hook to track route changes
@@ -268,6 +269,7 @@ function App() {
            {/* Careers page routes */}
            <Route path="/careers" element={<CareersPage/>} >
             <Route path="/careers/currentopenings" element={<CurrentOpenings/>}/>
+            <Route path="/careers/jobdescription/:id" element={<JobDescription/>}/>
 
            </Route>
         </Routes>

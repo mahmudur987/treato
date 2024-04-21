@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './Style.module.css'
+import { Link } from 'react-router-dom';
 import image1 from '../../../../src/assets/images/Careers/image1.png'
 import image2 from '../../../../src/assets/images/Careers/placeholder.png'
 import { GetPostDetails } from '../../../services/careers';
@@ -62,9 +63,9 @@ function CurrentOpenings() {
                       </div>
 
                     </div>
-                    <svg class={style.arrow} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <Link to = {`/careers/jobdescription/${ele._id}`}><svg class={style.arrow} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
-                    </svg>
+                    </svg></Link>
                   </div>
                 </>
               })}
