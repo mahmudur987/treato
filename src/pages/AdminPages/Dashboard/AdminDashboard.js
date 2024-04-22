@@ -1,7 +1,12 @@
 import React from "react";
-import styles from "./AdminDahboard.module.css";
+import styles from "./AdminDashboard.module.css";
+import Header from "../../../components/AdminPage/AdminDashboard/Dashboard/Header/Header";
 const AdminDashboard = () => {
-  return <main className={styles.mainContainer}>this is admin dashboard</main>;
+  return (
+    <main className={styles.mainContainer}>
+      <Header />
+    </main>
+  );
 };
 
 export default AdminDashboard;

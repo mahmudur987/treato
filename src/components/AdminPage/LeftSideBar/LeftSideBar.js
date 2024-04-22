@@ -25,7 +25,7 @@ const LeftSideBar = () => {
           />
         </svg>
       ),
-      text: "Admin Dashboard",
+      text: "Dashboard",
     },
     {
       to: "/admin/dashboard/addappoinment",
