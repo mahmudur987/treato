@@ -13,3 +13,18 @@ export const GetPostDetails = async () => {
         return { err: error, res: null };
       }
 }
+
+export const jobApplicationData = async (data) => {
+  const headers = {
+    token: localStorage.getItem("jwtToken"),
+  };
+  try {
+    const res = await axiosInstance.post("https://backend.treato.in/api/v1/career/jobformapply", data, {headers});
+
+    alert("data send.")
+    return { res: res.data, err: null };
+  } catch (error) {
+    alert("data not send.")
+    return { res: null, err: error };
+  }
+};

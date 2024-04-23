@@ -3,13 +3,14 @@ import AboutusNavBar from '../../components/Aboutus/AboutUsNavBar/AboutusNavBar'
 import AboutUsDetails from '../../components/Aboutus/AboutUsDetails/AboutUsDetails';
 import Footer from '../../components/Footer/Footer';
 import style from './AboutUsPage.module.css';
+import Navbar from '../../components/Navbar/Navbar'
 
 function AboutUsPage() {
   return (
     <div className={style.container}>
-    <AboutusNavBar/>
+    <Navbar/>
     <AboutUsDetails/>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   )
 }

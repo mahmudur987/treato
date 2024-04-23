@@ -36,8 +36,9 @@ const Footer = () => {
           });
         }
       }, 450);
-    } else if(link === "Privacy policy") {
-      navigate("/Privacy/policy");
+    } else if(link === "Careers") {
+      navigate("/careers/currentopenings");
+      console.log(link);
     }
      else if(link === "Terms of use") {
       navigate("/Privacy/Termofuse");

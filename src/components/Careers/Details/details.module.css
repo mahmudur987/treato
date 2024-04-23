@@ -236,6 +236,7 @@
     color: #6D747A;
   }
   .submitButton{
+    cursor: pointer;
     padding: 14px 24px 14px 24px;
     border-radius: 4px;
     width: 106px;

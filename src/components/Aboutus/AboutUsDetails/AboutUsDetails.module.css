@@ -4,11 +4,10 @@
     box-sizing: border-box;
 }
 .aboutcontainer{
-    position: absolute;
     width: 648px;
     height: 457px;
-    top: 182px;
-    left: 60px;
+    margin-top: 182px;
+    margin-left: 60px;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -85,9 +84,9 @@
 .OurTeamBox{
     width: 1320px;
     height: 319px;
-    position: absolute;
-    top: 734px;
-    left: 60px;
+    position: inherit;
+    margin-top: 95px;
+    margin-left: 60px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -114,10 +113,15 @@ align-items: center;
 gap: 20px;
 }
 .Arrowbtn{
+    cursor: pointer;
     height: 40px;
     width: 40px;
     border-radius: 50%;
     background-color: #08080B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #F8F9FA;
 }
 .outTeamContent{
     width: 100%;
@@ -174,9 +178,8 @@ gap: 20px;
     height: 353px;
     padding-top: 43px;
     padding-left: 60px;
-    position: absolute;
-    top: 1153px;
-    left: 62px;
+    margin-top: 100px;
+    margin-left: 62px;
     border-radius: 5px;
     background-color: #F8F9FA;
 }
@@ -220,3 +223,13 @@ gap: 20px;
 .Footer {
     position: inherit;
   }
+  @media screen and (max-width: 720px) {
+    .mainContainer{
+        width: 390px;
+        height: 3405px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 45px;
+    }
+}

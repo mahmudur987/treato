@@ -7,7 +7,8 @@ import Footer from '../../Footer/Footer';
 function AboutUsDetails() {
     return (
         <>
-            <div className={style.aboutcontainer}>
+           <div className={style.mainContainer} >
+           <div className={style.aboutcontainer}>
                 <h3 className={style.title}>About us</h3>
                 <div className={style.aboutcontent}>
                     <p>Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.</p>
@@ -34,8 +35,14 @@ function AboutUsDetails() {
                 <div className={style.ourTeamHeader}>
                     <h3>Our Team</h3>
                     <div className={style.btns}>
-                        <div className={style.Arrowbtn}>-</div>
-                        <div className={style.Arrowbtn}>-</div>
+                        <div className={style.Arrowbtn}><svg height={12} width={16} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
+                        </svg>
+                        </div>
+                        <div className={style.Arrowbtn}><svg height={12} width={16} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
+                        </svg>
+                        </div>
                     </div>
                 </div>
                 <div className={style.outTeamContent}>
@@ -67,6 +74,7 @@ function AboutUsDetails() {
                 </div>
 
             </div>
+           </div>
         </>
     )
 }

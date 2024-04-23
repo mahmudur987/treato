@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import style from './details.module.css'
 import image2 from '../../../../src/assets/images/Careers/placeholder.png';
+import { jobApplicationData } from '../../../services/careers';
 
 function JobDetails() {
 
@@ -30,9 +31,11 @@ function JobDetails() {
     setFormData({ ...formData, file: null });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
+    jobApplicationData(formData);
+
+
     console.log(formData);
   };
 
@@ -108,7 +111,7 @@ function JobDetails() {
                     onChange={handleChange}
                     required
                   >
-                    
+
                     {/* Add options for country codes */}
                     <option value="+1">+1 (USA)</option>
                     <option value="+91" Selected>+91 (India)</option>
@@ -155,8 +158,8 @@ function JobDetails() {
           </div>
           <div className={style.checkBox} >
             <input
-            width={24}
-            height={24}
+              width={24}
+              height={24}
               type="checkbox"
               id="agreedToRequirements"
               name="agreedToRequirements"
@@ -175,3 +178,6 @@ function JobDetails() {
 }
 
 export default JobDetails;
+// Access to XMLHttpRequest at 'https://backend.treato.in/api/v1/career/jobformapply' 
+// from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin'
+//  header is present on the requested resource.
