@@ -68,6 +68,7 @@ const Header = () => {
       },
     ],
   };
+
   if (isLoading) {
     <LoadSpinner />;
   }
@@ -91,7 +92,7 @@ const Header = () => {
         <div className={styles.contents}>
           <Slider {...settings}>
             {/* new user */}
-            <div className={styles.cardWrapper}>
+            <div>
               <div
                 style={{ backgroundColor: "yellow" }}
                 className={styles.card}

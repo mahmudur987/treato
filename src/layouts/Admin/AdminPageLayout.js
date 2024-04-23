@@ -35,7 +35,7 @@ const AdminPageLayout = () => {
           <Outlet />
         </div>
       </section>
-      <BottomNav />
+      {/* <BottomNav /> */}
     </main>
   );
 };
