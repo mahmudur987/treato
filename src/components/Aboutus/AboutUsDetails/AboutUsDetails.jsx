@@ -11,18 +11,19 @@ function AboutUsDetails() {
            <div className={style.aboutcontainer}>
                 <h3 className={style.title}>About us</h3>
                 <div className={style.aboutcontent}>
+                <img src={aboutusImage} className={style.imagemobile} alt="" srcset="" />
                     <p>Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.</p>
                 </div>
                 <div className={style.info}>
-                    <div width={63} height={57}>
+                    <div className={style.box1} >
                         <h4 width={63} >500+</h4>
                         <p width={41} >Salons</p>
                     </div>
-                    <div width={88} height={57} >
+                    <div className={style.box2}  >
                         <h4 width={72}>1000+</h4>
                         <p width={88}>Happy Clients</p>
                     </div>
-                    <div width={138} height={57} >
+                    <div className={style.box3}  >
                         <h4 width={46} >20+</h4>
                         <p width={138}>Cities Services Offered</p>
                     </div>
@@ -69,6 +70,7 @@ function AboutUsDetails() {
                     <img src={image2} alt="" srcset="" />
                     <div className={style.visionText} >
                         <h3>Our Vision</h3>
+                        <img src={image2} alt="" srcset="" />
                         <p>Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. </p>
                     </div>
                 </div>
