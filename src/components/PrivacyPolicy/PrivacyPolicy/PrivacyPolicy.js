@@ -17,7 +17,9 @@ function PrivacyService() {
 
     return (<>
         <div className={style.container} >
-            <h6
+        <h5 className={style.tablename}  >Table of Contents</h5>
+           <div className={style.optionBox} >
+           <h6
                 className={selectedOption === 'Option 1' ? `${style.selected}` : ''}
                 onClick={(() => {
                     scrollToSection('introduction');
@@ -55,6 +57,7 @@ function PrivacyService() {
                     handleOptionClick('Option 5')
                 })}
             >Age requirement</h6>
+           </div>
         </div>
         <div className={style.rightContainer}>
             <h2 className={style.header}>Privacy Policy</h2>
