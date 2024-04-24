@@ -60,6 +60,10 @@ import PricingPage from "./layouts/PricingLayout/PricingPage";
 import ContactUsLayout from "./layouts/ContactUsLayout/ContactUsLayout";
 import CareersPage from "./layouts/CareersLayout/CareersPage";
 import CurrentOpenings from "./components/Careers/CurrentOpenings/CurrentOpenings";
+import PaymentPage from "./pages/AdminPages/Dashboard/Payment/PaymentPage";
+import ActiveSalon from "./pages/AdminPages/Dashboard/Salon/Active/ActiveSalon";
+import PendingSalon from "./pages/AdminPages/Dashboard/Salon/Pending/PendingSalon";
+import DeactivatedSalon from "./pages/AdminPages/Dashboard/Salon/Deactivated/DeactivatedSalon";
 
 function App() {
   // Use the location hook to track route changes
@@ -284,6 +288,13 @@ function App() {
 
           <Route path="/admin" element={<AdminPageLayout />}>
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/salon/active" element={<ActiveSalon />} />
+            <Route path="/admin/salon/pending" element={<PendingSalon />} />
+            <Route
+              path="/admin/salon/deactivated"
+              element={<DeactivatedSalon />}
+            />
+            <Route path="/admin/payment" element={<PaymentPage />} />
             <Route path="/admin/reports" element={<Reports />} />
           </Route>
         </Routes>

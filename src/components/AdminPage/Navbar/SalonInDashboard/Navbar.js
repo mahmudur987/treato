@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import styles from "./ServicePageNavbar.module.css";
+import styles from "./Navbar.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
-import mask from "../../../assets/images/NavbarImages/Mask.png";
-// import mask from "../../../assets/images/NavbarImages/Mask.png";
-const ServicePageNavbar = () => {
+import {
+  resetUserDetails,
+  updateIsLoggedIn,
+} from "../../../../redux/slices/user";
+import mask from "../../../../assets/images/NavbarImages/Mask.png";
+const SalonInDashboardNavbar = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -73,4 +75,4 @@ const ServicePageNavbar = () => {
   );
 };
 
-export default ServicePageNavbar;
+export default SalonInDashboardNavbar;
