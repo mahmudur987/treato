@@ -1,8 +1,8 @@
 .mainContainer {
-  max-width: 1440px;
   width: 100%;
   min-height: 72px;
   margin: 0 auto;
+  box-shadow: 0px 4px 0px 0px #00000026;
 }
 
 .container {
@@ -11,8 +11,25 @@
   min-height: 72px;
   margin: 0 auto;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
+}
+.searchWrapper {
+  max-width: 400px;
+  height: 50px;
+  width: 100%;
+  border: 1px solid #ced4da;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+}
+.searchWrapper label {
+}
+.searchWrapper input {
+  outline: none;
+  border: none;
+  background: none;
 }
 .actionWrapper {
   max-width: 300px;
@@ -86,4 +103,10 @@
   font-weight: 600;
   line-height: 100%; /* 16px */
   letter-spacing: -0.16px;
+}
+
+@media only screen and (max-width: 700px) {
+  .mainContainer {
+    display: none;
+  }
 }

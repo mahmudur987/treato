@@ -1,0 +1,12 @@
+.mainContainer {
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}

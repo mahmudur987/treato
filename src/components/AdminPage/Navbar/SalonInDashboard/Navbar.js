@@ -7,6 +7,7 @@ import {
   updateIsLoggedIn,
 } from "../../../../redux/slices/user";
 import mask from "../../../../assets/images/NavbarImages/Mask.png";
+import { CiSearch } from "react-icons/ci";
 const SalonInDashboardNavbar = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
@@ -23,6 +24,18 @@ const SalonInDashboardNavbar = () => {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container}>
+        <p className={styles.searchWrapper}>
+          <label htmlFor="salonSearch">
+            <CiSearch />
+          </label>
+          <input
+            type="text"
+            name="salonSearch"
+            id="salonSearch"
+            placeholder="Search Salons"
+          />
+        </p>
+
         <p className={styles.actionWrapper}>
           {userData?.isLoggedIn && (
             <div

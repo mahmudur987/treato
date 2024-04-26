@@ -67,7 +67,7 @@
   border-top: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-  z-index: 3;
+  z-index: 999;
 }
 
 .option {
@@ -90,6 +90,8 @@
     background: none;
   }
   .selectWrapper {
+    max-width: 200px;
+    width: 100%;
     border-radius: 30px;
     padding: 0px 8px;
   }

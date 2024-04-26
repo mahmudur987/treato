@@ -49,7 +49,6 @@ import AuthChoice from "./pages/partnerPages/Auth/AuthChoice/AuthChoice";
 import CustomerPageLayout from "./layouts/CustomarPageLayout/CustomerPageLayout";
 import AdminPageLayout from "./layouts/Admin/AdminPageLayout";
 import AdminDashboard from "./pages/AdminPages/Dashboard/AdminDashboard";
-import Reports from "./pages/AdminPages/Reports/Reports";
 import AboutUsPage from "./layouts/AboutUsPageLayout/AboutUsPage";
 import Privacy from "./layouts/PrivacyPolicyLayout/Privacy";
 import SubBar from "./components/PrivacyPolicy/PrivacyBar/SubBar";
@@ -64,6 +63,7 @@ import PaymentPage from "./pages/AdminPages/Dashboard/Payment/PaymentPage";
 import ActiveSalon from "./pages/AdminPages/Dashboard/Salon/Active/ActiveSalon";
 import PendingSalon from "./pages/AdminPages/Dashboard/Salon/Pending/PendingSalon";
 import DeactivatedSalon from "./pages/AdminPages/Dashboard/Salon/Deactivated/DeactivatedSalon";
+import Reports from "./pages/partnerPages/Reports/Reports";
 
 function App() {
   // Use the location hook to track route changes
@@ -236,7 +236,7 @@ function App() {
               path="/partner/dashboard/PicturesGallery"
               element={<PicturesGallery />}
             />
-            {/* team manage ment */}
+            {/* team management */}
 
             <Route
               path="/partner/dashboard/TeamManageMent"
@@ -254,6 +254,7 @@ function App() {
               path="/partner/dashboard/EmployeeSchedule"
               element={<EmployeeSchedule />}
             />
+            <Route path="/partner/dashboard/reports" element={<Reports />} />
           </Route>
           {/* About page */}
           <Route path="/Aboutuspage" element={<AboutUsPage />} />
@@ -295,7 +296,6 @@ function App() {
               element={<DeactivatedSalon />}
             />
             <Route path="/admin/payment" element={<PaymentPage />} />
-            <Route path="/admin/reports" element={<Reports />} />
           </Route>
         </Routes>
       </PageLayout>

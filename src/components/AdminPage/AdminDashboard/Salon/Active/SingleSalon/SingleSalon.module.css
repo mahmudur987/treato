@@ -1,0 +1,73 @@
+/* CardComponent.module.css */
+
+.card {
+  max-width: 354px;
+  width: 100%;
+  min-height: 330px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.image {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+.details {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.name {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.rating {
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.address {
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+/* Random Animation */
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadein {
+  animation: fadein 1.5s;
+}

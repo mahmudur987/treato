@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./FilterSection.module.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
@@ -8,17 +8,42 @@ const DaysOptions = [
   "Last 7 days",
   "Last 30 days",
   "Last 3 months",
-  "Last 1 year ",
+  "Last 1 year",
   "All Time",
 ];
 const StatusOptions = ["Booked", "Complete", "Cancelled", "No Show "];
-const BookingTypeOptions = ["Offline/ Walk-in", "Online "];
-const FilterSection = () => {
-  const [selectedDays, setSelectedDays] = useState("last 7 days ");
-  const [selectedStatus, setSelectedStatus] = useState("Status ");
+const BookingTypeOptions = ["Offline/Walk-in", "Online "];
+const FilterSection = ({ setAppointmentsQuery }) => {
+  const [searchText, setSearchText] = useState(null);
+  const [selectedDays, setSelectedDays] = useState("last 7 days");
+  const [day, setDay] = useState(365);
+  const [selectedStatus, setSelectedStatus] = useState("Status");
   const [selectedBookingType, setSelectedBookingType] =
-    useState("Booking Type ");
+    useState("Booking Type");
+  useEffect(() => {
+    if (selectedDays === "Last 7 days") {
+      setDay(7);
+    }
+    if (selectedDays === "Last 30 days") {
+      setDay(30);
+    }
+    if (selectedDays === "Last 3 months") {
+      setDay(90);
+    }
+    if (selectedDays === "Last 1 year") {
+      setDay(365);
+    }
+  }, [selectedDays]);
 
+  useEffect(() => {
+    setAppointmentsQuery(
+      `days=${day}&status=${
+        selectedStatus === "Status" ? "upcoming" : selectedStatus
+      }&bookingType=${
+        selectedBookingType === "Booking Type" ? "online" : selectedBookingType
+      }${searchText ? `&search=${searchText}` : ""}`
+    );
+  }, [day, selectedBookingType, selectedStatus, searchText]);
   return (
     <div className={styles.mainContainerWrapper}>
       <div className={styles.mainContainer}>
@@ -26,7 +51,11 @@ const FilterSection = () => {
           <span>
             <IoSearchOutline />
           </span>
-          <input type="text" placeholder="Search by name or transaction ID" />
+          <input
+            type="text"
+            placeholder="Search by name or transaction ID"
+            onChange={(e) => setSearchText(e.target.value)}
+          />
         </div>
 
         <div className={styles.selectsWrapper}>
