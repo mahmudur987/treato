@@ -176,7 +176,9 @@
 }
 .thead tr td {
   padding: 10px 5px;
+  color: white;
 }
+
 .tbody {
 }
 .tbody tr {
