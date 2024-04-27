@@ -52,7 +52,7 @@ const tableHeading = [
   },
 ];
 const AppointmentsTable = ({ data }) => {
-  const tableData = data?.data.map((x) => {
+  const tableData = data?.data?.map((x) => {
     const data = {
       txnId: x.transactionId ?? "N/A",
       date: x.dateforService ?? "N/A",
@@ -65,7 +65,7 @@ const AppointmentsTable = ({ data }) => {
     };
     return data;
   });
-  if (data?.data.length === 0) {
+  if (data?.data?.length === 0) {
     return <NoDataDisplay />;
   }
   return (
@@ -79,7 +79,7 @@ const AppointmentsTable = ({ data }) => {
                   <input type="checkbox" id="" />
                 </div>
               </td>
-              {tableHeading.map((item, i) => (
+              {tableHeading?.map((item, i) => (
                 <td key={i}>
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
@@ -98,7 +98,7 @@ const AppointmentsTable = ({ data }) => {
             </tr>
           </thead>
           <tbody className={sty.tbody}>
-            {tableData.map((x) => (
+            {tableData?.map((x) => (
               <tr style={{ borderBottom: "1px solid #ebedf0" }}>
                 <td>
                   <div className={sty.checkbox}>

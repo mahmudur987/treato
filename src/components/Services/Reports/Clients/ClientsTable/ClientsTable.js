@@ -44,7 +44,7 @@ const tableHeading = [
   },
 ];
 const ClientsTable = ({ data }) => {
-  const tableData = data?.data.map((x) => {
+  const tableData = data?.data?.map((x) => {
     const data = {
       clientName:
         x.clientDetails.first_name + " " + x.clientDetails.last_name ?? "N/A",
@@ -57,7 +57,7 @@ const ClientsTable = ({ data }) => {
     };
     return data;
   });
-  if (data?.data.length === 0) {
+  if (data?.data?.length === 0) {
     return <NoDataDisplay />;
   }
   return (
@@ -71,7 +71,7 @@ const ClientsTable = ({ data }) => {
                   <input type="checkbox" id="" />
                 </div>
               </td>
-              {tableHeading.map((item, i) => (
+              {tableHeading?.map((item, i) => (
                 <td key={i}>
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
@@ -90,7 +90,7 @@ const ClientsTable = ({ data }) => {
             </tr>
           </thead>
           <tbody className={sty.tbody}>
-            {tableData.map((x) => (
+            {tableData?.map((x) => (
               <tr style={{ borderBottom: "1px solid #ebedf0" }}>
                 <td>
                   <div className={sty.checkbox}>

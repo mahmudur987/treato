@@ -15,7 +15,7 @@ const StatusOptions = ["Upcoming", "Complete", "Cancelled", "No Show "];
 const BookingTypeOptions = ["Online ", "Offline", "Walk-in"];
 const FilterSection = ({ setAppointmentsQuery }) => {
   const [searchText, setSearchText] = useState(null);
-  const [selectedDays, setSelectedDays] = useState("last 1 Year");
+  const [selectedDays, setSelectedDays] = useState("Last 1 Year");
   const [day, setDay] = useState(365);
   const [selectedStatus, setSelectedStatus] = useState("Status");
   const [selectedBookingType, setSelectedBookingType] =

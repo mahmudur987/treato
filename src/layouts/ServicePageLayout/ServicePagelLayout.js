@@ -16,7 +16,7 @@ const ServicePage = () => {
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
       getUserProfile(isTokenExist).then((res) => {
-        console.log(res?.res?.data?.data);
+        // console.log(res?.res?.data?.data);
       });
     }
   }, []);

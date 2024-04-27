@@ -11,7 +11,10 @@ const FilterSection = ({ setClientsQuery }) => {
 
   useEffect(() => {
     let querystring = `${searchText && `email=${searchText}`}${
-      searchText && selectedGender !== "Gender" && "&"
+      searchText &&
+      selectedGender !== "Gender" &&
+      selectedGender !== "All" &&
+      "&"
     }${
       selectedGender !== "Gender" && selectedGender !== "All"
         ? `gender=${selectedGender.toLowerCase()}`
