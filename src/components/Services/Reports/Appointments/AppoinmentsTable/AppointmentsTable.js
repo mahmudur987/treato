@@ -3,6 +3,7 @@ import topImg from "../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./AppointmentsTable.module.css";
 import { MdOutlineFileDownload } from "react-icons/md";
+import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 const tableHeading = [
   {
     heading: "Txn ID.",
@@ -15,12 +16,14 @@ const tableHeading = [
     bottomImg: bottomImg,
   },
   {
-    heading: "Client Name    ",
+    heading: "Client Name",
     topImg: topImg,
     bottomImg: bottomImg,
   },
   {
     heading: "Service(s)",
+    topImg: topImg,
+    bottomImg: bottomImg,
   },
   {
     heading: "Employee",
@@ -48,20 +51,23 @@ const tableHeading = [
     heading: "Invoice",
   },
 ];
-const AppointmentsTable = () => {
-  const tableData = [
-    {
-      txnId: "213541",
-      date: "5-12-24",
-      clientName: "Mahmud",
-      services: "Hair cut",
-      Employee: "Nayanica",
-      status: "canceled",
-      amount: "1.23",
-      type: "offline",
-    },
-  ];
-
+const AppointmentsTable = ({ data }) => {
+  const tableData = data?.data.map((x) => {
+    const data = {
+      txnId: x.transactionId ?? "N/A",
+      date: x.dateforService ?? "N/A",
+      clientName: x.clientName ?? "N/A",
+      services: x.services[0] ?? "N/A",
+      Employee: x.stylist,
+      status: x.status ?? "N/A",
+      amount: x.final_amount ?? "N/A",
+      type: x.payment_mode ?? "N/A",
+    };
+    return data;
+  });
+  if (data?.data.length === 0) {
+    return <NoDataDisplay />;
+  }
   return (
     <div className={sty.mainContainer}>
       <div className={sty.tableContainer}>
@@ -76,7 +82,7 @@ const AppointmentsTable = () => {
               {tableHeading.map((item, i) => (
                 <td key={i}>
                   <div className={sty.headingRow}>
-                    <span style={{ marginLeft: "30px" }}>{item.heading}</span>
+                    <span>{item.heading}</span>
                     <div
                       style={{
                         display: "flex",

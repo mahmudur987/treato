@@ -5,17 +5,17 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import CustomSelect4 from "../../../../Select/CustomeSelect4/CustomSelect4";
 
 const DaysOptions = [
+  "Last 1 year",
   "Last 7 days",
   "Last 30 days",
   "Last 3 months",
-  "Last 1 year",
   "All Time",
 ];
-const StatusOptions = ["Booked", "Complete", "Cancelled", "No Show "];
-const BookingTypeOptions = ["Offline/Walk-in", "Online "];
+const StatusOptions = ["Upcoming", "Complete", "Cancelled", "No Show "];
+const BookingTypeOptions = ["Online ", "Offline", "Walk-in"];
 const FilterSection = ({ setAppointmentsQuery }) => {
   const [searchText, setSearchText] = useState(null);
-  const [selectedDays, setSelectedDays] = useState("last 7 days");
+  const [selectedDays, setSelectedDays] = useState("last 1 Year");
   const [day, setDay] = useState(365);
   const [selectedStatus, setSelectedStatus] = useState("Status");
   const [selectedBookingType, setSelectedBookingType] =
@@ -38,9 +38,11 @@ const FilterSection = ({ setAppointmentsQuery }) => {
   useEffect(() => {
     setAppointmentsQuery(
       `days=${day}&status=${
-        selectedStatus === "Status" ? "upcoming" : selectedStatus
+        selectedStatus === "Status" ? "upcoming" : selectedStatus.toLowerCase()
       }&bookingType=${
-        selectedBookingType === "Booking Type" ? "online" : selectedBookingType
+        selectedBookingType === "Booking Type"
+          ? "online"
+          : selectedBookingType.toLowerCase()
       }${searchText ? `&search=${searchText}` : ""}`
     );
   }, [day, selectedBookingType, selectedStatus, searchText]);

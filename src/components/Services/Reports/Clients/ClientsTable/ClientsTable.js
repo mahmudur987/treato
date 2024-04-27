@@ -3,6 +3,7 @@ import topImg from "../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./ClientsTable.module.css";
 import { MdOutlineFileDownload } from "react-icons/md";
+import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 const tableHeading = [
   {
     heading: "Clients Name",
@@ -20,7 +21,7 @@ const tableHeading = [
     bottomImg: bottomImg,
   },
   {
-    heading: "Age",
+    heading: "Date of Birth",
   },
   {
     heading: "Last Visit",
@@ -42,19 +43,23 @@ const tableHeading = [
     heading: "Last Invoice",
   },
 ];
-const ClientsTable = () => {
-  const tableData = [
-    {
-      clientName: "Mahmud",
-      email: "mahud@gmi.com",
-      gender: "Male",
-      age: "20 year",
-      lastVisit: "20 dec 24",
-      topService: "haircut",
-      spend: "1.23",
-    },
-  ];
-
+const ClientsTable = ({ data }) => {
+  const tableData = data?.data.map((x) => {
+    const data = {
+      clientName:
+        x.clientDetails.first_name + " " + x.clientDetails.last_name ?? "N/A",
+      email: x.clientDetails.email ?? "N/A",
+      gender: x.clientDetails.gender ?? "N/A",
+      age: x.clientDetails.dob ?? "N/A",
+      lastVisit: x.lastVisit ?? "N/A",
+      topService: x.topService ?? "NID",
+      spend: x.totalAmount ?? "N/A",
+    };
+    return data;
+  });
+  if (data?.data.length === 0) {
+    return <NoDataDisplay />;
+  }
   return (
     <div className={sty.mainContainer}>
       <div className={sty.tableContainer}>
@@ -69,7 +74,7 @@ const ClientsTable = () => {
               {tableHeading.map((item, i) => (
                 <td key={i}>
                   <div className={sty.headingRow}>
-                    <span style={{ marginLeft: "30px" }}>{item.heading}</span>
+                    <span>{item.heading}</span>
                     <div
                       style={{
                         display: "flex",

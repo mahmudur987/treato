@@ -8,21 +8,33 @@ import ClientsTable from "../../../components/Services/Reports/Clients/ClientsTa
 import FilterSection3 from "../../../components/Services/Reports/BillAndPayment/FilterSection/FilterSection";
 import BillAndPaymentTable from "../../../components/Services/Reports/BillAndPayment/BillAndPaymentTable/BillAndPaymentsTable";
 import { IoArrowBack, IoSearchOutline } from "react-icons/io5";
-import { useAppointmentsReport } from "../../../services/Report";
+import {
+  useAppointmentsReport,
+  useClientsReport,
+} from "../../../services/Report";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
 
 export const reportContext = createContext({});
 
 const Reports = () => {
   const [pageDetails, setPageDetails] = useState("Appointments");
   const [appointmentQuery, setAppointmentsQuery] = useState("");
+  const [clientsQuery, setClientsQuery] = useState("");
   const {
     data: appointments,
     isLoading: appointmentsIsLoading,
-    isError,
-    error,
+    isError: appointmentsIsError,
+    error: appointmentsError,
   } = useAppointmentsReport(appointmentQuery);
 
-  console.log(appointments);
+  const {
+    data: clients,
+    isLoading: clientsIsLoading,
+    isError: clientsIsError,
+    error: clientsError,
+  } = useClientsReport(clientsQuery);
+  console.log(clientsQuery);
 
   return (
     <main className={styles.mainContainer}>
@@ -41,20 +53,35 @@ const Reports = () => {
         setPageDetails={setPageDetails}
       />
       {pageDetails === "Appointments" && (
-        <section className={styles.appointments}>
+        <section>
           <FilterSection1 setAppointmentsQuery={setAppointmentsQuery} />
-          <AppointmentsTable />
+          {appointmentsIsLoading && <LoadSpinner />}
+
+          {appointments && !appointmentsIsLoading && !appointmentsIsError && (
+            <AppointmentsTable data={appointments} />
+          )}
+
+          {appointmentsIsError && (
+            <ErrorComponent message={appointmentsError.message ?? "Error"} />
+          )}
         </section>
       )}
       {pageDetails === "Clients" && (
-        <section className={styles.appointments}>
-          <FilterSection2 />
-          <ClientsTable />
+        <section>
+          <FilterSection2 setClientsQuery={setClientsQuery} />
+          {clientsIsLoading && <LoadSpinner />}
+          {clients && !clientsIsLoading && !clientsError && (
+            <ClientsTable data={clients} />
+          )}
+          {clientsIsError && (
+            <ErrorComponent message={clientsError.message ?? "Error"} />
+          )}
         </section>
       )}
       {pageDetails === "Billing & Payment" && (
-        <section className={styles.appointments}>
+        <section>
           <FilterSection3 />
+
           <BillAndPaymentTable />
         </section>
       )}
