@@ -57,9 +57,9 @@ import FrequentlyAskedQuestionsPage from "./layouts/FrequentlyAskedQuestionsLayo
 import PricingPage from "./layouts/PricingLayout/PricingPage";
 import ContactUsLayout from "./layouts/ContactUsLayout/ContactUsLayout";
 import CareersPage from "./layouts/CareersLayout/CareersPage";
-import CurrentOpenings from "./components/Careers/CurrentOpenings/CurrentOpenings";
-import JobDescription from "./components/Careers/JobDescription/JobDescription";
-import JobDetails from "./components/Careers/Details/Details";
+import CurrentOpenings from "./pages/Careers/CurrentOpenings/CurrentOpenings";
+import JobDescription from "./pages/Careers/JobDescription/JobDescription";
+import JobDetails from "./pages/Careers/Details/Details";
 
 function App() {
   // Use the location hook to track route changes

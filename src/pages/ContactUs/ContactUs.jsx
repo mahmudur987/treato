@@ -46,6 +46,7 @@ function ContactUs() {
           <div className={style.formHeader} >
             <h2>Contact us</h2>
             <p>Need help? Have feedback for us? Get in touch now!</p>
+            <h6>Reach out and we’ll get in touch within 24 hours</h6>
           </div>
           <form onSubmit={handleSubmit}>
             <div className={style.namefield} >
@@ -81,27 +82,29 @@ function ContactUs() {
             </div>
 
 
-            <div className={style.emailBox} >
-              <p width={39} >Email</p>
-              <input
-                type="email"
-                name="email"
-                placeholder='e.g. Person@gmail.com'
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className={style.emailBox} >
-              <p width={150} >Phone Number</p>
-              <input
-                type="tel"
-                name="phoneNumber"
-                placeholder='Phone Number'
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                required
-              />
+            <div className={style.emailContainer} >
+              <div className={style.emailBox} >
+                <p width={39} >Email</p>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder='e.g. Person@gmail.com'
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className={style.emailBox} >
+                <p width={150} >Phone Number</p>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  placeholder='Phone Number'
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
 
             <div className={style.msBox} >
@@ -117,17 +120,17 @@ function ContactUs() {
               </div>
               <div className={style.privacyPolicy} >
                 <input
-                width={16}
-                height={16}
+                  width={16}
+                  height={16}
                   type="checkbox"
                   name="acceptPolicy"
                   checked={formData.acceptPolicy}
                   onChange={handleChange}
                   required
                 />
-                <p width={242}>I accept the privacy policy</p>
+                <p width={242}>You agree to our friendly <span>privacy policy</span></p>
               </div>
-              
+
 
               <button className={style.submitButton} type="submit"><b>Submit</b></button>
 
