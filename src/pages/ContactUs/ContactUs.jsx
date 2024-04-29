@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import style from './contactUs.module.css';
 import contactimage from '../../../src/assets/images/ContactUs/contactimage.png'
+import { contactDetails } from '../../services/careers';
 
 function ContactUs() {
 
@@ -22,10 +23,17 @@ function ContactUs() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Here you can do something with the form data, like submitting it to a server
     console.log(formData);
+    const {res, err}  = await contactDetails(formData);
+    if(res){
+      console.log(res)
+    }
+    else{
+      console.log(err)
+    }
     setFormData({
       firstName: '',
       lastName: '',

@@ -25,6 +25,7 @@ function CurrentOpenings() {
             <p>Career</p>
             <h3>Join us and build the future of Treato</h3>
           </div>
+          <img src={image1} className={style.careerMimage} alt="" srcset="" />
           <p className={style.para} >If you’re looking for a promising career in the beauty & wellness industry that allows you to work and make an impact in the offline as well as digital space, you’ve come to the right place.</p>
           <button><b>View open positions</b></button>
         </div>
@@ -53,17 +54,17 @@ function CurrentOpenings() {
 
                         </div>
                         <div className={style.postDetails} >
-                          <p width={150}>{ele.role_experience}</p>
+                          <p >{ele.role_experience}</p>
                           <div className={style.verticalLine} ></div>
-                          <p width={54} >{ele.job_worffrom}</p>
+                          <p  >{ele.job_worffrom}</p>
                           <div className={style.verticalLine} ></div>
-                          <p width={144} >Posted {daysDifference} days ago</p>
+                          <p>Posted {daysDifference} days ago</p>
                         </div>
 
                       </div>
 
                     </div>
-                    <Link to = {`/careers/jobdescription/${ele._id}`}><svg class={style.arrow} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <Link to={`/careers/jobdescription/${ele._id}`}><svg class={style.arrow} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
                     </svg></Link>
                   </div>

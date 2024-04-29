@@ -67,10 +67,10 @@
     color: #FFFFFF;
 }
 .JobDescription{
-    padding-left: 140px;
-    padding-top: 40px;
+    padding: 40px 0 50px 140px;
+    
     width: 100%;
-    height: 925px;
+    height: auto;
     background-color: #F8F9FA;
 }
 .detailsBox{
@@ -83,7 +83,7 @@
 }
 .jobInfo{
     width: 100%;
-    height: 697;
+    height: auto;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -97,7 +97,7 @@
 }
 .descriptionBox{
     width: 100%;
-    height: 327px; 
+    height: auto; 
 }
 .descriptionBox h4{
     font-size: 20px;
@@ -108,7 +108,7 @@
 }
 .descriptionBox div{
     width: 100%;
-    height: 280px;
+    height: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -126,7 +126,7 @@
 }
 .skills{
     width: 100%;
-    height: 182px;
+    height: auto;
 }
 .skills h3{
     font-size: 20px;
@@ -138,8 +138,54 @@
 
 .skills div{
     width: 100%;
-    height: 135px;
+    height: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+@media screen and (max-width:500px) {
+    .header{
+        margin: 0;
+        margin-top: 104px;
+        padding-left: 24px;
+        width: 342px;
+        height: auto;
+        flex-direction: column;
+gap: 24px;
+    }
+    .subHeader{
+        width: 100%;
+        height: 176px;
+        gap: 28px;
+    }
+    .jobHeading{
+        width: 100%;
+        height: 100px;
+        gap: 4px;
+    }
+    .jobHeading h3{
+        width: 100%;
+        height: 72px;
+        font-size: 24px;
+        line-height: 36px;
+    }
+    .applyButton{
+        margin-top: 20px;
+    }
+    .JobDescription{
+        width: 390px;
+        height: auto;
+        padding: 32px 24px 32px 24px;
+        
+    }
+    .detailsBox{
+        width: 100%;
+        height: auto;
+        gap: 24px;
+    }
+    .jobInfo{
+        gap: 12px;
+    }
+    
+    
 }
