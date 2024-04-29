@@ -64,6 +64,7 @@ import ActiveSalon from "./pages/AdminPages/Dashboard/Salon/Active/ActiveSalon";
 import PendingSalon from "./pages/AdminPages/Dashboard/Salon/Pending/PendingSalon";
 import DeactivatedSalon from "./pages/AdminPages/Dashboard/Salon/Deactivated/DeactivatedSalon";
 import Reports from "./pages/partnerPages/Reports/Reports";
+import SingleSalonDetail from "./pages/AdminPages/Dashboard/Salon/SingleSalonDeatails/SingleSalonDetails";
 
 function App() {
   // Use the location hook to track route changes
@@ -290,6 +291,10 @@ function App() {
           <Route path="/admin" element={<AdminPageLayout />}>
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/salon/active" element={<ActiveSalon />} />
+            <Route
+              path="/admin/salon/active/:id"
+              element={<SingleSalonDetail />}
+            />
             <Route path="/admin/salon/pending" element={<PendingSalon />} />
             <Route
               path="/admin/salon/deactivated"

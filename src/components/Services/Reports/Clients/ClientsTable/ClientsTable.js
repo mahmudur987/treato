@@ -90,8 +90,8 @@ const ClientsTable = ({ data }) => {
             </tr>
           </thead>
           <tbody className={sty.tbody}>
-            {tableData?.map((x) => (
-              <tr style={{ borderBottom: "1px solid #ebedf0" }}>
+            {tableData?.map((x, i) => (
+              <tr style={{ borderBottom: "1px solid #ebedf0" }} key={i}>
                 <td>
                   <div className={sty.checkbox}>
                     <input type="checkbox" id="" />

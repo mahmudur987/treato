@@ -1,0 +1,21 @@
+.mainContainer {
+  flex-grow: 1;
+  width: 100%;
+  min-height: 620px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.salon_slider_index {
+  padding: 12px 0px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+  background: rgba(0, 0, 0, 0.6);
+  bottom: 0.5%;
+  border-radius: 0px 0px 5px 5px;
+  left: 0%;
+  color: #fff;
+  cursor: pointer;
+}

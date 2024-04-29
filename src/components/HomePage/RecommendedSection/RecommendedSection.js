@@ -12,8 +12,8 @@ import {
   skincare,
   spa,
 } from "../../../assets/images/recommendImages";
-import { getAllServices } from "../../../services/Services";
 import Title from "../../Typography/Title/Title";
+import { getAllServices } from "../../../services/Services";
 
 export default function RecommendedSection({ mainData }) {
   const [allServices, setallServices] = useState([]);
@@ -77,9 +77,11 @@ export default function RecommendedSection({ mainData }) {
     async function fetchAllServices() {
       try {
         const { res, err } = await getAllServices();
-
+        console.log(res);
+        console.log(err);
         if (res) {
           // If the request was successful, update the state with the data
+
           setallServices(res?.data?.data); // Assuming the response data contains a "data" property
         } else {
           // If there was an error, handle it and set the error state

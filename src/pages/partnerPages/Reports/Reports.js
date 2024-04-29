@@ -34,7 +34,6 @@ const Reports = () => {
     isError: clientsIsError,
     error: clientsError,
   } = useClientsReport(clientsQuery);
-  console.log(clientsQuery);
 
   return (
     <main className={styles.mainContainer}>

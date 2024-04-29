@@ -65,7 +65,7 @@ const BillAndPaymentTable = () => {
       date: "5-12-24",
       clientName: "Mahmud",
       services: "Hair cut",
-      amount: "Nayanica",
+      amount: "105",
       status: "canceled",
       Mode: "online",
       paidOn: "24 Dec 2023",

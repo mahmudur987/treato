@@ -1,26 +1,29 @@
-import styles from "./SalonDetail.module.css";
-import star from "../../assets/images/SalonDetail/star_line.svg";
-import ellipse from "../../assets/images/SalonDetail/Ellipse.svg";
-import SalonMain from "../../components/SalonDetail/SalonMain/SalonMain";
-import SalonCard from "../../components/SalonDetail/SalonCard/SalonCard";
-import BackButton from "../../components/Buttons/BackButton/BackButton";
-import BookNow from "../../components/SalonDetail/BookNow/BookNow";
-import SalonSlickSlider from "./SalonSlickSlider";
-import SalonGallery from "../../components/SalonDetail/SalonGallery/SalonGallery";
+import styles from "./SingleSalonDetails.module.css";
+import star from "../../../../../assets/images/SalonDetail/star_line.svg";
+import ellipse from "../../../../../assets/images/SalonDetail/Ellipse.svg";
+import SalonMain from "../../../../../components/SalonDetail/SalonMain/SalonMain";
+import SalonCard from "../../../../../components/SalonDetail/SalonCard/SalonCard";
+import BackButton from "../../../../../components/Buttons/BackButton/BackButton";
+import BookNow from "../../../../../components/SalonDetail/BookNow/BookNow";
+import SalonSlickSlider from "./SalonSlickSlider.js";
+import SalonGallery from "../../../../../components/SalonDetail/SalonGallery/SalonGallery";
 import { useState } from "react";
-import { salon } from "../../services/salon";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { calculateSalonDistance, displayDistance } from "../../utils/utils.js";
-import { resetSalonServicesState } from "../../redux/slices/salonServices.jsx";
-export default function SalonDetail() {
+import {
+  calculateSalonDistance,
+  displayDistance,
+} from "../../../../../utils/utils.js";
+import { salon } from "../../../../../services/salon.js";
+import { resetSalonServicesState } from "../../../../../redux/slices/salonServices.jsx";
+export default function SingleSalonDetail() {
   let [showGallery, setShowGallery] = useState(false);
   let [salonImages, setSalonImages] = useState(null);
   let [SalonData, setSalonData] = useState(null);
   let [addedServices, addServices] = useState([]);
   let [totalSalonServices, setTotalSalonServices] = useState(0);
-  let { id } = useParams();
+  let id = "655c6b4234b93dcd675e1740";
   const dispatch = useDispatch();
   let [firstImage, setFirstImage] = useState(null);
   const userDetails = useSelector((state) => state?.user?.user);
@@ -76,7 +79,7 @@ export default function SalonDetail() {
         </div>
       </div>
       <div className={styles.salon_images}>
-        <div className={`${styles.salon_image_slider} salon_slick`}>
+        <div className={`${styles.salon_image_slider}`}>
           <SalonSlickSlider
             setShowGallery={setShowGallery}
             SalonData={SalonData ? SalonData : null}
