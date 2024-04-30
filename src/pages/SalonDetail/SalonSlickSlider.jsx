@@ -4,7 +4,32 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SalonSlickSlider.css";
 import { useState } from "react";
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "red" }}
+      onClick={onClick}
+    />
+  );
+}
 
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{
+        ...style,
+        display: "block",
+        background: "green",
+        color: "black",
+      }}
+      onClick={onClick}
+    />
+  );
+}
 export default function SalonSlickSLider({
   gallery,
   setShowGallery,
@@ -22,6 +47,8 @@ export default function SalonSlickSLider({
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: false,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
   };
 
   return (

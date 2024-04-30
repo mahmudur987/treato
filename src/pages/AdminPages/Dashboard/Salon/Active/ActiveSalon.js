@@ -8,6 +8,7 @@ import SalonTable from "../../../../../components/AdminPage/AdminDashboard/Salon
 
 const ActiveSalons = [
   {
+    id: 1,
     salon_image: salonImage,
     salon_name: "Athena Hair Salon & Unisex Spa",
     salon_rating: "4.8",
@@ -18,6 +19,8 @@ const ActiveSalons = [
     salon_NetSales: "$1.2L ",
   },
   {
+    id: 2,
+
     salon_image: salonImage,
     salon_name: "Athena Hair Salon & Unisex Spa",
     salon_rating: "4.8",
@@ -28,6 +31,8 @@ const ActiveSalons = [
     salon_NetSales: "$1.2L ",
   },
   {
+    id: 3,
+
     salon_image: salonImage,
     salon_name: "Athena Hair Salon & Unisex Spa",
     salon_rating: "4.8",

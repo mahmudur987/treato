@@ -1,15 +1,14 @@
 import styles from "./SingleSalonDetails.module.css";
 import star from "../../../../../assets/images/SalonDetail/star_line.svg";
 import ellipse from "../../../../../assets/images/SalonDetail/Ellipse.svg";
-import SalonMain from "../../../../../components/SalonDetail/SalonMain/SalonMain";
-import SalonCard from "../../../../../components/SalonDetail/SalonCard/SalonCard";
+
 import BackButton from "../../../../../components/Buttons/BackButton/BackButton";
-import BookNow from "../../../../../components/SalonDetail/BookNow/BookNow";
-import SalonSlickSlider from "./SalonSlickSlider.js";
+
+import SalonSlickSlider from "./SalonSlickSlider.jsx";
 import SalonGallery from "../../../../../components/SalonDetail/SalonGallery/SalonGallery";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   calculateSalonDistance,
@@ -17,6 +16,7 @@ import {
 } from "../../../../../utils/utils.js";
 import { salon } from "../../../../../services/salon.js";
 import { resetSalonServicesState } from "../../../../../redux/slices/salonServices.jsx";
+import SalonMainPage from "../../../../../components/AdminPage/AdminDashboard/Salon/SingleSalonDetails/SalonMainPage/SalonMainPage.jsx";
 export default function SingleSalonDetail() {
   let [showGallery, setShowGallery] = useState(false);
   let [salonImages, setSalonImages] = useState(null);
@@ -55,31 +55,37 @@ export default function SingleSalonDetail() {
     >
       <BackButton />
       <div className={styles.salon_pcView}>
-        <div className={styles.salon_name}>
-          {SalonData ? SalonData.salon_name : null}
+        <div className={styles.wrapper}>
+          <div className={styles.salon_name}>
+            {SalonData ? SalonData.salon_name : null}
+          </div>
+          <div className={styles.salon_info}>
+            <div className={styles.salon_star}>
+              {SalonData ? SalonData.rating : null} <img src={star} alt="" />
+            </div>
+            <div>({SalonData ? SalonData.total_rating : null})</div>
+            <img src={ellipse} alt="" />
+            <div>
+              {SalonData ? SalonData.locationText : null} (
+              {displayDistance(
+                calculateSalonDistance(
+                  SalonData?.location?.coordinates[0],
+                  SalonData?.location?.coordinates[1],
+                  userDetails?.latitude,
+                  userDetails?.longitude
+                )
+              )}{" "}
+              away)
+            </div>
+          </div>
         </div>
-        <div className={styles.salon_info}>
-          <div className={styles.salon_star}>
-            {SalonData ? SalonData.rating : null} <img src={star} alt="" />
-          </div>
-          <div>({SalonData ? SalonData.total_rating : null})</div>
-          <img src={ellipse} alt="" />
-          <div>
-            {SalonData ? SalonData.locationText : null} (
-            {displayDistance(
-              calculateSalonDistance(
-                SalonData?.location?.coordinates[0],
-                SalonData?.location?.coordinates[1],
-                userDetails?.latitude,
-                userDetails?.longitude
-              )
-            )}{" "}
-            away)
-          </div>
+
+        <div className={styles.btnWrapper}>
+          <button>Deactivate Salon</button>
         </div>
       </div>
       <div className={styles.salon_images}>
-        <div className={`${styles.salon_image_slider}`}>
+        <div className={styles.salon_image_slider}>
           <SalonSlickSlider
             setShowGallery={setShowGallery}
             SalonData={SalonData ? SalonData : null}
@@ -124,25 +130,13 @@ export default function SingleSalonDetail() {
         </div>
       </div>
       <div className={styles.salon_middle}>
-        <SalonMain
+        <SalonMainPage
           SalonData={SalonData ? SalonData : null}
           addServices={addServices}
           addedServices={addedServices}
         />
-        <SalonCard
-          SalonData={SalonData ? SalonData : null}
-          addServices={addServices}
-          addedServices={addedServices}
-          salonId={id}
-        />
       </div>
-      <div className={styles.book_flowMob}>
-        <BookNow
-          SalonDetails={true}
-          salonId={id}
-          totalSalonServices={totalSalonServices}
-        />
-      </div>
+
       {showGallery ? (
         <SalonGallery gallery={salonImages} setShowGallery={setShowGallery} />
       ) : (
