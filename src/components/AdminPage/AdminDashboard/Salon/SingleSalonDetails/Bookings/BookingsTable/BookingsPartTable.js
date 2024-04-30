@@ -1,7 +1,7 @@
 import React from "react";
-import topImg from "../../../../../../assets/images/TeamDetails/Vector (1).png";
-import bottomImg from "../../../../../../assets/images/TeamDetails/Vector.png";
-import sty from "./BillHistoryTable.module.css";
+import topImg from "../../../../../../../assets/images/TeamDetails/Vector (1).png";
+import bottomImg from "../../../../../../../assets/images/TeamDetails/Vector.png";
+import sty from "./BookingsPartTable.module.css";
 import { BsThreeDots } from "react-icons/bs";
 const tableHeading = [
   {
@@ -36,7 +36,7 @@ const tableHeading = [
     bottomImg: bottomImg,
   },
 ];
-const BillHistoryTable = () => {
+const BookingsPartTable = () => {
   const tableData = [
     {
       customerName: "Mahmud",
@@ -111,4 +111,4 @@ const BillHistoryTable = () => {
   );
 };
 
-export default BillHistoryTable;
+export default BookingsPartTable;

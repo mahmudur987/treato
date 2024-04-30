@@ -1,5 +1,8 @@
 .salon_main {
-  width: 69%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .salon_options ul {
@@ -24,14 +27,15 @@
 }
 
 .active_salon_option {
-  border-bottom: 1px solid #08090a;
+  border-bottom: 1px solid blue;
 }
 
 .salon_sections {
-  margin-top: 64px;
+  margin-top: 0px;
 }
 
 .salon_section_title {
+  display: none;
   font-family: "Poppins", sans-serif;
   font-size: 40px;
   font-weight: 600;
@@ -39,8 +43,7 @@
 }
 
 .salon_section_main {
-  border-top: 1px solid #939ca3;
-  padding: 24px 0px;
+  padding: 10px 0px;
 }
 
 .salon_service_option {
@@ -70,7 +73,9 @@
   background-color: #08090a;
   color: white !important;
 }
-
+.salon_service_wrapper {
+  width: 85%;
+}
 .salon_service_title {
   display: flex;
   justify-content: space-between;
@@ -526,6 +531,7 @@
   }
 
   .salon_section_title {
+    display: inline-block;
     font-size: 20px;
   }
 
@@ -539,7 +545,9 @@
     font-size: 14px;
     font-weight: 400;
   }
-
+  .salon_service_wrapper {
+    width: 100%;
+  }
   .salon_service_title {
     padding: 24px 0px;
     font-size: 16px;

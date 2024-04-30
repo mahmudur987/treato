@@ -71,7 +71,7 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
           </div>
           {allServices
             ? allServices?.map((v, i) => (
-                <div key={i}>
+                <div className={styles.salon_service_wrapper} key={i}>
                   <div
                     className={styles.salon_service_title}
                     onClick={() => activeOptFunc(i)}

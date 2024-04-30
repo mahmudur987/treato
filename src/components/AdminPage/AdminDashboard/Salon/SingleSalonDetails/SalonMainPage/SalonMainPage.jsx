@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./SalonMainPage.module.css";
 import SalonServiceMain from "../SalonService/SalonService";
+import BookingsPart from "../Bookings/BookingsPart";
 
 export default function SalonMainPage({
   SalonData,
@@ -42,6 +43,7 @@ export default function SalonMainPage({
           addedServices={addedServices}
         />
       )}
+      {activeSalon === 2 && <BookingsPart />}
     </div>
   );
 }
