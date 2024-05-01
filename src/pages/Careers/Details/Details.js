@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, json } from 'react-router-dom';
 import style from './details.module.css'
 import image2 from '../../../../src/assets/images/Careers/placeholder.png';
 import { jobApplicationData } from '../../../services/careers';
@@ -7,13 +7,12 @@ import { jobApplicationData } from '../../../services/careers';
 function JobDetails() {
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
-    phoneNumber: '',
-    countryCode: '',
-    file: null,
-    agreedToRequirements: false,
+    phone_number: '',
+    resume: null,
+    // agreedToRequirements: false,
   });
 
   const handleChange = (e) => {
@@ -23,20 +22,18 @@ function JobDetails() {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData({ ...formData, file });
+    const resume = e.target.files[0];
+    setFormData({ ...formData, resume });
   };
 
   const handleRemoveFile = () => {
-    setFormData({ ...formData, file: null });
+    setFormData({ ...formData, resume: null });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const jsonData = JSON.stringify(formData) 
     jobApplicationData(formData);
-
-
-    console.log(formData);
   };
 
 
@@ -70,8 +67,8 @@ function JobDetails() {
                 <input
                   type="text"
                   id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
+                  name="first_name"
+                  value={formData.first_name}
                   onChange={handleChange}
                   required
                 />
@@ -81,8 +78,8 @@ function JobDetails() {
                 <input
                   type="text"
                   id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
+                  name="last_name"
+                  value={formData.last_name}
                   onChange={handleChange}
                   required
                 />
@@ -122,8 +119,8 @@ function JobDetails() {
                     className={style.phoneno}
                     type="tel"
                     id="phoneNumber"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
+                    name="phone_number"
+                    value={formData.phone_number}
                     onChange={handleChange}
                     required
                   />
@@ -134,9 +131,9 @@ function JobDetails() {
 
           <div className={style.uploadBox} >
             <label htmlFor="file">Upload Resume</label>
-            {formData.file ? (
+            {formData.resume ? (
               <div className={style.fileBox} >
-                <span>{formData.file.name}</span>
+                <span>{formData.resume.name}</span>
                 <button type="button" onClick={handleRemoveFile}>Remove</button>
               </div>
             ) : (
@@ -148,7 +145,7 @@ function JobDetails() {
                   className={style.fileInput}
                   type="file"
                   id="fileInput"
-                  name="file"
+                  name="resume"
                   accept=".pdf,.doc,.docx"
                   onChange={handleFileChange}
                   required
@@ -156,7 +153,7 @@ function JobDetails() {
               </div>
             )}
           </div>
-          <div className={style.checkBox} >
+          {/* <div className={style.checkBox} >
             <input
               width={24}
               height={24}
@@ -168,7 +165,7 @@ function JobDetails() {
               required
             />
             <label htmlFor="agreedToRequirements">You have read all the requirements for this position and you think you will be a proper fit for this role.</label>
-          </div>
+          </div> */}
           <button className={style.submitButton} type="submit">Submit</button>
         </form>
 

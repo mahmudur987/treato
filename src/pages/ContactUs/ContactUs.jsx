@@ -6,42 +6,36 @@ import { contactDetails } from '../../services/careers';
 function ContactUs() {
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
-    phoneNumber: '',
     message: '',
-    acceptPolicy: false,
+    phonenumber: '',
+    isAcceptPrivacy:false
   });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
+    // If the input is the phoneNumber field and the type is 'number', parse it into an integer
+    const newValue = name === 'phonenumber' && type === 'number' ? parseInt(value, 10) : type === 'checkbox' ? checked : value;
     setFormData({
       ...formData,
       [name]: newValue,
     });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you can do something with the form data, like submitting it to a server
-    console.log(formData);
-    const {res, err}  = await contactDetails(formData);
-    if(res){
-      console.log(res)
-    }
-    else{
-      console.log(err)
-    }
+   contactDetails(formData);
     setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phoneNumber: '',
-      message: '',
-      acceptPolicy: false,
-    });
+    first_name: '',
+    last_name: '',
+    email: '',
+    message: '',
+    phonenumber: '',
+    isAcceptPrivacy:false
+  });
   };
 
 
@@ -63,9 +57,9 @@ function ContactUs() {
                 <p width={100} >First Name:</p>
                 <input
                   type="text"
-                  name="firstName"
+                  name="first_name"
                   placeholder='First name'
-                  value={formData.firstName}
+                  value={formData.first_name}
                   onChange={handleChange}
                   required
                 />
@@ -77,9 +71,9 @@ function ContactUs() {
                 <p width={100} >Last Name:</p>
                 <input
                   type="text"
-                  name="lastName"
+                  name="last_name"
                   placeholder='Last name'
-                  value={formData.lastName}
+                  value={formData.last_name}
                   onChange={handleChange}
                   required
                 />
@@ -105,10 +99,10 @@ function ContactUs() {
               <div className={style.emailBox} >
                 <p width={150} >Phone Number</p>
                 <input
-                  type="tel"
-                  name="phoneNumber"
+                  type="number"
+                  name="phonenumber"
                   placeholder='Phone Number'
-                  value={formData.phoneNumber}
+                  value={formData.phonenumber}
                   onChange={handleChange}
                   required
                 />
@@ -131,8 +125,8 @@ function ContactUs() {
                   width={16}
                   height={16}
                   type="checkbox"
-                  name="acceptPolicy"
-                  checked={formData.acceptPolicy}
+                  name="isAcceptPrivacy"
+                  checked={formData.isAcceptPrivacy}
                   onChange={handleChange}
                   required
                 />
@@ -152,3 +146,107 @@ function ContactUs() {
 }
 
 export default ContactUs;
+
+
+
+
+// const ContactUs = () => {
+//   const [formData, setFormData] = useState({
+//     first_name: '',
+//     last_name: '',
+//     email: '',
+//     message: '',
+//     phonenumber: '',
+//     isAcceptPrivacy:true
+//   });
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const response = await fetch('https://backend.treato.in/api/v1/reports/contactUs', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           // Add any additional headers if needed
+//         },
+//         body: JSON.stringify(formData),
+//       });
+//       if (!response.ok) {
+//         throw new Error('Failed to submit form');
+//       }
+//       const res = await response.json()
+//       console.log("this is form data ",formData)
+//       console.log("this is backend url","https://backend.treato.in/api/v1/reports/contactUs")
+//       console.log("this is response form backend ",res)
+//       // Handle success, e.g., show success message
+//       console.log('Form submitted successfully');
+//     } catch (error) {
+//       console.error('Error submitting form:', error.message);
+//       // Handle error, e.g., show error message
+//     }
+//   };
+//   return (
+//     <div className={style.container}>
+//       <h2>Testing Form</h2>
+//       <form onSubmit={handleSubmit}>
+//         <div>
+//           <label htmlFor="first_name">First Name:</label>
+//           <input
+//             type="text"
+//             id="first_name"
+//             name="first_name"
+//             value={formData.first_name}
+//             onChange={handleChange}
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="last_name">Last Name:</label>
+//           <input
+//             type="text"
+//             id="last_name"
+//             name="last_name"
+//             value={formData.last_name}
+//             onChange={handleChange}
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="email">Email:</label>
+//           <input
+//             type="email"
+//             id="email"
+//             name="email"
+//             value={formData.email}
+//             onChange={handleChange}
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="message">Message:</label>
+//           <textarea
+//             id="message"
+//             name="message"
+//             value={formData.message}
+//             onChange={handleChange}
+//           />
+//         </div>
+//         <div>
+//           <label htmlFor="phonenumber">Phone Number:</label>
+//           <input
+//             type="tel"
+//             id="phonenumber"
+//             name="phonenumber"
+//             value={formData.phonenumber}
+//             onChange={handleChange}
+//           />
+//         </div>
+//         <button type="submit">Submit</button>
+//       </form>
+//     </div>
+//   );
+// };
+// export default ContactUs;

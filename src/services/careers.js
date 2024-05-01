@@ -1,5 +1,6 @@
 
 import axiosInstance from './axios'
+import axios from 'axios';
 
 export const GetPostDetails = async () => {
    
@@ -15,35 +16,56 @@ export const GetPostDetails = async () => {
       }
 }
 
-export const jobApplicationData = async (data) => {
+export const jobApplicationData = async (formData) => {
+  
+      console.log(formData);
   const headers = {
     token: localStorage.getItem("jwtToken"),
   };
   try {
-    const res = await axiosInstance.post("https://backend.treato.in/api/v1/career/jobformapply", data, {headers});
-
-    alert("data send.")
-    // return { res: res.data, err: null };
-  } catch (error) {
-    alert("data not send.")
-    // return { res: null, err: error };
-  }
-};
-
-
-export const contactDetails = async (data) => {
-  const jwtToken = localStorage.getItem("jwtToken");
-
-  try {
-    const res = await axiosInstance.post(`/reports/contactUs`, data, {
-      headers: {
-        token: jwtToken,
-      },
+    const res = await axiosInstance.post("/career/jobformapply", formData,{
+      headers,
     });
-    alert("data send.")
-    return { res: res, err: null };
+
+    alert("Job form application submitted successfully.")
+    
   } catch (error) {
-    alert("data not send.")
-    return { err: error, res: null };
+    alert("Something went wrong")
   }
 };
+
+
+
+
+
+
+
+
+
+export const contactDetails = async (formData) => {
+  console.log(formData);
+      try {
+      const response = await fetch('https://backend.treato.in/api/v1/reports/contactUs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any additional headers if neede
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+      const res = await response.json()
+      console.log("this is form data ",formData)
+      console.log("this is backend url","https://backend.treato.in/api/v1/reports/contactUs")
+      console.log("this is response form backend ",res)
+      // Handle success, e.g., show success message
+      console.log('Form submitted successfully');
+    } catch (error) {
+      console.error('Error submitting form:', error.message);
+      // Handle error, e.g., show error message
+    }
+  
+};
+
