@@ -12,6 +12,7 @@ function JobDetails() {
     email: '',
     phone_number: '',
     resume: null,
+    career_id:'661a37f302ecaf20fc1ee99d',
     // agreedToRequirements: false,
   });
 
@@ -32,8 +33,16 @@ function JobDetails() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const jsonData = JSON.stringify(formData) 
-    jobApplicationData(formData);
+     jobApplicationData(formData);
+     setFormData({
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone_number: '',
+      resume: null,
+      career_id:'661a37f302ecaf20fc1ee99d',
+      // agreedToRequirements: false,
+    })
   };
 
 
@@ -148,7 +157,7 @@ function JobDetails() {
                   name="resume"
                   accept=".pdf,.doc,.docx"
                   onChange={handleFileChange}
-                  required
+                  
                 />
               </div>
             )}

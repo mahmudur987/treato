@@ -23,9 +23,7 @@ export const jobApplicationData = async (formData) => {
     token: localStorage.getItem("jwtToken"),
   };
   try {
-    const res = await axiosInstance.post("/career/jobformapply", formData,{
-      headers,
-    });
+    const res = await axiosInstance.post("/career/jobformapply", formData,{headers});
 
     alert("Job form application submitted successfully.")
     
