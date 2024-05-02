@@ -1,14 +1,11 @@
 import styles from "./SingleSalonDetails.module.css";
 import star from "../../../../../assets/images/SalonDetail/star_line.svg";
 import ellipse from "../../../../../assets/images/SalonDetail/Ellipse.svg";
-
 import BackButton from "../../../../../components/Buttons/BackButton/BackButton";
-
 import SalonSlickSlider from "./SalonSlickSlider.jsx";
 import SalonGallery from "../../../../../components/SalonDetail/SalonGallery/SalonGallery";
 import { useState } from "react";
 import { useEffect } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import {
   calculateSalonDistance,
