@@ -1,12 +1,12 @@
 // Modal.js
-import React, { useEffect, useState } from "react";
-import styles from "./DeleteReview.module.css";
-
+import React, { useState } from "react";
+import styles from "./EditPriceModal.module.css";
+import img1 from "../../../../assets/images/TeamDetails/ProfileImg.png";
 import { IoMdArrowBack } from "react-icons/io";
 
 import { toast } from "react-toastify";
 
-const DeleteReviewModal = ({ showModal, onClose }) => {
+const EditPriceModal = ({ showModal, onClose }) => {
   const [error, setError] = useState(null);
 
   if (error) {
@@ -21,15 +21,36 @@ const DeleteReviewModal = ({ showModal, onClose }) => {
         <span className={styles.back} onClick={onClose}>
           <IoMdArrowBack />
         </span>
-        <h2 className={styles.modalHeading}>Delete Review</h2>
-
-        <div className={styles.form}>
-          <p>Are you sure you want to delete this customer review?</p>
-          <span>
-            NOTE: Once deleted, this review will not be shown anywhere on
-            Treato. This action cannot be reversed.
-          </span>
+        <h2 className={styles.modalHeading}>Edit Service Price</h2>
+        <div className={styles.top}>
+          <figure>
+            <img src={img1} alt="profile image" />
+          </figure>
+          <h5>She hair and Beauty</h5>
         </div>
+        <form className={styles.form}>
+          <div className={styles.serviceName}>
+            <label htmlFor="">service</label>
+
+            <input type="text" value={"Haircut for women"} disabled />
+          </div>
+
+          <div className={styles.inputWrapper}>
+            <div className={styles.wrapper}>
+              <label htmlFor="price">New Price</label>
+              <input type="text" placeholder="₹599" value={"₹599"} />
+            </div>
+            <div className={styles.wrapper}>
+              <label htmlFor="price">Effective from</label>
+              <input type="date" />
+            </div>
+          </div>
+        </form>
+
+        <p className={styles.note}>
+          NOTE: Appointments booked prior to the change date will not be
+          affected by the new price.
+        </p>
         <div className={styles.buttonContainer}>
           <button
             className={styles.cancel}
@@ -39,7 +60,7 @@ const DeleteReviewModal = ({ showModal, onClose }) => {
             Cancel
           </button>
           <button className={styles.save} type="button">
-            Yes, Delete
+            Save
           </button>
         </div>
       </div>
@@ -47,4 +68,4 @@ const DeleteReviewModal = ({ showModal, onClose }) => {
   );
 };
 
-export default DeleteReviewModal;
+export default EditPriceModal;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./PendingAllSalon.module.css";
 import { FaArrowRight } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const PendingAllSalon = ({
   selectedSalon,
@@ -26,7 +27,6 @@ const PendingAllSalon = ({
     const allIds = pendingSalonData.map((salon) => salon.id);
     setSelectedSalon(allIds);
   };
-  console.log(pendingSalonData);
   return (
     <section className={styles.mainContainer}>
       {viewBy ? (
@@ -44,11 +44,14 @@ const PendingAllSalon = ({
                 />
               </p>
               <div className={styles.cardBottom}>
-                <div className={styles.info}>
+                <Link
+                  to={`/admin/salon/pending/${salon.id}`}
+                  className={styles.info}
+                >
                   <h3>{salon.name}</h3>
                   <p className={styles.address}>{salon.address}</p>
                   <p className={styles.date}>Applied on {salon.date}</p>
-                </div>
+                </Link>
                 <div className={styles.cardAction}>
                   <button className={styles.approve}>Approve</button>
                   <button className={styles.reject}>Reject</button>

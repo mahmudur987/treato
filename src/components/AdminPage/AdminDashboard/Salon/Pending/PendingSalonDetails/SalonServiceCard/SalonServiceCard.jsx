@@ -1,8 +1,8 @@
 import { useState } from "react";
-import styles from "../SalonMainPage/SalonMainPage.module.css";
+import styles from "../PendingSalonMainPage/PendingSalonMainPage.module.css";
 import { CiStar } from "react-icons/ci";
 import { FaPen } from "react-icons/fa";
-import EditPriceModal from "../../../../../_modals/AdminPage/EditPrice/EditPriceModal";
+import EditPriceModal from "../../../../../../_modals/AdminPage/EditPrice/EditPriceModal";
 export default function SalonServiceCard({
   salonServiceData,
   serviceCategory,
@@ -20,14 +20,7 @@ export default function SalonServiceCard({
                 {salonServiceData?.service_name}
               </div>
               <div className={styles.salon_serviceABC}>
-                <span className={styles.salon_serviceIcon}>
-                  <CiStar />
-                </span>
-                <span>₹{salonServiceData?.price}</span>
-
-                <button onClick={() => setShowModal(true)}>
-                  <FaPen />
-                </button>
+                <button disabled>Add</button>
               </div>
             </div>
             <div className={styles.salon_serviceF}>

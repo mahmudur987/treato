@@ -65,6 +65,7 @@ import PendingSalon from "./pages/AdminPages/Dashboard/Salon/Pending/PendingSalo
 import DeactivatedSalon from "./pages/AdminPages/Dashboard/Salon/Deactivated/DeactivatedSalon";
 import Reports from "./pages/partnerPages/Reports/Reports";
 import SingleSalonDetail from "./pages/AdminPages/Dashboard/Salon/SingleSalonDeatails/SingleSalonDetails";
+import PendingSalonDetail from "./pages/AdminPages/Dashboard/Salon/Pending/SingleSalonDeatails/PendingSalonDetails";
 
 function App() {
   // Use the location hook to track route changes
@@ -296,6 +297,10 @@ function App() {
               element={<SingleSalonDetail />}
             />
             <Route path="/admin/salon/pending" element={<PendingSalon />} />
+            <Route
+              path="/admin/salon/pending/:id"
+              element={<PendingSalonDetail />}
+            />
             <Route
               path="/admin/salon/deactivated"
               element={<DeactivatedSalon />}
