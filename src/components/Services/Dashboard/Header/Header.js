@@ -10,7 +10,7 @@ import axiosInstance from "../../../../services/axios";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 const Header = () => {
-  const [selectedOption, setSelectedOption] = useState("last 30 days");
+  const [selectedOption, setSelectedOption] = useState("last 90 days");
   const options = ["last 30 days", "last 50 days", "last 90 days"];
   const { data, isLoading, isError, error } = useQuery({
     queryKey: [selectedOption],
@@ -42,9 +42,6 @@ const Header = () => {
   } = data || {};
   if (isLoading) {
     <LoadSpinner />;
-  }
-  if (isError) {
-    return <ErrorComponent message={error.message} />;
   }
 
   return (
@@ -114,6 +111,7 @@ const Header = () => {
           </div>
         </div>
       )}
+      {isError && <ErrorComponent message={error.message} />}
     </section>
   );
 };

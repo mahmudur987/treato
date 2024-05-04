@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import styles from "./ServicePageNavbar.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
+import user, {
+  resetUserDetails,
+  updateIsLoggedIn,
+} from "../../../redux/slices/user";
 import mask from "../../../assets/images/NavbarImages/Mask.png";
 // import mask from "../../../assets/images/NavbarImages/Mask.png";
 const ServicePageNavbar = () => {
@@ -17,7 +20,7 @@ const ServicePageNavbar = () => {
     localStorage.removeItem("jwtToken");
     navigate("/partner");
   };
-
+  console.log(userData);
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container}>

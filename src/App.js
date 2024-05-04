@@ -329,3 +329,8 @@ export default App;
 //   "email":"jery192@gmail.com",
 //   "password":"Test@123456"
 // }
+
+// {
+//   "email":"treatoadminsuper0707@gmail.com",
+//   "password":"TreatoSuperAdmin@070809"
+// }
