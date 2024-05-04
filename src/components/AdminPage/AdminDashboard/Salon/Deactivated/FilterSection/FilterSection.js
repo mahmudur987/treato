@@ -38,7 +38,19 @@ const FilterSection = ({ viewBy, setViewBy, selectedSalon }) => {
           />
           <div className={styles.buttonWrapper}>
             <button>
-              Approve
+              Reactivated
+              {selectedSalon.length > 0 ? (
+                <span style={{ marginLeft: "7px" }}>
+                  {selectedSalon.length}
+                </span>
+              ) : (
+                "All"
+              )}
+            </button>
+          </div>
+          <div className={styles.buttonWrapper1}>
+            <button>
+              Delete
               {selectedSalon.length > 0 ? (
                 <span style={{ marginLeft: "7px" }}>
                   {selectedSalon.length}

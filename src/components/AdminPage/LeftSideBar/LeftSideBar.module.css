@@ -21,6 +21,7 @@
   position: absolute;
   z-index: 6;
   left: 0;
+  /* bottom: 0; */
   width: 220px;
   display: flex;
   min-height: 1616px;

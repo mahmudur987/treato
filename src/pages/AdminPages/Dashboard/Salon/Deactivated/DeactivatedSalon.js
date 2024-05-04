@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import SalonInDashBoard from "../../../../../layouts/Admin/SalonInDashboard/SalonInDashBoard";
 import styles from "./DeactivatedSalon.module.css";
 import FilterSection from "../../../../../components/AdminPage/AdminDashboard/Salon/Deactivated/FilterSection/FilterSection";
 import DeactivatedAllSalon from "../../../../../components/AdminPage/AdminDashboard/Salon/Deactivated/DeactivatedAllSalon/DeactivatedAllSalon";
+import img from "../../../../../assets/images/SalonDetail/slide4.png";
 const pendingSalonData = [
   {
     id: 1,
@@ -38,6 +39,8 @@ const pendingSalonData = [
   },
 ];
 const DeactivatedSalon = () => {
+  const [viewBy, setViewBy] = useState(true);
+  const [selectedSalon, setSelectedSalon] = useState([]);
   return (
     <SalonInDashBoard>
       <section className={styles.mainContainer}>

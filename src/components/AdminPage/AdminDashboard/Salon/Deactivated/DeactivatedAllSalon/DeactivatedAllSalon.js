@@ -53,8 +53,8 @@ const DeactivatedAllSalon = ({
                   <p className={styles.date}>Applied on {salon.date}</p>
                 </Link>
                 <div className={styles.cardAction}>
-                  <button className={styles.approve}>Approve</button>
-                  <button className={styles.reject}>Reject</button>
+                  <button className={styles.approve}>Reactivated</button>
+                  <button className={styles.reject}>Delete</button>
                 </div>
                 <div className={styles.rightIcon}>
                   <FaArrowRight />
@@ -125,10 +125,12 @@ const DeactivatedAllSalon = ({
                       <span>{salon.date}</span>
                     </td>
                     <td>
-                      <button className={styles.listApproveBtn}>Approve</button>
+                      <button className={styles.listApproveBtn}>
+                        Reactivated
+                      </button>
                     </td>
                     <td>
-                      <button className={styles.listRejectBtn}>Reject</button>
+                      <button className={styles.listRejectBtn}>Delete</button>
                     </td>
                   </tr>
                 );

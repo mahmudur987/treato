@@ -2,11 +2,7 @@ import styles from "./SalonSlickSlider.module.css";
 import Slider from "react-slick";
 
 import { useRef, useState } from "react";
-export default function SalonSlickSLider({
-  gallery,
-  setShowGallery,
-  SalonData,
-}) {
+export default function SalonSlickSLider({ SalonData }) {
   let [activeImg, updateActiveImg] = useState(0);
   let sliderRef = useRef(null);
   const next = () => {
@@ -41,10 +37,7 @@ export default function SalonSlickSLider({
       </Slider>
       <p onClick={next} className={styles.next}></p>
       <p onClick={previous} className={styles.prev}></p>
-      <div
-        className={styles.salon_slider_index}
-        onClick={() => setShowGallery(true)}
-      >
+      <div className={styles.salon_slider_index}>
         {activeImg + 1}/{SalonData?.salon_Img?.length}
       </div>
     </div>

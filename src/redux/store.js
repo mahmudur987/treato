@@ -9,6 +9,7 @@ import salonServicesReducer from "./slices/salonServices";
 import lookbook from "./slices/lookbook";
 import VisitorDetails from "./slices/VisitorDetails";
 import adminBasicSlice from "./slices/adminSlice/adminBasicSlice";
+import admin from "./slices/AdminSlice";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     lookbook: lookbook,
     VisitorDetails: VisitorDetails,
     adminBasicData: adminBasicSlice,
+    admin: admin,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
 });

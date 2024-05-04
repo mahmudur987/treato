@@ -64,8 +64,10 @@ import ActiveSalon from "./pages/AdminPages/Dashboard/Salon/Active/ActiveSalon";
 import PendingSalon from "./pages/AdminPages/Dashboard/Salon/Pending/PendingSalon";
 import DeactivatedSalon from "./pages/AdminPages/Dashboard/Salon/Deactivated/DeactivatedSalon";
 import Reports from "./pages/partnerPages/Reports/Reports";
-import SingleSalonDetail from "./pages/AdminPages/Dashboard/Salon/SingleSalonDeatails/SingleSalonDetails";
 import PendingSalonDetail from "./pages/AdminPages/Dashboard/Salon/Pending/SingleSalonDeatails/PendingSalonDetails";
+import SingleSalonDetail from "./pages/AdminPages/Dashboard/Salon/Active/SingleSalonDeatails/SingleSalonDetails";
+import ActiveSalonGallery from "./pages/AdminPages/Dashboard/Salon/Active/Gallary/Gallery";
+import PendingSalonGallery from "./pages/AdminPages/Dashboard/Salon/Pending/Gallary/Gallery";
 
 function App() {
   // Use the location hook to track route changes
@@ -296,10 +298,18 @@ function App() {
               path="/admin/salon/active/:id"
               element={<SingleSalonDetail />}
             />
+            <Route
+              path="/admin/salon/active/gallery/:id"
+              element={<ActiveSalonGallery />}
+            />
             <Route path="/admin/salon/pending" element={<PendingSalon />} />
             <Route
               path="/admin/salon/pending/:id"
               element={<PendingSalonDetail />}
+            />
+            <Route
+              path="/admin/salon/pending/galley/:id"
+              element={<PendingSalonGallery />}
             />
             <Route
               path="/admin/salon/deactivated"

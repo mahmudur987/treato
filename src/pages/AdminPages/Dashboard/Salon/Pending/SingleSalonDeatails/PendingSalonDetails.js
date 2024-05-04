@@ -12,20 +12,17 @@ import {
   displayDistance,
 } from "../../../../../../utils/utils.js";
 import { salon } from "../../../../../../services/salon.js";
-import { resetSalonServicesState } from "../../../../../../redux/slices/salonServices.jsx";
 import PendingSalonMainPage from "../../../../../../components/AdminPage/AdminDashboard/Salon/Pending/PendingSalonDetails/PendingSalonMainPage/PendingSalonMainPage.jsx";
+import { Link } from "react-router-dom";
+import { updateAdminPage } from "../../../../../../redux/slices/AdminSlice.js";
 
 export default function PendingSalonDetail() {
-  let [showGallery, setShowGallery] = useState(false);
-  let [salonImages, setSalonImages] = useState(null);
   let [SalonData, setSalonData] = useState(null);
   let [addedServices, addServices] = useState([]);
-  let [totalSalonServices, setTotalSalonServices] = useState(0);
   let id = "655c6b4234b93dcd675e1740";
-  const dispatch = useDispatch();
   let [firstImage, setFirstImage] = useState(null);
   const userDetails = useSelector((state) => state?.user?.user);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     let SalonDataFunc = async () => {
       const { res, err } = await salon();
@@ -33,28 +30,22 @@ export default function PendingSalonDetail() {
         res?.data?.salons?.map((v) => {
           if (v?._id === id) {
             setSalonData(v);
-            setTotalSalonServices(v?.services[0]?.mainCategories?.length);
             setFirstImage(v?.salon_Img[0]?.public_url);
-            setSalonImages(v?.salon_Img);
+            dispatch(updateAdminPage());
           }
         });
       }
     };
     SalonDataFunc();
-    dispatch(resetSalonServicesState());
   }, []);
   return (
-    <div
-      className={
-        showGallery
-          ? `${styles.salon_page} ${styles.overHidden}`
-          : styles.salon_page
-      }
-    >
+    <div className={styles.salon_page}>
       <div className={styles.salon_pcView}>
-        <div className={styles.back}>
-          <img src={leftIco} alt="" />
-        </div>
+        <Link to={"/admin/salon/pending"}>
+          <div className={styles.back}>
+            <img src={leftIco} alt="" />
+          </div>
+        </Link>
 
         <div className={styles.wrapper}>
           <div className={styles.salon_name}>
@@ -88,26 +79,26 @@ export default function PendingSalonDetail() {
       </div>
       <div className={styles.salon_images}>
         <div className={styles.salon_image_slider}>
-          <SalonSlickSlider
-            setShowGallery={setShowGallery}
-            SalonData={SalonData ? SalonData : null}
-          />
+          <SalonSlickSlider SalonData={SalonData ? SalonData : null} />
         </div>
         <div className={styles.salon_images_right}>
-          {SalonData?.salon_Img?.map((v, i) => {
-            if (i >= 1 && i <= SalonData?.salon_Img?.length) {
-              return <img src={v.public_url} alt="salon image" key={i} />;
-            }
+          {SalonData?.salon_Img?.slice(1, 4).map((v, i) => {
+            return <img src={v.public_url} alt="salon image" key={i} />;
           })}
-          <div className={styles.salon_imagesA}>
-            <div onClick={() => setShowGallery(true)}>
+          {SalonData?.salon_Img?.length > 3 && (
+            <Link
+              to={"/admin/salon/pending/galley/1"}
+              className={styles.salon_imagesA}
+            >
               <div>
-                View <span>{SalonData?.salon_Img?.length}</span>
+                <div>
+                  View <span>{SalonData?.salon_Img?.length}</span>
+                </div>
+                <div>images</div>
               </div>
-              <div>images</div>
-            </div>
-            <img src={firstImage ? firstImage : null} alt="" />
-          </div>
+              <img src={firstImage ? firstImage : null} alt="" />
+            </Link>
+          )}
         </div>
       </div>
       <div className={styles.salon_mobView}>
@@ -159,12 +150,6 @@ export default function PendingSalonDetail() {
           addedServices={addedServices}
         />
       </div>
-
-      {showGallery ? (
-        <SalonGallery gallery={salonImages} setShowGallery={setShowGallery} />
-      ) : (
-        ""
-      )}
     </div>
   );
 }
