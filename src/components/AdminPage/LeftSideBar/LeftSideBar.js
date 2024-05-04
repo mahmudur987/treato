@@ -137,7 +137,7 @@ const LeftSideBar = () => {
               <span>Dashboard</span>
             </Link>
             <p
-              onMouseEnter={() => setSalonMenu(!salonMenu)}
+              onMouseEnter={() => setSalonMenu(true)}
               style={{
                 backgroundColor: `${pathname === "/admin/salon" ? "blue" : ""}`,
               }}
