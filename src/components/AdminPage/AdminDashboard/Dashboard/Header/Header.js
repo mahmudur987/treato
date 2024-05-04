@@ -11,7 +11,7 @@ import CustomSelect2 from "../../../../Select/CustomeSelect2/CustomeSelect2";
 import axiosInstance from "../../../../../services/axios";
 import Slider from "react-slick";
 const Header = () => {
-  const [selectedOption, setSelectedOption] = useState("last 30 days");
+  const [selectedOption, setSelectedOption] = useState("last 90 days");
   const options = ["last 30 days", "last 50 days", "last 90 days"];
   const { data, isLoading, isError, error } = useQuery({
     queryKey: [selectedOption],
@@ -72,9 +72,6 @@ const Header = () => {
   if (isLoading) {
     <LoadSpinner />;
   }
-  if (isError) {
-    return <ErrorComponent message={error.message} />;
-  }
 
   return (
     <section className={styles.mainContainer}>
@@ -129,7 +126,8 @@ const Header = () => {
 
                 <div className={styles.cardRight}>
                   <IoIosArrowUp />
-                  {incrementOfNewAmount}({incrementOfNewAmountPercentage}%)
+                  {incrementOfNewAmount}(
+                  {incrementOfNewAmountPercentage.slice(0, 4)}%)
                 </div>
               </div>
             </div>
@@ -157,6 +155,8 @@ const Header = () => {
           </Slider>
         </div>
       )}
+
+      {isError && <ErrorComponent message={error.message} />}
     </section>
   );
 };
