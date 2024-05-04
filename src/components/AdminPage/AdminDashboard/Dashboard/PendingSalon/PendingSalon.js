@@ -68,7 +68,7 @@ const PendingSalon = () => {
     <section className={styles.mainContainer}>
       <div className={styles.top}>
         <h2>Pending Salon (11)</h2>
-        <Link to={"#"}>view all</Link>
+        <Link to={"/admin/salon/pending"}>view all</Link>
       </div>
 
       <div className={styles.contents}>
