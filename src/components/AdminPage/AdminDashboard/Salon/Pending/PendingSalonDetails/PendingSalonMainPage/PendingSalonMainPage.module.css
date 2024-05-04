@@ -317,6 +317,20 @@
     padding: 16px 0px;
     border-top: 1px solid #ebedf0;
   }
+  .salon_service_option {
+    max-width: 700px;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .salon_service_option {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  .salon_service_option ::-webkit-scrollbar {
+    display: none;
+  }
 
   .salon_service_option ul li {
     padding: 8px 12px;

@@ -96,6 +96,8 @@
   text-align: left;
 }
 .description span {
+  margin-left: 5px;
+  cursor: pointer;
   font-family: Lato;
   font-size: 16px;
   font-weight: 400;

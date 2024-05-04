@@ -1,7 +1,8 @@
 import styles from "./SingleSalonDetails.module.css";
 import star from "../../../../../assets/images/SalonDetail/star_line.svg";
 import ellipse from "../../../../../assets/images/SalonDetail/Ellipse.svg";
-import BackButton from "../../../../../components/Buttons/BackButton/BackButton";
+import leftIco from "../../../../../assets/images/AccountSettings/arrow-left.svg";
+
 import SalonSlickSlider from "./SalonSlickSlider.jsx";
 import SalonGallery from "../../../../../components/SalonDetail/SalonGallery/SalonGallery";
 import { useState } from "react";
@@ -50,8 +51,10 @@ export default function SingleSalonDetail() {
           : styles.salon_page
       }
     >
-      <BackButton />
       <div className={styles.salon_pcView}>
+        <div className={styles.back}>
+          <img src={leftIco} alt="" />
+        </div>
         <div className={styles.wrapper}>
           <div className={styles.salon_name}>
             {SalonData ? SalonData.salon_name : null}

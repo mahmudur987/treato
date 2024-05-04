@@ -38,7 +38,7 @@ const SingleReview = ({ data }) => {
           {data.description.slice(0, count)}
           {data.description.length > count && (
             <span onClick={() => setCount(data.description.length)}>
-              view more
+              ... view more
             </span>
           )}
         </p>

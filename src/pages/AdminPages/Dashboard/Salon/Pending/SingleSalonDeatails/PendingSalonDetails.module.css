@@ -6,6 +6,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
+}
+.back {
+  height: 44px;
+  width: 44px;
+}
+.wrapper {
+  flex-grow: 1;
 }
 .btnWrapper {
   max-width: 283px;
@@ -182,6 +190,9 @@
 }
 
 @media only screen and (max-width: 767px) {
+  .ownerDetails {
+    display: none;
+  }
   .salon_page {
     max-width: 100vh;
     width: 100%;
@@ -198,7 +209,8 @@
   }
 
   .salon_images_right,
-  .salon_pcView {
+  .wrapper,
+  .btnWrapper {
     display: none;
   }
 
@@ -208,6 +220,9 @@
   }
 
   .salon_mobView {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     font-size: 14px;
     font-weight: 400;
     color: #08090a;

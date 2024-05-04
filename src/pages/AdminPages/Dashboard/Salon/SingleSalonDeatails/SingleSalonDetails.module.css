@@ -6,6 +6,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
+}
+.back {
+  height: 44px;
+  width: 44px;
+}
+.wrapper {
+  flex-grow: 1;
 }
 .btnWrapper {
   max-width: 183px;
@@ -141,7 +149,8 @@
   }
 
   .salon_images_right,
-  .salon_pcView {
+  .wrapper,
+  .btnWrapper {
     display: none;
   }
 
