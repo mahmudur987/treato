@@ -1,0 +1,80 @@
+.header {
+    position: absolute;
+    width: 1268px;
+    height: 24px;
+    display: flex;
+    margin-left: 80px;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.prev {
+    position: absolute;
+    left: -40px;
+    border: none;
+    background: transparent;
+}
+
+.next {
+    border: none;
+    background: transparent;
+    position: absolute;
+    right: 10px;
+}
+
+.carousel {
+    width: auto;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    gap: 10px;
+}
+
+.profileBox {
+    min-width: 160px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.durationsBox {
+    margin-top: 48px;
+    width: 62px;
+    height: 888px;
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+}
+
+.durationsBox p {
+
+    height: 24px;
+    width: 100%;
+    font-family: Lato;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: center;
+}
+
+.middleBox {
+    margin-top: 48px;
+    width: 1308px;
+    height: 834px;
+    overflow: hidden;
+}
+
+.slides {
+    min-width: 160px;
+    height: 834px;
+    border: 1px solid red;
+}
+
+.timeSlots {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    gap: 4px;
+}
