@@ -10,6 +10,7 @@ import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import CustomSelect2 from "../../../../Select/CustomeSelect2/CustomeSelect2";
 import axiosInstance from "../../../../../services/axios";
 import Slider from "react-slick";
+import { useStatistics } from "../../../../../services/superAdmin/Dashboard";
 const Header = () => {
   const [selectedOption, setSelectedOption] = useState("last 90 days");
   const options = ["last 30 days", "last 50 days", "last 90 days"];
@@ -29,7 +30,7 @@ const Header = () => {
       return data;
     },
   });
-
+  const { data: statics } = useStatistics(selectedOption);
   const {
     newUsers,
     incrementOfNewUsers,
@@ -72,7 +73,8 @@ const Header = () => {
   if (isLoading) {
     <LoadSpinner />;
   }
-
+  console.log(" old daata", data);
+  console.log(" new", statics);
   return (
     <section className={styles.mainContainer}>
       <h1 className={styles.heading}>Dashboard</h1>
@@ -126,8 +128,7 @@ const Header = () => {
 
                 <div className={styles.cardRight}>
                   <IoIosArrowUp />
-                  {incrementOfNewAmount}(
-                  {incrementOfNewAmountPercentage.slice(0, 4)}%)
+                  {incrementOfNewAmount}({incrementOfNewAmountPercentage}%)
                 </div>
               </div>
             </div>
