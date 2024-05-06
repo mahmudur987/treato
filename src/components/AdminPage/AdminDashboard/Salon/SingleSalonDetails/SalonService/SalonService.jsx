@@ -6,7 +6,12 @@ import { useEffect } from "react";
 
 // ... (other imports)
 
-export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
+export default function SalonServiceMain({
+  hideTitle,
+  SalonData,
+  setCount,
+  data,
+}) {
   let [allServices, setAllServices] = useState(null);
   let [activeOption, updateActiveOption] = useState([
     { selected: true },
@@ -29,8 +34,8 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
   };
 
   useEffect(() => {
-    setAllServices(SalonData?.services[0]?.mainCategories);
-  }, [SalonData]);
+    setAllServices(data?.mainCategories);
+  }, [data]);
 
   return (
     <>

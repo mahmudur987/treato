@@ -71,3 +71,37 @@ export const useActiveSalons = () => {
     },
   });
 };
+export const useSalonDetails = (id) => {
+  const headers = {
+    token: adminToken,
+  };
+  return useQuery({
+    queryKey: [id],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(
+        `super/singlesalondetail/${id}`,
+
+        { headers }
+      );
+
+      return data;
+    },
+  });
+};
+export const useSalonDetailsServices = (id) => {
+  const headers = {
+    token: adminToken,
+  };
+  return useQuery({
+    queryKey: [id, "singlesalonservices"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(
+        `super/singlesalonservices/${id}`,
+
+        { headers }
+      );
+
+      return data;
+    },
+  });
+};

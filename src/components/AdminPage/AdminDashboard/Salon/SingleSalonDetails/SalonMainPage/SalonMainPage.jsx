@@ -4,6 +4,11 @@ import SalonServiceMain from "../SalonService/SalonService";
 import BookingsPart from "../Bookings/BookingsPart";
 import BillAndPaymentPart from "../BillAndPayment/BillAndPaymentPart";
 import ReviewsPart from "../Reviews/ReviewsPart";
+import { useParams } from "react-router-dom";
+import { useSalonDetailsServices } from "../../../../../../services/superAdmin/Dashboard";
+import LoadSpinner from "../../../../../LoadSpinner/LoadSpinner";
+import ErrorComponent from "../../../../../ErrorComponent/ErrorComponent";
+import NoDataDisplay from "../../../../../NodataToDisplay/NoDataDisplay";
 
 export default function SalonMainPage({
   SalonData,
@@ -11,7 +16,11 @@ export default function SalonMainPage({
   addedServices,
 }) {
   let [activeSalon, updateActiveSalon] = useState(1);
+  let { id } = useParams();
 
+  const { data, isLoading, isError, error } = useSalonDetailsServices(id);
+
+  console.log(data?.data?.services);
   return (
     <div className={styles.salon_main}>
       <div className={styles.salon_options}>
@@ -39,11 +48,31 @@ export default function SalonMainPage({
         </ul>
       </div>
       {activeSalon === 1 && (
-        <SalonServiceMain
-          SalonData={SalonData ? SalonData : null}
-          addServices={addServices}
-          addedServices={addedServices}
-        />
+        <>
+          {isLoading && <LoadSpinner />}
+
+          {data &&
+            !isLoading &&
+            !isError &&
+            data?.data?.services.length > 0 &&
+            data?.data?.services?.map((x, y) => (
+              <SalonServiceMain
+                key={y}
+                data={x}
+                SalonData={SalonData ? SalonData : null}
+                addServices={addServices}
+                addedServices={addedServices}
+              />
+            ))}
+          {data &&
+            !isLoading &&
+            !isError &&
+            data?.data?.services.length === 0 && <NoDataDisplay />}
+
+          {isError && (
+            <ErrorComponent message={error ? error.message : "Error"} />
+          )}
+        </>
       )}
       {activeSalon === 2 && <BookingsPart />}
       {activeSalon === 3 && <BillAndPaymentPart />}
