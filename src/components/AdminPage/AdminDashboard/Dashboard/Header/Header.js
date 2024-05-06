@@ -14,23 +14,8 @@ import { useStatistics } from "../../../../../services/superAdmin/Dashboard";
 const Header = () => {
   const [selectedOption, setSelectedOption] = useState("last 90 days");
   const options = ["last 30 days", "last 50 days", "last 90 days"];
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: [selectedOption],
-    queryFn: async () => {
-      const headers = {
-        token: localStorage.getItem("jwtToken"),
-      };
 
-      const { data } = await axiosInstance(
-        `sales/getSalonGeneralAnalytics?days=${Number(
-          selectedOption.slice(5, 7)
-        )}`,
-        { headers }
-      );
-      return data;
-    },
-  });
-  const { data: statics } = useStatistics(selectedOption);
+  const { data, isLoading, isError, error } = useStatistics(selectedOption);
   const {
     newUsers,
     incrementOfNewUsers,
@@ -41,7 +26,18 @@ const Header = () => {
     newAppointments,
     incrementOfNewAppointments,
     incrementOfNewAppointmentsPercentage,
-  } = data || {};
+  } =
+    {
+      newUsers: 5,
+      incrementOfNewUsers: 1,
+      incrementOfNewUsersPercentage: "25.00",
+      newAmount: 27739,
+      incrementOfNewAmount: 0,
+      incrementOfNewAmountPercentage: "0.00",
+      newAppointments: 26,
+      incrementOfNewAppointments: 0,
+      incrementOfNewAppointmentsPercentage: "0.00",
+    } || {};
   const settings = {
     dots: false,
     infinite: true,
@@ -73,8 +69,8 @@ const Header = () => {
   if (isLoading) {
     <LoadSpinner />;
   }
-  console.log(" old daata", data);
-  console.log(" new", statics);
+  console.log(data);
+
   return (
     <section className={styles.mainContainer}>
       <h1 className={styles.heading}>Dashboard</h1>
@@ -87,7 +83,7 @@ const Header = () => {
         />
       </p>
 
-      {data && (
+      {selectedOption && (
         <div className={styles.contents}>
           <Slider {...settings}>
             {/* new user */}

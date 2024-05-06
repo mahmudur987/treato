@@ -3,6 +3,35 @@ import topImg from "../../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./BillHistoryTable.module.css";
 import { BsThreeDots } from "react-icons/bs";
+const formatDate = (dateString) => {
+  const originalDate = new Date(dateString);
+
+  // Array of month names
+  const monthNames = [
+    "Gen",
+    "Feb",
+    "Mar",
+    "Apr",
+    "Mag",
+    "Giu",
+    "Lug",
+    "Ago",
+    "Set",
+    "Ott",
+    "Nov",
+    "Dic",
+  ];
+
+  // Get day, month, and year
+  const day = originalDate.getDate();
+  const month = monthNames[originalDate.getMonth()];
+  const year = originalDate.getFullYear();
+
+  // Formatted date string
+  const formattedDate = `${day} ${month} ${year}`;
+
+  return formattedDate;
+};
 const tableHeading = [
   {
     heading: "Customer Name",
@@ -36,17 +65,20 @@ const tableHeading = [
     bottomImg: bottomImg,
   },
 ];
-const BillHistoryTable = () => {
-  const tableData = [
-    {
-      customerName: "Mahmud",
-      salonName: "She hair and Spa",
-      invoiceId: "546545",
-      date: "21/5/24",
-      location: "Mumbai",
-      amount: "500",
-    },
-  ];
+const BillHistoryTable = ({ data }) => {
+  const tableData = data.map((x) => {
+    const data = {
+      id: x._id,
+      customerName: x.customer_name ?? "N/A",
+      salonName: x.salon_name ?? "N/A",
+      invoiceId: x.invoice ?? "N/A",
+      date: formatDate(x.date) ?? x.data,
+      location: x.location ?? "N/A",
+      amount: x.amount ?? "N/A",
+    };
+
+    return data;
+  });
 
   return (
     <div className={sty.mainContainer}>
