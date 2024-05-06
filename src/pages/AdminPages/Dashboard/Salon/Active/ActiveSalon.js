@@ -5,59 +5,55 @@ import FilterSection from "../../../../../components/AdminPage/AdminDashboard/Sa
 import salonImage from "../../../../../assets/images/SalonsPageImages/cardImage.png";
 import SingleSalon from "../../../../../components/AdminPage/AdminDashboard/Salon/Active/SingleSalon/SingleSalon";
 import SalonTable from "../../../../../components/AdminPage/AdminDashboard/Salon/Active/SalonTable/SalonTable";
+import { useActiveSalons } from "../../../../../services/superAdmin/Dashboard";
+import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
+import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
+import { formatDate } from "../../AdminDashboard";
 
-const ActiveSalons = [
-  {
-    id: 1,
-    salon_image: salonImage,
-    salon_name: "Athena Hair Salon & Unisex Spa",
-    salon_rating: "4.8",
-    salon_ratingCount: "277",
-    salon_address: "Windmills Road,Bengaluru",
-    salon_owner: "Saurav Nanda ",
-    salon_joinDate: "02 oct 2023 ",
-    salon_NetSales: "$1.2L ",
-  },
-  {
-    id: 2,
-
-    salon_image: salonImage,
-    salon_name: "Athena Hair Salon & Unisex Spa",
-    salon_rating: "4.8",
-    salon_ratingCount: "277",
-    salon_address: "Windmills Road,Bengaluru",
-    salon_owner: "Saurav Nanda ",
-    salon_joinDate: "02 oct 2023 ",
-    salon_NetSales: "$1.2L ",
-  },
-  {
-    id: 3,
-
-    salon_image: salonImage,
-    salon_name: "Athena Hair Salon & Unisex Spa",
-    salon_rating: "4.8",
-    salon_ratingCount: "277",
-    salon_address: "Windmills Road,Bengaluru",
-    salon_owner: "Saurav Nanda ",
-    salon_joinDate: "02 oct 2023 ",
-    salon_NetSales: "$1.2L ",
-  },
-];
 const ActiveSalon = () => {
   const [viewBy, setViewBy] = useState(true);
+  const { data, isError, isLoading, error } = useActiveSalons();
+  const ActiveSalons = data?.data.map((x) => {
+    const data = {
+      id: x._id,
+      salon_image: x?.salon_image[0]?.public_url ?? salonImage,
+      salon_name: x.salon_name ?? "N/A",
+      salon_rating: x.rating ?? "N/A",
+      salon_ratingCount: "277",
+      salon_address: x.address ?? "N/A",
+      salon_owner: x.owner_name ?? "owner name not available",
+      salon_joinDate: formatDate(x.date_join) ?? "N/A",
+      salon_NetSales: x.net_sales ?? "N/A",
+    };
+
+    return data;
+  });
 
   return (
     <SalonInDashBoard>
       <section className={styles.mainContainer}>
         <FilterSection viewBy={viewBy} setViewBy={setViewBy} />
-        {viewBy ? (
-          <div className={styles.container}>
-            {ActiveSalons.map((x, i) => (
-              <SingleSalon key={i} salon={x} />
-            ))}
-          </div>
-        ) : (
-          <SalonTable tableData={ActiveSalons} />
+
+        {isLoading && <LoadSpinner />}
+
+        {data && !isLoading && !isError && data?.data.length > 0 && (
+          <>
+            {viewBy ? (
+              <div className={styles.container}>
+                {ActiveSalons.map((x, i) => (
+                  <SingleSalon key={i} salon={x} />
+                ))}
+              </div>
+            ) : (
+              <SalonTable tableData={ActiveSalons} />
+            )}
+          </>
+        )}
+        {data && !isLoading && !isError && data?.data.length === 0 && (
+          <p>No active salon</p>
+        )}
+        {isError && (
+          <ErrorComponent message={error ? error.message : "Error"} />
         )}
       </section>
     </SalonInDashBoard>

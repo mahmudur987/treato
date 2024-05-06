@@ -36,13 +36,15 @@ const PendingAllSalon = ({
               <figure>
                 <img src={salon.image} alt="" />
               </figure>
-              <p className={styles.selectSalon}>
-                <input
-                  type="checkbox"
-                  checked={selectedSalon.includes(salon.id)}
-                  onChange={() => toggleSelectCard(salon.id)}
-                />
-              </p>
+              {pendingSalonData.length > 1 && (
+                <p className={styles.selectSalon}>
+                  <input
+                    type="checkbox"
+                    checked={selectedSalon.includes(salon.id)}
+                    onChange={() => toggleSelectCard(salon.id)}
+                  />
+                </p>
+              )}
               <div className={styles.cardBottom}>
                 <Link
                   to={`/admin/salon/pending/${salon.id}`}

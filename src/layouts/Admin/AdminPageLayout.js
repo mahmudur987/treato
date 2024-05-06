@@ -33,7 +33,7 @@ const AdminPageLayout = () => {
   if (isLoading) {
     return <LoadSpinner />;
   }
-  console.log(user);
+
   if (user.role === "super") {
     return (
       <main className={style.mainContainer}>

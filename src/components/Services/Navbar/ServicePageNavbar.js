@@ -20,7 +20,6 @@ const ServicePageNavbar = () => {
     localStorage.removeItem("jwtToken");
     navigate("/partner");
   };
-  console.log(userData);
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container}>

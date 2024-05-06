@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./pagination.module.css";
 
 const Pagination = ({ pageNumber, setPageNumber, count, setCount }) => {
-  const totalPages = Math.ceil(count / 5); // Assuming 5 items per page
+  const totalPages = Math.ceil(count / 5) || 0; // Assuming 5 items per page
 
   const previous = () => {
     if (pageNumber > 1) {

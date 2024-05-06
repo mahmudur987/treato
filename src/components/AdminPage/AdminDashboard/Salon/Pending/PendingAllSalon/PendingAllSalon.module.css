@@ -36,7 +36,7 @@
   max-width: 1340px;
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 20px;
   flex-wrap: wrap;
 }

@@ -69,7 +69,7 @@ const Header = () => {
   if (isLoading) {
     <LoadSpinner />;
   }
-  console.log(data);
+  // console.log(data);
 
   return (
     <section className={styles.mainContainer}>

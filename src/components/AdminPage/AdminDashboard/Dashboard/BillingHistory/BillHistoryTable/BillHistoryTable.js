@@ -3,35 +3,8 @@ import topImg from "../../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./BillHistoryTable.module.css";
 import { BsThreeDots } from "react-icons/bs";
-const formatDate = (dateString) => {
-  const originalDate = new Date(dateString);
+import { formatDate } from "../../../../../../pages/AdminPages/Dashboard/AdminDashboard";
 
-  // Array of month names
-  const monthNames = [
-    "Gen",
-    "Feb",
-    "Mar",
-    "Apr",
-    "Mag",
-    "Giu",
-    "Lug",
-    "Ago",
-    "Set",
-    "Ott",
-    "Nov",
-    "Dic",
-  ];
-
-  // Get day, month, and year
-  const day = originalDate.getDate();
-  const month = monthNames[originalDate.getMonth()];
-  const year = originalDate.getFullYear();
-
-  // Formatted date string
-  const formattedDate = `${day} ${month} ${year}`;
-
-  return formattedDate;
-};
 const tableHeading = [
   {
     heading: "Customer Name",

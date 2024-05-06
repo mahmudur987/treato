@@ -20,15 +20,49 @@ export const useStatistics = (x) => {
     },
   });
 };
-export const useBillingHistory = (x) => {
+export const useBillingHistory = () => {
   const headers = {
     token: adminToken,
   };
   return useQuery({
-    queryKey: [x],
+    queryKey: ["allbillinghistory"],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
         "super/allbillinghistory",
+
+        { headers }
+      );
+
+      return data;
+    },
+  });
+};
+export const usePendingSalons = () => {
+  const headers = {
+    token: adminToken,
+  };
+  return useQuery({
+    queryKey: ["allpartnerapproval"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(
+        "super/allpartnerapproval",
+
+        { headers }
+      );
+
+      return data;
+    },
+  });
+};
+export const useActiveSalons = () => {
+  const headers = {
+    token: adminToken,
+  };
+  return useQuery({
+    queryKey: ["allactivesalons"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(
+        "super/allactivesalons",
 
         { headers }
       );

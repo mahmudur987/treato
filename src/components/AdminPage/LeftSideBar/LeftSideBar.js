@@ -11,7 +11,7 @@ const LeftSideBar = () => {
   const { pathname } = useLocation();
   const [pageHeight, setPageHeight] = useState(0);
   const { updatePage } = useSelector((state) => state.admin);
-  console.log(updatePage);
+
   useEffect(() => {
     function handleResize() {
       const height = Math.max(
