@@ -23,7 +23,7 @@ export default function PendingSalonMainPage({
               About
             </li>
           </a>
-          :
+
           <a onClick={() => updateActiveSalon(3)}>
             <li className={activeSalon === 3 ? styles.active_salon_option : ""}>
               Team

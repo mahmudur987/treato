@@ -43,6 +43,16 @@
   gap: 5px;
   padding-left: 10px;
 }
+.profile {
+  display: flex;
+  gap: 10px;
+  justify-content: start;
+}
+.customerImage {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
 .checkbox {
   max-width: 30px;
   width: 100%;

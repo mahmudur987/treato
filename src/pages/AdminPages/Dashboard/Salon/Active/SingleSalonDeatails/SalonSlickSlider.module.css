@@ -81,9 +81,15 @@
 
 @media only screen and (max-width: 767px) {
   .mainContainer {
-    margin: 0 auto;
+    margin: auto;
+    max-width: 100vw;
+    width: 94%;
+    min-height: 250px;
   }
-
+  .salon_slider_index {
+    width: 98%;
+    left: 1%;
+  }
   .prev:hover,
   .prev:focus,
   .next:hover,

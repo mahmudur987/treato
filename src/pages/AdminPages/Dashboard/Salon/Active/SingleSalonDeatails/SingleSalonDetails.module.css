@@ -135,9 +135,10 @@
 @media only screen and (max-width: 767px) {
   .salon_page {
     max-width: 100vh;
-    width: 100%;
-    padding: 70px 24px;
+    width: 96%;
+    padding: 70px 0px;
     overflow-x: hidden;
+    margin: 0 auto;
   }
 
   .salon_image_slider {
@@ -160,6 +161,7 @@
   }
 
   .salon_mobView {
+    display: block;
     font-size: 14px;
     font-weight: 400;
     color: #08090a;

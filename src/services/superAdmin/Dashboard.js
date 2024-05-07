@@ -105,3 +105,20 @@ export const useSalonDetailsServices = (id) => {
     },
   });
 };
+export const useSalonDetailsBookings = (id) => {
+  const headers = {
+    token: adminToken,
+  };
+  return useQuery({
+    queryKey: [id, "singlesalonbookings"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(
+        `super/singlesalonbookings/${id}`,
+
+        { headers }
+      );
+
+      return data;
+    },
+  });
+};

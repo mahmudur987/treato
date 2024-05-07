@@ -20,33 +20,17 @@ import LoadSpinner from "../../../../../../components/LoadSpinner/LoadSpinner.js
 import ErrorComponent from "../../../../../../components/ErrorComponent/ErrorComponent.js";
 import NoDataDisplay from "../../../../../../components/NodataToDisplay/NoDataDisplay.js";
 export default function SingleSalonDetail() {
-  let [SalonData, setSalonData] = useState(null);
   let [SalonDetails1, setSalonDetails1] = useState(null);
   let [addedServices, addServices] = useState([]);
   let { id } = useParams();
   let [firstImage, setFirstImage] = useState(null);
-  const userDetails = useSelector((state) => state?.user?.user);
   const dispatch = useDispatch();
   const { data, isLoading, isError, error } = useSalonDetails(id);
 
   useEffect(() => {
-    let SalonDataFunc = async () => {
-      const { res, err } = await salon();
-      if (res) {
-        res?.data?.salons?.map((v) => {
-          if (v?._id === "655c6b4234b93dcd675e1740") {
-            setSalonData(v);
-
-            dispatch(updateAdminPage());
-          }
-        });
-      }
-    };
-    SalonDataFunc();
-  }, []);
-  useEffect(() => {
     setSalonDetails1(data?.data[0]);
     setFirstImage(data?.data[0]?.salon_image[0]?.public_url);
+    dispatch(updateAdminPage());
   }, [data]);
 
   return (
@@ -121,29 +105,23 @@ export default function SingleSalonDetail() {
       {SalonDetails1?.salon_image.length === 0 && <NoDataDisplay />}
 
       <div className={styles.salon_mobView}>
-        <div className={styles.salon_name}>{SalonData?.salon_name}</div>
+        <div className={styles.salon_name}>{SalonDetails1?.salon_name}</div>
         <div className={styles.salon_info}>
           <div className={styles.salon_star}>
-            {SalonData?.salon_rating} <img src={star} alt="" /> (
-            {SalonData?.total_rating} ratings)
+            {SalonDetails1?.salon_rating > 0 ? SalonDetails1?.salon_rating : ""}{" "}
+            {SalonDetails1?.salon_rating > 0 && <img src={star} alt="" />}{" "}
+            {SalonDetails1?.total_rating && (
+              <div>({SalonDetails1?.total_rating || ""})</div>
+            )}
           </div>
           <div className={styles.salon_infoA}>
-            <div>{SalonData?.locationText} (570 m away)</div>
-            <div>View map</div>
-          </div>
-          <div className={styles.salon_infoB}>
-            <div>Closed</div>
-            <img src={ellipse} alt="" />
-            <div>
-              Opens {SalonData?.working_hours[0].opening_time}{" "}
-              {SalonData?.working_hours[0].day}
-            </div>
+            <p>{SalonDetails1 ? SalonDetails1.salon_address : null}</p>{" "}
+            <p style={{ color: "#0d69d7" }}>View map</p>
           </div>
         </div>
       </div>
       <div className={styles.salon_middle}>
         <SalonMainPage
-          SalonData={SalonData ? SalonData : null}
           addServices={addServices}
           addedServices={addedServices}
         />

@@ -13,13 +13,15 @@ import {
 } from "../../../../../../utils/utils.js";
 import { salon } from "../../../../../../services/salon.js";
 import PendingSalonMainPage from "../../../../../../components/AdminPage/AdminDashboard/Salon/Pending/PendingSalonDetails/PendingSalonMainPage/PendingSalonMainPage.jsx";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { updateAdminPage } from "../../../../../../redux/slices/AdminSlice.js";
+import { useSalonDetails } from "../../../../../../services/superAdmin/Dashboard.js";
 
 export default function PendingSalonDetail() {
   let [SalonData, setSalonData] = useState(null);
   let [addedServices, addServices] = useState([]);
-  let id = "655c6b4234b93dcd675e1740";
+  let [SalonDetails1, setSalonDetails1] = useState(null);
+  let { id } = useParams();
   let [firstImage, setFirstImage] = useState(null);
   const userDetails = useSelector((state) => state?.user?.user);
   const dispatch = useDispatch();
@@ -28,7 +30,7 @@ export default function PendingSalonDetail() {
       const { res, err } = await salon();
       if (res) {
         res?.data?.salons?.map((v) => {
-          if (v?._id === id) {
+          if (v?._id === "655c6b4234b93dcd675e1740") {
             setSalonData(v);
             setFirstImage(v?.salon_Img[0]?.public_url);
             dispatch(updateAdminPage());
@@ -38,6 +40,14 @@ export default function PendingSalonDetail() {
     };
     SalonDataFunc();
   }, []);
+
+  const { data, isLoading, isError, error } = useSalonDetails(id);
+
+  useEffect(() => {
+    setSalonDetails1(data?.data[0]);
+    setFirstImage(data?.data[0]?.salon_image[0]?.public_url);
+  }, [data]);
+  console.log(SalonDetails1);
   return (
     <div className={styles.salon_page}>
       <div className={styles.salon_pcView}>

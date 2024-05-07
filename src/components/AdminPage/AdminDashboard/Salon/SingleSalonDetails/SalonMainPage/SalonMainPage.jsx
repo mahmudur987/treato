@@ -10,17 +10,11 @@ import LoadSpinner from "../../../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../ErrorComponent/ErrorComponent";
 import NoDataDisplay from "../../../../../NodataToDisplay/NoDataDisplay";
 
-export default function SalonMainPage({
-  SalonData,
-  addServices,
-  addedServices,
-}) {
+export default function SalonMainPage({ addServices, addedServices }) {
   let [activeSalon, updateActiveSalon] = useState(1);
   let { id } = useParams();
-
   const { data, isLoading, isError, error } = useSalonDetailsServices(id);
 
-  console.log(data?.data?.services);
   return (
     <div className={styles.salon_main}>
       <div className={styles.salon_options}>
@@ -59,7 +53,6 @@ export default function SalonMainPage({
               <SalonServiceMain
                 key={y}
                 data={x}
-                SalonData={SalonData ? SalonData : null}
                 addServices={addServices}
                 addedServices={addedServices}
               />

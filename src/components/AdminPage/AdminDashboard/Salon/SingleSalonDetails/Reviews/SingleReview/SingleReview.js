@@ -6,7 +6,6 @@ import DeleteReviewModal from "../../../../../../_modals/AdminPage/DeleteReview/
 const SingleReview = ({ data }) => {
   const [count, setCount] = useState(120);
   const [showModal, setShowModal] = useState(false);
-  console.log(showModal);
 
   return (
     <>
