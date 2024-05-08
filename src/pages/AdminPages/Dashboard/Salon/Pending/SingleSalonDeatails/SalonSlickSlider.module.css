@@ -1,15 +1,18 @@
 .mainContainer {
   max-width: 600px;
   width: 100%;
-  min-height: 640px;
+  min-height: 645px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
 }
-.mainContainer img {
+
+.slideImage {
+  min-height: 640px;
   height: 100%;
   width: 100%;
+  object-fit: cover;
 }
 .salon_slider_index {
   position: absolute;

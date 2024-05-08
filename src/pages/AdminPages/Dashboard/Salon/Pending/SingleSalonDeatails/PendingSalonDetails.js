@@ -16,7 +16,9 @@ import PendingSalonMainPage from "../../../../../../components/AdminPage/AdminDa
 import { Link, useParams } from "react-router-dom";
 import { updateAdminPage } from "../../../../../../redux/slices/AdminSlice.js";
 import { useSalonDetails } from "../../../../../../services/superAdmin/Dashboard.js";
-
+import LoadSpinner from "../../../../../../components/LoadSpinner/LoadSpinner.js";
+import ErrorComponent from "../../../../../../components/ErrorComponent/ErrorComponent.js";
+import NoDataDisplay from "../../../../../../components/NodataToDisplay/NoDataDisplay.js";
 export default function PendingSalonDetail() {
   let [SalonData, setSalonData] = useState(null);
   let [addedServices, addServices] = useState([]);
@@ -50,67 +52,74 @@ export default function PendingSalonDetail() {
   console.log(SalonDetails1);
   return (
     <div className={styles.salon_page}>
-      <div className={styles.salon_pcView}>
-        <Link to={"/admin/salon/pending"}>
-          <div className={styles.back}>
-            <img src={leftIco} alt="" />
-          </div>
-        </Link>
-
-        <div className={styles.wrapper}>
-          <div className={styles.salon_name}>
-            {SalonData ? SalonData.salon_name : null}
-          </div>
-          <div className={styles.salon_info}>
-            <div className={styles.salon_star}>
-              {SalonData ? SalonData.rating : null} <img src={star} alt="" />
+      {data && !isLoading && !isError && (
+        <div className={styles.salon_pcView}>
+          <Link to={"/admin/salon/active"}>
+            <div className={styles.back}>
+              <img src={leftIco} alt="" />
             </div>
-            <div>({SalonData ? SalonData.total_rating : null})</div>
-            <img src={ellipse} alt="" />
-            <div>
-              {SalonData ? SalonData.locationText : null} (
-              {displayDistance(
-                calculateSalonDistance(
-                  SalonData?.location?.coordinates[0],
-                  SalonData?.location?.coordinates[1],
-                  userDetails?.latitude,
-                  userDetails?.longitude
-                )
-              )}{" "}
-              away)
+          </Link>
+          <div className={styles.wrapper}>
+            <div className={styles.salon_name}>
+              {SalonDetails1 ? SalonDetails1.salon_name : null}
             </div>
-          </div>
-        </div>
-
-        <div className={styles.btnWrapper}>
-          <button className={styles.approve}>Approve</button>
-          <button className={styles.reject}>Reject</button>
-        </div>
-      </div>
-      <div className={styles.salon_images}>
-        <div className={styles.salon_image_slider}>
-          <SalonSlickSlider SalonData={SalonData ? SalonData : null} />
-        </div>
-        <div className={styles.salon_images_right}>
-          {SalonData?.salon_Img?.slice(1, 4).map((v, i) => {
-            return <img src={v.public_url} alt="salon image" key={i} />;
-          })}
-          {SalonData?.salon_Img?.length > 3 && (
-            <Link
-              to={"/admin/salon/pending/galley/1"}
-              className={styles.salon_imagesA}
-            >
-              <div>
-                <div>
-                  View <span>{SalonData?.salon_Img?.length}</span>
-                </div>
-                <div>images</div>
+            <div className={styles.salon_info}>
+              <div className={styles.salon_star}>
+                {SalonDetails1?.salon_rating > 0
+                  ? SalonDetails1?.salon_rating
+                  : ""}{" "}
+                {SalonDetails1?.salon_rating > 0 && <img src={star} alt="" />}
               </div>
-              <img src={firstImage ? firstImage : null} alt="" />
-            </Link>
-          )}
+              {SalonDetails1?.total_rating && (
+                <div>({SalonDetails1?.total_rating || ""})</div>
+              )}
+              <img src={ellipse} alt="" />
+              <div>{SalonDetails1 ? SalonDetails1.salon_address : null}</div>
+            </div>
+          </div>
+
+          <div className={styles.btnWrapper}>
+            <button className={styles.approve}>Approve</button>
+            <button className={styles.reject}>Reject</button>
+          </div>
         </div>
-      </div>
+      )}
+
+      {isLoading && <LoadSpinner />}
+      {isError && <ErrorComponent message={error ? error.message : "Error"} />}
+      {data &&
+        !isLoading &&
+        !isError &&
+        SalonDetails1?.salon_image.length > 0 && (
+          <div className={styles.salon_images}>
+            <div className={styles.salon_image_slider}>
+              <SalonSlickSlider
+                SalonData={SalonDetails1 ? SalonDetails1 : null}
+              />
+            </div>
+            <div className={styles.salon_images_right}>
+              {SalonDetails1?.salon_image?.slice(1, 4).map((v, i) => {
+                return <img src={v.public_url} alt="salon image" key={i} />;
+              })}
+              {SalonDetails1?.salon_image?.length > 3 && (
+                <Link
+                  to={"/admin/salon/active/gallery/1"}
+                  className={styles.salon_imagesA}
+                >
+                  <div>
+                    <div>
+                      View <span>{SalonDetails1?.salon_Img?.length}</span>
+                    </div>
+                    <div>images</div>
+                  </div>
+                  <img src={firstImage ? firstImage : null} alt="" />
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
+
+      {SalonDetails1?.salon_image.length === 0 && <NoDataDisplay />}
       <div className={styles.salon_mobView}>
         <div className={styles.salon_name}>{SalonData?.salon_name}</div>
         <div className={styles.salon_info}>

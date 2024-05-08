@@ -31,14 +31,21 @@ export default function SalonSlickSLider({ SalonData }) {
         }}
         {...settings}
       >
-        {SalonData?.salon_Img?.map((v, i) => {
-          return <img src={v.public_url} alt="salon image" key={i} />;
+        {SalonData?.salon_image?.map((v, i) => {
+          return (
+            <img
+              className={styles.slideImage}
+              src={v.public_url}
+              alt="salon image"
+              key={i}
+            />
+          );
         })}
       </Slider>
       <p onClick={next} className={styles.next}></p>
       <p onClick={previous} className={styles.prev}></p>
       <div className={styles.salon_slider_index}>
-        {activeImg + 1}/{SalonData?.salon_Img?.length}
+        {activeImg + 1}/{SalonData?.salon_image?.length}
       </div>
     </div>
   );
