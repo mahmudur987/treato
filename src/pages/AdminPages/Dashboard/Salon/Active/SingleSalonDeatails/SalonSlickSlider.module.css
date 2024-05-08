@@ -8,8 +8,9 @@
   position: relative;
 }
 .mainContainer img {
-  height: 100%;
+  max-width: 600px;
   width: 100%;
+  min-height: 640px;
 }
 .salon_slider_index {
   position: absolute;

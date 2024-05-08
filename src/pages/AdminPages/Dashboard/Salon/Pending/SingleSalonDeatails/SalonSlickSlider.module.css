@@ -84,9 +84,11 @@
 
 @media only screen and (max-width: 767px) {
   .mainContainer {
-    margin: 0 auto;
+    margin: auto;
   }
-
+  .slideImage {
+    min-height: 800px;
+  }
   .prev:hover,
   .prev:focus,
   .next:hover,

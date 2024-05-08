@@ -307,6 +307,7 @@ function App() {
               path="/admin/salon/pending/:id"
               element={<PendingSalonDetail />}
             />
+
             <Route
               path="/admin/salon/pending/galley/:id"
               element={<PendingSalonGallery />}

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 // ... (other imports)
 
-export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
+export default function SalonServiceMain({ hideTitle, setCount, data }) {
   let [allServices, setAllServices] = useState(null);
   let [activeOption, updateActiveOption] = useState([
     { selected: true },
@@ -29,8 +29,8 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
   };
 
   useEffect(() => {
-    setAllServices(SalonData?.services[0]?.mainCategories);
-  }, [SalonData]);
+    setAllServices(data?.mainCategories);
+  }, [data]);
 
   return (
     <>
@@ -40,13 +40,6 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
           hideTitle ? styles.serviceDetailClass : styles.salon_sections
         }
       >
-        {hideTitle ? (
-          ""
-        ) : (
-          <h2 className={styles.salon_section_title_wrapper}>
-            <span className={styles.salon_section_title}>Services</span>
-          </h2>
-        )}
         <div
           className={
             hideTitle ? styles.serviceDetailClass : styles.salon_section_main
@@ -107,7 +100,7 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
                               salonServiceData={val}
                               key={i}
                               serviceCategory={v?.category_name}
-                              salonId={SalonData?._id}
+                              salonId={data?._id}
                               setCount={setCount}
                             />
                           ))

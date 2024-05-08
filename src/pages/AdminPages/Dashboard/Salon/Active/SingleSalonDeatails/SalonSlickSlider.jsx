@@ -32,7 +32,14 @@ export default function SalonSlickSLider({ SalonData }) {
         {...settings}
       >
         {SalonData?.salon_image?.map((v, i) => {
-          return <img src={v.public_url} alt="salon image" key={i} />;
+          return (
+            <img
+              className={styles.slideImage}
+              src={v.public_url}
+              alt="salon image"
+              key={i}
+            />
+          );
         })}
       </Slider>
       <p onClick={next} className={styles.next}></p>

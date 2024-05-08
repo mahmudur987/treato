@@ -12,6 +12,7 @@ const PendingSalon = () => {
   const { data, isLoading, isError, error } = usePendingSalons();
   const pendingSalonData = data?.pendingSalons?.map((x) => {
     const data = {
+      id: x._id,
       image: x.salon_image.public_url ?? img,
       name: x.salon_name ?? "N/A",
       address: x.salons_address ?? "N/A",
@@ -67,30 +68,32 @@ const PendingSalon = () => {
         <div className={styles.contents}>
           <Slider {...settings}>
             {pendingSalonData?.slice(0, 4)?.map((x, y) => (
-              <div key={y}>
-                <div className={styles.cardWrapper}>
-                  <div className={styles.card}>
-                    <figure>
-                      <img src={x.image} alt="" />
-                    </figure>
+              <Link to={`/admin/salon/pending/${x.id}`}>
+                <div key={y}>
+                  <div className={styles.cardWrapper}>
+                    <div className={styles.card}>
+                      <figure>
+                        <img src={x.image} alt="" />
+                      </figure>
 
-                    <div className={styles.cardBottom}>
-                      <div className={styles.info}>
-                        <h3>{x.name}</h3>
-                        <p className={styles.address}>{x.address}</p>
-                        <p className={styles.date}>Applied on {x.date}</p>
-                      </div>
-                      <div className={styles.cardAction}>
-                        <button className={styles.approve}>Approve</button>
-                        <button className={styles.reject}>Reject</button>
-                      </div>
-                      <div className={styles.rightIcon}>
-                        <FaArrowRight />
+                      <div className={styles.cardBottom}>
+                        <div className={styles.info}>
+                          <h3>{x.name}</h3>
+                          <p className={styles.address}>{x.address}</p>
+                          <p className={styles.date}>Applied on {x.date}</p>
+                        </div>
+                        <div className={styles.cardAction}>
+                          <button className={styles.approve}>Approve</button>
+                          <button className={styles.reject}>Reject</button>
+                        </div>
+                        <div className={styles.rightIcon}>
+                          <FaArrowRight />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </Slider>
         </div>

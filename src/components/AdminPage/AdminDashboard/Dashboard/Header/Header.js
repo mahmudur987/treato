@@ -12,32 +12,11 @@ import axiosInstance from "../../../../../services/axios";
 import Slider from "react-slick";
 import { useStatistics } from "../../../../../services/superAdmin/Dashboard";
 const Header = () => {
-  const [selectedOption, setSelectedOption] = useState("last 90 days");
+  const [selectedOption, setSelectedOption] = useState("last 30 days");
   const options = ["last 30 days", "last 50 days", "last 90 days"];
 
   const { data, isLoading, isError, error } = useStatistics(selectedOption);
-  const {
-    newUsers,
-    incrementOfNewUsers,
-    incrementOfNewUsersPercentage,
-    newAmount,
-    incrementOfNewAmount,
-    incrementOfNewAmountPercentage,
-    newAppointments,
-    incrementOfNewAppointments,
-    incrementOfNewAppointmentsPercentage,
-  } =
-    {
-      newUsers: 5,
-      incrementOfNewUsers: 1,
-      incrementOfNewUsersPercentage: "25.00",
-      newAmount: 27739,
-      incrementOfNewAmount: 0,
-      incrementOfNewAmountPercentage: "0.00",
-      newAppointments: 26,
-      incrementOfNewAppointments: 0,
-      incrementOfNewAppointmentsPercentage: "0.00",
-    } || {};
+
   const settings = {
     dots: false,
     infinite: true,
@@ -66,11 +45,6 @@ const Header = () => {
     ],
   };
 
-  if (isLoading) {
-    <LoadSpinner />;
-  }
-  // console.log(data);
-
   return (
     <section className={styles.mainContainer}>
       <h1 className={styles.heading}>Dashboard</h1>
@@ -83,7 +57,9 @@ const Header = () => {
         />
       </p>
 
-      {selectedOption && (
+      {isLoading && <LoadSpinner />}
+
+      {data && !isLoading && !isError && (
         <div className={styles.contents}>
           <Slider {...settings}>
             {/* new user */}
@@ -97,13 +73,13 @@ const Header = () => {
                   <div className={styles.cardMiddle}>
                     <p>New user</p>
 
-                    <h3>{newUsers}</h3>
+                    <h3>{data?.usersCount}</h3>
                   </div>
                 </div>
 
                 <div className={styles.cardRight}>
                   <IoIosArrowUp />
-                  {incrementOfNewUsers}({incrementOfNewUsersPercentage}%)
+                  {data?.percentageChange}({data?.usersPercentage}%)
                 </div>
               </div>
             </div>
@@ -118,13 +94,12 @@ const Header = () => {
                   <div className={styles.cardMiddle}>
                     <p>Average Sales</p>
 
-                    <h3>₹{newAmount} </h3>
+                    <h3>₹{data?.averageSales} </h3>
                   </div>
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp />
-                  {incrementOfNewAmount}({incrementOfNewAmountPercentage}%)
+                  ({data?.averageSalesPercentage}%)
                 </div>
               </div>
             </div>
@@ -137,14 +112,12 @@ const Header = () => {
                   <BsClipboard2Check />
                   <div className={styles.cardMiddle}>
                     <p>Total Appointments</p>
-                    <h3>{newAppointments}</h3>
+                    <h3>{data?.appointmentCount}</h3>
                   </div>
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp />
-                  {incrementOfNewAppointments}(
-                  {incrementOfNewAppointmentsPercentage}
+                  <IoIosArrowUp />({data?.appointmentPercentage}
                   %)
                 </div>
               </div>

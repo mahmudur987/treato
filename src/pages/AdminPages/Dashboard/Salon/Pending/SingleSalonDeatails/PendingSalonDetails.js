@@ -15,41 +15,27 @@ import { salon } from "../../../../../../services/salon.js";
 import PendingSalonMainPage from "../../../../../../components/AdminPage/AdminDashboard/Salon/Pending/PendingSalonDetails/PendingSalonMainPage/PendingSalonMainPage.jsx";
 import { Link, useParams } from "react-router-dom";
 import { updateAdminPage } from "../../../../../../redux/slices/AdminSlice.js";
-import { useSalonDetails } from "../../../../../../services/superAdmin/Dashboard.js";
+import {
+  useSalonDetails,
+  useSalonDetailsServices,
+} from "../../../../../../services/superAdmin/Dashboard.js";
 import LoadSpinner from "../../../../../../components/LoadSpinner/LoadSpinner.js";
 import ErrorComponent from "../../../../../../components/ErrorComponent/ErrorComponent.js";
 import NoDataDisplay from "../../../../../../components/NodataToDisplay/NoDataDisplay.js";
 export default function PendingSalonDetail() {
-  let [SalonData, setSalonData] = useState(null);
   let [addedServices, addServices] = useState([]);
   let [SalonDetails1, setSalonDetails1] = useState(null);
   let { id } = useParams();
-  let [firstImage, setFirstImage] = useState(null);
-  const userDetails = useSelector((state) => state?.user?.user);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    let SalonDataFunc = async () => {
-      const { res, err } = await salon();
-      if (res) {
-        res?.data?.salons?.map((v) => {
-          if (v?._id === "655c6b4234b93dcd675e1740") {
-            setSalonData(v);
-            setFirstImage(v?.salon_Img[0]?.public_url);
-            dispatch(updateAdminPage());
-          }
-        });
-      }
-    };
-    SalonDataFunc();
-  }, []);
-
   const { data, isLoading, isError, error } = useSalonDetails(id);
+  let [firstImage, setFirstImage] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setSalonDetails1(data?.data[0]);
     setFirstImage(data?.data[0]?.salon_image[0]?.public_url);
+    dispatch(updateAdminPage());
   }, [data]);
-  console.log(SalonDetails1);
+
   return (
     <div className={styles.salon_page}>
       {data && !isLoading && !isError && (
@@ -103,7 +89,7 @@ export default function PendingSalonDetail() {
               })}
               {SalonDetails1?.salon_image?.length > 3 && (
                 <Link
-                  to={"/admin/salon/active/gallery/1"}
+                  to={`/admin/salon/pending/galley/${id}`}
                   className={styles.salon_imagesA}
                 >
                   <div>
@@ -121,26 +107,21 @@ export default function PendingSalonDetail() {
 
       {SalonDetails1?.salon_image.length === 0 && <NoDataDisplay />}
       <div className={styles.salon_mobView}>
-        <div className={styles.salon_name}>{SalonData?.salon_name}</div>
+        <div className={styles.salon_name}>{SalonDetails1?.salon_name}</div>
         <div className={styles.salon_info}>
           <div className={styles.salon_star}>
-            {SalonData?.salon_rating} <img src={star} alt="" /> (
-            {SalonData?.total_rating} ratings)
+            {SalonDetails1?.salon_rating > 0 ? SalonDetails1?.salon_rating : ""}{" "}
+            {SalonDetails1?.salon_rating > 0 && <img src={star} alt="" />}{" "}
+            {SalonDetails1?.total_rating && (
+              <div>({SalonDetails1?.total_rating || ""})</div>
+            )}
           </div>
           <div className={styles.salon_infoA}>
-            <div>{SalonData?.locationText} (570 m away)</div>
-            <div>View map</div>
+            <p>{SalonDetails1 ? SalonDetails1.salon_address : null}</p>{" "}
+            <p style={{ color: "#0d69d7" }}>View map</p>
           </div>
-          {/* <div className={styles.salon_infoB}>
-            <div>Closed</div>
-            <img src={ellipse} alt="" />
-            <div>
-              Opens {SalonData?.working_hours[0].opening_time}{" "}
-              {SalonData?.working_hours[0].day}
-            </div>
-          </div> */}
         </div>
-        <div className={styles.btnWrapper}>
+        <div className={styles.btnWrapper2}>
           <button className={styles.approve}>Approve</button>
           <button className={styles.reject}>Reject</button>
         </div>
@@ -164,7 +145,6 @@ export default function PendingSalonDetail() {
 
       <div className={styles.salon_middle}>
         <PendingSalonMainPage
-          SalonData={SalonData ? SalonData : null}
           addServices={addServices}
           addedServices={addedServices}
         />

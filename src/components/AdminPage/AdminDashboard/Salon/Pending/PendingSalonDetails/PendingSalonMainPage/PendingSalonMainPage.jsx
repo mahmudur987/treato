@@ -2,13 +2,17 @@ import { useState } from "react";
 import styles from "./PendingSalonMainPage.module.css";
 import SalonServiceMain from "../SalonService/SalonService";
 import profileImg from "../../../../../../../assets/images/TeamDetails/ProfileImg.png";
-export default function PendingSalonMainPage({
-  SalonData,
-  addServices,
-  addedServices,
-}) {
+import { useParams } from "react-router-dom";
+import { useSalonDetailsServices } from "../../../../../../../services/superAdmin/Dashboard";
+import LoadSpinner from "../../../../../../LoadSpinner/LoadSpinner";
+import NoDataDisplay from "../../../../../../NodataToDisplay/NoDataDisplay";
+import ErrorComponent from "../../../../../../ErrorComponent/ErrorComponent";
+export default function PendingSalonMainPage({ addServices, addedServices }) {
   let [activeSalon, updateActiveSalon] = useState(1);
 
+  let { id } = useParams();
+  const { data, isLoading, isError, error } = useSalonDetailsServices(id);
+  console.log(data?.data);
   return (
     <div className={styles.salon_main}>
       <div className={styles.salon_options}>
@@ -31,26 +35,41 @@ export default function PendingSalonMainPage({
           </a>
         </ul>
       </div>
-      <SalonServiceMain
-        SalonData={SalonData ? SalonData : null}
-        addServices={addServices}
-        addedServices={addedServices}
-      />
+      <div id="services" className={styles.salon_sections}>
+        <h2 className={styles.salon_section_title_wrapper}>
+          <span className={styles.salon_section_title}>Services</span>
+        </h2>
+      </div>
+      <>
+        {isLoading && <LoadSpinner />}
+
+        {data &&
+          !isLoading &&
+          !isError &&
+          data?.data?.services.length > 0 &&
+          data?.data?.services?.map((x, y) => (
+            <SalonServiceMain
+              key={y}
+              data={x}
+              addServices={addServices}
+              addedServices={addedServices}
+            />
+          ))}
+        {data &&
+          !isLoading &&
+          !isError &&
+          data?.data?.services.length === 0 && <NoDataDisplay />}
+
+        {isError && (
+          <ErrorComponent message={error ? error.message : "Error"} />
+        )}
+      </>
 
       <div id="about" className={styles.about}>
         <h2 className={styles.salon_section_title_wrapper}>
           <span className={styles.salon_section_title}>About</span>
         </h2>
-        <p>
-          She Hair & Beauty is a luxurious hair spa nestled in the heart of
-          Ejipura, Bengaluru. Step into a haven of relaxation and rejuvenation,
-          where expert stylists and therapists pamper you with personalized
-          treatments, from haircare to beauty services. Experience the perfect
-          blend of modern techniques and traditional remedies at She Hair &
-          Beauty. She Hair & Beauty is a luxurious hair spa nestled in the heart
-          of Ejipura, Bengaluru. Step into a haven of relaxation and
-          rejuvenation.
-        </p>
+        <p>{data?.data?.salons_description}</p>
       </div>
 
       <div className={styles.storeOpening}>

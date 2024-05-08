@@ -69,7 +69,12 @@
     display: none;
   }
   /* styles.module.css */
-
+  .mainContainer {
+    max-width: 700px;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
   .mainContainer {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -77,12 +82,5 @@
 
   .mainContainer::-webkit-scrollbar {
     display: none;
-  }
-
-  .mainContainer {
-    max-width: 700px;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
 }

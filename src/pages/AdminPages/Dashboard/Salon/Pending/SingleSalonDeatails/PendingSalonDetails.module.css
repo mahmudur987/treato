@@ -15,11 +15,15 @@
 .wrapper {
   flex-grow: 1;
 }
-.btnWrapper {
+.btnWrapper,
+.btnWrapper2 {
   max-width: 283px;
   width: 100%;
   display: flex;
   gap: 20px;
+}
+.btnWrapper2 {
+  display: none;
 }
 .approve {
   width: 100%;
@@ -213,7 +217,9 @@
   .btnWrapper {
     display: none;
   }
-
+  .btnWrapper2 {
+    display: flex;
+  }
   .salon_name {
     font-size: 24px;
     margin-top: 12px;

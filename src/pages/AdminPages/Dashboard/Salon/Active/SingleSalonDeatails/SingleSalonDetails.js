@@ -86,7 +86,7 @@ export default function SingleSalonDetail() {
               })}
               {SalonDetails1?.salon_image?.length > 3 && (
                 <Link
-                  to={"/admin/salon/active/gallery/1"}
+                  to={`/admin/salon/active/gallery/${id}`}
                   className={styles.salon_imagesA}
                 >
                   <div>
