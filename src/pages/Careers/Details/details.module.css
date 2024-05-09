@@ -91,7 +91,8 @@
 
 }
 
-.subBox {
+.subBox,
+.subBox1 {
     width: 100%;
     height: 80px;
     display: flex;
@@ -102,8 +103,15 @@
     display: inline;
 }
 
-.subBox div {
-    max-width: 424px;
+.subBox  div {
+    max-width: 47%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.subBox1  div {
+    max-width: 47%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -117,9 +125,16 @@
     border: 1px solid #CED4DA;
     border-radius: 4px;
 }
+.subinput {
+    width: 424px;
+    height: 48px;
+    padding: 13px 16px 13px 16px;
+    border: 1px solid #CED4DA;
+    border-radius: 4px;
+}
 
 .contactNumber {
-    width: 100%;
+    min-width: 100%;
     height: 48px;
     display: flex;
     flex-wrap: wrap;
@@ -127,18 +142,20 @@
 }
 
 .countryCode {
-    width: 80px;
+  border-right: none;
+    width: 20%;
     height: 48px;
     display: flex;
     align-items: center;
+    font-size: 12px;
     justify-content: space-between;
 }
 
 .phoneno {
-    max-width: 344px;
+    max-width: 80%;
     height: 48px;
     margin-left: -8px;
-    
+    border-left:#FFFFFF;
 }
 .uploadBox{
     width: 174px;
@@ -247,4 +264,64 @@
     font-weight: 600;
     background-color: #08080B;
     color: #FFFFFF;
+  }
+  @media screen and (max-width: 500px){
+    .header{
+      width: 342px;
+      height: auto;
+      
+      flex-direction: column;
+    }
+    .jobHeading h3{
+      height: 72px;
+      font-size: 24px;
+      line-height: 36px;
+    }
+    .formContainer{
+      border: 1px solid red;
+      width: 390px;
+      max-height: 792px;
+      padding: 32px 24px 32px 24px;
+    }
+    .inputBox{
+      height: auto;
+    }
+    .formContainer form{
+      border: 1px dotted yellow;
+      width: 100%;
+      height: auto;
+      gap: 25px;
+    }
+    .formContainer form h4{
+      
+      font-size: 20px;
+      line-height: 30px;
+    }
+    
+    
+    .subBox div input{
+      width:163px;
+      padding: 13px 12px 13px 12px;
+    }
+    .subBox1{
+      height: auto;
+      flex-direction: column;
+      gap: 10px;
+      border: 1px solid red;
+    }
+    .subBox1 div{
+      max-width: 390px;
+      height: auto;
+    }
+    .subBox1 div input{
+      width: 100%;
+    }
+    .contactNumber{
+      border: 1px solid red;
+      
+    }
+    .phoneno{
+      max-width: 60%;
+      flex-wrap: nowrap;
+    }
   }

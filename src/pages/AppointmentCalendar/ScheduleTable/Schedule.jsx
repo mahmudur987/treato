@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import style from './schedule.module.css'
+import React, { useState , useEffect } from 'react';
+import style from './schedule.module.css';
+import { GetCalenderdata } from '../../../services/calender';
 
 // ScheduleTable component
 const ScheduleTable = () => {
@@ -101,56 +102,55 @@ const ScheduleTable = () => {
   {
     time: "6:00 AM"
   }])
+  
+// useEffect( async ()=>{
+// //  const {res, err} = await GetCalenderdata()
+// //  if(res){
+// //   console.log(res)
+// //  }
+// //  else{
+// //   console.log(err);
+// //  }
+// },[])
+
+
+
+
   let box = document.querySelector('#header');
-  let box1 = document.querySelector('#slots');
   const nextProfile = () => {
     let width = box.clientWidth;
-    let width1 = box1.clientWidth;
-    box.scrollLeft = box.scrollLeft + width;
-    box1.scrollLeft = box1.scrollLeft + width1;
+    box.scrollLeft = box.scrollLeft + 170;
   };
 
   const prevProfile = () => {
     let width = box.clientWidth;
-    let width1 = box1.clientWidth;
-    box.scrollLeft = box.scrollLeft - width;
-    box1.scrollLeft = box1.scrollLeft - width1;
-    // console.log(width)
+    box.scrollLeft = box.scrollLeft - 170;
   };
   return (<>
+  <div className={style.durationsBox}>
+      {timeDuration &&
+        timeDuration.map((ele) => <p>{ele.time}</p>)}
+
+    </div>
     <div className={style.header} >
       <button className={style.prev} onClick={nextProfile}>&#10094;</button>
       <div className={style.carousel} id='header'>
-        {profiles.map((profile, index) => (
+        {profiles.map((profile, index) => (<div className={style.profileContainer} >
           <div key={index} className={style.profileBox}>
             <img width={41} height={24} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSasIydkiFM8Nmx5KTx2iAshCaV_YINqfc5TBrUhN9KA&s" alt="" />
             <p>{profile.name}{index}</p>
           </div>
+          <div className={style.slides} >{index}
+
+          </div></div>
         ))}
       </div>
 
 
       <button className={style.next} onClick={prevProfile} >&#10095;</button>
     </div>
-    <div className={style.durationsBox}>
-      {timeDuration &&
-        timeDuration.map((ele) => <p>{ele.time}</p>)}
-
-    </div>
-    <div className={style.middleBox}>
-      <div className={style.timeSlots} id='slots'>
-        {profiles &&
-          profiles.map((ele, index)=>{
-            return(<div className={style.slides} >{index}
-
-            </div>)
-          })
-        }
-        
-
-      </div>
-
-    </div>
+    
+    
   </>
   );
 };

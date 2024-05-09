@@ -94,10 +94,11 @@ function JobDetails() {
                 />
               </div>
             </div>
-            <div className={style.subBox} >
+            <div className={style.subBox1} >
               <div>
                 <label htmlFor="email">Email:</label>
                 <input
+                className={style.subinput}
                   type="email"
                   id="email"
                   name="email"
@@ -119,8 +120,8 @@ function JobDetails() {
                   >
 
                     {/* Add options for country codes */}
-                    <option value="+1">+1 (USA)</option>
-                    <option value="+91" Selected>+91 (India)</option>
+                    <option value="+1">+1</option>
+                    <option value="+91" selected>+91</option>
                     {/* Add more options as needed */}
                   </select>
                   <input
