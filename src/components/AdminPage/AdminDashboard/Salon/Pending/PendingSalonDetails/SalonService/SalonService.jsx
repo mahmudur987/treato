@@ -40,6 +40,17 @@ export default function SalonServiceMain({ hideTitle, setCount, data }) {
           hideTitle ? styles.serviceDetailClass : styles.salon_sections
         }
       >
+        <div className={styles.salon_sections}>
+          <h2 className={styles.salon_section_title_wrapper}>
+            <span
+              style={{ fontSize: "20px" }}
+              className={styles.salon_section_title}
+            >
+              {data.service_name}
+            </span>
+          </h2>
+        </div>
+
         <div
           className={
             hideTitle ? styles.serviceDetailClass : styles.salon_section_main

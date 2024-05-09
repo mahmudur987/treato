@@ -39,8 +39,6 @@ const tableHeading = [
   },
 ];
 const BookingsPartTable = ({ data }) => {
-  console.log(data);
-
   const tableData = data?.map((x) => {
     const data = {
       customerName: x.customer_name ?? "N/A",

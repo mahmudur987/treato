@@ -73,8 +73,11 @@ export default function PendingSalonMainPage({ addServices, addedServices }) {
       </div>
 
       <div className={styles.storeOpening}>
-        <p>Monday - Saturday : 9:00AM - 9:00PM</p>
-        <p>Sunday : 9:00AM - 5:30PM</p>
+        {data?.data?.working_hours.map((x) => (
+          <p>
+            {x.day} : {x.opening_time} -{x.closing_time}
+          </p>
+        ))}
       </div>
 
       <div id="team" className={styles.about}>

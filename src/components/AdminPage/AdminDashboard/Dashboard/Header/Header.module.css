@@ -31,7 +31,7 @@
   max-width: 396px;
   width: 100%;
   min-height: 112px;
-  padding: 24px;
+  padding: 10px 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,7 +40,7 @@
 }
 
 .cardLeft {
-  font-size: 40px;
+  font-size: 35px;
   text-align: center;
   display: flex;
   gap: 20px;
@@ -59,14 +59,13 @@
   line-height: 24px;
 }
 .cardMiddle h3 {
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 600;
   font-family: Lato;
   line-height: 32px;
 }
 
 .cardRight {
-  width: 35%;
   display: flex;
   gap: 2px;
   cursor: caret;

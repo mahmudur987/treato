@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import styles from "./FilterSection.module.css";
 import CustomSelect4 from "../../../../../../Select/CustomeSelect4/CustomSelect4";
 
-const PaymentStatus = ["Paid", "Due", "Refunded"];
-const PaymentDate = ["Cash", "Online Payment"];
-
-const FilterSection = () => {
-  const [selectedPaymentStatus, setSelectedPaymentStatus] =
-    useState("All Bookings ");
-  const [selectedPaymentDate, setSelectedPaymentDate] =
-    useState("October 2023");
-
+const FilterSection = ({ data }) => {
+  const {
+    Month,
+    BookingStatus,
+    selectedBookingStatus,
+    setSelectedBookingStatus,
+    selectedMonth,
+    setSelectedMonth,
+  } = data;
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>
@@ -19,14 +19,14 @@ const FilterSection = () => {
 
       <div className={styles.selectsWrapper}>
         <CustomSelect4
-          options={PaymentStatus}
-          onChange={setSelectedPaymentStatus}
-          value={selectedPaymentStatus}
+          options={BookingStatus}
+          onChange={setSelectedBookingStatus}
+          value={selectedBookingStatus}
         />
         <CustomSelect4
-          options={PaymentDate}
-          onChange={setSelectedPaymentDate}
-          value={selectedPaymentDate}
+          options={Month}
+          onChange={setSelectedMonth}
+          value={selectedMonth}
         />
       </div>
     </div>

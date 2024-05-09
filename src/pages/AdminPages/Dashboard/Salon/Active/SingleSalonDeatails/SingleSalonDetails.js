@@ -53,8 +53,8 @@ export default function SingleSalonDetail() {
                   : ""}{" "}
                 {SalonDetails1?.salon_rating > 0 && <img src={star} alt="" />}
               </div>
-              {SalonDetails1?.total_rating && (
-                <div>({SalonDetails1?.total_rating || ""})</div>
+              {SalonDetails1?.salon_total_rating > 0 && (
+                <div>({SalonDetails1?.salon_total_rating || ""})</div>
               )}
               <img src={ellipse} alt="" />
               <div>{SalonDetails1 ? SalonDetails1.salon_address : null}</div>

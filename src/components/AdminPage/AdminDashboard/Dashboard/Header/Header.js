@@ -4,11 +4,9 @@ import { FaUsers } from "react-icons/fa";
 import { BsClipboardCheck } from "react-icons/bs";
 import { BsClipboard2Check } from "react-icons/bs";
 import { IoIosArrowUp } from "react-icons/io";
-import { useQuery } from "react-query";
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import CustomSelect2 from "../../../../Select/CustomeSelect2/CustomeSelect2";
-import axiosInstance from "../../../../../services/axios";
 import Slider from "react-slick";
 import { useStatistics } from "../../../../../services/superAdmin/Dashboard";
 const Header = () => {
@@ -73,13 +71,13 @@ const Header = () => {
                   <div className={styles.cardMiddle}>
                     <p>New user</p>
 
-                    <h3>{data?.usersCount}</h3>
+                    <h3>{data?.totalUsersCount}</h3>
                   </div>
                 </div>
 
                 <div className={styles.cardRight}>
                   <IoIosArrowUp />
-                  {data?.percentageChange}({data?.usersPercentage}%)
+                  {data?.usersCount}({data?.usersPercentage}%)
                 </div>
               </div>
             </div>
@@ -94,12 +92,13 @@ const Header = () => {
                   <div className={styles.cardMiddle}>
                     <p>Average Sales</p>
 
-                    <h3>₹{data?.averageSales} </h3>
+                    <h3>₹{data?.totalSales} </h3>
                   </div>
                 </div>
 
                 <div className={styles.cardRight}>
-                  ({data?.averageSalesPercentage}%)
+                  <IoIosArrowUp /> {data?.averageSales} (
+                  {data?.averageSalesPercentage}%)
                 </div>
               </div>
             </div>
@@ -117,7 +116,8 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp />({data?.appointmentPercentage}
+                  <IoIosArrowUp /> {data?.percentageChange} (
+                  {data?.appointmentPercentage}
                   %)
                 </div>
               </div>
