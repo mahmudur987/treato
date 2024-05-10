@@ -62,9 +62,11 @@
     margin-left: 86px;
 }
 .scheduleBox{
+    position: absolute;
     width: 1348px;
     height: 880px;
     margin-top: 24px;
     display: flex;
+    overflow-y: scroll;
     gap: 0;
 }

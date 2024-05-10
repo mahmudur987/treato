@@ -21,15 +21,13 @@
 }
 
 .carousel {
-    height: auto;
+    height:auto;
     width: auto;
     display: flex;
     overflow: hidden;
-    align-items: center;
     gap: 10px;
 }
 .profileContainer{
-    
     width: fit-content;
     height: auto;
     display: flex;
@@ -44,7 +42,40 @@
     align-items: center;
     gap: 8px;
 }
-
+.profileBox img{
+    width: 42px;
+    height: 24px;
+    border-radius: 50%;
+}
+.appointmentBox{
+    padding: 8px;
+    border-radius: 4px;
+}
+.clientDetailsBox{
+    width: 144px;
+    height: 58px;
+    display: flex;
+    justify-content: space-between;
+}
+.clientDetailsBox div{
+    width: 107px;
+    height: 58px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.timeDurations,
+.serviceNames,
+.clientNames{
+    font-size: 12px;
+    font-family: Lato;
+    font-weight: 400;
+    line-height: 18px;
+}
+.serviceNames,
+.clientNames{
+    color: #6D747A;
+}
 .durationsBox {
     position: absolute;
     margin-top: 48px;
@@ -62,14 +93,16 @@
     font-family: Lato;
     font-size: 12px;
     font-weight: 400;
-    line-height: 12px;
+    line-height: 14px;
     text-align: center;
 }
 
 
 .slides {
+    height: auto;
     min-width: 160px;
-    height: 834px;
-    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
