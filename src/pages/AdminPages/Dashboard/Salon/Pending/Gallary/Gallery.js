@@ -6,18 +6,54 @@ import ErrorComponent from "../../../../../../components/ErrorComponent/ErrorCom
 import leftIco from "../../../../../../assets/images/AccountSettings/arrow-left.svg";
 import { Link, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useSalonDetailsServices } from "../../../../../../services/superAdmin/Dashboard";
+import {
+  adminToken,
+  useSalonDetailsServices,
+  useSalonImages,
+} from "../../../../../../services/superAdmin/Dashboard";
 import NoDataDisplay from "../../../../../../components/NodataToDisplay/NoDataDisplay";
+import axiosInstance from "../../../../../../services/axios";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { updateAdminPage } from "../../../../../../redux/slices/AdminSlice";
 const PendingSalonGallery = () => {
   const [images, setImages] = useState([]);
   const [showMenu, setShowMenu] = useState("");
   const [showButton, setShowButton] = useState(false);
-
+  const dispatch = useDispatch();
   let { id } = useParams();
-  const { data, isLoading, isError, error } = useSalonDetailsServices(id);
+  const { data, isLoading, isError, error, refetch } = useSalonImages(id);
   useEffect(() => {
-    setImages(data?.data?.salon_Img);
+    setImages(data?.data);
+    dispatch(updateAdminPage());
   }, [data]);
+
+  const handleDelete = async (x) => {
+    const deleteData = {
+      salon_id: id,
+      image_id: x,
+    };
+    console.log(deleteData);
+    try {
+      const headers = {
+        token: adminToken,
+      };
+
+      const { data } = await axiosInstance.delete(
+        "super/salonimagedelete",
+        { headers },
+        deleteData
+      );
+      if (data) {
+        toast.success("Image  Delete Successfully");
+      }
+
+      refetch();
+    } catch (error) {
+      console.error("error", error);
+      toast.error(error ? error.message : "Error");
+    }
+  };
 
   return (
     <div className={styles.mainContainer}>
@@ -30,7 +66,7 @@ const PendingSalonGallery = () => {
         <h2>Pictures</h2>
       </div>
       {isLoading && <LoadSpinner />}
-      {data && !isLoading && !isError && images.length > 0 && (
+      {data && !isLoading && !isError && images?.length > 0 && (
         <div className={styles.container}>
           {images?.map((x, i) => (
             <figure
@@ -38,7 +74,6 @@ const PendingSalonGallery = () => {
               onMouseEnter={() => setShowMenu(x._id)}
               onMouseLeave={() => {
                 setShowMenu("");
-
                 setShowButton(false);
               }}
             >
@@ -48,13 +83,15 @@ const PendingSalonGallery = () => {
                   <BsThreeDotsVertical />
                 </span>
               )}
-              {x._id === showMenu && showButton && <button>Delete</button>}
+              {x._id === showMenu && showButton && (
+                <button onClick={() => handleDelete(x._id)}>Delete</button>
+              )}
             </figure>
           ))}
         </div>
       )}
 
-      {images.length === 0 && <NoDataDisplay />}
+      {images?.length === 0 && <NoDataDisplay />}
 
       {isError && <ErrorComponent message={error ? error.message : "Error"} />}
     </div>

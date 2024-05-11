@@ -25,7 +25,7 @@ function filterDataByStatusAndMonth(data, status, month) {
     });
 }
 
-function generatePastMonths() {
+export function generatePastMonths() {
   const months = [];
   let currentDate = new Date();
 
@@ -55,7 +55,7 @@ const BookingsPart = () => {
   const [selectedBookingStatus, setSelectedBookingStatus] = useState(
     BookingStatus[0]
   );
-  const [selectedMonth, setSelectedMonth] = useState(Month[0]);
+  const [selectedMonth, setSelectedMonth] = useState(Month[1]);
 
   const filteredData = filterDataByStatusAndMonth(
     data?.data,

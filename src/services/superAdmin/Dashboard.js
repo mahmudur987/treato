@@ -122,3 +122,71 @@ export const useSalonDetailsBookings = (id) => {
     },
   });
 };
+export const useSalonReviews = (id) => {
+  const headers = {
+    token: adminToken,
+  };
+  return useQuery({
+    queryKey: [id, "singlesalonbookings"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(
+        `super/salonallreviews?salon_id=${id}`,
+
+        { headers }
+      );
+
+      return data;
+    },
+  });
+};
+export const useSalonImages = (id) => {
+  const headers = {
+    token: adminToken,
+  };
+  return useQuery({
+    queryKey: [id, "salonImages"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(
+        `super/allsalonimages?salon_id=${id}`,
+
+        { headers }
+      );
+
+      return data;
+    },
+  });
+};
+export const useSalonBillAndPayment = (filter) => {
+  const headers = {
+    token: adminToken,
+  };
+  return useQuery({
+    queryKey: [filter, "salonOrderhistory"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(
+        `super/salonorderhistory?${filter}`,
+
+        { headers }
+      );
+
+      return data;
+    },
+  });
+};
+export const useGetDeactivatedSalons = () => {
+  const headers = {
+    token: adminToken,
+  };
+  return useQuery({
+    queryKey: ["deactivated"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(
+        `super/alldeactivatedsalon`,
+
+        { headers }
+      );
+
+      return data;
+    },
+  });
+};

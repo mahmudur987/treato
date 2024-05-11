@@ -3,8 +3,9 @@ import styles from "./FilterSection.module.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
 import CustomSelect4 from "../../../../../Select/CustomeSelect4/CustomSelect4";
-const PaymentStatus = ["Paid", "Due", "Refunded"];
-const PaymentDate = ["Cash", "Online Payment"];
+import { generatePastMonths } from "../../../Salon/SingleSalonDetails/Bookings/BookingsPart";
+const PaymentStatus = ["Online", "Offline"];
+const PaymentDate = generatePastMonths();
 
 const FilterSection = () => {
   const [selectedPaymentStatus, setSelectedPaymentStatus] =

@@ -25,7 +25,11 @@ export default function SalonServiceCard({
                 </span>
                 <span>₹{salonServiceData?.price}</span>
 
-                <button onClick={() => setShowModal(true)}>
+                <button
+                  onClick={() => {
+                    setShowModal(true);
+                  }}
+                >
                   <FaPen />
                 </button>
               </div>
@@ -39,6 +43,8 @@ export default function SalonServiceCard({
       <EditPriceModal
         showModal={showModal}
         onClose={() => setShowModal(false)}
+        data={salonServiceData}
+        salonId={salonId}
       />
     </>
   );

@@ -12,6 +12,7 @@ import { formatDate } from "../../AdminDashboard";
 
 const ActiveSalon = () => {
   const [viewBy, setViewBy] = useState(true);
+
   const { data, isError, isLoading, error } = useActiveSalons();
   const ActiveSalons = data?.data.map((x) => {
     const data = {
@@ -32,7 +33,11 @@ const ActiveSalon = () => {
   return (
     <SalonInDashBoard>
       <section className={styles.mainContainer}>
-        <FilterSection viewBy={viewBy} setViewBy={setViewBy} />
+        <FilterSection
+          viewBy={viewBy}
+          setViewBy={setViewBy}
+          count={ActiveSalons ? ActiveSalons.length : 0}
+        />
 
         {isLoading && <LoadSpinner />}
 

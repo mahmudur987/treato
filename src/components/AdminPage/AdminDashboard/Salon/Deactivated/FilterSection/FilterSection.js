@@ -4,12 +4,12 @@ import CustomSelect4 from "../../../../../Select/CustomeSelect4/CustomSelect4";
 import { MdOutlineGridView } from "react-icons/md";
 import { IoMenu } from "react-icons/io5";
 const Options = ["City", "Division", "State"];
-const FilterSection = ({ viewBy, setViewBy, selectedSalon }) => {
+const FilterSection = ({ viewBy, setViewBy, selectedSalon, count }) => {
   const [selectedOptions, setSelectedOptions] = useState("City ");
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>
-        <h3>Pending (6)</h3>
+        <h3>Deactivated ({count})</h3>
         <div className={styles.topButtonWrapper}>
           <button>
             Approve

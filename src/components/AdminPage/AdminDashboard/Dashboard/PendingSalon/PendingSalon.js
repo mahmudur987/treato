@@ -8,6 +8,7 @@ import { usePendingSalons } from "../../../../../services/superAdmin/Dashboard";
 import { formatDate } from "../../../../../pages/AdminPages/Dashboard/AdminDashboard";
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
+import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 const PendingSalon = () => {
   const { data, isLoading, isError, error } = usePendingSalons();
   const pendingSalonData = data?.pendingSalons?.map((x) => {
@@ -60,7 +61,7 @@ const PendingSalon = () => {
   return (
     <section className={styles.mainContainer}>
       <div className={styles.top}>
-        <h2>Pending Salon (11)</h2>
+        <h2>Pending Salon </h2>
         <Link to={"/admin/salon/pending"}>view all</Link>
       </div>
       {isLoading && <LoadSpinner />}
@@ -98,9 +99,9 @@ const PendingSalon = () => {
           </Slider>
         </div>
       )}
-      {data && !isLoading && !isError && data?.pendingSalons?.length === 0 && (
+      {data && !isLoading && !isError && !data?.pendingSalons && (
         <div className={styles.contents}>
-          <p>No Pending Salon</p>
+          <NoDataDisplay message={"No Pending Salons Are Available"} />
         </div>
       )}
       {isError && <ErrorComponent message={error ? error.message : "Error"} />}

@@ -44,14 +44,11 @@ const DeactivatedAllSalon = ({
                 />
               </p>
               <div className={styles.cardBottom}>
-                <Link
-                  to={`/admin/salon/pending/${salon.id}`}
-                  className={styles.info}
-                >
-                  <h3>{salon.name}</h3>
+                <div className={styles.info}>
+                  <h3>{salon.name} </h3>
                   <p className={styles.address}>{salon.address}</p>
                   <p className={styles.date}>Applied on {salon.date}</p>
-                </Link>
+                </div>
                 <div className={styles.cardAction}>
                   <button className={styles.approve}>Reactivated</button>
                   <button className={styles.reject}>Delete</button>

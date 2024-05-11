@@ -8,16 +8,7 @@ import { usePendingSalons } from "../../../../../services/superAdmin/Dashboard";
 import { formatDate } from "../../AdminDashboard";
 import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
-const pendingSalonData = [
-  {
-    id: 1,
-    image: img,
-    name: "Getanjali Salon",
-    address: "Windmills Road ,Bengaluru",
-    date: "12,Mar ,2024",
-    ownerName: "fajila khatun ",
-  },
-];
+
 const PendingSalon = () => {
   const [viewBy, setViewBy] = useState(true);
   const [selectedSalon, setSelectedSalon] = useState([]);
@@ -40,6 +31,7 @@ const PendingSalon = () => {
           viewBy={viewBy}
           setViewBy={setViewBy}
           selectedSalon={selectedSalon}
+          count={pendingSalonData ? pendingSalonData.length : 0}
         />
         {isLoading && <LoadSpinner />}
         {data && !isError && !isLoading && pendingSalonData.length > 0 && (

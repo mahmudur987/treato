@@ -58,21 +58,23 @@ const tableHeading = [
     heading: "Invoice",
   },
 ];
-const BillAndPaymentPartTable = () => {
-  const tableData = [
-    {
-      txnId: "213541",
-      date: "5-12-24",
-      clientName: "Mahmud",
-      services: "Hair cut",
-      amount: "105",
-      status: "canceled",
-      Mode: "online",
-      paidOn: "24 Dec 2023",
-      tax: "34.8",
-      comm: "3.8",
-    },
-  ];
+const BillAndPaymentPartTable = ({ data }) => {
+  const tableData = data?.map((x) => {
+    const data = {
+      txnId: "not in db",
+      date: x.appointmentDate ?? "N/A",
+      clientName: x.clientName ?? "N/A",
+      services: x?.serviceData?.map((x) => x.service_name).join(" ,") ?? "N/A",
+      amount: x.amount ?? "N/A",
+      status: x.status ?? "N/A",
+      Mode: x.paymentMode ?? "N/A",
+      paidOn: x.painOn ?? "N/A",
+      tax: x.tax ?? "N/A",
+      comm: x.comm ?? "N/A",
+    };
+
+    return data;
+  });
 
   return (
     <div className={sty.mainContainer}>
@@ -105,7 +107,7 @@ const BillAndPaymentPartTable = () => {
           </thead>
           <tbody className={sty.tbody}>
             {tableData.map((x) => (
-              <tr style={{ borderBottom: "1px solid #ebedf0" }}>
+              <tr style={{ borderBottom: "1px solid #ebedf0" }} key={x.txnId}>
                 <td>
                   <div className={sty.checkbox}>
                     <input type="checkbox" id="" />

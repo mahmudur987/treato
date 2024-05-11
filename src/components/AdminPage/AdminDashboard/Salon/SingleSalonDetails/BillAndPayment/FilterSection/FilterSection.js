@@ -4,15 +4,18 @@ import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
 import CustomSelect4 from "../../../../../../Select/CustomeSelect4/CustomSelect4";
 
-const PaymentStatus = ["Paid", "Due", "Refunded"];
-const PaymentMode = ["Cash", "Online Payment"];
-
-const FilterSection = () => {
-  const [selectedPaymentStatus, setSelectedPaymentStatus] =
-    useState(" Status ");
-  const [selectedPaymentMode, setSelectedPaymentMode] =
-    useState("Payment Mode ");
-  const [date, setDate] = useState("October 2023");
+const FilterSection = ({ value }) => {
+  const {
+    PaymentStatus,
+    PaymentMode,
+    month,
+    selectedPaymentStatus,
+    setSelectedPaymentStatus,
+    selectedPaymentMode,
+    setSelectedPaymentMode,
+    date,
+    setDate,
+  } = value;
   return (
     <div className={styles.mainContainerWrapper}>
       <div className={styles.mainContainer}>
@@ -21,11 +24,7 @@ const FilterSection = () => {
         </div>
 
         <div className={styles.selectsWrapper}>
-          <CustomSelect4
-            options={PaymentStatus}
-            onChange={setSelectedPaymentStatus}
-            value={date}
-          />
+          <CustomSelect4 options={month} onChange={setDate} value={date} />
           <CustomSelect4
             options={PaymentStatus}
             onChange={setSelectedPaymentStatus}

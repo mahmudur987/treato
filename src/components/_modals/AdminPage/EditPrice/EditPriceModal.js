@@ -5,13 +5,48 @@ import img1 from "../../../../assets/images/TeamDetails/ProfileImg.png";
 import { IoMdArrowBack } from "react-icons/io";
 
 import { toast } from "react-toastify";
+import axiosInstance from "../../../../services/axios";
+import {
+  adminToken,
+  useSalonDetailsServices,
+} from "../../../../services/superAdmin/Dashboard";
+import { useParams } from "react-router-dom";
 
-const EditPriceModal = ({ showModal, onClose }) => {
-  const [error, setError] = useState(null);
+const EditPriceModal = ({ showModal, onClose, data, salonId }) => {
+  const [price, setPrice] = useState("");
+  const { id } = useParams();
+  const { refetch } = useSalonDetailsServices(id);
+  const handleEditPrice = async () => {
+    if (!price) {
+      return toast.error("Add Price");
+    }
 
-  if (error) {
-    toast.error("error happen");
-  }
+    const deleteData = {
+      mainId: salonId,
+      subId: data._id,
+      price,
+    };
+    console.log(deleteData);
+    try {
+      const headers = {
+        token: adminToken,
+      };
+
+      const { data } = await axiosInstance.patch(
+        "super/editserviceprice",
+        deleteData,
+        { headers }
+      );
+      if (data) {
+        toast.success("Edit Price successfully");
+        onClose();
+        refetch();
+      }
+    } catch (error) {
+      console.error("error", error);
+      toast.error(error ? error.message : "Error");
+    }
+  };
   return (
     <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
       <div className={styles.modalContent}>
@@ -32,13 +67,18 @@ const EditPriceModal = ({ showModal, onClose }) => {
           <div className={styles.serviceName}>
             <label htmlFor="">service</label>
 
-            <input type="text" value={"Haircut for women"} disabled />
+            <input type="text" value={data?.service_name} disabled />
           </div>
 
           <div className={styles.inputWrapper}>
             <div className={styles.wrapper}>
               <label htmlFor="price">New Price</label>
-              <input type="text" placeholder="₹599" value={"₹599"} />
+              <input
+                type="text"
+                placeholder="₹599"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
             </div>
             <div className={styles.wrapper}>
               <label htmlFor="price">Effective from</label>
@@ -59,7 +99,11 @@ const EditPriceModal = ({ showModal, onClose }) => {
           >
             Cancel
           </button>
-          <button className={styles.save} type="button">
+          <button
+            className={styles.save}
+            type="button"
+            onClick={handleEditPrice}
+          >
             Save
           </button>
         </div>
