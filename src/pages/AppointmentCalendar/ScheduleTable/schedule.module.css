@@ -2,6 +2,7 @@
     width: 1268px;
     height: auto;
     display: flex;
+    align-items: baseline;
     margin-left: 80px;
     gap: 10px;
 }
@@ -24,6 +25,7 @@
     height:auto;
     width: auto;
     display: flex;
+    align-items: baseline;
     overflow: hidden;
     gap: 10px;
 }
@@ -102,6 +104,7 @@
     height: auto;
     min-width: 160px;
     display: flex;
+    align-items: baseline;
     flex-direction: column;
     gap: 20px;
 }

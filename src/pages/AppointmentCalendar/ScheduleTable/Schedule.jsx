@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import style from './schedule.module.css';
-import { GetCalenderdata } from '../../../services/calender';
 
 // ScheduleTable component
-const ScheduleTable = () => {
+const ScheduleTable = ({profiles}) => {
   // Define state variables
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [profiles, setEmployee] = useState(null);
   const [timeDuration, setDurations] = useState([{
     time: "6:00 AM"
   },
@@ -28,20 +26,7 @@ const ScheduleTable = () => {
     time: "6:00 AM"
   }])
 
-  useEffect(() => {
-    const getdata = async () => {
-      const { res, err } = await GetCalenderdata()
-      if (res) {
-        setEmployee(res.data);
-        console.log(res)
-      }
-      else {
-        console.log(err);
-      }
-    }
-    getdata()
-    console.log(profiles);
-  }, [])
+ 
 
 
 
@@ -56,6 +41,35 @@ const ScheduleTable = () => {
     let width = box.clientWidth;
     box.scrollLeft = box.scrollLeft - 170;
   };
+
+  const convertTime = (timeString) => {
+    const timeParts = timeString.split(' ');
+    let totalMinutes = 0;
+    let totalHeight = 72;
+
+    for (let i = 0; i < timeParts.length; i += 2) {
+      if (timeParts[i + 1] === 'hr') {
+        totalMinutes += parseInt(timeParts[i], 10) * 60;
+      } else if (timeParts[i + 1] === 'mins') {
+        totalMinutes += parseInt(timeParts[i], 10);
+      }
+    }
+    if(totalMinutes<=15){
+      return  totalHeight;
+    }
+    else if(totalMinutes<=30){
+      return 2*totalHeight;
+    }
+    else if(totalMinutes<=45){
+      return 3*totalHeight;
+    }
+    else {
+      return 4*totalHeight;
+    }
+
+    
+  };
+
   return (<>
     <div className={style.durationsBox}>
       {timeDuration &&
@@ -69,17 +83,21 @@ const ScheduleTable = () => {
           profiles.map((profile, index) => (
             <div className={style.profileContainer} >
               <div key={index} className={style.profileBox}>
-                <img src={profile.stylistImage?.public_url} alt="profile image" />
+                <img src={profile.stylistImage?.public_url} alt="" />
                 <p>{profile.stylistName}</p>
               </div>
               <div className={style.slides} >
                 {profile.appointments.map((ele) => {
                   return <>
                     {ele.services.map((item) => {
+
+                      const heights = convertTime(item.time_takenby_service);
+                      // console.log(heights);
+
                       return <>
                         <div className={style.appointmentBox} style={{
                           width: 160,
-                          height: 200,
+                          height: `${heights}px`,
                           backgroundColor: `${ele.color}`
                         }} >
                           <div className={style.clientDetailsBox} >

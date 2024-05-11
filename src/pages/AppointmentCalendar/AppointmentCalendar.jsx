@@ -1,13 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './style.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import CalendarModal from '../../components/_modals/CalendarModal/CalendarModal';
 import ScheduleTable from './ScheduleTable/Schedule';
+import { GetCalenderdata } from '../../services/calender';
 
 function AppointmentCalendar() {
     const [date, setDate] = useState(new Date());
     const [showCalendar, setShowCalendar] = useState(false);
+    const [profiles, setEmployee] = useState(null);
+    const [filteredData, setFilter] = useState(null);
+
+    useEffect(() => {
+        const getdata = async () => {
+            const { res, err } = await GetCalenderdata()
+            if (res) {
+                setEmployee(res.data);
+                setFilter(res.data)
+                console.log(res)
+            }
+            else {
+                console.log(err);
+            }
+        }
+        getdata()
+        console.log(profiles);
+    }, []);
+
+const filteredFn =(e)=>{
+    if(e.target.value==="Everyone"){
+        setEmployee(filteredData)
+    }
+    else{
+        const filteredByName = filteredData.filter((ele)=>ele.stylistName===e.target.value);
+        setEmployee(filteredByName)
+    }
+}
+
 
     const decreaseDate = () => {
         const newDate = new Date(date);
@@ -25,7 +54,7 @@ function AppointmentCalendar() {
         setShowCalendar(false);
     };
 
-    
+
     return (
         <>
             <div className={style.mainContainer} >
@@ -51,16 +80,17 @@ function AppointmentCalendar() {
                         )}
                     </div>
                     <div className={style.rightBox} >
-                        <select className={style.filter} name="persons" id="dropdown">
-                            <option value="" selected >Everyone</option>
-                            <option value="krishna">Krishna</option>
+                        <select className={style.filter} onChange={filteredFn} name="persons" id="dropdown">
+                            <option value="Everyone" selected >Everyone</option>
+                            {filteredData &&
+                            filteredData.map((item)=><option value={item.stylistName}>{item.stylistName}</option>)}
                         </select>
                         <button><span>+</span>Add Appointment</button>
                     </div>
                 </div>
                 <div className={style.lineBar}></div>
-                <div className={style.scheduleBox} ><ScheduleTable/></div>
-                
+                <div className={style.scheduleBox} ><ScheduleTable profiles={profiles} /></div>
+
             </div>
         </>
     )
