@@ -46,6 +46,7 @@ const SingleReview = ({ data }) => {
       <DeleteReviewModal
         showModal={showModal}
         onClose={() => setShowModal(false)}
+        data={data}
       />
     </>
   );

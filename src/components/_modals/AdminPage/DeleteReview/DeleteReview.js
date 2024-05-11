@@ -5,13 +5,27 @@ import styles from "./DeleteReview.module.css";
 import { IoMdArrowBack } from "react-icons/io";
 
 import { toast } from "react-toastify";
+import axiosInstance from "../../../../services/axios";
+import { adminToken } from "../../../../services/superAdmin/Dashboard";
 
-const DeleteReviewModal = ({ showModal, onClose }) => {
-  const [error, setError] = useState(null);
+const DeleteReviewModal = ({ showModal, onClose, data }) => {
+  const handleSubmit = async () => {
+    try {
+      const headers = {
+        token: adminToken,
+      };
 
-  if (error) {
-    toast.error("error happen");
-  }
+      const { data } = await axiosInstance.post("super/createsalonreview", {
+        headers,
+      });
+      if (data) {
+        toast.success("review added successfully");
+      }
+    } catch (error) {
+      console.error("error", error);
+      toast.error(error ? error.message : "Error");
+    }
+  };
   return (
     <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
       <div className={styles.modalContent}>

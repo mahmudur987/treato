@@ -15,10 +15,15 @@ import { salon } from "../../../../../../services/salon.js";
 import SalonMainPage from "../../../../../../components/AdminPage/AdminDashboard/Salon/SingleSalonDetails/SalonMainPage/SalonMainPage.jsx";
 import { Link } from "react-router-dom";
 import { updateAdminPage } from "../../../../../../redux/slices/AdminSlice.js";
-import { useSalonDetails } from "../../../../../../services/superAdmin/Dashboard.js";
+import {
+  adminToken,
+  useSalonDetails,
+} from "../../../../../../services/superAdmin/Dashboard.js";
 import LoadSpinner from "../../../../../../components/LoadSpinner/LoadSpinner.js";
 import ErrorComponent from "../../../../../../components/ErrorComponent/ErrorComponent.js";
 import NoDataDisplay from "../../../../../../components/NodataToDisplay/NoDataDisplay.js";
+import axiosInstance from "../../../../../../services/axios.js";
+import { toast } from "react-toastify";
 export default function SingleSalonDetail() {
   let [SalonDetails1, setSalonDetails1] = useState(null);
   let [addedServices, addServices] = useState([]);
@@ -32,6 +37,31 @@ export default function SingleSalonDetail() {
     setFirstImage(data?.data[0]?.salon_image[0]?.public_url);
     dispatch(updateAdminPage());
   }, [data]);
+  console.log(data);
+  const handleDeactivate = async () => {
+    try {
+      const headers = {
+        token: adminToken,
+      };
+
+      const { data } = await axiosInstance.patch(
+        "super/salondeactivate",
+
+        {
+          id,
+        },
+
+        { headers }
+      );
+
+      if (data) {
+        toast.success("Salon Deactivated successfully");
+      }
+    } catch (error) {
+      console.error("error", error);
+      toast.error(error ? error.message : "Error");
+    }
+  };
 
   return (
     <div className={styles.salon_page}>
@@ -62,7 +92,7 @@ export default function SingleSalonDetail() {
           </div>
 
           <div className={styles.btnWrapper}>
-            <button>Deactivate Salon</button>
+            <button onClick={handleDeactivate}>Deactivate Salon</button>
           </div>
         </div>
       )}

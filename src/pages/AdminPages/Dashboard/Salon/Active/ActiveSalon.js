@@ -22,14 +22,14 @@ const ActiveSalon = () => {
       salon_rating: x.rating ?? "N/A",
       salon_ratingCount: "277",
       salon_address: x.address ?? "N/A",
-      salon_owner: x.owner_name ?? "owner name not available",
+      salon_owner: x.owner_name ?? "N/A",
       salon_joinDate: formatDate(x.date_join) ?? "N/A",
       salon_NetSales: x.net_sales ?? "N/A",
     };
 
     return data;
   });
-
+  console.log(data);
   return (
     <SalonInDashBoard>
       <section className={styles.mainContainer}>

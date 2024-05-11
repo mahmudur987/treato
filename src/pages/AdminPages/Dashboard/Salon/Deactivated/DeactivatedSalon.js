@@ -18,7 +18,7 @@ const DeactivatedSalon = () => {
   const pendingSalonData = data?.data.map((x) => {
     const data = {
       id: x._id,
-      image: x.salon_image.public_url ?? img,
+      image: x?.salon_image?.public_url ?? img,
       name: x.salon_name,
       address: x.salons_address,
       date: formatDate(x.created) ?? "N/A",
