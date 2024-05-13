@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import style from './schedule.module.css';
 
-// ScheduleTable component
-const ScheduleTable = ({profiles}) => {
-  // Define state variables
-  const [currentIndex, setCurrentIndex] = useState(0);
+
+const ScheduleTable = ({ profiles }) => {
+
+  const [isOpen, setIsOpen] = useState(false);
   const [timeDuration, setDurations] = useState([{
     time: "6:00 AM"
   },
@@ -25,11 +25,15 @@ const ScheduleTable = ({profiles}) => {
   {
     time: "6:00 AM"
   }])
+  const [openMenus, setOpenMenus] = useState(Array(profiles?.length).fill(false));
+//Array(profiles.length).fill(false)
 
- 
-
-
-
+var indexSum = 0;
+const toggleMenu = (index) => {
+  const newOpenMenus = [...openMenus];
+  newOpenMenus[index] = !newOpenMenus[index];
+  setOpenMenus(newOpenMenus);
+};
 
   let box = document.querySelector('#header');
   const nextProfile = () => {
@@ -54,20 +58,20 @@ const ScheduleTable = ({profiles}) => {
         totalMinutes += parseInt(timeParts[i], 10);
       }
     }
-    if(totalMinutes<=15){
-      return  totalHeight;
+    if (totalMinutes <= 15) {
+      return totalHeight;
     }
-    else if(totalMinutes<=30){
-      return 2*totalHeight;
+    else if (totalMinutes <= 30) {
+      return 2 * totalHeight;
     }
-    else if(totalMinutes<=45){
-      return 3*totalHeight;
+    else if (totalMinutes <= 45) {
+      return 3 * totalHeight;
     }
     else {
-      return 4*totalHeight;
+      return 4 * totalHeight;
     }
 
-    
+
   };
 
   return (<>
@@ -87,16 +91,17 @@ const ScheduleTable = ({profiles}) => {
                 <p>{profile.stylistName}</p>
               </div>
               <div className={style.slides} >
-                {profile.appointments.map((ele) => {
+                {profile.appointments.map((ele,z) => {
                   return <>
-                    {ele.services.map((item) => {
+                    {ele.services.map((item,appointmentIndex) => {
 
                       const heights = convertTime(item.time_takenby_service);
                       // console.log(heights);
+                      indexSum+=appointmentIndex+z
+                      
 
                       return <>
-                        <div className={style.appointmentBox} style={{
-                          width: 160,
+                        <div className={style.appointmentBox} key={index} style={{
                           height: `${heights}px`,
                           backgroundColor: `${ele.color}`
                         }} >
@@ -107,9 +112,33 @@ const ScheduleTable = ({profiles}) => {
                               <p className={style.serviceNames} >{item.service_name}</p>
                               <p className={style.clientNames} >{ele.ClientName}</p>
                             </div>
-                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01" />
-                            </svg>
+                            
+                            <svg
+                    onClick={() => toggleMenu(index)}
+                    className="w-6 h-6 text-gray-800 dark:text-white"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M12 6h.01M12 12h.01M12 18h.01" />
+                  </svg>
+
+                  {openMenus[index] && (
+                    <div className={style.dropdowncontent}>
+                      <div className={style.inputContainer} >
+                        <input className={style.otpBox} type="text" placeholder='OTP' />
+                        <div className={style.editButton} >Edit </div>
+                      </div>
+                      <div className={style.started} >Started</div>
+                      <div className={style.started} >Started</div>
+                      <div className={style.started} >Started</div>
+                      <div className={style.started} >Started</div>
+                    </div>
+                  )}
+                            
 
                           </div>
                         </div></>
@@ -121,7 +150,8 @@ const ScheduleTable = ({profiles}) => {
                 })}
 
 
-              </div></div>
+              </div>
+              </div>
           ))}
       </div>
 
