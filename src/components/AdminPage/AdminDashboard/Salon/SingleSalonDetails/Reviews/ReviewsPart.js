@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AddNewReview from "./AddNewReview/AddNewReview";
 import SingleReview from "./SingleReview/SingleReview";
 import styles from "./ReviewsPart.module.css";
@@ -7,8 +7,11 @@ import { useParams } from "react-router-dom";
 import LoadSpinner from "../../../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../ErrorComponent/ErrorComponent";
 import NoDataDisplay from "../../../../../NodataToDisplay/NoDataDisplay";
+import { useDispatch } from "react-redux";
+import { updateAdminPage } from "../../../../../../redux/slices/AdminSlice";
 
 const ReviewsPart = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const { data, isLoading, isError, error } = useSalonReviews(id);
   const reviewData = data?.data?.map((x) => {
@@ -21,7 +24,9 @@ const ReviewsPart = () => {
     };
     return data;
   });
-  console.log(data);
+  useEffect(() => {
+    dispatch(updateAdminPage());
+  }, [data]);
   return (
     <section className={styles.mainContainer}>
       <AddNewReview />

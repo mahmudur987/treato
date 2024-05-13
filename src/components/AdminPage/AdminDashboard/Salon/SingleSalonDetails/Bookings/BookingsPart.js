@@ -13,8 +13,7 @@ import { updateAdminPage } from "../../../../../../redux/slices/AdminSlice";
 function filterDataByStatusAndMonth(data, status, month) {
   return data
     ?.filter(
-      (item) =>
-        status === "All" || item.booking_status === status.toLocaleString()
+      (item) => status === "All" || item.booking_status === status.toLowerCase()
     )
     .filter((item) => {
       const appointmentMonth = new Date(item.appointment_date).toLocaleString(

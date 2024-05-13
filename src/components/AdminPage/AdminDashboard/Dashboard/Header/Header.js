@@ -71,13 +71,14 @@ const Header = () => {
                   <div className={styles.cardMiddle}>
                     <p>New user</p>
 
-                    <h3>{data?.totalUsersCount}</h3>
+                    <h3>{Number(data?.totalUsersCount).toFixed(2)}</h3>
                   </div>
                 </div>
 
                 <div className={styles.cardRight}>
                   <IoIosArrowUp />
-                  {data?.usersCount}({data?.usersPercentage}%)
+                  {Number(data?.usersCount).toFixed(2)}(
+                  {Number(data?.usersPercentage).toFixed(2)}%)
                 </div>
               </div>
             </div>
@@ -92,13 +93,13 @@ const Header = () => {
                   <div className={styles.cardMiddle}>
                     <p>Average Sales</p>
 
-                    <h3>₹{data?.totalSales} </h3>
+                    <h3>₹{Number(data?.totalSales).toFixed(2)} </h3>
                   </div>
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp /> {data?.averageSales} (
-                  {data?.averageSalesPercentage}%)
+                  <IoIosArrowUp /> {Number(data?.averageSales).toFixed(2)} (
+                  {Number(data?.averageSalesPercentage).toFixed(2)}%)
                 </div>
               </div>
             </div>
@@ -111,13 +112,13 @@ const Header = () => {
                   <BsClipboard2Check />
                   <div className={styles.cardMiddle}>
                     <p>Total Appointments</p>
-                    <h3>{data?.appointmentCount}</h3>
+                    <h3>{Number(data?.appointmentCount).toFixed(2)}</h3>
                   </div>
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp /> {data?.percentageChange} (
-                  {data?.appointmentPercentage}
+                  <IoIosArrowUp /> {Number(data?.percentageChange).toFixed(2)} (
+                  {Number(data?.appointmentPercentage).toFixed(2)}
                   %)
                 </div>
               </div>

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Commission.module.css";
 import { FaPen } from "react-icons/fa";
 const Commission = () => {
+  const [commission, setCommission] = useState("");
+  const [enable, setEnable] = useState(true);
   return (
     <div className={styles.mainContainer}>
       <div className={styles.left}>
@@ -16,10 +18,19 @@ const Commission = () => {
         <label htmlFor="commission">Commission %</label>
 
         <div className={styles.wrapper}>
-          <input type="text" value={"5%"} />
-          <span>
-            <FaPen />
-          </span>
+          <input
+            id="comm"
+            disabled={enable}
+            type="text"
+            value={commission}
+            placeholder="5%"
+            onChange={(e) => setCommission(e.target.value)}
+          />
+          <label htmlFor="comm">
+            <span onClick={() => setEnable((pre) => !pre)}>
+              <FaPen />
+            </span>
+          </label>
         </div>
       </div>
     </div>

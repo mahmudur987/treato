@@ -37,7 +37,7 @@ export default function SingleSalonDetail() {
     setFirstImage(data?.data[0]?.salon_image[0]?.public_url);
     dispatch(updateAdminPage());
   }, [data]);
-  console.log(data);
+
   const handleDeactivate = async () => {
     try {
       const headers = {

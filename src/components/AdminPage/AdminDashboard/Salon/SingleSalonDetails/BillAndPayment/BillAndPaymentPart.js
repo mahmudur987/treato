@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./BillAndPaymentPart.module.css";
 import FilterSection from "./FilterSection/FilterSection";
 import BillAndPaymentPartTable from "./BillAndPaymentTable/BillAndPaymentsTable";
@@ -9,6 +9,8 @@ import { useSalonBillAndPayment } from "../../../../../../services/superAdmin/Da
 import LoadSpinner from "../../../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../ErrorComponent/ErrorComponent";
 import NoDataDisplay from "../../../../../NodataToDisplay/NoDataDisplay";
+import { useDispatch } from "react-redux";
+import { updateAdminPage } from "../../../../../../redux/slices/AdminSlice";
 function filterDataByStatusAndMonth(data, month) {
   return data?.filter((item) => {
     const appointmentMonth = new Date(item.appointmentDate).toLocaleString(
@@ -22,6 +24,7 @@ function filterDataByStatusAndMonth(data, month) {
   });
 }
 const BillAndPaymentPart = () => {
+  const dispatch = useDispatch();
   const PaymentStatus = ["Complete", "Upcoming", "All"];
   const PaymentMode = ["On-site", "Online", "All"];
   const month = generatePastMonths();
@@ -43,8 +46,6 @@ const BillAndPaymentPart = () => {
 
   const { data, isLoading, isError, error } = useSalonBillAndPayment(filter);
 
-  // console.log(data?.data);
-
   const value = {
     PaymentStatus,
     PaymentMode,
@@ -58,7 +59,9 @@ const BillAndPaymentPart = () => {
   };
   const filteredData = filterDataByStatusAndMonth(data?.data, date);
 
-  console.log(filteredData);
+  useEffect(() => {
+    dispatch(updateAdminPage());
+  }, [filteredData]);
   return (
     <section className={styles.mainContainer}>
       <Commission />

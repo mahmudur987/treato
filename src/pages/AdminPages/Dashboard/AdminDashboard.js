@@ -8,18 +8,18 @@ export const formatDate = (dateString) => {
 
   // Array of month names
   const monthNames = [
-    "Gen",
+    "jan",
     "Feb",
     "Mar",
     "Apr",
-    "Mag",
-    "Giu",
-    "Lug",
-    "Ago",
-    "Set",
-    "Ott",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
     "Nov",
-    "Dic",
+    "Dec",
   ];
 
   // Get day, month, and year
