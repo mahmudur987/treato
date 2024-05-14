@@ -9,11 +9,18 @@ import { useActiveSalons } from "../../../../../services/superAdmin/Dashboard";
 import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
 import { formatDate } from "../../AdminDashboard";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const ActiveSalon = () => {
   const [viewBy, setViewBy] = useState(true);
+  const { searchText } = useSelector((state) => state.admin);
 
-  const { data, isError, isLoading, error } = useActiveSalons();
+  const { pathname } = useLocation();
+
+  const { data, isError, isLoading, error } = useActiveSalons(
+    pathname === "/admin/salon/active" ? searchText : ""
+  );
   const ActiveSalons = data?.data.map((x) => {
     const data = {
       id: x._id,
@@ -29,7 +36,7 @@ const ActiveSalon = () => {
 
     return data;
   });
-  console.log(data);
+
   return (
     <SalonInDashBoard>
       <section className={styles.mainContainer}>

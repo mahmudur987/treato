@@ -54,7 +54,9 @@ export const usePendingSalons = () => {
     },
   });
 };
-export const useActiveSalons = () => {
+export const useActiveSalons = (x) => {
+  // console.log(x);
+
   const headers = {
     token: adminToken,
   };

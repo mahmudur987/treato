@@ -8,6 +8,7 @@ import {
 } from "../../../../redux/slices/user";
 import mask from "../../../../assets/images/NavbarImages/Mask.png";
 import { CiSearch } from "react-icons/ci";
+import { updateSearchText } from "../../../../redux/slices/AdminSlice";
 const SalonInDashboardNavbar = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
@@ -33,6 +34,9 @@ const SalonInDashboardNavbar = () => {
             name="salonSearch"
             id="salonSearch"
             placeholder="Search Salons"
+            onChange={(e) =>
+              dispatch(updateSearchText({ searchText: e.target.value }))
+            }
           />
         </p>
 
