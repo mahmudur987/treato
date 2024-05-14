@@ -15,7 +15,7 @@
     color: #000000;
 }
 .container{
-    position: inherit;
+    position: absolute;
     width: 214px;
     height: 180px;
     display: flex;

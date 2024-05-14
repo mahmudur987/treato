@@ -134,25 +134,28 @@
 }
 
 .contactNumber {
-    min-width: 100%;
+    min-width: 424px;
     height: 48px;
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: 0;
 }
 
 .countryCode {
-  border-right: none;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+   border-right: none;
     width: 20%;
     height: 48px;
     display: flex;
-    align-items: center;
     font-size: 12px;
     justify-content: space-between;
 }
 
 .phoneno {
-    max-width: 80%;
+  border: 1px solid #CED4DA;
+    width: 339px;
     height: 48px;
     margin-left: -8px;
     border-left:#FFFFFF;
@@ -278,7 +281,6 @@
       line-height: 36px;
     }
     .formContainer{
-      border: 1px solid red;
       width: 390px;
       max-height: 792px;
       padding: 32px 24px 32px 24px;
@@ -287,7 +289,6 @@
       height: auto;
     }
     .formContainer form{
-      border: 1px dotted yellow;
       width: 100%;
       height: auto;
       gap: 25px;
@@ -307,7 +308,6 @@
       height: auto;
       flex-direction: column;
       gap: 10px;
-      border: 1px solid red;
     }
     .subBox1 div{
       max-width: 390px;
@@ -317,11 +317,16 @@
       width: 100%;
     }
     .contactNumber{
-      border: 1px solid red;
-      
+      min-width: fit-content;
+      max-height: 48px;
+      align-items: baseline;
+      flex-direction: row;
+    }
+    .countryCode{
+      width: 80px;
     }
     .phoneno{
-      max-width: 60%;
-      flex-wrap: nowrap;
+      width: 290px;
     }
+   
   }

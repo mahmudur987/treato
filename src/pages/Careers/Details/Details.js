@@ -125,7 +125,6 @@ function JobDetails() {
                     {/* Add more options as needed */}
                   </select>
                   <input
-                    width={374}
                     className={style.phoneno}
                     type="tel"
                     id="phoneNumber"
