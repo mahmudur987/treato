@@ -69,4 +69,19 @@
     display: flex;
     overflow-y: scroll;
     gap: 0;
+    
+}
+.scheduleBox::-webkit-scrollbar{
+    margin-top: 50px;
+    height: 820px;
+    width: 6px;
+    background-color: #E9EDF2;
+}
+.scheduleBox::-webkit-scrollbar-thumb {
+    min-width: 6px;
+    border-radius: 20px;
+    background-color: #A1A9B6;
+}
+.scheduleBox ::-webkit-scrollbar-button{
+    
 }

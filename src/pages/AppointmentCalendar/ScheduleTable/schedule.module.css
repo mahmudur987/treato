@@ -111,6 +111,10 @@
 .appointmentBox{
     width: 100%;
 }
+.clientDetailsBox svg{
+    cursor: pointer;
+    font-weight: 600;
+}
 .dropdowncontent{
     position: absolute;
     margin-left: 30px;
@@ -124,15 +128,19 @@
     gap: 0;
 }
 .inputContainer{
-    width: 100%;
-    min-height: 96px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    min-width: 100%;
+    min-height: 48px;
+    padding: 13px 12px 13px 12px;
+}
+.otpBox{
+    min-width: 180px;
+    min-height: 30px;
+    border-radius: 4px;
+    padding: 8px;
+    border: 1px solid #CED4DA;
 }
 
 .started,
-.otpBox,
 .editButton{
     cursor: pointer;
     min-width: 100%;

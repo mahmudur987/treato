@@ -4,7 +4,7 @@ import style from './schedule.module.css';
 
 const ScheduleTable = ({ profiles }) => {
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [openMenus, setOpenMenus] = useState({});
   const [timeDuration, setDurations] = useState([{
     time: "6:00 AM"
   },
@@ -25,15 +25,15 @@ const ScheduleTable = ({ profiles }) => {
   {
     time: "6:00 AM"
   }])
-  const [openMenus, setOpenMenus] = useState(Array(profiles?.length).fill(false));
-//Array(profiles.length).fill(false)
 
-var indexSum = 0;
-const toggleMenu = (index) => {
-  const newOpenMenus = [...openMenus];
-  newOpenMenus[index] = !newOpenMenus[index];
-  setOpenMenus(newOpenMenus);
-};
+
+
+  const toggleMenu = (id) => {
+    setOpenMenus((prevOpenMenus) => ({
+      ...prevOpenMenus,
+      [id]: !prevOpenMenus[id]
+    }));
+  };
 
   let box = document.querySelector('#header');
   const nextProfile = () => {
@@ -84,75 +84,79 @@ const toggleMenu = (index) => {
       <button className={style.prev} onClick={nextProfile}>&#10094;</button>
       <div className={style.carousel} id='header'>
         {profiles &&
-          profiles.map((profile, index) => (
-            <div className={style.profileContainer} >
-              <div key={index} className={style.profileBox}>
-                <img src={profile.stylistImage?.public_url} alt="" />
-                <p>{profile.stylistName}</p>
-              </div>
-              <div className={style.slides} >
-                {profile.appointments.map((ele,z) => {
-                  return <>
-                    {ele.services.map((item,appointmentIndex) => {
 
-                      const heights = convertTime(item.time_takenby_service);
-                      // console.log(heights);
-                      indexSum+=appointmentIndex+z
-                      
+          profiles.map((profile, index) => {
+            let indexSum = 0;
+            return (
 
-                      return <>
-                        <div className={style.appointmentBox} key={index} style={{
-                          height: `${heights}px`,
-                          backgroundColor: `${ele.color}`
-                        }} >
-                          <div className={style.clientDetailsBox} >
+              <div className={style.profileContainer} >
+                <div key={index} className={style.profileBox}>
+                  <img src={profile.stylistImage?.public_url} alt="" />
+                  <p>{profile.stylistName}</p>
+                </div>
+                <div className={style.slides} >
+                  {profile.appointments.map((ele, z) => {
 
-                            <div>
-                              <p className={style.timeDurations} >{item.time_takenby_service}</p>
-                              <p className={style.serviceNames} >{item.service_name}</p>
-                              <p className={style.clientNames} >{ele.ClientName}</p>
+                    return <>
+                      {ele.services.map((item, appointmentIndex) => {
+
+                        const heights = convertTime(item.time_takenby_service);
+                        // console.log(heights);
+                        return <>
+                          <div className={style.appointmentBox} key={item._id} style={{
+                            height: `${heights}px`,
+                            backgroundColor: `${ele.color}`
+                          }} >
+                            <div className={style.clientDetailsBox} >
+
+                              <div>
+                                <p className={style.timeDurations} >{item.time_takenby_service}</p>
+                                <p className={style.serviceNames} >{item.service_name}</p>
+                                <p className={style.clientNames} >{ele.ClientName}</p>
+                              </div>
+
+                              <svg
+                                onClick={() => toggleMenu(item._id)}
+                                className="w-6 h-6 text-gray-800 dark:text-white"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                              >
+                                <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M12 6h.01M12 12h.01M12 18h.01" />
+                              </svg>
+
+                              {openMenus[item._id] && (
+                                <div className={style.dropdowncontent}>
+                                  <div className={style.inputContainer}>
+                                    <input className={style.otpBox} type="text" placeholder='OTP' />
+                                    </div>
+                                    <div className={style.editButton} >Edit Details </div>
+                                  
+                                  <div className={style.started} >Started</div>
+                                  <div className={style.started} >No-Show</div>
+                                  <div className={style.started} >Completed</div>
+                                  <div className={style.started} >Cancel Appointment</div>
+                                </div>
+                              )}
+
+
                             </div>
-                            
-                            <svg
-                    onClick={() => toggleMenu(index)}
-                    className="w-6 h-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M12 6h.01M12 12h.01M12 18h.01" />
-                  </svg>
+                          </div></>
 
-                  {openMenus[index] && (
-                    <div className={style.dropdowncontent}>
-                      <div className={style.inputContainer} >
-                        <input className={style.otpBox} type="text" placeholder='OTP' />
-                        <div className={style.editButton} >Edit </div>
-                      </div>
-                      <div className={style.started} >Started</div>
-                      <div className={style.started} >Started</div>
-                      <div className={style.started} >Started</div>
-                      <div className={style.started} >Started</div>
-                    </div>
-                  )}
-                            
+                      })}
 
-                          </div>
-                        </div></>
+                    </>
 
-                    })}
-
-                  </>
-
-                })}
+                  })}
 
 
+                </div>
               </div>
-              </div>
-          ))}
+            )
+          })}
       </div>
 
 
