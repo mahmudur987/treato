@@ -23,7 +23,6 @@ const DeactivatedAllSalon = ({
     if (selectedSalon.length === pendingSalonData.length) {
       return setSelectedSalon([]);
     }
-
     const allIds = pendingSalonData.map((salon) => salon.id);
     setSelectedSalon(allIds);
   };

@@ -3,9 +3,9 @@ import styles from "./FilterSection.module.css";
 import CustomSelect4 from "../../../../../Select/CustomeSelect4/CustomSelect4";
 import { MdOutlineGridView } from "react-icons/md";
 import { IoMenu } from "react-icons/io5";
-const Options = ["City", "Division", "State"];
-const FilterSection = ({ viewBy, setViewBy, selectedSalon, count }) => {
-  const [selectedOptions, setSelectedOptions] = useState("City ");
+
+const FilterSection = ({ viewBy, setViewBy, selectedSalon, count, value }) => {
+  const { City, selectedCity, setSelectedCity } = value;
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>
@@ -32,9 +32,9 @@ const FilterSection = ({ viewBy, setViewBy, selectedSalon, count }) => {
         </div>
         <div className={styles.selectsWrapper}>
           <CustomSelect4
-            options={Options}
-            onChange={setSelectedOptions}
-            value={selectedOptions}
+            options={City}
+            onChange={setSelectedCity}
+            value={selectedCity}
           />
           <div className={styles.buttonWrapper}>
             <button>

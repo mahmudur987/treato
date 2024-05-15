@@ -36,15 +36,15 @@ export const useBillingHistory = (x, y) => {
     },
   });
 };
-export const usePendingSalons = () => {
+export const usePendingSalons = (x) => {
   const headers = {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["allpartnerapproval"],
+    queryKey: ["allpartnerapproval", x],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
-        "super/allpartnerapproval",
+        `super/allpartnerapproval?search=${x}`,
 
         { headers }
       );
@@ -190,15 +190,15 @@ export const useSalonBillAndPayment = (filter) => {
     },
   });
 };
-export const useGetDeactivatedSalons = () => {
+export const useGetDeactivatedSalons = (x) => {
   const headers = {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["deactivated"],
+    queryKey: ["deactivated", x],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
-        `super/alldeactivatedsalon`,
+        `super/alldeactivatedsalon?salonname=${x}`,
 
         { headers }
       );

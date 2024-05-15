@@ -8,7 +8,6 @@ import SalonTable from "../../../../../components/AdminPage/AdminDashboard/Salon
 import {
   getCities,
   useActiveSalons,
-  useCities,
 } from "../../../../../services/superAdmin/Dashboard";
 import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
@@ -56,9 +55,6 @@ const ActiveSalon = () => {
       return data;
     });
   const sortedSalons = sortSalons(ActiveSalons, selectedSortBy);
-
-  console.log(SortBy);
-  console.log(data?.data);
 
   useEffect(() => {
     const fetchCities = async () => {

@@ -10,7 +10,7 @@ import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 const PendingSalon = () => {
-  const { data, isLoading, isError, error } = usePendingSalons();
+  const { data, isLoading, isError, error } = usePendingSalons("");
   const pendingSalonData = data?.pendingSalons?.map((x) => {
     const data = {
       id: x._id,
@@ -21,7 +21,7 @@ const PendingSalon = () => {
     };
     return data;
   });
-
+  console.log(data);
   const settings = {
     dots: false,
     infinite: true,
@@ -99,7 +99,7 @@ const PendingSalon = () => {
           </Slider>
         </div>
       )}
-      {data && !isLoading && !isError && !data?.pendingSalons && (
+      {data && !isLoading && !isError && pendingSalonData.length === 0 && (
         <div className={styles.contents}>
           <NoDataDisplay message={"No Pending Salons Are Available"} />
         </div>
