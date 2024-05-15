@@ -17,44 +17,47 @@ function PrivacyService() {
 
     return (<>
         <div className={style.container} >
-            <h6
-                className={selectedOption === 'Option 1' ? `${style.selected}` : ''}
-                onClick={(() => {
-                    scrollToSection('introduction');
-                    handleOptionClick('Option 1');
-                })
+            <h5 className={style.tablename}  >Table of Contents</h5>
+            <div className={style.optionBox} >
+                <h6
+                    className={selectedOption === 'Option 1' ? `${style.selected}` : ''}
+                    onClick={(() => {
+                        scrollToSection('introduction');
+                        handleOptionClick('Option 1');
+                    })
 
-                }>Introduction</h6>
-            <h6
-                className={selectedOption === 'Option 2' ? `${style.selected}` : ''}
-                width={214}
-                onClick={(() => {
-                    scrollToSection('feedback');
-                    handleOptionClick('Option 2')
-                })}  >Feedback and information</h6>
-            <h6 width={59}
-                className={selectedOption === 'Option 3' ? `${style.selected}` : ''}
-                onClick={(() => {
-                    scrollToSection('privacy');
-                    handleOptionClick('Option 3')
-                })}
-            >Privacy</h6>
-            <h6
-                className={selectedOption === 'Option 4' ? `${style.selected}` : ''}
-                width={141}
-                onClick={(() => {
-                    scrollToSection('access');
-                    handleOptionClick('Option 4')
-                })}
-            >Access to the site</h6>
-            <h6
-                className={selectedOption === 'Option 5' ? `${style.selected}` : ''}
-                width={137}
-                onClick={(() => {
-                    scrollToSection('Age');
-                    handleOptionClick('Option 5')
-                })}
-            >Age requirement</h6>
+                    }>Introduction</h6>
+                <h6
+                    className={selectedOption === 'Option 2' ? `${style.selected}` : ''}
+                    width={214}
+                    onClick={(() => {
+                        scrollToSection('feedback');
+                        handleOptionClick('Option 2')
+                    })}  >Feedback and information</h6>
+                <h6 width={59}
+                    className={selectedOption === 'Option 3' ? `${style.selected}` : ''}
+                    onClick={(() => {
+                        scrollToSection('privacy');
+                        handleOptionClick('Option 3')
+                    })}
+                >Privacy</h6>
+                <h6
+                    className={selectedOption === 'Option 4' ? `${style.selected}` : ''}
+                    width={141}
+                    onClick={(() => {
+                        scrollToSection('access');
+                        handleOptionClick('Option 4')
+                    })}
+                >Access to the site</h6>
+                <h6
+                    className={selectedOption === 'Option 5' ? `${style.selected}` : ''}
+                    width={137}
+                    onClick={(() => {
+                        scrollToSection('Age');
+                        handleOptionClick('Option 5')
+                    })}
+                >Age requirement</h6>
+            </div>
         </div>
         <div className={style.rightContainer}>
             <h2 className={style.header}>Privacy Policy</h2>

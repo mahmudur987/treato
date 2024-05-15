@@ -4,11 +4,10 @@
     box-sizing: border-box;
 }
 .aboutcontainer{
-    position: absolute;
     width: 648px;
     height: 457px;
-    top: 182px;
-    left: 60px;
+    margin-top: 182px;
+    margin-left: 60px;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -20,6 +19,9 @@
     font-family: Poppins;
     font-size: 28px;
     font-weight: 600;
+}
+.imagemobile{
+    display: none;
 }
 .aboutcontent{
     width: 100%;
@@ -42,7 +44,17 @@
     justify-content: space-between;
     gap: 60px;
 }
+.box1{
+    width: 63px;
+}
+.box2{
+    width: 88px;
+}
+.box3{
+    width: 138px;
+}
 .info div{
+    height: 57px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -85,9 +97,9 @@
 .OurTeamBox{
     width: 1320px;
     height: 319px;
-    position: absolute;
-    top: 734px;
-    left: 60px;
+    position: inherit;
+    margin-top: 95px;
+    margin-left: 60px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -114,10 +126,15 @@ align-items: center;
 gap: 20px;
 }
 .Arrowbtn{
+    cursor: pointer;
     height: 40px;
     width: 40px;
     border-radius: 50%;
     background-color: #08080B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #F8F9FA;
 }
 .outTeamContent{
     width: 100%;
@@ -174,9 +191,8 @@ gap: 20px;
     height: 353px;
     padding-top: 43px;
     padding-left: 60px;
-    position: absolute;
-    top: 1153px;
-    left: 62px;
+    margin-top: 100px;
+    margin-left: 62px;
     border-radius: 5px;
     background-color: #F8F9FA;
 }
@@ -200,6 +216,9 @@ gap: 20px;
     flex-direction: column;
     gap: 20px;
 }
+.visionText img{
+    display: none;
+}
 .visionText h3{
     width: 146px;
     height: 42px;
@@ -220,3 +239,161 @@ gap: 20px;
 .Footer {
     position: inherit;
   }
+  @media screen and (max-width: 500px) {
+    .mainContainer{
+        padding-bottom: 150px;
+        width: 390px;
+        max-height: 3405px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 45px;
+    }
+    .aboutcontainer{
+        margin: 0;
+        padding: 0;
+        width: 342px;
+        height: 718px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .title{
+        height: 36px;
+        width: 110px;
+        font-size: 24px;
+    }
+    .backeffect,
+    .aboutimage{
+        display: none;
+    }
+    .imagemobile{
+        display: block;
+        width: 342px;
+        height: 224px;
+        border-radius: 4px;
+    }
+    .aboutcontent{
+        width: 343px;
+        height: 657px;
+        display: flex;
+        flex-direction: column;
+        gap:16px;
+    }
+    .aboutcontent p{
+        height: 312px;
+        width: 342px;
+        font-size: 16px;
+        text-align: justify;
+    }
+    .info{
+        position: static;
+        width: 343px;
+        height: 85px;
+        border-radius: 0px 20px 0px 20px;
+        padding: 16px;
+        gap: 16px;
+    }
+    .box1{
+        height: 53px;
+        width: 53px;
+        gap: 5px;
+    }
+    .box2{
+        height: 53px;
+        width: 76px;
+        gap: 5px;
+    }
+    .box3{
+        height: 53px;
+        width: 118px;
+        gap: 5px;
+    }
+    .info div h4{
+        height: 30px;
+        width: auto;
+        font-size: 20px;
+        font-weight: 600;
+        color: #2E3032;
+    }
+    .info div p{
+        width: auto;
+        height: 18px;
+        font-size: 12px;
+        font-weight: 400;
+        text-align: center;
+    }
+    .btns{
+        display: none;
+    }
+    .OurTeamBox{
+        margin: 0;
+        padding: 0;
+        height: 536px;
+        width: 343px;
+    }
+    .ourTeamHeader h3{
+        font-size: 24px;
+    }
+    .outTeamContent{
+        position: static;
+        width: 343px;
+        height: 476px;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .contentBox{
+        position: static;
+        width: 343px;
+        height: 476px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .contentBox img{
+        width: 310px;
+        height: 224px;
+        border-radius: 4px;
+    }
+    .ourTeamInfo{
+        height: 205px;
+        width: 306px;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+    }
+    .ourTeamInfo h3{
+        font-size: 18px;
+        height: 27px;
+    }
+    .contentPara{
+        width: 303px;
+        height: 147px;
+        font-size: 14px;
+    }
+    .visionContentBox img{
+        display: none;
+    }
+    .ourVisionBox,
+    .visionContentBox,
+    .visionText{
+        margin: 0;
+        padding: 0;
+        position: static;
+        width: 342px;
+        height: 456px;
+        gap:24px;
+        background: none;
+    }
+    .visionContentBox p{
+        width: 343px;
+        height: 168px;
+        font-size: 16px;
+    }
+    .visionText img{
+        display: block;
+        width: 340px;
+        height: 212px;
+        border-radius: 4px;
+        
+    }
+}

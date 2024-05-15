@@ -1,0 +1,87 @@
+.mainContainer{
+    width: 1354px;
+    height: 976px;
+    position: absolute;
+    top: 96px;
+    left: 86px;
+}
+.header{
+    width: 90%;
+    height: 48px;
+    margin-left: 86px;
+    display: flex;
+    justify-content: space-between;
+
+}
+.calenderBox{
+    width: 304px;
+    height: 100%;
+    padding: 0px 16px 0px 16px;
+    border: 1px solid #CED4DA;
+    border-radius: 200px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.rightBox{
+    width: 439px;
+    height: 100%;
+    display: flex;
+    gap: 16px;
+}
+.filter{
+    width: 204px;
+    height: 100%;
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+}
+.rightBox button{
+    width: 219px;
+    height: 100%;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 16px;
+    color: #FFFFFF;
+    cursor: pointer;
+    background-color: #08080B;
+}
+.rightBox button span{
+    font-size: 24px;
+}
+.lineBar{
+    width: 93%;
+    border: 1px solid #CED4DA;
+    margin-top: 24px;
+    margin-left: 86px;
+}
+.scheduleBox{
+    position: absolute;
+    width: 1348px;
+    height: 880px;
+    margin-top: 24px;
+    display: flex;
+    overflow-y: scroll;
+    gap: 0;
+    
+}
+.scheduleBox::-webkit-scrollbar{
+    margin-top: 50px;
+    height: 820px;
+    width: 6px;
+    background-color: #E9EDF2;
+}
+.scheduleBox::-webkit-scrollbar-thumb {
+    min-width: 6px;
+    border-radius: 20px;
+    background-color: #A1A9B6;
+}
+.scheduleBox ::-webkit-scrollbar-button{
+    
+}

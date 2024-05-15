@@ -58,7 +58,11 @@ import FrequentlyAskedQuestionsPage from "./layouts/FrequentlyAskedQuestionsLayo
 import PricingPage from "./layouts/PricingLayout/PricingPage";
 import ContactUsLayout from "./layouts/ContactUsLayout/ContactUsLayout";
 import CareersPage from "./layouts/CareersLayout/CareersPage";
-import CurrentOpenings from "./components/Careers/CurrentOpenings/CurrentOpenings";
+import CurrentOpenings from "./pages/Careers/CurrentOpenings/CurrentOpenings";
+import JobDescription from "./pages/Careers/JobDescription/JobDescription";
+import JobDetails from "./pages/Careers/Details/Details";
+import AppointmentCalendar from "./pages/AppointmentCalendar/AppointmentCalendar";
+// import CurrentOpenings from "./components/Careers/CurrentOpenings/CurrentOpenings";
 import PaymentPage from "./pages/AdminPages/Dashboard/Payment/PaymentPage";
 import ActiveSalon from "./pages/AdminPages/Dashboard/Salon/Active/ActiveSalon";
 import PendingSalon from "./pages/AdminPages/Dashboard/Salon/Pending/PendingSalon";
@@ -263,13 +267,23 @@ function App() {
           {/* About page */}
           <Route path="/Aboutuspage" element={<AboutUsPage />} />
           {/* Privacy page */}
-          <Route path="/Privacy" element={<Privacy />}>
-            <Route path="/Privacy" element={<SubBar />} />
-            <Route path="/Privacy/termofuse" element={<Termoptions />} />
-            <Route path="/Privacy/policy" element={<PrivacyService />} />
+          <Route path="/Privacy" element={<Privacy/>}>
+            <Route path="/Privacy" element={<SubBar/>}>
+            <Route path="/Privacy/termofuse" element={<Termoptions/>}/>
+            <Route path="/Privacy/policy" element={<PrivacyService/>}/>
+            </Route>
+           
           </Route>
 
-          <Route>
+          {/* Careers page routes */}
+          <Route path="/careers" element={<CareersPage />} >
+            <Route path="/careers/currentopenings" element={<CurrentOpenings />} />
+            <Route path="/careers/jobdescription/:id" element={<JobDescription />} />
+            <Route path="/careers/jobdetails/:id" element={<JobDetails />} />
+
+          </Route>
+          <Route path="/appointment/calendar" element={<AppointmentCalendar />} />
+          
             {/* FrequentlyAskedQuestions page  */}
             <Route
               path="/frequentlyaskedquestions"
@@ -280,14 +294,8 @@ function App() {
             {/* contact us page  */}
             <Route path="/contactus" element={<ContactUsLayout />} />
 
-            {/* Careers page routes */}
-            <Route path="/careers" element={<CareersPage />}>
-              <Route
-                path="/careers/currentopenings"
-                element={<CurrentOpenings />}
-              />
-            </Route>
-          </Route>
+            
+          
 
           {/* admin dashboard */}
 

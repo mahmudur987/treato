@@ -36,8 +36,9 @@ const Footer = () => {
           });
         }
       }, 450);
-    } else if(link === "Privacy policy") {
-      navigate("/Privacy/policy");
+    } else if(link === "Careers") {
+      navigate("/careers/currentopenings");
+      console.log(link);
     }
      else if(link === "Terms of use") {
       navigate("/Privacy/Termofuse");
@@ -81,17 +82,14 @@ const Footer = () => {
           </div>
         </div>
         <div className={styles.footerLinks}>
-          <h4 className={styles.heading}>About Treato</h4>
+          <h4 className={styles.heading}><Link to="/Aboutuspage" >About Treato</Link></h4>
           <div className={styles.links}>
-            {footerLinks.map((link, index) => (
-              <Link
-                key={index}
-                to="#"
-                onClick={() => handleFooterLinkClick(link)}
-              >
-                {link}
-              </Link>
-            ))}
+            
+              <Link to="/careers/currentopenings" >Careers</Link>
+              <Link to="/frequentlyaskedquestions" >FAQs</Link>
+              <Link to="/Pricing" >Pricing</Link>
+              <Link to="/contactus" >Contact us</Link>
+            
           </div>
         </div>
         <div className={styles.legalLinks}>
