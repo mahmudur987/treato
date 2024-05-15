@@ -1,6 +1,6 @@
 
 import axiosInstance from './axios'
-import axios from 'axios';
+
 
 export const GetPostDetails = async () => {
    

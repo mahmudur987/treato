@@ -64,15 +64,26 @@
  
   
   .faqitem {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #EBEDF0;
   }
   
   .question {
     cursor: pointer;
-    background-color: #f4f4f4;
     padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
-  
+  .uparrow{
+   display: block;
+  }
+  .uparrow{
+   display: block;
+  }
+  .downarrow{
+    display: none;
+
+  }
   .answer {
     padding: 10px;
     display: none;
