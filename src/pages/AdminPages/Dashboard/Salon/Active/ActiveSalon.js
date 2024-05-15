@@ -11,6 +11,7 @@ import ErrorComponent from "../../../../../components/ErrorComponent/ErrorCompon
 import { formatDate } from "../../AdminDashboard";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { IoMdArrowBack } from "react-icons/io";
 
 const ActiveSalon = () => {
   const [viewBy, setViewBy] = useState(true);

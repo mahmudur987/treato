@@ -6,7 +6,9 @@
   flex-direction: column;
   gap: 10px;
 }
-
+.wrapper span {
+  display: none;
+}
 .heading {
   width: 159px;
   height: 42px;
@@ -81,6 +83,15 @@
     max-width: 100vw;
     width: 100%;
   }
+  .wrapper {
+    display: flex;
+    align-items: center;
+  }
+  .wrapper span {
+    display: flex;
+    font-size: 30px;
+  }
+
   .heading {
     text-align: center;
     width: 100%;

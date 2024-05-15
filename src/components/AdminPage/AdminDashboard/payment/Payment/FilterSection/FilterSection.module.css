@@ -1,6 +1,5 @@
 .mainContainerWrapper {
   padding: 0px 20px 0px 0px;
-  overflow: hidden;
 }
 
 .mainContainer {
@@ -70,23 +69,26 @@
     display: none;
   }
   /* styles.module.css */
-
   .mainContainer {
+    min-width: 800px;
+  }
+  .mainContainerWrapper {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
   }
 
-  .mainContainer::-webkit-scrollbar {
+  .mainContainerWrapper::-webkit-scrollbar {
     display: none;
   }
 
-  .mainContainer {
+  .mainContainerWrapper {
     max-width: 99vw;
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
   .selectsWrapper {
-    gap: 5px;
+    justify-content: start;
+    gap: 15px;
   }
 }

@@ -9,6 +9,8 @@ import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import CustomSelect2 from "../../../../Select/CustomeSelect2/CustomeSelect2";
 import Slider from "react-slick";
 import { useStatistics } from "../../../../../services/superAdmin/Dashboard";
+import { IoMdArrowBack } from "react-icons/io";
+
 const Header = () => {
   const [selectedOption, setSelectedOption] = useState("last 30 days");
   const options = ["last 30 days", "last 50 days", "last 90 days"];
@@ -45,7 +47,12 @@ const Header = () => {
 
   return (
     <section className={styles.mainContainer}>
-      <h1 className={styles.heading}>Dashboard</h1>
+      <div className={styles.wrapper}>
+        <span>
+          <IoMdArrowBack />
+        </span>
+        <h1 className={styles.heading}>Dashboard</h1>
+      </div>
 
       <p className={styles.selectWrapper}>
         <CustomSelect2

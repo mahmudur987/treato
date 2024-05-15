@@ -5,13 +5,16 @@ import { IoArrowBack, IoSearchOutline } from "react-icons/io5";
 import PaymentPageHeader from "../../../../components/AdminPage/AdminDashboard/payment/PaymentPageHeader/PaymentPageHeader";
 import FilterSection from "../../../../components/AdminPage/AdminDashboard/payment/Payment/FilterSection/FilterSection";
 import PaymentTable from "../../../../components/AdminPage/AdminDashboard/payment/Payment/PaymentTable/PaymentsTable";
+import { Link } from "react-router-dom";
 
 const PaymentPage = () => {
   return (
     <main className={styles.mainContainer}>
       <div className={styles.top}>
         <span>
-          <IoArrowBack />
+          <Link to={"/admin"}>
+            <IoArrowBack />
+          </Link>
         </span>
         <h3>Payment</h3>
         <p>

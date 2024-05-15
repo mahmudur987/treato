@@ -7,6 +7,7 @@ import { getUserProfile } from "../../services/auth";
 import LeftSideBar from "../../components/AdminPage/LeftSideBar/LeftSideBar";
 import { updateIsLoggedIn, updateUserDetails } from "../../redux/slices/user";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import BottomNav from "../../components/AdminPage/BottomNav/BottomNav";
 
 const AdminPageLayout = () => {
   const location = useLocation();
@@ -47,7 +48,7 @@ const AdminPageLayout = () => {
             <Outlet />
           </div>
         </section>
-        {/* <BottomNav /> */}
+        <BottomNav />
       </main>
     );
   } else {

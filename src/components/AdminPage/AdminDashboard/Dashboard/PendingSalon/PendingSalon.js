@@ -14,7 +14,7 @@ const PendingSalon = () => {
   const pendingSalonData = data?.pendingSalons?.map((x) => {
     const data = {
       id: x._id,
-      image: x.salon_image.public_url ?? img,
+      image: x?.salon_image?.public_url ?? img,
       name: x.salon_name ?? "N/A",
       address: x.salons_address ?? "N/A",
       date: formatDate(x.created) ?? "N/A",
