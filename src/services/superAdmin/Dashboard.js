@@ -20,18 +20,17 @@ export const useStatistics = (x) => {
     },
   });
 };
-export const useBillingHistory = () => {
+export const useBillingHistory = (x, y) => {
+  let url = `super/allbillinghistory?${
+    x !== "All Booking" ? `booking=${x.toLowerCase()}` : ""
+  }`;
   const headers = {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["allbillinghistory"],
+    queryKey: ["allbillinghistory", x, y],
     queryFn: async () => {
-      const { data } = await axiosInstance.get(
-        "super/allbillinghistory",
-
-        { headers }
-      );
+      const { data } = await axiosInstance.get(url, { headers });
 
       return data;
     },
@@ -55,16 +54,15 @@ export const usePendingSalons = () => {
   });
 };
 export const useActiveSalons = (x) => {
-  // console.log(x);
-
+  let url = `super/allactivesalons?salonname=${x ? x : ""}`;
   const headers = {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["allactivesalons"],
+    queryKey: ["allactivesalons", x],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
-        "super/allactivesalons",
+        url,
 
         { headers }
       );
@@ -73,6 +71,23 @@ export const useActiveSalons = (x) => {
     },
   });
 };
+export const getCities = async () => {
+  let url = `super/allcity`;
+  const headers = {
+    token: adminToken,
+  };
+  try {
+    const { data } = await axiosInstance.get(
+      url,
+
+      { headers }
+    );
+    return data?.cities;
+  } catch (error) {
+    return ["city"];
+  }
+};
+
 export const useSalonDetails = (id) => {
   const headers = {
     token: adminToken,
