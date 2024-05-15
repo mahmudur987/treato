@@ -1,0 +1,231 @@
+.mainContainer {
+  max-width: 1340px;
+  width: 100%;
+  font-family: Poppins;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.top {
+  max-width: 1340px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 20px;
+}
+.top h2 {
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: left;
+}
+.top a {
+  text-decoration: none;
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  color: #0d69d7;
+}
+.contents {
+  max-width: 1340px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.card {
+  max-width: 354px;
+  width: 100%;
+  height: 360px;
+  gap: 0px;
+  border-radius: 4px;
+  border: 1px solid var(--Grey-Grey-30, #ced4da);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.selectSalon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 20px;
+  width: 20px;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+.selectSalon input {
+  height: 18px;
+  width: 18px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+
+.card figure {
+  max-width: 354px;
+  width: 100%;
+  height: 176px;
+}
+.card img {
+  width: 100%;
+  height: 100%;
+}
+.cardBottom {
+  flex-grow: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.info {
+  /* Styles for the information section within each card */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.info h3 {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+.address {
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+}
+
+.date {
+  font-family: Lato;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.cardAction {
+  /* Styles for the action buttons section within each card */
+  display: flex;
+  justify-content: space-between;
+}
+
+.approve {
+  max-width: 163px;
+  width: 100%;
+  height: 48px;
+  background-color: black;
+  color: white;
+  padding: 8px 13px;
+  border-radius: 4px;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.reject {
+  max-width: 163px;
+  width: 100%;
+  height: 48px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: none;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+/* Additional styles for specific elements */
+.rightIcon {
+  display: none;
+}
+
+.tableContainer {
+  max-width: 1340px;
+  width: 100%;
+}
+.table {
+  min-width: 1000px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.thead {
+  height: 54px;
+  background-color: #6d747a;
+  border-collapse: collapse;
+}
+.thead tr td {
+  padding: 10px 5px;
+  color: white;
+}
+
+.tbody {
+}
+.tbody tr {
+  border-bottom: 1px solid var(--Grey-Grey-30, #ced4da);
+}
+.tbody tr td {
+  padding: 10px 5px;
+}
+.listApproveBtn {
+  max-width: 100px;
+  width: 100%;
+  height: 38px;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: -0.01em;
+  text-align: center;
+  border: 1px solid #08080b;
+  border-radius: 4px;
+  background-color: white;
+}
+.listRejectBtn {
+  background: none;
+  border: none;
+  max-width: 100px;
+  width: 100%;
+  height: 38px;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  text-align: left;
+  color: #de2929;
+}
+@media only screen and (max-width: 700px) {
+  .tableContainer {
+    max-width: 100vw;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .contents {
+    max-width: 100vw;
+    width: 100%;
+  }
+  .card {
+    margin: auto;
+  }
+}

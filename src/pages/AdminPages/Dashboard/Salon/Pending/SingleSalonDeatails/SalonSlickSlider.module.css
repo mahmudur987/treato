@@ -1,0 +1,126 @@
+.mainContainer {
+  max-width: 600px;
+  width: 100%;
+  min-height: 645px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.slideImage {
+  min-height: 640px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.salon_slider_index {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  padding: 12px 0px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+  background: rgba(0, 0, 0, 0.6);
+  bottom: 0.5%;
+  border-radius: 0px 0px 5px 5px;
+  left: 0%;
+  color: #fff;
+  cursor: pointer;
+}
+
+.next {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.prev {
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.next:focus {
+  background-color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-image: url(../../../../../../assets/images/SalonDetail/arrow-right.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.prev:hover,
+.prev:focus {
+  background-image: url(../../../../../../assets/images/SalonDetail/arrow-left.svg);
+}
+
+.next {
+  right: 3% !important;
+  z-index: 9999 !important;
+  background-color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-image: url(../../../../../../assets/images/SalonDetail/arrow-right.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.prev {
+  left: 3% !important;
+  z-index: 9999 !important;
+  background-color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-image: url(../../../../../../assets/images/SalonDetail/arrow-left.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+@media only screen and (max-width: 767px) {
+  .mainContainer {
+    margin: auto;
+  }
+  .slideImage {
+    min-height: 800px;
+  }
+  .prev:hover,
+  .prev:focus,
+  .next:hover,
+  .next:focus {
+    background-color: white;
+    width: 24px;
+    height: 24px;
+    background-image: url(../../../../../../assets/images/SalonDetail/mobile-arrow-right.svg);
+  }
+
+  .prev:hover,
+  .prev:focus {
+    height: 24px;
+    background-image: url(../../../../../../assets/images/SalonDetail/mobile-arrow-right.svg);
+    transform: rotateZ(-180deg);
+  }
+
+  .next {
+    width: 24px;
+    height: 24px;
+    height: 24px;
+    background-image: url(../../../../../../assets/images/SalonDetail/mobile-arrow-right.svg);
+  }
+
+  .prev {
+    left: 3% !important;
+    z-index: 9999 !important;
+    background-color: white;
+    width: 24px;
+    height: 24px;
+    height: 24px;
+    background-image: url(../../../../../../assets/images/SalonDetail/mobile-arrow-right.svg);
+    transform: rotateZ(-180deg);
+  }
+}

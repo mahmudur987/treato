@@ -1,0 +1,149 @@
+.mainContainer {
+  max-width: 1340px;
+  width: 100%;
+  font-family: Poppins;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.top {
+  max-width: 1340px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 20px;
+}
+.top h2 {
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: left;
+}
+.top a {
+  text-decoration: none;
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  color: #0d69d7;
+}
+.contents {
+  width: 100%;
+}
+.cardWrapper {
+  display: flex;
+  margin: 10px;
+}
+.card {
+  max-width: 256px;
+  width: 100%;
+  height: 360px;
+  gap: 0px;
+  border-radius: 4px;
+  border: 1px solid var(--Grey-Grey-30, #ced4da);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card figure {
+  max-width: 256px;
+  width: 100%;
+  height: 176px;
+}
+.card img {
+  width: 100%;
+  height: 100%;
+}
+.cardBottom {
+  flex-grow: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.info {
+  /* Styles for the information section within each card */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.info h3 {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+.address {
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+}
+
+.date {
+  font-family: Lato;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.cardAction {
+  /* Styles for the action buttons section within each card */
+  display: flex;
+  justify-content: space-between;
+}
+
+.approve {
+  /* width: 49px; */
+  /* height: 16px; */
+  background-color: black;
+  color: white;
+  padding: 8px 13px;
+  border-radius: 4px;
+
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.reject {
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: none;
+
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+/* Additional styles for specific elements */
+.rightIcon {
+  display: none;
+}
+
+@media only screen and (max-width: 700px) {
+  .contents {
+    max-width: 100vw;
+    width: 100%;
+  }
+  .card {
+    margin: auto;
+  }
+}

@@ -46,11 +46,11 @@ const AddServices = () => {
     const res = await addNewService(newService);
 
     if (res.res) {
-      toast.success("Added A new service ");
+      toast.success("Add A new service ");
       navigate("/partner/dashboard/service");
     } else {
       console.log(res.err);
-      toast.error("Error happen,sevice not added");
+      toast.error("Error");
     }
   };
 

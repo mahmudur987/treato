@@ -26,10 +26,9 @@ const PaymentProfile = () => {
     const data = {
       bank_details: formData,
     };
-
     dispatch(adminBasicDetails(data));
     refetch();
-    toast.success("update successfully", { id: 5 });
+    toast.success("Bank details update successfully", { id: 5 });
   };
 
   const handleChange = (e) => {
@@ -79,13 +78,12 @@ const PaymentProfile = () => {
             <form onSubmit={handleSubmit} className={styles["formFields"]}>
               <div className={styles["inputField"]}>
                 <InputField
-                  label="Account Number"
+                  label="Bank Name"
                   type="text"
                   name="bank_name"
                   value={formData?.bank_name}
                   onChange={handleChange}
                   placeholder="Enter Bank Name"
-                  // styles={styles.input}
                 />
               </div>
               <div className={styles["inputField"]}>
@@ -94,9 +92,17 @@ const PaymentProfile = () => {
                   type="text"
                   name="account_number"
                   value={formData?.account_number}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
+                    const nonNumericRegex = /[^0-9]/;
+
+                    if (nonNumericRegex.test(inputValue)) {
+                      return window.alert("Please enter numbers only.");
+                    }
+
+                    handleChange(e);
+                  }}
                   placeholder="Enter 11-digit bank account number"
-                  // styles={styles.input}
                 />
               </div>
               <div className={styles["inputField"]}>
@@ -107,7 +113,6 @@ const PaymentProfile = () => {
                   value={formData?.account_holder_name}
                   onChange={handleChange}
                   placeholder="ABC Ventures Pvt. Ltd."
-                  // styles={styles.input}
                 />
               </div>
               <div className={styles["inputField"]}>

@@ -114,8 +114,6 @@ const TimeSchedule = () => {
     return <ErrorComponent message={error.message} />;
   }
 
-  // console.log(data);
-
   return (
     <TimeScheContext.Provider
       value={{ schedule, member, refetch, sethandleShift }}

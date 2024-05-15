@@ -25,6 +25,7 @@ import img1 from "../../../../../assets/images/TeamDetails/ProfileImg.png";
 import img2 from "../../../../../assets/images/TeamDetails/ProfileEditPencil.png";
 const EditTeamData = () => {
   const location = useLocation();
+
   const id = location.pathname.split("/").pop();
   const {
     data: member,
@@ -148,11 +149,12 @@ const EditTeamData = () => {
       const headers = {
         token: localStorage.getItem("jwtToken"),
       };
-      let url = `stylist/deleteStylist/${id}`;
+      let url = `/stylist/teamMembers/removeStylist/${id}`;
+      const { data } = await axiosInstance.patch(url, {}, { headers });
       console.log(url);
-      const { data } = await axiosInstance.delete(url, { headers });
-      refetch();
-      toast.success(data ? data.message : "delete shift ");
+      console.log(data);
+      toast.success("Team member delete successfully ");
+      navigate("/partner/dashboard/TeamManageMent");
     } catch (error) {
       console.error(error);
       toast.error(error ? error.message : "Error");

@@ -1,4 +1,3 @@
-
 import CustomSelect2 from "../components/Select/CustomeSelect2/CustomeSelect2";
 
 const [selectedOption, setSelectedOption] = useState("Option 1");

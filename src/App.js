@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navigate, Route, Routes, useLocation, RouterProvider } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import PageLayout from "./layouts/PageLayout/PageLayout";
 import Home from "./pages/Home/Home";
 import Blogs from "./pages/Blogs/Blogs";
@@ -47,9 +47,10 @@ import AddAppoinment from "./pages/partnerPages/Services/AddAppoinment/AddAppoin
 import PartnerHome from "./pages/partnerPages/PartnerHome/PartnerHome";
 import AuthChoice from "./pages/partnerPages/Auth/AuthChoice/AuthChoice";
 import CustomerPageLayout from "./layouts/CustomarPageLayout/CustomerPageLayout";
+import AdminPageLayout from "./layouts/Admin/AdminPageLayout";
+import AdminDashboard from "./pages/AdminPages/Dashboard/AdminDashboard";
 import AboutUsPage from "./layouts/AboutUsPageLayout/AboutUsPage";
 import Privacy from "./layouts/PrivacyPolicyLayout/Privacy";
-import { privacyrouter } from "./layouts/PrivacyPolicyLayout/Privacy";
 import SubBar from "./components/PrivacyPolicy/PrivacyBar/SubBar";
 import Termoptions from "./components/PrivacyPolicy/TermOptions/TermMenu";
 import PrivacyService from "./components/PrivacyPolicy/PrivacyPolicy/PrivacyPolicy";
@@ -61,6 +62,16 @@ import CurrentOpenings from "./pages/Careers/CurrentOpenings/CurrentOpenings";
 import JobDescription from "./pages/Careers/JobDescription/JobDescription";
 import JobDetails from "./pages/Careers/Details/Details";
 import AppointmentCalendar from "./pages/AppointmentCalendar/AppointmentCalendar";
+// import CurrentOpenings from "./components/Careers/CurrentOpenings/CurrentOpenings";
+import PaymentPage from "./pages/AdminPages/Dashboard/Payment/PaymentPage";
+import ActiveSalon from "./pages/AdminPages/Dashboard/Salon/Active/ActiveSalon";
+import PendingSalon from "./pages/AdminPages/Dashboard/Salon/Pending/PendingSalon";
+import DeactivatedSalon from "./pages/AdminPages/Dashboard/Salon/Deactivated/DeactivatedSalon";
+import Reports from "./pages/partnerPages/Reports/Reports";
+import PendingSalonDetail from "./pages/AdminPages/Dashboard/Salon/Pending/SingleSalonDeatails/PendingSalonDetails";
+import SingleSalonDetail from "./pages/AdminPages/Dashboard/Salon/Active/SingleSalonDeatails/SingleSalonDetails";
+import ActiveSalonGallery from "./pages/AdminPages/Dashboard/Salon/Active/Gallary/Gallery";
+import PendingSalonGallery from "./pages/AdminPages/Dashboard/Salon/Pending/Gallary/Gallery";
 
 function App() {
   // Use the location hook to track route changes
@@ -151,6 +162,7 @@ function App() {
           theme="light"
         />
         <ModalManager />
+
         <Routes>
           <Route element={<CustomerPageLayout />}>
             <Route path="/" element={<Home />} />
@@ -232,7 +244,7 @@ function App() {
               path="/partner/dashboard/PicturesGallery"
               element={<PicturesGallery />}
             />
-            {/* team manage ment */}
+            {/* team management */}
 
             <Route
               path="/partner/dashboard/TeamManageMent"
@@ -250,9 +262,10 @@ function App() {
               path="/partner/dashboard/EmployeeSchedule"
               element={<EmployeeSchedule />}
             />
+            <Route path="/partner/dashboard/reports" element={<Reports />} />
           </Route>
           {/* About page */}
-          <Route path="/Aboutuspage" element={<AboutUsPage/>}/>
+          <Route path="/Aboutuspage" element={<AboutUsPage />} />
           {/* Privacy page */}
           <Route path="/Privacy" element={<Privacy/>}>
             <Route path="/Privacy" element={<SubBar/>}>
@@ -261,21 +274,58 @@ function App() {
             </Route>
            
           </Route>
-           {/* FrequentlyAskedQuestions page  */}
-           <Route path="/frequentlyaskedquestions" element={<FrequentlyAskedQuestionsPage/>}/>
-           {/* Pricing page  */}
-           <Route path="/Pricing" element={<PricingPage/>}/>
-           {/* contact us page  */}
-           <Route path="/contactus" element={<ContactUsLayout/>}/>
 
-           {/* Careers page routes */}
-           <Route path="/careers" element={<CareersPage/>} >
-            <Route path="/careers/currentopenings" element={<CurrentOpenings/>}/>
-            <Route path="/careers/jobdescription/:id" element={<JobDescription/>}/>
-            <Route path="/careers/jobdetails/:id" element={<JobDetails/>}/>
+          {/* Careers page routes */}
+          <Route path="/careers" element={<CareersPage />} >
+            <Route path="/careers/currentopenings" element={<CurrentOpenings />} />
+            <Route path="/careers/jobdescription/:id" element={<JobDescription />} />
+            <Route path="/careers/jobdetails/:id" element={<JobDetails />} />
 
-           </Route>
-           <Route path="/appointment/calendar" element={<AppointmentCalendar/>}/>
+          </Route>
+          <Route path="/appointment/calendar" element={<AppointmentCalendar />} />
+          
+            {/* FrequentlyAskedQuestions page  */}
+            <Route
+              path="/frequentlyaskedquestions"
+              element={<FrequentlyAskedQuestionsPage />}
+            />
+            {/* Pricing page  */}
+            <Route path="/Pricing" element={<PricingPage />} />
+            {/* contact us page  */}
+            <Route path="/contactus" element={<ContactUsLayout />} />
+
+            
+          
+
+          {/* admin dashboard */}
+
+          <Route path="/admin" element={<AdminPageLayout />}>
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/salon/active" element={<ActiveSalon />} />
+            <Route
+              path="/admin/salon/active/:id"
+              element={<SingleSalonDetail />}
+            />
+            <Route
+              path="/admin/salon/active/gallery/:id"
+              element={<ActiveSalonGallery />}
+            />
+            <Route path="/admin/salon/pending" element={<PendingSalon />} />
+            <Route
+              path="/admin/salon/pending/:id"
+              element={<PendingSalonDetail />}
+            />
+
+            <Route
+              path="/admin/salon/pending/galley/:id"
+              element={<PendingSalonGallery />}
+            />
+            <Route
+              path="/admin/salon/deactivated"
+              element={<DeactivatedSalon />}
+            />
+            <Route path="/admin/payment" element={<PaymentPage />} />
+          </Route>
         </Routes>
       </PageLayout>
     </>
@@ -289,14 +339,7 @@ export default App;
 //   "password":"Test@123456"
 // }
 
-// // /api/v1/service/new   service_name,
-//       service_description,
-//       stylists,
-//       mainCategories,
-
-// http://localhost:4000/api/v1/service/addNewSubcategory
-// http://localhost:4000/api/v1/service/addNewCategory
-
-// Route
-// /editCategory
-// serviceId, mainCategoryId, newCategoryName
+// {
+//   "email":"treatoadminsuper0707@gmail.com",
+//   "password":"TreatoSuperAdmin@070809"
+// }

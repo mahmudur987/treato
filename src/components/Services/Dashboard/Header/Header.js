@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import styles from "./Header.module.css";
-import userIcon from"../../../../assets/icons/Dashboard/header/Snapshot_Icons (2).png";
-import clipBoardIcon from"../../../../assets/icons/Dashboard/header/Snapshot_Icons (1).png";
-import clip2 from"../../../../assets/icons/Dashboard/header/Snapshot_Icons.png";
-
+import { FaUsers } from "react-icons/fa";
+import { BsClipboardCheck } from "react-icons/bs";
 import { BsClipboard2Check } from "react-icons/bs";
 import { IoIosArrowUp } from "react-icons/io";
 import { useQuery } from "react-query";
@@ -12,7 +10,7 @@ import axiosInstance from "../../../../services/axios";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 const Header = () => {
-  const [selectedOption, setSelectedOption] = useState("last 30 days");
+  const [selectedOption, setSelectedOption] = useState("last 90 days");
   const options = ["last 30 days", "last 50 days", "last 90 days"];
   const { data, isLoading, isError, error } = useQuery({
     queryKey: [selectedOption],
@@ -45,10 +43,7 @@ const Header = () => {
   if (isLoading) {
     <LoadSpinner />;
   }
-  if (isError) {
-    return <ErrorComponent message={error.message} />;
-  }
-
+  console.log(data);
   return (
     <section className={styles.mainContainer}>
       <h1 className={styles.heading}>Dashboard</h1>
@@ -64,10 +59,9 @@ const Header = () => {
       {data && (
         <div className={styles.contents}>
           {/* new user */}
-          <div style={{ backgroundColor: "#FFCE6E" }} className={styles.card}>
+          <div style={{ backgroundColor: "yellow" }} className={styles.card}>
             <div className={styles.cardLeft}>
-              {/* <FaUsers /> */}
-              <img src={userIcon} width={36} height={36} alt="New user" srcset="" title="New user icon" />
+              <FaUsers />
               <div className={styles.cardMiddle}>
                 <p>New user</p>
 
@@ -76,14 +70,14 @@ const Header = () => {
             </div>
 
             <div className={styles.cardRight}>
-              <IoIosArrowUp className={styles.UpArrow} />
+              <IoIosArrowUp />
               {incrementOfNewUsers}({incrementOfNewUsersPercentage}%)
             </div>
           </div>
           {/* avarage sale  */}
-          <div style={{ backgroundColor: "#88C5E8" }} className={styles.card}>
+          <div style={{ backgroundColor: "skyblue" }} className={styles.card}>
             <div className={styles.cardLeft}>
-            <img src={clipBoardIcon} width={36} height={36} alt="Clipboard" srcset="" title="Average Sales icon" />
+              <BsClipboardCheck />
               <div className={styles.cardMiddle}>
                 <p>Average Sales</p>
 
@@ -99,9 +93,9 @@ const Header = () => {
 
           {/* total appoinments */}
 
-          <div style={{ backgroundColor: "#F1A0C2" }} className={styles.card}>
+          <div style={{ backgroundColor: "pink" }} className={styles.card}>
             <div className={styles.cardLeft}>
-            <img src={clip2} width={36} height={36} alt="Appointment" srcset="" title="Appointment icon" />
+              <BsClipboard2Check />
               <div className={styles.cardMiddle}>
                 <p>Total Appointments</p>
                 <h3>{newAppointments}</h3>
@@ -117,6 +111,7 @@ const Header = () => {
           </div>
         </div>
       )}
+      {isError && <ErrorComponent message={error.message} />}
     </section>
   );
 };

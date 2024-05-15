@@ -123,7 +123,9 @@ const LoginPage = () => {
               // localStorage.setItem("userData", JSON.stringify(profileData));
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(profileData));
-              if (userChoice.role.role === "partner") {
+              if (profileData.role === "super") {
+                navigate("/admin");
+              } else if (userChoice.role.role === "partner") {
                 navigate("/partner/dashboard");
               } else {
                 navigate("/");

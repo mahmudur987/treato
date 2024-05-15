@@ -10,17 +10,7 @@ function QuestionOptions() {
 
 
 
-    // const faqData = [
-    //     {
-    //         question: 'Can I still set up payment processing if my bank account is set up in my business name?',
-    //         answer: 'Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey. Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul',
-    //     },
-    //     {
-    //         question: 'Can I still set up payment processing if my bank account is set up in my business name?',
-    //         answer: 'Answer 2.',
-    //     },
-    //     // Add more FAQ items as needed
-    // ];
+    
     const toggleAccordion = (index) => {
         if (expandedIndex === index) {
             setExpandedIndex(null);

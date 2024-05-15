@@ -87,7 +87,7 @@ const LeftSideBar = () => {
       text: "Team",
     },
     {
-      to: "/partner/dashboard/report",
+      to: "/partner/dashboard/reports",
       svg: (
         <svg
           style={{ margin: `${show ? "" : "auto"}` }}

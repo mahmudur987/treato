@@ -4,7 +4,6 @@ import axiosInstance from "../../../services/axios";
 export const adminBasicDetails = createAsyncThunk(
   "admindata/add",
   async (requestData, { getState, rejectWithValue }) => {
-    console.log("salonData", requestData);
     try {
       const response = await axiosInstance.patch(
         "/salon/updateSalon",

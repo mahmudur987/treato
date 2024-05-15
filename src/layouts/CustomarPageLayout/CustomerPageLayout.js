@@ -36,6 +36,11 @@ export default function CustomerPageLayout() {
       navigate("/partner/dashboard");
     }
   }, [user]);
+  useEffect(() => {
+    if (user.role === "super") {
+      navigate("/admin");
+    }
+  }, [user]);
 
   if (user.role === "partner") {
     return navigate("/partner/dashboard");
