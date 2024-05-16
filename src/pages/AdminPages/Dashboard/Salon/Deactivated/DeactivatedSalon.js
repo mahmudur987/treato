@@ -11,7 +11,6 @@ import {
 import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
 import NoDataDisplay from "../../../../../components/NodataToDisplay/NoDataDisplay";
-import { convertToMonthYear } from "../../../../../utils/utils";
 import { formatDate } from "../../AdminDashboard";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -35,14 +34,13 @@ const DeactivatedSalon = () => {
         id: x._id,
         image: x?.salon_image?.public_url ?? img,
         name: x.salon_name,
-        address: x.salons_address,
-        date: formatDate(x.created) ?? "N/A",
-        ownerName: "fajila khatun ",
+        address: x.address ?? "N/A",
+        date: formatDate(x.date_join) ?? "N/A",
+        ownerName: x.owner_name ?? "N/A ",
       };
 
       return data;
     });
-  console.log(data?.data);
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -64,6 +62,7 @@ const DeactivatedSalon = () => {
     <SalonInDashBoard>
       <section className={styles.mainContainer}>
         <FilterSection
+          data={pendingSalonData}
           value={value}
           viewBy={viewBy}
           setViewBy={setViewBy}

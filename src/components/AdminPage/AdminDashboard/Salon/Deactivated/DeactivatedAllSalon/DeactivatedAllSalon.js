@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "./DeactivatedAllSalon.module.css";
 import { FaArrowRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import axiosInstance from "../../../../../../services/axios";
+import { toast } from "react-toastify";
 
 const DeactivatedAllSalon = ({
   selectedSalon,
@@ -26,6 +28,42 @@ const DeactivatedAllSalon = ({
     const allIds = pendingSalonData.map((salon) => salon.id);
     setSelectedSalon(allIds);
   };
+
+  const handleReActive = async (id) => {
+    try {
+      const Data = {
+        salonId: [id],
+      };
+      const headers = {};
+
+      const { data } = await axiosInstance.post("", headers, Data);
+
+      if (data) {
+        toast.success("Salon activated successfully!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error ? error?.message : "Error");
+    }
+  };
+  const handleDelete = async (id) => {
+    try {
+      const deleteData = {
+        salonId: [id],
+      };
+      const headers = {};
+
+      const { data } = await axiosInstance.post("", headers, deleteData);
+
+      if (data) {
+        toast.success("Salon deleted successfully!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error ? error?.message : "Error");
+    }
+  };
+
   return (
     <section className={styles.mainContainer}>
       {viewBy ? (
@@ -49,8 +87,18 @@ const DeactivatedAllSalon = ({
                   <p className={styles.date}>Applied on {salon.date}</p>
                 </div>
                 <div className={styles.cardAction}>
-                  <button className={styles.approve}>Reactivated</button>
-                  <button className={styles.reject}>Delete</button>
+                  <button
+                    className={styles.approve}
+                    onClick={() => handleReActive(salon.id)}
+                  >
+                    Reactivated
+                  </button>
+                  <button
+                    className={styles.reject}
+                    onClick={() => handleDelete(salon.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
                 <div className={styles.rightIcon}>
                   <FaArrowRight />
@@ -121,12 +169,20 @@ const DeactivatedAllSalon = ({
                       <span>{salon.date}</span>
                     </td>
                     <td>
-                      <button className={styles.listApproveBtn}>
+                      <button
+                        className={styles.listApproveBtn}
+                        onClick={() => handleReActive(salon.id)}
+                      >
                         Reactivated
                       </button>
                     </td>
                     <td>
-                      <button className={styles.listRejectBtn}>Delete</button>
+                      <button
+                        className={styles.listRejectBtn}
+                        onClick={() => handleDelete(salon.id)}
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 );
