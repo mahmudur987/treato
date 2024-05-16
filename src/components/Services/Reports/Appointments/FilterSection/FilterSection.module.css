@@ -3,6 +3,7 @@
 }
 
 .mainContainer {
+  min-width: 800px;
   display: flex;
   align-items: center;
   gap: 50px;
@@ -36,7 +37,14 @@
   justify-content: space-between;
   gap: 30px;
 }
+
 .btnWrapper {
+  max-width: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.btnWrapper button {
   height: 48px;
   gap: 8px;
   border-radius: 4px;
@@ -50,37 +58,24 @@
   padding: 0 12px;
   font-size: 16px;
 }
-.btnWrapper button {
-  background: none;
-  border: none;
-  color: white;
-}
-
-.btnWrapper button:hover {
-  background-color: #0056b3;
-}
-
-.btnWrapper button:focus {
-  outline: none;
-}
 
 @media only screen and (max-width: 700px) {
   .searchWrapper {
     display: none;
   }
   /* styles.module.css */
-  .mainContainer {
-    max-width: 700px;
+  .mainContainerWrapper {
+    max-width: 96vw;
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  .mainContainer {
+  .mainContainerWrapper {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
   }
 
-  .mainContainer::-webkit-scrollbar {
+  .mainContainerWrapper::-webkit-scrollbar {
     display: none;
   }
 }

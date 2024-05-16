@@ -77,10 +77,12 @@ const FilterSection = ({ setAppointmentsQuery }) => {
             value={selectedBookingType}
           />
           <div className={styles.btnWrapper}>
-            <button>Download</button>
-            <span>
-              <MdOutlineFileDownload />
-            </span>
+            <button>
+              <span>Download</span>
+              <span>
+                <MdOutlineFileDownload />
+              </span>
+            </button>
           </div>
         </div>
       </div>
