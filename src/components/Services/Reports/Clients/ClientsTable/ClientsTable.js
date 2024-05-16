@@ -47,10 +47,11 @@ const ClientsTable = ({ data }) => {
   const tableData = data?.data?.map((x) => {
     const data = {
       clientName:
-        x?.clientDetails.first_name + " " + x?.clientDetails.last_name ?? "N/A",
-      email: x?.clientDetails.email ?? "N/A",
-      gender: x?.clientDetails.gender ?? "N/A",
-      age: x?.clientDetails.dob ?? "N/A",
+        x?.clientDetails?.first_name + " " + x?.clientDetails?.last_name ??
+        "N/A",
+      email: x?.clientDetails?.email ?? "N/A",
+      gender: x?.clientDetails?.gender ?? "N/A",
+      age: x?.clientDetails?.dob ?? "N/A",
       lastVisit: x?.lastVisit ?? "N/A",
       topService: x?.topService ?? "NID",
       spend: x?.totalAmount ?? "N/A",
