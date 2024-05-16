@@ -75,7 +75,7 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
         )}
         {isOpen && <div className={styles.backgroundOverlay}></div>}
       </div>
-      <span className={styles.icon}>
+      <span className={styles.icon} onClick={handleToggle}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
