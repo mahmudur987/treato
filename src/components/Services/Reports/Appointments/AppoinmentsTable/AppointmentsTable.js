@@ -54,14 +54,14 @@ const tableHeading = [
 const AppointmentsTable = ({ data }) => {
   const tableData = data?.data?.map((x) => {
     const data = {
-      txnId: x.transactionId ?? "N/A",
-      date: x.dateforService ?? "N/A",
-      clientName: x.clientName ?? "N/A",
-      services: x.services[0] ?? "N/A",
-      Employee: x.stylist,
-      status: x.status ?? "N/A",
-      amount: x.final_amount ?? "N/A",
-      type: x.payment_mode ?? "N/A",
+      txnId: x?.transactionId ?? "N/A",
+      date: x?.dateforService ?? "N/A",
+      clientName: x?.clientName ?? "N/A",
+      services: x?.services[0] ?? "N/A",
+      Employee: x?.stylist,
+      status: x?.status ?? "N/A",
+      amount: x?.final_amount ?? "N/A",
+      type: x?.payment_mode ?? "N/A",
     };
     return data;
   });

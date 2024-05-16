@@ -12,7 +12,7 @@ const DaysOptions = [
   "All Time",
 ];
 const StatusOptions = ["Upcoming", "Complete", "Cancelled", "No Show "];
-const BookingTypeOptions = ["Online ", "Offline", "Walk-in"];
+const BookingTypeOptions = ["Online ", "On-site"];
 const FilterSection = ({ setAppointmentsQuery }) => {
   const [searchText, setSearchText] = useState(null);
   const [selectedDays, setSelectedDays] = useState("Last 1 Year");
@@ -41,7 +41,7 @@ const FilterSection = ({ setAppointmentsQuery }) => {
         selectedStatus === "Status" ? "upcoming" : selectedStatus.toLowerCase()
       }&bookingType=${
         selectedBookingType === "Booking Type"
-          ? "online"
+          ? "on-site"
           : selectedBookingType.toLowerCase()
       }${searchText ? `&search=${searchText}` : ""}`
     );
