@@ -63,7 +63,7 @@ const BookingsPart = () => {
     selectedMonth
   );
   useEffect(() => {
-    dispatch(updateAdminPage);
+    dispatch(updateAdminPage());
   }, [selectedMonth, selectedBookingStatus, data]);
   console.log(data?.data);
   const value = {

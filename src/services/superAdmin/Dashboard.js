@@ -130,7 +130,9 @@ export const useSalonDetailsBookings = (id, x) => {
     queryKey: [id, "singlesalonbookings"],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
-        `super/singlesalonbookings/${id}status=${x !== "All" ? x : ""}`,
+        `super/singlesalonbookings/${id}?status=${
+          x !== "All" ? x.toLowerCase() : ""
+        }`,
 
         { headers }
       );
