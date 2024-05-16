@@ -122,7 +122,7 @@ export const useSalonDetailsServices = (id) => {
     },
   });
 };
-export const useSalonDetailsBookings = (id) => {
+export const useSalonDetailsBookings = (id, x) => {
   const headers = {
     token: adminToken,
   };
@@ -130,7 +130,7 @@ export const useSalonDetailsBookings = (id) => {
     queryKey: [id, "singlesalonbookings"],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
-        `super/singlesalonbookings/${id}`,
+        `super/singlesalonbookings/${id}status=${x !== "All" ? x : ""}`,
 
         { headers }
       );
