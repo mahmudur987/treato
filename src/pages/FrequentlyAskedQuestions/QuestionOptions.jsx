@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import style from './options.module.css'
+import style from './options.module.css';
+
+import { Link } from 'react-router-dom';
 import { getFaqs } from '../../services/faqs';
 
 function QuestionOptions() {
@@ -124,7 +126,7 @@ function QuestionOptions() {
 
                 </div>
                 <div className={style.contactbox} ><p className={style.contactus} >Can’t find the answer you’re looking for?</p>
-                    <p className={style.linker} >Contact Us</p>
+                    <Link to="/contactus"><p className={style.linker} >Contact Us</p></Link>
                 </div>
             </div>
 

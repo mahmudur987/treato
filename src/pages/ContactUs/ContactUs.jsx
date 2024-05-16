@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import style from './contactUs.module.css';
+import { Link } from 'react-router-dom';
 import contactimage from '../../../src/assets/images/ContactUs/contactimage.png'
 import { contactDetails } from '../../services/careers';
 
@@ -130,7 +131,7 @@ function ContactUs() {
                   onChange={handleChange}
                   required
                 />
-                <p width={242}>You agree to our friendly <span>privacy policy</span></p>
+                <p width={242}>You agree to our friendly <Link to="/Privacy/policy" ><span className={style.linker} >privacy policy</span></Link></p>
               </div>
 
 

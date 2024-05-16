@@ -282,7 +282,7 @@ function App() {
             <Route path="/careers/jobdetails/:id" element={<JobDetails />} />
 
           </Route>
-          <Route path="/appointment/calendar" element={<AppointmentCalendar />} />
+          
           
             {/* FrequentlyAskedQuestions page  */}
             <Route
@@ -301,6 +301,7 @@ function App() {
 
           <Route path="/admin" element={<AdminPageLayout />}>
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/appointment/calendar" element={<AppointmentCalendar />} />
             <Route path="/admin/salon/active" element={<ActiveSalon />} />
             <Route
               path="/admin/salon/active/:id"

@@ -86,7 +86,7 @@ const ScheduleTable = ({ profiles }) => {
         {profiles &&
 
           profiles.map((profile, index) => {
-            let indexSum = 0;
+            
             return (
 
               <div className={style.profileContainer} >

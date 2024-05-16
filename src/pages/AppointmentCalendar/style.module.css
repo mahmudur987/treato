@@ -63,6 +63,7 @@
 }
 .scheduleBox{
     position: absolute;
+    left: 10px;
     width: 1348px;
     height: 880px;
     margin-top: 24px;
