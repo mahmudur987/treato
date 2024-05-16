@@ -137,7 +137,7 @@ const LeftSideBar = () => {
               <span>Dashboard</span>
             </Link>
             <p
-              onMouseEnter={() => setSalonMenu(true)}
+              onClick={() => setSalonMenu((pre) => !pre)}
               style={{
                 backgroundColor: `${pathname === "/admin/salon" ? "blue" : ""}`,
               }}
@@ -150,10 +150,7 @@ const LeftSideBar = () => {
               </span>
             </p>
             {salonMenu && (
-              <div
-                className={styles.salon}
-                onMouseLeave={() => setSalonMenu(!salonMenu)}
-              >
+              <div className={styles.salon}>
                 <Link
                   to={"/admin/salon/active"}
                   style={{
