@@ -5,6 +5,7 @@ import styles from "./PendingSalon.module.css";
 import PendingAllSalon from "../../../../../components/AdminPage/AdminDashboard/Salon/Pending/PendingAllSalon/PendingAllSalon";
 import img from "../../../../../assets/images/SalonDetail/slide4.png";
 import {
+  adminToken,
   getCities,
   usePendingSalons,
 } from "../../../../../services/superAdmin/Dashboard";
@@ -13,6 +14,8 @@ import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import axiosInstance from "../../../../../services/axios";
+import { toast } from "react-toastify";
 
 const PendingSalon = () => {
   const [City, setCity] = useState(["City"]);
@@ -54,10 +57,45 @@ const PendingSalon = () => {
     fetchCities();
   }, []);
 
+  const handleApprove = async (id) => {
+    if (id) {
+      try {
+        const approveData = {};
+        const headers = { token: adminToken };
+
+        const { data } = await axiosInstance.post("", approveData, headers);
+
+        if (data) {
+          console.log(data);
+          toast.success("Salon Approve Successfully");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error(error ? error.message : "Error");
+      }
+    } else {
+      try {
+        const approveData = {};
+        const headers = { token: adminToken };
+
+        const { data } = await axiosInstance.post("", approveData, headers);
+
+        if (data) {
+          console.log(data);
+          toast.success("Salon Approve Successfully");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error(error ? error.message : "Error");
+      }
+    }
+  };
+
   const value = {
     City,
     selectedCity,
     setSelectedCity,
+    handleApprove,
   };
   return (
     <SalonInDashBoard>
@@ -76,6 +114,7 @@ const PendingSalon = () => {
             setSelectedSalon={setSelectedSalon}
             pendingSalonData={pendingSalonData}
             viewBy={viewBy}
+            handleApprove={handleApprove}
           />
         )}
         {data &&

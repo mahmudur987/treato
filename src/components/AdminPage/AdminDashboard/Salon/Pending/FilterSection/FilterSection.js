@@ -5,7 +5,7 @@ import { MdOutlineGridView } from "react-icons/md";
 import { IoMenu } from "react-icons/io5";
 
 const FilterSection = ({ viewBy, setViewBy, selectedSalon, count, value }) => {
-  const { City, selectedCity, setSelectedCity } = value;
+  const { City, selectedCity, setSelectedCity, handleApprove } = value;
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>
@@ -37,7 +37,7 @@ const FilterSection = ({ viewBy, setViewBy, selectedSalon, count, value }) => {
             value={selectedCity}
           />
           <div className={styles.buttonWrapper}>
-            <button>
+            <button type="button" onClick={handleApprove}>
               Approve
               {selectedSalon.length > 0 ? (
                 <span style={{ marginLeft: "7px" }}>

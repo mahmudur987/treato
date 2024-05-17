@@ -9,9 +9,11 @@
 .left,
 .right {
   display: flex;
-  gap: 10px;
+  gap: 20px;
 }
-
+.left {
+  align-items: center;
+}
 .left span {
   color: #6d747a;
   font-family: Lato;
@@ -20,6 +22,11 @@
   line-height: 24px;
   letter-spacing: 0.01em;
   text-align: left;
+}
+.left select {
+  border: none;
+  width: 50px;
+  padding: 10px 0px;
 }
 
 .right {

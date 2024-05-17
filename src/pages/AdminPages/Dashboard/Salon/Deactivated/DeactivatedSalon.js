@@ -14,6 +14,7 @@ import NoDataDisplay from "../../../../../components/NodataToDisplay/NoDataDispl
 import { formatDate } from "../../AdminDashboard";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Pagination from "../../../../../components/AdminPage/AdminDashboard/Dashboard/BillingHistory/pagination/Pagination";
 
 const DeactivatedSalon = () => {
   const [City, setCity] = useState(["City"]);
@@ -22,10 +23,13 @@ const DeactivatedSalon = () => {
   const { pathname } = useLocation();
   const [viewBy, setViewBy] = useState(true);
   const [selectedSalon, setSelectedSalon] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [count, setCount] = useState(5);
+  const [itemPerPage, setItemPerPage] = useState(6);
   const { data, isLoading, isError, error } = useGetDeactivatedSalons(
     pathname === "/admin/salon/deactivated" ? searchText : ""
   );
-  const pendingSalonData = data?.data
+  const filteredData = data?.data
     ?.filter((x) => {
       return selectedCity === "City" || x.otherLocation.city === selectedCity;
     })
@@ -41,6 +45,17 @@ const DeactivatedSalon = () => {
 
       return data;
     });
+
+  useEffect(() => {
+    setCount(data?.data?.length);
+  }, [data]);
+  const getFilteredData = (x) => {
+    const startIndex = (pageNumber - 1) * itemPerPage;
+    const endIndex = startIndex + Number(itemPerPage);
+    return x?.slice(startIndex, endIndex);
+  };
+  const pendingSalonData = getFilteredData(filteredData);
+
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -58,6 +73,7 @@ const DeactivatedSalon = () => {
     selectedCity,
     setSelectedCity,
   };
+
   return (
     <SalonInDashBoard>
       <section className={styles.mainContainer}>
@@ -83,6 +99,15 @@ const DeactivatedSalon = () => {
             viewBy={viewBy}
           />
         )}
+
+        <Pagination
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
+          count={count}
+          itemPerPage={itemPerPage}
+          setItemPerPage={setItemPerPage}
+        />
+
         {data && !isError && !isLoading && data?.data?.length === 0 && (
           <NoDataDisplay message={"No Deactivated Salon"} />
         )}

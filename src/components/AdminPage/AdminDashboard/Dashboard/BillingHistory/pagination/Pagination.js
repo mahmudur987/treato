@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import styles from "./pagination.module.css";
 
-const Pagination = ({ pageNumber, setPageNumber, count, setCount }) => {
-  const totalPages = Math.ceil(count / 5) || 0; // Assuming 5 items per page
+const Pagination = ({
+  pageNumber,
+  setPageNumber,
+  count,
+  itemPerPage,
+  setItemPerPage,
+}) => {
+  const totalPages = Math.ceil(count / itemPerPage) || 0;
 
   const previous = () => {
     if (pageNumber > 1) {
@@ -15,13 +21,27 @@ const Pagination = ({ pageNumber, setPageNumber, count, setCount }) => {
       setPageNumber((pre) => pre + 1);
     }
   };
+  const handleItemPerPageChange = (e) => {
+    console.log(e.target.value);
 
+    setItemPerPage(Number(e.target.value));
+  };
   return (
     <div className={styles.mainContainer}>
       <div className={styles.left}>
         <span>Showing</span>
         <span>
-          {pageNumber * 5 - 4}-{Math.min(pageNumber * 5, count)}
+          <select onChange={handleItemPerPageChange}>
+            <option value={itemPerPage} disabled selected>
+              {itemPerPage}
+            </option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
         </span>
         <span>Out of {count}</span>
       </div>

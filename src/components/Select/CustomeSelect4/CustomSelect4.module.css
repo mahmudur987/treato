@@ -6,6 +6,7 @@
   border: 1px solid var(--Grey-Grey-30, #ced4da);
   position: relative;
   font-family: Lato;
+  cursor: pointer;
 }
 
 .icon {

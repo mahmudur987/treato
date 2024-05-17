@@ -20,7 +20,7 @@ const BillingHistory = () => {
   );
   const [pageNumber, setPageNumber] = useState(1);
   const [count, setCount] = useState(5);
-  let itemPerPage = 5;
+  const [itemPerPage, setItemPerPage] = useState(5);
   const { data, isLoading, isError, error } = useBillingHistory(
     selectedPaymentStatus,
     selectedPaymentDate
@@ -30,12 +30,10 @@ const BillingHistory = () => {
   }, [data]);
   const getFilteredData = (x) => {
     const startIndex = (pageNumber - 1) * itemPerPage;
-    const endIndex = Math.min(startIndex + itemPerPage, count);
+    const endIndex = startIndex + Number(itemPerPage);
     return x?.data?.slice(startIndex, endIndex) || [];
   };
-
   const filteredData = getFilteredData(data);
-
   const value = {
     PaymentStatus,
     PaymentDate,
@@ -56,7 +54,8 @@ const BillingHistory = () => {
           pageNumber={pageNumber}
           setPageNumber={setPageNumber}
           count={count}
-          setCount={setCount}
+          itemPerPage={itemPerPage}
+          setItemPerPage={setItemPerPage}
         />
       )}
 

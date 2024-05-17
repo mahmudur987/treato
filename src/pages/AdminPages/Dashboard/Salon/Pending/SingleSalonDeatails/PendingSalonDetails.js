@@ -40,7 +40,7 @@ export default function PendingSalonDetail() {
     <div className={styles.salon_page}>
       {data && !isLoading && !isError && (
         <div className={styles.salon_pcView}>
-          <Link to={"/admin/salon/active"}>
+          <Link to={"/admin/salon/pending"}>
             <div className={styles.back}>
               <img src={leftIco} alt="" />
             </div>
