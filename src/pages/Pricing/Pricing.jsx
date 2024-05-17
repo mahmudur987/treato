@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import style from './pricing.module.css'
+import style from './pricing.module.css';
 
 function Pricing() {
     const [infoData, setInfo] = useState([

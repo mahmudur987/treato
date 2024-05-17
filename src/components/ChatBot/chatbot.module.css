@@ -1,0 +1,63 @@
+.aiContainer{
+    position: fixed;
+    width: 191px;
+    height: 199px;
+    z-index: 999;
+    left: 1189px;
+    top: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.subBox img{
+    margin-left: 77px;
+    width: 43px;
+    height: 43px;
+}
+.greetingBox{
+    width: 191px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+}
+.greetingBox div{
+    padding: 0px 10px 0px 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.chatBotMsg{
+    width: 100%;
+    text-align: justify;
+}
+.messageLogo{
+    position: fixed;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #08080B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-left: 152px;
+    z-index: 999;
+    top: 640px;
+    left: 1189px;
+}
+.closeButton{
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+/* .messageContainer{
+    border: 1px solid red;
+    width: 306px;
+    height: 571px;
+    position: fixed;
+    left: 1070px;
+    top: 413px;
+    z-index: 999;
+
+} */

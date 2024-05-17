@@ -62,7 +62,6 @@ import CurrentOpenings from "./pages/Careers/CurrentOpenings/CurrentOpenings";
 import JobDescription from "./pages/Careers/JobDescription/JobDescription";
 import JobDetails from "./pages/Careers/Details/Details";
 import AppointmentCalendar from "./pages/AppointmentCalendar/AppointmentCalendar";
-// import CurrentOpenings from "./components/Careers/CurrentOpenings/CurrentOpenings";
 import PaymentPage from "./pages/AdminPages/Dashboard/Payment/PaymentPage";
 import ActiveSalon from "./pages/AdminPages/Dashboard/Salon/Active/ActiveSalon";
 import PendingSalon from "./pages/AdminPages/Dashboard/Salon/Pending/PendingSalon";
@@ -72,6 +71,8 @@ import PendingSalonDetail from "./pages/AdminPages/Dashboard/Salon/Pending/Singl
 import SingleSalonDetail from "./pages/AdminPages/Dashboard/Salon/Active/SingleSalonDeatails/SingleSalonDetails";
 import ActiveSalonGallery from "./pages/AdminPages/Dashboard/Salon/Active/Gallary/Gallery";
 import PendingSalonGallery from "./pages/AdminPages/Dashboard/Salon/Pending/Gallary/Gallery";
+import Chatbot from "./components/ChatBot/Chatbot";
+
 
 function App() {
   // Use the location hook to track route changes
@@ -162,8 +163,10 @@ function App() {
           theme="light"
         />
         <ModalManager />
+        <Chatbot/>
 
         <Routes>
+          
           <Route element={<CustomerPageLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/account-settings" element={<AccountSettings />} />

@@ -39,9 +39,10 @@ function JobDescription() {
                   <p>Full-Time / {jobdata[0]?.job_worffrom}</p>
                 </div></>
             }
+            <Link to={`/careers/jobdetails/${id}`}>
             <div className={style.applyButton} >
               <p>Apply Now</p>
-            </div>
+            </div></Link>
           </div>
         </div>
 
