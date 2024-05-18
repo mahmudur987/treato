@@ -72,6 +72,9 @@ import PendingSalonDetail from "./pages/AdminPages/Dashboard/Salon/Pending/Singl
 import SingleSalonDetail from "./pages/AdminPages/Dashboard/Salon/Active/SingleSalonDeatails/SingleSalonDetails";
 import ActiveSalonGallery from "./pages/AdminPages/Dashboard/Salon/Active/Gallary/Gallery";
 import PendingSalonGallery from "./pages/AdminPages/Dashboard/Salon/Pending/Gallary/Gallery";
+import LookPage from "./pages/partnerPages/Look/LookPage/LookPage";
+import AddLook from "./pages/partnerPages/Look/AddALook/AddLook";
+import EditLook from "./pages/partnerPages/Look/EditLook/EditLook";
 
 function App() {
   // Use the location hook to track route changes
@@ -262,40 +265,50 @@ function App() {
               path="/partner/dashboard/EmployeeSchedule"
               element={<EmployeeSchedule />}
             />
+
+            {/* reports */}
             <Route path="/partner/dashboard/reports" element={<Reports />} />
+            {/* look */}
+            <Route path="/partner/dashboard/look" element={<LookPage />} />
+            <Route path="/partner/dashboard/add-look" element={<AddLook />} />
+            <Route path="/partner/dashboard/edit-look" element={<EditLook />} />
           </Route>
           {/* About page */}
           <Route path="/Aboutuspage" element={<AboutUsPage />} />
           {/* Privacy page */}
-          <Route path="/Privacy" element={<Privacy/>}>
-            <Route path="/Privacy" element={<SubBar/>}>
-            <Route path="/Privacy/termofuse" element={<Termoptions/>}/>
-            <Route path="/Privacy/policy" element={<PrivacyService/>}/>
+          <Route path="/Privacy" element={<Privacy />}>
+            <Route path="/Privacy" element={<SubBar />}>
+              <Route path="/Privacy/termofuse" element={<Termoptions />} />
+              <Route path="/Privacy/policy" element={<PrivacyService />} />
             </Route>
-           
           </Route>
 
           {/* Careers page routes */}
-          <Route path="/careers" element={<CareersPage />} >
-            <Route path="/careers/currentopenings" element={<CurrentOpenings />} />
-            <Route path="/careers/jobdescription/:id" element={<JobDescription />} />
-            <Route path="/careers/jobdetails/:id" element={<JobDetails />} />
-
-          </Route>
-          <Route path="/appointment/calendar" element={<AppointmentCalendar />} />
-          
-            {/* FrequentlyAskedQuestions page  */}
+          <Route path="/careers" element={<CareersPage />}>
             <Route
-              path="/frequentlyaskedquestions"
-              element={<FrequentlyAskedQuestionsPage />}
+              path="/careers/currentopenings"
+              element={<CurrentOpenings />}
             />
-            {/* Pricing page  */}
-            <Route path="/Pricing" element={<PricingPage />} />
-            {/* contact us page  */}
-            <Route path="/contactus" element={<ContactUsLayout />} />
+            <Route
+              path="/careers/jobdescription/:id"
+              element={<JobDescription />}
+            />
+            <Route path="/careers/jobdetails/:id" element={<JobDetails />} />
+          </Route>
+          <Route
+            path="/appointment/calendar"
+            element={<AppointmentCalendar />}
+          />
 
-            
-          
+          {/* FrequentlyAskedQuestions page  */}
+          <Route
+            path="/frequentlyaskedquestions"
+            element={<FrequentlyAskedQuestionsPage />}
+          />
+          {/* Pricing page  */}
+          <Route path="/Pricing" element={<PricingPage />} />
+          {/* contact us page  */}
+          <Route path="/contactus" element={<ContactUsLayout />} />
 
           {/* admin dashboard */}
 
