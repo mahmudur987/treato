@@ -356,3 +356,6 @@ export default App;
 //   "email":"treatoadminsuper0707@gmail.com",
 //   "password":"TreatoSuperAdmin@070809"
 // }
+
+// 6508592af8131fc40b478125    dont give this id on any api related to delete api for salon delete okay please
+// 6508592af8131fc40b478125
