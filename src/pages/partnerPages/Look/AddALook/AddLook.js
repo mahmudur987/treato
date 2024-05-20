@@ -41,9 +41,14 @@ const AddLook = () => {
           </div>
           <div className={styles.right}>
             <StyleDetails />
-
             <TeamMembers />
           </div>
+        </div>
+
+        <div className={styles.btnContainer}>
+          <button className={styles.cancel}>Cancel</button>
+
+          <button className={styles.save}>Submit</button>
         </div>
       </main>
     </addLookContext.Provider>

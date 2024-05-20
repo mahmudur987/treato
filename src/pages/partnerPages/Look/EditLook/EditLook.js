@@ -45,6 +45,11 @@ const EditLook = () => {
             <TeamMembers />
           </div>
         </div>
+        <div className={styles.btnContainer}>
+          <button className={styles.cancel}>Cancel</button>
+
+          <button className={styles.save}>Submit</button>
+        </div>
       </main>
     </EditLookContext.Provider>
   );
