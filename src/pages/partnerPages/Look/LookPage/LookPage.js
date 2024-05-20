@@ -3,7 +3,7 @@ import styles from "./LookPage.module.css";
 import LookCard from "../../../../components/Services/Look/LookCard/LookCard";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { FaPlus } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const data = [
   {
     id: 1,
@@ -49,6 +49,8 @@ const data = [
   },
 ];
 const LookPage = () => {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.mainContainer}>
       <div className={styles.heading}>
@@ -72,7 +74,10 @@ const LookPage = () => {
           <LookCard key={y} data={x} />
         ))}
       </div>
-      <div className={styles.bottom}>
+      <div
+        className={styles.bottom}
+        onClick={() => navigate("/partner/dashboard/add-look")}
+      >
         <button style={{ color: "white" }}>
           <FaPlus />
         </button>

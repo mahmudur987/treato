@@ -44,7 +44,10 @@
     max-width: 98vw;
     margin: 0 auto;
   }
-
+  .left,
+  .right {
+    max-width: 96vw;
+  }
   .icon {
     display: flex;
     font-size: 25px;
