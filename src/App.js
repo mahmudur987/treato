@@ -163,12 +163,14 @@ function App() {
           theme="light"
         />
         <ModalManager />
-        <Chatbot/>
+        
 
         <Routes>
-          
+        
           <Route element={<CustomerPageLayout />}>
+          {/* <Route  element={<Chatbot/>}/> */}
             <Route path="/" element={<Home />} />
+            
             <Route path="/account-settings" element={<AccountSettings />} />
             <Route path="/salons" element={<Salons />} />
             <Route path="/salons/:id" element={<SalonDetail />} />

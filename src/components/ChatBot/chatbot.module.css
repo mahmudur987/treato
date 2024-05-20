@@ -180,10 +180,14 @@
 }
 .userSide{
     width: 188px;
-    max-height: max-content;
+    height: fit-content;
     margin-left: 106px;
 }
-.userSide div{
+.botSide{
+    width: 188px;
+    max-height: max-content;
+}
+.queansBox{
     min-height: 45px;
     max-height: fit-content;
     width: 157px;
@@ -191,7 +195,17 @@
     padding: 12px;
     background-color: #CCE3FD;
 }
-.userSide div p{
+.ansBox{
+    margin-left: 30px;
+    margin-top: -12px;
+    min-height: 45px;
+    max-height: fit-content;
+    width: 157px;
+    border-radius: 0px 6px 6px 6px;
+    padding: 12px;
+    background-color: #CCE3FD;
+}
+.queans{
     width: 100%;
     height: max-content;
     text-align: justify;
@@ -201,10 +215,15 @@
     color: #000000;
     font-weight: 400;
 }
-.userSide img {
+.queImage {
     width: 24px;
     height: 24px;
     border-radius: 50%;
     margin-left: 164px;
     margin-top: -12px;
+}
+.ansImage {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
 }

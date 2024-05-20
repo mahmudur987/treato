@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import style from './chatbot.module.css';
 import chatBotLogo from "../../assets/icons/Chatbot/chatbot.png";
 import userImage from "../../assets/images/AccountSettings/userImg.png";
+import { GetAnswers } from '../../services/chatBot';
 
 function Chatbot() {
 
@@ -9,7 +10,27 @@ function Chatbot() {
     const [openMessage, setMessage] = useState(false);
     const [selectedQuestion, setSelectedQuestion] = useState(null);
     const quetions = ["Booking Cancellation", "Refund", "Contact Us", "Reschedule Service", "Pricing"];
+    const [userQuetion, setQuetions] = useState([{
+        que: null,
+        ans: null
+    }]);
+    const [userInput, setUserInput] = useState('');
+    const messageRef = useRef(null);
 
+
+    const inputData = async (queData) => {
+        const { res, err } = await GetAnswers(queData);
+        if (res) {
+            setQuetions([...userQuetion, {
+                que: queData, ans: res.response.answer
+            }])
+            console.log(res);
+        }
+        else {
+            console.log(err);
+        }
+        setUserInput('');
+    }
 
     const closeGreeting = () => {
         setOpen(!openGreeting);
@@ -19,7 +40,15 @@ function Chatbot() {
     }
     const handleClick = (index) => {
         setSelectedQuestion(index);
+        inputData(quetions[index]);
     };
+    
+    useEffect(() => {
+        // Scroll to the bottom of the message container whenever messages change
+        if (messageRef.current) {
+            messageRef.current.scrollTop = messageRef.current.scrollHeight;
+        }
+    }, [userQuetion]);
 
 
     return (
@@ -57,7 +86,7 @@ function Chatbot() {
                         <img src={chatBotLogo} alt="Chatbot Logo" />
                         <p>Treatobot</p>
                     </nav>
-                    <div className={style.subMsgBox} >
+                    <div ref={messageRef} className={style.subMsgBox} >
                         <section className={style.introBox} >
                             <img src={chatBotLogo} alt="Chatbot Logo" />
                             <div className={style.msgBox} >
@@ -70,22 +99,40 @@ function Chatbot() {
                             {quetions &&
                                 quetions.map((ele, index) => {
                                     return <>
-                                        <div className={`${style.quetions} ${index === selectedQuestion ? style.selected : ''}`}
+                                        <div key={index} className={`${style.quetions} ${index === selectedQuestion ? style.selected : ''}`}
                                             onClick={() => handleClick(index)} >{ele}</div>
                                     </>
                                 })
                             }
                         </div>
-                        <div className={style.userSide} >
-                        <div>
-                            <p>Booking Cancellation</p></div>
-                        <img src={userImage} alt="" />
-                        
-                        </div>
+                        {userQuetion &&
+                            userQuetion.map((item) => {
+                                return <>
+
+                                    {item.que && (
+                                        <div className={style.userSide} >
+                                        <div className={style.queansBox}>
+                                            <p className={style.queans} >{item?.que}</p>
+                                        </div>
+                                        <img className={style.queImage} src={userImage} alt="" />
+
+                                    </div>
+                                    )}
+                                    
+                                    {item.ans && (
+                                        <div className={style.botSide}>
+                                            <img className={style.ansImage} src={chatBotLogo} alt="" />
+                                            <div className={style.ansBox}>
+                                                <p className={style.queans}>{item.ans}</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </>
+                            })}
                     </div>
                     <div className={style.inputContainer} >
-                        <input type="text" placeholder='Write a message' />
-                        <svg viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.16109 12.9424L2.91109 12.4324C2.42109 12.3124 2.35109 11.6724 2.80109 11.4624L20.7111 3.55243C21.1811 3.34243 21.6711 3.81243 21.4411 4.25243L13.0111 21.2124C12.7811 21.6424 12.1211 21.5724 12.0011 21.1124L11.1711 13.2124L18.4411 6.41243" stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                        <input value={userInput} onChange={(e) => setUserInput(e.target.value)} type="text" placeholder='Write a message' />
+                        <svg onClick={()=>inputData(userInput)} viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.16109 12.9424L2.91109 12.4324C2.42109 12.3124 2.35109 11.6724 2.80109 11.4624L20.7111 3.55243C21.1811 3.34243 21.6711 3.81243 21.4411 4.25243L13.0111 21.2124C12.7811 21.6424 12.1211 21.5724 12.0011 21.1124L11.1711 13.2124L18.4411 6.41243" stroke="#0F0F0F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                     </div>
 
                 </div>
