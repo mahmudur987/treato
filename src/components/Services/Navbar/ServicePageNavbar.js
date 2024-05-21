@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./ServicePageNavbar.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ const ServicePageNavbar = () => {
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [showProfile, setShowProfile] = useState(false);
+  const profileRef = useRef();
   const handleLogout = () => {
     dispatch(updateIsLoggedIn(false));
     dispatch(resetUserDetails({}));
@@ -20,8 +21,20 @@ const ServicePageNavbar = () => {
     localStorage.removeItem("jwtToken");
     navigate("/partner");
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setShowProfile(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [profileRef]);
   return (
-    <div className={styles.mainContainer}>
+    <div ref={profileRef} className={styles.mainContainer}>
       <div className={styles.container}>
         <p className={styles.actionWrapper}>
           {userData?.isLoggedIn && (

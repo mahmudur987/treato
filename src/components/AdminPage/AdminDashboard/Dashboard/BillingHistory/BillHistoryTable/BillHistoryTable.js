@@ -52,7 +52,7 @@ const BillHistoryTable = ({ data }) => {
 
     return data;
   });
-
+  console.log(data);
   return (
     <div className={sty.mainContainer}>
       <div className={sty.tableContainer}>

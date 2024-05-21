@@ -61,7 +61,10 @@ const PendingSalon = () => {
   return (
     <section className={styles.mainContainer}>
       <div className={styles.top}>
-        <h2>Pending Salon </h2>
+        <h2>
+          Pending Salon Approvals (
+          {pendingSalonData.length > 0 ? pendingSalonData?.length : ""}){" "}
+        </h2>
         <Link to={"/admin/salon/pending"}>view all</Link>
       </div>
       {isLoading && <LoadSpinner />}

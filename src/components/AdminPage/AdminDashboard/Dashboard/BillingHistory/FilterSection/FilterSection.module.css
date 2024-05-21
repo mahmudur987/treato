@@ -5,7 +5,6 @@
   justify-content: space-between;
   align-items: center;
   gap: 50px;
-  margin-bottom: 20px;
 }
 
 .searchWrapper {
@@ -22,8 +21,11 @@
 }
 
 .selectsWrapper {
+  max-width: 438px;
+  width: 100%;
+
   display: flex;
-  justify-content: end;
+
   gap: 30px;
 }
 
