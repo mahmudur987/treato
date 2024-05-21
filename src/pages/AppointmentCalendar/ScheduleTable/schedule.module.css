@@ -100,6 +100,7 @@
 
 
 .slides {
+    border-left: 2px dotted #CED4DA;
     height: auto;
     min-width: 160px;
     display: flex;

@@ -86,7 +86,7 @@ const ScheduleTable = ({ profiles }) => {
         {profiles &&
 
           profiles.map((profile, index) => {
-            
+
             return (
 
               <div className={style.profileContainer} >
@@ -103,20 +103,20 @@ const ScheduleTable = ({ profiles }) => {
                         const heights = convertTime(item.time_takenby_service);
                         // console.log(heights);
                         return <>
-                          <div className={style.appointmentBox} key={item._id} style={{
+                          <div className={style.appointmentBox} key={item.unique_id} style={{
                             height: `${heights}px`,
-                            backgroundColor: `${ele.color}`
+                            backgroundColor: `${item.color}`
                           }} >
                             <div className={style.clientDetailsBox} >
 
                               <div>
-                                <p className={style.timeDurations} >{item.time_takenby_service}</p>
+                                <p className={style.timeDurations} >{item.time_takenby_service} ({ele.lasttimesofservices[appointmentIndex]})</p>
                                 <p className={style.serviceNames} >{item.service_name}</p>
                                 <p className={style.clientNames} >{ele.ClientName}</p>
                               </div>
 
                               <svg
-                                onClick={() => toggleMenu(item._id)}
+                                onClick={() => toggleMenu(item.unique_id)}
                                 className="w-6 h-6 text-gray-800 dark:text-white"
                                 aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -128,13 +128,13 @@ const ScheduleTable = ({ profiles }) => {
                                 <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M12 6h.01M12 12h.01M12 18h.01" />
                               </svg>
 
-                              {openMenus[item._id] && (
+                              {openMenus[item.unique_id] && (
                                 <div className={style.dropdowncontent}>
                                   <div className={style.inputContainer}>
                                     <input className={style.otpBox} type="text" placeholder='OTP' />
-                                    </div>
-                                    <div className={style.editButton} >Edit Details </div>
-                                  
+                                  </div>
+                                  <div className={style.editButton} >Edit Details </div>
+
                                   <div className={style.started} >Started</div>
                                   <div className={style.started} >No-Show</div>
                                   <div className={style.started} >Completed</div>
