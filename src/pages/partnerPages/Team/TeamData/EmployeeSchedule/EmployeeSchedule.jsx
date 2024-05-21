@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 import plus from "../../../../../assets/images/TeamDetails/plus.png";
 import copy from "../../../../../assets/images/TeamDetails/copy.png";
 import Pick from "../../../Date/Pic";
-import { useGetAllTeamMemSche } from "../../../../../services/Team";
+import {
+  useGetAllTeamMemSche,
+  useGetSlots,
+} from "../../../../../services/Team";
 import { formatStateDate } from "../utils";
 import CustomSelect2 from "../../../../../components/Select/CustomeSelect2/CustomeSelect2";
 import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
@@ -45,7 +48,6 @@ const EmployeeSchedule = () => {
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-
   const { data, isLoading, isError, error, refetch } = useGetAllTeamMemSche();
   const toggleShiftTimes = (index) => {
     const newShiftTimesVisible = [...shiftTimesVisible];
@@ -59,99 +61,42 @@ const EmployeeSchedule = () => {
       imageUrl: x.stylist_Img.public_url,
     };
   });
-  const slots = [
-    {
-      slot: "09:00",
-      isBooked: false,
-      _id: "65f8769c997155e777b9782e",
-    },
-    {
-      slot: "09:30",
-      isBooked: false,
-      _id: "65f8769c997155e777b9782f",
-    },
-    {
-      slot: "10:00",
-      isBooked: false,
-      _id: "65f8769c997155e777b97830",
-    },
-    {
-      slot: "10:30",
-      isBooked: false,
-      _id: "65f8769c997155e777b97831",
-    },
-    {
-      slot: "11:00",
-      isBooked: false,
-      _id: "65f8769c997155e777b97832",
-    },
-    {
-      slot: "14:00",
-      isBooked: false,
-      _id: "65f8769c997155e777b97833",
-    },
-    {
-      slot: "14:30",
-      isBooked: false,
-      _id: "65f8769c997155e777b97834",
-    },
-    {
-      slot: "15:00",
-      isBooked: false,
-      _id: "65f8769c997155e777b97835",
-    },
-    {
-      slot: "15:30",
-      isBooked: false,
-      _id: "65f8769c997155e777b97836",
-    },
-    {
-      slot: "16:00",
-      isBooked: false,
-      _id: "65f8769c997155e777b97837",
-    },
-    {
-      slot: "16:30",
-      isBooked: false,
-      _id: "65f8769c997155e777b97838",
-    },
-    {
-      slot: "17:00",
-      isBooked: false,
-      _id: "65f8769c997155e777b97839",
-    },
-    {
-      slot: "17:30",
-      isBooked: false,
-      _id: "65f8769c997155e777b9783a",
-    },
-    {
-      slot: "18:00",
-      isBooked: false,
-      _id: "65f8769c997155e777b9783b",
-    },
-    {
-      slot: "18:30",
-      isBooked: false,
-      _id: "65f8769c997155e777b9783c",
-    },
-    {
-      slot: "19:00",
-      isBooked: false,
-      _id: "65f8769c997155e777b9783d",
-    },
-    {
-      slot: "19:30",
-      isBooked: false,
-      _id: "65f8769c997155e777b9783e",
-    },
-    {
-      slot: "20:00",
-      isBooked: false,
-      _id: "65f8769c997155e777b9783f",
-    },
-  ];
 
+  const { data: Slots } = useGetSlots();
+
+  const slots =
+    Slots?.slotsPerDay[0]?.slots > 0
+      ? Slots?.slotsPerDay[0]?.slots
+      : [
+          "08:00",
+          "08:30",
+          "09:00",
+          "09:30",
+          "10:00",
+          "10:30",
+          "11:00",
+          "11:30",
+          "12:00",
+          "12:30",
+          "13:00",
+          "13:30",
+          "14:00",
+          "14:30",
+          "15:00",
+          "15:30",
+          "16:00",
+          "16:30",
+          "17:00",
+          "17:30",
+          "18:00",
+          "18:30",
+          "19:00",
+          "19:30",
+          "20:00",
+          "20:30",
+          "21:00",
+          "21:30",
+        ];
   useEffect(() => {
     setSelectedMember(teamMembers ? teamMembers[0] : null);
   }, [data]);
@@ -337,11 +282,12 @@ const EmployeeSchedule = () => {
                         >
                           <option value="">please select</option>
 
-                          {slots.map((x, i) => (
-                            <option key={i} value={x.slot}>
-                              {x.slot}{" "}
-                            </option>
-                          ))}
+                          {slots.length > 0 &&
+                            slots?.map((x, i) => (
+                              <option key={i} value={x.slot}>
+                                {x}{" "}
+                              </option>
+                            ))}
                           <option value="Close">Leave</option>
                         </select>
                       </div>
@@ -353,11 +299,12 @@ const EmployeeSchedule = () => {
                         >
                           <option value="">please select</option>
 
-                          {slots.map((x, i) => (
-                            <option key={i} value={x.slot}>
-                              {x.slot}{" "}
-                            </option>
-                          ))}
+                          {slots.length > 0 &&
+                            slots?.map((x, i) => (
+                              <option key={i} value={x.slot}>
+                                {x}{" "}
+                              </option>
+                            ))}
                           <option value="Close">Leave</option>
                         </select>
                       </div>

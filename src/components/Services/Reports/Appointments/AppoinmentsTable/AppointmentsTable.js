@@ -98,26 +98,27 @@ const AppointmentsTable = ({ data }) => {
             </tr>
           </thead>
           <tbody className={sty.tbody}>
-            {tableData?.map((x) => (
-              <tr style={{ borderBottom: "1px solid #ebedf0" }}>
-                <td>
-                  <div className={sty.checkbox}>
-                    <input type="checkbox" id="" />
-                  </div>
-                </td>
-                <td>{x.txnId}</td>
-                <td>{x.date}</td>
-                <td>{x.clientName}</td>
-                <td>{x.services}</td>
-                <td>{x.Employee}</td>
-                <td>{x.status}</td>
-                <td>{x.amount}</td>
-                <td>{x.type}</td>
-                <td style={{ fontSize: "18px" }}>
-                  <MdOutlineFileDownload />
-                </td>
-              </tr>
-            ))}
+            {tableData.length > 0 &&
+              tableData?.map((x) => (
+                <tr style={{ borderBottom: "1px solid #ebedf0" }}>
+                  <td>
+                    <div className={sty.checkbox}>
+                      <input type="checkbox" id="" />
+                    </div>
+                  </td>
+                  <td>{x.txnId}</td>
+                  <td>{x.date}</td>
+                  <td>{x.clientName}</td>
+                  <td>{x.services}</td>
+                  <td>{x.Employee}</td>
+                  <td>{x.status}</td>
+                  <td>{x.amount}</td>
+                  <td>{x.type}</td>
+                  <td style={{ fontSize: "18px" }}>
+                    <MdOutlineFileDownload />
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

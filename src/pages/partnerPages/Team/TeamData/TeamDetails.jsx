@@ -61,16 +61,16 @@ const TeamDetails = () => {
 
   const TeamDetailsData = data?.data?.map((x) => {
     return {
-      id: x._id,
-      profile: x.stylist_Img.public_url || Mask1,
-      name: x.stylist_name,
-      serviceProfile: x.stylist_service || "N/A",
-      tenure: x.tenure || "N/A",
-      phone: x.stylist_number || "N/A",
-      rating: x.rating || "N/A",
-      address: x.stylist_address || "N/A",
-      service: x.stylist_service.length || 0,
-      bookingToday: x.appointments,
+      id: x?._id,
+      profile: x?.stylist_Img?.public_url || Mask1,
+      name: x?.stylist_name,
+      serviceProfile: x?.stylist_service || "N/A",
+      tenure: x?.tenure || "N/A",
+      phone: x?.stylist_number || "N/A",
+      rating: x?.rating || "N/A",
+      address: x?.stylist_address || "N/A",
+      service: x?.stylist_service.length || 0,
+      bookingToday: x?.appointments,
       editPencil: editImg,
     };
   });

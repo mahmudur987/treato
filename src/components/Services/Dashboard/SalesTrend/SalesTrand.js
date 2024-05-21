@@ -75,12 +75,7 @@ const SalesTrand = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  if (isLoading) {
-    <LoadSpinner />;
-  }
-  if (isError) {
-    return <ErrorComponent message={error.message} />;
-  }
+
   return (
     <>
       <div className={styles.mainContainer}>
@@ -90,6 +85,8 @@ const SalesTrand = () => {
         </div>
 
         <div className={styles.rechart}>
+          {isLoading && <LoadSpinner />}
+
           {data && !isLoading && !isError && (
             <div className={styles.bar}>
               <BarChart
@@ -144,6 +141,8 @@ const SalesTrand = () => {
               </LineChart>
             </div>
           )}
+
+          {isError && <ErrorComponent message={error.message} />}
         </div>
         <div className={styles.footer}>
           <p className={styles.footerLeft}>

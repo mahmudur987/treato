@@ -40,7 +40,7 @@ const Upcoming = () => {
       const { data } = await axiosInstance("sales/upcomingAppointments", {
         headers,
       });
-
+      console.log(data);
       return data;
     },
   });
@@ -57,14 +57,8 @@ const Upcoming = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []); // E
-  if (isLoading) {
-    <LoadSpinner />;
-  }
-  if (isError) {
-    return <ErrorComponent message={error.message} />;
-  }
-
+  }, []);
+  console.log(error);
   return (
     <>
       {innerWidth < 600 ? (
@@ -131,6 +125,10 @@ const Upcoming = () => {
                   })}
               </tbody>
             </table>
+
+            {isLoading && <LoadSpinner />}
+
+            {isError && <ErrorComponent message={error.message} />}
           </div>
         </div>
       )}

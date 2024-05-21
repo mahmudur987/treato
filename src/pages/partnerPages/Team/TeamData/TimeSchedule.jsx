@@ -1,10 +1,7 @@
 import React, { createContext, useRef, useState } from "react";
-import editImg from "../../../../assets/images/AccountSettings/edit.svg";
-import Mask1 from "../../../../assets/images/TeamDetails/Mask group.png";
 import sty from "./TimeSchedule.module.css";
 import topImg from "../../../../assets/images/TeamDetails/Vector (1).png";
 import arrowLeft from "../../../../assets/images/TeamDetails/arrow-left.png";
-import Scroller from "../../../../assets/images/TeamDetails/Scroller.png";
 import chevronRight from "../../../../assets/images/TeamDetails/chevron-right (3).png";
 import chevronLeft from "../../../../assets/images/TeamDetails/chevron-right (4).png";
 import downLondIcon from "../../../../assets/images/TeamDetails/download-minimalistic-svgrepo-com 1.png";
@@ -62,7 +59,7 @@ const TimeSchedule = () => {
       id: x?._id,
       profile: x?.stylist_Img.public_url || "",
       name: x?.stylist_name,
-      schedule: x.time_for_service,
+      schedule: x?.time_for_service,
     };
 
     return data;
@@ -99,11 +96,7 @@ const TimeSchedule = () => {
   const openLeaveModal = () => {
     setIsLeave(true);
   };
-  const scrollToLeft = () => {
-    if (tableContainerRef.current) {
-      tableContainerRef.current.scrollLeft -= 100;
-    }
-  };
+
   const employeeSchedule = () => {
     navigate("/partner/dashboard/EmployeeSchedule");
   };
@@ -113,6 +106,8 @@ const TimeSchedule = () => {
   if (isError) {
     return <ErrorComponent message={error.message} />;
   }
+
+  console.log(data);
 
   return (
     <TimeScheContext.Provider
