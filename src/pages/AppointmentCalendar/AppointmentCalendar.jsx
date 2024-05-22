@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import style from './style.module.css';
 import DatePicker from 'react-datepicker';
+import { Link } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import ScheduleTable from './ScheduleTable/Schedule';
 import { GetCalenderdata } from '../../services/calender';
@@ -85,7 +86,7 @@ const filteredFn =(e)=>{
                             {filteredData &&
                             filteredData.map((item)=><option value={item.stylistName}>{item.stylistName}</option>)}
                         </select>
-                        <button><span>+</span>Add Appointment</button>
+                        <Link to="/partner/dashboard/addappoinment"><button><span>+</span>Add Appointment</button></Link>
                     </div>
                 </div>
                 <div className={style.lineBar}></div>

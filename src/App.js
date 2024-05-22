@@ -163,14 +163,14 @@ function App() {
           theme="light"
         />
         <ModalManager />
-        
+
 
         <Routes>
-        
+
           <Route element={<CustomerPageLayout />}>
-          {/* <Route  element={<Chatbot/>}/> */}
+            {/* <Route  element={<Chatbot/>}/> */}
             <Route path="/" element={<Home />} />
-            
+
             <Route path="/account-settings" element={<AccountSettings />} />
             <Route path="/salons" element={<Salons />} />
             <Route path="/salons/:id" element={<SalonDetail />} />
@@ -204,6 +204,7 @@ function App() {
           {/* partner dashboard */}
           <Route path="/partner/dashboard" element={<ServicePage />}>
             <Route path="/partner/dashboard" element={<Dashboard />} />
+            <Route path="/partner/dashboard/appointment/calendar" element={<AppointmentCalendar />} />
 
             <Route
               path="/partner/dashboard/service"
@@ -272,12 +273,12 @@ function App() {
           {/* About page */}
           <Route path="/Aboutuspage" element={<AboutUsPage />} />
           {/* Privacy page */}
-          <Route path="/Privacy" element={<Privacy/>}>
-            <Route path="/Privacy" element={<SubBar/>}>
-            <Route path="/Privacy/termofuse" element={<Termoptions/>}/>
-            <Route path="/Privacy/policy" element={<PrivacyService/>}/>
+          <Route path="/Privacy" element={<Privacy />}>
+            <Route path="/Privacy" element={<SubBar />}>
+              <Route path="/Privacy/termofuse" element={<Termoptions />} />
+              <Route path="/Privacy/policy" element={<PrivacyService />} />
             </Route>
-           
+
           </Route>
 
           {/* Careers page routes */}
@@ -287,26 +288,26 @@ function App() {
             <Route path="/careers/jobdetails/:id" element={<JobDetails />} />
 
           </Route>
-          
-          
-            {/* FrequentlyAskedQuestions page  */}
-            <Route
-              path="/frequentlyaskedquestions"
-              element={<FrequentlyAskedQuestionsPage />}
-            />
-            {/* Pricing page  */}
-            <Route path="/Pricing" element={<PricingPage />} />
-            {/* contact us page  */}
-            <Route path="/contactus" element={<ContactUsLayout />} />
 
-            
-          
+
+          {/* FrequentlyAskedQuestions page  */}
+          <Route
+            path="/frequentlyaskedquestions"
+            element={<FrequentlyAskedQuestionsPage />}
+          />
+          {/* Pricing page  */}
+          <Route path="/Pricing" element={<PricingPage />} />
+          {/* contact us page  */}
+          <Route path="/contactus" element={<ContactUsLayout />} />
+
+
+
 
           {/* admin dashboard */}
 
           <Route path="/admin" element={<AdminPageLayout />}>
             <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/appointment/calendar" element={<AppointmentCalendar />} />
+            
             <Route path="/admin/salon/active" element={<ActiveSalon />} />
             <Route
               path="/admin/salon/active/:id"
