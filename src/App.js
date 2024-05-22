@@ -75,6 +75,7 @@ import PendingSalonGallery from "./pages/AdminPages/Dashboard/Salon/Pending/Gall
 import LookPage from "./pages/partnerPages/Look/LookPage/LookPage";
 import AddLook from "./pages/partnerPages/Look/AddALook/AddLook";
 import EditLook from "./pages/partnerPages/Look/EditLook/EditLook";
+import Commission from "./pages/AdminPages/Commissions/Commission";
 
 function App() {
   // Use the location hook to track route changes
@@ -338,6 +339,7 @@ function App() {
               element={<DeactivatedSalon />}
             />
             <Route path="/admin/payment" element={<PaymentPage />} />
+            <Route path="/admin/commission" element={<Commission />} />
           </Route>
         </Routes>
       </PageLayout>

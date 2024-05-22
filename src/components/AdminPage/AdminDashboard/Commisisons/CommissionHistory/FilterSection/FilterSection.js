@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styles from "./FilterSection.module.css";
-
+import { GoDownload } from "react-icons/go";
 import CustomSelect4 from "../../../../../Select/CustomeSelect4/CustomSelect4";
-import { Link } from "react-router-dom";
 
 const FilterSection = ({ value }) => {
   const {
@@ -16,7 +15,7 @@ const FilterSection = ({ value }) => {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>
-        <h3>Billing History</h3>
+        <h3>Commission History</h3>
       </div>
 
       <div className={styles.selectsWrapper}>
@@ -30,9 +29,12 @@ const FilterSection = ({ value }) => {
           onChange={setSelectedPaymentDate}
           value={selectedPaymentDate}
         />
-        <Link to={"/admin/commission"} className={styles.action}>
-          <button>Set Commission %</button>
-        </Link>
+        <div className={styles.action}>
+          <button>
+            <span>Download</span>
+            <GoDownload style={{ fontSize: "20px" }} />
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import styles from "./BillingHistory.module.css";
+import styles from "./CommissionHistory.module.css";
 import FilterSection from "./FilterSection/FilterSection";
-import BillHistoryTable from "./BillHistoryTable/BillHistoryTable";
 import Pagination from "./pagination/Pagination";
 import { useBillingHistory } from "../../../../../services/superAdmin/Dashboard";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import { generatePastMonths } from "../../Salon/SingleSalonDetails/Bookings/BookingsPart";
 import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
+import CommissionHistoryTable from "./CommissionHistoryTable/CommissionHistoryTable";
 
-const BillingHistory = () => {
+const CommissionHistory = () => {
   const PaymentStatus = ["All Booking", "Online", "On-Site"];
   const PaymentDate = generatePastMonths();
   const [selectedPaymentStatus, setSelectedPaymentStatus] = useState(
@@ -46,7 +46,9 @@ const BillingHistory = () => {
     <section className={styles.mainContainer}>
       <FilterSection value={value} />
       {isLoading && <LoadSpinner />}
-      {filteredData.length > 0 && <BillHistoryTable data={filteredData} />}
+      {filteredData.length > 0 && (
+        <CommissionHistoryTable data={filteredData} />
+      )}
       {isError && <ErrorComponent message={error ? error.message : "Error"} />}
 
       {filteredData.length > 0 && (
@@ -64,4 +66,4 @@ const BillingHistory = () => {
   );
 };
 
-export default BillingHistory;
+export default CommissionHistory;

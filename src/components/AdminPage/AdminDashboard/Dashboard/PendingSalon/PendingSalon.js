@@ -63,7 +63,7 @@ const PendingSalon = () => {
       <div className={styles.top}>
         <h2>
           Pending Salon Approvals (
-          {pendingSalonData.length > 0 ? pendingSalonData?.length : ""}){" "}
+          {pendingSalonData?.length > 0 ? pendingSalonData?.length : ""}){" "}
         </h2>
         <Link to={"/admin/salon/pending"}>view all</Link>
       </div>
