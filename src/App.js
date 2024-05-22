@@ -272,7 +272,10 @@ function App() {
             {/* look */}
             <Route path="/partner/dashboard/look" element={<LookPage />} />
             <Route path="/partner/dashboard/add-look" element={<AddLook />} />
-            <Route path="/partner/dashboard/edit-look" element={<EditLook />} />
+            <Route
+              path="/partner/dashboard/edit-look/:id"
+              element={<EditLook />}
+            />
           </Route>
           {/* About page */}
           <Route path="/Aboutuspage" element={<AboutUsPage />} />
