@@ -28,15 +28,15 @@ function AppointmentCalendar() {
         console.log(profiles);
     }, []);
 
-const filteredFn =(e)=>{
-    if(e.target.value==="Everyone"){
-        setEmployee(filteredData)
+    const filteredFn = (e) => {
+        if (e.target.value === "Everyone") {
+            setEmployee(filteredData)
+        }
+        else {
+            const filteredByName = filteredData.filter((ele) => ele.stylistName === e.target.value);
+            setEmployee(filteredByName)
+        }
     }
-    else{
-        const filteredByName = filteredData.filter((ele)=>ele.stylistName===e.target.value);
-        setEmployee(filteredByName)
-    }
-}
 
 
     const decreaseDate = () => {
@@ -81,16 +81,20 @@ const filteredFn =(e)=>{
                         )}
                     </div>
                     <div className={style.rightBox} >
-                        <select className={style.filter} onChange={filteredFn} name="persons" id="dropdown">
-                            <option value="Everyone" selected >Everyone</option>
+                        <select className={`${style.filter} custom-select`} onChange={filteredFn} name="persons" id="dropdown">
+                            <option value="Everyone" selected>Everyone</option>
                             {filteredData &&
-                            filteredData.map((item)=><option value={item.stylistName}>{item.stylistName}</option>)}
+                                filteredData.map((item, index) => (
+                                    <option key={index} value={item.stylistName}>{item.stylistName}</option>
+                                ))}
                         </select>
                         <Link to="/partner/dashboard/addappoinment"><button><span>+</span>Add Appointment</button></Link>
                     </div>
                 </div>
                 <div className={style.lineBar}></div>
-                <div className={style.scheduleBox} ><ScheduleTable profiles={profiles} /></div>
+                <div className={style.scheduleBox} >
+                    <ScheduleTable profiles={profiles} />
+                </div>
 
             </div>
         </>

@@ -73,6 +73,32 @@ const ScheduleTable = ({ profiles }) => {
 
 
   };
+  const changeStatus =(status)=>{
+    if(status==='upcoming'){
+      return {
+        textcolor: "#FFFFFF",
+        background: "#DE2929"
+      }
+    }
+    else if(status==="completed"){
+      return {
+        textcolor: "#FFFFFF",
+        background: "#3AAB7C"
+      }
+    }
+    else if(status==="cancelled"){
+      return {
+        textcolor: "#FFFFFF",
+        background: "#3AAB7C"
+      }
+    }
+    else if(status==="in-progress"){
+      return {
+        textcolor: "#FFFFFF",
+        background: "#3AAB7C"
+      }
+    }
+  }
 
   return (<>
     <div className={style.durationsBox}>
@@ -96,6 +122,7 @@ const ScheduleTable = ({ profiles }) => {
                 </div>
                 <div className={style.slides} >
                   {profile.appointments.map((ele, z) => {
+                    let {textcolor, background} = changeStatus(ele.status);
 
                     return <>
                       {ele.services.map((item, appointmentIndex) => {
@@ -144,6 +171,10 @@ const ScheduleTable = ({ profiles }) => {
 
 
                             </div>
+                            <button className={style.statusButton} style={{
+                              color:`${textcolor}`,
+                              background: `${background}`
+                            }} >{ele.status}</button>
                           </div></>
 
                       })}
