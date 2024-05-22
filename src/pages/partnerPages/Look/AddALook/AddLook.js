@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 import styles from "./AddLook.module.css";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoMdArrowRoundBack } from "@react-icons/all-files/io/IoMdArrowRoundBack";
 import LeftContent from "../../../../components/Services/Look/AddLook/LeftContent/LeftContent";
 import StyleDetails from "../../../../components/Services/Look/AddLook/StyleDetails/StyleDetails";
 import TeamMembers from "../../../../components/Services/Look/AddLook/TeamMembers/TeamMembers";

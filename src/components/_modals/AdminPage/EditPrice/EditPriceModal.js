@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styles from "./EditPriceModal.module.css";
 import img1 from "../../../../assets/images/TeamDetails/ProfileImg.png";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 
 import { toast } from "react-toastify";
 import axiosInstance from "../../../../services/axios";

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./AddCategory.module.css";
 import CustomSelect from "../../Select/CustomeSelect";
 import ColorSelect from "../../Select/ColorSelect/ColorSelect";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import { getAllServices } from "../../../services/Services";
 import { useSingleSalon } from "../../../services/salon";
 import { toast } from "react-toastify";

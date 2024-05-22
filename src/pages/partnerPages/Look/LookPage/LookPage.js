@@ -1,49 +1,13 @@
 import React from "react";
 import styles from "./LookPage.module.css";
 import LookCard from "../../../../components/Services/Look/LookCard/LookCard";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { FaPlus } from "react-icons/fa";
+import { IoMdArrowRoundBack } from "@react-icons/all-files/io/IoMdArrowRoundBack";
+import { FaPlus } from "@react-icons/all-files/fa/FaPlus";
 import { Link, useNavigate } from "react-router-dom";
 import { useAllLook } from "../../../../services/Look";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
-const dataS = [
-  {
-    id: 1,
-    title: "red,green,yellow,red,green,yellow,",
-    rating: "4",
-    image:
-      "https://images.unsplash.com/photo-1554519934-e32b1629d9ee?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 1,
-    title: "red,green,yellow",
-    rating: "4",
-    image:
-      "https://images.unsplash.com/photo-1554519934-e32b1629d9ee?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 1,
-    title: "red,green,yellow",
-    rating: "4",
-    image:
-      "https://images.unsplash.com/photo-1554519934-e32b1629d9ee?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 1,
-    title: "red,green,yellow",
-    rating: "4",
-    image:
-      "https://images.unsplash.com/photo-1554519934-e32b1629d9ee?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 1,
-    title: "red,green,yellow",
-    rating: "4",
-    image:
-      "https://images.unsplash.com/photo-1554519934-e32b1629d9ee?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
+
 const LookPage = () => {
   const navigate = useNavigate();
   const { data: looks, isLoading, isError, error } = useAllLook();
@@ -56,7 +20,6 @@ const LookPage = () => {
         x?.photo?.public_url ??
         "https://images.unsplash.com/photo-1554519934-e32b1629d9ee?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     };
-
     return data;
   });
   return (

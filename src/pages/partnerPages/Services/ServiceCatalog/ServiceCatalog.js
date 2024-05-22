@@ -5,8 +5,8 @@ import CustomSelect from "../../../../components/Select/CustomeSelect";
 import ServicesDropDown from "../../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
 
 import AddCategory from "../../../../components/_modals/Addcategory/AddCategory";
-import { BiMenuAltLeft } from "react-icons/bi";
-import { FaPlus } from "react-icons/fa";
+import { BiMenuAltLeft } from "@react-icons/all-files/bi/BiMenuAltLeft";
+import { FaPlus } from "@react-icons/all-files/fa/FaPlus";
 import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";

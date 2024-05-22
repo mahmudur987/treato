@@ -5,7 +5,7 @@ import LoadSpinner from "../../../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../../components/ErrorComponent/ErrorComponent";
 import leftIco from "../../../../../../assets/images/AccountSettings/arrow-left.svg";
 import { Link, useParams } from "react-router-dom";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { BsThreeDotsVertical } from "@react-icons/all-files/bs/BsThreeDotsVertical";
 import {
   adminToken,
   useSalonImages,

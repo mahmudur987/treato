@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Gallery.module.css";
-import { salon } from "../../../../../../services/salon";
 import LoadSpinner from "../../../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../../components/ErrorComponent/ErrorComponent";
 import leftIco from "../../../../../../assets/images/AccountSettings/arrow-left.svg";
 import { Link, useParams } from "react-router-dom";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { BsThreeDotsVertical } from "@react-icons/all-files/bs/BsThreeDotsVertical";
 import {
   adminToken,
-  useSalonDetailsServices,
   useSalonImages,
 } from "../../../../../../services/superAdmin/Dashboard";
 import NoDataDisplay from "../../../../../../components/NodataToDisplay/NoDataDisplay";

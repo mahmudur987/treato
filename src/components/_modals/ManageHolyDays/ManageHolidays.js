@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./ManageHolidays.module.css";
-import { IoMdArrowBack } from "react-icons/io";
-import { FaPlus } from "react-icons/fa6";
+import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
+import { FaPlus } from "@react-icons/all-files/fa/FaPlus";
 import ToggleButton from "../../Buttons/Toggle/ToggleButton";
 import { useSingleSalon } from "../../../services/salon";
 import { useGetHolidays } from "../../../services/holidays";

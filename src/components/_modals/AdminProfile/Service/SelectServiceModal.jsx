@@ -1,7 +1,7 @@
 // Modal.js
 import React, { useState } from "react";
 import styles from "./SelectServiceModal.module.css";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import { CiSearch } from "react-icons/ci";
 const SelectServiceModal = ({
   showModal,
@@ -10,7 +10,7 @@ const SelectServiceModal = ({
   setSelectedServices,
   mainCategories,
 }) => {
-  const [all, setall] = useState(false);
+  const [all, setAll] = useState(false);
   const toggleService = (serviceId) => {
     setSelectedServices((prevSelected) =>
       prevSelected.includes(serviceId)
@@ -33,7 +33,7 @@ const SelectServiceModal = ({
     const allServices = mainCategories.flatMap((category) =>
       category.subCategories.map((service) => service._id)
     );
-    setall(!all);
+    setAll(!all);
     // Check if all services are already selected
     const allSelected = allServices.every((serviceId) =>
       selectedServices.includes(serviceId)

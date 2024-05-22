@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import styles from "./AddNewClient.module.css";
 import CustomSelect from "../../Select/CustomeSelect";
 import en from "react-phone-number-input/locale/en";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import CountrySelect from "../../Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
 import { AddAppoinmentContext } from "../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";

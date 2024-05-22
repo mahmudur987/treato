@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./DeleteReview.module.css";
 
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 
 import { toast } from "react-toastify";
 import axiosInstance from "../../../../services/axios";

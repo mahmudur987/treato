@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import styles from "./Header.module.css";
-import { FaUsers } from "react-icons/fa";
-import { BsClipboardCheck } from "react-icons/bs";
-import { BsClipboard2Check } from "react-icons/bs";
-import { IoIosArrowUp } from "react-icons/io";
+import { FaUsers } from "@react-icons/all-files/fa/FaUsers";
+
+import { IoIosArrowUp } from "@react-icons/all-files/io/IoIosArrowUp";
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import CustomSelect2 from "../../../../Select/CustomeSelect2/CustomeSelect2";
 import Slider from "react-slick";
 import { useStatistics } from "../../../../../services/superAdmin/Dashboard";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 
 const Header = () => {
   const [selectedOption, setSelectedOption] = useState("last 30 days");

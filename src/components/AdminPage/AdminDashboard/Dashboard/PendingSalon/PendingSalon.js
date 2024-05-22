@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./PendingSalon.module.css";
 import img from "../../../../../assets/images/SalonDetail/slide4.png";
 import { Link } from "react-router-dom";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight } from "@react-icons/all-files/fa/FaArrowRight";
 import Slider from "react-slick";
 import { usePendingSalons } from "../../../../../services/superAdmin/Dashboard";
 import { formatDate } from "../../../../../pages/AdminPages/Dashboard/AdminDashboard";

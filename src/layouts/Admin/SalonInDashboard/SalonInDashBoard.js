@@ -1,6 +1,6 @@
 import React from "react";
 import SalonInDashboardNavbar from "../../../components/AdminPage/Navbar/SalonInDashboard/Navbar";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import styles from "./SalonInDashboard.module.css";
 import { Link, useLocation } from "react-router-dom";
 const SalonInDashBoard = ({ children }) => {

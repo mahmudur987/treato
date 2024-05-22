@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./FilterSection.module.css";
 import CustomSelect4 from "../../../../../Select/CustomeSelect4/CustomSelect4";
 import { MdOutlineGridView } from "react-icons/md";
-import { IoMenu } from "react-icons/io5";
+import { IoMdMenu } from "@react-icons/all-files/io/IoMdMenu";
 
 const FilterSection = ({ viewBy, setViewBy, count, value }) => {
   const {
@@ -24,7 +24,7 @@ const FilterSection = ({ viewBy, setViewBy, count, value }) => {
             <MdOutlineGridView />
           </button>
           <button className={!viewBy ? styles.active : styles.notActive}>
-            <IoMenu />
+            <IoMdMenu />
           </button>
         </div>
         <div className={styles.selectsWrapper}>

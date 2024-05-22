@@ -2,7 +2,6 @@ import React from "react";
 import topImg from "../../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./CommissionHistoryTable.module.css";
-import { BsThreeDots } from "react-icons/bs";
 import { formatDate } from "../../../../../../pages/AdminPages/Dashboard/AdminDashboard";
 import { GoDownload } from "react-icons/go";
 const tableHeading = [
