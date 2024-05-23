@@ -17,10 +17,17 @@ const FilterSection = ({ value }) => {
     <div className={styles.mainContainerWrapper}>
       <div className={styles.mainContainer}>
         <div className={styles.searchWrapper}>
-          <span>
-            <IoSearchOutline />
-          </span>
-          <input type="text" placeholder="Search by name or transaction ID" />
+          <label htmlFor="search">
+            <span>
+              <IoSearchOutline />
+            </span>
+          </label>
+          <input
+            id="search"
+            type="text"
+            placeholder="Search by name or transaction ID"
+            className={styles.input}
+          />
         </div>
 
         <div className={styles.selectsWrapper}>

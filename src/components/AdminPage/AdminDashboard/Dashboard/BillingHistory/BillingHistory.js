@@ -34,6 +34,9 @@ const BillingHistory = () => {
     return x?.data?.slice(startIndex, endIndex) || [];
   };
   const filteredData = getFilteredData(data);
+
+  console.log(data);
+
   const value = {
     PaymentStatus,
     PaymentDate,

@@ -36,6 +36,7 @@
   border: 1px solid #ced4da;
   padding: 0px 1px;
   border-radius: 30px;
+  cursor: pointer;
 }
 .viewBy button {
   width: 43px;

@@ -14,9 +14,9 @@
   gap: 30px;
 }
 .container h3 {
-  color: var(--Grey-Grey-05, #2e3032);
+  color: var(--Grey-Grey-05, #08090a);
   font-family: Poppins;
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 600;
   line-height: 30px;
   text-align: left;

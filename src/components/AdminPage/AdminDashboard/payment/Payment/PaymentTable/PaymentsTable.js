@@ -20,7 +20,7 @@ const tableHeading = [
     bottomImg: bottomImg,
   },
   {
-    heading: "Service(s)",
+    heading: "Salon Name",
   },
   {
     heading: "Amount",
@@ -53,24 +53,20 @@ const tableHeading = [
     topImg: topImg,
     bottomImg: bottomImg,
   },
-
-  {
-    heading: "Invoice",
-  },
 ];
 const PaymentTable = () => {
   const tableData = [
     {
       txnId: "213541",
-      date: "5-12-24",
+      date: "24 Dec,2023",
       clientName: "Mahmud",
-      services: "Hair cut",
-      amount: "Nayanica",
-      status: "canceled",
+      salon_name: "Gitanjali salon",
+      amount: "₹1,199",
+      status: "Paid",
       Mode: "online",
       paidOn: "24 Dec 2023",
-      tax: "34.8",
-      comm: "3.8",
+      tax: "₹199",
+      comm: "₹1",
     },
   ];
 
@@ -114,16 +110,16 @@ const PaymentTable = () => {
                 <td>{x.txnId}</td>
                 <td>{x.date}</td>
                 <td>{x.clientName}</td>
-                <td>{x.services}</td>
+                <td>{x.salon_name}</td>
                 <td>{x.amount}</td>
                 <td>{x.status}</td>
                 <td>{x.Mode}</td>
                 <td>{x.paidOn}</td>
                 <td>{x.tax}</td>
                 <td>{x.comm}</td>
-                <td style={{ fontSize: "18px" }}>
+                {/* <td style={{ fontSize: "18px" }}>
                   <MdOutlineFileDownload />
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>
