@@ -58,10 +58,13 @@
     justify-content: space-between;
 }
 .cBox{
-    width: 1228px;
+    min-width: 160px;
+}
+.dBox{
+    min-width: 1228px;
 }
 .clientDetailsBox{
-    width: 144px;
+    width: 96%;
     height: 58px;
     display: flex;
     justify-content: space-between;
@@ -111,6 +114,7 @@
     border-left: 2px dotted #CED4DA;
     height: auto;
     min-width: 160px;
+    max-width: max-content;
     display: flex;
     align-items: baseline;
     flex-direction: column;

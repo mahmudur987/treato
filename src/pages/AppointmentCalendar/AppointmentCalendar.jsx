@@ -12,21 +12,23 @@ function AppointmentCalendar() {
     const [profiles, setEmployee] = useState(null);
     const [filteredData, setFilter] = useState(null);
 
-    useEffect(() => {
-        const getdata = async () => {
-            const { res, err } = await GetCalenderdata()
-            if (res) {
-                setEmployee(res.data);
-                setFilter(res.data)
-                console.log(res)
-            }
-            else {
-                console.log(err);
-            }
+    async function  getdata   (){
+        const { res, err } = await GetCalenderdata()
+        if (res) {
+            setEmployee(res.data);
+            setFilter(res.data)
+            console.log(res)
         }
+        else {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        
         getdata()
         console.log(profiles);
-    }, [GetCalenderdata]);
+    }, []);
 
     const filteredFn = (e) => {
         if (e.target.value === "Everyone") {
@@ -75,7 +77,7 @@ function AppointmentCalendar() {
                         </svg>
                         </div>
                         {showCalendar && (
-                            <div className="calendar-popup">
+                            <div className={style.calendarpopup}>
                                 <DatePicker selected={date} onChange={handleDateChange} />
                             </div>
                         )}
@@ -93,7 +95,7 @@ function AppointmentCalendar() {
                 </div>
                 <div className={style.lineBar}></div>
                 <div className={style.scheduleBox} >
-                    <ScheduleTable profiles={profiles} />
+                    <ScheduleTable profiles={profiles} getdatefn={getdata} />
                 </div>
 
             </div>

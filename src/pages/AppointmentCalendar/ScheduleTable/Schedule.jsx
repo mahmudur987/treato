@@ -38,7 +38,17 @@ const ScheduleTable = ({ profiles }) => {
   {
     time: "6:00 AM"
   }])
+  const [condition, setCondition] = useState(false)
   
+  useEffect(()=>{
+    
+    if(profiles?.length===1){
+      setCondition(true)
+    }
+    else{
+      setCondition(false);
+    }
+  },[profiles])
 
 
 
@@ -169,7 +179,7 @@ const ScheduleTable = ({ profiles }) => {
                         const heights = convertTime(item.time_takenby_service);
                         // console.log(heights);
                         return <>
-                          <div className={style.appointmentBox} key={item.unique_id} style={{
+                          <div className={`${style.appointmentBox} ${condition ? style.dBox : style.cBox}`} key={item.unique_id} style={{
                             height: `${heights}px`,
                             backgroundColor: `${item.color}`
                           }} >
