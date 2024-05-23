@@ -4,6 +4,7 @@ import bottomImg from "../../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./SalonTable.module.css";
 import { MdOutlineFileDownload } from "react-icons/md";
 import Pagination from "../../../Dashboard/BillingHistory/pagination/Pagination";
+import { Link } from "react-router-dom";
 const tableHeading = [
   {
     heading: "Salon",
@@ -86,12 +87,7 @@ const SalonTable = ({ tableData }) => {
                 <td>{x.salon_NetSales}</td>
 
                 <td>
-                  <a
-                    href="
-                  "
-                  >
-                    view salon
-                  </a>
+                  <Link to={`/admin/salon/active/${x.id}`}>view salon</Link>
                 </td>
               </tr>
             ))}

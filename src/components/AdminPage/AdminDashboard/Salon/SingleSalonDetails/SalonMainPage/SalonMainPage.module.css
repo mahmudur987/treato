@@ -15,7 +15,7 @@
 }
 
 .salon_options ul li {
-  color: #08090a;
+  color: #2e3032;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-weight: 600;
@@ -27,7 +27,7 @@
 }
 
 .active_salon_option {
-  border-bottom: 1px solid blue;
+  border-bottom: 3px solid #0d69d7;
 }
 
 .salon_sections {
