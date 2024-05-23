@@ -1,18 +1,21 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import styles from "./LeftContent.module.css";
 import { addLookContext } from "../../../../../pages/partnerPages/Look/AddALook/AddLook";
 import { FaImage } from "react-icons/fa6";
 import replace from "../../../../../assets/icons/partner/replace.png";
 const LeftContent = () => {
   const { image, setImage } = useContext(addLookContext);
-  const fileInputRef = useRef(null);
 
+  const [renderImage, setRenderImage] = useState(null);
+
+  const fileInputRef = useRef(null);
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result);
+        setRenderImage(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -30,9 +33,9 @@ const LeftContent = () => {
       </p>
 
       <div className={styles.uploadContainer}>
-        {image ? (
+        {renderImage ? (
           <div className={styles.preview}>
-            <img src={image} alt="Preview" className={styles.image} />
+            <img src={renderImage} alt="Preview" className={styles.image} />
 
             <div className={styles.replace} onClick={handleButtonClick}>
               <img className={styles.replaceIcon} src={replace} />

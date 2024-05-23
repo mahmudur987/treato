@@ -28,6 +28,7 @@ const StyleDetails = () => {
         <div className={styles.formGroup}>
           <label htmlFor="name">Name</label>
           <input
+            required
             type="text"
             id="name"
             name="name"
@@ -40,6 +41,7 @@ const StyleDetails = () => {
         <div className={styles.formGroup}>
           <label htmlFor="description">Description</label>
           <textarea
+            required
             id="description"
             name="description"
             value={formData.description}
@@ -52,6 +54,7 @@ const StyleDetails = () => {
           <div className={styles.formGroup}>
             <label htmlFor="price">Price</label>
             <input
+              required
               type="text"
               id="price"
               name="price"
@@ -64,6 +67,7 @@ const StyleDetails = () => {
           <div className={styles.formGroup}>
             <label htmlFor="rating">Customer Rating</label>
             <input
+              required
               type="text"
               id="rating"
               name="rating"

@@ -4,9 +4,13 @@ import { IoMdArrowRoundBack } from "@react-icons/all-files/io/IoMdArrowRoundBack
 import LeftContent from "../../../../components/Services/Look/AddLook/LeftContent/LeftContent";
 import StyleDetails from "../../../../components/Services/Look/AddLook/StyleDetails/StyleDetails";
 import TeamMembers from "../../../../components/Services/Look/AddLook/TeamMembers/TeamMembers";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axiosInstance from "../../../../services/axios";
+import { toast } from "react-toastify";
 export const addLookContext = createContext({});
 const AddLook = () => {
+  const navigate = useNavigate();
+
   const [image, setImage] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -15,6 +19,45 @@ const AddLook = () => {
     rating: "",
   });
   const [selectedPeople, setSelectedPeople] = useState([]);
+
+  const handleSubmit = async () => {
+    if (!image) {
+      return toast.error("Select Image");
+    }
+    if (formData.name === "") {
+      return toast.error("Add Name");
+    }
+    if (formData.description === "") {
+      return toast.error("Add Description");
+    }
+    if (formData.price === "") {
+      return toast.error("Add Price");
+    }
+    if (formData.rating === "") {
+      return toast.error("Add Rating");
+    }
+    const data = new FormData();
+    data.append("file", image);
+    data.append("name", formData.name);
+    data.append("description", formData.description);
+    data.append("price", formData.price);
+    data.append("rating", formData.rating);
+    // Append selectedPeople array elements as separate fields
+    selectedPeople.forEach((id) => {
+      data.append("stylishListIds[]", id);
+    });
+
+    try {
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+      const res = await axiosInstance.post("look-book/new", data, { headers });
+
+      console.log(res.data);
+    } catch (error) {
+      console.error("Network error:", error?.response?.data);
+    }
+  };
   const value = {
     image,
     setImage,
@@ -23,7 +66,6 @@ const AddLook = () => {
     selectedPeople,
     setSelectedPeople,
   };
-
   return (
     <addLookContext.Provider value={value}>
       <main className={styles.mainContainer}>
@@ -46,9 +88,17 @@ const AddLook = () => {
         </div>
 
         <div className={styles.btnContainer}>
-          <button className={styles.cancel}>Cancel</button>
+          <button
+            className={styles.cancel}
+            type="button"
+            onClick={() => navigate("/partner/dashboard/look")}
+          >
+            Cancel
+          </button>
 
-          <button className={styles.save}>Submit</button>
+          <button className={styles.save} type="button" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </main>
     </addLookContext.Provider>
