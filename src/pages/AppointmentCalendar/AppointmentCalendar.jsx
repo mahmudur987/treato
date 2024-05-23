@@ -26,7 +26,7 @@ function AppointmentCalendar() {
         }
         getdata()
         console.log(profiles);
-    }, []);
+    }, [GetCalenderdata]);
 
     const filteredFn = (e) => {
         if (e.target.value === "Everyone") {

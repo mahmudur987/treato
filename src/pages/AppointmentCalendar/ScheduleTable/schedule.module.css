@@ -57,6 +57,9 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.cBox{
+    width: 1228px;
+}
 .clientDetailsBox{
     width: 144px;
     height: 58px;

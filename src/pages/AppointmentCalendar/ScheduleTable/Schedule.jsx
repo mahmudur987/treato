@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './schedule.module.css';
+import { toast, Bounce } from 'react-toastify';
+import { cancelAppointment, completeAppointment, noShow } from '../../../services/calender';
 
 
 const ScheduleTable = ({ profiles }) => {
 
   const [openMenus, setOpenMenus] = useState({});
+  const toatSetting = {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+  }
   const [timeDuration, setDurations] = useState([{
     time: "6:00 AM"
   },
@@ -25,6 +38,7 @@ const ScheduleTable = ({ profiles }) => {
   {
     time: "6:00 AM"
   }])
+  
 
 
 
@@ -37,12 +51,10 @@ const ScheduleTable = ({ profiles }) => {
 
   let box = document.querySelector('#header');
   const nextProfile = () => {
-    let width = box.clientWidth;
     box.scrollLeft = box.scrollLeft + 170;
   };
 
   const prevProfile = () => {
-    let width = box.clientWidth;
     box.scrollLeft = box.scrollLeft - 170;
   };
 
@@ -73,30 +85,57 @@ const ScheduleTable = ({ profiles }) => {
 
 
   };
-  const changeStatus =(status)=>{
-    if(status==='upcoming'){
+  const changeStatus = (status) => {
+    if (status === 'upcoming') {
       return {
         textcolor: "#FFFFFF",
         background: "#DE2929"
       }
     }
-    else if(status==="completed"){
+    else if (status === "completed") {
       return {
         textcolor: "#FFFFFF",
         background: "#3AAB7C"
       }
     }
-    else if(status==="cancelled"){
+    else if (status === "cancel") {
+      return {
+        textcolor: "#FFFFFF",
+        background: "#DE2929"
+      }
+    }
+    else if (status === "not-show") {
       return {
         textcolor: "#FFFFFF",
         background: "#3AAB7C"
       }
     }
-    else if(status==="in-progress"){
-      return {
-        textcolor: "#FFFFFF",
-        background: "#3AAB7C"
-      }
+  }
+  const cancelation = async (id) => {
+    const { res, err } = await cancelAppointment(id);
+    if (res) {
+      toast.success("Appointment Cancelled", toatSetting )
+    }
+    else{
+      toast.error("Something went wrong!",toatSetting)
+    }
+  }
+  const completeApp = async (id) => {
+    const { res, err } = await completeAppointment(id);
+    if (res) {
+      toast.success("Appointment Completed", toatSetting )
+    }
+    else{
+      toast.error("Something went wrong!",toatSetting)
+    }
+  }
+  const noShowAppointment = async (id) => {
+    const { res, err } = await noShow(id);
+    if (res) {
+      toast.success("Status change successfully ", toatSetting )
+    }
+    else{
+      toast.error("Something went wrong!",toatSetting)
     }
   }
 
@@ -122,7 +161,7 @@ const ScheduleTable = ({ profiles }) => {
                 </div>
                 <div className={style.slides} >
                   {profile.appointments.map((ele, z) => {
-                    let {textcolor, background} = changeStatus(ele.status);
+                    let { textcolor, background } = changeStatus(ele.status);
 
                     return <>
                       {ele.services.map((item, appointmentIndex) => {
@@ -163,16 +202,16 @@ const ScheduleTable = ({ profiles }) => {
                                   <div className={style.editButton} >Edit Details </div>
 
                                   <div className={style.started} >Started</div>
-                                  <div className={style.started} >No-Show</div>
-                                  <div className={style.started} >Completed</div>
-                                  <div className={style.started} >Cancel Appointment</div>
+                                  <div className={style.started} onClick={()=>noShowAppointment(ele._id)} >No-Show</div>
+                                  <div className={style.started} onClick={()=>completeApp(ele._id)} >Completed</div>
+                                  <div className={style.started} onClick={()=>cancelation(ele._id)} >Cancel Appointment</div>
                                 </div>
                               )}
 
 
                             </div>
                             <button className={style.statusButton} style={{
-                              color:`${textcolor}`,
+                              color: `${textcolor}`,
                               background: `${background}`
                             }} >{ele.status}</button>
                           </div></>
