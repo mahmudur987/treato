@@ -46,9 +46,9 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
             style={{ backgroundColor: "white" }}
             className={styles.optionsContainer}
           >
-            {options?.map((option) => (
+            {options?.map((option, i) => (
               <div
-                key={option}
+                key={i}
                 className={classNames(styles.option, {
                   [styles.selected]: option === value,
                 })}

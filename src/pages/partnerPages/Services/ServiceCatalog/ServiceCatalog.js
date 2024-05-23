@@ -12,6 +12,9 @@ import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
 import { getAllServices } from "../../../../services/Services";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
+import CustomSelect2 from "../../../../components/Select/CustomeSelect2/CustomeSelect2";
+import CustomSelect3 from "../../../../components/Select/CustomeSelect3/CustomSelect3";
+import NoDataDisplay from "../../../../components/NodataToDisplay/NoDataDisplay";
 const ServiceCatalog = () => {
   const [showAddMenu, setshowAddmenu] = useState(false);
   const { data, isLoading, isError, error } = useSingleSalon();
@@ -25,13 +28,21 @@ const ServiceCatalog = () => {
         if (res) {
           const data = res?.data?.data.map((x) => x.service_name);
           setserviceType(data);
-        } else {
         }
-      } catch (error) {}
+      } catch (error) {
+        console.error(error);
+      }
     }
     fetchAllServices();
   }, []);
 
+  const filteredData = data?.salon?.services?.filter((x) => {
+    if (selectedServiceType === "All") {
+      return x;
+    } else {
+      return x.service_name === selectedServiceType;
+    }
+  });
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -66,28 +77,11 @@ const ServiceCatalog = () => {
             <div className={styles.serviceType}>
               <p>Service Type</p>
               <div className={styles.selectWrapper}>
-                <CustomSelect
+                <CustomSelect2
                   options={["All", ...serviceType]}
                   value={selectedServiceType}
                   onChange={setSelectedServiceType}
                 />
-                <span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M6 9L12 15L18 9"
-                      stroke="black"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
               </div>
             </div>
             <div className={styles.headerAction}>
@@ -139,28 +133,11 @@ const ServiceCatalog = () => {
               <BiMenuAltLeft />
             </button>
             <div className={styles.selectWrapper}>
-              <CustomSelect
+              <CustomSelect2
                 options={["All", ...serviceType]}
                 value={selectedServiceType}
                 onChange={setSelectedServiceType}
               />
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
             </div>
           </div>
         </header>
@@ -168,24 +145,13 @@ const ServiceCatalog = () => {
 
         <div className={styles.content}>
           {data &&
-            data?.salon?.services
-              ?.filter((x) => {
-                if (selectedServiceType === "All") {
-                  return x;
-                } else {
-                  return x.service_name === selectedServiceType;
-                }
-              })
-              .map((data, i) => <ServicesDropDown key={i} data={data} />)}
+            filteredData?.map((data, i) => (
+              <ServicesDropDown key={i} data={data} />
+            ))}
 
-          {data &&
-            data?.salon?.services?.filter((x) => {
-              if (selectedServiceType === "All") {
-                return x;
-              } else {
-                return x.service_name === selectedServiceType;
-              }
-            }).length <= 0 && <ErrorComponent message={"No data to show"} />}
+          {filteredData.length === 0 && (
+            <NoDataDisplay message={"No data to show"} />
+          )}
         </div>
       </section>
       <AddCategory showModal={isModalOpen} onClose={closeModal} />

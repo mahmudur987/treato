@@ -29,9 +29,17 @@ const CustomSelect = ({ options, onChange, value }) => {
   };
 
   return (
-    <div className={styles.customSelect} ref={selectRef}>
-      <div className={styles.selectHeader} onClick={handleToggle}>
-        <p>{value}</p>
+    <div>
+      <div
+        className={styles.customSelect}
+        ref={selectRef}
+        onClick={handleToggle}
+      >
+        <div className={styles.selectHeader}>
+          <p>{value}</p>
+        </div>
+
+        {isOpen && <div className={styles.backgroundOverlay}></div>}
       </div>
       {isOpen && (
         <div className={styles.optionsContainer}>
@@ -48,7 +56,6 @@ const CustomSelect = ({ options, onChange, value }) => {
           ))}
         </div>
       )}
-      {isOpen && <div className={styles.backgroundOverlay}></div>}
     </div>
   );
 };
