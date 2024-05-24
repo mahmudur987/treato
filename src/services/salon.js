@@ -92,7 +92,7 @@ export const editService = async (data) => {
     return { res: null, err: error };
   }
 };
-export const useGetTemMembers = () => {
+export const useGetClients = () => {
   const headers = {
     token: localStorage.getItem("jwtToken"),
   };
