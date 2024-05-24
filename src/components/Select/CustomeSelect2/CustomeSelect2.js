@@ -39,7 +39,10 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
               className={styles.wrapper}
               style={{
                 fontSize: `${
-                  pathname === "/partner/dashboard/addappoinment" ? "16px" : ""
+                  pathname === "/partner/dashboard/addappoinment" ||
+                  "partner/dashboard"
+                    ? "16px"
+                    : ""
                 }`,
               }}
             >
@@ -51,7 +54,10 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
               className={styles.wrapper}
               style={{
                 fontSize: `${
-                  pathname === "/partner/dashboard/addappoinment" ? "16px" : ""
+                  pathname === "/partner/dashboard/addappoinment" ||
+                  "partner/dashboard"
+                    ? "16px"
+                    : ""
                 }`,
               }}
             >
