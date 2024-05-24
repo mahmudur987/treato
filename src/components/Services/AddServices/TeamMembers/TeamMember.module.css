@@ -130,7 +130,7 @@
 }
 .days {
   display: flex;
-  column-gap: 85px;
+  column-gap: 70px;
   row-gap: 16px;
   flex-wrap: wrap;
   cursor: pointer;
@@ -138,14 +138,16 @@
 .date {
   color: var(--Grey-Black, #08090a);
   text-align: center;
-
-  /* Body Text/Body Text B3 */
   font-family: Lato;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 24px */
   letter-spacing: 0.16px;
+
+  display: flex;
+
+  gap: 8px;
 }
 .selectedDay {
   border: 2px solid blue;

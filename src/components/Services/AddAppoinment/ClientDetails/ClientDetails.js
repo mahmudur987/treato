@@ -5,26 +5,26 @@ import CustomSelect3 from "../../../Select/CustomeSelect3/CustomSelect3";
 import AddNewClient from "../../../_modals/AddNewClient/AddNewClient";
 
 import { useGetTemMembers } from "../../../../services/salon";
-import { AddAppoinmentContext } from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
+import { AddAppointmentContext } from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 
 const ClientsDetails = () => {
   const {
     teamMembers,
-    selectedteamMember,
+    SelectedTeamMember,
     setSelectedTeamMember,
     price,
     setPrice,
     discount,
-    setdiscount,
-    setCustomarDeails,
+    setDiscount,
+    setCustomerDetails,
     isError: teamIsError,
     error: teamError,
-  } = useContext(AddAppoinmentContext);
+  } = useContext(AddAppointmentContext);
 
   const { data, isLoading, isError, error } = useGetTemMembers();
   const clients = data?.data;
-  const [selectedClient, setSelectedclient] = useState(
+  const [selectedClient, setSelectedClient] = useState(
     clients
       ? clients[0]
       : {
@@ -32,12 +32,12 @@ const ClientsDetails = () => {
         }
   );
 
-  const handleSelectteamMember = (value) => {
+  const handleSelectTeamMember = (value) => {
     setSelectedTeamMember(value);
   };
   const handleSelectClient = (value) => {
-    setSelectedclient(value);
-    setCustomarDeails(value);
+    setSelectedClient(value);
+    setCustomerDetails(value);
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,7 +70,7 @@ const ClientsDetails = () => {
           )}
         </div>
 
-        <p onClick={() => openModal()} className={styles.addNewCliente}>
+        <p onClick={() => openModal()} className={styles.addNewClient}>
           <span>+</span>
           <span>Add a new client</span>
         </p>
@@ -109,7 +109,7 @@ const ClientsDetails = () => {
               <label htmlFor="">Discount (optional)</label>
               <p>
                 <input
-                  onChange={(e) => setdiscount(e.target.value)}
+                  onChange={(e) => setDiscount(e.target.value)}
                   type="text"
                   value={discount}
                   placeholder="$0.00"
@@ -141,8 +141,8 @@ const ClientsDetails = () => {
           {teamMembers && !teamIsError ? (
             <CustomSelect2
               options={null}
-              value={selectedteamMember}
-              onChange={handleSelectteamMember}
+              value={SelectedTeamMember}
+              onChange={handleSelectTeamMember}
               teamMembers={teamMembers}
             />
           ) : (

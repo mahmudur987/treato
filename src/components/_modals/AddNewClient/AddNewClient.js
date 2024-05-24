@@ -6,9 +6,9 @@ import en from "react-phone-number-input/locale/en";
 import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import CountrySelect from "../../Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
-import { AddAppoinmentContext } from "../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
+import { AddAppointmentContext } from "../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
 const AddNewClient = ({ showModal, onClose }) => {
-  const { setCustomarDeails } = useContext(AddAppoinmentContext);
+  const { setCustomerDetails } = useContext(AddAppointmentContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,7 +29,7 @@ const AddNewClient = ({ showModal, onClose }) => {
       email: email,
     };
 
-    setCustomarDeails(data);
+    setCustomerDetails(data);
 
     onClose();
   };

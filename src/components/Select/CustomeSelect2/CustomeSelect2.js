@@ -2,10 +2,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import styles from "./CustomeSelect2.module.css";
+import { useLocation } from "react-router-dom";
 
 const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { pathname } = useLocation();
   const selectRef = useRef(null);
 
   useEffect(() => {
@@ -33,9 +34,27 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
     <div className={styles.selectWrapper} ref={selectRef}>
       <div className={styles.customSelect}>
         <div className={styles.selectHeader} onClick={handleToggle}>
-          {options && <p className={styles.wrapper}>{value}</p>}
+          {options && (
+            <p
+              className={styles.wrapper}
+              style={{
+                fontSize: `${
+                  pathname === "/partner/dashboard/addappoinment" ? "16px" : ""
+                }`,
+              }}
+            >
+              {value}
+            </p>
+          )}
           {teamMembers && (
-            <p className={styles.wrapper}>
+            <p
+              className={styles.wrapper}
+              style={{
+                fontSize: `${
+                  pathname === "/partner/dashboard/addappoinment" ? "16px" : ""
+                }`,
+              }}
+            >
               <img src={value?.imageUrl} alt="" />
               <span>{value?.name}</span>
             </p>

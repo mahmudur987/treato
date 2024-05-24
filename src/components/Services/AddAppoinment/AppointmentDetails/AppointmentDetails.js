@@ -8,7 +8,7 @@ import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 import { useContext } from "react";
-import { AddAppoinmentContext } from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
+import { AddAppointmentContext } from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
 
 const AppointmentDetails = () => {
   const {
@@ -19,7 +19,7 @@ const AppointmentDetails = () => {
   } = useSingleSalon();
 
   const [date, setDate] = useState("Oct 8 ,2022");
-  const { setServiceDetails } = useContext(AddAppoinmentContext);
+  const { setServiceDetails } = useContext(AddAppointmentContext);
   const [serviceType, setServiceType] = useState([]);
   const [selectedServiceType, setSelectedServiceType] = useState("");
   const [mainCategories, setMainCategories] = useState([]);
@@ -160,7 +160,6 @@ const AppointmentDetails = () => {
               }}
               type="date"
               name="appointment date"
-              id=""
             />
           </p>
         </div>

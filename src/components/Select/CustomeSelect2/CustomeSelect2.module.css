@@ -46,6 +46,7 @@
   width: 100%;
   display: flex;
   justify-content: start;
+  align-items: center;
   gap: 20px;
   color: var(--Grey-Black, #08090a);
   font-family: Lato;

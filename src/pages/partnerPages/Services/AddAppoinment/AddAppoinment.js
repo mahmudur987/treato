@@ -7,12 +7,12 @@ import { useSingleSalon } from "../../../../services/salon";
 import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
 import Loader from "../../../../components/LoadSpinner/Loader";
-export const AddAppoinmentContext = createContext();
+export const AddAppointmentContext = createContext();
 const AddAppointment = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [servicesDetails, setServiceDetails] = useState({});
-  const [customarDeatils, setCustomarDeails] = useState({
+  const [customerDetails, setCustomerDetails] = useState({
     phone: "",
     name: "",
     email: "",
@@ -27,15 +27,15 @@ const AddAppointment = () => {
     };
   });
   const [price, setPrice] = useState("");
-  const [discount, setdiscount] = useState("");
-  const [selectedteamMember, setSelectedTeamMember] = useState({});
+  const [discount, setDiscount] = useState("");
+  const [SelectedTeamMember, setSelectedTeamMember] = useState({});
 
   useEffect(() => {
     setSelectedTeamMember(teamMembers ? teamMembers[0] : "");
   }, [data]);
 
   const handleSubmit = async () => {
-    const { name, email, phone } = customarDeatils;
+    const { name, email, phone } = customerDetails;
     const { service_id, time, dateforService, additionalComments, duration } =
       servicesDetails;
     if (!dateforService) {
@@ -67,7 +67,7 @@ const AddAppointment = () => {
       final_amount: Number(price),
       time,
       noPreference: false,
-      selectedStylistId: selectedteamMember?.id,
+      selectedStylistId: SelectedTeamMember?.id,
       dateforService,
       userData: {
         name,
@@ -91,7 +91,7 @@ const AddAppointment = () => {
         }
       );
       toast.success(
-        data ? data.message : "A new appointment has been successfully added."
+        data ? data.message : "A New Appointment Has Been Added Successfully "
       );
     } catch (error) {
       console.log("error", error);
@@ -100,17 +100,17 @@ const AddAppointment = () => {
     setLoading(false);
   };
   return (
-    <AddAppoinmentContext.Provider
+    <AddAppointmentContext.Provider
       value={{
         setServiceDetails,
-        setCustomarDeails,
+        setCustomerDetails,
         teamMembers,
-        selectedteamMember,
+        SelectedTeamMember,
         setSelectedTeamMember,
         price,
         setPrice,
         discount,
-        setdiscount,
+        setDiscount,
         isLoading,
         isError,
         error,
@@ -194,7 +194,7 @@ const AddAppointment = () => {
           </div>
         </section>
       </main>
-    </AddAppoinmentContext.Provider>
+    </AddAppointmentContext.Provider>
   );
 };
 
