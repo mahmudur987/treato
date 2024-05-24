@@ -39,7 +39,7 @@ export default function BasicInputs({
           <>
             <textarea
               name={NAME}
-              value={value}
+              defaultValue={value}
               onChange={onChange}
               placeholder={placeholder}
               className={style}
