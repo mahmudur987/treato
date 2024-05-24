@@ -108,13 +108,13 @@
 }
 .outerGrid{
     border-top: 2px solid #CED4DA;
-    min-height: 134px;
+    min-height: 67px;
     min-width: 100%;
     display: flex;
     align-items: center;
 }
 .outerGrid div{
-    min-height: 48px;
+    min-height: 22.3px;
     min-width: 100%;
     border-top: 1px solid #CED4DA;
     border-bottom: 1px solid #CED4DA;

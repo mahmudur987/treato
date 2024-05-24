@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import style from './schedule.module.css';
 import { toast, Bounce } from 'react-toastify';
-import { cancelAppointment,
-  completeAppointment, 
+import {
+  cancelAppointment,
+  completeAppointment,
   noShow,
-startedAppointment } from '../../../services/calender';
+  startedAppointment
+} from '../../../services/calender';
 
 
 const ScheduleTable = ({ profiles, getdata }) => {
@@ -22,25 +24,25 @@ const ScheduleTable = ({ profiles, getdata }) => {
     transition: Bounce,
   }
   const [durations, setDurations] = useState([]);
-  
+
   const [condition, setCondition] = useState(false)
 
 
   useEffect(() => {
     generateTimeArray();
-    
+
   }, []);
 
 
-  useEffect(()=>{
-    
-    if(profiles?.length===1){
+  useEffect(() => {
+
+    if (profiles?.length === 1) {
       setCondition(true)
     }
-    else{
+    else {
       setCondition(false);
     }
-  },[profiles])
+  }, [profiles])
 
   const generateTimeArray = () => {
     const startTime = new Date();
@@ -127,7 +129,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
         background: "#3AAB7C"
       }
     }
-    else{
+    else {
       return {
         textcolor: "#FFFFFF",
         background: "#3AAB7C"
@@ -138,44 +140,44 @@ const ScheduleTable = ({ profiles, getdata }) => {
   const cancelation = async (id) => {
     const { res, err } = await cancelAppointment(id);
     if (res) {
-      toast.success("Appointment Cancelled", toatSetting );
+      toast.success("Appointment Cancelled", toatSetting);
       getdata();
     }
-    else{
-      toast.error("Something went wrong!",toatSetting)
+    else {
+      toast.error("Something went wrong!", toatSetting)
     }
   }
 
   const completeApp = async (id) => {
     const { res, err } = await completeAppointment(id);
     if (res) {
-      toast.success("Appointment Completed", toatSetting );
+      toast.success("Appointment Completed", toatSetting);
       getdata();
     }
-    else{
-      toast.error("Something went wrong!",toatSetting)
+    else {
+      toast.error("Something went wrong!", toatSetting)
     }
   }
 
   const noShowAppointment = async (id) => {
     const { res, err } = await noShow(id);
     if (res) {
-      toast.success("Status change successfully ", toatSetting );
+      toast.success("Status change successfully ", toatSetting);
       getdata();
     }
-    else{
-      toast.error("Something went wrong!",toatSetting)
+    else {
+      toast.error("Something went wrong!", toatSetting)
     }
   }
 
   const startAppointment = async (id) => {
     const { res, err } = await startedAppointment(id);
     if (res) {
-      toast.success("Status change successfully ", toatSetting );
+      toast.success("Status change successfully ", toatSetting);
       getdata();
     }
-    else{
-      toast.error("Something went wrong!",toatSetting)
+    else {
+      toast.error("Something went wrong!", toatSetting)
     }
   }
 
@@ -187,12 +189,16 @@ const ScheduleTable = ({ profiles, getdata }) => {
     </div>
     <div className={style.grids} >
       {durations &&
-      durations.map((item)=>{
-        return<><div className={style.outerGrid} >
-        <div></div>
-      </div></>
-      })}
-      
+        durations.map((item) => {
+          return <>
+            <div className={style.outerGrid} >
+              <div></div>
+            </div>
+            <div className={style.outerGrid} >
+              <div></div>
+            </div></>
+        })}
+
     </div>
     <div className={style.header} >
       <button className={style.prev} onClick={nextProfile}>&#10094;</button>
@@ -250,10 +256,10 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                   </div>
                                   <div className={style.editButton} >Edit Details </div>
 
-                                  <div className={style.started} onClick={()=>startAppointment(ele._id)} >Started</div>
-                                  <div className={style.started} onClick={()=>noShowAppointment(ele._id)} >No-Show</div>
-                                  <div className={style.started} onClick={()=>completeApp(ele._id)} >Completed</div>
-                                  <div className={style.started} onClick={()=>cancelation(ele._id)} >Cancel Appointment</div>
+                                  <div className={style.started} onClick={() => startAppointment(ele._id)} >Started</div>
+                                  <div className={style.started} onClick={() => noShowAppointment(ele._id)} >No-Show</div>
+                                  <div className={style.started} onClick={() => completeApp(ele._id)} >Completed</div>
+                                  <div className={style.started} onClick={() => cancelation(ele._id)} >Cancel Appointment</div>
                                 </div>
                               )}
 
