@@ -1,8 +1,5 @@
 .mainContainers {
-  position: fixed;
-  width: 105%;
-  bottom: 0px;
-  left: auto;
+  width: 100vw;
 }
 
 .container {

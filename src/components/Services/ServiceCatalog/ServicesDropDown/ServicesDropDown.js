@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./ServicesDropDown.module.css";
 import { Link } from "react-router-dom";
 import Menu from "../Menu/Menu";
+import NoDataDisplay from "../../../NodataToDisplay/NoDataDisplay";
 const ServicesDropDown = ({ data }) => {
   const [openCategory, setOpenCategory] = useState(null);
   const [showbtnMenu, setShowBtnMenu] = useState("");
@@ -284,6 +285,9 @@ const ServicesDropDown = ({ data }) => {
           </div>
         )}
       </div>
+      {data?.mainCategories?.length === 0 && (
+        <NoDataDisplay message={"No Category Available"} />
+      )}
     </section>
   );
 };

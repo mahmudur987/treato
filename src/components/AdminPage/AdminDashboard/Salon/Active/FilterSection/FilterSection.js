@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import styles from "./FilterSection.module.css";
 import CustomSelect4 from "../../../../../Select/CustomeSelect4/CustomSelect4";
 import { MdOutlineGridView } from "react-icons/md";
-import { IoMenu } from "react-icons/io5";
-const PaymentStatus = ["City", "Division", "State"];
-const PaymentDate = ["Date", "Name"];
-const FilterSection = ({ viewBy, setViewBy, count }) => {
-  const [selectedPaymentStatus, setSelectedPaymentStatus] = useState("City ");
-  const [selectedPaymentDate, setSelectedPaymentDate] = useState("Sort By");
+import { IoMdMenu } from "@react-icons/all-files/io/IoMdMenu";
+
+const FilterSection = ({ viewBy, setViewBy, count, value }) => {
+  const {
+    City,
+    selectedCity,
+    setSelectedCity,
+    SortBy,
+    selectedSortBy,
+    setSelectedSortBy,
+  } = value;
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>
@@ -19,19 +24,19 @@ const FilterSection = ({ viewBy, setViewBy, count }) => {
             <MdOutlineGridView />
           </button>
           <button className={!viewBy ? styles.active : styles.notActive}>
-            <IoMenu />
+            <IoMdMenu />
           </button>
         </div>
         <div className={styles.selectsWrapper}>
           <CustomSelect4
-            options={PaymentStatus}
-            onChange={setSelectedPaymentStatus}
-            value={selectedPaymentStatus}
+            options={City}
+            onChange={setSelectedCity}
+            value={selectedCity}
           />
           <CustomSelect4
-            options={PaymentDate}
-            onChange={setSelectedPaymentDate}
-            value={selectedPaymentDate}
+            options={SortBy}
+            onChange={setSelectedSortBy}
+            value={selectedSortBy}
           />
         </div>
       </div>

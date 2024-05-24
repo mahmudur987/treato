@@ -5,6 +5,7 @@
   "dependencies": {
     "@coreui/coreui": "^5.0.0-alpha.1",
     "@react-google-maps/api": "^2.19.2",
+    "@react-icons/all-files": "^4.1.0",
     "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",

@@ -47,14 +47,18 @@ export default function PendingSalonMainPage({ addServices, addedServices }) {
           !isLoading &&
           !isError &&
           data?.data?.services.length > 0 &&
-          data?.data?.services?.map((x, y) => (
-            <SalonServiceMain
-              key={y}
-              data={x}
-              addServices={addServices}
-              addedServices={addedServices}
-            />
-          ))}
+          data?.data?.services?.map((x, y) => {
+            if (x.mainCategories.length > 0) {
+              return (
+                <SalonServiceMain
+                  key={y}
+                  data={x}
+                  addServices={addServices}
+                  addedServices={addedServices}
+                />
+              );
+            }
+          })}
         {data &&
           !isLoading &&
           !isError &&

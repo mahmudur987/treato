@@ -30,9 +30,13 @@ const CustomSelect4 = ({ options, onChange, value, teamMembers }) => {
   };
 
   return (
-    <div className={styles.selectWrapper} ref={selectRef}>
+    <div
+      className={styles.selectWrapper}
+      ref={selectRef}
+      onClick={handleToggle}
+    >
       <div className={styles.customSelect}>
-        <div className={styles.selectHeader} onClick={handleToggle}>
+        <div className={styles.selectHeader}>
           {options && <p className={styles.wrapper}>{value}</p>}
           {teamMembers && (
             <p className={styles.wrapper}>

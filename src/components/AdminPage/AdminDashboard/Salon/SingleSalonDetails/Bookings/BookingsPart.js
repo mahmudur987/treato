@@ -46,25 +46,26 @@ export function generatePastMonths() {
 
 const BookingsPart = () => {
   const dispatch = useDispatch();
-
   let { id } = useParams();
-  const { data, isLoading, isError, error } = useSalonDetailsBookings(id);
   const BookingStatus = ["All", "Upcoming", "Complete", "Cancel"];
   const Month = generatePastMonths();
   const [selectedBookingStatus, setSelectedBookingStatus] = useState(
     BookingStatus[0]
   );
   const [selectedMonth, setSelectedMonth] = useState(Month[1]);
-
+  const { data, isLoading, isError, error } = useSalonDetailsBookings(
+    id,
+    selectedBookingStatus
+  );
   const filteredData = filterDataByStatusAndMonth(
     data?.data,
     selectedBookingStatus,
     selectedMonth
   );
   useEffect(() => {
-    dispatch(updateAdminPage);
+    dispatch(updateAdminPage());
   }, [selectedMonth, selectedBookingStatus, data]);
-
+  console.log(data?.data);
   const value = {
     Month,
     BookingStatus,

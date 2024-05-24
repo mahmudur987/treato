@@ -6,6 +6,30 @@ import TeamMembers from "../../../../components/Services/EditService/TeamMembers
 import { editService, useSingleSalon } from "../../../../services/salon";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../../services/axios";
+import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
+import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
+
+// find service
+const findServiceData = (data, service_id, category_id, subcategory_id) => {
+  const service = data?.salon?.services?.find((x) => x._id === service_id);
+
+  const category = service?.mainCategories?.find(
+    (category) => category._id === category_id
+  );
+
+  if (category) {
+    const subcategory = category?.subCategories.find(
+      (subcategory) => subcategory._id === subcategory_id
+    );
+
+    if (subcategory) {
+      return { service, category, subcategory };
+    }
+  }
+  return null;
+};
+
+// main page
 
 const EditService = () => {
   const {
@@ -20,7 +44,7 @@ const EditService = () => {
   const service_id = queryParams.get("servicetype");
   const category_id = queryParams.get("category");
   const subcategory_id = queryParams.get("subcategory");
-  const [diesabled, setDiesabled] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
   const [basicDetails, setBasicDetails] = useState({});
   const [teamMember, setTeamMember] = useState([]);
@@ -41,7 +65,7 @@ const EditService = () => {
     .map((people) => people.id);
 
   const handleSubmit = async () => {
-    const neweditService = {
+    const newEditService = {
       serviceId: service_id,
       mainCategoryId: category_id,
       subCategoryId: subcategory_id,
@@ -53,14 +77,12 @@ const EditService = () => {
         time_takenby_service: basicDetails.duration,
       },
     };
-    console.log(neweditService);
-    const res = await editService(neweditService);
+    console.log(newEditService);
+    const res = await editService(newEditService);
     if (res.res) {
       console.log(res.res);
-      toast.success(
-        res.res ? res.res.message : "Service updated successfully. "
-      );
-      navigate("/partner/dashboard/service");
+      toast.success("Service Updated successfully. ");
+      refetch();
     } else {
       console.log(res.err);
       toast.error("Error");
@@ -76,21 +98,13 @@ const EditService = () => {
       const { data } = await axiosInstance.delete(url, { headers });
       console.log(data);
       toast.success("service delete successfully");
-
       navigate("/partner/dashboard/service");
-      refetch();
     } catch (error) {
       console.log("Error", error);
-      toast.error(error.message ?? "Error");
+      toast.error("Error");
     }
   };
-  if (isLoading) {
-    return <p>Loading</p>;
-  }
 
-  if (isError) {
-    return toast.error(error.message);
-  }
   return (
     <main className={styles.mainContainer}>
       <Link to={"/partner/dashboard/service"} className={styles.backLink}>
@@ -133,23 +147,27 @@ const EditService = () => {
 
         {/* details */}
 
-        <div className={styles.content}>
-          <div className={styles.leftContent}>
-            <h2>Basic Details </h2>
-            <div className={styles.formWrapper}>
-              <BasicDetailsForm
-                salon={singleSalon.salon}
-                service={service}
-                setBasicDetails={setBasicDetails}
-                category={category}
-                subcategory={subcategory}
-              />
+        {isLoading && <LoadSpinner />}
+        {isError && <ErrorComponent />}
+        {singleSalon && !isLoading && !isError && (
+          <div className={styles.content}>
+            <div className={styles.leftContent}>
+              <h2>Basic Details </h2>
+              <div className={styles.formWrapper}>
+                <BasicDetailsForm
+                  salon={singleSalon.salon}
+                  service={service}
+                  setBasicDetails={setBasicDetails}
+                  category={category}
+                  subcategory={subcategory}
+                />
+              </div>
+            </div>
+            <div className={styles.rightContent}>
+              <TeamMembers setTeamMember={setTeamMember} setdays={setdays} />
             </div>
           </div>
-          <div className={styles.rightContent}>
-            <TeamMembers setTeamMember={setTeamMember} setdays={setdays} />
-          </div>
-        </div>
+        )}
 
         <div className={styles.buttontContainer}>
           <button
@@ -159,12 +177,12 @@ const EditService = () => {
             Cancel
           </button>
           <button
-            disabled={diesabled}
+            disabled={disabled}
             onClick={handleSubmit}
             className={styles.submit}
             style={{
-              backgroundColor: `${diesabled ? "#EBEDF0" : ""}`,
-              color: `${diesabled ? "#939CA3" : ""}`,
+              backgroundColor: `${disabled ? "#EBEDF0" : ""}`,
+              color: `${disabled ? "#939CA3" : ""}`,
             }}
           >
             Save Change
@@ -176,24 +194,3 @@ const EditService = () => {
 };
 
 export default EditService;
-
-const findServiceData = (data, service_id, category_id, subcategory_id) => {
-  // Iterate through mainCategories to find the specified category
-
-  const service = data?.salon?.services?.find((x) => x._id === service_id);
-
-  const category = service?.mainCategories?.find(
-    (category) => category._id === category_id
-  );
-
-  if (category) {
-    const subcategory = category?.subCategories.find(
-      (subcategory) => subcategory._id === subcategory_id
-    );
-
-    if (subcategory) {
-      return { service, category, subcategory };
-    }
-  }
-  return null;
-};

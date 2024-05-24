@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./TeamMember.module.css";
 import img1 from "../../../../assets/icons/services/a-1.png";
 
-import { useSingleSalon } from "../../../../services/salon";
+import { useGetTemMembers, useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
+import { useGetAllTeamMembers, useGetSlots } from "../../../../services/Team";
 
 const TeamMembers = ({ mobile, currentStep, setTeamMember, setdays }) => {
   return (
@@ -23,6 +24,7 @@ const TeamMembers = ({ mobile, currentStep, setTeamMember, setdays }) => {
 
 const CheckBoxComponent = ({ setTeamMember }) => {
   const location = useLocation();
+  const { pathname } = location;
   const queryParams = new URLSearchParams(location.search);
   const subcategory_id = queryParams.get("subcategory");
   const { data, isLoading, isError, error } = useSingleSalon();
@@ -36,6 +38,7 @@ const CheckBoxComponent = ({ setTeamMember }) => {
         };
       })
     : [{ name: "Person 1", avatar: img1, id: "25" }];
+
   const [selectedCheckboxes, setSelectedCheckboxes] = useState(() => {
     const alredySelected = allPeople.find((people) =>
       people.servicesIds.includes(subcategory_id)
@@ -84,6 +87,7 @@ const CheckBoxComponent = ({ setTeamMember }) => {
   if (isError) {
     return toast.error(error.message, { toastId: 1 });
   }
+
   return (
     <div className={styles.checkboxContainer}>
       <div className={styles.sectionHeading}>
@@ -91,20 +95,24 @@ const CheckBoxComponent = ({ setTeamMember }) => {
         <p>Select professionals who provide this service</p>
       </div>
       <form className={styles.CheckBoxForm}>
-        <label className={styles.topLabel}>
+        {filteredPeople.length > 2 && (
+          <label className={styles.topLabel}>
+            <input
+              type="checkbox"
+              onChange={handleSelectAll}
+              checked={selectedCheckboxes.length === filteredPeople.length}
+            />
+            <span>Select All</span>
+          </label>
+        )}
+        {pathname !== "/partner/dashboard/service/editservice" && (
           <input
-            type="checkbox"
-            onChange={handleSelectAll}
-            checked={selectedCheckboxes.length === filteredPeople.length}
+            type="text"
+            placeholder="Filter by name"
+            value={filterValue}
+            onChange={(e) => setFilterValue(e.target.value)}
           />
-          <span>Select All</span>
-        </label>
-        <input
-          type="text"
-          placeholder="Filter by name"
-          value={filterValue}
-          onChange={(e) => setFilterValue(e.target.value)}
-        />
+        )}
         <div className={styles.peoples}>
           {filteredPeople.map((person) => (
             <label key={person.name} className={styles.people}>
@@ -133,7 +141,8 @@ const SchedulingCheckBox = ({ setdays }) => {
   const [startTime, setStartTime] = useState("09:00");
   const [closeTime, setCloseTime] = useState("09:00");
   const allDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
+  const { data } = useGetSlots();
+  const slots = data?.slotsPerDay[0].slots;
   const handleDayClick = (day) => {
     const updatedDays = selectedDays.includes(day)
       ? selectedDays.filter((selectedDay) => selectedDay !== day)
@@ -175,12 +184,11 @@ const SchedulingCheckBox = ({ setdays }) => {
         <div className={styles.days}>
           {allDays.map((day) => (
             <div
-              className={`${styles.date} ${
-                selectedDays.includes(day) ? styles.selectedDay : ""
-              }`}
+              className={`${styles.date} `}
               onClick={() => handleDayClick(day)}
               key={day}
             >
+              <input type="checkbox" checked={selectedDays.includes(day)} />{" "}
               {day}
             </div>
           ))}
@@ -192,64 +200,28 @@ const SchedulingCheckBox = ({ setdays }) => {
           <div className={styles.content}>
             <h3>Available from (optional)</h3>
             <div className={styles.selectWrapper}>
-              <select
-                onChange={(e) => setStartTime(e.target.value)}
-                name=""
-                id=""
-              >
-                <option value="30minn">09:00 AM</option>
-                <option value="30minn">08:00 AM</option>
-                <option value="30minn">07:00 AM</option>
+              <select onChange={(e) => setStartTime(e.target.value)}>
+                {slots &&
+                  slots.map((x, i) => (
+                    <option value={x} key={i}>
+                      {x}
+                    </option>
+                  ))}
               </select>
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
             </div>
           </div>
 
           <div className={styles.content}>
             <h3>Till (optional)</h3>
             <div className={styles.selectWrapper}>
-              <select
-                onChange={(e) => setCloseTime(e.target.value)}
-                name=""
-                id=""
-              >
-                <option value="30minn">30 min</option>
-                <option value="30minn">40 min</option>
-                <option value="30minn">50 min</option>
+              <select onChange={(e) => setCloseTime(e.target.value)}>
+                {slots &&
+                  slots.map((x, i) => (
+                    <option value={x} key={i}>
+                      {x}
+                    </option>
+                  ))}
               </select>
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
             </div>
           </div>
         </div>

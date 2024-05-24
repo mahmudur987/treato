@@ -2,6 +2,7 @@
 
 .mainContainer {
   width: 100%;
+  min-height: 250px;
   font-family: var(--primary-font);
   display: flex;
   flex-direction: column;
@@ -16,7 +17,7 @@
 }
 
 .selectWrapper {
-  width: 130px;
+  width: 160px;
 }
 .selectWrapper div {
   border: none;
@@ -75,7 +76,7 @@
   font-weight: 400;
   font-size: 20px;
 }
-.UpArrow{
+.UpArrow {
   cursor: pointer;
 }
 

@@ -11,15 +11,15 @@ const BasicDetailsForm = ({
   service,
 }) => {
   const [error, setError] = useState(null);
-  const [serviceType, setserviceType] = useState(null);
+  const [serviceType, setServiceType] = useState(null);
   const [selectedServiceType, setSelectedServiceType] = useState(
     service.service_name
   );
-  const [selectCategory, setselectCategory] = useState(category?.category_name);
-  const [serviceName, setserviceName] = useState(subcategory?.service_name);
+  const [selectCategory, setSelectCategory] = useState(category?.category_name);
+  const [serviceName, setServiceName] = useState(subcategory?.service_name);
   const [duration, setDuration] = useState(subcategory?.time_takenby_service);
   const [availableFor, setAvailableFor] = useState("Male");
-  const [description, setDescription] = useState(service.service_description);
+  const [description, setDescription] = useState("");
   const [tax, setTax] = useState("Included");
   const [price, setPrice] = useState(subcategory?.price);
   const durationOfService = [
@@ -46,7 +46,7 @@ const BasicDetailsForm = ({
         const { res, err } = await getAllServices();
         if (res) {
           const data = res?.data?.data.map((x) => x.service_name);
-          setserviceType(data);
+          setServiceType(data);
         } else {
           setError(err);
         }
@@ -126,7 +126,7 @@ const BasicDetailsForm = ({
           <CustomSelect
             options={categories}
             value={selectCategory ? selectCategory : categories[0]}
-            onChange={setselectCategory}
+            onChange={setSelectCategory}
           />
           <span>
             <svg
@@ -159,7 +159,7 @@ const BasicDetailsForm = ({
             name=""
             id=""
             placeholder="e.g. Haircut for men"
-            onChange={(e) => setserviceName(e.target.value)}
+            onChange={(e) => setServiceName(e.target.value)}
             required
           />
         </div>
@@ -233,8 +233,6 @@ const BasicDetailsForm = ({
 
         <textarea
           value={description}
-          name=""
-          id=""
           placeholder="Briefly describe the service and add relevant details such as aftercare."
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>

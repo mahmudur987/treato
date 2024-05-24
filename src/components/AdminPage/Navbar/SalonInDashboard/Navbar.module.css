@@ -23,13 +23,18 @@
   align-items: center;
   gap: 10px;
   padding-left: 20px;
+  cursor: pointer;
 }
 .searchWrapper label {
+  font-size: 20px;
 }
 .searchWrapper input {
   outline: none;
   border: none;
   background: none;
+}
+.searchWrapper input::placeholder {
+  color: black;
 }
 .actionWrapper {
   max-width: 300px;

@@ -109,7 +109,6 @@
   }
   .buttonContainer {
     flex-grow: 1;
-
     align-items: end;
     margin: 0;
     justify-content: center;

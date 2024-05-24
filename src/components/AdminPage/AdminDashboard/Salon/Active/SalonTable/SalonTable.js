@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import topImg from "../../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./SalonTable.module.css";
 import { MdOutlineFileDownload } from "react-icons/md";
+import Pagination from "../../../Dashboard/BillingHistory/pagination/Pagination";
+import { Link } from "react-router-dom";
 const tableHeading = [
   {
     heading: "Salon",
@@ -36,7 +38,18 @@ const tableHeading = [
   },
 ];
 const SalonTable = ({ tableData }) => {
-  console.log(tableData);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [count, setCount] = useState(5);
+  const [itemPerPage, setItemPerPage] = useState(6);
+  useEffect(() => {
+    setCount(tableData.length);
+  }, [tableData]);
+  const getFilteredData = (x) => {
+    const startIndex = (pageNumber - 1) * itemPerPage;
+    const endIndex = startIndex + Number(itemPerPage);
+    return x?.slice(startIndex, endIndex);
+  };
+  const SalonData = getFilteredData(tableData);
 
   return (
     <div className={sty.mainContainer}>
@@ -64,7 +77,7 @@ const SalonTable = ({ tableData }) => {
             </tr>
           </thead>
           <tbody className={sty.tbody}>
-            {tableData?.map((x) => (
+            {SalonData?.map((x) => (
               <tr style={{ borderBottom: "1px solid #ebedf0" }}>
                 <td>{x.salon_name}</td>
                 <td>{x.salon_owner}</td>
@@ -74,18 +87,21 @@ const SalonTable = ({ tableData }) => {
                 <td>{x.salon_NetSales}</td>
 
                 <td>
-                  <a
-                    href="
-                  "
-                  >
-                    view salon
-                  </a>
+                  <Link to={`/admin/salon/active/${x.id}`}>view salon</Link>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      <Pagination
+        pageNumber={pageNumber}
+        setPageNumber={setPageNumber}
+        count={count}
+        itemPerPage={itemPerPage}
+        setItemPerPage={setItemPerPage}
+      />
     </div>
   );
 };

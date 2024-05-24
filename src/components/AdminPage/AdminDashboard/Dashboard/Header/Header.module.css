@@ -17,7 +17,7 @@
 }
 
 .selectWrapper {
-  width: 130px;
+  width: 150px;
 }
 .selectWrapper div {
   border: none;
@@ -73,6 +73,7 @@
   cursor: caret;
   font-weight: 400;
   font-size: 20px;
+  color: #2e3032;
 }
 .UpArrow {
   cursor: pointer;

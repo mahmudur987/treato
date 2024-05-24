@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./FilterSection.module.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
+
 import CustomSelect4 from "../../../../Select/CustomeSelect4/CustomSelect4";
 
 const DaysOptions = [
@@ -12,7 +13,7 @@ const DaysOptions = [
   "All Time",
 ];
 const StatusOptions = ["Upcoming", "Complete", "Cancelled", "No Show "];
-const BookingTypeOptions = ["Online ", "Offline", "Walk-in"];
+const BookingTypeOptions = ["Online ", "On-site"];
 const FilterSection = ({ setAppointmentsQuery }) => {
   const [searchText, setSearchText] = useState(null);
   const [selectedDays, setSelectedDays] = useState("Last 1 Year");
@@ -41,7 +42,7 @@ const FilterSection = ({ setAppointmentsQuery }) => {
         selectedStatus === "Status" ? "upcoming" : selectedStatus.toLowerCase()
       }&bookingType=${
         selectedBookingType === "Booking Type"
-          ? "online"
+          ? "on-site"
           : selectedBookingType.toLowerCase()
       }${searchText ? `&search=${searchText}` : ""}`
     );
@@ -77,10 +78,12 @@ const FilterSection = ({ setAppointmentsQuery }) => {
             value={selectedBookingType}
           />
           <div className={styles.btnWrapper}>
-            <button>Download</button>
-            <span>
-              <MdOutlineFileDownload />
-            </span>
+            <button>
+              <span>Download</span>
+              <span>
+                <MdOutlineFileDownload />
+              </span>
+            </button>
           </div>
         </div>
       </div>

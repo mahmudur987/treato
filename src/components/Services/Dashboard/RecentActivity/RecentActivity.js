@@ -20,18 +20,12 @@ const RecentActivity = () => {
     },
   });
 
-  if (isLoading) {
-    <LoadSpinner />;
-  }
-  if (isError) {
-    return <ErrorComponent message={error.message} />;
-  }
   return (
     <div className={styles.maincontainer}>
       <h2>Recent activity</h2>
 
       <div className={styles.container}>
-        {/* dinamic card */}
+        {/* dynamic card */}
         {data &&
           data.map((item, i) => (
             <div className={styles.card}>
@@ -85,6 +79,11 @@ const RecentActivity = () => {
               </div>
             </div>
           ))}
+
+        {isLoading && <LoadSpinner />}
+        {isError && (
+          <ErrorComponent message={error ? error.message : "Error"} />
+        )}
       </div>
     </div>
   );

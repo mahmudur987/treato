@@ -43,7 +43,7 @@ const Header = () => {
   if (isLoading) {
     <LoadSpinner />;
   }
-  console.log(data);
+
   return (
     <section className={styles.mainContainer}>
       <h1 className={styles.heading}>Dashboard</h1>
@@ -74,7 +74,7 @@ const Header = () => {
               {incrementOfNewUsers}({incrementOfNewUsersPercentage}%)
             </div>
           </div>
-          {/* avarage sale  */}
+          {/* average sale  */}
           <div style={{ backgroundColor: "skyblue" }} className={styles.card}>
             <div className={styles.cardLeft}>
               <BsClipboardCheck />
@@ -91,7 +91,7 @@ const Header = () => {
             </div>
           </div>
 
-          {/* total appoinments */}
+          {/* total appointments */}
 
           <div style={{ backgroundColor: "pink" }} className={styles.card}>
             <div className={styles.cardLeft}>

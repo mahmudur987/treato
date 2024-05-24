@@ -1,7 +1,7 @@
 // Modal.js
 import React, { useState } from "react";
 import styles from "./SelectServiceModal.module.css";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import { CiSearch } from "react-icons/ci";
 const SelectServiceModal = ({
   showModal,

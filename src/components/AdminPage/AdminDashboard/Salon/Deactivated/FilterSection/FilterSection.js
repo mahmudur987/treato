@@ -3,9 +3,92 @@ import styles from "./FilterSection.module.css";
 import CustomSelect4 from "../../../../../Select/CustomeSelect4/CustomSelect4";
 import { MdOutlineGridView } from "react-icons/md";
 import { IoMenu } from "react-icons/io5";
-const Options = ["City", "Division", "State"];
-const FilterSection = ({ viewBy, setViewBy, selectedSalon, count }) => {
-  const [selectedOptions, setSelectedOptions] = useState("City ");
+import axiosInstance from "../../../../../../services/axios";
+import { toast } from "react-toastify";
+
+const FilterSection = ({
+  viewBy,
+  setViewBy,
+  selectedSalon,
+  count,
+  value,
+  data,
+}) => {
+  const { City, selectedCity, setSelectedCity } = value;
+
+  const handleReActiveAll = async (id) => {
+    if (selectedSalon.length > 0) {
+      try {
+        const Data = {
+          salonId: [id],
+        };
+        const headers = {};
+
+        const { data } = await axiosInstance.post("", headers, Data);
+
+        if (data) {
+          toast.success("Salons reactivated successfully!");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error(error ? error?.message : "Error");
+      }
+    } else if (selectedSalon.length === 0) {
+      try {
+        const Data = {
+          salonId: [id],
+        };
+        const headers = {};
+
+        const { data } = await axiosInstance.post("", headers, Data);
+
+        if (data) {
+          toast.success("Salons reactivated successfully!");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error(error ? error?.message : "Error");
+      }
+    }
+  };
+  const handleDeleteAll = async (id) => {
+    console.log(selectedSalon);
+    if (selectedSalon.length > 0) {
+      try {
+        const deleteData = {
+          salonId: [id],
+        };
+        const headers = {};
+
+        const { data } = await axiosInstance.post("", headers, deleteData);
+
+        if (data) {
+          toast.success("Salons deleted successfully!");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error(error ? error?.message : "Error");
+      }
+    }
+    if (selectedSalon.length === 0) {
+      try {
+        const deleteData = {
+          salonId: [id],
+        };
+        const headers = {};
+
+        const { data } = await axiosInstance.post("", headers, deleteData);
+
+        if (data) {
+          toast.success("Salons deleted successfully!");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error(error ? error?.message : "Error");
+      }
+    }
+  };
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>
@@ -32,12 +115,12 @@ const FilterSection = ({ viewBy, setViewBy, selectedSalon, count }) => {
         </div>
         <div className={styles.selectsWrapper}>
           <CustomSelect4
-            options={Options}
-            onChange={setSelectedOptions}
-            value={selectedOptions}
+            options={City}
+            onChange={setSelectedCity}
+            value={selectedCity}
           />
           <div className={styles.buttonWrapper}>
-            <button>
+            <button onClick={handleReActiveAll}>
               Reactivated
               {selectedSalon.length > 0 ? (
                 <span style={{ marginLeft: "7px" }}>
@@ -49,7 +132,7 @@ const FilterSection = ({ viewBy, setViewBy, selectedSalon, count }) => {
             </button>
           </div>
           <div className={styles.buttonWrapper1}>
-            <button>
+            <button onClick={handleDeleteAll}>
               Delete
               {selectedSalon.length > 0 ? (
                 <span style={{ marginLeft: "7px" }}>

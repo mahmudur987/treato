@@ -79,10 +79,8 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
 
             <BasicInputs
               type="textarea"
-              placeholder="She Hair & Beauty is a luxurious hair spa nestled 
-                        in the heart of Ejipura, Bengaluru. Step into a haven of relaxation 
-                        and rejuvenation, where expert stylists and therapists 
-                        pamper you with personalized treatments, from haircare to beau..."
+              placeholder="Write Details Description About Your Salon"
+              NAME={"salons_description"}
               value={salonData.salons_description}
               onChange={handleChange}
               style={`${styles.input} ${styles.textarea}`}

@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./TeamMember.module.css";
 import img1 from "../../../../assets/icons/services/a-1.png";
-import img2 from "../../../../assets/icons/services/a-2.png";
-import img3 from "../../../../assets/icons/services/a-3.png";
-import img4 from "../../../../assets/icons/services/a-4.png";
-import img5 from "../../../../assets/icons/services/a-5.png";
-import img6 from "../../../../assets/icons/services/a-6.png";
-import img7 from "../../../../assets/icons/services/a-7.png";
 import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
 import { useGetSlots } from "../../../../services/Team";
+import { useLocation } from "react-router-dom";
+import NoDataDisplay from "../../../NodataToDisplay/NoDataDisplay";
 
 const TeamMembers = ({ mobile, currentStep, setTeamMember, setdays }) => {
   return (
@@ -30,6 +26,9 @@ const CheckBoxComponent = ({ setTeamMember }) => {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const { data, isLoading, isError, error } = useSingleSalon();
+  const { pathname } = useLocation();
+
+  console.log(pathname);
 
   const allPeople = data.salon
     ? data?.salon?.stylists?.map((x) => {
@@ -86,38 +85,47 @@ const CheckBoxComponent = ({ setTeamMember }) => {
         <h3>Assign Team Members</h3>
         <p>Select professionals who provide this service</p>
       </div>
-      <form className={styles.CheckBoxForm}>
-        <label className={styles.topLabel}>
-          <input
-            type="checkbox"
-            onChange={handleSelectAll}
-            checked={selectedCheckboxes.length === filteredPeople.length}
-          />
-          <span>Select All</span>
-        </label>
-        <input
-          type="text"
-          placeholder="Filter by name"
-          value={filterValue}
-          onChange={(e) => setFilterValue(e.target.value)}
-        />
-        <div className={styles.peoples}>
-          {filteredPeople.map((person) => (
-            <label key={person.name} className={styles.people}>
+
+      {filteredPeople.length > 0 ? (
+        <form className={styles.CheckBoxForm}>
+          {filteredPeople.length > 2 && (
+            <label className={styles.topLabel}>
               <input
                 type="checkbox"
-                onChange={() => handleCheckboxChange(person.id)}
-                checked={selectedCheckboxes.includes(person.id)}
+                onChange={handleSelectAll}
+                checked={selectedCheckboxes.length === filteredPeople.length}
               />
-
-              <p>
-                <img src={person.avatar ?? img1} alt="" />
-                <span>{person.name}</span>
-              </p>
+              <span>Select All</span>
             </label>
-          ))}
-        </div>
-      </form>
+          )}
+          {pathname !== "/partner/dashboard/service/addservice" && (
+            <input
+              type="text"
+              placeholder="Search by name"
+              value={filterValue}
+              onChange={(e) => setFilterValue(e.target.value)}
+            />
+          )}
+          <div className={styles.peoples}>
+            {filteredPeople.map((person) => (
+              <label key={person.name} className={styles.people}>
+                <input
+                  type="checkbox"
+                  onChange={() => handleCheckboxChange(person.id)}
+                  checked={selectedCheckboxes.includes(person.id)}
+                />
+
+                <p>
+                  <img src={person.avatar ?? img1} alt="" />
+                  <span>{person.name}</span>
+                </p>
+              </label>
+            ))}
+          </div>
+        </form>
+      ) : (
+        <NoDataDisplay message={"Please Add A Team Member"} />
+      )}
     </div>
   );
 };
@@ -171,12 +179,11 @@ const SchedulingCheckBox = ({ setdays }) => {
         <div className={styles.days}>
           {allDays.map((day) => (
             <div
-              className={`${styles.date} ${
-                selectedDays.includes(day) ? styles.selectedDay : ""
-              }`}
+              className={`${styles.date}`}
               onClick={() => handleDayClick(day)}
               key={day}
             >
+              <input type="checkbox" checked={selectedDays.includes(day)} />{" "}
               {day}
             </div>
           ))}
@@ -200,7 +207,7 @@ const SchedulingCheckBox = ({ setdays }) => {
                     </option>
                   ))}
               </select>
-              <span>
+              {/* <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -216,7 +223,7 @@ const SchedulingCheckBox = ({ setdays }) => {
                     stroke-linejoin="round"
                   />
                 </svg>
-              </span>
+              </span> */}
             </div>
           </div>
 
@@ -235,23 +242,6 @@ const SchedulingCheckBox = ({ setdays }) => {
                     </option>
                   ))}
               </select>
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
             </div>
           </div>
         </div>

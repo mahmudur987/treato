@@ -11,7 +11,6 @@ const AddServices = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [mobile, setIsMobile] = useState(false);
-
   const [basicDetails, setBasicDetails] = useState({});
   const [teamMember, setTeamMember] = useState([]);
   const [days, setdays] = useState([]);
@@ -22,7 +21,7 @@ const AddServices = () => {
   const service = data?.salon.services.find(
     (x) => x.service_name === basicDetails.selectedServiceType
   );
-  const maincategory = service?.mainCategories.find(
+  const mainCategory = service?.mainCategories.find(
     (x) => x.category_name === basicDetails.selectCategory
   );
 
@@ -32,7 +31,7 @@ const AddServices = () => {
     }
     const newService = {
       serviceId: service._id,
-      mainCategoryId: maincategory._id,
+      mainCategoryId: mainCategory._id,
       stylists: teamMember,
       subCategoryData: [
         {
@@ -44,10 +43,11 @@ const AddServices = () => {
     };
 
     const res = await addNewService(newService);
-
+    console.log(res);
     if (res.res) {
       toast.success("Add A new service ");
-      navigate("/partner/dashboard/service");
+      setBasicDetails({});
+      setTeamMember([]);
     } else {
       console.log(res.err);
       toast.error("Error");

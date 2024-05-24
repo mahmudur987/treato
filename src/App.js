@@ -71,8 +71,10 @@ import PendingSalonDetail from "./pages/AdminPages/Dashboard/Salon/Pending/Singl
 import SingleSalonDetail from "./pages/AdminPages/Dashboard/Salon/Active/SingleSalonDeatails/SingleSalonDetails";
 import ActiveSalonGallery from "./pages/AdminPages/Dashboard/Salon/Active/Gallary/Gallery";
 import PendingSalonGallery from "./pages/AdminPages/Dashboard/Salon/Pending/Gallary/Gallery";
-import Chatbot from "./components/ChatBot/Chatbot";
-
+import LookPage from "./pages/partnerPages/Look/LookPage/LookPage";
+import AddLook from "./pages/partnerPages/Look/AddALook/AddLook";
+import EditLook from "./pages/partnerPages/Look/EditLook/EditLook";
+import Commission from "./pages/AdminPages/Commissions/Commission";
 
 function App() {
   // Use the location hook to track route changes
@@ -268,7 +270,16 @@ function App() {
               path="/partner/dashboard/EmployeeSchedule"
               element={<EmployeeSchedule />}
             />
+
+            {/* reports */}
             <Route path="/partner/dashboard/reports" element={<Reports />} />
+            {/* look */}
+            <Route path="/partner/dashboard/look" element={<LookPage />} />
+            <Route path="/partner/dashboard/add-look" element={<AddLook />} />
+            <Route
+              path="/partner/dashboard/edit-look/:id"
+              element={<EditLook />}
+            />
           </Route>
           {/* About page */}
           <Route path="/Aboutuspage" element={<AboutUsPage />} />
@@ -300,9 +311,6 @@ function App() {
           {/* contact us page  */}
           <Route path="/contactus" element={<ContactUsLayout />} />
 
-
-
-
           {/* admin dashboard */}
 
           <Route path="/admin" element={<AdminPageLayout />}>
@@ -332,6 +340,7 @@ function App() {
               element={<DeactivatedSalon />}
             />
             <Route path="/admin/payment" element={<PaymentPage />} />
+            <Route path="/admin/commission" element={<Commission />} />
           </Route>
         </Routes>
       </PageLayout>
@@ -350,3 +359,6 @@ export default App;
 //   "email":"treatoadminsuper0707@gmail.com",
 //   "password":"TreatoSuperAdmin@070809"
 // }
+
+// 6508592af8131fc40b478125    dont give this id on any api related to delete api for salon delete okay please
+// 6508592af8131fc40b478125

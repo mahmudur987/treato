@@ -119,11 +119,9 @@ export default function SingleSalonDetail() {
                   to={`/admin/salon/active/gallery/${id}`}
                   className={styles.salon_imagesA}
                 >
-                  <div>
-                    <div>
-                      View <span>{SalonDetails1?.salon_Img?.length}</span>
-                    </div>
-                    <div>images</div>
+                  <div className={styles.viewImage}>
+                    <p>View {SalonDetails1?.salon_image?.length}</p>
+                    <span>images</span>
                   </div>
                   <img src={firstImage ? firstImage : null} alt="" />
                 </Link>

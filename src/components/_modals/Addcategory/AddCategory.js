@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./AddCategory.module.css";
 import CustomSelect from "../../Select/CustomeSelect";
 import ColorSelect from "../../Select/ColorSelect/ColorSelect";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import { getAllServices } from "../../../services/Services";
 import { useSingleSalon } from "../../../services/salon";
 import { toast } from "react-toastify";
@@ -138,23 +138,6 @@ const AddCategory = ({ showModal, onClose }) => {
 
             <div className={styles.selectWrapper}>
               <ColorSelect />
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
             </div>
           </div>
 

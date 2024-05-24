@@ -8,6 +8,8 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 6;
+
+  font-family: Lato;
 }
 
 .modalContent {
@@ -64,7 +66,7 @@
 }
 .formItems input,
 .phone {
-  width: 90%;
+  width: 100%;
   border: 1px solid var(--Grey-30);
   height: 48px;
   padding: 0% 5%;
@@ -72,12 +74,14 @@
 }
 .phone {
   display: flex;
+  padding: 0px;
 }
 .phone input {
   border: none;
+  height: 45px;
 }
 .formItems textarea {
-  width: 90%;
+  width: 100%;
   border: 1px solid var(--Grey-30);
   padding: 10px;
 }

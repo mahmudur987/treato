@@ -54,14 +54,14 @@ const tableHeading = [
 const AppointmentsTable = ({ data }) => {
   const tableData = data?.data?.map((x) => {
     const data = {
-      txnId: x.transactionId ?? "N/A",
-      date: x.dateforService ?? "N/A",
-      clientName: x.clientName ?? "N/A",
-      services: x.services[0] ?? "N/A",
-      Employee: x.stylist,
-      status: x.status ?? "N/A",
-      amount: x.final_amount ?? "N/A",
-      type: x.payment_mode ?? "N/A",
+      txnId: x?.transactionId ?? "N/A",
+      date: x?.dateforService ?? "N/A",
+      clientName: x?.clientName ?? "N/A",
+      services: x?.services[0] ?? "N/A",
+      Employee: x?.stylist,
+      status: x?.status ?? "N/A",
+      amount: x?.final_amount ?? "N/A",
+      type: x?.payment_mode ?? "N/A",
     };
     return data;
   });
@@ -98,26 +98,27 @@ const AppointmentsTable = ({ data }) => {
             </tr>
           </thead>
           <tbody className={sty.tbody}>
-            {tableData?.map((x) => (
-              <tr style={{ borderBottom: "1px solid #ebedf0" }}>
-                <td>
-                  <div className={sty.checkbox}>
-                    <input type="checkbox" id="" />
-                  </div>
-                </td>
-                <td>{x.txnId}</td>
-                <td>{x.date}</td>
-                <td>{x.clientName}</td>
-                <td>{x.services}</td>
-                <td>{x.Employee}</td>
-                <td>{x.status}</td>
-                <td>{x.amount}</td>
-                <td>{x.type}</td>
-                <td style={{ fontSize: "18px" }}>
-                  <MdOutlineFileDownload />
-                </td>
-              </tr>
-            ))}
+            {tableData.length > 0 &&
+              tableData?.map((x) => (
+                <tr style={{ borderBottom: "1px solid #ebedf0" }}>
+                  <td>
+                    <div className={sty.checkbox}>
+                      <input type="checkbox" id="" />
+                    </div>
+                  </td>
+                  <td>{x.txnId}</td>
+                  <td>{x.date}</td>
+                  <td>{x.clientName}</td>
+                  <td>{x.services}</td>
+                  <td>{x.Employee}</td>
+                  <td>{x.status}</td>
+                  <td>{x.amount}</td>
+                  <td>{x.type}</td>
+                  <td style={{ fontSize: "18px" }}>
+                    <MdOutlineFileDownload />
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

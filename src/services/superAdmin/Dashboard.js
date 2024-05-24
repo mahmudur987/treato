@@ -20,32 +20,31 @@ export const useStatistics = (x) => {
     },
   });
 };
-export const useBillingHistory = () => {
+export const useBillingHistory = (x, y) => {
+  let url = `super/allbillinghistory?${
+    x !== "All Booking" ? `booking=${x.toLowerCase()}` : ""
+  }`;
   const headers = {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["allbillinghistory"],
+    queryKey: ["allbillinghistory", x, y],
     queryFn: async () => {
-      const { data } = await axiosInstance.get(
-        "super/allbillinghistory",
-
-        { headers }
-      );
+      const { data } = await axiosInstance.get(url, { headers });
 
       return data;
     },
   });
 };
-export const usePendingSalons = () => {
+export const usePendingSalons = (x) => {
   const headers = {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["allpartnerapproval"],
+    queryKey: ["allpartnerapproval", x],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
-        "super/allpartnerapproval",
+        `super/allpartnerapproval?search=${x}`,
 
         { headers }
       );
@@ -55,16 +54,15 @@ export const usePendingSalons = () => {
   });
 };
 export const useActiveSalons = (x) => {
-  // console.log(x);
-
+  let url = `super/allactivesalons?salonname=${x ? x : ""}`;
   const headers = {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["allactivesalons"],
+    queryKey: ["allactivesalons", x],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
-        "super/allactivesalons",
+        url,
 
         { headers }
       );
@@ -73,6 +71,23 @@ export const useActiveSalons = (x) => {
     },
   });
 };
+export const getCities = async () => {
+  let url = `super/allcity`;
+  const headers = {
+    token: adminToken,
+  };
+  try {
+    const { data } = await axiosInstance.get(
+      url,
+
+      { headers }
+    );
+    return data?.cities;
+  } catch (error) {
+    return ["city"];
+  }
+};
+
 export const useSalonDetails = (id) => {
   const headers = {
     token: adminToken,
@@ -107,7 +122,7 @@ export const useSalonDetailsServices = (id) => {
     },
   });
 };
-export const useSalonDetailsBookings = (id) => {
+export const useSalonDetailsBookings = (id, x) => {
   const headers = {
     token: adminToken,
   };
@@ -115,7 +130,9 @@ export const useSalonDetailsBookings = (id) => {
     queryKey: [id, "singlesalonbookings"],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
-        `super/singlesalonbookings/${id}`,
+        `super/singlesalonbookings/${id}?status=${
+          x !== "All" ? x.toLowerCase() : ""
+        }`,
 
         { headers }
       );
@@ -175,15 +192,15 @@ export const useSalonBillAndPayment = (filter) => {
     },
   });
 };
-export const useGetDeactivatedSalons = () => {
+export const useGetDeactivatedSalons = (x) => {
   const headers = {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["deactivated"],
+    queryKey: ["deactivated", x],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
-        `super/alldeactivatedsalon`,
+        `super/alldeactivatedsalon?salonname=${x}`,
 
         { headers }
       );

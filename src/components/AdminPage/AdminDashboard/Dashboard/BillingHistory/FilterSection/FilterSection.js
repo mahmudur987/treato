@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import styles from "./FilterSection.module.css";
-import { IoSearchOutline } from "react-icons/io5";
-import { MdOutlineFileDownload } from "react-icons/md";
+
 import CustomSelect4 from "../../../../../Select/CustomeSelect4/CustomSelect4";
-import { generatePastMonths } from "../../../Salon/SingleSalonDetails/Bookings/BookingsPart";
-const PaymentStatus = ["Online", "Offline"];
-const PaymentDate = generatePastMonths();
+import { Link } from "react-router-dom";
 
-const FilterSection = () => {
-  const [selectedPaymentStatus, setSelectedPaymentStatus] =
-    useState("All Bookings ");
-  const [selectedPaymentDate, setSelectedPaymentDate] =
-    useState("October 2023");
-
+const FilterSection = ({ value }) => {
+  const {
+    PaymentStatus,
+    PaymentDate,
+    selectedPaymentDate,
+    setSelectedPaymentDate,
+    selectedPaymentStatus,
+    setSelectedPaymentStatus,
+  } = value;
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>
@@ -30,6 +30,9 @@ const FilterSection = () => {
           onChange={setSelectedPaymentDate}
           value={selectedPaymentDate}
         />
+        <Link to={"/admin/commission"} className={styles.action}>
+          <button>Set Commission %</button>
+        </Link>
       </div>
     </div>
   );

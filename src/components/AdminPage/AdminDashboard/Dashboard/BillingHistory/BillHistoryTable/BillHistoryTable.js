@@ -2,7 +2,7 @@ import React from "react";
 import topImg from "../../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./BillHistoryTable.module.css";
-import { BsThreeDots } from "react-icons/bs";
+import { BsThreeDots } from "@react-icons/all-files/bs/BsThreeDots";
 import { formatDate } from "../../../../../../pages/AdminPages/Dashboard/AdminDashboard";
 
 const tableHeading = [
@@ -52,7 +52,7 @@ const BillHistoryTable = ({ data }) => {
 
     return data;
   });
-
+  console.log(data);
   return (
     <div className={sty.mainContainer}>
       <div className={sty.tableContainer}>
