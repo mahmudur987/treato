@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import style from './schedule.module.css';
 import { toast, Bounce } from 'react-toastify';
-import { cancelAppointment, completeAppointment, noShow } from '../../../services/calender';
+import { cancelAppointment,
+  completeAppointment, 
+  noShow,
+startedAppointment } from '../../../services/calender';
 
 
-const ScheduleTable = ({ profiles }) => {
+const ScheduleTable = ({ profiles, getdata }) => {
 
   const [openMenus, setOpenMenus] = useState({});
   const toatSetting = {
@@ -18,28 +21,17 @@ const ScheduleTable = ({ profiles }) => {
     theme: "light",
     transition: Bounce,
   }
-  const [timeDuration, setDurations] = useState([{
-    time: "6:00 AM"
-  },
-  {
-    time: "6:00 AM"
-  }, {
-    time: "6:00 AM"
-  },
-  {
-    time: "6:00 AM"
-  },
-  {
-    time: "6:00 AM"
-  },
-  {
-    time: "6:00 AM"
-  },
-  {
-    time: "6:00 AM"
-  }])
-  const [condition, setCondition] = useState(false)
+  const [durations, setDurations] = useState([]);
   
+  const [condition, setCondition] = useState(false)
+
+
+  useEffect(() => {
+    generateTimeArray();
+    
+  }, []);
+
+
   useEffect(()=>{
     
     if(profiles?.length===1){
@@ -50,7 +42,22 @@ const ScheduleTable = ({ profiles }) => {
     }
   },[profiles])
 
+  const generateTimeArray = () => {
+    const startTime = new Date();
+    startTime.setHours(7, 0, 0, 0); // 7:00 AM
+    const endTime = new Date();
+    endTime.setHours(22, 0, 0, 0); // 10:00 PM
 
+    const timeArray = [];
+    let currentTime = new Date(startTime);
+
+    while (currentTime <= endTime) {
+      timeArray.push(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+      currentTime.setMinutes(currentTime.getMinutes() + 30);
+    }
+
+    setDurations(timeArray);
+  };
 
   const toggleMenu = (id) => {
     setOpenMenus((prevOpenMenus) => ({
@@ -120,29 +127,52 @@ const ScheduleTable = ({ profiles }) => {
         background: "#3AAB7C"
       }
     }
+    else{
+      return {
+        textcolor: "#FFFFFF",
+        background: "#3AAB7C"
+      }
+    }
   }
+
   const cancelation = async (id) => {
     const { res, err } = await cancelAppointment(id);
     if (res) {
-      toast.success("Appointment Cancelled", toatSetting )
+      toast.success("Appointment Cancelled", toatSetting );
+      getdata();
     }
     else{
       toast.error("Something went wrong!",toatSetting)
     }
   }
+
   const completeApp = async (id) => {
     const { res, err } = await completeAppointment(id);
     if (res) {
-      toast.success("Appointment Completed", toatSetting )
+      toast.success("Appointment Completed", toatSetting );
+      getdata();
     }
     else{
       toast.error("Something went wrong!",toatSetting)
     }
   }
+
   const noShowAppointment = async (id) => {
     const { res, err } = await noShow(id);
     if (res) {
-      toast.success("Status change successfully ", toatSetting )
+      toast.success("Status change successfully ", toatSetting );
+      getdata();
+    }
+    else{
+      toast.error("Something went wrong!",toatSetting)
+    }
+  }
+
+  const startAppointment = async (id) => {
+    const { res, err } = await startedAppointment(id);
+    if (res) {
+      toast.success("Status change successfully ", toatSetting );
+      getdata();
     }
     else{
       toast.error("Something went wrong!",toatSetting)
@@ -151,9 +181,18 @@ const ScheduleTable = ({ profiles }) => {
 
   return (<>
     <div className={style.durationsBox}>
-      {timeDuration &&
-        timeDuration.map((ele) => <p>{ele.time}</p>)}
+      {durations &&
+        durations.map((duration, index) => <p>{duration}</p>)}
 
+    </div>
+    <div className={style.grids} >
+      {durations &&
+      durations.map((item)=>{
+        return<><div className={style.outerGrid} >
+        <div></div>
+      </div></>
+      })}
+      
     </div>
     <div className={style.header} >
       <button className={style.prev} onClick={nextProfile}>&#10094;</button>
@@ -205,13 +244,13 @@ const ScheduleTable = ({ profiles }) => {
                               </svg>
 
                               {openMenus[item.unique_id] && (
-                                <div className={style.dropdowncontent}>
+                                <div className={style.dropdowncontent} key={ele._id}>
                                   <div className={style.inputContainer}>
                                     <input className={style.otpBox} type="text" placeholder='OTP' />
                                   </div>
                                   <div className={style.editButton} >Edit Details </div>
 
-                                  <div className={style.started} >Started</div>
+                                  <div className={style.started} onClick={()=>startAppointment(ele._id)} >Started</div>
                                   <div className={style.started} onClick={()=>noShowAppointment(ele._id)} >No-Show</div>
                                   <div className={style.started} onClick={()=>completeApp(ele._id)} >Completed</div>
                                   <div className={style.started} onClick={()=>cancelation(ele._id)} >Cancel Appointment</div>

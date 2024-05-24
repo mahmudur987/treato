@@ -4,6 +4,7 @@
     display: flex;
     align-items: baseline;
     gap: 10px;
+    overflow: hidden;
 }
 
 .prev {
@@ -96,6 +97,27 @@
     flex-direction: column;
     gap: 120px;
     background-color: #FFFFFF;
+}
+.grids{
+    margin-left: 62px;
+    margin-top: 46px;
+    position: inherit;
+    z-index: -10;
+    width: 1280px;
+    height: auto;
+}
+.outerGrid{
+    border-top: 2px solid #CED4DA;
+    min-height: 134px;
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+}
+.outerGrid div{
+    min-height: 48px;
+    min-width: 100%;
+    border-top: 1px solid #CED4DA;
+    border-bottom: 1px solid #CED4DA;
 }
 
 .durationsBox p {

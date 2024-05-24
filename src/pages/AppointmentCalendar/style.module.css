@@ -84,19 +84,13 @@
     border-radius: 20px;
     background-color: #A1A9B6;
 }
-.scheduleBox ::-webkit-scrollbar-button{
-    
-}
-.grid{
-    margin-top: 48px;
-    min-width: 100%;
-    min-height: 832px;
-    position: inherit;
-    z-index: -10;
-    background-color: aqua;
-}
+
+
 .calendarpopup{
+    width: 24px;
+    height: 24px;
     position: absolute;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 15%;
+    cursor: pointer;
 }

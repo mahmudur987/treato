@@ -52,3 +52,16 @@ export const noShow = async (id) => {
         return { err: error, res: null };
       }
 }
+export const startedAppointment = async (id) => {
+   
+      try {
+        const headers = {
+          token: localStorage.getItem("jwtToken"),
+        };
+        const res = await axiosInstance.patch(`/startedappointment`,{id}, { headers });
+    
+        return { res: res.data, err: null };
+      } catch (error) {
+        return { err: error, res: null };
+      }
+}
