@@ -13,6 +13,20 @@ export const GetCalenderdata = async () => {
         return { err: error, res: null };
       }
 }
+export const otpVerification = async (otp) => {
+   console.log(otp)
+      try {
+        const headers = {
+          token: localStorage.getItem("jwtToken"),
+        };
+        const res = await axiosInstance.post(`/reports/otpverification`,otp, { headers });
+        console.log(res)
+    
+        return { res: res.data, err: null };
+      } catch (error) {
+        return { err: error, res: null };
+      }
+}
 export const cancelAppointment = async (id) => {
    
       try {
@@ -45,7 +59,7 @@ export const noShow = async (id) => {
         const headers = {
           token: localStorage.getItem("jwtToken"),
         };
-        const res = await axiosInstance.patch(`/reports/completeappointment`,{id}, { headers });
+        const res = await axiosInstance.patch(`/reports/noshowappointment`,{id}, { headers });
     
         return { res: res.data, err: null };
       } catch (error) {
@@ -58,7 +72,7 @@ export const startedAppointment = async (id) => {
         const headers = {
           token: localStorage.getItem("jwtToken"),
         };
-        const res = await axiosInstance.patch(`/startedappointment`,{id}, { headers });
+        const res = await axiosInstance.patch(`/reports/startedappointment`,{id}, { headers });
     
         return { res: res.data, err: null };
       } catch (error) {

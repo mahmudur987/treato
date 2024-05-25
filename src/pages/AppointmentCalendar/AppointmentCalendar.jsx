@@ -78,7 +78,7 @@ function AppointmentCalendar() {
                         </div>
                         {showCalendar &&
                         <div className={style.calendarpopup}>
-                        <DatePicker selected={date} onChange={handleDateChange} />
+                        <DatePicker className={style.customDatePicker} selected={date} onChange={handleDateChange} />
                     </div>
                         }
                         
