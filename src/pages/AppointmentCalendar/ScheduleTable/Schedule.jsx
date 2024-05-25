@@ -1,32 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import style from './schedule.module.css';
+import { toast, Bounce } from 'react-toastify';
+import {
+  cancelAppointment,
+  completeAppointment,
+  noShow,
+  startedAppointment
+} from '../../../services/calender';
 
 
-const ScheduleTable = ({ profiles }) => {
+const ScheduleTable = ({ profiles, getdata }) => {
 
   const [openMenus, setOpenMenus] = useState({});
-  const [timeDuration, setDurations] = useState([{
-    time: "6:00 AM"
-  },
-  {
-    time: "6:00 AM"
-  }, {
-    time: "6:00 AM"
-  },
-  {
-    time: "6:00 AM"
-  },
-  {
-    time: "6:00 AM"
-  },
-  {
-    time: "6:00 AM"
-  },
-  {
-    time: "6:00 AM"
-  }])
+  const toatSetting = {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+  }
+  const [durations, setDurations] = useState([]);
+
+  const [condition, setCondition] = useState(false)
 
 
+  useEffect(() => {
+    generateTimeArray();
+
+  }, []);
+
+
+  useEffect(() => {
+
+    if (profiles?.length === 1) {
+      setCondition(true)
+    }
+    else {
+      setCondition(false);
+    }
+  }, [profiles])
+
+  const generateTimeArray = () => {
+    const startTime = new Date();
+    startTime.setHours(7, 0, 0, 0); // 7:00 AM
+    const endTime = new Date();
+    endTime.setHours(22, 0, 0, 0); // 10:00 PM
+
+    const timeArray = [];
+    let currentTime = new Date(startTime);
+
+    while (currentTime <= endTime) {
+      timeArray.push(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+      currentTime.setMinutes(currentTime.getMinutes() + 30);
+    }
+
+    setDurations(timeArray);
+  };
 
   const toggleMenu = (id) => {
     setOpenMenus((prevOpenMenus) => ({
@@ -37,12 +70,10 @@ const ScheduleTable = ({ profiles }) => {
 
   let box = document.querySelector('#header');
   const nextProfile = () => {
-    let width = box.clientWidth;
     box.scrollLeft = box.scrollLeft + 170;
   };
 
   const prevProfile = () => {
-    let width = box.clientWidth;
     box.scrollLeft = box.scrollLeft - 170;
   };
 
@@ -73,11 +104,100 @@ const ScheduleTable = ({ profiles }) => {
 
 
   };
+  const changeStatus = (status) => {
+    if (status === 'upcoming') {
+      return {
+        textcolor: "#FFFFFF",
+        background: "#DE2929"
+      }
+    }
+    else if (status === "completed") {
+      return {
+        textcolor: "#FFFFFF",
+        background: "#3AAB7C"
+      }
+    }
+    else if (status === "cancel") {
+      return {
+        textcolor: "#FFFFFF",
+        background: "#DE2929"
+      }
+    }
+    else if (status === "not-show") {
+      return {
+        textcolor: "#FFFFFF",
+        background: "#3AAB7C"
+      }
+    }
+    else {
+      return {
+        textcolor: "#FFFFFF",
+        background: "#3AAB7C"
+      }
+    }
+  }
+
+  const cancelation = async (id) => {
+    const { res, err } = await cancelAppointment(id);
+    if (res) {
+      toast.success("Appointment Cancelled", toatSetting);
+      getdata();
+    }
+    else {
+      toast.error("Something went wrong!", toatSetting)
+    }
+  }
+
+  const completeApp = async (id) => {
+    const { res, err } = await completeAppointment(id);
+    if (res) {
+      toast.success("Appointment Completed", toatSetting);
+      getdata();
+    }
+    else {
+      toast.error("Something went wrong!", toatSetting)
+    }
+  }
+
+  const noShowAppointment = async (id) => {
+    const { res, err } = await noShow(id);
+    if (res) {
+      toast.success("Status change successfully ", toatSetting);
+      getdata();
+    }
+    else {
+      toast.error("Something went wrong!", toatSetting)
+    }
+  }
+
+  const startAppointment = async (id) => {
+    const { res, err } = await startedAppointment(id);
+    if (res) {
+      toast.success("Status change successfully ", toatSetting);
+      getdata();
+    }
+    else {
+      toast.error("Something went wrong!", toatSetting)
+    }
+  }
 
   return (<>
     <div className={style.durationsBox}>
-      {timeDuration &&
-        timeDuration.map((ele) => <p>{ele.time}</p>)}
+      {durations &&
+        durations.map((duration, index) => <p>{duration}</p>)}
+
+    </div>
+    <div className={style.grids} >
+      {durations &&
+        durations.map((item) => {
+          return <>
+            <div className={style.outerGrid} >
+              <div></div>
+            </div>
+            <div className={style.outerGrid} >
+              <div></div>
+            </div></>
+        })}
 
     </div>
     <div className={style.header} >
@@ -86,7 +206,7 @@ const ScheduleTable = ({ profiles }) => {
         {profiles &&
 
           profiles.map((profile, index) => {
-            let indexSum = 0;
+
             return (
 
               <div className={style.profileContainer} >
@@ -96,6 +216,7 @@ const ScheduleTable = ({ profiles }) => {
                 </div>
                 <div className={style.slides} >
                   {profile.appointments.map((ele, z) => {
+                    let { textcolor, background } = changeStatus(ele.status);
 
                     return <>
                       {ele.services.map((item, appointmentIndex) => {
@@ -103,20 +224,20 @@ const ScheduleTable = ({ profiles }) => {
                         const heights = convertTime(item.time_takenby_service);
                         // console.log(heights);
                         return <>
-                          <div className={style.appointmentBox} key={item._id} style={{
+                          <div className={`${style.appointmentBox} ${condition ? style.dBox : style.cBox}`} key={item.unique_id} style={{
                             height: `${heights}px`,
-                            backgroundColor: `${ele.color}`
+                            backgroundColor: `${item.color}`
                           }} >
                             <div className={style.clientDetailsBox} >
 
                               <div>
-                                <p className={style.timeDurations} >{item.time_takenby_service}</p>
+                                <p className={style.timeDurations} >{item.time_takenby_service} ({ele.lasttimesofservices[appointmentIndex]})</p>
                                 <p className={style.serviceNames} >{item.service_name}</p>
                                 <p className={style.clientNames} >{ele.ClientName}</p>
                               </div>
 
                               <svg
-                                onClick={() => toggleMenu(item._id)}
+                                onClick={() => toggleMenu(item.unique_id)}
                                 className="w-6 h-6 text-gray-800 dark:text-white"
                                 aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -128,22 +249,26 @@ const ScheduleTable = ({ profiles }) => {
                                 <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M12 6h.01M12 12h.01M12 18h.01" />
                               </svg>
 
-                              {openMenus[item._id] && (
-                                <div className={style.dropdowncontent}>
+                              {openMenus[item.unique_id] && (
+                                <div className={style.dropdowncontent} key={ele._id}>
                                   <div className={style.inputContainer}>
                                     <input className={style.otpBox} type="text" placeholder='OTP' />
-                                    </div>
-                                    <div className={style.editButton} >Edit Details </div>
-                                  
-                                  <div className={style.started} >Started</div>
-                                  <div className={style.started} >No-Show</div>
-                                  <div className={style.started} >Completed</div>
-                                  <div className={style.started} >Cancel Appointment</div>
+                                  </div>
+                                  <div className={style.editButton} >Edit Details </div>
+
+                                  <div className={style.started} onClick={() => startAppointment(ele._id)} >Started</div>
+                                  <div className={style.started} onClick={() => noShowAppointment(ele._id)} >No-Show</div>
+                                  <div className={style.started} onClick={() => completeApp(ele._id)} >Completed</div>
+                                  <div className={style.started} onClick={() => cancelation(ele._id)} >Cancel Appointment</div>
                                 </div>
                               )}
 
 
                             </div>
+                            <button className={style.statusButton} style={{
+                              color: `${textcolor}`,
+                              background: `${background}`
+                            }} >{ele.status}</button>
                           </div></>
 
                       })}

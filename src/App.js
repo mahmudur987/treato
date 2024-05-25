@@ -62,7 +62,6 @@ import CurrentOpenings from "./pages/Careers/CurrentOpenings/CurrentOpenings";
 import JobDescription from "./pages/Careers/JobDescription/JobDescription";
 import JobDetails from "./pages/Careers/Details/Details";
 import AppointmentCalendar from "./pages/AppointmentCalendar/AppointmentCalendar";
-// import CurrentOpenings from "./components/Careers/CurrentOpenings/CurrentOpenings";
 import PaymentPage from "./pages/AdminPages/Dashboard/Payment/PaymentPage";
 import ActiveSalon from "./pages/AdminPages/Dashboard/Salon/Active/ActiveSalon";
 import PendingSalon from "./pages/AdminPages/Dashboard/Salon/Pending/PendingSalon";
@@ -167,9 +166,13 @@ function App() {
         />
         <ModalManager />
 
+
         <Routes>
+
           <Route element={<CustomerPageLayout />}>
+            {/* <Route  element={<Chatbot/>}/> */}
             <Route path="/" element={<Home />} />
+
             <Route path="/account-settings" element={<AccountSettings />} />
             <Route path="/salons" element={<Salons />} />
             <Route path="/salons/:id" element={<SalonDetail />} />
@@ -203,6 +206,7 @@ function App() {
           {/* partner dashboard */}
           <Route path="/partner/dashboard" element={<ServicePage />}>
             <Route path="/partner/dashboard" element={<Dashboard />} />
+            <Route path="/partner/dashboard/appointment/calendar" element={<AppointmentCalendar />} />
 
             <Route
               path="/partner/dashboard/service"
@@ -285,24 +289,17 @@ function App() {
               <Route path="/Privacy/termofuse" element={<Termoptions />} />
               <Route path="/Privacy/policy" element={<PrivacyService />} />
             </Route>
+
           </Route>
 
           {/* Careers page routes */}
-          <Route path="/careers" element={<CareersPage />}>
-            <Route
-              path="/careers/currentopenings"
-              element={<CurrentOpenings />}
-            />
-            <Route
-              path="/careers/jobdescription/:id"
-              element={<JobDescription />}
-            />
+          <Route path="/careers" element={<CareersPage />} >
+            <Route path="/careers/currentopenings" element={<CurrentOpenings />} />
+            <Route path="/careers/jobdescription/:id" element={<JobDescription />} />
             <Route path="/careers/jobdetails/:id" element={<JobDetails />} />
+
           </Route>
-          <Route
-            path="/appointment/calendar"
-            element={<AppointmentCalendar />}
-          />
+
 
           {/* FrequentlyAskedQuestions page  */}
           <Route
@@ -318,6 +315,7 @@ function App() {
 
           <Route path="/admin" element={<AdminPageLayout />}>
             <Route path="/admin" element={<AdminDashboard />} />
+            
             <Route path="/admin/salon/active" element={<ActiveSalon />} />
             <Route
               path="/admin/salon/active/:id"

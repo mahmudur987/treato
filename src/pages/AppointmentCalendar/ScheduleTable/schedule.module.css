@@ -3,18 +3,20 @@
     height: auto;
     display: flex;
     align-items: baseline;
-    margin-left: 80px;
     gap: 10px;
+    overflow: hidden;
 }
 
 .prev {
     position: absolute;
-    left: 56px;
+    left: 40px;
     border: none;
     background: transparent;
+    cursor: pointer;
 }
 
 .next {
+    cursor: pointer;
     border: none;
     background: transparent;
     position: absolute;
@@ -52,9 +54,18 @@
 .appointmentBox{
     padding: 8px;
     border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.cBox{
+    min-width: 160px;
+}
+.dBox{
+    min-width: 1228px;
 }
 .clientDetailsBox{
-    width: 144px;
+    width: 96%;
     height: 58px;
     display: flex;
     justify-content: space-between;
@@ -79,13 +90,34 @@
     color: #6D747A;
 }
 .durationsBox {
-    position: absolute;
     margin-top: 48px;
     min-width: 62px;
     height: 888px;
     display: flex;
     flex-direction: column;
     gap: 120px;
+    background-color: #FFFFFF;
+}
+.grids{
+    margin-left: 62px;
+    margin-top: 46px;
+    position: inherit;
+    z-index: -10;
+    width: 1280px;
+    height: auto;
+}
+.outerGrid{
+    border-top: 2px solid #CED4DA;
+    min-height: 67px;
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+}
+.outerGrid div{
+    min-height: 22.3px;
+    min-width: 100%;
+    border-top: 1px solid #CED4DA;
+    border-bottom: 1px solid #CED4DA;
 }
 
 .durationsBox p {
@@ -101,8 +133,10 @@
 
 
 .slides {
+    border-left: 2px dotted #CED4DA;
     height: auto;
     min-width: 160px;
+    max-width: max-content;
     display: flex;
     align-items: baseline;
     flex-direction: column;
@@ -155,4 +189,15 @@
 
 .dropdowncontent :hover{
     background-color: #EBEDF0;
+}
+.statusButton{
+    width: 75px;
+    height: 21px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    font-family: Lato;
+    line-height: 15px;
+
 }

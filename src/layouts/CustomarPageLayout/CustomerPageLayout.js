@@ -5,6 +5,7 @@ import SalonFilterModalDesktop from "../../components/_modals/filterSalon/SalonF
 import SalonFilterModalMobile from "../../components/_modals/filterSalon/SalonFilterModalMobile/SalonFilterModalMobile.js";
 import Footer from "../../components/Footer/Footer.js";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import Chatbot from "../../components/ChatBot/Chatbot.jsx";
 
 export default function CustomerPageLayout() {
   const showModal = useSelector((state) => state?.salonModal.showModal);
@@ -51,6 +52,7 @@ export default function CustomerPageLayout() {
         {/* <ModalManager /> */}
         {showModal && !isMobileView && <SalonFilterModalDesktop />}
         {showModal && isMobileView && <SalonFilterModalMobile />}
+        <Chatbot/>
         <Outlet />
         {!isMyAppointmentsRoute && !isServicePage && !isSpecialPage && (
           <Footer />

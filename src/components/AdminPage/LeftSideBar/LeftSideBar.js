@@ -89,6 +89,7 @@ const LeftSideBar = () => {
                 />
               </svg>
             </Link>
+            
             <Link
               style={{
                 backgroundColor: `${
@@ -148,6 +149,7 @@ const LeftSideBar = () => {
               </svg>
               <span>Dashboard</span>
             </Link>
+            
             <p
               onClick={() => setSalonMenu((pre) => !pre)}
               style={{
@@ -178,9 +180,8 @@ const LeftSideBar = () => {
                 <Link
                   to={"/admin/salon/pending"}
                   style={{
-                    backgroundColor: `${
-                      pathname === "/admin/salon/pending" ? "blue" : ""
-                    }`,
+                    backgroundColor: `${pathname === "/admin/salon/pending" ? "blue" : ""
+                      }`,
                   }}
                 >
                   <span>Pending</span>
@@ -188,9 +189,8 @@ const LeftSideBar = () => {
                 <Link
                   to={"/admin/salon/deactivated"}
                   style={{
-                    backgroundColor: `${
-                      pathname === "/admin/salon/deactivated" ? "blue" : ""
-                    }`,
+                    backgroundColor: `${pathname === "/admin/salon/deactivated" ? "blue" : ""
+                      }`,
                   }}
                 >
                   <span>Deactivated</span>
