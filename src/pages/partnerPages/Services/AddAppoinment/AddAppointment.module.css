@@ -133,9 +133,9 @@
     padding: 0;
   }
   .mainContainer {
+    max-width: 98vw;
     min-height: 100vh;
-    margin: 0;
-    padding: 0;
+    margin: 0 auto;
   }
   .container {
     margin: 0;

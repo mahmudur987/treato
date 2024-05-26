@@ -57,9 +57,11 @@ const tableHeading = [
   },
 ];
 const TeamDetails = () => {
+  const [searchText, setSearchText] = useState("");
+
   const { data, isLoading, isError, error } = useGetAllTeamMembers();
 
-  const TeamDetailsData = data?.data?.map((x) => {
+  const filteredData = data?.data?.map((x) => {
     return {
       id: x?._id,
       profile: x?.stylist_Img?.public_url || Mask1,
@@ -74,7 +76,11 @@ const TeamDetails = () => {
       editPencil: editImg,
     };
   });
-
+  const TeamDetailsData = filteredData.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.serviceProfile.toLowerCase().includes(searchText.toLowerCase())
+  );
   const navigate = useNavigate();
   const [isViewAll, setIsViewAll] = useState(false);
 
@@ -106,6 +112,7 @@ const TeamDetails = () => {
               type="search"
               placeholder="Search by name or service title "
               className={sty.searchInp}
+              onChange={(e) => setSearchText(e.target.value)}
             />
             <div className={sty.ScheduleHeading}>
               <div>
@@ -155,7 +162,7 @@ const TeamDetails = () => {
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className={sty.tbody}>
             {TeamDetailsData?.slice(
               0,
               isViewAll ? TeamDetailsData.length : 8

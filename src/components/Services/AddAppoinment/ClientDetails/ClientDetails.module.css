@@ -79,3 +79,17 @@
   flex-direction: column;
   gap: 10px;
 }
+
+@media only screen and (max-width: 700px) {
+  .mainContainer {
+    max-width: 98vw;
+    margin: 0 auto;
+  }
+  .priceWrapper {
+    gap: 5px;
+  }
+
+  .price {
+    width: 50%;
+  }
+}

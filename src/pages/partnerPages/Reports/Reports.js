@@ -14,6 +14,7 @@ import {
 } from "../../../services/Report";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
+import NoDataDisplay from "../../../components/NodataToDisplay/NoDataDisplay";
 
 export const reportContext = createContext({});
 
@@ -34,7 +35,7 @@ const Reports = () => {
     isError: clientsIsError,
     error: clientsError,
   } = useClientsReport(clientsQuery);
-
+  console.log(appointments);
   return (
     <main className={styles.mainContainer}>
       <div className={styles.top}>
@@ -56,9 +57,12 @@ const Reports = () => {
           <FilterSection1 setAppointmentsQuery={setAppointmentsQuery} />
           {appointmentsIsLoading && <LoadSpinner />}
 
-          {appointments && !appointmentsIsLoading && !appointmentsIsError && (
-            <AppointmentsTable data={appointments} />
-          )}
+          {appointments?.data?.length > 0 &&
+            !appointmentsIsLoading &&
+            !appointmentsIsError && <AppointmentsTable data={appointments} />}
+          {appointments?.data?.length === 0 &&
+            !appointmentsIsLoading &&
+            !appointmentsIsError && <NoDataDisplay />}
 
           {appointmentsIsError && (
             <ErrorComponent message={appointmentsError.message ?? "Error"} />
@@ -69,9 +73,12 @@ const Reports = () => {
         <section>
           <FilterSection2 setClientsQuery={setClientsQuery} />
           {clientsIsLoading && <LoadSpinner />}
-          {clients && !clientsIsLoading && !clientsError && (
+          {clients?.data?.length > 0 && !clientsIsLoading && !clientsError && (
             <ClientsTable data={clients} />
           )}
+          {clients?.data?.length === 0 &&
+            !clientsIsLoading &&
+            !clientsError && <NoDataDisplay />}
           {clientsIsError && (
             <ErrorComponent message={clientsError.message ?? "Error"} />
           )}

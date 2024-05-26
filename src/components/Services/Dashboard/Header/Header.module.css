@@ -82,7 +82,8 @@
 
 @media only screen and (max-width: 700px) {
   .mainContainer {
-    margin: 0;
+    max-width: 96vw;
+    margin: 0 auto;
     padding: 0;
   }
   .heading {
@@ -92,6 +93,7 @@
     flex-wrap: nowrap;
   }
   .card {
+    width: 30%;
     flex-direction: column;
     gap: 5px;
   }
@@ -100,7 +102,7 @@
   }
   .cardMiddle h3 {
     font-family: Lato;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 24px;
     letter-spacing: 0.01em;
@@ -109,5 +111,7 @@
   .cardRight {
     width: 100%;
     text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.1px;
   }
 }

@@ -190,7 +190,9 @@ const AddAppointment = () => {
             <button className={styles.submit} onClick={handleSubmit}>
               {loading ? <Loader /> : "Submit"}
             </button>
-            <button className={styles.save}>Save and Continue</button>
+            <button onClick={handleSubmit} className={styles.save}>
+              {loading ? <Loader /> : "Submit"}
+            </button>
           </div>
         </section>
       </main>

@@ -1,6 +1,7 @@
 .container {
   padding: 3rem 3rem;
   font-family: "Lato", sans-serif;
+  height: auto;
 }
 .manageTeam {
   display: flex;
@@ -47,7 +48,8 @@
 }
 .styledTable {
   width: 1236px;
-  height: 512px;
+  min-height: 512px;
+  height: auto;
   top: 168px;
   left: 144px;
   border-radius: 4px;
