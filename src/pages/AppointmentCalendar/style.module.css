@@ -23,6 +23,10 @@
     align-items: center;
     gap: 16px;
 }
+.calenderBox svg {
+    width: 24px;
+    height: 24px;
+}
 .rightBox{
     width: 439px;
     height: 100%;
@@ -30,14 +34,54 @@
     gap: 16px;
 }
 .filter{
+    padding: 13px 16px 13px 16px;
+    border: 1px solid #CED4DA;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 204px;
     height: 100%;
     display: flex;
     gap: 8px;
     cursor: pointer;
 }
+.textdesign{
+    font-size: 16px;
+    font-weight: 400;
+    font-family: Lato;
+    color: #08090A;
+    line-height: 24px;
 
-.rightBox button{
+}
+.filter svg{
+    width: 24px;
+    height: 24px;
+}
+.nameContainer{
+    position: absolute;
+    z-index: 3;
+    top: 60px;
+    left: 941;
+    width: 204px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #EBEDF0;
+    border-radius: 4px;
+}
+.nameContainer div{
+    cursor: pointer;
+    width: 100%;
+    height: 48px;
+    background-color: #FFFFFF;
+    padding: 13px 16px 13px 16px;
+}
+.nameContainer :hover{
+    background-color: #EBEDF0;
+}
+
+.Appointment{
     width: 219px;
     height: 100%;
     border-radius: 4px;
@@ -53,8 +97,11 @@
     cursor: pointer;
     background-color: #08080B;
 }
-.rightBox button span{
+.Appointment span{
     font-size: 24px;
+}
+.mobileHeader{
+    display: none;
 }
 .lineBar{
     width: 93%;
@@ -74,9 +121,8 @@
     
 }
 .scheduleBox::-webkit-scrollbar{
-    margin-top: 50px;
     height: 820px;
-    width: 6px;
+    min-width: 6px;
     background-color: #E9EDF2;
 }
 .scheduleBox::-webkit-scrollbar-thumb {
@@ -93,4 +139,95 @@
     margin-top: 10px;
     margin-left: 15%;
     cursor: pointer;
+}
+.mobileView{
+    height: auto;
+    width: auto;
+}
+@media screen and (max-width: 700px){
+    .mainContainer{
+        position: static;
+        top: 220px;
+        margin: 0;
+        margin-left: 16px;
+    }
+    .scheduleBox{
+        margin: 0;
+        margin-top: 24px;
+        width: 374px;
+        min-height: 400px;
+        transition: smooth;
+        
+    }
+    .lineBar{
+        display: none;
+    }
+    .mobileHeader{
+        width: 366px;
+        height: 36px;
+        margin-bottom: 24px;
+        padding-left: 24px;
+        display: block;
+        display: flex;
+        align-items: center;
+        
+    }
+    .mobileHeader svg{
+        width: 24px;
+        height: 24px;
+    }
+    .header{
+        margin: 0;
+        width: 366px;
+        height: 36px;
+        gap: 16px;
+    }
+    .mobileHeader h3{
+        margin-left: 40px;
+        height: 30px;
+        font-size: 20px;
+        font-family: Poppins;
+        font-weight: 600;
+        line-height: 30px;
+        text-align: center;
+        color: #000000;
+    }
+    .calenderBox{
+        min-width: fit-content;
+        gap: 8px;
+        padding: 0px 4px 0px 4px;
+    }
+    .calenderBox svg {
+        width: 16px;
+        height: 16px;
+    }
+    .date{
+        min-width: fit-content;
+        height: 100%;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+    }
+    .filter{
+        margin-bottom: 24px;
+        width: 160px;
+        border-radius: 100px;
+        padding: 5px 10px 10px 16px;
+        font-size: 14px;
+        color: #000000;
+        line-height: 24px;
+    }
+    .Appointment{
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        top: 700px;
+        left: 302px;
+        z-index: 10;
+        border-radius: 50%;
+        background-color: #0D69D7;
+    }
+    .Appointment p{
+        display: none;
+    }
 }
