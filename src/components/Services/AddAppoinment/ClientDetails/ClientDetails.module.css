@@ -53,7 +53,7 @@
   line-height: 24px;
   letter-spacing: 0.01em;
   text-align: left;
-  color: var(--Grey-Black, #08090a);
+  /* color: var(--Grey-Black, #08090a); */
 }
 
 .price,
