@@ -5,7 +5,7 @@ export const GetCalenderdata = async () => {
       try {
         const headers = {
           token: localStorage.getItem("jwtToken"),
-        };
+        };///reports/calenderReport?date=2024-04-04
         const res = await axiosInstance.get(`/reports/calenderReport`, { headers });
     
         return { res: res.data, err: null };

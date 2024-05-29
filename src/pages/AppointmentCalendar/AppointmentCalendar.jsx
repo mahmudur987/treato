@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import ScheduleTable from './ScheduleTable/Schedule';
 import { GetCalenderdata } from '../../services/calender';
+import CalendarModal from './CustomCalendar/CalendarModal';
 
 function AppointmentCalendar() {
     const [date, setDate] = useState(new Date());
@@ -30,6 +31,7 @@ function AppointmentCalendar() {
 
         getdata()
         console.log(profiles);
+        console.log(date)
     }, []);
 
     const filteredFn = (names) => {
@@ -89,7 +91,7 @@ function AppointmentCalendar() {
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
                         </svg>
                         </p>
-                        <div className={style.date}>{date.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric' })}</div>
+                        <div className={style.date}>{date?.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric' })}</div>
                         <p className="btn increase-date" onClick={increaseDate}><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
                         </svg>
@@ -100,7 +102,7 @@ function AppointmentCalendar() {
                         </div>
                         {showCalendar &&
                             <div className={style.calendarpopup}>
-                                <DatePicker className={style.customDatePicker} selected={date} onChange={handleDateChange} />
+                                <CalendarModal setDate={setDate} setShowCalendar={setShowCalendar}/>
                             </div>
                         }
 
@@ -153,13 +155,7 @@ function AppointmentCalendar() {
                                 ))}
                         </div></> : <></>}
 
-                        {/* <select className={`${style.filter} custom-select`} onChange={filteredFn} name="persons" id="dropdown">
-                            <option value="Everyone" selected>Everyone</option>
-                            {filteredData &&
-                                filteredData.map((item, index) => (
-                                    <option key={index} value={item.stylistName}>{item.stylistName}</option>
-                                ))}
-                        </select> */}
+                        
                         <Link to="/partner/dashboard/addappoinment"><button className={style.Appointment}><span>+</span><p>Add Appointment</p></button></Link>
                     </div>
                 </div>

@@ -151,7 +151,7 @@
 }
 .dropdowncontent{
     position: absolute;
-    margin-left: 30px;
+    margin-left: 20px;
     margin-top: 20px;
     min-height: 296px;
     border-radius: 4px;
@@ -160,6 +160,9 @@
     display: flex;
     flex-direction: column;
     gap: 0;
+}
+.dropBox{
+    margin-left: 70%;
 }
 .inputContainer{
     min-width: 100%;

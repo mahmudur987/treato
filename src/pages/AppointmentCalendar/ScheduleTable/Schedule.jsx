@@ -272,7 +272,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                               </svg>
 
                               {openMenus[item.unique_id] && (
-                                <div className={style.dropdowncontent} key={ele._id}>
+                                <div  className={`${style.dropdowncontent} ${condition ? style.dropBox : style.cropBox}`} key={item.unique_id} key={ele._id}>
                                   <div className={style.inputContainer}>
                                     <input 
                                     className={style.otpBox} 
