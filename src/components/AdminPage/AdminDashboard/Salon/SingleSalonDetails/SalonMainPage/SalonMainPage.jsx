@@ -48,7 +48,7 @@ export default function SalonMainPage({ addServices, addedServices }) {
           {data &&
             !isLoading &&
             !isError &&
-            data?.data?.services.length > 0 &&
+            data?.data?.services?.length > 0 &&
             data?.data?.services?.map((x, y) => (
               <SalonServiceMain
                 key={y}

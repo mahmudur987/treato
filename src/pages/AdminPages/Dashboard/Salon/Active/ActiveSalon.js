@@ -44,7 +44,7 @@ const ActiveSalon = () => {
         salon_image: x?.salon_image[0]?.public_url ?? salonImage,
         salon_name: x.salon_name ?? "N/A",
         salon_rating: x.rating ?? "N/A",
-        salon_ratingCount: "n0" ?? "N/A",
+        salon_ratingCount: x?.total_rating ?? "N/A",
         salon_address: x.address ?? "N/A",
         salon_owner: x.owner_name ?? "N/A",
         salon_joinDate: formatDate(x.date_join) ?? "N/A",
