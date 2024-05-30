@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import { Link } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import ScheduleTable from './ScheduleTable/Schedule';
-import { GetCalenderdata } from '../../services/calender';
+import { GetCalenderdata, GetStylistName } from '../../services/calender';
 import CalendarModal from './CustomCalendar/CalendarModal';
 
 function AppointmentCalendar() {
@@ -13,10 +13,11 @@ function AppointmentCalendar() {
     const [profiles, setEmployee] = useState(null);
     const [filteredData, setFilter] = useState(null);
     const [stylistTitle, setTitle] = useState('Everyone')
+    const [getEmployeeName, setNames] = useState();
     const [dropdownopen, setDropdown] = useState(false);
 
     async function getdata() {
-        const { res, err } = await GetCalenderdata()
+        const { res, err } = await GetCalenderdata(date)
         if (res) {
             setEmployee(res.data);
             setFilter(res.data)
@@ -24,15 +25,28 @@ function AppointmentCalendar() {
         }
         else {
             console.log(err);
+            setEmployee(null)
         }
     }
+    async function getNames() {
+        const { res, err } = await GetStylistName()
+        if (res) {
+            setNames(res.data);
+        }
+        else {
+            console.log(err);
+        }
+    }
+    useEffect(()=>{
+        getNames()
+    },[])
 
     useEffect(() => {
 
         getdata()
         console.log(profiles);
         console.log(date)
-    }, []);
+    }, [date]);
 
     const filteredFn = (names) => {
         setDropdown(false);
@@ -57,10 +71,7 @@ function AppointmentCalendar() {
         newDate.setDate(date.getDate() + 1);
         setDate(newDate);
     };
-    const handleDateChange = (newDate) => {
-        setDate(newDate);
-        setShowCalendar(false);
-    };
+    
 
 
     return (
@@ -96,7 +107,7 @@ function AppointmentCalendar() {
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
                         </svg>
                         </p>
-                        <div className="calendar-icon" onClick={() => setShowCalendar(!showCalendar)}><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <div className="calendar-icon" onClick={() => setShowCalendar(!showCalendar)}><svg  class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
                         </svg>
                         </div>
@@ -142,8 +153,8 @@ function AppointmentCalendar() {
                                     setTitle("Everyone");
                                 })}
                             >Everyone</div>
-                            {filteredData &&
-                                filteredData.map((item, index) => (
+                            {getEmployeeName &&
+                                getEmployeeName.map((item, index) => (
                                     <div
                                         className={style.textdesign}
                                         key={index}
@@ -162,7 +173,8 @@ function AppointmentCalendar() {
                 <div className={style.lineBar}></div>
 
                 <div className={style.scheduleBox} >
-                    <ScheduleTable profiles={profiles} getdata={getdata} />
+                    {profiles ? <><ScheduleTable profiles={profiles} getdata={getdata} /></>:<><h1 className={style.errors} >Don't have Appointments</h1></>}
+                    
                 </div>
 
 

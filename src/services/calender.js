@@ -1,11 +1,12 @@
 import axiosInstance from './axios'
 
-export const GetCalenderdata = async () => {
+export const GetStylistName = async () => {
+  
    
       try {
         const headers = {
           token: localStorage.getItem("jwtToken"),
-        };///reports/calenderReport?date=2024-04-04
+        };
         const res = await axiosInstance.get(`/reports/calenderReport`, { headers });
     
         return { res: res.data, err: null };
@@ -13,8 +14,26 @@ export const GetCalenderdata = async () => {
         return { err: error, res: null };
       }
 }
+
+export const GetCalenderdata = async (date) => {
+  const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    console.log(`${year}-${month}-${day}`)
+   
+      try {
+        const headers = {
+          token: localStorage.getItem("jwtToken"),
+        };
+        const res = await axiosInstance.get(`/reports/calenderReport?date=${year}-${month}-${day}`, { headers });
+    
+        return { res: res.data, err: null };
+      } catch (error) {
+        return { err: error, res: null };
+      }
+}
 export const otpVerification = async (otp) => {
-   console.log(otp)
+   
       try {
         const headers = {
           token: localStorage.getItem("jwtToken"),

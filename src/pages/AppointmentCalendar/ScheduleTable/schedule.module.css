@@ -234,4 +234,7 @@
     .slides{
         min-width: 100px;
     }
+    .dBox{
+        min-width:308px;
+    }
 }

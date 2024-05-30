@@ -126,7 +126,7 @@ function JobDetails() {
                   </select>
                   <input
                     className={style.phoneno}
-                    type="tel"
+                    type="number"
                     id="phoneNumber"
                     name="phone_number"
                     value={formData.phone_number}

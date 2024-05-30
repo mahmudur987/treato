@@ -58,6 +58,10 @@
     width: 24px;
     height: 24px;
 }
+svg{
+    cursor: pointer;
+}
+
 .nameContainer{
     position: absolute;
     z-index: 10;
@@ -148,6 +152,15 @@
     height: auto;
     width: auto;
 }
+.errors{
+    margin-top: 15%;
+    margin-left: 40%;
+    text-align: center;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 16px;
+    color: #08090A;
+}
 @media screen and (max-width: 700px){
     .mainContainer{
         position: static;
@@ -233,5 +246,22 @@
     }
     .Appointment p{
         display: none;
+    }
+    .calendarpopup{
+        left: 24px;
+        top: 204px;
+    }
+    .nameContainer{
+        top: 436px;
+        left: 0;
+        right: 0;
+        background-color: #FFFFFF;
+        width: 390px;
+        min-height: 408px;
+        border-radius: 12px 12px 0px 0px;
+        
+    }
+    .nameContainer div{
+        text-align: center;
     }
 }
