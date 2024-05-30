@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Salon.module.css";
-import {
-  chevronright,
-  ellipse,
-  mapPin,
-  mapPinBlue,
-  star_line,
-} from "../../../assets/images/icons";
+import { chevronright } from "../../../assets/images/icons";
 import mapBlue from "../../../assets/images/SalonDetail/mapBlue.svg";
 import { starBlack } from "../../../assets/images/SalonsPageImages";
 import { Link } from "react-router-dom";
@@ -23,8 +17,6 @@ const Salon = ({ salonData, place }) => {
     }
   };
   const userDetails = useSelector((state) => state.user);
-  // console.log(userDetails?.user.isLocationAllow,"userDetails");
-  // console.log(salonData, "salonData");
 
   const generateDistance = () => {
     const Distance = (salonData?.distances * 10).toFixed(1);

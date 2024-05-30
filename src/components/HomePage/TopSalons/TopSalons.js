@@ -20,17 +20,18 @@ const TopSalons = (props) => {
       setTopSalonData(filterResult);
     } else if (props?.heading === "Popular near you") {
       let filterResult;
-      if(!userDetails?.user.isLocationAllow){
+      if (!userDetails?.user.isLocationAllow) {
         filterResult = [...salonsState?.salonContent].sort(
           (a, b) => b.rating - a.rating
         );
-      }
-      else{
+      } else {
         filterResult = [...salonsState?.salonContent]
           .filter((salon) => salon.distances < 400)
           .sort((a, b) => {
-            const distanceA = a.unit === "km" ? a.distances * 1000 : a.distances;
-            const distanceB = b.unit === "km" ? b.distances * 1000 : b.distances;
+            const distanceA =
+              a.unit === "km" ? a.distances * 1000 : a.distances;
+            const distanceB =
+              b.unit === "km" ? b.distances * 1000 : b.distances;
             return distanceA - distanceB;
           })
           .sort((a, b) => b.rating - a.rating);
@@ -52,17 +53,15 @@ const TopSalons = (props) => {
   const carouselRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
 
-  const isRmdContentOverflowing = topSalonData?topSalonData.length > 4:null;
+  const isRmdContentOverflowing = topSalonData ? topSalonData.length > 4 : null;
 
-  // Check screen width and services length to hide right arrow
   const screenWidth = window.innerWidth;
   const hideRightArrow = screenWidth > 1200 && !isRmdContentOverflowing;
 
   const handleScroll = () => {
     const scrollLeft = carouselRef.current.scrollLeft;
-    // setScrollPosition(scrollLeft);
 
     setShowLeftArrow(scrollLeft > 0);
     setShowRightArrow(
@@ -84,57 +83,61 @@ const TopSalons = (props) => {
     return () => {
       carouselRef?.current?.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [topSalonData, salon, userDetails]);
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
   function reportWindowSize() {
     let winWidth = window.innerWidth;
     updateWinWidthMain(winWidth);
   }
   window.onresize = reportWindowSize;
-  return (<>
-   <section className={styles["container"]}>
-    
-      <div className={styles["top-ratedSalons"]}>
-        <div className={styles["trHeadWrapper"]}>
-          {winWidthMain <= 768 ? (
-            <div className={styles["trMobHeading"]}>
-              <h3>{props.heading}</h3>
-              <img src={scrollright} className={styles.mobScrollRight} />
-            </div>
-          ) : (
-            <Title>{props.heading}</Title>
-          )}
-        </div>
-
-        <div>
-          {showLeftArrow && (
-            <img
-              src={scrollright}
-              onClick={scrollLeft}
-              alt="scrollleft"
-              className={styles.scroll_left}
-            />
-          )}
-          <div ref={carouselRef} className={styles["trWrapper"]}>
-            {topSalonData.length
-              ? topSalonData.map((salon, index) => (
-                <Salon salonData={salon} place={"homePage"} key={index} />
-                ))
-              : <p className={styles.notAvailable}>No salons available at the moment. Check back later!</p>}
+  return (
+    <>
+      <section className={styles["container"]}>
+        <div className={styles["top-ratedSalons"]}>
+          <div className={styles["trHeadWrapper"]}>
+            {winWidthMain <= 768 ? (
+              <div className={styles["trMobHeading"]}>
+                <h3>{props.heading}</h3>
+                <img src={scrollright} className={styles.mobScrollRight} />
+              </div>
+            ) : (
+              <Title>{props.heading}</Title>
+            )}
           </div>
-          {showRightArrow &&     
-          <img
-            src={scrollright}
-            onClick={scrollRight}
-            alt="scrollRight"
-            className={styles.scroll_right}
-          />
-          }
+
+          <div>
+            {showLeftArrow && (
+              <img
+                src={scrollright}
+                onClick={scrollLeft}
+                alt="scrollleft"
+                className={styles.scroll_left}
+              />
+            )}
+            <div ref={carouselRef} className={styles["trWrapper"]}>
+              {topSalonData.length ? (
+                topSalonData.map((salon, index) => (
+                  <Salon salonData={salon} place={"homePage"} key={index} />
+                ))
+              ) : (
+                <p className={styles.notAvailable}>
+                  No salons available at the moment. Check back later!
+                </p>
+              )}
+            </div>
+
+            {showRightArrow && (
+              <img
+                src={scrollright}
+                onClick={scrollRight}
+                alt="scrollRight"
+                className={styles.scroll_right}
+              />
+            )}
+          </div>
         </div>
-      </div>
-    </section>
-  </>
-   
+      </section>
+    </>
   );
 };
 
