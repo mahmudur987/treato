@@ -19,6 +19,7 @@ const AppointmentDetails = () => {
   } = useSingleSalon();
 
   const [date, setDate] = useState("Oct 8 ,2022");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { setServiceDetails } = useContext(AddAppointmentContext);
   const [serviceType, setServiceType] = useState([]);
   const [selectedServiceType, setSelectedServiceType] = useState("");
@@ -27,13 +28,11 @@ const AppointmentDetails = () => {
   const [category, setCategory] = useState(
     categories.length > 0 ? categories[0] : null
   );
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [service, setService] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
   const [time, setTime] = useState("09:00");
   const [comments, setcomments] = useState("");
   const [duration, setduration] = useState("");
-
   const [prevId, setPrevId] = useState("");
 
   useEffect(() => {

@@ -39,8 +39,8 @@ const EditLook = () => {
       price: singleLook?.price ?? "0",
       rating: singleLook?.rating ?? "0",
     });
-
-    setSelectedPeople(singleLook?.stylist.map((x) => x._id));
+    const peoples = singleLook?.stylists?.map((x) => x._id);
+    setSelectedPeople(peoples);
   }, [data]);
 
   const handleSubmit = async () => {
