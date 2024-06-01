@@ -4,7 +4,7 @@ import { IoMdArrowRoundBack } from "@react-icons/all-files/io/IoMdArrowRoundBack
 import LeftContent from "../../../../components/Services/Look/EditLook/LeftContent/LeftContent";
 import StyleDetails from "../../../../components/Services/Look/EditLook/StyleDetails/StyleDetails";
 import TeamMembers from "../../../../components/Services/Look/EditLook/TeamMembers/TeamMembers";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSingleLook } from "../../../../services/Look";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
@@ -12,6 +12,7 @@ import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
 export const EditLookContext = createContext({});
 const EditLook = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { data, isLoading, isError, error } = useSingleLook(id);
   const [image, setImage] = useState(null);
@@ -22,14 +23,19 @@ const EditLook = () => {
     rating: "",
   });
   const [selectedPeople, setSelectedPeople] = useState([]);
-  const value = {
-    image,
-    setImage,
-    formData,
-    setFormData,
-    selectedPeople,
-    setSelectedPeople,
-  };
+  const [serviceData, setServiceData] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState(null);
+  const [service, setService] = useState("");
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [salonId, setSalonId] = useState("");
+  const serviceCategoryID = serviceData?.find(
+    (x) => x.category_name === category
+  )?._id;
+  const serviceSubCategoryId = serviceData
+    ?.find((x) => x.category_name === category)
+    ?.subCategories?.find((x) => x.service_name === selectedServices)?._id;
+
   useEffect(() => {
     let singleLook = data?.data[0];
     setImage(singleLook?.photo?.public_url);
@@ -41,6 +47,8 @@ const EditLook = () => {
     });
     const peoples = singleLook?.stylists?.map((x) => x._id);
     setSelectedPeople(peoples);
+    setCategory(singleLook?.service[0]?.service_name);
+    setSelectedServices(singleLook?.serviceSubCategoryData?.service_name);
   }, [data]);
 
   const handleSubmit = async () => {
@@ -65,6 +73,9 @@ const EditLook = () => {
     data.append("description", formData.description);
     data.append("price", formData.price);
     data.append("rating", formData.rating);
+    data.append("serviceCategories", serviceCategoryID);
+    data.append("serviceSubCategoryId", serviceSubCategoryId);
+    data.append("salonId", salonId);
     // Append selectedPeople array elements as separate fields
     selectedPeople.forEach((id) => {
       data.append("stylishListIds[]", id);
@@ -81,7 +92,25 @@ const EditLook = () => {
       console.error("Network error:", error?.response?.data);
     }
   };
-
+  const value = {
+    image,
+    setImage,
+    formData,
+    setFormData,
+    selectedPeople,
+    setSelectedPeople,
+    serviceData,
+    setServiceData,
+    categories,
+    setCategories,
+    category,
+    setCategory,
+    service,
+    setService,
+    selectedServices,
+    setSelectedServices,
+    setSalonId,
+  };
   return (
     <EditLookContext.Provider value={value}>
       <main className={styles.mainContainer}>
@@ -111,9 +140,16 @@ const EditLook = () => {
           </div>
         )}
         <div className={styles.btnContainer}>
-          <button className={styles.cancel}>Cancel</button>
+          <button
+            className={styles.cancel}
+            onClick={() => navigate("/partner/dashboard/look")}
+          >
+            Cancel
+          </button>
 
-          <button className={styles.save}>Submit</button>
+          <button className={styles.save} type="button" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </main>
     </EditLookContext.Provider>

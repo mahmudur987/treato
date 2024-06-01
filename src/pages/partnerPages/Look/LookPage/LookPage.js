@@ -57,7 +57,7 @@ const LookPage = () => {
         {data &&
           data.length > 0 &&
           data?.map((x, y) => <LookCard key={y} data={x} />)}
-        {looks && data.length === 0 && <NoDataDisplay />}
+        {looks && data?.length === 0 && <NoDataDisplay />}
       </div>
       <div
         className={styles.bottom}

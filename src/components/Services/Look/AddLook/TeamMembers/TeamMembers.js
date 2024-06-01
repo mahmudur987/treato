@@ -48,7 +48,7 @@ const TeamMembers = () => {
           <input
             type="checkbox"
             id={`person`}
-            checked={selectedPeople.length === people.length}
+            checked={selectedPeople?.length === people?.length}
             onChange={() => handleSelectAll()}
             className={styles.checkbox}
           />

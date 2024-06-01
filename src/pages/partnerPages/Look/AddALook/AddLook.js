@@ -11,12 +11,6 @@ export const addLookContext = createContext({});
 const AddLook = () => {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
-  const [serviceData, setServiceData] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState(null);
-  const [service, setService] = useState("");
-  const [selectedServices, setSelectedServices] = useState([]);
-  const [salonId, setSalonId] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -24,6 +18,12 @@ const AddLook = () => {
     rating: "",
   });
   const [selectedPeople, setSelectedPeople] = useState([]);
+  const [serviceData, setServiceData] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState(null);
+  const [service, setService] = useState("");
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [salonId, setSalonId] = useState("");
   const serviceCategoryID = serviceData?.find(
     (x) => x.category_name === category
   )?._id;
@@ -51,6 +51,7 @@ const AddLook = () => {
     if (formData.rating === "") {
       return toast.error("Add Rating");
     }
+
     const data = new FormData();
     data.append("file", image);
     data.append("name", formData.name);
@@ -58,13 +59,22 @@ const AddLook = () => {
     data.append("price", formData.price);
     data.append("rating", formData.rating);
     data.append("serviceCategories", serviceCategoryID);
-    data.append("serviceSubCategoryId", serviceCategoryID);
+    data.append("serviceSubCategoryId", serviceSubCategoryId);
     data.append("salonId", salonId);
     // Append selectedPeople array elements as separate fields
     selectedPeople.forEach((id) => {
       data.append("stylishListIds[]", id);
     });
-
+    console.log({
+      name: formData.name,
+      description: formData.description,
+      price: formData.price,
+      rating: formData.rating,
+      serviceCategoryID,
+      serviceSubCategoryId,
+      stylishListIds: selectedPeople,
+      salonId,
+    });
     try {
       const headers = {
         token: localStorage.getItem("jwtToken"),
