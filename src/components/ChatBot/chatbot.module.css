@@ -208,8 +208,8 @@
 .queans{
     width: 100%;
     height: max-content;
-    text-align: justify;
     font-family: Lato;
+    text-align: justify;
     font-size: 14px;
     line-height: 21px;
     color: #000000;
@@ -226,4 +226,11 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
+}
+@media screen and (max-width: 700px){
+    .messageLogo{
+        top: 760px;
+        left: 318px;
+    }
+    
 }
