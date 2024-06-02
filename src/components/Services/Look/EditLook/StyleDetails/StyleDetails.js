@@ -36,7 +36,7 @@ const StyleDetails = () => {
     const services = serviceData
       .find((x) => x.category_name === category)
       ?.subCategories?.map((x) => x.service_name);
-    setService(services);
+    setService(services ?? ["services"]);
   }, [category]);
   const handleChange = (e) => {
     const { name, value } = e.target;

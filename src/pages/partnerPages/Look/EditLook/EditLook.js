@@ -29,16 +29,17 @@ const EditLook = () => {
   const [service, setService] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
   const [salonId, setSalonId] = useState("");
-  const serviceCategoryID = serviceData?.find(
-    (x) => x.category_name === category
-  )?._id;
-  const serviceSubCategoryId = serviceData
-    ?.find((x) => x.category_name === category)
-    ?.subCategories?.find((x) => x.service_name === selectedServices)?._id;
+  const serviceCategoryID =
+    serviceData?.find((x) => x.category_name === category)?._id ??
+    data?.data[0]?.service_categories;
+  const serviceSubCategoryId =
+    serviceData
+      ?.find((x) => x.category_name === category)
+      ?.subCategories?.find((x) => x.service_name === selectedServices)?._id ??
+    data?.data[0]?.service_subcategory_id;
 
   useEffect(() => {
     let singleLook = data?.data[0];
-    setImage(singleLook?.photo?.public_url);
     setFormData({
       name: singleLook?.name ?? "N/A",
       description: singleLook?.description ?? "N / A",
@@ -52,21 +53,10 @@ const EditLook = () => {
   }, [data]);
 
   const handleSubmit = async () => {
-    if (!image) {
-      return toast.error("Select Image");
+    if (!serviceCategoryID || !serviceSubCategoryId) {
+      return toast.error("select service");
     }
-    if (formData.name === "") {
-      return toast.error("Add Name");
-    }
-    if (formData.description === "") {
-      return toast.error("Add Description");
-    }
-    if (formData.price === "") {
-      return toast.error("Add Price");
-    }
-    if (formData.rating === "") {
-      return toast.error("Add Rating");
-    }
+
     const data = new FormData();
     data.append("file", image);
     data.append("name", formData.name);
@@ -76,16 +66,27 @@ const EditLook = () => {
     data.append("serviceCategories", serviceCategoryID);
     data.append("serviceSubCategoryId", serviceSubCategoryId);
     data.append("salonId", salonId);
-    // Append selectedPeople array elements as separate fields
     selectedPeople.forEach((id) => {
       data.append("stylishListIds[]", id);
     });
-
+    console.log({
+      name: formData.name,
+      description: formData.description,
+      price: formData.price,
+      rating: formData.rating,
+      serviceCategoryID,
+      serviceSubCategoryId,
+      stylishListIds: selectedPeople,
+      salonId,
+    });
     try {
       const headers = {
         token: localStorage.getItem("jwtToken"),
       };
-      const res = await axiosInstance.post("look-book/new", data, { headers });
+
+      const res = await axiosInstance.patch(`look-book/edit/${id}`, data, {
+        headers,
+      });
 
       console.log(res.data);
     } catch (error) {

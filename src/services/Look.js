@@ -10,6 +10,21 @@ export const useAllLook = () => {
     },
   });
 };
+export const useAllForSalon = () => {
+  const headers = {
+    token: localStorage.getItem("jwtToken"),
+  };
+  return useQuery({
+    queryKey: ["look-book/view-salon-lookbook"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(
+        "look-book/view-salon-lookbook",
+        { headers }
+      );
+      return data;
+    },
+  });
+};
 export const useSingleLook = (id) => {
   return useQuery({
     queryKey: ["look", id],
