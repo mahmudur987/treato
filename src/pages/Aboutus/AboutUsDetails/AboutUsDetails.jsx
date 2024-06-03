@@ -41,13 +41,15 @@ function AboutUsDetails() {
                             <h4 width={63} >500+</h4>
                             <p width={41} >Salons</p>
                         </div>
+                        <hr className={style.verticlalbar} />
                         <div className={style.box2}  >
                             <h4 width={72}>1000+</h4>
                             <p width={88}>Happy Clients</p>
                         </div>
+                        <hr className={style.verticlalbar} />
                         <div className={style.box3}  >
                             <h4 width={46} >20+</h4>
-                            <p width={138}>Cities Services Offered</p>
+                            <p >Cities Services Offered</p>
                         </div>
                     </div>
 
@@ -58,11 +60,11 @@ function AboutUsDetails() {
                     <div className={style.ourTeamHeader}>
                         <h3>Our Team</h3>
                         <div className={style.btns}>
-                            <div className={style.Arrowbtn} onClick={prevProfile} ><svg height={24} width={24} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <div className={style.Arrowbtn} onClick={prevProfile} ><svg className={style.arrows} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
                             </svg>
                             </div>
-                            <div className={style.Arrowbtn} onClick={nextProfile} ><svg height={24} width={24} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <div className={style.Arrowbtn} onClick={nextProfile} ><svg className={style.arrows} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
                             </svg>
                             </div>

@@ -31,6 +31,7 @@
     font-weight: 400;
     text-align: justify;
     letter-spacing: 1%;
+    color: #434141;
 }
 .info{
     width: 589px;
@@ -42,7 +43,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 60px;
+    gap: 30px;
+}
+.verticlalbar{
+    width: 52px;
+    border: 0.5px solid #CED4DA;
+    transform: rotate(-90deg);
+
 }
 .box1{
     width: 63px;
@@ -51,7 +58,10 @@
     width: 88px;
 }
 .box3{
-    width: 138px;
+    width: fit-content;
+}
+.box3 p{
+    width: fit-content;
 }
 .info div{
     height: 57px;
@@ -105,6 +115,13 @@
     flex-direction: column;
     gap: 20px;
 }
+.arrows{
+    width: 24px;
+    height: 24px;
+}
+.arrows:active {
+    transform: scale(0.95);
+}
 .ourTeamHeader{
     width: 100%;
     height: auto;
@@ -138,7 +155,7 @@ gap: 20px;
 }
 .outTeamContent {
     overflow: hidden;
-    width: 1218px;
+    width: 1219px;
     height: 232px;
     display: flex;
     align-items: center;
@@ -247,6 +264,7 @@ gap: 20px;
 }
 .visionText h3{
     min-width: fit-content;
+    color: #434141;
     height: 42px;
     font-size: 28px;
     font-weight: 600;

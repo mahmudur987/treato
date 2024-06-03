@@ -64,8 +64,19 @@
     text-align: justify;
     letter-spacing: 1%;
 }
+.verticalLine{
+    position: absolute;
+    top: 324px;
+    left: 228px;
+    width: 228px;
+    border: 1px solid #EBEDF0;
+    transform: rotate(-90deg);
+}
 .selected {
     color: #0D69D7;
+  }
+  .unSelected{
+    color: #2E3032;
   }
   @media screen and (max-width: 500px){
     .container{
