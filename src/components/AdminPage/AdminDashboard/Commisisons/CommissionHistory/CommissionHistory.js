@@ -10,7 +10,7 @@ import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 import CommissionHistoryTable from "./CommissionHistoryTable/CommissionHistoryTable";
 
 const CommissionHistory = () => {
-  const PaymentStatus = ["All Booking", "Online", "On-Site"];
+  const PaymentStatus = ["All Booking", "Received", "OutStanding"];
   const PaymentDate = generatePastMonths();
   const [selectedPaymentStatus, setSelectedPaymentStatus] = useState(
     PaymentStatus[0]
@@ -18,6 +18,13 @@ const CommissionHistory = () => {
   const [selectedPaymentDate, setSelectedPaymentDate] = useState(
     PaymentDate[0]
   );
+
+  const [SearchText, setSearchText] = useState("");
+
+  let query = `search=${SearchText}&bookingType=${selectedPaymentStatus.toLocaleLowerCase()}&date=${selectedPaymentDate}`;
+
+  console.log(query);
+
   const [pageNumber, setPageNumber] = useState(1);
   const [count, setCount] = useState(5);
   const [itemPerPage, setItemPerPage] = useState(10);
@@ -41,6 +48,7 @@ const CommissionHistory = () => {
     setSelectedPaymentDate,
     selectedPaymentStatus,
     setSelectedPaymentStatus,
+    setSearchText,
   };
   return (
     <section className={styles.mainContainer}>
