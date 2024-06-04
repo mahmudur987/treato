@@ -32,6 +32,10 @@
     font-weight: 600;
     color: #000000;
 }
+.countryCode option{
+  border: 1px solid red;
+
+}
 
 .location {
     max-width: 100%;

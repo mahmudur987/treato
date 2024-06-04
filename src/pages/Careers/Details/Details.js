@@ -1,24 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { Link, json } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import style from './details.module.css'
 import image2 from '../../../../src/assets/images/Careers/placeholder.png';
 import { jobApplicationData } from '../../../services/careers';
+import { toast } from 'react-toastify';
+import { countryCallingCodes } from './CountryCodes';
 
 function JobDetails() {
-
+  const { id } = useParams();
+  const [phoneNumberError, setPhoneNumberError] = useState('');
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
     email: '',
+    numbercode:'+91',
     phone_number: '',
     resume: null,
-    career_id:'661a37f302ecaf20fc1ee99d',
-    // agreedToRequirements: false,
+    career_id: id,
+    isReadRoleDescription: false,
+    timestamps:true
   });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const val = type === 'checkbox' ? checked : value;
+    let val = value;
+
+    if (name === 'phone_number') {
+      val = value.replace(/\D/g, ''); 
+      val = val.slice(0, 10); 
+
+      if (val.length !== 10) {
+        setPhoneNumberError('Phone number must be exactly 10 digits long.');
+      } else {
+        setPhoneNumberError('');
+      }
+    }
+
+    if (type === 'checkbox') {
+      val = checked;
+    }
+
     setFormData({ ...formData, [name]: val });
   };
 
@@ -33,16 +54,30 @@ function JobDetails() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-     jobApplicationData(formData);
-     setFormData({
-      first_name: '',
-      last_name: '',
-      email: '',
-      phone_number: '',
-      resume: null,
-      career_id:'661a37f302ecaf20fc1ee99d',
-      // agreedToRequirements: false,
-    })
+    if (!phoneNumberError) {
+      const{res, err} = await jobApplicationData(formData);
+      if(res){
+        toast.success("Job form application submitted successfully.")
+      }
+      else{
+        console.log(err)
+        toast.error(err.error);
+      }
+      setFormData({
+        first_name: '',
+        last_name: '',
+        email: '',
+        numbercode: '+91',
+        phone_number: '',
+        resume: null,
+        career_id: id,
+        isReadRoleDescription: false,
+        timestamps: true
+      });
+    } else {
+      toast.warning('Please correct the phone number.');
+    }
+     
   };
 
 
@@ -113,20 +148,21 @@ function JobDetails() {
                   <select
                     className={style.countryCode}
                     id="countryCode"
-                    name="countryCode"
-                    value={formData.countryCode}
-                    onChange={handleChange}
+                    name="numbercode"
+                    value={formData.numbercode}
+                    onChange={(e)=>setFormData({...formData, numbercode:e.target.value})}
                     required
                   >
 
                     {/* Add options for country codes */}
-                    <option value="+1">+1</option>
-                    <option value="+91" selected>+91</option>
+                    <option value='+91' selected>+91</option>
+                    {countryCallingCodes&&
+                    countryCallingCodes.map((num)=><option value={num} selected>{num}</option>)}
                     {/* Add more options as needed */}
                   </select>
                   <input
                     className={style.phoneno}
-                    type="tel"
+                    type="number"
                     id="phoneNumber"
                     name="phone_number"
                     value={formData.phone_number}
@@ -162,19 +198,19 @@ function JobDetails() {
               </div>
             )}
           </div>
-          {/* <div className={style.checkBox} >
+          <div className={style.checkBox} >
             <input
               width={24}
               height={24}
               type="checkbox"
               id="agreedToRequirements"
-              name="agreedToRequirements"
-              checked={formData.agreedToRequirements}
+              name="isReadRoleDescription"
+              checked={formData.isReadRoleDescription}
               onChange={handleChange}
               required
             />
             <label htmlFor="agreedToRequirements">You have read all the requirements for this position and you think you will be a proper fit for this role.</label>
-          </div> */}
+          </div>
           <button className={style.submitButton} type="submit">Submit</button>
         </form>
 
@@ -184,6 +220,3 @@ function JobDetails() {
 }
 
 export default JobDetails;
-// Access to XMLHttpRequest at 'https://backend.treato.in/api/v1/career/jobformapply' 
-// from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin'
-//  header is present on the requested resource.

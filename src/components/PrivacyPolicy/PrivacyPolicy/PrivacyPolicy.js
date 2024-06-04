@@ -8,7 +8,9 @@ function PrivacyService() {
     const scrollToSection = (id) => {
         const element = document.getElementById(id);
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+            const yOffset = -80; 
+            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
         }
     }
     const handleOptionClick = (option) => {
@@ -20,7 +22,7 @@ function PrivacyService() {
             <h5 className={style.tablename}  >Table of Contents</h5>
             <div className={style.optionBox} >
                 <h6
-                    className={selectedOption === 'Option 1' ? `${style.selected}` : ''}
+                    className={selectedOption === 'Option 1' ? `${style.selected}` : style.unSelected}
                     onClick={(() => {
                         scrollToSection('introduction');
                         handleOptionClick('Option 1');
@@ -28,21 +30,21 @@ function PrivacyService() {
 
                     }>Introduction</h6>
                 <h6
-                    className={selectedOption === 'Option 2' ? `${style.selected}` : ''}
+                    className={selectedOption === 'Option 2' ? `${style.selected}` : style.unSelected}
                     width={214}
                     onClick={(() => {
                         scrollToSection('feedback');
                         handleOptionClick('Option 2')
                     })}  >Feedback and information</h6>
                 <h6 width={59}
-                    className={selectedOption === 'Option 3' ? `${style.selected}` : ''}
+                    className={selectedOption === 'Option 3' ? `${style.selected}` : style.unSelected}
                     onClick={(() => {
                         scrollToSection('privacy');
                         handleOptionClick('Option 3')
                     })}
                 >Privacy</h6>
                 <h6
-                    className={selectedOption === 'Option 4' ? `${style.selected}` : ''}
+                    className={selectedOption === 'Option 4' ? `${style.selected}` : style.unSelected}
                     width={141}
                     onClick={(() => {
                         scrollToSection('access');
@@ -50,7 +52,7 @@ function PrivacyService() {
                     })}
                 >Access to the site</h6>
                 <h6
-                    className={selectedOption === 'Option 5' ? `${style.selected}` : ''}
+                    className={selectedOption === 'Option 5' ? `${style.selected}` : style.unSelected}
                     width={137}
                     onClick={(() => {
                         scrollToSection('Age');
@@ -59,6 +61,7 @@ function PrivacyService() {
                 >Age requirement</h6>
             </div>
         </div>
+        <hr className={style.verticalLine} />
         <div className={style.rightContainer}>
             <h2 className={style.header}>Privacy Policy</h2>
             <section id="introduction">

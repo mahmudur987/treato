@@ -92,7 +92,7 @@
 .durationsBox {
     margin-top: 48px;
     min-width: 62px;
-    height: 888px;
+    height: auto;
     display: flex;
     flex-direction: column;
     gap: 120px;
@@ -151,7 +151,7 @@
 }
 .dropdowncontent{
     position: absolute;
-    margin-left: 30px;
+    margin-left: 20px;
     margin-top: 20px;
     min-height: 296px;
     border-radius: 4px;
@@ -160,6 +160,9 @@
     display: flex;
     flex-direction: column;
     gap: 0;
+}
+.dropBox{
+    margin-left: 70%;
 }
 .inputContainer{
     min-width: 100%;
@@ -200,4 +203,38 @@
     font-family: Lato;
     line-height: 15px;
 
+}
+@media screen and (max-width: 700px){
+    .header{
+        width: 100%;
+        height: auto;
+    }
+    .durationsBox{
+        min-width:36px;
+        gap: 84px;
+    }
+    .durationsBox p{
+        min-height: 36px;
+        width: 36px;
+    }
+    .grids{
+        margin-left: 40px;
+        width: 325px;
+    }
+    .prev{
+        left: 20px;
+    }
+    .profileBox{
+        min-width: 96px;
+    }
+    .profileBox img{
+        width: 16px;
+        height: 16px;
+    }
+    .slides{
+        min-width: 100px;
+    }
+    .dBox{
+        min-width:308px;
+    }
 }

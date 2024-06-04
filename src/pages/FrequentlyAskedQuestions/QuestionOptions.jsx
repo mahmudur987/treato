@@ -3,6 +3,7 @@ import style from './options.module.css';
 
 import { Link } from 'react-router-dom';
 import { getFaqs } from '../../services/faqs';
+import { toast } from 'react-toastify';
 
 function QuestionOptions() {
     const [selectedOption, setSelectedOption] = useState(null);
@@ -20,9 +21,7 @@ function QuestionOptions() {
             setExpandedIndex(index);
         }
     };
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
+    
 
     const handleOptionClick = (option) => {
         setSelectedOption(option);
@@ -31,11 +30,10 @@ function QuestionOptions() {
     const getselectedOption = async (data) => {
         const { res, err } = await getFaqs(data);
         if (res) {
-            console.log(res.data.faqq);
             setFaqs(res.data)
         }
         else {
-            console.log(err);
+            toast.error("Something went wrong!")
         }
 
         return data;
@@ -43,7 +41,7 @@ function QuestionOptions() {
     }
 
     useEffect(() => {
-        getselectedOption('cancellation');
+        getselectedOption('Cancellation');
         handleOptionClick('Option 1');
     }, [])
 
@@ -57,7 +55,7 @@ function QuestionOptions() {
                 <h6
                     className={selectedOption === 'Option 1' ? `${style.selected}` : ''}
                     onClick={(() => {
-                        getselectedOption('cancellation');
+                        getselectedOption('Cancellation');
                         handleOptionClick('Option 1');
                     })
 
@@ -66,21 +64,21 @@ function QuestionOptions() {
                     className={selectedOption === 'Option 2' ? `${style.selected}` : ''}
                     width={214}
                     onClick={(() => {
-                        getselectedOption('refund');
+                        getselectedOption('Refund');
                         handleOptionClick('Option 2')
                     })}  >Refund</h6>
                 <h6 width={59}
                     className={selectedOption === 'Option 3' ? `${style.selected}` : ''}
                     onClick={(() => {
-                        getselectedOption('booking');
+                        getselectedOption('Booking');
                         handleOptionClick('Option 3')
                     })}
-                >Booking Appointments</h6>
+                >Booking <span className={style.Appointments} >Appointments</span></h6>
                 <h6
                     className={selectedOption === 'Option 4' ? `${style.selected}` : ''}
                     width={141}
                     onClick={(() => {
-                        getselectedOption('pricing');
+                        getselectedOption('Pricing');
                         handleOptionClick('Option 4')
                     })}
                 >Pricing</h6>
@@ -88,11 +86,12 @@ function QuestionOptions() {
                     className={selectedOption === 'Option 5' ? `${style.selected}` : ''}
                     width={137}
                     onClick={(() => {
-                        getselectedOption('contactus');
+                        getselectedOption('Contact Us');
                         handleOptionClick('Option 5')
                     })}
                 >Contact Us</h6>
             </div>
+            <hr className={style.verticalLine} />
             <div className={style.rightbox} >
                 <p><b>{faqData?.topic}</b></p>
                 <div className={style.questionbox} >
@@ -121,6 +120,7 @@ function QuestionOptions() {
                                 <div className={`${style.answer} ${expandedIndex === index ? `${style.show}` : ''}`}>
                                     {faq.answer}
                                 </div>
+                                <hr className={style.horizon} />
                             </div>
                         ))}
 

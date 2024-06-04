@@ -5,13 +5,16 @@ import {
   cancelAppointment,
   completeAppointment,
   noShow,
-  startedAppointment
+  startedAppointment,
+  otpVerification
 } from '../../../services/calender';
 
 
 const ScheduleTable = ({ profiles, getdata }) => {
 
   const [openMenus, setOpenMenus] = useState({});
+  const [otp, setOtp] = useState(null);
+
   const toatSetting = {
     position: "top-right",
     autoClose: 5000,
@@ -137,6 +140,25 @@ const ScheduleTable = ({ profiles, getdata }) => {
     }
   }
 
+  const handleOtpChange = (e) => {
+    setOtp(parseInt(e.target.value));
+  };
+
+  const handleEnter = async (e, appointmenid) => {
+    if (e.key === 'Enter') {
+      const {res, err} = await otpVerification({ appointmenid, otp });
+      if(res){
+        toast.success("OTP verified", toatSetting);
+        setOtp('');
+      }
+      else{
+        toast.error(err.response.data.message, toatSetting);
+        setOtp('');
+
+      }
+    }
+  };
+
   const cancelation = async (id) => {
     const { res, err } = await cancelAppointment(id);
     if (res) {
@@ -250,9 +272,15 @@ const ScheduleTable = ({ profiles, getdata }) => {
                               </svg>
 
                               {openMenus[item.unique_id] && (
-                                <div className={style.dropdowncontent} key={ele._id}>
+                                <div  className={`${style.dropdowncontent} ${condition ? style.dropBox : style.cropBox}`} key={item.unique_id} key={ele._id}>
                                   <div className={style.inputContainer}>
-                                    <input className={style.otpBox} type="text" placeholder='OTP' />
+                                    <input 
+                                    className={style.otpBox} 
+                                    type="number" 
+                                    placeholder='OTP' 
+                                    value={otp}
+                                    onChange={handleOtpChange}
+                                    onKeyDown={(e) => handleEnter(e, ele._id)} />
                                   </div>
                                   <div className={style.editButton} >Edit Details </div>
 

@@ -14,6 +14,14 @@
     line-height: 42px;
     color: #000000;
 }
+.verticalLine{
+  position: absolute;
+  top: 330px;
+  left: 240px;
+  width: 228px;
+  border: 1px solid #EBEDF0;
+  transform: rotate(-90deg);
+}
 .container{
     position: absolute;
     width: 214px;
@@ -63,7 +71,8 @@
   }
  
   
-  .faqitem {
+  .horizon {
+    width: 653px;
     border-bottom: 1px solid #EBEDF0;
   }
   
@@ -73,6 +82,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .question p{
+    font-size: 18px;
+    font-family: Lato;
+    font-weight: 600;
+    color: #000000;
+    line-height: 27px;
   }
   .uparrow{
    display: block;
@@ -87,6 +103,11 @@
   .answer {
     padding: 10px;
     display: none;
+    font-size: 16px;
+    font-family: Lato;
+    font-weight: 400;
+    color: #434141;
+    text-align: justify;
   }
   
   .show {
@@ -120,4 +141,54 @@
     width: 80px;
     letter-spacing: 1%;
     cursor: pointer;
+  }
+  .linker :active{
+    transform: scale(0.95);
+  }
+  @media screen and (max-width: 700px){
+    .header h3{
+      top: 128px;
+      left: 24px;
+      height: 30px;
+      font-size: 20px;
+    }
+    .verticalLine{
+      width: 342px;
+      top: 33px;
+      left: 0;
+      transform: rotate(0deg);
+    }
+    .container{
+      margin: 0;
+      flex-direction: row;
+      top: 222px;
+      left: 24px;
+      width: 366px;
+      height: 33px;
+    }
+    .Appointments{
+      display: none;
+    }
+    .rightbox{
+      top: 279px;
+      left: 24px;
+      width: 342px;
+      gap: 16px;
+    }
+    .rightbox p b{
+      display: none;
+    }
+    .horizon{
+      width: 342px;
+    }
+    .question p{
+      font-size: 16px;
+      line-height: 24px;
+    }
+    svg{
+      min-width:16px;
+      min-height: 16px;
+      color: #6D747A;
+    }
+
   }

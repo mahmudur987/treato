@@ -31,6 +31,7 @@
     font-weight: 400;
     text-align: justify;
     letter-spacing: 1%;
+    color: #434141;
 }
 .info{
     width: 589px;
@@ -42,7 +43,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 60px;
+    gap: 30px;
+}
+.verticlalbar{
+    width: 52px;
+    border: 0.5px solid #CED4DA;
+    transform: rotate(-90deg);
+
 }
 .box1{
     width: 63px;
@@ -51,7 +58,10 @@
     width: 88px;
 }
 .box3{
-    width: 138px;
+    width: fit-content;
+}
+.box3 p{
+    width: fit-content;
 }
 .info div{
     height: 57px;
@@ -105,6 +115,13 @@
     flex-direction: column;
     gap: 20px;
 }
+.arrows{
+    width: 24px;
+    height: 24px;
+}
+.arrows:active {
+    transform: scale(0.95);
+}
 .ourTeamHeader{
     width: 100%;
     height: auto;
@@ -136,13 +153,15 @@ gap: 20px;
     justify-content: center;
     color: #F8F9FA;
 }
-.outTeamContent{
-    width: 100%;
+.outTeamContent {
+    overflow: hidden;
+    width: 1219px;
     height: 232px;
     display: flex;
     align-items: center;
     gap: 50px;
 }
+
 .contentBox{
     padding: 8px;
     height: 100%;
@@ -196,6 +215,30 @@ gap: 20px;
     border-radius: 5px;
     background-color: #F8F9FA;
 }
+.togglebtn{
+    width: 14px;
+    height: 145px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.changeColor{
+    background-color: #0D69D780;
+}
+.verticalLine{
+    
+    height: 117px;
+    width: 0.5px;
+    border: 1px solid #CED4DA;
+}
+.roundbtn{
+    cursor: pointer;
+    border: 1px solid #CED4DA;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
 .visionContentBox{
     width: 1233px;
     height: 266px;
@@ -220,7 +263,8 @@ gap: 20px;
     display: none;
 }
 .visionText h3{
-    width: 146px;
+    min-width: fit-content;
+    color: #434141;
     height: 42px;
     font-size: 28px;
     font-weight: 600;
@@ -236,10 +280,13 @@ gap: 20px;
     line-height: 30px;
     text-align: justify;
 }
+.forMobileView{
+    display: none;
+}
 .Footer {
     position: inherit;
   }
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 700px) {
     .mainContainer{
         padding-bottom: 150px;
         width: 390px;
@@ -342,6 +389,9 @@ gap: 20px;
         flex-direction: column;
         overflow: hidden;
     }
+    .togglebtn{
+        display: none;
+    }
     .contentBox{
         position: static;
         width: 343px;
@@ -373,6 +423,9 @@ gap: 20px;
     .visionContentBox img{
         display: none;
     }
+    .forMobileView{
+        display: block;
+    }
     .ourVisionBox,
     .visionContentBox,
     .visionText{
@@ -380,10 +433,11 @@ gap: 20px;
         padding: 0;
         position: static;
         width: 342px;
-        height: 456px;
+        height: fit-content;
         gap:24px;
         background: none;
     }
+    .our
     .visionContentBox p{
         width: 343px;
         height: 168px;

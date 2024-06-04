@@ -25,10 +25,12 @@ export const jobApplicationData = async (formData) => {
   try {
     const res = await axiosInstance.post("/career/jobformapply", formData,{headers});
 
-    alert("Job form application submitted successfully.")
+    
+    return { res: res.data, err: null }
     
   } catch (error) {
-    alert("Something went wrong")
+    console.log(error)
+    return { err: error.response.data            , res: null };
   }
 };
 
