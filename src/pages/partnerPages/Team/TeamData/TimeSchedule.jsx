@@ -44,8 +44,8 @@ const TimeSchedule = () => {
   const tableContainerRef = useRef(null);
   const team = data?.data[0]?.time_for_service;
   // startdate to enddate function
-  const SD = data?.data[0]?.time_for_service[0]?.date;
-  const Ed = data?.data[0]?.time_for_service[team.length - 1]?.date;
+  const SD = data?.data[0]?.time_for_service[0]?.date ?? "N/A";
+  const Ed = data?.data[0]?.time_for_service[team.length - 1]?.date ?? "N/A";
   const { startDate: sD, endDate: eD } = formatDateRange(SD, Ed);
 
   // table top 7 dates with days
@@ -53,7 +53,7 @@ const TimeSchedule = () => {
     const date = formatCustomDate(x?.date);
     return date;
   });
-  // team deta as schedule
+  // team data as schedule
   const TeamDetailsData = data?.data?.map((x) => {
     const data = {
       id: x?._id,
@@ -66,16 +66,21 @@ const TimeSchedule = () => {
   });
 
   const increaseDates = () => {
+    // if (data?.data[0]?.time_for_service.length < 7) {
+    //   return;
+    // }
     const newStartDate = new Date(startDate);
     newStartDate.setDate(newStartDate.getDate() + 1);
     setStartDate(formatStateDate(newStartDate));
-
     const newEndDate = new Date(endDate);
     newEndDate.setDate(newEndDate.getDate() + 1);
     setEndDate(formatStateDate(newEndDate));
   };
 
   const decreaseDates = () => {
+    // if (data?.data[0]?.time_for_service.length < 7) {
+    //   return;
+    // }
     const newStartDate = new Date(startDate);
     newStartDate.setDate(newStartDate.getDate() - 1);
     setStartDate(formatStateDate(newStartDate));
@@ -100,12 +105,6 @@ const TimeSchedule = () => {
   const employeeSchedule = () => {
     navigate("/partner/dashboard/EmployeeSchedule");
   };
-  if (isLoading) {
-    return <LoadSpinner />;
-  }
-  if (isError) {
-    return <ErrorComponent message={error.message} />;
-  }
 
   console.log(data);
 
@@ -120,29 +119,31 @@ const TimeSchedule = () => {
             <h1 className={sty.headingTeam}>Team Schedule</h1>
           </div>
 
-          {data?.data[0]?.time_for_service.length > 0 && (
-            <div className={sty.teamCal}>
-              <p className={sty.teamCalIcon}>
-                <span onClick={decreaseDates}>
-                  <img
-                    src={chevronLeft}
-                    alt="chevronLeft"
-                    className={sty.chevronLeft}
-                  />
-                </span>
+          <div className={sty.teamCal}>
+            <p className={sty.teamCalIcon}>
+              <span onClick={decreaseDates}>
+                <img
+                  src={chevronLeft}
+                  alt="chevronLeft"
+                  className={sty.chevronLeft}
+                />
+              </span>
+
+              {data?.data[0]?.time_for_service.length > 0 && (
                 <span className={sty.cal}>
                   {sD} - {eD} <img src={calendar_line} alt="calendar_line" />
                 </span>
-                <span onClick={increaseDates}>
-                  <img
-                    src={chevronRight}
-                    alt="chevronRight"
-                    className={sty.chevronRight}
-                  />{" "}
-                </span>
-              </p>
-            </div>
-          )}
+              )}
+              {isLoading && <LoadSpinner />}
+              <span onClick={increaseDates}>
+                <img
+                  src={chevronRight}
+                  alt="chevronRight"
+                  className={sty.chevronRight}
+                />{" "}
+              </span>
+            </p>
+          </div>
 
           <div className={sty.downloadButtonContainer}>
             <button className={sty.dBtn}>
@@ -313,6 +314,12 @@ const TimeSchedule = () => {
                   </tr>
                 );
               })}
+
+              {isLoading && <LoadSpinner />}
+
+              {isError && (
+                <ErrorComponent message={error ? error.message : "Error"} />
+              )}
             </tbody>
           </table>
         </div>

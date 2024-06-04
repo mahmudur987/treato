@@ -65,7 +65,7 @@ const SalesTrand = () => {
   const [chartWidth, setChartWidth] = useState(600);
   useEffect(() => {
     const handleResize = () => {
-      const newWidth = window.innerWidth < 700 ? 400 : 600;
+      const newWidth = window.innerWidth < 700 ? 350 : 600;
       setChartWidth(newWidth);
     };
 

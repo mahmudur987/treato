@@ -65,13 +65,13 @@ const TeamSales = () => {
         <div className={styles.contents}>
           <div className={styles.chart}>
             {data && (
-              <PieChart width={400} height={400}>
+              <PieChart width={410} height={400}>
                 <Pie
                   data={data}
                   cx={window.innerWidth < 700 ? 100 : 190}
                   cy={window.innerWidth < 700 ? 100 : 180}
-                  innerRadius={window.innerWidth < 700 ? 80 : 150}
-                  outerRadius={window.innerWidth < 700 ? 100 : 190}
+                  innerRadius={window.innerWidth < 700 ? 80 : 120}
+                  outerRadius={window.innerWidth < 700 ? 100 : 160}
                   fill="#8884d8"
                   paddingAngle={5}
                   dataKey="value"

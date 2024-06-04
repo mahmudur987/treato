@@ -7,11 +7,11 @@
   gap: 20px;
 }
 
-.searchWrapper {
+.header {
   display: flex;
   align-items: center;
 }
-.searchWrapper h3 {
+.header h3 {
   font-family: Poppins;
   font-size: 20px;
   font-weight: 600;
@@ -19,7 +19,31 @@
   text-align: left;
   color: #08090a;
 }
+.searchWrapper {
+  max-width: 320px;
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0px 12px 0px 12px;
+  gap: 12px;
+  border: 1px solid var(--Grey-Grey-30, #ced4da);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.searchWrapper span {
+  font-size: 18px;
+}
 
+.searchWrapper input[type="text"] {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+.input::placeholder {
+  color: #434141;
+}
 .selectsWrapper {
   flex: 1;
   display: flex;

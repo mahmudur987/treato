@@ -4,7 +4,7 @@ import { IoMdArrowRoundBack } from "@react-icons/all-files/io/IoMdArrowRoundBack
 import LeftContent from "../../../../components/Services/Look/EditLook/LeftContent/LeftContent";
 import StyleDetails from "../../../../components/Services/Look/EditLook/StyleDetails/StyleDetails";
 import TeamMembers from "../../../../components/Services/Look/EditLook/TeamMembers/TeamMembers";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSingleLook } from "../../../../services/Look";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
@@ -12,6 +12,7 @@ import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
 export const EditLookContext = createContext({});
 const EditLook = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { data, isLoading, isError, error } = useSingleLook(id);
   const [image, setImage] = useState(null);
@@ -22,6 +23,76 @@ const EditLook = () => {
     rating: "",
   });
   const [selectedPeople, setSelectedPeople] = useState([]);
+  const [serviceData, setServiceData] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState(null);
+  const [service, setService] = useState("");
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [salonId, setSalonId] = useState("");
+  const serviceCategoryID =
+    serviceData?.find((x) => x.category_name === category)?._id ??
+    data?.data[0]?.service_categories;
+  const serviceSubCategoryId =
+    serviceData
+      ?.find((x) => x.category_name === category)
+      ?.subCategories?.find((x) => x.service_name === selectedServices)?._id ??
+    data?.data[0]?.service_subcategory_id;
+
+  useEffect(() => {
+    let singleLook = data?.data[0];
+    setFormData({
+      name: singleLook?.name ?? "N/A",
+      description: singleLook?.description ?? "N / A",
+      price: singleLook?.price ?? "0",
+      rating: singleLook?.rating ?? "0",
+    });
+    const peoples = singleLook?.stylists?.map((x) => x._id);
+    setSelectedPeople(peoples);
+    setCategory(singleLook?.service[0]?.service_name);
+    setSelectedServices(singleLook?.serviceSubCategoryData?.service_name);
+  }, [data]);
+
+  const handleSubmit = async () => {
+    if (!serviceCategoryID || !serviceSubCategoryId) {
+      return toast.error("select service");
+    }
+
+    const data = new FormData();
+    data.append("file", image);
+    data.append("name", formData.name);
+    data.append("description", formData.description);
+    data.append("price", formData.price);
+    data.append("rating", formData.rating);
+    data.append("serviceCategories", serviceCategoryID);
+    data.append("serviceSubCategoryId", serviceSubCategoryId);
+    data.append("salonId", salonId);
+    selectedPeople.forEach((id) => {
+      data.append("stylishListIds[]", id);
+    });
+    console.log({
+      name: formData.name,
+      description: formData.description,
+      price: formData.price,
+      rating: formData.rating,
+      serviceCategoryID,
+      serviceSubCategoryId,
+      stylishListIds: selectedPeople,
+      salonId,
+    });
+    try {
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+
+      const res = await axiosInstance.patch(`look-book/edit/${id}`, data, {
+        headers,
+      });
+
+      console.log(res.data);
+    } catch (error) {
+      console.error("Network error:", error?.response?.data);
+    }
+  };
   const value = {
     image,
     setImage,
@@ -29,59 +100,18 @@ const EditLook = () => {
     setFormData,
     selectedPeople,
     setSelectedPeople,
+    serviceData,
+    setServiceData,
+    categories,
+    setCategories,
+    category,
+    setCategory,
+    service,
+    setService,
+    selectedServices,
+    setSelectedServices,
+    setSalonId,
   };
-  useEffect(() => {
-    let singleLook = data?.data[0];
-    setImage(singleLook?.photo?.public_url);
-    setFormData({
-      name: singleLook?.name ?? "N/A",
-      description: singleLook?.description ?? "N / A",
-      price: singleLook?.price ?? "0",
-      rating: singleLook?.rating ?? "0",
-    });
-
-    setSelectedPeople(singleLook?.stylist.map((x) => x._id));
-  }, [data]);
-
-  const handleSubmit = async () => {
-    if (!image) {
-      return toast.error("Select Image");
-    }
-    if (formData.name === "") {
-      return toast.error("Add Name");
-    }
-    if (formData.description === "") {
-      return toast.error("Add Description");
-    }
-    if (formData.price === "") {
-      return toast.error("Add Price");
-    }
-    if (formData.rating === "") {
-      return toast.error("Add Rating");
-    }
-    const data = new FormData();
-    data.append("file", image);
-    data.append("name", formData.name);
-    data.append("description", formData.description);
-    data.append("price", formData.price);
-    data.append("rating", formData.rating);
-    // Append selectedPeople array elements as separate fields
-    selectedPeople.forEach((id) => {
-      data.append("stylishListIds[]", id);
-    });
-
-    try {
-      const headers = {
-        token: localStorage.getItem("jwtToken"),
-      };
-      const res = await axiosInstance.post("look-book/new", data, { headers });
-
-      console.log(res.data);
-    } catch (error) {
-      console.error("Network error:", error?.response?.data);
-    }
-  };
-
   return (
     <EditLookContext.Provider value={value}>
       <main className={styles.mainContainer}>
@@ -111,9 +141,16 @@ const EditLook = () => {
           </div>
         )}
         <div className={styles.btnContainer}>
-          <button className={styles.cancel}>Cancel</button>
+          <button
+            className={styles.cancel}
+            onClick={() => navigate("/partner/dashboard/look")}
+          >
+            Cancel
+          </button>
 
-          <button className={styles.save}>Submit</button>
+          <button className={styles.save} type="button" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </main>
     </EditLookContext.Provider>

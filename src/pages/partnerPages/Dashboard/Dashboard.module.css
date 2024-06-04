@@ -20,14 +20,18 @@
 }
 @media only screen and (max-width: 1024px) {
   .mainContainer {
-    padding: 10px;
+    max-width: 100vw;
     gap: 20px;
   }
   .container {
     flex-direction: column;
-    padding: 10px;
+    max-width: 100vw;
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
   .salesTrandContainer {
+    max-width: 100vw;
     width: 100%;
     margin: 0;
     padding: 0;

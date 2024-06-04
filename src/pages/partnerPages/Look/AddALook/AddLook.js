@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 export const addLookContext = createContext({});
 const AddLook = () => {
   const navigate = useNavigate();
-
   const [image, setImage] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -19,8 +18,24 @@ const AddLook = () => {
     rating: "",
   });
   const [selectedPeople, setSelectedPeople] = useState([]);
+  const [serviceData, setServiceData] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState(null);
+  const [service, setService] = useState("");
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [salonId, setSalonId] = useState("");
+  const serviceCategoryID = serviceData?.find(
+    (x) => x.category_name === category
+  )?._id;
+  const serviceSubCategoryId = serviceData
+    ?.find((x) => x.category_name === category)
+    ?.subCategories?.find((x) => x.service_name === selectedServices)?._id;
 
   const handleSubmit = async () => {
+    if (!serviceCategoryID || !serviceSubCategoryId) {
+      return toast.error("select service");
+    }
+
     if (!image) {
       return toast.error("Select Image");
     }
@@ -36,17 +51,30 @@ const AddLook = () => {
     if (formData.rating === "") {
       return toast.error("Add Rating");
     }
+
     const data = new FormData();
     data.append("file", image);
     data.append("name", formData.name);
     data.append("description", formData.description);
     data.append("price", formData.price);
     data.append("rating", formData.rating);
+    data.append("serviceCategories", serviceCategoryID);
+    data.append("serviceSubCategoryId", serviceSubCategoryId);
+    data.append("salonId", salonId);
     // Append selectedPeople array elements as separate fields
     selectedPeople.forEach((id) => {
       data.append("stylishListIds[]", id);
     });
-
+    console.log({
+      name: formData.name,
+      description: formData.description,
+      price: formData.price,
+      rating: formData.rating,
+      serviceCategoryID,
+      serviceSubCategoryId,
+      stylishListIds: selectedPeople,
+      salonId,
+    });
     try {
       const headers = {
         token: localStorage.getItem("jwtToken"),
@@ -65,6 +93,17 @@ const AddLook = () => {
     setFormData,
     selectedPeople,
     setSelectedPeople,
+    serviceData,
+    setServiceData,
+    categories,
+    setCategories,
+    category,
+    setCategory,
+    service,
+    setService,
+    selectedServices,
+    setSelectedServices,
+    setSalonId,
   };
   return (
     <addLookContext.Provider value={value}>

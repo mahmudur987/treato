@@ -6,18 +6,34 @@ import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import CustomSelect2 from "../../../../Select/CustomeSelect2/CustomeSelect2";
 import Slider from "react-slick";
-import { useStatistics } from "../../../../../services/superAdmin/Dashboard";
+
 import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import { FaPen } from "@react-icons/all-files/fa/FaPen";
+import { useCommissionStatistics } from "../../../../../services/superAdmin/Commission";
+import { toast } from "react-toastify";
+import axiosInstance from "../../../../../services/axios";
 
 const Header = () => {
   const [selectedOption, setSelectedOption] = useState("last 30 days");
   const options = ["last 30 days", "last 50 days", "last 90 days"];
   const [isEditable, setIsEditable] = useState(false);
   const inputRef = useRef(null);
+  const [comm, setComm] = useState("");
 
-  const { data, isLoading, isError, error } = useStatistics(selectedOption);
+  const { data, isLoading, isError, error, refetch } =
+    useCommissionStatistics(selectedOption);
 
+  // console.log(data?.commissionDetails);
+  const {
+    commPercentage,
+    totalAppointments,
+    appointmentsAfterStartDate,
+    appointmentChange,
+    appointmentPercentageChange,
+    totalCommission,
+    commissionAfterStartDate,
+    commPercentageChange,
+  } = data?.commissionDetails || {};
   const settings = {
     dots: false,
     infinite: true,
@@ -49,7 +65,33 @@ const Header = () => {
     if (isEditable && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isEditable]);
+    setComm(commPercentage);
+  }, [isEditable, data]);
+
+  const handleUpdateComm = async () => {
+    const data = {
+      commPercentage: comm,
+    };
+    const token = localStorage.getItem("jwtToken");
+    const headers = { token };
+
+    try {
+      const res = await axiosInstance.patch("super/updatecommission", data, {
+        headers,
+      });
+
+      console.log(res);
+
+      if (res?.data) {
+        toast.success("Commission Update Successfully");
+
+        refetch();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error ? error.message : "Error");
+    }
+  };
 
   return (
     <section className={styles.mainContainer}>
@@ -88,9 +130,14 @@ const Header = () => {
                     <p>Commission %</p>
                     <h3>
                       {isEditable ? (
-                        <input type="text" placeholder={"5%"} ref={inputRef} />
+                        <input
+                          type="text"
+                          placeholder={commPercentage}
+                          ref={inputRef}
+                          onChange={(e) => setComm(e.target.value)}
+                        />
                       ) : (
-                        <span>5%</span>
+                        <span>{commPercentage ?? "N/A"}</span>
                       )}
                     </h3>
                   </div>
@@ -101,7 +148,11 @@ const Header = () => {
                     <span>
                       <FaPen style={{ color: "#08090A" }} />
                     </span>
-                    {isEditable ? <span>Done</span> : <span>Edit</span>}
+                    {isEditable ? (
+                      <span onClick={handleUpdateComm}>Done</span>
+                    ) : (
+                      <span>Edit</span>
+                    )}
                   </button>
                 </div>
               </div>
@@ -136,12 +187,13 @@ const Header = () => {
                   <div className={styles.cardMiddle}>
                     <p>Commission Earned</p>
 
-                    <h3>₹{Number(data?.totalSales).toFixed(2)} </h3>
+                    <h3>₹{Number(totalCommission).toFixed(2)} </h3>
                   </div>
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp style={{ color: "#08090A" }} /> ₹1.2K
+                  <IoIosArrowUp style={{ color: "#08090A" }} /> ₹
+                  {commissionAfterStartDate}({commissionAfterStartDate})
                 </div>
               </div>
             </div>
@@ -172,14 +224,23 @@ const Header = () => {
 
                   <div className={styles.cardMiddle}>
                     <p>Total Appointments</p>
-                    <h3>{Number(data?.appointmentCount).toFixed(2)}</h3>
+                    <h3>
+                      {Number(
+                        data?.commissionDetails?.totalAppointments
+                      ).toFixed(2)}
+                    </h3>
                   </div>
                 </div>
 
                 <div className={styles.cardRight}>
                   <IoIosArrowUp style={{ color: "#08090A" }} />{" "}
-                  {Number(data?.percentageChange).toFixed(2)} (
-                  {Number(data?.appointmentPercentage).toFixed(2)}
+                  {Number(
+                    data?.commissionDetails?.appointmentsAfterStartDate
+                  ).toFixed(2)}
+                  (
+                  {Number(
+                    data?.commissionDetails?.appointmentPercentageChange
+                  ).toFixed(2)}{" "}
                   %)
                 </div>
               </div>

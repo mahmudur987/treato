@@ -58,7 +58,7 @@ export default function SalonServiceMain({ hideTitle, setCount, data }) {
                       key={i}
                       onClick={() => activeOptFunc(i)}
                       className={
-                        activeOption[i].selected
+                        activeOption[i]?.selected
                           ? styles.active_salon_service
                           : ""
                       }
@@ -77,14 +77,14 @@ export default function SalonServiceMain({ hideTitle, setCount, data }) {
                     onClick={() => activeOptFunc(i)}
                   >
                     <div>
-                      {v?.category_name} ({v?.subCategories.length} items)
+                      {v?.category_name} ({v?.subCategories?.length} items)
                     </div>
                     <div>
                       <img
                         src={upIco}
                         alt="up arrow"
                         className={
-                          activeOption[i].selected
+                          activeOption[i]?.selected
                             ? styles.rotate_imgA
                             : styles.rotate_img
                         }
@@ -94,7 +94,7 @@ export default function SalonServiceMain({ hideTitle, setCount, data }) {
                   <div className={styles.salon_serviceAB}>
                     <div
                       className={
-                        activeOption[i].selected
+                        activeOption[i]?.selected
                           ? `${styles.salon_serviceA} ${styles.showServices}`
                           : styles.salon_serviceA
                       }

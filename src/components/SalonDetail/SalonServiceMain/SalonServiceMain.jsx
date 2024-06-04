@@ -20,7 +20,7 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
     let allActiveOpt = [...activeOption];
     allActiveOpt.filter((v, i) =>
       index === i
-        ? v.selected
+        ? v?.selected
           ? (v.selected = false)
           : (v.selected = true)
         : (v.selected = false)
@@ -99,8 +99,8 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
                           : styles.salon_serviceA
                       }
                     >
-                      {v?.subCategories.length
-                        ? v?.subCategories.map((val, i) => (
+                      {v?.subCategories?.length
+                        ? v?.subCategories?.map((val, i) => (
                             <SalonServiceCard
                               salonServiceData={val}
                               key={i}

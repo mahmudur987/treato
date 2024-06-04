@@ -4,6 +4,7 @@ import axiosInstance from "../../../../services/axios";
 import { useQuery } from "react-query";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
+import NoDataDisplay from "../../../NodataToDisplay/NoDataDisplay";
 const RecentActivity = () => {
   const options = { day: "numeric", month: "short" };
   const { data, isLoading, isError, error } = useQuery({
@@ -27,6 +28,7 @@ const RecentActivity = () => {
       <div className={styles.container}>
         {/* dynamic card */}
         {data &&
+          data.length > 0 &&
           data.map((item, i) => (
             <div className={styles.card}>
               <div className={styles.cardLeft}>
@@ -79,7 +81,7 @@ const RecentActivity = () => {
               </div>
             </div>
           ))}
-
+        {data && data.length === 0 && <NoDataDisplay />}
         {isLoading && <LoadSpinner />}
         {isError && (
           <ErrorComponent message={error ? error.message : "Error"} />

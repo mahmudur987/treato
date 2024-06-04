@@ -43,6 +43,9 @@ const BillHistoryTable = ({ data }) => {
     const data = {
       id: x._id,
       customerName: x.customer_name ?? "N/A",
+      profileImage:
+        x?.userProfile?.public_url ??
+        "https://media.istockphoto.com/id/1439326389/photo/3d-print-image-icon-with-landscape-and-sun-picture-in-frame-gallery-sign-no-image-social.webp?b=1&s=170667a&w=0&k=20&c=QuMKkOcu2TVk3Suml3ZwIMvb4iemJi5mfKMC1a7eohg=",
       salonName: x.salon_name ?? "N/A",
       invoiceId: x.invoice ?? "N/A",
       date: formatDate(x.date) ?? x.data,
@@ -52,7 +55,7 @@ const BillHistoryTable = ({ data }) => {
 
     return data;
   });
-  console.log(data);
+
   return (
     <div className={sty.mainContainer}>
       <div className={sty.tableContainer}>
@@ -82,7 +85,22 @@ const BillHistoryTable = ({ data }) => {
             {tableData.map((x) => (
               <tr style={{ borderBottom: "1px solid #ebedf0" }}>
                 <td>
-                  <p className={sty.bodyRow}>{x.customerName}</p>
+                  <div className={sty.bodyRow}>
+                    <p className={sty.wrapper}>
+                      <figure className={sty.profile}>
+                        <img
+                          src={x?.profileImage}
+                          alt="profile image"
+                          onError={(e) =>
+                            e.target.src ===
+                            "https://media.istockphoto.com/id/1439326389/photo/3d-print-image-icon-with-landscape-and-sun-picture-in-frame-gallery-sign-no-image-social.webp?b=1&s=170667a&w=0&k=20&c=QuMKkOcu2TVk3Suml3ZwIMvb4iemJi5mfKMC1a7eohg="
+                          }
+                        />
+                      </figure>
+
+                      {x.customerName}
+                    </p>
+                  </div>
                 </td>
                 <td>
                   <p className={sty.bodyRow}>{x.salonName}</p>

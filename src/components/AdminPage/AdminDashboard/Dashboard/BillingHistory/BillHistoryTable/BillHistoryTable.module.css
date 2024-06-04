@@ -21,7 +21,19 @@
   background-color: #6d747a;
   color: white;
 }
-
+.wrapper {
+  display: flex;
+  gap: 8px;
+}
+.profile {
+  height: 24px;
+  width: 24px;
+}
+.profile img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
 .styledTable tbody tr {
   border-bottom: 1px solid #ebedf0;
   color: #08090a;

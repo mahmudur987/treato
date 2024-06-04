@@ -6,7 +6,7 @@ export const useStatistics = (x) => {
     token: adminToken,
   };
   return useQuery({
-    queryKey: [x],
+    queryKey: [x, adminToken],
     queryFn: async () => {
       const { data } = await axiosInstance.post(
         "super/statistics",
@@ -28,7 +28,7 @@ export const useBillingHistory = (x, y) => {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["allbillinghistory", x, y],
+    queryKey: ["allbillinghistory", x, y, adminToken],
     queryFn: async () => {
       const { data } = await axiosInstance.get(url, { headers });
 
@@ -41,7 +41,7 @@ export const usePendingSalons = (x) => {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["allpartnerapproval", x],
+    queryKey: ["allpartnerapproval", x, adminToken],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
         `super/allpartnerapproval?search=${x}`,
@@ -59,7 +59,7 @@ export const useActiveSalons = (x) => {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["allactivesalons", x],
+    queryKey: ["allactivesalons", x, adminToken],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
         url,
@@ -93,7 +93,7 @@ export const useSalonDetails = (id) => {
     token: adminToken,
   };
   return useQuery({
-    queryKey: [id],
+    queryKey: [id, adminToken],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
         `super/singlesalondetail/${id}`,
@@ -110,7 +110,7 @@ export const useSalonDetailsServices = (id) => {
     token: adminToken,
   };
   return useQuery({
-    queryKey: [id, "singlesalonservices"],
+    queryKey: [id, "singlesalonservices", adminToken],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
         `super/singlesalonservices/${id}`,
@@ -127,7 +127,7 @@ export const useSalonDetailsBookings = (id, x) => {
     token: adminToken,
   };
   return useQuery({
-    queryKey: [id, "singlesalonbookings"],
+    queryKey: [id, "singlesalonbookings", adminToken],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
         `super/singlesalonbookings/${id}?status=${
@@ -146,7 +146,7 @@ export const useSalonReviews = (id) => {
     token: adminToken,
   };
   return useQuery({
-    queryKey: [id, "singlesalonbookings"],
+    queryKey: [id, "singlesalonbookings", adminToken],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
         `super/salonallreviews?salon_id=${id}`,
@@ -163,7 +163,7 @@ export const useSalonImages = (id) => {
     token: adminToken,
   };
   return useQuery({
-    queryKey: [id, "salonImages"],
+    queryKey: [id, "salonImages", adminToken],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
         `super/allsalonimages?salon_id=${id}`,
@@ -180,7 +180,7 @@ export const useSalonBillAndPayment = (filter) => {
     token: adminToken,
   };
   return useQuery({
-    queryKey: [filter, "salonOrderhistory"],
+    queryKey: [filter, "salonOrderhistory", adminToken],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
         `super/salonorderhistory?${filter}`,
@@ -197,7 +197,7 @@ export const useGetDeactivatedSalons = (x) => {
     token: adminToken,
   };
   return useQuery({
-    queryKey: ["deactivated", x],
+    queryKey: ["deactivated", x, adminToken],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
         `super/alldeactivatedsalon?salonname=${x}`,

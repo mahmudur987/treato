@@ -14,6 +14,7 @@ import retingStar from "../../../../assets/images/TeamDetails/retingStar.png";
 import { useGetAllTeamMembers } from "../../../../services/Team";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
+import NoDataDisplay from "../../../../components/NodataToDisplay/NoDataDisplay";
 
 const tableHeading = [
   {
@@ -57,9 +58,11 @@ const tableHeading = [
   },
 ];
 const TeamDetails = () => {
+  const [searchText, setSearchText] = useState("");
+
   const { data, isLoading, isError, error } = useGetAllTeamMembers();
 
-  const TeamDetailsData = data?.data?.map((x) => {
+  const filteredData = data?.data?.map((x) => {
     return {
       id: x?._id,
       profile: x?.stylist_Img?.public_url || Mask1,
@@ -74,7 +77,11 @@ const TeamDetails = () => {
       editPencil: editImg,
     };
   });
-
+  const TeamDetailsData = filteredData?.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.serviceProfile.toLowerCase().includes(searchText.toLowerCase())
+  );
   const navigate = useNavigate();
   const [isViewAll, setIsViewAll] = useState(false);
 
@@ -84,13 +91,6 @@ const TeamDetails = () => {
   const EditTeamMemberData = () => {
     navigate("/partner/dashboard/EditMemberProfile");
   };
-
-  if (isLoading) {
-    return <LoadSpinner />;
-  }
-  if (isError) {
-    return <ErrorComponent message={error.message} />;
-  }
 
   return (
     <div className={sty.container}>
@@ -106,6 +106,7 @@ const TeamDetails = () => {
               type="search"
               placeholder="Search by name or service title "
               className={sty.searchInp}
+              onChange={(e) => setSearchText(e.target.value)}
             />
             <div className={sty.ScheduleHeading}>
               <div>
@@ -132,31 +133,35 @@ const TeamDetails = () => {
           </div>
         </div>
       </div>
-      {data && (
-        <table className={sty.styledTable}>
-          <thead>
-            <tr>
-              {tableHeading.map((item, i) => (
-                <td key={i}>
-                  <div className={sty.headingRow}>
-                    <span style={{ marginLeft: "30px" }}>{item.heading}</span>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginTop: "5px",
-                      }}
-                    >
-                      <img src={item.topImg} alt="" />
-                      <img src={item.bottomImg} alt="" />
-                    </div>
+
+      <table className={sty.styledTable}>
+        <thead>
+          <tr>
+            {tableHeading?.map((item, i) => (
+              <td key={i}>
+                <div className={sty.headingRow}>
+                  <span style={{ marginLeft: "30px" }}>{item.heading}</span>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      marginTop: "5px",
+                    }}
+                  >
+                    <img src={item.topImg} alt="" />
+                    <img src={item.bottomImg} alt="" />
                   </div>
-                </td>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {TeamDetailsData?.slice(
+                </div>
+              </td>
+            ))}
+          </tr>
+        </thead>
+        <tbody className={sty.tbody}>
+          {data &&
+            !isLoading &&
+            !isError &&
+            TeamDetailsData.length > 0 &&
+            TeamDetailsData?.slice(
               0,
               isViewAll ? TeamDetailsData.length : 8
             ).map((item, i) => (
@@ -189,11 +194,13 @@ const TeamDetails = () => {
                 </tr>
               </>
             ))}
-          </tbody>
-        </table>
-      )}
-
+        </tbody>
+      </table>
+      {isLoading && <LoadSpinner />}
+      {TeamDetailsData?.length === 0 && <NoDataDisplay />}
+      {isError && <ErrorComponent message={error.message} />}
       {TeamDetailsData &&
+        TeamDetailsData.length > 0 &&
         TeamDetailsData.map((item, i) => {
           return (
             <div key={i}>

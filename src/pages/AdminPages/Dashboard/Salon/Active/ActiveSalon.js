@@ -14,6 +14,7 @@ import ErrorComponent from "../../../../../components/ErrorComponent/ErrorCompon
 import { formatDate } from "../../AdminDashboard";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import NoDataDisplay from "../../../../../components/NodataToDisplay/NoDataDisplay";
 const sortSalons = (salons, sortBy) => {
   if (sortBy === "Rating") {
     return salons.sort((a, b) => b.salon_rating - a.salon_rating);
@@ -44,7 +45,7 @@ const ActiveSalon = () => {
         salon_image: x?.salon_image[0]?.public_url ?? salonImage,
         salon_name: x.salon_name ?? "N/A",
         salon_rating: x.rating ?? "N/A",
-        salon_ratingCount: "n0" ?? "N/A",
+        salon_ratingCount: x?.total_rating ?? "N/A",
         salon_address: x.address ?? "N/A",
         salon_owner: x.owner_name ?? "N/A",
         salon_joinDate: formatDate(x.date_join) ?? "N/A",
@@ -102,7 +103,7 @@ const ActiveSalon = () => {
           </>
         )}
         {data && !isLoading && !isError && data?.data?.length === 0 && (
-          <p>No active salon</p>
+          <NoDataDisplay message={"No active salon"} />
         )}
         {isError && (
           <ErrorComponent message={error ? error.message : "Error"} />
