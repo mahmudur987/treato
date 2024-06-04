@@ -38,8 +38,8 @@
   width: auto !important;
 }
 .logo img {
-  height: 40px;
-  width: 109px;
+  height: 24px;
+  width: 93.43px;
   object-fit: contain;
 }
 .navigation {
@@ -108,6 +108,7 @@
   height: 24px;
 }
 .signinButton img {
+  object-fit: cover;
   height: 44px;
   width: 44px;
   border-radius: 50%;

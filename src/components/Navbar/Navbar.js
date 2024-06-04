@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./Navbar.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import mask2 from "../../assets/images/NavbarImages/Mask2.png";
@@ -38,6 +38,8 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const { data } = useUpcomingApponments();
   const count = data?.res?.data?.data.length;
+  const menuRef = useRef(null); // Ref for the menu
+  const buttonRef = useRef(null);
   // Using to scroll to a particular section
   const scrollToSection = (navigate, sectionId) => {
     navigate("/"); // Navigate to the home page
@@ -89,59 +91,76 @@ export default function Navbar() {
       setIsLoggedIn(true);
       setuserInfo(userData.user);
     }
-  }, [userData.isLoggedIn,userData.user]);
+  }, [userData.isLoggedIn, userData.user]);
   // Add a useEffect to close menus when the route changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsDesktopMenuOpen(false);
   }, [location.pathname]);
- 
-  
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setIsMobileMenuOpen(false);
+        setIsDesktopMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
 
   return (<>
-    
-  <header
-      className={`${styles.header} ${
-        isMobileMenuOpen ? `${styles.menuopen} ${styles.whiteBackground}` : ""
-      } page-section`}
+
+    <header
+      className={`${styles.header} ${isMobileMenuOpen ? `${styles.menuopen} ${styles.whiteBackground}` : ""
+        } page-section`}
     >
       <div className={styles.container}>
         {/* leftSide navbar */}
         <div
-          className={`${
-            isMainSearchBar ? styles.navWrapper_search : styles.navWrapper
-          }`}
+          className={`${isMainSearchBar ? styles.navWrapper_search : styles.navWrapper
+            }`}
         >
           <nav className={styles.navigation}>
-       
+
             <ul>
               <li className={styles.logo}>
                 <Link to="/">
                   <img src={TreatoLogo} alt="TreatoLogo" />
                 </Link>
               </li>
-             
-                  <li>
-                    <Link to="/blogs">Blog</Link>
-                  </li>
-                  <li>
-                    <Link to="/lookbook">Lookbook</Link>
-                  </li>
-                  <li onClick={() => scrollToSection(navigate, "contactUs")}>
-                    <Link to="#">Contact us</Link>
-                  </li>
-               
-             
+
+              <li>
+                <Link to="/blogs">Blog</Link>
+              </li>
+              <li>
+                <Link to="/lookbook">Lookbook</Link>
+              </li>
+              <li onClick={() => scrollToSection(navigate, "contactUs")}>
+                <Link to="#">Contact us</Link>
+              </li>
+
+
             </ul>
           </nav>
         </div>
         {/* search bar */}
-      
+
         {/* {isMainSearchBar && <MainSearchBar/>} */}
         {/* rightSide buttons */}
         <div className={styles.buttons}>
           <button
             className={styles.menuButton}
+            ref={buttonRef}
             onClick={handleMobileMenuToggle}
           >
             {!isMobileMenuOpen ? (
@@ -186,11 +205,40 @@ export default function Navbar() {
                 alt="mask"
               />
               {userInfo?.first_name}
-              <img
-                src={chevrondown}
-                alt="chevrondown"
-                className={styles.chevrondown}
-              />
+              {isDesktopMenuOpen ? (
+                <svg
+                  className={`${styles.chevrondown} w-6 h-6 text-gray-800 dark:text-white`}
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m5 15 7-7 7 7"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className={`${styles.chevrondown} w-6 h-6 text-gray-800 dark:text-white`}
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m19 9-7 7-7-7"
+                  />
+                </svg>
+              )}
+
             </SecondaryButton>
           )}
         </div>
@@ -199,9 +247,9 @@ export default function Navbar() {
       {/* mobile nav bar */}
       {isMobileMenuOpen && (
         <nav
-          className={`${styles.mobileNavDropBox} ${
-            isDesktopMenuOpen ? styles.deskDropBox : ""
-          }`}
+          className={`${styles.mobileNavDropBox} ${isDesktopMenuOpen ? styles.deskDropBox : ""
+            }`}
+          ref={menuRef}
         >
           <ul>
             {isLoggedIn && (
@@ -289,7 +337,7 @@ export default function Navbar() {
                     </div>
                   </Link>
                 </li>
-               
+
                 <li onClick={() => scrollToSection(navigate, "partnerSection")}>
                   <div className={styles.listtext}>
                     <img src={briefcase} alt="briefcase" />
@@ -329,6 +377,6 @@ export default function Navbar() {
       )}
     </header>
   </>
-   
+
   );
 }
