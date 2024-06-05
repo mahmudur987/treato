@@ -8,6 +8,7 @@ import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import { generatePastMonths } from "../../Salon/SingleSalonDetails/Bookings/BookingsPart";
 import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 import CommissionHistoryTable from "./CommissionHistoryTable/CommissionHistoryTable";
+import { useCommissionHistory } from "../../../../../services/superAdmin/Commission";
 
 const CommissionHistory = () => {
   const PaymentStatus = ["All Booking", "Received", "OutStanding"];
@@ -23,15 +24,12 @@ const CommissionHistory = () => {
 
   let query = `search=${SearchText}&bookingType=${selectedPaymentStatus.toLocaleLowerCase()}&date=${selectedPaymentDate}`;
 
-  console.log(query);
+  const { data, isLoading, isError, error } = useCommissionHistory(query);
 
   const [pageNumber, setPageNumber] = useState(1);
   const [count, setCount] = useState(5);
   const [itemPerPage, setItemPerPage] = useState(10);
-  const { data, isLoading, isError, error } = useBillingHistory(
-    selectedPaymentStatus,
-    selectedPaymentDate
-  );
+
   useEffect(() => {
     setCount(data?.data?.length);
   }, [data]);

@@ -48,31 +48,23 @@ const tableHeading = [
   },
 ];
 const CommissionHistoryTable = ({ data }) => {
-  const tableData = data.map((x) => {
+  const billData = data?.map((x) => {
+    const { status, transaction_id, date, client_name, salon_name } = x || {};
+
     const data = {
-      id: x._id,
-      customerName: x.customer_name ?? "N/A",
-      salonName: x.salon_name ?? "N/A",
-      invoiceId: x.invoice ?? "N/A",
-      date: formatDate(x.date) ?? x.data,
-      location: x.location ?? "N/A",
-      amount: x.amount ?? "N/A",
+      id: 1,
+      txnId: transaction_id ?? "N/A",
+      date: formatDate(date) ?? "N/A",
+      clientName: client_name ?? "N/A",
+      salonName: salon_name ?? "N/A",
+      commissionAmount: 600,
+      commissionPercentage: "5%",
+      status: status ?? "N/A",
     };
 
     return data;
   });
-  const billData = [
-    {
-      id: 1,
-      txnId: "34545",
-      date: "24 dec,2024",
-      clientName: "mahmud",
-      salonName: "Gitangali hair and beauty",
-      commissionAmount: 600,
-      commissionPercentage: "5%",
-      status: "Received",
-    },
-  ];
+
   return (
     <div className={sty.mainContainer}>
       <div className={sty.tableContainer}>

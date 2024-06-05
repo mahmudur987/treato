@@ -25,7 +25,7 @@
 .siteName img,
 .siteName {
   width: 93.429px;
-  height: 24px;
+  height: 48px;
 }
 .navMenu {
   max-width: 800px;
@@ -140,6 +140,7 @@
   font-weight: 600;
   line-height: 100%; /* 16px */
   letter-spacing: -0.16px;
+  cursor: pointer;
 }
 .signup {
   display: inline-flex;
@@ -159,6 +160,7 @@
   font-weight: 600;
   line-height: 100%; /* 16px */
   letter-spacing: -0.16px;
+  cursor: pointer;
 }
 .mobilemenu {
   display: none;

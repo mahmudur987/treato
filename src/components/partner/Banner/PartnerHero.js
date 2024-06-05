@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./PartnerHero.module.css";
 
 import img1 from "../../../assets/images/partner/computer.png";
+import { Link } from "react-router-dom";
 
 const PartnerHero = () => {
   return (
@@ -16,7 +17,10 @@ const PartnerHero = () => {
                 Manage everything in one place, from scheduling to operations,
                 customers, billing and more. For free!
               </p>
-              <button>TRY IT FOR FREE</button>
+
+              <Link to={"/partner/authchoice"}>
+                <button>TRY IT FOR FREE</button>
+              </Link>
             </div>
           </div>
           <div className={styles.imageContainer}>

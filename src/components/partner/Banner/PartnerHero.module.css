@@ -73,7 +73,12 @@
   border-radius: 4px;
   background: var(--Grey-White, #fff);
   border-radius: 4px;
-  background: var(--Grey-White, #fff);
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  text-align: center;
 }
 
 .imageContainer {
