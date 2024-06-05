@@ -3,6 +3,7 @@ import style from './JobDescription.module.css';
 import { useParams, Link } from 'react-router-dom';
 import image2 from '../../../../src/assets/images/Careers/placeholder.png';
 import { GetPostDetails } from '../../../services/careers';
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 function JobDescription() {
   const [jobdata, setJobData] = useState(null);
@@ -25,15 +26,16 @@ function JobDescription() {
   return (
     <>
       <div className={style.header} >
-        <Link to="/careers/currentopenings"><svg width={44} height={44} class=" text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4" />
-        </svg></Link>
+        <Link to="/careers/currentopenings"><FaArrowLeftLong className={style.arrow}  /></Link>
         <div className={style.subHeader} >
           <div className={style.jobHeading} >
             {jobdata &&
               <><h3>{jobdata[0]?.job_title}</h3>
                 <div className={style.location} >
-                  <img src={image2} width={18} height={18} alt="" srcset="" />
+                <svg className={`${style.locationIcons} w-6 h-6 text-gray-800 dark:text-white`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z" />
+                        </svg>
                   <p>{jobdata[0]?.job_location}</p>
                   <div className={style.verticalLine} ></div>
                   <p>Full-Time / {jobdata[0]?.job_worffrom}</p>
