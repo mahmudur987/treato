@@ -215,20 +215,28 @@
 }
 
 .btn {
-  border: 1px dotted #0D69D7;
+  border: 2px solid transparent;
+  background-image: linear-gradient(to right, #CED4DA 3px, transparent 2px),
+    linear-gradient(to right, #CED4DA 3px, transparent 2px),
+    linear-gradient(to bottom, #CED4DA 3px, transparent 2px),
+    linear-gradient(to bottom, #CED4DA 3px, transparent 2px);
+  background-position: top, bottom, left, right;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size: 9.5px 1px, 9.5px 1px, 1px 7px, 1px 7px;
   color: #0D69D7;
-  height: 74px;
-  width: 100%;
+  height: 75px;
+  width: 174;
   background-color: transparent;
   padding: 8px 20px;
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.btn:hover {
-  background-color: #007bff;
-  color: #fff;
+.uploadbtnwrapper:hover {
+  cursor: pointer;
 }
 
 
@@ -244,7 +252,17 @@
   font-size: 20px;
   margin-right: 8px;
 }
-
+.svgStyle{
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.btn p{
+  font-size: 16px;
+  font-family: Lato;
+  font-weight: 600;
+  line-height: 24px;
+}
 .fileBox {
   height: 24px;
   max-width: 400px;
@@ -280,6 +298,11 @@
   display: flex;
   gap: 10px;
   align-items: center;
+ 
+}
+.checkBox input{
+  cursor: pointer;
+  
 }
 
 .checkBox label {
@@ -291,6 +314,7 @@
   line-height: 24px;
   letter-spacing: 1%;
   color: #6D747A;
+  cursor: pointer;
 }
 
 .submitButton {
@@ -305,6 +329,9 @@
   font-weight: 600;
   background-color: #08080B;
   color: #FFFFFF;
+}
+.submitButton :active{
+  transform: scale(0.95);
 }
 
 @media screen and (max-width: 500px) {

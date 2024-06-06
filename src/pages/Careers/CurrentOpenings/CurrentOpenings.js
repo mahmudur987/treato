@@ -85,7 +85,7 @@ function CurrentOpenings() {
                         <p>{ele.job_location}</p>
                       </div>
                       <div className={style.postDetails}>
-                        <p>Experience: {experience.number}+ {experience.unit}</p>
+                        <p>Experience: {experience?.number}+ {experience?.unit}</p>
                         <div className={style.verticalLine}></div>
                         <p>{ele.job_worffrom}</p>
                         <div className={style.verticalLine}></div>

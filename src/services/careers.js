@@ -18,7 +18,6 @@ export const GetPostDetails = async () => {
 
 export const jobApplicationData = async (formData) => {
   
-      console.log(formData);
   const headers = {
     token: localStorage.getItem("jwtToken"),
   };
@@ -30,7 +29,23 @@ export const jobApplicationData = async (formData) => {
     
   } catch (error) {
     console.log(error)
-    return { err: error.response.data            , res: null };
+    return { err: error.response.data, res: null };
+  }
+};
+
+
+export const contactDetails = async (formData) => {
+
+  
+  try {
+    const res = await axiosInstance.post("/reports/contactUs", formData);
+
+    
+    return { res: res.data, err: null }
+    
+  } catch (error) {
+    console.log(error)
+    return { err: error, res: null };
   }
 };
 
@@ -42,30 +57,5 @@ export const jobApplicationData = async (formData) => {
 
 
 
-export const contactDetails = async (formData) => {
-  console.log(formData);
-      try {
-      const response = await fetch('https://backend.treato.in/api/v1/reports/contactUs', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Add any additional headers if neede
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to submit form');
-      }
-      const res = await response.json()
-      console.log("this is form data ",formData)
-      console.log("this is backend url","https://backend.treato.in/api/v1/reports/contactUs")
-      console.log("this is response form backend ",res)
-      // Handle success, e.g., show success message
-      console.log('Form submitted successfully');
-    } catch (error) {
-      console.error('Error submitting form:', error.message);
-      // Handle error, e.g., show error message
-    }
-  
-};
+
 

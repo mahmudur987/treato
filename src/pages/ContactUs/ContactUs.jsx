@@ -3,6 +3,7 @@ import style from './contactUs.module.css';
 import { Link } from 'react-router-dom';
 import contactimage from '../../../src/assets/images/ContactUs/contactimage.png'
 import { contactDetails } from '../../services/careers';
+import { toast } from 'react-toastify';
 
 function ContactUs() {
 
@@ -28,7 +29,14 @@ function ContactUs() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   contactDetails(formData);
+   const {res, err}= await contactDetails(formData);
+   if(res){
+    toast.success("form received")
+
+   }
+   else{
+    toast.error("Something went wrong");
+   }
     setFormData({
     first_name: '',
     last_name: '',
