@@ -5,7 +5,7 @@ import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton.js";
 import contactUsBanner from "../../../assets/images/ContactusImages/contactusBanner.png";
 import InputField from "../../Input/Input";
 
-const Contactus = ({mainData}) => {
+const Contactus = ({ mainData }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -14,8 +14,22 @@ const Contactus = ({mainData}) => {
     agreeToPrivacyPolicy: false,
   });
 
+  const validateInput = (value) => {
+    const specialCharAndNumberPattern = /[^a-zA-Z\s]/;
+    if (specialCharAndNumberPattern.test(value)) {
+      return "Special characters and numbers are not allowed.";
+    }
+    return "";
+  };
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    console.log(type);
+
+    const errorMessage = validateInput(type !== "email" ? value : "");
+    if (errorMessage) {
+      return alert(errorMessage);
+    }
     if (type === "checkbox") {
       setFormData((prevData) => ({
         ...prevData,
@@ -31,7 +45,7 @@ const Contactus = ({mainData}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // submission logic here
+    console.log(formData);
   };
 
   return (
@@ -39,7 +53,10 @@ const Contactus = ({mainData}) => {
       <h1 className={styles["heading"]}>Contact us</h1>
       <div className={styles["contactWrapper"]}>
         <div className={styles["Image"]}>
-          <img src={mainData?mainData.public_url:contactUsBanner} alt="Contact Us Banner" />
+          <img
+            src={mainData ? mainData.public_url : contactUsBanner}
+            alt="Contact Us Banner"
+          />
         </div>
         <div className={styles["formContainer"]}>
           <div className={styles["formHeader"]}>
@@ -107,6 +124,12 @@ const Contactus = ({mainData}) => {
               type="submitButton"
               children={"Get in touch"}
               className={styles.apply}
+              disabled={
+                formData.firstName === "" ||
+                formData.email === "" ||
+                formData.message === "" ||
+                formData.agreeToPrivacyPolicy === false
+              }
             />
           </form>
         </div>
