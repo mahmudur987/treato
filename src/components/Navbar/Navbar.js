@@ -121,6 +121,7 @@ export default function Navbar() {
   return (<>
 
     <header
+    ref={menuRef}
       className={`${styles.header} ${isMobileMenuOpen ? `${styles.menuopen} ${styles.whiteBackground}` : ""
         } page-section`}
     >
@@ -145,8 +146,8 @@ export default function Navbar() {
               <li>
                 <Link to="/lookbook">Lookbook</Link>
               </li>
-              <li onClick={() => scrollToSection(navigate, "contactUs")}>
-                <Link to="#">Contact us</Link>
+              <li>
+                <Link to="/contactus">Contact us</Link>
               </li>
 
 
@@ -249,7 +250,7 @@ export default function Navbar() {
         <nav
           className={`${styles.mobileNavDropBox} ${isDesktopMenuOpen ? styles.deskDropBox : ""
             }`}
-          ref={menuRef}
+          
         >
           <ul>
             {isLoggedIn && (
