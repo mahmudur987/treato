@@ -16,7 +16,7 @@ export const getCombinedMainCategories = (services) => {
     }
   });
 
-  return mainCategoriesCombined;
+  return mainCategoriesCombined.concat(mainCategoriesCombined.subCategories);
 };
 const StyleDetails = () => {
   const {
@@ -44,9 +44,9 @@ const StyleDetails = () => {
     });
   };
   useEffect(() => {
-    const services = getCombinedMainCategories(data?.salon?.services);
+    const services = data?.salon?.services;
     setServiceData(services);
-    const mainCategories = services.map((x) => x.category_name);
+    const mainCategories = services?.map((x) => x.service_name);
     setCategories(mainCategories);
     setCategory(mainCategories[0] ?? "null");
 
@@ -54,9 +54,13 @@ const StyleDetails = () => {
   }, [data]);
 
   useEffect(() => {
-    const services = serviceData
-      .find((x) => x.category_name === category)
-      ?.subCategories?.map((x) => x.service_name);
+    const subCategory = getCombinedMainCategories(data?.salon?.services);
+    const services = subCategory
+      .filter((x) => x !== undefined)
+      .map((x) => {
+        return x.category_name;
+      });
+    console.log(services);
     setService(services);
     setSelectedServices(services ? services[0] : "null");
   }, [category]);
