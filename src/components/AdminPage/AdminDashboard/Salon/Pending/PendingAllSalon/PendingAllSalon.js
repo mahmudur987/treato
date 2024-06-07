@@ -15,9 +15,9 @@ const PendingAllSalon = ({
   const [count, setCount] = useState(5);
   const [itemPerPage, setItemPerPage] = useState(6);
   useEffect(() => {
-    setCount(pendingSalonData.length);
+    setCount(pendingSalonData?.length);
 
-    if (pendingSalonData.length < itemPerPage) {
+    if (pendingSalonData?.length < itemPerPage) {
       setItemPerPage(pendingSalonData.length);
     }
   }, [pendingSalonData]);
@@ -39,7 +39,7 @@ const PendingAllSalon = ({
 
   // Function to select all Salon
   const selectAllSalon = () => {
-    if (selectedSalon.length === pendingSalonData.length) {
+    if (selectedSalon?.length === pendingSalonData?.length) {
       return setSelectedSalon([]);
     }
 
@@ -101,7 +101,9 @@ const PendingAllSalon = ({
                       type="checkbox"
                       name=""
                       id=""
-                      checked={selectedSalon.length === pendingSalonData.length}
+                      checked={
+                        selectedSalon?.length === pendingSalonData?.length
+                      }
                     />
                   </td>
 

@@ -21,7 +21,7 @@ import { toast } from "react-toastify";
 
 export default function BlogDetail(props) {
   let [shareBlog, setShareBlog] = useState(null);
-  let [BlogUrl,setBlogUrl] = useState(null)
+  let [BlogUrl, setBlogUrl] = useState(null);
   let [activeShare, setActiveShare] = useState(false);
   let [shareModal, setShareModal] = useState(false);
   const responsive = {
@@ -56,68 +56,73 @@ export default function BlogDetail(props) {
 
   let date = getFormattedDate(detail.created_at);
   let [blogData, setBlogData] = useState([]);
-  let [mainBlogData,setMainBlogData] = useState([])
-  let [serviceData,setServiceData] = useState([])
-  let {pathname} = useLocation()
+  let [mainBlogData, setMainBlogData] = useState([]);
+  let [serviceData, setServiceData] = useState([]);
+  let { pathname } = useLocation();
 
   useEffect(() => {
     let getBlogs = async () => {
-      const { res, err } = await AllBlogs()
-      if(res){
-        setBlogData(res.data.blogs)
+      const { res, err } = await AllBlogs();
+      if (res) {
+        setBlogData(res.data.blogs);
       }
-    }
+    };
     let getServices = async () => {
-      const { res, err } = await getAllServices()
-      if(res){
-        setServiceData(res.data.data)
+      const { res, err } = await getAllServices();
+      if (res) {
+        setServiceData(res.data.data);
       }
-    }
-    let getBlogData = async()=>{
-      const {res,err} = await SingleBlog(blogId.id);
-      if(res){
-        setMainBlogData(res.data.data)
+    };
+    let getBlogData = async () => {
+      const { res, err } = await SingleBlog(blogId.id);
+      if (res) {
+        setMainBlogData(res.data.data);
       }
-    }
+    };
     getBlogs();
     getServices();
-    getBlogData()
-  }, [pathname])
+    getBlogData();
+  }, [pathname]);
   const shareOnFacebook = () => {
     try {
       // Construct the share URL
-      const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent("https://treato.netlify.app")}`;
-  
+      const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        "https://treato.netlify.app"
+      )}`;
+
       // Open the share dialog in a new window
-      window.open(shareUrl, '_blank');
+      window.open(shareUrl, "_blank");
     } catch (error) {
-      console.error('Error sharing on Facebook:', error);
+      console.error("Error sharing on Facebook:", error);
     }
   };
-  const shareOnTwitter  = () => {
+  const shareOnTwitter = () => {
     try {
-      const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent("https://treato.netlify.app")}&text=${encodeURIComponent(mainBlogData[0].blog_title)}`;
-      window.open(shareUrl, '_blank');
+      const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+        "https://treato.netlify.app"
+      )}&text=${encodeURIComponent(mainBlogData[0].blog_title)}`;
+      window.open(shareUrl, "_blank");
     } catch (error) {
-      console.error('Error sharing on Twitter:', error);
+      console.error("Error sharing on Twitter:", error);
     }
   };
-  const shareOnLinkedin   = () => {
+  const shareOnLinkedin = () => {
     try {
-      const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent("https://treato.netlify.app")}&title=${encodeURIComponent(mainBlogData[0].blog_title)}`;
-      window.open(shareUrl, '_blank');
+      const shareUrl = `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(
+        "https://treato.netlify.app"
+      )}&title=${encodeURIComponent(mainBlogData[0].blog_title)}`;
+      window.open(shareUrl, "_blank");
     } catch (error) {
-      console.error('Error sharing on Linkedin:', error);
+      console.error("Error sharing on Linkedin:", error);
     }
   };
-  const shareOnInstagram   = () => {
+  const shareOnInstagram = () => {
     try {
-        const caption = encodeURIComponent('Check out this awesome blog post!'); // Customize the caption
-        const shareUrl = `https://www.instagram.com/`;
-        window.open(shareUrl, '_blank');
-        
+      const caption = encodeURIComponent("Check out this awesome blog post!"); // Customize the caption
+      const shareUrl = `https://www.instagram.com/`;
+      window.open(shareUrl, "_blank");
     } catch (error) {
-      console.error('Error sharing on Instagram :', error);
+      console.error("Error sharing on Instagram :", error);
     }
   };
 
@@ -125,25 +130,36 @@ export default function BlogDetail(props) {
     navigator.clipboard.writeText(window.location.href);
     toast.info(`Link copied to clipboard!`);
   };
-const navigate=useNavigate();
-const handleServiceClick =(serviceName)=>{
-  navigate(
-    `/salons?service=${serviceName}&lat=&lng=&location=`
-  );
-}
+  const navigate = useNavigate();
+  const handleServiceClick = (serviceName) => {
+    navigate(`/salons?service=${serviceName}&lat=&lng=&location=`);
+  };
 
   return (
     <div className={`${styles["container"]} page-section page-container`}>
-      <BackButton/>
+      <BackButton />
       <div className={styles["wrapper"]}>
         <div className={styles.titleWrapper}>
-          <Title className={styles["title"]}>{mainBlogData?.length?mainBlogData[0]?.blog_title:''}</Title>
+          <Title className={styles["title"]}>
+            {mainBlogData?.length ? mainBlogData[0]?.blog_title : ""}
+          </Title>
 
           <header className={styles["header"]}>
             <div className={styles["header-left"]}>
-              <img src={mainBlogData?.length?mainBlogData[0]?.blog_Img?.public_url:''} />
+              <img
+                src={
+                  mainBlogData?.length
+                    ? mainBlogData[0]?.blog_Img?.public_url
+                    : ""
+                }
+              />
               <div className={styles["header-content"]}>
-                <p className={styles["author"]}> {mainBlogData?.length?mainBlogData[0]?.writer_name:''} </p>
+                <p className={styles["author"]}>
+                  {" "}
+                  {mainBlogData?.length
+                    ? mainBlogData[0]?.writer_name
+                    : ""}{" "}
+                </p>
                 <p className={styles["header-date"]}>
                   {date}
                   <img src={Timer} alt="timer" />
@@ -156,21 +172,21 @@ const handleServiceClick =(serviceName)=>{
             <div className={styles["header-right"]}>
               <p>Share:</p>
               <div className={styles["social-icons"]}>
-              {/* <div className={styles.allborder}> */}
-              <button onClick={shareOnFacebook}>
-                <img src={Facebook} alt="Facebook" />
+                {/* <div className={styles.allborder}> */}
+                <button onClick={shareOnFacebook}>
+                  <img src={Facebook} alt="Facebook" />
                 </button>
                 <button onClick={shareOnTwitter}>
-                <img src={Twitter} alt="Twitter" />
+                  <img src={Twitter} alt="Twitter" />
                 </button>
                 <button onClick={shareOnLinkedin}>
-                <img src={Linkedin} alt="Linkedin" />
+                  <img src={Linkedin} alt="Linkedin" />
                 </button>
                 <button onClick={shareOnInstagram}>
-                <img src={Instagram} alt="Instagram" />
+                  <img src={Instagram} alt="Instagram" />
                 </button>
                 <button onClick={copyLinkToClipboard}>
-                <img src={CopyLink} alt="CopyLink" />
+                  <img src={CopyLink} alt="CopyLink" />
                 </button>
                 {/* </div> */}
               </div>
@@ -182,28 +198,40 @@ const handleServiceClick =(serviceName)=>{
         <div className={styles.blogWrapper}>
           <div className={styles.sectionLeft}>
             <img
-              src={mainBlogData?.length?mainBlogData[0]?.blog_Img?.public_url:''}
+              src={
+                mainBlogData?.length
+                  ? mainBlogData[0]?.blog_Img?.public_url
+                  : ""
+              }
               alt="blog-image"
               className={styles["blog-image"]}
             />
             <p className={styles["blog-text"]}>
-              {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
+              {mainBlogData?.length ? mainBlogData[0]?.blog_description : ""}
             </p>
-            <h4 className={styles["blog-header"]}>{mainBlogData?.length?mainBlogData[0]?.blog_title:''}</h4>
+            <h4 className={styles["blog-header"]}>
+              {mainBlogData?.length ? mainBlogData[0]?.blog_title : ""}
+            </h4>
             <p className={styles["blog-text"]}>
-            {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
+              {mainBlogData?.length ? mainBlogData[0]?.blog_description : ""}
             </p>
-            <h4 className={styles["blog-header"]}>{mainBlogData.length?mainBlogData[0]?.blog_title:''}</h4>
+            <h4 className={styles["blog-header"]}>
+              {mainBlogData.length ? mainBlogData[0]?.blog_title : ""}
+            </h4>
             <p className={styles["blog-text"]}>
-            {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
+              {mainBlogData?.length ? mainBlogData[0]?.blog_description : ""}
             </p>
             <img
-              src={mainBlogData?.length?mainBlogData[0]?.blog_Img?.public_url:''}
+              src={
+                mainBlogData?.length
+                  ? mainBlogData[0]?.blog_Img?.public_url
+                  : ""
+              }
               alt="blog-image"
               className={styles["blog-image"]}
             />
             <p className={styles["blog-text"]}>
-            {mainBlogData?.length?mainBlogData[0]?.blog_description:''}
+              {mainBlogData?.length ? mainBlogData[0]?.blog_description : ""}
             </p>
             <div className={styles["line"]}> </div>
 
@@ -213,19 +241,19 @@ const handleServiceClick =(serviceName)=>{
               <p>Share:</p>
               <div className={styles["social-icons"]}>
                 <button onClick={shareOnFacebook}>
-                <img src={Facebook} alt="Facebook" />
+                  <img src={Facebook} alt="Facebook" />
                 </button>
                 <button onClick={shareOnTwitter}>
-                <img src={Twitter} alt="Twitter" />
+                  <img src={Twitter} alt="Twitter" />
                 </button>
                 <button onClick={shareOnLinkedin}>
-                <img src={Linkedin} alt="Linkedin" />
+                  <img src={Linkedin} alt="Linkedin" />
                 </button>
                 <button onClick={shareOnInstagram}>
-                <img src={Instagram} alt="Instagram" />
+                  <img src={Instagram} alt="Instagram" />
                 </button>
                 <button onClick={copyLinkToClipboard}>
-                <img src={CopyLink} alt="CopyLink" />
+                  <img src={CopyLink} alt="CopyLink" />
                 </button>
               </div>
             </div>
@@ -233,32 +261,29 @@ const handleServiceClick =(serviceName)=>{
           <div className={styles["section-right"]}>
             <h3>Popular blogs</h3>
             <div className={styles["popular-blogs"]}>
-              {
-                blogData.length?
-                blogData.map((v,i)=>{
-                  if(i<=5){
-                    return (
-                      <PopularBlogCard blog={v} key={i}/>
-                    )
-                  }
-                })
-                :
-                ''
-              }
+              {blogData.length
+                ? blogData.map((v, i) => {
+                    if (i <= 5) {
+                      return <PopularBlogCard blog={v} key={i} />;
+                    }
+                  })
+                : ""}
             </div>
             <div className={styles.relatedTreatment}>
               <h1 className={styles.relatedTitle}> Find related treatments</h1>
               <div className={styles.relatedTags}>
-                {
-                  serviceData.length?
-                  serviceData.map((v)=>{
-                    return(
-                      <Link to={`/salons?service=${v?.service_name}&lat=&lng=&location=`} key={v._id}>{v.service_name}</Link>
-                    )
-                  })
-                  :
-                  ''
-                }
+                {serviceData.length
+                  ? serviceData.map((v) => {
+                      return (
+                        <Link
+                          to={`/salons?service=${v?.service_name}&lat=&lng=&location=`}
+                          key={v._id}
+                        >
+                          {v.service_name}
+                        </Link>
+                      );
+                    })
+                  : ""}
               </div>
             </div>
           </div>
@@ -267,26 +292,36 @@ const handleServiceClick =(serviceName)=>{
       <div className={styles["blog-section-container"]}>
         <Title className={styles["header"]}>Related Blogs</Title>
         <div className={`${styles["blogs-container"]} customSlickDiv`}>
-          {
-            blogData.length ?
-              <Carousel
-                responsive={responsive}
-                showDots={true}
-                removeArrowOnDeviceType={["tablet", "mobile"]}
-                dotListClass="custom-dot-list-style"
-                itemClass="carousel-item-padding-40-px"
-              >
-                {/* blog={blog} key={i} activeShare={activeShare}  setActiveShare={setActiveShare} setShareModal={setShareModal} shareBlog={shareBlog} setShareBlog={setShareBlog}   setBlogUrl={setBlogUrl} */}
-                {blogData.map((blog, i) => {
-                  return (
-                    <BlogCard blog={blog} key={i} blogDetail={true} setActiveShare={setActiveShare} activeShare={activeShare} setShareModal={setShareModal} shareModal={shareModal} setShareBlog={setShareBlog} shareBlog={shareBlog} setBlogUrl={setBlogUrl} BlogUrl={BlogUrl}/>
-                  )
-                })
-                }
-              </Carousel>
-              :
-              ''
-          }
+          {blogData.length ? (
+            <Carousel
+              responsive={responsive}
+              showDots={true}
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+              dotListClass="custom-dot-list-style"
+              itemClass="carousel-item-padding-40-px"
+            >
+              {/* blog={blog} key={i} activeShare={activeShare}  setActiveShare={setActiveShare} setShareModal={setShareModal} shareBlog={shareBlog} setShareBlog={setShareBlog}   setBlogUrl={setBlogUrl} */}
+              {blogData.map((blog, i) => {
+                return (
+                  <BlogCard
+                    blog={blog}
+                    key={i}
+                    blogDetail={true}
+                    setActiveShare={setActiveShare}
+                    activeShare={activeShare}
+                    setShareModal={setShareModal}
+                    shareModal={shareModal}
+                    setShareBlog={setShareBlog}
+                    shareBlog={shareBlog}
+                    setBlogUrl={setBlogUrl}
+                    BlogUrl={BlogUrl}
+                  />
+                );
+              })}
+            </Carousel>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

@@ -161,10 +161,10 @@ const TeamDetails = () => {
           {data &&
             !isLoading &&
             !isError &&
-            TeamDetailsData.length > 0 &&
+            TeamDetailsData?.length > 0 &&
             TeamDetailsData?.slice(
               0,
-              isViewAll ? TeamDetailsData.length : 8
+              isViewAll ? TeamDetailsData?.length : 8
             ).map((item, i) => (
               <>
                 <tr className={sty.mapData}>
@@ -201,7 +201,7 @@ const TeamDetails = () => {
       {TeamDetailsData?.length === 0 && <NoDataDisplay />}
       {isError && <ErrorComponent message={error.message} />}
       {TeamDetailsData &&
-        TeamDetailsData.length > 0 &&
+        TeamDetailsData?.length > 0 &&
         TeamDetailsData.map((item, i) => {
           return (
             <div key={i}>

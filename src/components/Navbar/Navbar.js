@@ -89,246 +89,244 @@ export default function Navbar() {
       setIsLoggedIn(true);
       setuserInfo(userData.user);
     }
-  }, [userData.isLoggedIn,userData.user]);
+  }, [userData.isLoggedIn, userData.user]);
   // Add a useEffect to close menus when the route changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsDesktopMenuOpen(false);
   }, [location.pathname]);
- 
-  
 
-  return (<>
-    
-  <header
-      className={`${styles.header} ${
-        isMobileMenuOpen ? `${styles.menuopen} ${styles.whiteBackground}` : ""
-      } page-section`}
-    >
-      <div className={styles.container}>
-        {/* leftSide navbar */}
-        <div
-          className={`${
-            isMainSearchBar ? styles.navWrapper_search : styles.navWrapper
-          }`}
-        >
-          <nav className={styles.navigation}>
-       
-            <ul>
-              <li className={styles.logo}>
-                <Link to="/">
-                  <img src={TreatoLogo} alt="TreatoLogo" />
-                </Link>
-              </li>
-             
-                  <li>
-                    <Link to="/blogs">Blog</Link>
-                  </li>
-                  <li>
-                    <Link to="/lookbook">Lookbook</Link>
-                  </li>
-                  <li onClick={() => scrollToSection(navigate, "contactUs")}>
-                    <Link to="#">Contact us</Link>
-                  </li>
-               
-             
-            </ul>
-          </nav>
-        </div>
-        {/* search bar */}
-      
-        {/* {isMainSearchBar && <MainSearchBar/>} */}
-        {/* rightSide buttons */}
-        <div className={styles.buttons}>
-          <button
-            className={styles.menuButton}
-            onClick={handleMobileMenuToggle}
+  return (
+    <>
+      <header
+        className={`${styles.header} ${
+          isMobileMenuOpen ? `${styles.menuopen} ${styles.whiteBackground}` : ""
+        } page-section`}
+      >
+        <div className={styles.container}>
+          {/* leftSide navbar */}
+          <div
+            className={`${
+              isMainSearchBar ? styles.navWrapper_search : styles.navWrapper
+            }`}
           >
-            {!isMobileMenuOpen ? (
-              <img
-                src={
-                  isLoggedIn
-                    ? userInfo?.avatar?.public_url
+            <nav className={styles.navigation}>
+              <ul>
+                <li className={styles.logo}>
+                  <Link to="/">
+                    <img src={TreatoLogo} alt="TreatoLogo" />
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to="/blogs">Blog</Link>
+                </li>
+                <li>
+                  <Link to="/lookbook">Lookbook</Link>
+                </li>
+                <li onClick={() => scrollToSection(navigate, "contactUs")}>
+                  <Link to="#">Contact us</Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          {/* search bar */}
+
+          {/* {isMainSearchBar && <MainSearchBar/>} */}
+          {/* rightSide buttons */}
+          <div className={styles.buttons}>
+            <button
+              className={styles.menuButton}
+              onClick={handleMobileMenuToggle}
+            >
+              {!isMobileMenuOpen ? (
+                <img
+                  src={
+                    isLoggedIn
                       ? userInfo?.avatar?.public_url
-                      : mask
-                    : menuLogo
-                }
-                alt="menuLogo"
+                        ? userInfo?.avatar?.public_url
+                        : mask
+                      : menuLogo
+                  }
+                  alt="menuLogo"
+                />
+              ) : (
+                <img src={x} alt="closeIcon" />
+              )}
+            </button>
+            <Link to={"/partner"}>
+              <SecondaryButton
+                className={styles.partnerButton}
+                onClick={() => scrollToSection(navigate, "partnerSection")}
+                children={"Become a partner"}
+              />
+            </Link>
+            {!isLoggedIn ? (
+              <PrimaryButton
+                children={"Sign up"}
+                className={styles.signupButton}
+                onClick={() => navigate("/auth-choice")}
               />
             ) : (
-              <img src={x} alt="closeIcon" />
+              <SecondaryButton
+                className={`${styles.signinButton} ${styles.hideOnMobile}`}
+                onClick={handleDesktopMenuToggle}
+              >
+                <img
+                  src={
+                    userInfo?.avatar?.public_url
+                      ? userInfo?.avatar?.public_url
+                      : mask
+                  }
+                  alt="mask"
+                />
+                {userInfo?.first_name}
+                <img
+                  src={chevrondown}
+                  alt="chevrondown"
+                  className={styles.chevrondown}
+                />
+              </SecondaryButton>
             )}
-          </button>
-          <Link to={"/partner"}>
-            <SecondaryButton
-              className={styles.partnerButton}
-              onClick={() => scrollToSection(navigate, "partnerSection")}
-              children={"Become a partner"}
-            />
-          </Link>
-          {!isLoggedIn ? (
-            <PrimaryButton
-              children={"Sign up"}
-              className={styles.signupButton}
-              onClick={() => navigate("/auth-choice")}
-            />
-          ) : (
-            <SecondaryButton
-              className={`${styles.signinButton} ${styles.hideOnMobile}`}
-              onClick={handleDesktopMenuToggle}
-            >
-              <img
-                src={
-                  userInfo?.avatar?.public_url
-                    ? userInfo?.avatar?.public_url
-                    : mask
-                }
-                alt="mask"
-              />
-              {userInfo?.first_name}
-              <img
-                src={chevrondown}
-                alt="chevrondown"
-                className={styles.chevrondown}
-              />
-            </SecondaryButton>
-          )}
+          </div>
         </div>
-      </div>
 
-      {/* mobile nav bar */}
-      {isMobileMenuOpen && (
-        <nav
-          className={`${styles.mobileNavDropBox} ${
-            isDesktopMenuOpen ? styles.deskDropBox : ""
-          }`}
-        >
-          <ul>
-            {isLoggedIn && (
-              <>
-                <div className={styles.navUserInfo}>
-                  <img
-                    src={
-                      userInfo?.avatar?.public_url
-                        ? userInfo?.avatar?.public_url
-                        : mask2
-                    }
-                    alt="mask"
-                  />
-                  <h3 className={styles.userName}>{userInfo?.first_name}</h3>
-                  <small className={styles.userEmail}>{userInfo?.email}</small>
-                </div>
+        {/* mobile nav bar */}
+        {isMobileMenuOpen && (
+          <nav
+            className={`${styles.mobileNavDropBox} ${
+              isDesktopMenuOpen ? styles.deskDropBox : ""
+            }`}
+          >
+            <ul>
+              {isLoggedIn && (
+                <>
+                  <div className={styles.navUserInfo}>
+                    <img
+                      src={
+                        userInfo?.avatar?.public_url
+                          ? userInfo?.avatar?.public_url
+                          : mask2
+                      }
+                      alt="mask"
+                    />
+                    <h3 className={styles.userName}>{userInfo?.first_name}</h3>
+                    <small className={styles.userEmail}>
+                      {userInfo?.email}
+                    </small>
+                  </div>
 
+                  <li>
+                    <Link to="/my-appointments/upcoming">
+                      <div className={styles.listtext}>
+                        <img src={history} alt="history" />
+                        My Appointments
+                        {count > 0 && (
+                          <span className={styles.unSeenCounter}>{count}</span>
+                        )}
+                      </div>
+                      <div className={styles.chevronright}>
+                        <img src={chevronright} alt="chevronright" />
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/account-settings">
+                      <div className={styles.listtext}>
+                        <img src={accountSetting} alt="signin" />
+                        <a href="#">Account Settings</a>
+                      </div>
+                      <div className={styles.chevronright}>
+                        <img src={chevronright} alt="chevronright" />
+                      </div>
+                    </Link>
+                  </li>
+
+                  <hr className={styles.divideLine} />
+                </>
+              )}
+
+              {!isLoggedIn && (
                 <li>
-                  <Link to="/my-appointments/upcoming">
+                  <a href="/auth-choice">
                     <div className={styles.listtext}>
-                      <img src={history} alt="history" />
-                      My Appointments
-                      {count > 0 && (
-                        <span className={styles.unSeenCounter}>{count}</span>
-                      )}
+                      <img src={signin} alt="signin" />
+                      Sign up / Sign-in
                     </div>
                     <div className={styles.chevronright}>
                       <img src={chevronright} alt="chevronright" />
                     </div>
-                  </Link>
+                  </a>
                 </li>
-                <li>
-                  <Link to="/account-settings">
-                    <div className={styles.listtext}>
-                      <img src={accountSetting} alt="signin" />
-                      <a href="#">Account Settings</a>
-                    </div>
-                    <div className={styles.chevronright}>
-                      <img src={chevronright} alt="chevronright" />
-                    </div>
-                  </Link>
-                </li>
+              )}
+              {!isDesktopMenuOpen && (
+                <>
+                  <li>
+                    <Link
+                      to={"/blogs"}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <div className={styles.listtext}>
+                        <img src={notetext} alt="notetext" />
+                        Blog
+                      </div>
+                      <div className={styles.chevronright}>
+                        <img src={chevronright} alt="chevronright" />
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"/lookbook"}>
+                      <div className={styles.listtext}>
+                        <img src={lookbookIcon} alt="lookbookIcon" />
+                        Lookbook
+                      </div>
+                      <div className={styles.chevronright}>
+                        <img src={chevronright} alt="chevronright" />
+                      </div>
+                    </Link>
+                  </li>
 
-                <hr className={styles.divideLine} />
-              </>
-            )}
-
-            {!isLoggedIn && (
-              <li>
-                <a href="/auth-choice">
-                  <div className={styles.listtext}>
-                    <img src={signin} alt="signin" />
-                    Sign up / Sign-in
-                  </div>
-                  <div className={styles.chevronright}>
-                    <img src={chevronright} alt="chevronright" />
-                  </div>
-                </a>
-              </li>
-            )}
-            {!isDesktopMenuOpen && (
-              <>
-                <li>
-                  <Link
-                    to={"/blogs"}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                  <li
+                    onClick={() => scrollToSection(navigate, "partnerSection")}
                   >
                     <div className={styles.listtext}>
-                      <img src={notetext} alt="notetext" />
-                      Blog
+                      <img src={briefcase} alt="briefcase" />
+                      Become a partner
                     </div>
                     <div className={styles.chevronright}>
                       <img src={chevronright} alt="chevronright" />
                     </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/lookbook"}>
+                  </li>
+                  <li onClick={() => scrollToSection(navigate, "AppDownload")}>
                     <div className={styles.listtext}>
-                      <img src={lookbookIcon} alt="lookbookIcon" />
-                      Lookbook
+                      <img src={download} alt="download" />
+                      Download app
                     </div>
                     <div className={styles.chevronright}>
                       <img src={chevronright} alt="chevronright" />
                     </div>
-                  </Link>
-                </li>
-               
-                <li onClick={() => scrollToSection(navigate, "partnerSection")}>
-                  <div className={styles.listtext}>
-                    <img src={briefcase} alt="briefcase" />
-                    Become a partner
-                  </div>
-                  <div className={styles.chevronright}>
-                    <img src={chevronright} alt="chevronright" />
-                  </div>
-                </li>
-                <li onClick={() => scrollToSection(navigate, "AppDownload")}>
-                  <div className={styles.listtext}>
-                    <img src={download} alt="download" />
-                    Download app
-                  </div>
-                  <div className={styles.chevronright}>
-                    <img src={chevronright} alt="chevronright" />
-                  </div>
-                </li>
-              </>
-            )}
+                  </li>
+                </>
+              )}
 
-            {isLoggedIn && (
-              <li>
-                <a href="#">
-                  <div
-                    className={`${styles.listtext} ${styles.signout}`}
-                    onClick={handleLogout}
-                  >
-                    <img src={signout} alt="signout" />
-                    Signout
-                  </div>
-                </a>
-              </li>
-            )}
-          </ul>
-        </nav>
-      )}
-    </header>
-  </>
-   
+              {isLoggedIn && (
+                <li>
+                  <a href="#">
+                    <div
+                      className={`${styles.listtext} ${styles.signout}`}
+                      onClick={handleLogout}
+                    >
+                      <img src={signout} alt="signout" />
+                      Signout
+                    </div>
+                  </a>
+                </li>
+              )}
+            </ul>
+          </nav>
+        )}
+      </header>
+    </>
   );
 }

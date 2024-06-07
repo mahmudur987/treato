@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import style from './schedule.module.css';
-import { toast, Bounce } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import style from "./schedule.module.css";
+import { toast, Bounce } from "react-toastify";
 import {
   cancelAppointment,
   completeAppointment,
   noShow,
   startedAppointment,
-  otpVerification
-} from '../../../services/calender';
-
+  otpVerification,
+} from "../../../services/calender";
 
 const ScheduleTable = ({ profiles, getdata }) => {
-
   const [openMenus, setOpenMenus] = useState({});
   const [otp, setOtp] = useState(null);
 
@@ -25,27 +23,22 @@ const ScheduleTable = ({ profiles, getdata }) => {
     progress: undefined,
     theme: "light",
     transition: Bounce,
-  }
+  };
   const [durations, setDurations] = useState([]);
 
-  const [condition, setCondition] = useState(false)
-
+  const [condition, setCondition] = useState(false);
 
   useEffect(() => {
     generateTimeArray();
-
   }, []);
 
-
   useEffect(() => {
-
     if (profiles?.length === 1) {
-      setCondition(true)
-    }
-    else {
+      setCondition(true);
+    } else {
       setCondition(false);
     }
-  }, [profiles])
+  }, [profiles]);
 
   const generateTimeArray = () => {
     const startTime = new Date();
@@ -57,7 +50,12 @@ const ScheduleTable = ({ profiles, getdata }) => {
     let currentTime = new Date(startTime);
 
     while (currentTime <= endTime) {
-      timeArray.push(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+      timeArray.push(
+        currentTime.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      );
       currentTime.setMinutes(currentTime.getMinutes() + 30);
     }
 
@@ -67,11 +65,11 @@ const ScheduleTable = ({ profiles, getdata }) => {
   const toggleMenu = (id) => {
     setOpenMenus((prevOpenMenus) => ({
       ...prevOpenMenus,
-      [id]: !prevOpenMenus[id]
+      [id]: !prevOpenMenus[id],
     }));
   };
 
-  let box = document.querySelector('#header');
+  let box = document.querySelector("#header");
   const nextProfile = () => {
     box.scrollLeft = box.scrollLeft + 170;
   };
@@ -81,80 +79,69 @@ const ScheduleTable = ({ profiles, getdata }) => {
   };
 
   const convertTime = (timeString) => {
-    const timeParts = timeString.split(' ');
+    const timeParts = timeString.split(" ");
     let totalMinutes = 0;
     let totalHeight = 72;
 
     for (let i = 0; i < timeParts.length; i += 2) {
-      if (timeParts[i + 1] === 'hr') {
+      if (timeParts[i + 1] === "hr") {
         totalMinutes += parseInt(timeParts[i], 10) * 60;
-      } else if (timeParts[i + 1] === 'mins') {
+      } else if (timeParts[i + 1] === "mins") {
         totalMinutes += parseInt(timeParts[i], 10);
       }
     }
     if (totalMinutes <= 15) {
       return totalHeight;
-    }
-    else if (totalMinutes <= 30) {
+    } else if (totalMinutes <= 30) {
       return 2 * totalHeight;
-    }
-    else if (totalMinutes <= 45) {
+    } else if (totalMinutes <= 45) {
       return 3 * totalHeight;
-    }
-    else {
+    } else {
       return 4 * totalHeight;
     }
-
-
   };
   const changeStatus = (status) => {
-    if (status === 'upcoming') {
+    if (status === "upcoming") {
       return {
         textcolor: "#FFFFFF",
-        background: "#DE2929"
-      }
-    }
-    else if (status === "completed") {
+        background: "#DE2929",
+      };
+    } else if (status === "completed") {
       return {
         textcolor: "#FFFFFF",
-        background: "#3AAB7C"
-      }
-    }
-    else if (status === "cancel") {
+        background: "#3AAB7C",
+      };
+    } else if (status === "cancel") {
       return {
         textcolor: "#FFFFFF",
-        background: "#DE2929"
-      }
-    }
-    else if (status === "not-show") {
+        background: "#DE2929",
+      };
+    } else if (status === "not-show") {
       return {
         textcolor: "#FFFFFF",
-        background: "#3AAB7C"
-      }
-    }
-    else {
+        background: "#3AAB7C",
+      };
+    } else {
       return {
         textcolor: "#FFFFFF",
-        background: "#3AAB7C"
-      }
+        background: "#3AAB7C",
+      };
     }
-  }
+  };
 
   const handleOtpChange = (e) => {
     setOtp(parseInt(e.target.value));
   };
 
   const handleEnter = async (e, appointmenid) => {
-    if (e.key === 'Enter') {
-      const {res, err} = await otpVerification({ appointmenid, otp });
-      if(res){
+    if (e.key === "Enter") {
+      const { res, err } = await otpVerification({ appointmenid, otp });
+      if (res) {
         toast.success("OTP verified", toatSetting);
-        setOtp('');
-      }
-      else{
+        setOtp("");
+      } else {
         toast.error(err.response.data.message, toatSetting);
-        setOtp('');
-
+        setOtp("");
       }
     }
   };
@@ -164,160 +151,218 @@ const ScheduleTable = ({ profiles, getdata }) => {
     if (res) {
       toast.success("Appointment Cancelled", toatSetting);
       getdata();
+    } else {
+      toast.error("Something went wrong!", toatSetting);
     }
-    else {
-      toast.error("Something went wrong!", toatSetting)
-    }
-  }
+  };
 
   const completeApp = async (id) => {
     const { res, err } = await completeAppointment(id);
     if (res) {
       toast.success("Appointment Completed", toatSetting);
       getdata();
+    } else {
+      toast.error("Something went wrong!", toatSetting);
     }
-    else {
-      toast.error("Something went wrong!", toatSetting)
-    }
-  }
+  };
 
   const noShowAppointment = async (id) => {
     const { res, err } = await noShow(id);
     if (res) {
       toast.success("Status change successfully ", toatSetting);
       getdata();
+    } else {
+      toast.error("Something went wrong!", toatSetting);
     }
-    else {
-      toast.error("Something went wrong!", toatSetting)
-    }
-  }
+  };
 
   const startAppointment = async (id) => {
     const { res, err } = await startedAppointment(id);
     if (res) {
       toast.success("Status change successfully ", toatSetting);
       getdata();
+    } else {
+      toast.error("Something went wrong!", toatSetting);
     }
-    else {
-      toast.error("Something went wrong!", toatSetting)
-    }
-  }
+  };
 
-  return (<>
-    <div className={style.durationsBox}>
-      {durations &&
-        durations.map((duration, index) => <p>{duration}</p>)}
-
-    </div>
-    <div className={style.grids} >
-      {durations &&
-        durations.map((item) => {
-          return <>
-            <div className={style.outerGrid} >
-              <div></div>
-            </div>
-            <div className={style.outerGrid} >
-              <div></div>
-            </div></>
-        })}
-
-    </div>
-    <div className={style.header} >
-      <button className={style.prev} onClick={nextProfile}>&#10094;</button>
-      <div className={style.carousel} id='header'>
-        {profiles &&
-
-          profiles.map((profile, index) => {
-
+  return (
+    <>
+      <div className={style.durationsBox}>
+        {durations && durations.map((duration, index) => <p>{duration}</p>)}
+      </div>
+      <div className={style.grids}>
+        {durations &&
+          durations.map((item) => {
             return (
-
-              <div className={style.profileContainer} >
-                <div key={index} className={style.profileBox}>
-                  <img src={profile.stylistImage?.public_url} alt="" />
-                  <p>{profile.stylistName}</p>
+              <>
+                <div className={style.outerGrid}>
+                  <div></div>
                 </div>
-                <div className={style.slides} >
-                  {profile.appointments.map((ele, z) => {
-                    let { textcolor, background } = changeStatus(ele.status);
-
-                    return <>
-                      {ele.services.map((item, appointmentIndex) => {
-
-                        const heights = convertTime(item.time_takenby_service);
-                        // console.log(heights);
-                        return <>
-                          <div className={`${style.appointmentBox} ${condition ? style.dBox : style.cBox}`} key={item.unique_id} style={{
-                            height: `${heights}px`,
-                            backgroundColor: `${item.color}`
-                          }} >
-                            <div className={style.clientDetailsBox} >
-
-                              <div>
-                                <p className={style.timeDurations} >{item.time_takenby_service} ({ele.lasttimesofservices[appointmentIndex]})</p>
-                                <p className={style.serviceNames} >{item.service_name}</p>
-                                <p className={style.clientNames} >{ele.ClientName}</p>
-                              </div>
-
-                              <svg
-                                onClick={() => toggleMenu(item.unique_id)}
-                                className="w-6 h-6 text-gray-800 dark:text-white"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                              >
-                                <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M12 6h.01M12 12h.01M12 18h.01" />
-                              </svg>
-
-                              {openMenus[item.unique_id] && (
-                                <div  className={`${style.dropdowncontent} ${condition ? style.dropBox : style.cropBox}`} key={item.unique_id} key={ele._id}>
-                                  <div className={style.inputContainer}>
-                                    <input 
-                                    className={style.otpBox} 
-                                    type="number" 
-                                    placeholder='OTP' 
-                                    value={otp}
-                                    onChange={handleOtpChange}
-                                    onKeyDown={(e) => handleEnter(e, ele._id)} />
-                                  </div>
-                                  <div className={style.editButton} >Edit Details </div>
-
-                                  <div className={style.started} onClick={() => startAppointment(ele._id)} >Started</div>
-                                  <div className={style.started} onClick={() => noShowAppointment(ele._id)} >No-Show</div>
-                                  <div className={style.started} onClick={() => completeApp(ele._id)} >Completed</div>
-                                  <div className={style.started} onClick={() => cancelation(ele._id)} >Cancel Appointment</div>
-                                </div>
-                              )}
-
-
-                            </div>
-                            <button className={style.statusButton} style={{
-                              color: `${textcolor}`,
-                              background: `${background}`
-                            }} >{ele.status}</button>
-                          </div></>
-
-                      })}
-
-                    </>
-
-                  })}
-
-
+                <div className={style.outerGrid}>
+                  <div></div>
                 </div>
-              </div>
-            )
+              </>
+            );
           })}
       </div>
+      <div className={style.header}>
+        <button className={style.prev} onClick={nextProfile}>
+          &#10094;
+        </button>
+        <div className={style.carousel} id="header">
+          {profiles &&
+            profiles.map((profile, index) => {
+              return (
+                <div className={style.profileContainer}>
+                  <div key={index} className={style.profileBox}>
+                    <img src={profile.stylistImage?.public_url} alt="" />
+                    <p>{profile.stylistName}</p>
+                  </div>
+                  <div className={style.slides}>
+                    {profile.appointments.map((ele, z) => {
+                      let { textcolor, background } = changeStatus(ele.status);
 
+                      return (
+                        <>
+                          {ele.services.map((item, appointmentIndex) => {
+                            const heights = convertTime(
+                              item.time_takenby_service
+                            );
+                            // console.log(heights);
+                            return (
+                              <>
+                                <div
+                                  className={`${style.appointmentBox} ${
+                                    condition ? style.dBox : style.cBox
+                                  }`}
+                                  key={item.unique_id}
+                                  style={{
+                                    height: `${heights}px`,
+                                    backgroundColor: `${item.color}`,
+                                  }}
+                                >
+                                  <div className={style.clientDetailsBox}>
+                                    <div>
+                                      <p className={style.timeDurations}>
+                                        {item.time_takenby_service} (
+                                        {
+                                          ele.lasttimesofservices[
+                                            appointmentIndex
+                                          ]
+                                        }
+                                        )
+                                      </p>
+                                      <p className={style.serviceNames}>
+                                        {item.service_name}
+                                      </p>
+                                      <p className={style.clientNames}>
+                                        {ele.ClientName}
+                                      </p>
+                                    </div>
 
-      <button className={style.next} onClick={prevProfile} >&#10095;</button>
-    </div>
+                                    <svg
+                                      onClick={() => toggleMenu(item.unique_id)}
+                                      className="w-6 h-6 text-gray-800 dark:text-white"
+                                      aria-hidden="true"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="16"
+                                      height="16"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeWidth="2"
+                                        d="M12 6h.01M12 12h.01M12 18h.01"
+                                      />
+                                    </svg>
 
+                                    {openMenus[item.unique_id] && (
+                                      <div
+                                        className={`${style.dropdowncontent} ${
+                                          condition
+                                            ? style.dropBox
+                                            : style.cropBox
+                                        }`}
+                                        key={item.unique_id}
+                                        key={ele._id}
+                                      >
+                                        <div className={style.inputContainer}>
+                                          <input
+                                            className={style.otpBox}
+                                            type="number"
+                                            placeholder="OTP"
+                                            value={otp}
+                                            onChange={handleOtpChange}
+                                            onKeyDown={(e) =>
+                                              handleEnter(e, ele._id)
+                                            }
+                                          />
+                                        </div>
+                                        <div className={style.editButton}>
+                                          Edit Details{" "}
+                                        </div>
 
-  </>
+                                        <div
+                                          className={style.started}
+                                          onClick={() =>
+                                            startAppointment(ele._id)
+                                          }
+                                        >
+                                          Started
+                                        </div>
+                                        <div
+                                          className={style.started}
+                                          onClick={() =>
+                                            noShowAppointment(ele._id)
+                                          }
+                                        >
+                                          No-Show
+                                        </div>
+                                        <div
+                                          className={style.started}
+                                          onClick={() => completeApp(ele._id)}
+                                        >
+                                          Completed
+                                        </div>
+                                        <div
+                                          className={style.started}
+                                          onClick={() => cancelation(ele._id)}
+                                        >
+                                          Cancel Appointment
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                  <button
+                                    className={style.statusButton}
+                                    style={{
+                                      color: `${textcolor}`,
+                                      background: `${background}`,
+                                    }}
+                                  >
+                                    {ele.status}
+                                  </button>
+                                </div>
+                              </>
+                            );
+                          })}
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+
+        <button className={style.next} onClick={prevProfile}>
+          &#10095;
+        </button>
+      </div>
+    </>
   );
 };
 
