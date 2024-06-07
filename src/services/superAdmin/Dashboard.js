@@ -3,7 +3,7 @@ import axiosInstance from "../axios";
 export const adminToken = localStorage.getItem("jwtToken");
 export const useStatistics = (x) => {
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
     queryKey: [x, adminToken],
@@ -25,7 +25,7 @@ export const useBillingHistory = (x, y) => {
     x !== "All Booking" ? `booking=${x.toLowerCase()}` : ""
   }`;
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
     queryKey: ["allbillinghistory", x, y, adminToken],
@@ -38,7 +38,7 @@ export const useBillingHistory = (x, y) => {
 };
 export const usePendingSalons = (x) => {
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
     queryKey: ["allpartnerapproval", x, adminToken],
@@ -56,7 +56,7 @@ export const usePendingSalons = (x) => {
 export const useActiveSalons = (x) => {
   let url = `super/allactivesalons?salonname=${x ? x : ""}`;
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
     queryKey: ["allactivesalons", x, adminToken],
@@ -74,7 +74,7 @@ export const useActiveSalons = (x) => {
 export const getCities = async () => {
   let url = `super/allcity`;
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   try {
     const { data } = await axiosInstance.get(
@@ -90,7 +90,7 @@ export const getCities = async () => {
 
 export const useSalonDetails = (id) => {
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
     queryKey: [id, adminToken],
@@ -107,7 +107,7 @@ export const useSalonDetails = (id) => {
 };
 export const useSalonDetailsServices = (id) => {
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
     queryKey: [id, "singlesalonservices", adminToken],
@@ -124,7 +124,7 @@ export const useSalonDetailsServices = (id) => {
 };
 export const useSalonDetailsBookings = (id, x) => {
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
     queryKey: [id, "singlesalonbookings", adminToken],
@@ -143,7 +143,7 @@ export const useSalonDetailsBookings = (id, x) => {
 };
 export const useSalonReviews = (id) => {
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
     queryKey: [id, "singlesalonbookings", adminToken],
@@ -160,7 +160,7 @@ export const useSalonReviews = (id) => {
 };
 export const useSalonImages = (id) => {
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
     queryKey: [id, "salonImages", adminToken],
@@ -177,7 +177,7 @@ export const useSalonImages = (id) => {
 };
 export const useSalonBillAndPayment = (filter) => {
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
     queryKey: [filter, "salonOrderhistory", adminToken],
@@ -194,7 +194,7 @@ export const useSalonBillAndPayment = (filter) => {
 };
 export const useGetDeactivatedSalons = (x) => {
   const headers = {
-    token: adminToken,
+    token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
     queryKey: ["deactivated", x, adminToken],

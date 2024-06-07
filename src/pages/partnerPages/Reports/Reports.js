@@ -35,7 +35,7 @@ const Reports = () => {
     isError: clientsIsError,
     error: clientsError,
   } = useClientsReport(clientsQuery);
-  console.log(appointments);
+
   return (
     <main className={styles.mainContainer}>
       <div className={styles.top}>

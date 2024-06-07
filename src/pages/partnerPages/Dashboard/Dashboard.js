@@ -9,6 +9,11 @@ import TeamSales from "../../../components/Services/Dashboard/TeamSales/TeamSale
 const Dashboard = () => {
   return (
     <main className={styles.mainContainer}>
+      <div className={styles.top}>
+        <p>You have outstanding commissions. Pay now?</p>
+        <button>Pay</button>
+      </div>
+
       <Header />
 
       <section className={styles.container}>

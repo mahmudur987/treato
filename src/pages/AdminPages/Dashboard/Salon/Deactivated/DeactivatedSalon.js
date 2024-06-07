@@ -55,7 +55,7 @@ const DeactivatedSalon = () => {
     return x?.slice(startIndex, endIndex);
   };
   const pendingSalonData = getFilteredData(filteredData);
-
+  console.log(data);
   useEffect(() => {
     const fetchCities = async () => {
       try {

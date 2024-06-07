@@ -72,15 +72,16 @@ const TeamDetails = () => {
       phone: x?.stylist_number || "N/A",
       rating: x?.rating || "N/A",
       address: x?.stylist_address || "N/A",
-      service: x?.stylist_service.length || 0,
+      service:
+        (x?.stylist_service?.length > 0 && x?.stylist_service?.length) || 0,
       bookingToday: x?.appointments,
       editPencil: editImg,
     };
   });
   const TeamDetailsData = filteredData?.filter(
     (item) =>
-      item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.serviceProfile.toLowerCase().includes(searchText.toLowerCase())
+      item?.name?.toLowerCase().includes(searchText?.toLowerCase()) ||
+      item?.serviceProfile?.toLowerCase()?.includes(searchText?.toLowerCase())
   );
   const navigate = useNavigate();
   const [isViewAll, setIsViewAll] = useState(false);
