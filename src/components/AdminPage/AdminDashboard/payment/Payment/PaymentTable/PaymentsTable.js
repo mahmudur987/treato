@@ -6,52 +6,34 @@ import { MdOutlineFileDownload } from "react-icons/md";
 const tableHeading = [
   {
     heading: "Txn ID.",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Date",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Client Name    ",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Salon Name",
   },
   {
     heading: "Amount",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Status ",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Mode ",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
 
   {
     heading: "Paid On",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Taxes",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Comm.",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
 ];
 const PaymentTable = () => {

@@ -8,33 +8,21 @@ import { Link } from "react-router-dom";
 const tableHeading = [
   {
     heading: "Salon",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Owner Name",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Address",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Date Joined",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Rating ",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Net sales",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
 ];
 const SalonTable = ({ tableData }) => {

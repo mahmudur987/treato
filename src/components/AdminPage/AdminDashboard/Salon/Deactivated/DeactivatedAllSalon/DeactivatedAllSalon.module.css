@@ -179,13 +179,12 @@
   color: white;
 }
 
-.tbody {
-}
 .tbody tr {
   border-bottom: 1px solid var(--Grey-Grey-30, #ced4da);
 }
 .tbody tr td {
   padding: 10px 5px;
+  font-size: 16px;
 }
 .listApproveBtn {
   max-width: 100px;

@@ -120,7 +120,7 @@ const BillHistoryTable = ({ data }) => {
                 <td>
                   <p
                     className={sty.bodyRow}
-                    style={{ fontSize: "20px", textAlign: "right" }}
+                    style={{ fontSize: "24px", textAlign: "right" }}
                   >
                     <BsThreeDots />
                   </p>
