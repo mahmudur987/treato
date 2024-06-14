@@ -9,8 +9,10 @@ import { formatDate } from "../../../../../pages/AdminPages/Dashboard/AdminDashb
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
+import axiosInstance from "../../../../../services/axios";
+import { toast } from "react-toastify";
 const PendingSalon = () => {
-  const { data, isLoading, isError, error } = usePendingSalons("");
+  const { data, isLoading, isError, error, refetch } = usePendingSalons("");
   const pendingSalonData = data?.pendingSalons?.map((x) => {
     const data = {
       id: x._id,
@@ -21,7 +23,58 @@ const PendingSalon = () => {
     };
     return data;
   });
+  const handleApprove = async (id) => {
+    try {
+      const Data = {
+        salon_ids: [id],
+      };
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
 
+      const { data } = await axiosInstance.patch(
+        "super/salonapproveaction",
+        Data,
+        {
+          headers,
+        }
+      );
+      console.log(data);
+      if (data) {
+        toast.success("Salon Approved successfully!");
+        refetch();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error ? error?.message : "Error");
+    }
+  };
+  const handleReject = async (id) => {
+    try {
+      const Data = {
+        salon_ids: [id],
+      };
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+
+      const { data } = await axiosInstance.patch(
+        "super/salonapproveaction",
+        Data,
+        {
+          headers,
+        }
+      );
+      console.log(data);
+      if (data) {
+        toast.success("Salon Approved successfully!");
+        refetch();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error ? error?.message : "Error");
+    }
+  };
   const settings = {
     dots: false,
     infinite: true,
@@ -72,32 +125,43 @@ const PendingSalon = () => {
         <div className={styles.contents}>
           <Slider {...settings}>
             {pendingSalonData?.slice(0, 4)?.map((x, y) => (
-              <Link to={`/admin/salon/pending/${x.id}`}>
-                <div key={y}>
-                  <div className={styles.cardWrapper}>
-                    <div className={styles.card}>
-                      <figure>
-                        <img src={x.image} alt="" />
-                      </figure>
+              <div key={y}>
+                <div className={styles.cardWrapper}>
+                  <div className={styles.card}>
+                    <figure>
+                      <img src={x.image} alt="" />
+                    </figure>
 
-                      <div className={styles.cardBottom}>
+                    <div className={styles.cardBottom}>
+                      <Link to={`/admin/salon/pending/${x.id}`}>
                         <div className={styles.info}>
                           <h3>{x.name}</h3>
                           <p className={styles.address}>{x.address}</p>
                           <p className={styles.date}>Applied on {x.date}</p>
                         </div>
-                        <div className={styles.cardAction}>
-                          <button className={styles.approve}>Approve</button>
-                          <button className={styles.reject}>Reject</button>
-                        </div>
-                        <div className={styles.rightIcon}>
-                          <FaArrowRight />
-                        </div>
+                      </Link>
+
+                      <div className={styles.cardAction}>
+                        <button
+                          className={styles.approve}
+                          onClick={() => handleApprove(x.id)}
+                        >
+                          Approve
+                        </button>
+                        <button
+                          className={styles.reject}
+                          onClick={() => handleReject(x.id)}
+                        >
+                          Reject
+                        </button>
+                      </div>
+                      <div className={styles.rightIcon}>
+                        <FaArrowRight />
                       </div>
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </Slider>
         </div>

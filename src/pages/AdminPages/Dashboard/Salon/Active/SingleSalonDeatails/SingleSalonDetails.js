@@ -2,7 +2,7 @@ import styles from "./SingleSalonDetails.module.css";
 import star from "../../../../../../assets/images/SalonDetail/star_line.svg";
 import ellipse from "../../../../../../assets/images/SalonDetail/Ellipse.svg";
 import leftIco from "../../../../../../assets/images/AccountSettings/arrow-left.svg";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SalonSlickSlider from "./SalonSlickSlider.jsx";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -30,8 +30,10 @@ export default function SingleSalonDetail() {
   let { id } = useParams();
   let [firstImage, setFirstImage] = useState(null);
   const dispatch = useDispatch();
-  const { data, isLoading, isError, error } = useSalonDetails(id);
 
+  const navigate = useNavigate();
+
+  const { data, isLoading, isError, error } = useSalonDetails(id);
   useEffect(() => {
     setSalonDetails1(data?.data[0]);
     setFirstImage(data?.data[0]?.salon_image[0]?.public_url);
@@ -41,14 +43,14 @@ export default function SingleSalonDetail() {
   const handleDeactivate = async () => {
     try {
       const headers = {
-        token: adminToken,
+        token: localStorage.getItem("jwtToken"),
       };
 
       const { data } = await axiosInstance.patch(
         "super/salondeactivate",
 
         {
-          id,
+          ids: [id],
         },
 
         { headers }
@@ -56,6 +58,7 @@ export default function SingleSalonDetail() {
 
       if (data) {
         toast.success("Salon Deactivated successfully");
+        navigate("/admin/salon/active");
       }
     } catch (error) {
       console.error("error", error);

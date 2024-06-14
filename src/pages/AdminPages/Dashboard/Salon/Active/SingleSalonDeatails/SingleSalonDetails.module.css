@@ -73,7 +73,7 @@
 .salon_images_right {
   display: flex;
   width: 49%;
-  justify-content: start;
+  justify-content: space-around;
   gap: 16px;
   align-items: center;
   flex-wrap: wrap;
@@ -86,7 +86,7 @@
 }
 
 .salon_images_right img {
-  width: 48.5%;
+  width: 47%;
   height: 312px;
   border-radius: 5px;
 }

@@ -6,6 +6,7 @@ import { IoMenu } from "react-icons/io5";
 
 const FilterSection = ({ viewBy, setViewBy, selectedSalon, count, value }) => {
   const { City, selectedCity, setSelectedCity, handleApprove } = value;
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>

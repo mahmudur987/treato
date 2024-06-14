@@ -13,7 +13,7 @@ import {
 } from "../../../../../../utils/utils.js";
 import { salon } from "../../../../../../services/salon.js";
 import PendingSalonMainPage from "../../../../../../components/AdminPage/AdminDashboard/Salon/Pending/PendingSalonDetails/PendingSalonMainPage/PendingSalonMainPage.jsx";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { updateAdminPage } from "../../../../../../redux/slices/AdminSlice.js";
 import {
   useSalonDetails,
@@ -22,7 +22,11 @@ import {
 import LoadSpinner from "../../../../../../components/LoadSpinner/LoadSpinner.js";
 import ErrorComponent from "../../../../../../components/ErrorComponent/ErrorComponent.js";
 import NoDataDisplay from "../../../../../../components/NodataToDisplay/NoDataDisplay.js";
+import axiosInstance from "../../../../../../services/axios.js";
+import { toast } from "react-toastify";
 export default function PendingSalonDetail() {
+  const navigate = useNavigate();
+
   let [addedServices, addServices] = useState([]);
   let [SalonDetails1, setSalonDetails1] = useState(null);
   let { id } = useParams();
@@ -35,6 +39,57 @@ export default function PendingSalonDetail() {
     setFirstImage(data?.data[0]?.salon_image[0]?.public_url);
     dispatch(updateAdminPage());
   }, [data]);
+
+  const handleApprove = async () => {
+    try {
+      const Data = {
+        salon_ids: [id],
+      };
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+
+      const { data } = await axiosInstance.patch(
+        "super/salonapproveaction",
+        Data,
+        {
+          headers,
+        }
+      );
+      console.log(data);
+      if (data) {
+        toast.success("Salon Approved successfully!");
+
+        navigate("/admin/salon/pending");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error ? error?.message : "Error");
+    }
+  };
+
+  const handleReject = async () => {
+    try {
+      const Data = {
+        salon_ids: [id],
+      };
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+
+      const { data } = await axiosInstance.patch("", Data, {
+        headers,
+      });
+      console.log(data);
+      if (data) {
+        toast.success("Salon Rejected successfully!");
+        navigate("/admin/salon/pending");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error ? error?.message : "Error");
+    }
+  };
 
   return (
     <div className={styles.salon_page}>
@@ -65,8 +120,12 @@ export default function PendingSalonDetail() {
           </div>
 
           <div className={styles.btnWrapper}>
-            <button className={styles.approve}>Approve</button>
-            <button className={styles.reject}>Reject</button>
+            <button className={styles.approve} onClick={handleApprove}>
+              Approve
+            </button>
+            <button className={styles.reject} onClick={handleReject}>
+              Reject
+            </button>
           </div>
         </div>
       )}

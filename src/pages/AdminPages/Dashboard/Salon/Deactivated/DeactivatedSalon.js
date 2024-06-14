@@ -26,7 +26,7 @@ const DeactivatedSalon = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [count, setCount] = useState(5);
   const [itemPerPage, setItemPerPage] = useState(6);
-  const { data, isLoading, isError, error } = useGetDeactivatedSalons(
+  const { data, isLoading, isError, error, refetch } = useGetDeactivatedSalons(
     pathname === "/admin/salon/deactivated" ? searchText : ""
   );
   const filteredData = data?.data
@@ -55,7 +55,7 @@ const DeactivatedSalon = () => {
     return x?.slice(startIndex, endIndex);
   };
   const pendingSalonData = getFilteredData(filteredData);
-  console.log(data);
+
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -84,6 +84,8 @@ const DeactivatedSalon = () => {
           setViewBy={setViewBy}
           selectedSalon={selectedSalon}
           count={pendingSalonData ? pendingSalonData.length : 0}
+          refetch={refetch}
+          setSelectedSalon={setSelectedSalon}
         />
         {isLoading && <LoadSpinner />}
 
@@ -93,6 +95,7 @@ const DeactivatedSalon = () => {
 
         {data && !isError && !isLoading && data?.data?.length > 0 && (
           <DeactivatedAllSalon
+            refetch={refetch}
             selectedSalon={selectedSalon}
             setSelectedSalon={setSelectedSalon}
             pendingSalonData={pendingSalonData}
