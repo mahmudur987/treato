@@ -4,7 +4,7 @@
     display: flex;
     align-items: baseline;
     gap: 10px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .prev {
@@ -24,11 +24,11 @@
 }
 
 .carousel {
-    height:auto;
+    height:fit-content;
     width: auto;
     display: flex;
     align-items: baseline;
-    overflow: hidden;
+    /* overflow: hidden; */
     gap: 10px;
 }
 .profileContainer{
@@ -38,7 +38,16 @@
     flex-direction: column;
     gap: 24px;
 }
-
+.slides {
+    border-left: 2px dotted #CED4DA;
+    min-height: auto;
+    min-width: 160px;
+    max-width: max-content;
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    
+}
 .profileBox {
     min-width: 160px;
     height: 100%;
@@ -51,19 +60,53 @@
     height: 24px;
     border-radius: 50%;
 }
-.appointmentBox{
+.appointmentBox,
+.appointmentBox2{
     padding: 8px;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
+.appointmentBox2{
+    min-height: 134px;
+}
+.appointmentBox3 {
+    position: relative;
+    min-height: 134px; /* Set the minimum height */
+    border: 1px solid #ccc;  transition: background-color 0.3s ease; /* Smooth transition for background color */
+    overflow: hidden; 
+    color: #0D69D7;;
+  }
+  
+  
+  
+  .addAppointment {
+    position: absolute;
+    height: 24px;
+    width: 164px;
+    text-align:left;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    background-color: #EDF2F7;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
+  }
+  
+  .appointmentBox3:hover .addAppointment {
+    opacity: 1; /* Show on hover */
+  }
 .cBox{
     min-width: 160px;
 }
 .dBox{
     min-width: 1228px;
 }
+
 .clientDetailsBox{
     width: 96%;
     height: 58px;
@@ -132,16 +175,7 @@
 }
 
 
-.slides {
-    border-left: 2px dotted #CED4DA;
-    height: auto;
-    min-width: 160px;
-    max-width: max-content;
-    display: flex;
-    align-items: baseline;
-    flex-direction: column;
-    gap: 20px;
-}
+
 .appointmentBox{
     width: 100%;
 }

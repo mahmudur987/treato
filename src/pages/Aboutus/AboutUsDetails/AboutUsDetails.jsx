@@ -10,7 +10,7 @@ function AboutUsDetails() {
 
 
     let box = document.querySelector('#header');
-    const scrollAmountInPixels = 684;
+    const scrollAmountInPixels = 684;  
     const nextProfile = () => {
         box.scrollBy({ left: scrollAmountInPixels, behavior: 'smooth' });
     };
