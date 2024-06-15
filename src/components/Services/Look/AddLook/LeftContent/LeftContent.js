@@ -4,9 +4,7 @@ import { addLookContext } from "../../../../../pages/partnerPages/Look/AddALook/
 import { FaImage } from "react-icons/fa6";
 import replace from "../../../../../assets/icons/partner/replace.png";
 const LeftContent = () => {
-  const { image, setImage } = useContext(addLookContext);
-
-  const [renderImage, setRenderImage] = useState(null);
+  const { setImage, renderImage, setRenderImage } = useContext(addLookContext);
 
   const fileInputRef = useRef(null);
   const handleImageChange = (event) => {

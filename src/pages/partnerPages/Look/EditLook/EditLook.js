@@ -15,7 +15,9 @@ const EditLook = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data, isLoading, isError, error } = useSingleLook(id);
+  const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
+  const [renderImage, setRenderImage] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -23,23 +25,18 @@ const EditLook = () => {
     rating: "",
   });
   const [selectedPeople, setSelectedPeople] = useState([]);
-  const [serviceData, setServiceData] = useState([]);
+
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(null);
   const [service, setService] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
-  const [salonId, setSalonId] = useState("");
-  const serviceCategoryID =
-    serviceData?.find((x) => x.category_name === category)?._id ??
-    data?.data[0]?.service_categories;
-  const serviceSubCategoryId =
-    serviceData
-      ?.find((x) => x.category_name === category)
-      ?.subCategories?.find((x) => x.service_name === selectedServices)?._id ??
-    data?.data[0]?.service_subcategory_id;
+
+  const serviceCategoryID = "";
+  const serviceSubCategoryId = "";
 
   useEffect(() => {
     let singleLook = data?.data[0];
+    setRenderImage(singleLook?.photo?.public_url);
     setFormData({
       name: singleLook?.name ?? "N/A",
       description: singleLook?.description ?? "N / A",
@@ -48,24 +45,24 @@ const EditLook = () => {
     });
     const peoples = singleLook?.stylists?.map((x) => x._id);
     setSelectedPeople(peoples);
-    setCategory(singleLook?.service[0]?.service_name);
-    setSelectedServices(singleLook?.serviceSubCategoryData?.service_name);
+    setCategory(singleLook?.service_categories);
+    setSelectedServices(singleLook?.service_subcategory_id);
   }, [data]);
-
   const handleSubmit = async () => {
-    if (!serviceCategoryID || !serviceSubCategoryId) {
-      return toast.error("select service");
+    setLoading(true);
+    const data = new FormData();
+
+    if (image) {
+      data.append("file", image);
     }
 
-    const data = new FormData();
-    data.append("file", image);
     data.append("name", formData.name);
     data.append("description", formData.description);
     data.append("price", formData.price);
     data.append("rating", formData.rating);
     data.append("serviceCategories", serviceCategoryID);
     data.append("serviceSubCategoryId", serviceSubCategoryId);
-    data.append("salonId", salonId);
+
     selectedPeople.forEach((id) => {
       data.append("stylishListIds[]", id);
     });
@@ -77,7 +74,6 @@ const EditLook = () => {
       serviceCategoryID,
       serviceSubCategoryId,
       stylishListIds: selectedPeople,
-      salonId,
     });
     try {
       const headers = {
@@ -87,21 +83,25 @@ const EditLook = () => {
       const res = await axiosInstance.patch(`look-book/edit/${id}`, data, {
         headers,
       });
-
-      console.log(res.data);
+      // console.log(res.data);
+      if (res.data) {
+        toast.success("Looks Edit Successfully");
+      }
     } catch (error) {
       console.error("Network error:", error?.response?.data);
+      toast.error("Error");
     }
+    setLoading(false);
   };
   const value = {
     image,
     setImage,
+    renderImage,
+    setRenderImage,
     formData,
     setFormData,
     selectedPeople,
     setSelectedPeople,
-    serviceData,
-    setServiceData,
     categories,
     setCategories,
     category,
@@ -110,8 +110,12 @@ const EditLook = () => {
     setService,
     selectedServices,
     setSelectedServices,
-    setSalonId,
   };
+
+  if (loading) {
+    return <LoadSpinner />;
+  }
+
   return (
     <EditLookContext.Provider value={value}>
       <main className={styles.mainContainer}>

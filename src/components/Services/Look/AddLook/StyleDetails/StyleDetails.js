@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./StyleDetails.module.css";
 import { addLookContext } from "../../../../../pages/partnerPages/Look/AddALook/AddLook";
-import { useSingleSalon } from "../../../../../services/salon";
-import CustomSelect2 from "../../../../Select/CustomeSelect2/CustomeSelect2";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
+import { useGetPartnerServices } from "../../../../../services/Services";
 export const getCombinedMainCategories = (services) => {
   let mainCategoriesCombined = [];
 
@@ -22,19 +21,15 @@ const StyleDetails = () => {
   const {
     formData,
     setFormData,
-    serviceData,
-    setServiceData,
     categories,
     setCategories,
     category,
     setCategory,
     service,
     setService,
-    selectedServices,
     setSelectedServices,
-    setSalonId,
   } = useContext(addLookContext);
-  const { data, isLoading, isError, error } = useSingleSalon();
+  const { data, isLoading, isError, error } = useGetPartnerServices();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,27 +39,17 @@ const StyleDetails = () => {
     });
   };
   useEffect(() => {
-    const services = data?.salon?.services;
-    setServiceData(services);
-    const mainCategories = services?.map((x) => {
-      return { serviceName: x.service_name, id: x._id };
-    });
-    setCategories(mainCategories);
-    setCategory(mainCategories ? mainCategories[0] : "null");
-    setSalonId(data?.salon?._id);
+    setCategories(data ? data?.data : []);
+    setCategory(data ? data?.data[0].service_id : "");
   }, [data]);
 
   useEffect(() => {
-    const subCategory = getCombinedMainCategories(data?.salon?.services);
-    const services = subCategory
-      .filter((x) => x !== undefined)
-      .map((x) => {
-        return { categoryName: x.category_name, id: x._id };
-      });
-    console.log(services);
-    setService(services);
-    setSelectedServices(services ? services[0] : "null");
-  }, [category]);
+    const services = data?.data?.find((x) => x.service_id === category);
+    setService(services?.subCategories);
+    setSelectedServices(
+      services ? services?.subCategories[0]?.subCategory_id : "null"
+    );
+  }, [category, data]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -86,7 +71,10 @@ const StyleDetails = () => {
           {data && !isLoading && !isError && (
             <select name="" id="" onChange={(e) => setCategory(e.target.value)}>
               {categories?.map((x, i) => (
-                <option value={x.id}> {x.serviceName} </option>
+                <option key={i} value={x.service_id}>
+                  {" "}
+                  {x.service_name}{" "}
+                </option>
               ))}
             </select>
           )}
@@ -101,9 +89,9 @@ const StyleDetails = () => {
 
             <select onChange={(e) => setSelectedServices(e.target.value)}>
               {service?.map((x, i) => (
-                <option key={i} value={x.id}>
+                <option key={i} value={x.subCategory_id}>
                   {" "}
-                  {x.categoryName}
+                  {x.subCategory_name}
                 </option>
               ))}
             </select>

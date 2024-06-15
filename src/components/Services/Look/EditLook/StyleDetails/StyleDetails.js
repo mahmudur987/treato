@@ -1,43 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./StyleDetails.module.css";
 import { EditLookContext } from "../../../../../pages/partnerPages/Look/EditLook/EditLook";
-import { useSingleSalon } from "../../../../../services/salon";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
-import { getCombinedMainCategories } from "../../AddLook/StyleDetails/StyleDetails";
-import CustomSelect2 from "../../../../Select/CustomeSelect2/CustomeSelect2";
+import { useGetPartnerServices } from "../../../../../services/Services";
 const StyleDetails = () => {
   const {
     formData,
     setFormData,
-    serviceData,
-    setServiceData,
     categories,
     setCategories,
     category,
     setCategory,
     service,
     setService,
-    selectedServices,
     setSelectedServices,
-    setSalonId,
   } = useContext(EditLookContext);
-  const { data, isLoading, isError, error } = useSingleSalon();
+  const { data, isLoading, isError, error } = useGetPartnerServices();
 
-  useEffect(() => {
-    const services = getCombinedMainCategories(data?.salon?.services);
-    setServiceData(services);
-    const mainCategories = services.map((x) => x.category_name);
-    setCategories(mainCategories);
-    setSalonId(data?.salon?._id);
-  }, [data]);
-
-  useEffect(() => {
-    const services = serviceData
-      .find((x) => x.category_name === category)
-      ?.subCategories?.map((x) => x.service_name);
-    setService(services ?? ["services"]);
-  }, [category]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -45,6 +25,18 @@ const StyleDetails = () => {
       [name]: value,
     });
   };
+  useEffect(() => {
+    setCategories(data ? data?.data : []);
+  }, [data]);
+
+  useEffect(() => {
+    const services = data?.data?.find((x) => x.service_id === category);
+    setService(services?.subCategories);
+    setSelectedServices(
+      services ? services?.subCategories[0]?.subCategory_id : "null"
+    );
+  }, [category, data]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
@@ -57,15 +49,24 @@ const StyleDetails = () => {
       </div>
 
       <form className={styles.form} onSubmit={handleSubmit}>
+        {/*  category */}
+
         <div className={styles.formGroup}>
           <label htmlFor="">Service Category</label>
 
           {data && !isLoading && !isError && (
-            <CustomSelect2
-              options={categories}
-              value={category ? category : "please select one"}
-              onChange={setCategory}
-            />
+            <select name="" id="" onChange={(e) => setCategory(e.target.value)}>
+              {categories?.map((x, i) => (
+                <option
+                  key={i}
+                  value={x.service_id}
+                  selected={x.service_id === category}
+                >
+                  {" "}
+                  {x.service_name}{" "}
+                </option>
+              ))}
+            </select>
           )}
 
           {isLoading && <LoadSpinner />}
@@ -75,15 +76,15 @@ const StyleDetails = () => {
         {service && service?.length > 0 ? (
           <div className={styles.formGroup}>
             <label htmlFor="">Select Service </label>
-            <CustomSelect2
-              options={service}
-              value={
-                selectedServices?.length > 0
-                  ? selectedServices
-                  : "please select one"
-              }
-              onChange={setSelectedServices}
-            />
+
+            <select onChange={(e) => setSelectedServices(e.target.value)}>
+              {service?.map((x, i) => (
+                <option key={i} value={x.subCategory_id}>
+                  {" "}
+                  {x.subCategory_name}
+                </option>
+              ))}
+            </select>
           </div>
         ) : (
           <p className={styles.noservice}>
