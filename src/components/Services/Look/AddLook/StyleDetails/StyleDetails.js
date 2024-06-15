@@ -46,10 +46,11 @@ const StyleDetails = () => {
   useEffect(() => {
     const services = data?.salon?.services;
     setServiceData(services);
-    const mainCategories = services?.map((x) => x.service_name);
+    const mainCategories = services?.map((x) => {
+      return { serviceName: x.service_name, id: x._id };
+    });
     setCategories(mainCategories);
-    setCategory(mainCategories[0] ?? "null");
-
+    setCategory(mainCategories ? mainCategories[0] : "null");
     setSalonId(data?.salon?._id);
   }, [data]);
 
@@ -58,7 +59,7 @@ const StyleDetails = () => {
     const services = subCategory
       .filter((x) => x !== undefined)
       .map((x) => {
-        return x.category_name;
+        return { categoryName: x.category_name, id: x._id };
       });
     console.log(services);
     setService(services);
@@ -83,11 +84,11 @@ const StyleDetails = () => {
           <label htmlFor="">Service Category</label>
 
           {data && !isLoading && !isError && (
-            <CustomSelect2
-              options={categories}
-              value={category ? category : "please select one"}
-              onChange={setCategory}
-            />
+            <select name="" id="" onChange={(e) => setCategory(e.target.value)}>
+              {categories?.map((x, i) => (
+                <option value={x.id}> {x.serviceName} </option>
+              ))}
+            </select>
           )}
 
           {isLoading && <LoadSpinner />}
@@ -97,15 +98,15 @@ const StyleDetails = () => {
         {service && service?.length > 0 ? (
           <div className={styles.formGroup}>
             <label htmlFor="">Select Service </label>
-            <CustomSelect2
-              options={service}
-              value={
-                selectedServices.length > 0
-                  ? selectedServices
-                  : "please select one"
-              }
-              onChange={setSelectedServices}
-            />
+
+            <select onChange={(e) => setSelectedServices(e.target.value)}>
+              {service?.map((x, i) => (
+                <option key={i} value={x.id}>
+                  {" "}
+                  {x.categoryName}
+                </option>
+              ))}
+            </select>
           </div>
         ) : (
           <p className={styles.noservice}>
