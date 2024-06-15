@@ -4,6 +4,7 @@ import { addLookContext } from "../../../../../pages/partnerPages/Look/AddALook/
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import { useGetPartnerServices } from "../../../../../services/Services";
+import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 export const getCombinedMainCategories = (services) => {
   let mainCategoriesCombined = [];
 
@@ -68,7 +69,7 @@ const StyleDetails = () => {
         <div className={styles.formGroup}>
           <label htmlFor="">Service Category</label>
 
-          {data && !isLoading && !isError && (
+          {data && !isLoading && !isError && categories?.length > 0 && (
             <select name="" id="" onChange={(e) => setCategory(e.target.value)}>
               {categories?.map((x, i) => (
                 <option key={i} value={x.service_id}>
@@ -78,7 +79,9 @@ const StyleDetails = () => {
               ))}
             </select>
           )}
-
+          {categories.length === 0 && (
+            <NoDataDisplay message={"Please Add A Service"} />
+          )}
           {isLoading && <LoadSpinner />}
           {isError && <ErrorComponent message={"Error "} />}
         </div>

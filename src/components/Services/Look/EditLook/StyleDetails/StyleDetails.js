@@ -14,6 +14,7 @@ const StyleDetails = () => {
     setCategory,
     service,
     setService,
+    selectedServices,
     setSelectedServices,
   } = useContext(EditLookContext);
   const { data, isLoading, isError, error } = useGetPartnerServices();
@@ -79,7 +80,11 @@ const StyleDetails = () => {
 
             <select onChange={(e) => setSelectedServices(e.target.value)}>
               {service?.map((x, i) => (
-                <option key={i} value={x.subCategory_id}>
+                <option
+                  key={i}
+                  value={x.subCategory_id}
+                  selected={x.subCategory_id === selectedServices}
+                >
                   {" "}
                   {x.subCategory_name}
                 </option>

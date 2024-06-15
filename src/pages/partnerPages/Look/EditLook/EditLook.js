@@ -14,7 +14,7 @@ export const EditLookContext = createContext({});
 const EditLook = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data, isLoading, isError, error } = useSingleLook(id);
+  const { data, isLoading, isError, error, refetch } = useSingleLook(id);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
   const [renderImage, setRenderImage] = useState(null);
@@ -25,14 +25,10 @@ const EditLook = () => {
     rating: "",
   });
   const [selectedPeople, setSelectedPeople] = useState([]);
-
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(null);
   const [service, setService] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
-
-  const serviceCategoryID = "";
-  const serviceSubCategoryId = "";
 
   useEffect(() => {
     let singleLook = data?.data[0];
@@ -60,8 +56,8 @@ const EditLook = () => {
     data.append("description", formData.description);
     data.append("price", formData.price);
     data.append("rating", formData.rating);
-    data.append("serviceCategories", serviceCategoryID);
-    data.append("serviceSubCategoryId", serviceSubCategoryId);
+    data.append("serviceCategories", category);
+    data.append("serviceSubCategoryId", selectedServices);
 
     selectedPeople.forEach((id) => {
       data.append("stylishListIds[]", id);
@@ -71,8 +67,8 @@ const EditLook = () => {
       description: formData.description,
       price: formData.price,
       rating: formData.rating,
-      serviceCategoryID,
-      serviceSubCategoryId,
+      serviceCategoryID: category,
+      serviceSubCategoryId: selectedServices,
       stylishListIds: selectedPeople,
     });
     try {
@@ -86,6 +82,7 @@ const EditLook = () => {
       // console.log(res.data);
       if (res.data) {
         toast.success("Looks Edit Successfully");
+        refetch();
       }
     } catch (error) {
       console.error("Network error:", error?.response?.data);
@@ -93,6 +90,7 @@ const EditLook = () => {
     }
     setLoading(false);
   };
+
   const value = {
     image,
     setImage,
