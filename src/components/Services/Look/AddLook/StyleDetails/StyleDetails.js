@@ -79,7 +79,7 @@ const StyleDetails = () => {
               ))}
             </select>
           )}
-          {categories.length === 0 && (
+          {categories?.length === 0 && (
             <NoDataDisplay message={"Please Add A Service"} />
           )}
           {isLoading && <LoadSpinner />}
