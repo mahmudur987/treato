@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useRef } from "react";
 import styles from "../../../pages/BookFlow/BookFlow.module.css";
 import BasicInput from "../../Input/BasicInput/BasicInput";
-import PhoneInput from "../../Input/PhoneInput/PhoneInput";
 import RadioInput from "../../Input/RadioInput/RadioInput";
 import TextArea from "../../Input/TextArea/TextArea";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,10 +37,13 @@ export default function VisitorDetail() {
   };
 
   const handleInputChange = (field, value) => {
+console.log(value)
+
+
     if (field === "phone") {
       const numericValue = value.replace(/\D/g, "");
       setvisitorPhone(numericValue);
-      value = numericValue.slice(0, 10);
+      value = numericValue.slice(0, 11);
       value = `${countryCode}${value}`;
     }
     dispatch(
@@ -115,7 +117,7 @@ export default function VisitorDetail() {
                 value={visitorPhone}
                 type="tel"
                 placeholder={"Enter your phone number"}
-                maxLength={10}
+                maxLength={11}
                 className={styles.phone_input}
                 name={"phone"}
                 onChange={(e) => handleInputChange("phone", e.target.value)}
@@ -138,7 +140,7 @@ export default function VisitorDetail() {
           <div className={styles.visitor_detailACA}>Preferences (optional)</div>
           <div className={styles.visitor_detailACB}>
             <TextArea
-              PlaceHolder={"Anyhing specific you want to share"}
+              PlaceHolder={"Anything specific you want to share"}
               onChange={(e) => handleInputChange("preferences", e.target.value)}
             />
           </div>

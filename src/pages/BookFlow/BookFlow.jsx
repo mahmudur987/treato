@@ -31,7 +31,7 @@ export default function BookFlow() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
   const [count, setCount] = useState();
-  console.log("Count", count);
+  // console.log("Count", count);
   let [activeBookFlowBA, updateActiveBookFlowBA] = useState(1);
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
   let [showPay, setShowPay] = useState(true);
