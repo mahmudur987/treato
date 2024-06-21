@@ -50,7 +50,7 @@
     text-align: justify;
     color: #6D747A;
 }
-.joinus button{
+.viewPositions{
     height: 48px;
     width: 208px;
     padding: 16px 20px 16px 20px;
@@ -61,7 +61,7 @@
     cursor: pointer;
    
 }
-.joinus button b{
+.viewPositions b{
     width: 200px;
     height: 16px;
     color: #FFFFFF;
@@ -72,6 +72,9 @@
     letter-spacing: -1%;
     line-height: 16px;
 
+}
+.viewPositions :active{
+    transform: scale(0.90);
 }
 .careerimage{
     width: 606px;
@@ -165,6 +168,11 @@
     line-height: 24px;
     letter-spacing: 1%;
     color: #6D747A;
+}
+.locationIcons{
+    width: 16px;
+    height: 16px;
+    color: #434141;
 }
 .postDetails{
     width: 100%;
