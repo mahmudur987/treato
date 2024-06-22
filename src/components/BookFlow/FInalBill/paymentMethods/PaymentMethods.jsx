@@ -14,89 +14,108 @@ const PaymentMethods = () => {
       <div className={styles.contentWrapper}>
         <h3>Previously used</h3>
 
-        <div className={styles.content}>
-          <h4>Debit or Credit Card</h4>
+        <div className={styles.wrapper}>
+          <div className={styles.content}>
+            <h4>Debit or Credit Card</h4>
 
-          <div className={styles.card}>
-            <img src={visa} alt="" />
-            <div className={styles.cardMiddle}>
-              <h5>HDFC dinner club credit card</h5>
+            <div className={styles.card}>
+              <img src={visa} alt="" />
+              <div className={styles.cardMiddle}>
+                <h5>HDFC dinner club credit card</h5>
 
-              <p>xxx-xxxx-xxxx-2546</p>
+                <p>xxx-xxxx-xxxx-2546</p>
+              </div>
+
+              <input type="radio" name="" id="" />
+            </div>
+            <div className={styles.card}>
+              <img src={visa} alt="" />
+              <div className={styles.cardMiddle}>
+                <h5>HDFC dinner club credit card</h5>
+
+                <p>xxx-xxxx-xxxx-2546</p>
+              </div>
+
+              <input type="radio" name="" id="" />
             </div>
 
-            <input type="radio" name="" id="" />
+            <div className={styles.addNew}>
+              <img src={plus} alt="" />
+              <button>Add New Card</button>
+            </div>
           </div>
+          <div className={styles.content}>
+            <h4>UPI</h4>
 
-          <div className={styles.addNew}>
-            <img src={plus} alt="" />
-            <button>Add New Card</button>
-          </div>
-        </div>
-        <div className={styles.content}>
-          <h4>UPI</h4>
+            <div className={styles.card}>
+              <img src={paytm} alt="" />
+              <div className={styles.cardMiddle}>
+                <h5>HDFC dinner club credit card</h5>
+              </div>
 
-          <div className={styles.card}>
-            <img src={paytm} alt="" />
-            <div className={styles.cardMiddle}>
-              <h5>HDFC dinner club credit card</h5>
+              <input type="radio" name="" id="" />
+            </div>
+            <div className={styles.card}>
+              <img src={paytm} alt="" />
+              <div className={styles.cardMiddle}>
+                <h5>HDFC dinner club credit card</h5>
+              </div>
 
-              <p>xxx-xxxx-xxxx-2546</p>
+              <input type="radio" name="" id="" />
             </div>
 
-            <input type="radio" name="" id="" />
-          </div>
-
-          <div className={styles.addNew}>
-            <img src={plus} alt="" />
-            <button>Add New UPI ID</button>
+            <div className={styles.addNew} style={{ borderBottom: "none" }}>
+              <img src={plus} alt="" />
+              <button>Add New UPI ID</button>
+            </div>
           </div>
         </div>
       </div>
       <div className={styles.contentWrapper}>
         <h3>Other payment methods</h3>
+        <div className={styles.wrapper}>
+          <div className={styles.downContent}>
+            <h4>Wallets</h4>
 
-        <div className={styles.downContent}>
-          <h4>Wallets</h4>
+            <div className={styles.downCard}>
+              <img src={phonepe} alt="" />
+              <p className={styles.downCardMiddle}>
+                payTm,phonePay,Amazon Pay and more
+              </p>
 
-          <div className={styles.downCard}>
-            <img src={phonepe} alt="" />
-            <p className={styles.downCardMiddle}>
-              payTm,phonePay,Amazon Pay and more
-            </p>
-
-            <button>
-              {" "}
-              <img src={rightBlue} alt="" />{" "}
-            </button>
+              <button>
+                {" "}
+                <img src={rightBlue} alt="" />{" "}
+              </button>
+            </div>
           </div>
-        </div>
-        <div className={styles.downContent}>
-          <h4>Net Banking</h4>
+          <div className={styles.downContent}>
+            <h4>Net Banking</h4>
 
-          <div className={styles.downCard}>
-            <img src={bank} alt="" />
-            <p className={styles.downCardMiddle}>select from list of Bank</p>
+            <div className={styles.downCard}>
+              <img src={bank} alt="" />
+              <p className={styles.downCardMiddle}>select from list of Bank</p>
 
-            <button>
-              {" "}
-              <img src={rightBlue} alt="" />{" "}
-            </button>
+              <button>
+                {" "}
+                <img src={rightBlue} alt="" />{" "}
+              </button>
+            </div>
           </div>
-        </div>
-        <div className={styles.downContent}>
-          <h4>Simpl</h4>
+          <div className={styles.downContent}>
+            <h4>Simpl</h4>
 
-          <div className={styles.downCard}>
-            <img src={simpl} alt="" />
-            <p className={styles.downCardMiddle}>
-              Book Now,pay Letter using Simpl,No additional cost
-            </p>
+            <div className={styles.downCard}>
+              <img src={simpl} alt="" />
+              <p className={styles.downCardMiddle}>
+                Book Now,pay Letter using Simpl,No additional cost
+              </p>
 
-            <button>
-              {" "}
-              <img src={rightBlue} alt="" />{" "}
-            </button>
+              <button>
+                {" "}
+                <img src={rightBlue} alt="" />{" "}
+              </button>
+            </div>
           </div>
         </div>
       </div>
