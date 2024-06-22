@@ -1,0 +1,114 @@
+/* PaymentMethods.module.css */
+
+.mainContainer {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  margin-bottom: 0px;
+}
+
+.contentWrapper {
+  margin-top: 10px;
+}
+.contentWrapper h3 {
+  margin-bottom: 30px;
+}
+.content {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.card img {
+  width: 50px; /* Adjust according to your design */
+  height: 50px; /* Adjust according to your design */
+  margin-right: 10px;
+}
+
+.cardMiddle {
+  flex: 1;
+}
+
+.addNew {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.addNew span {
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.addNew button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.downContent {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.downContent h4 {
+  font-size: 18px;
+  color: #333;
+}
+
+.downCard {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.downCard img {
+  width: 50px; /* Adjust according to your design */
+  height: 50px; /* Adjust according to your design */
+  margin-right: 10px;
+}
+
+.downCardMiddle {
+  flex: 1;
+}
+
+.downCardMiddle p {
+  margin: 0;
+}
+
+.downCard button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.downCard button:hover {
+  background-color: #0056b3;
+}
+
+.downCard button:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+/* Add more styles as needed */

@@ -233,6 +233,8 @@ export const bookSalonAppointment = async (data) => {
 
     return { res: res, err: null };
   } catch (error) {
+
+    console.error("handlePaymentError",error)
     return { err: error, res: null };
   }
 };
