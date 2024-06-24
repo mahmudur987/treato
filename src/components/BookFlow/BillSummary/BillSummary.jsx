@@ -173,6 +173,8 @@ export default function BillSummary({
         payment_mode: "online",
         serviceDetails: selectedServices,
       };
+      console.log(billInfo);
+
       bookSalonAppointment(billInfo).then((res) => {
         let response = res?.res?.data;
         if (response?.success) {
@@ -197,6 +199,7 @@ export default function BillSummary({
           : TotalServiceAmount
       }`,
       time: "",
+      servicetimetaken: ["1 hr 15 mins", "1 hr"],
       selectedStylistId: stepTwoDetails?.workerData[0]?._id
         ? stepTwoDetails?.workerData[0]?._id
         : "",
@@ -206,6 +209,7 @@ export default function BillSummary({
       payment_mode: "on-site",
       serviceDetails: selectedServices,
     };
+    console.log(billInfo);
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
       if (response?.success) {

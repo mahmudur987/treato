@@ -37,8 +37,7 @@ export default function VisitorDetail() {
   };
 
   const handleInputChange = (field, value) => {
-console.log(value)
-
+    // console.log(value);
 
     if (field === "phone") {
       const numericValue = value.replace(/\D/g, "");

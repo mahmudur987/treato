@@ -61,7 +61,7 @@ export default function BookFlow() {
   const userDetails = useSelector((state) => state?.user?.user);
   const serviceDetails = useSelector((state) => state?.salonServices);
   useEffect(() => {
-    console.log(activeBookFlowBA);
+    // console.log(activeBookFlowBA);
   }, [activeBookFlowBA]);
 
   useEffect(() => {
@@ -242,6 +242,8 @@ export default function BookFlow() {
         payment_mode: "online",
         serviceDetails: serviceDetails?.salonContent,
       };
+      console.log(billInfo);
+
       bookSalonAppointment(billInfo).then((res) => {
         let response = res?.res?.data;
         if (response?.success) {
@@ -267,6 +269,7 @@ export default function BookFlow() {
           : serviceDetails?.Amount
       }`,
       time: "",
+      servicetimetaken: ["1 hr 15 mins", "1 hr"],
       selectedStylistId: stepTwoDetails?.workerData[0]?._id
         ? stepTwoDetails?.workerData[0]?._id
         : "",
@@ -276,6 +279,7 @@ export default function BookFlow() {
       payment_mode: "offline",
       serviceDetails: serviceDetails?.salonContent,
     };
+    console.log(billInfo);
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
       if (response?.success) {
