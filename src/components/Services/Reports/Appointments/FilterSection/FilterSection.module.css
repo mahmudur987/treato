@@ -39,15 +39,19 @@
 }
 
 .btnWrapper {
-  max-width: 100px;
+  max-width: 157px;
   width: 100%;
+  min-height: 48px;
   display: flex;
   justify-content: center;
+  border-radius: 4px;
+  background-color: black;
+  color: #fff;
 }
 .btnWrapper button {
   height: 48px;
   gap: 8px;
-  border-radius: 4px;
+
   background-color: black;
   color: #fff;
   cursor: pointer;

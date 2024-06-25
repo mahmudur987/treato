@@ -10,7 +10,6 @@
   margin: 0 auto;
   position: relative;
   display: flex;
-  gap: 20px;
 }
 .downContainer {
   flex-grow: 1;
@@ -18,6 +17,10 @@
 .left {
   max-width: 100px;
   width: 100%;
+}
+.Outlet {
+  margin-left: 20px;
+  margin-top: 30px;
 }
 @media only screen and (max-width: 700px) {
   .left,

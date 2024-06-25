@@ -47,6 +47,9 @@ const FilterSection = ({ setAppointmentsQuery }) => {
       }${searchText ? `&search=${searchText}` : ""}`
     );
   }, [day, selectedBookingType, selectedStatus, searchText]);
+
+  const handleDownLoad = () => {};
+
   return (
     <div className={styles.mainContainerWrapper}>
       <div className={styles.mainContainer}>

@@ -212,9 +212,14 @@ export default function BillSummary({
     console.log(billInfo);
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
+
+      console.log(res.err);
+
       if (response?.success) {
         setOrderResponse(response?.order);
         setCompletedPay(true);
+      } else if (res.err) {
+        toast.error(res?.err?.response?.data?.error ?? "Error");
       }
     });
   };

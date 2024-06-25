@@ -49,7 +49,9 @@ const ServicePage = () => {
           <div className={style.navbar}>
             <ServicePageNavbar />
           </div>
-          <Outlet />
+          <div className={style.Outlet}>
+            <Outlet />
+          </div>
         </div>
       </section>
       <BottomNav />

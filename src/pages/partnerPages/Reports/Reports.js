@@ -19,6 +19,8 @@ import NoDataDisplay from "../../../components/NodataToDisplay/NoDataDisplay";
 export const reportContext = createContext({});
 
 const Reports = () => {
+  const [selectedItems, setSelectedItems] = useState([]);
+
   const [pageDetails, setPageDetails] = useState("Appointments");
   const [appointmentQuery, setAppointmentsQuery] = useState("");
   const [clientsQuery, setClientsQuery] = useState("");
@@ -36,62 +38,66 @@ const Reports = () => {
     error: clientsError,
   } = useClientsReport(clientsQuery);
 
+  const value = { selectedItems, setSelectedItems };
+
   return (
-    <main className={styles.mainContainer}>
-      <div className={styles.top}>
-        <span>
-          <IoArrowBack />
-        </span>
-        <h3>Reports</h3>
-        <p>
-          <IoSearchOutline />
-        </p>
-      </div>
+    <reportContext.Provider value={value}>
+      <main className={styles.mainContainer}>
+        <div className={styles.top}>
+          <span>
+            <IoArrowBack />
+          </span>
+          <h3>Reports</h3>
+          <p>
+            <IoSearchOutline />
+          </p>
+        </div>
 
-      <ReportsPageHeader
-        pageDetails={pageDetails}
-        setPageDetails={setPageDetails}
-      />
-      {pageDetails === "Appointments" && (
-        <section>
-          <FilterSection1 setAppointmentsQuery={setAppointmentsQuery} />
-          {appointmentsIsLoading && <LoadSpinner />}
+        <ReportsPageHeader
+          pageDetails={pageDetails}
+          setPageDetails={setPageDetails}
+        />
+        {pageDetails === "Appointments" && (
+          <section>
+            <FilterSection1 setAppointmentsQuery={setAppointmentsQuery} />
+            {appointmentsIsLoading && <LoadSpinner />}
 
-          {appointments?.data?.length > 0 &&
-            !appointmentsIsLoading &&
-            !appointmentsIsError && <AppointmentsTable data={appointments} />}
-          {appointments?.data?.length === 0 &&
-            !appointmentsIsLoading &&
-            !appointmentsIsError && <NoDataDisplay />}
+            {appointments?.data?.length > 0 &&
+              !appointmentsIsLoading &&
+              !appointmentsIsError && <AppointmentsTable data={appointments} />}
+            {appointments?.data?.length === 0 &&
+              !appointmentsIsLoading &&
+              !appointmentsIsError && <NoDataDisplay />}
 
-          {appointmentsIsError && (
-            <ErrorComponent message={appointmentsError.message ?? "Error"} />
-          )}
-        </section>
-      )}
-      {pageDetails === "Clients" && (
-        <section>
-          <FilterSection2 setClientsQuery={setClientsQuery} />
-          {clientsIsLoading && <LoadSpinner />}
-          {clients?.data?.length > 0 && !clientsIsLoading && !clientsError && (
-            <ClientsTable data={clients} />
-          )}
-          {clients?.data?.length === 0 &&
-            !clientsIsLoading &&
-            !clientsError && <NoDataDisplay />}
-          {clientsIsError && (
-            <ErrorComponent message={clientsError.message ?? "Error"} />
-          )}
-        </section>
-      )}
-      {pageDetails === "Billing & Payment" && (
-        <section>
-          <FilterSection3 />
+            {appointmentsIsError && (
+              <ErrorComponent message={appointmentsError.message ?? "Error"} />
+            )}
+          </section>
+        )}
+        {pageDetails === "Clients" && (
+          <section>
+            <FilterSection2 setClientsQuery={setClientsQuery} />
+            {clientsIsLoading && <LoadSpinner />}
+            {clients?.data?.length > 0 &&
+              !clientsIsLoading &&
+              !clientsError && <ClientsTable data={clients} />}
+            {clients?.data?.length === 0 &&
+              !clientsIsLoading &&
+              !clientsError && <NoDataDisplay />}
+            {clientsIsError && (
+              <ErrorComponent message={clientsError.message ?? "Error"} />
+            )}
+          </section>
+        )}
+        {pageDetails === "Billing & Payment" && (
+          <section>
+            <FilterSection3 />
 
-          <BillAndPaymentTable />
-        </section>
-      )}
-    </main>
+            <BillAndPaymentTable />
+          </section>
+        )}
+      </main>
+    </reportContext.Provider>
   );
 };
 
