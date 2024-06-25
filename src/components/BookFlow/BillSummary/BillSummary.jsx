@@ -189,6 +189,20 @@ export default function BillSummary({
 
   // -------------------
   const handleOfflinePayment = () => {
+    // const dddata = {
+    //   user_id: "658c2ce2ddd3c899aae60ecb",
+    //   salons_id: "6508592af8131fc40b478125",
+    //   service_id: ["654a2f23e84ca4f640607d74", "654a2f23e84ca4f640607d6b"],
+    //   final_amount: 1500,
+    //   time: "10:00",
+    //   payment_mode: "on-site",
+    //   noPreference: "noPreference",
+    //   selectedStylistId: "654b5b24572df2dbec716625",
+    //   dateforService: "2024-06-25",
+    //   userData: { phone: "+917984261070" },
+    //   servicetimetaken: ["1 hr 15 mins", "1 hr"],
+    // };
+
     let billInfo = {
       user_id: userDetails?._id,
       salons_id: id,
@@ -198,7 +212,7 @@ export default function BillSummary({
           ? TotalServiceAmount - selectedOffer?.amount_for_discount
           : TotalServiceAmount
       }`,
-      time: "",
+      time: selectedServiceSlot,
       servicetimetaken: ["1 hr 15 mins", "1 hr"],
       selectedStylistId: stepTwoDetails?.workerData[0]?._id
         ? stepTwoDetails?.workerData[0]?._id
@@ -208,6 +222,7 @@ export default function BillSummary({
       userData: visitorDetails?.contact,
       payment_mode: "on-site",
       serviceDetails: selectedServices,
+      noPreference: "noPreference",
     };
     console.log(billInfo);
     bookSalonAppointment(billInfo).then((res) => {
