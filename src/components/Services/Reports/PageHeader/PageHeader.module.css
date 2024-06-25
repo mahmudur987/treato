@@ -7,11 +7,12 @@
 }
 
 .container {
-  width: 95%;
+  width: 60%;
   height: 40px;
   display: flex;
   flex-wrap: nowrap;
   gap: 30px;
+  border-bottom: 1px solid var(--Grey-Grey-40, #ebedf0);
 }
 .container h3 {
   color: var(--Grey-Grey-05, #2e3032);
@@ -23,8 +24,15 @@
   cursor: pointer;
   padding: 0;
 }
+
+@media only screen and (max-width: 1000px) {
+  .container {
+    width: 95%;
+  }
+}
 @media only screen and (max-width: 700px) {
   .container {
+    width: 95%;
     padding: 10px;
     justify-content: space-between;
     gap: 5px;

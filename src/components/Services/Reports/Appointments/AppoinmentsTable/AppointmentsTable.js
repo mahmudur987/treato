@@ -1,50 +1,35 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import topImg from "../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./AppointmentsTable.module.css";
 import { MdOutlineFileDownload } from "react-icons/md";
 import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
+import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
 const tableHeading = [
   {
     heading: "Txn ID.",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Date",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Client Name",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Service(s)",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Employee",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Status ",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
   {
     heading: "Amount ",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
 
   {
     heading: "Type",
-    topImg: topImg,
-    bottomImg: bottomImg,
   },
 
   {
@@ -52,6 +37,7 @@ const tableHeading = [
   },
 ];
 const AppointmentsTable = ({ data }) => {
+  const { selectedItems, setSelectedItems } = useContext(reportContext);
   const tableData = data?.data?.map((x) => {
     const data = {
       txnId: x?.transactionId ?? "N/A",
@@ -65,6 +51,26 @@ const AppointmentsTable = ({ data }) => {
     };
     return data;
   });
+
+  // Function to toggle selection of a single item
+  const toggleSelection = (itemId) => {
+    if (selectedItems.includes(itemId)) {
+      setSelectedItems(selectedItems.filter((id) => id !== itemId));
+    } else {
+      setSelectedItems([...selectedItems, itemId]);
+    }
+  };
+
+  // Function to select all items
+  const selectAll = () => {
+    if (selectedItems.length === tableData.length) {
+      setSelectedItems([]);
+    } else {
+      const allIds = tableData.map((item) => item.txnId);
+      setSelectedItems(allIds);
+    }
+  };
+
   if (data?.data?.length === 0) {
     return <NoDataDisplay />;
   }
@@ -76,7 +82,12 @@ const AppointmentsTable = ({ data }) => {
             <tr>
               <td>
                 <div className={sty.checkbox}>
-                  <input type="checkbox" id="" />
+                  <input
+                    onClick={() => selectAll()}
+                    type="checkbox"
+                    id=""
+                    checked={selectedItems.length === tableData.length}
+                  />
                 </div>
               </td>
               {tableHeading?.map((item, i) => (
@@ -103,7 +114,12 @@ const AppointmentsTable = ({ data }) => {
                 <tr style={{ borderBottom: "1px solid #ebedf0" }}>
                   <td>
                     <div className={sty.checkbox}>
-                      <input type="checkbox" id="" />
+                      <input
+                        onClick={() => toggleSelection(x.txnId)}
+                        type="checkbox"
+                        id=""
+                        checked={selectedItems.includes(x.txnId)}
+                      />
                     </div>
                   </td>
                   <td>{x.txnId}</td>
