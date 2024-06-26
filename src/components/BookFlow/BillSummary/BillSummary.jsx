@@ -175,13 +175,13 @@ export default function BillSummary({
       };
       console.log(billInfo);
 
-      bookSalonAppointment(billInfo).then((res) => {
-        let response = res?.res?.data;
-        if (response?.success) {
-          setOrderResponse(response?.order);
-          initPayment(response?.order);
-        }
-      });
+      // bookSalonAppointment(billInfo).then((res) => {
+      //   let response = res?.res?.data;
+      //   if (response?.success) {
+      //     setOrderResponse(response?.order);
+      //     initPayment(response?.order);
+      //   }
+      // });
     } catch (error) {
       console.log(error);
     }
@@ -189,20 +189,6 @@ export default function BillSummary({
 
   // -------------------
   const handleOfflinePayment = () => {
-    // const dddata = {
-    //   user_id: "658c2ce2ddd3c899aae60ecb",
-    //   salons_id: "6508592af8131fc40b478125",
-    //   service_id: ["654a2f23e84ca4f640607d74", "654a2f23e84ca4f640607d6b"],
-    //   final_amount: 1500,
-    //   time: "10:00",
-    //   payment_mode: "on-site",
-    //   noPreference: "noPreference",
-    //   selectedStylistId: "654b5b24572df2dbec716625",
-    //   dateforService: "2024-06-25",
-    //   userData: { phone: "+917984261070" },
-    //   servicetimetaken: ["1 hr 15 mins", "1 hr"],
-    // };
-
     let billInfo = {
       user_id: userDetails?._id,
       salons_id: id,
@@ -213,15 +199,15 @@ export default function BillSummary({
           : TotalServiceAmount
       }`,
       time: selectedServiceSlot,
-      servicetimetaken: ["1 hr 15 mins", "1 hr"],
+      servicetimetaken: selectedServices?.map((x) => x.service_time),
       selectedStylistId: stepTwoDetails?.workerData[0]?._id
         ? stepTwoDetails?.workerData[0]?._id
         : "",
       dateforService: serviceDetails?.serviceDate,
-      seletedSlot: selectedServiceSlot,
+
       userData: visitorDetails?.contact,
       payment_mode: "on-site",
-      serviceDetails: selectedServices,
+      // serviceDetails: selectedServices,
       noPreference: "noPreference",
     };
     console.log(billInfo);
@@ -232,6 +218,8 @@ export default function BillSummary({
 
       if (response?.success) {
         setOrderResponse(response?.order);
+        toast.success("Appointment Booked successfully");
+
         setCompletedPay(true);
       } else if (res.err) {
         toast.error(res?.err?.response?.data?.error ?? "Error");
@@ -329,6 +317,7 @@ export default function BillSummary({
             setCompletedPay={setCompletedPay}
             handleOfflinePayment={handleOfflinePayment}
             salonId={id}
+            // handlePayment={handlePayment}
           />
         ) : (
           <div className={styles.bill_sumG}>

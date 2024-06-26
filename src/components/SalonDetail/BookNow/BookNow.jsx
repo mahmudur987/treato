@@ -18,6 +18,7 @@ export default function BookNow({
   Disabled,
   displayFinalAmount,
   handleOfflinePayment,
+  handlePayment,
 }) {
   let [totalServicesPrice, setTotalServicesPrice] = useState(0);
   let navigate = useNavigate();
@@ -59,7 +60,7 @@ export default function BookNow({
         handleOfflinePayment();
         console.log("handleOfflinePayment");
       } else if (innerText === "Pay ₹") {
-        // handlePayment();
+        handlePayment();
       }
       if (setCompletedPay) {
         // setCompletedPay(true);

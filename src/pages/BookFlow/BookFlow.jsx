@@ -244,12 +244,12 @@ export default function BookFlow() {
       };
       console.log(billInfo);
 
-      bookSalonAppointment(billInfo).then((res) => {
-        let response = res?.res?.data;
-        if (response?.success) {
-          initPayment(response?.order);
-        }
-      });
+      // bookSalonAppointment(billInfo).then((res) => {
+      //   let response = res?.res?.data;
+      //   if (response?.success) {
+      //     initPayment(response?.order);
+      //   }
+      // });
     } catch (error) {
       console.log(error);
     }
