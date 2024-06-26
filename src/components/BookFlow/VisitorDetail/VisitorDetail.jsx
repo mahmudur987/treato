@@ -15,7 +15,8 @@ export default function VisitorDetail() {
   const { contact } = useSelector((state) => state?.VisitorDetails);
   const userDetails = useSelector((state) => state?.user?.user);
   const isFirstRender = useRef(null);
-
+  const [err, setErr] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState("");
   useEffect(() => {
     // Click the label when the component mounts
     isFirstRender.current.click();
@@ -44,7 +45,23 @@ export default function VisitorDetail() {
       setvisitorPhone(numericValue);
       value = numericValue.slice(0, 11);
       value = `${countryCode}${value}`;
+
+      if (value.length !== 14) {
+        setErr("write a correct phone number");
+      } else {
+        setErr("");
+      }
     }
+    if (field === "email") {
+      const isValid = /\S+@\S+\.\S+/.test(value);
+
+      if (!isValid) {
+        setIsValidEmail("write a correct email");
+      } else {
+        setIsValidEmail("");
+      }
+    }
+
     dispatch(
       updateVisitorContent({
         guest,
@@ -55,6 +72,7 @@ export default function VisitorDetail() {
       })
     );
   };
+
   return (
     <div className={styles.visitor_detailMain}>
       <div className={styles.visitor_detailA}>
@@ -97,6 +115,7 @@ export default function VisitorDetail() {
         </div>
         <div className={styles.visitor_detailAC}>
           <div className={styles.visitor_detailACA}>Phone</div>
+          {err && <p style={{ color: "red" }}>{err}</p>}
           <div
             className={`${styles.visitor_detailACB} ${styles.visitor_detailAC_opt}`}
           >
@@ -112,6 +131,7 @@ export default function VisitorDetail() {
                 <option value="+66">+66</option>
               </select>
               <div className={styles.phone_inputBorder}></div>
+
               <input
                 value={visitorPhone}
                 type="tel"
@@ -126,6 +146,8 @@ export default function VisitorDetail() {
         </div>
         <div className={styles.visitor_detailAC}>
           <div className={styles.visitor_detailACA}>Email</div>
+          {isValidEmail && <p style={{ color: "red" }}>{isValidEmail}</p>}
+
           <div className={styles.visitor_detailACB}>
             <BasicInput
               Type={"email"}

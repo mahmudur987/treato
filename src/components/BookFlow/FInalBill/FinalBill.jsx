@@ -48,7 +48,7 @@ export default function FinalBill({ setShowPay, showPay, setPaySelected }) {
           </label>
         </div>
       </div>
-      {showPay && <PaymentMethods />}
+      {/* {showPay && <PaymentMethods />} */}
     </div>
   );
 }

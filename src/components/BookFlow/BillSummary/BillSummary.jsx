@@ -213,7 +213,7 @@ export default function BillSummary({
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
 
-      console.log(res.err);
+      console.log(res);
 
       if (response?.success) {
         setOrderResponse(response?.order);

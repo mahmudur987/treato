@@ -434,6 +434,7 @@ export default function BookFlow() {
                   : activeBookFlowBA === 3
                   ? contact.name === "" ||
                     contact.phone === "" ||
+                    contact.phone.length !== 14 ||
                     contact.email === ""
                     ? true
                     : false
