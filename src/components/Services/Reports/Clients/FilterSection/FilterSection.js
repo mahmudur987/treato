@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./FilterSection.module.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
 import CustomSelect4 from "../../../../Select/CustomeSelect4/CustomSelect4";
+import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
+import { toast } from "react-toastify";
 
 const Options = ["Male", "Female", "All"];
 const FilterSection = ({ setClientsQuery }) => {
+  const { selectedClients, setSelectedClients } = useContext(reportContext);
   const [selectedGender, setSelectedGender] = useState("Gender");
   const [searchText, setSearchText] = useState("");
 
@@ -21,7 +24,13 @@ const FilterSection = ({ setClientsQuery }) => {
     }`;
 
     setClientsQuery(querystring);
-  }, [selectedGender, searchText]);
+  }, [selectedGender, searchText, setClientsQuery]);
+
+  const handleDownload = () => {
+    console.log(selectedClients);
+    toast.error("This features is under maintenance");
+  };
+
   return (
     <div className={styles.mainContainerWrapper}>
       <div className={styles.mainContainer}>
@@ -44,7 +53,9 @@ const FilterSection = ({ setClientsQuery }) => {
           />
 
           <div className={styles.btnWrapper}>
-            <button>Download</button>
+            <button type="button" onClick={handleDownload}>
+              Download
+            </button>
             <span>
               <MdOutlineFileDownload />
             </span>

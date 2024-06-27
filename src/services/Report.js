@@ -20,7 +20,7 @@ export const useAppointmentsReport = (query) => {
 };
 export const useClientsReport = (query) => {
   let url = `reports/clientsReport?${query}`;
-  // console.log(url);
+  console.log(url);
   const jwtToken = localStorage.getItem("jwtToken");
   const headers = {
     token: jwtToken,

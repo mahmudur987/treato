@@ -20,7 +20,7 @@ export const reportContext = createContext({});
 
 const Reports = () => {
   const [selectedItems, setSelectedItems] = useState([]);
-
+  const [selectedClients, setSelectedClients] = useState([]);
   const [pageDetails, setPageDetails] = useState("Appointments");
   const [appointmentQuery, setAppointmentsQuery] = useState("");
   const [clientsQuery, setClientsQuery] = useState("");
@@ -38,8 +38,13 @@ const Reports = () => {
     error: clientsError,
   } = useClientsReport(clientsQuery);
 
-  const value = { selectedItems, setSelectedItems };
-
+  const value = {
+    selectedItems,
+    setSelectedItems,
+    selectedClients,
+    setSelectedClients,
+  };
+  console.log(clients);
   return (
     <reportContext.Provider value={value}>
       <main className={styles.mainContainer}>

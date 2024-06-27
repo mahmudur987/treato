@@ -81,7 +81,7 @@ const FilterSection = ({ setAppointmentsQuery }) => {
             value={selectedBookingType}
           />
           <div className={styles.btnWrapper}>
-            <button>
+            <button type="button" onClick={handleDownLoad}>
               <span>Download</span>
               <span>
                 <MdOutlineFileDownload />

@@ -3,6 +3,8 @@ import styles from "./SingleReview.module.css";
 import { FaStar } from "react-icons/fa";
 import profileImage from "../../../../../../../assets/images/TeamDetails/ProfileImg.png";
 import DeleteReviewModal from "../../../../../../_modals/AdminPage/DeleteReview/DeleteReview";
+
+import { useParams } from "react-router-dom";
 const SingleReview = ({ data }) => {
   const [count, setCount] = useState(120);
   const [showModal, setShowModal] = useState(false);

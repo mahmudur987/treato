@@ -19,22 +19,22 @@ export default function SalonMainPage({ addServices, addedServices }) {
     <div className={styles.salon_main}>
       <div className={styles.salon_options}>
         <ul>
-          <a onClick={() => updateActiveSalon(1)}>
+          <a href="#" onClick={() => updateActiveSalon(1)}>
             <li className={activeSalon === 1 ? styles.active_salon_option : ""}>
               Services
             </li>
           </a>
-          <a onClick={() => updateActiveSalon(2)}>
+          <a href="#" onClick={() => updateActiveSalon(2)}>
             <li className={activeSalon === 2 ? styles.active_salon_option : ""}>
               Bookings
             </li>
           </a>
-          <a onClick={() => updateActiveSalon(3)}>
+          <a href="#" onClick={() => updateActiveSalon(3)}>
             <li className={activeSalon === 3 ? styles.active_salon_option : ""}>
               Billing and payment
             </li>
           </a>
-          <a onClick={() => updateActiveSalon(4)}>
+          <a href="#" onClick={() => updateActiveSalon(4)}>
             <li className={activeSalon === 4 ? styles.active_salon_option : ""}>
               Reviews
             </li>

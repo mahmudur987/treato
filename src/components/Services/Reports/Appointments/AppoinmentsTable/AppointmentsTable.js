@@ -5,6 +5,7 @@ import sty from "./AppointmentsTable.module.css";
 import { MdOutlineFileDownload } from "react-icons/md";
 import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
+import { toast } from "react-toastify";
 const tableHeading = [
   {
     heading: "Txn ID.",
@@ -70,7 +71,9 @@ const AppointmentsTable = ({ data }) => {
       setSelectedItems(allIds);
     }
   };
-
+  const handleDownload = () => {
+    toast.error("This features is under maintenance");
+  };
   if (data?.data?.length === 0) {
     return <NoDataDisplay />;
   }
@@ -83,9 +86,9 @@ const AppointmentsTable = ({ data }) => {
               <td>
                 <div className={sty.checkbox}>
                   <input
-                    onClick={() => selectAll()}
                     type="checkbox"
                     id=""
+                    onClick={() => selectAll()}
                     checked={selectedItems.length === tableData.length}
                   />
                 </div>
@@ -130,7 +133,7 @@ const AppointmentsTable = ({ data }) => {
                   <td>{x.status}</td>
                   <td>{x.amount}</td>
                   <td>{x.type}</td>
-                  <td style={{ fontSize: "18px" }}>
+                  <td style={{ fontSize: "18px" }} onClick={handleDownload}>
                     <MdOutlineFileDownload />
                   </td>
                 </tr>
