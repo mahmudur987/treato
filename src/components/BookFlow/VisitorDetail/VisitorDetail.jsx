@@ -21,7 +21,7 @@ export default function VisitorDetail() {
     // Click the label when the component mounts
     isFirstRender.current.click();
   }, []);
-
+  // console.log(userDetails);
   const handleRadioChange = (value) => {
     setGuest(value);
     dispatch(
@@ -38,7 +38,7 @@ export default function VisitorDetail() {
   };
 
   const handleInputChange = (field, value) => {
-    // console.log(value);
+    console.log(value);
 
     if (field === "phone") {
       const numericValue = value.replace(/\D/g, "");
@@ -46,7 +46,7 @@ export default function VisitorDetail() {
       value = numericValue.slice(0, 11);
       value = `${countryCode}${value}`;
 
-      if (value.length !== 14) {
+      if (value.length !== 13) {
         setErr("write a correct phone number");
       } else {
         setErr("");
@@ -109,6 +109,7 @@ export default function VisitorDetail() {
             <BasicInput
               Type={"text"}
               PlaceHolder={"Shreyas Awasthi"}
+              VALUE={contact.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
             />
           </div>
@@ -126,14 +127,29 @@ export default function VisitorDetail() {
                 className={styles.phone_select}
                 onChange={(e) => setcountryCode(e.target.value)}
               >
-                <option value="+91">+91</option>
-                <option value="+88">+88</option>
-                <option value="+66">+66</option>
+                <option
+                  selected={contact.phone.slice(0, 3) === "+91"}
+                  value="+91"
+                >
+                  +91
+                </option>
+                <option
+                  selected={contact.phone.slice(0, 3) === "+88"}
+                  value="+88"
+                >
+                  +88
+                </option>
+                <option
+                  selected={contact.phone.slice(0, 3) === "+66"}
+                  value="+66"
+                >
+                  +66
+                </option>
               </select>
               <div className={styles.phone_inputBorder}></div>
 
               <input
-                value={visitorPhone}
+                value={contact.phone.slice(3, 14)}
                 type="tel"
                 placeholder={"Enter your phone number"}
                 maxLength={11}
@@ -150,6 +166,7 @@ export default function VisitorDetail() {
 
           <div className={styles.visitor_detailACB}>
             <BasicInput
+              VALUE={contact.email}
               Type={"email"}
               PlaceHolder={"shreya2716@gmail.com"}
               onChange={(e) => handleInputChange("email", e.target.value)}
@@ -161,6 +178,7 @@ export default function VisitorDetail() {
           <div className={styles.visitor_detailACA}>Preferences (optional)</div>
           <div className={styles.visitor_detailACB}>
             <TextArea
+              VALUE={contact.preferences}
               PlaceHolder={"Anything specific you want to share"}
               onChange={(e) => handleInputChange("preferences", e.target.value)}
             />

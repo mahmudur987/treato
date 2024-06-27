@@ -29,6 +29,9 @@ export default function BookNow({
   const TotalServiceAmount = useSelector(
     (state) => state?.salonServices?.Amount
   );
+  const { contact } = useSelector((state) => state?.VisitorDetails);
+
+  console.log(contact);
 
   useEffect(() => {
     if (salonServices?.length) {
@@ -41,15 +44,22 @@ export default function BookNow({
   }, [salonServices]);
   let proceedPayment = () => {
     console.log("proceedPayment");
+
+    const isValid = /\S+@\S+\.\S+/.test(contact.email);
+
     if (Disabled) {
       if (activeBookFlowBA === 1) {
         toast.error("Please select your required services ");
       } else if (activeBookFlowBA === 2) {
         toast.error("Please select a stylist, date, and time slot to proceed.");
       } else {
-        toast.error("Please fill all required details!");
+        toast.error("Please fill all required details perfectly!");
       }
       console.log(activeBookFlowBA);
+    } else if (contact.phone.length !== 13) {
+      toast.error("Your phone number is wrong");
+    } else if (!isValid) {
+      toast.error("Write a perfect Email");
     } else {
       if (updateActiveBookFlowBA) {
         updateActiveBookFlowBA(

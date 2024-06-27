@@ -13,7 +13,7 @@ const FilterSection = ({ setClientsQuery }) => {
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
-    let querystring = `${searchText && `email=${searchText}`}${
+    let querystring = `${searchText && `search=${searchText}`}${
       searchText && selectedGender !== "Gender" && selectedGender !== "All"
         ? "&"
         : ""

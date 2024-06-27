@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./CommissionHistory.module.css";
 import FilterSection from "./FilterSection/FilterSection";
 import Pagination from "./pagination/Pagination";
-import { useBillingHistory } from "../../../../../services/superAdmin/Dashboard";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import { generatePastMonths } from "../../Salon/SingleSalonDetails/Bookings/BookingsPart";
@@ -23,7 +22,6 @@ const CommissionHistory = () => {
   const [SearchText, setSearchText] = useState("");
 
   let query = `search=${SearchText}&bookingType=${selectedPaymentStatus.toLocaleLowerCase()}&date=${selectedPaymentDate}`;
-
   const { data, isLoading, isError, error } = useCommissionHistory(query);
 
   const [pageNumber, setPageNumber] = useState(1);

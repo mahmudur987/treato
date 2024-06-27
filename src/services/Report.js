@@ -3,14 +3,13 @@ import axiosInstance from "./axios";
 
 export const useAppointmentsReport = (query) => {
   let url = `reports/appointmentsByDays?${query}`;
-  // console.log(url);
   const jwtToken = localStorage.getItem("jwtToken");
   const headers = {
     token: jwtToken,
   };
 
   return useQuery({
-    queryKey: [query],
+    queryKey: [query, "reports/appointmentsByDays"],
     queryFn: async () => {
       const { data } = await axiosInstance.get(url, { headers });
 
@@ -20,14 +19,14 @@ export const useAppointmentsReport = (query) => {
 };
 export const useClientsReport = (query) => {
   let url = `reports/clientsReport?${query}`;
-  console.log(url);
+  // console.log(url);
   const jwtToken = localStorage.getItem("jwtToken");
   const headers = {
     token: jwtToken,
   };
 
   return useQuery({
-    queryKey: [query],
+    queryKey: [query, "reports/clientsReport"],
     queryFn: async () => {
       const { data } = await axiosInstance.get(url, { headers });
 

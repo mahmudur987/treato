@@ -44,7 +44,7 @@ const Reports = () => {
     selectedClients,
     setSelectedClients,
   };
-  console.log(clients);
+
   return (
     <reportContext.Provider value={value}>
       <main className={styles.mainContainer}>

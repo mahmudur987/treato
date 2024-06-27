@@ -26,14 +26,11 @@ export const useCommissionStatistics = (days) => {
 
 export const useCommissionHistory = (x) => {
   let url = `super/getCommissionHistory?${x}`;
-
-  console.log(url);
-
   const headers = {
     token: localStorage.getItem("jwtToken"),
   };
   return useQuery({
-    queryKey: ["getCommissionHistory"],
+    queryKey: ["getCommissionHistory", url],
     queryFn: async () => {
       const { data } = await axiosInstance.get(url, { headers });
 

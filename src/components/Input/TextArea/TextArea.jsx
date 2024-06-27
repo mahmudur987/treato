@@ -1,6 +1,6 @@
 import styles from "./TextArea.module.css";
 
-export default function TextArea({ PlaceHolder, onChange }) {
+export default function TextArea({ PlaceHolder, onChange, VALUE }) {
   return (
     <textarea
       name=""
@@ -8,6 +8,7 @@ export default function TextArea({ PlaceHolder, onChange }) {
       placeholder={PlaceHolder ? PlaceHolder : ""}
       className={styles.text_area}
       onChange={onChange}
+      value={VALUE}
     ></textarea>
   );
 }
