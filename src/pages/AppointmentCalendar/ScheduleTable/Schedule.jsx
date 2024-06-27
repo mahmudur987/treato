@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import style from './schedule.module.css';
 import { toast, Bounce } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import {
   cancelAppointment,
   completeAppointment,
@@ -61,7 +62,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
       ...prevOpenMenus,
       [id]: !prevOpenMenus[id]
     }));
-    console.log('Toggled menu:', openMenus); // Debugging line
+    console.log('Toggled menu:', openMenus,id); // Debugging line
   };
 
   const nextProfile = () => {
@@ -125,6 +126,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
   };
 
   const cancelation = async (id) => {
+    console.log(id)
     const { res, err } = await cancelAppointment(id);
     if (res) {
       toast.success("Appointment Cancelled", toastSetting);
@@ -180,7 +182,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
 
     const date = new Date();
     date.setHours(hours, minutes, 0, 0);
-    
+
     return date;
   };
 
@@ -216,7 +218,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
           const exactTime = generateNextServiceStartTime(initialTime, totalMinutes);
           const slotIndex = calculateSlotIndex(exactTime);
           if (slotIndex >= 0 && slotIndex < slots.length) {
-            slots[slotIndex].push({ ...service, clientName: appointment.ClientName, status: appointment.status, exactTime });
+            slots[slotIndex].push({ ...service, appid:appointment._id, clientName: appointment.ClientName, status: appointment.status, exactTime });
           }
           initialTime = exactTime;
         });
@@ -228,11 +230,11 @@ const ScheduleTable = ({ profiles, getdata }) => {
 
   const slots = createSlots();
 
-  
 
-  
 
-    
+
+
+
   // const isServiceInTimeSlot = (serviceStartTime, serviceDuration, slotStartTime) => {
   //   const serviceStart = parseTimeStringToDate(serviceStartTime);
   //   const serviceEnd = new Date(serviceStart.getTime() + serviceDuration * 60000); // Convert duration to milliseconds
@@ -266,86 +268,89 @@ const ScheduleTable = ({ profiles, getdata }) => {
                 <p>{profile.stylistName}</p>
               </div>
               <div className={style.slides}>
-                
-                      <React.Fragment >
-                      {slots && slots.map((slot, index) => (
-          <div key={index} className={style.slot}>
-            {slot.map((service, serviceIndex) => {
-              if (service.isEmpty) {
-                return (
-                  <div
-                    key={serviceIndex}
-                    className={`${style.appointmentBox3} ${condition ? style.dBox : style.cBox}`}
-                    style={{ minHeight: '134px'}}
-                  >
-                    <p className={style.addAppointment} >+ Add Appointments</p>
-                  </div>
-                );
-              } else {
-                const { textcolor, background } = changeStatus(service.status);
-                const { totalHeight } = convertTime(service.time_takenby_service);
-                return (
-                  <div
-                    key={serviceIndex}
-                    className={`${style.appointmentBox} ${condition ? style.dBox : style.cBox}`}
-                    style={{ minHeight: `${totalHeight}px`, backgroundColor: `${service.color}` }}
-                  >
-                    <div className={style.clientDetailsBox}>
-                      <div>
-                        <p className={style.timeDurations}>{service.time_takenby_service} ({service.exactTime})</p>
-                        <p className={style.serviceNames}>{service.service_name}</p>
-                        <p className={style.clientNames}>{service.clientName}</p>
-                      </div>
-                      <svg
-                        onClick={() => toggleMenu(service.unique_id)}
-                        className="w-6 h-6 text-gray-800 dark:text-white"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M12 6h.01M12 12h.01M12 18h.01" />
-                      </svg>
-                      {openMenus[service.unique_id] && (
-                        <div
-                          className={`${style.dropdowncontent} ${condition ? style.dropBox : style.cropBox}`}
-                          key={service.unique_id}
-                        >
-                          <div className={style.inputContainer}>
-                            <input
-                              className={style.otpBox}
-                              type="number"
-                              placeholder='OTP'
-                              value={otp}
-                              onChange={handleOtpChange}
-                              onKeyDown={(e) => handleEnter(e, service.unique_id)}
-                            />
-                          </div>
-                          <div className={style.editButton}>Edit Details</div>
-                          <div className={style.started} onClick={() => startAppointment(service.unique_id)}>Started</div>
-                          <div className={style.started} onClick={() => noShowAppointment(service.unique_id)}>No-Show</div>
-                          <div className={style.started} onClick={() => completeApp(service.unique_id)}>Completed</div>
-                          <div className={style.started} onClick={() => cancelation(service.unique_id)}>Cancel Appointment</div>
-                        </div>
-                      )}
+
+                <React.Fragment >
+                  {slots && slots.map((slot, index) => (
+                    <div key={index} className={style.slot}>
+                      {slot.map((service, serviceIndex) => {
+                        if (service.isEmpty) {
+                          return (
+                            <Link to="/partner/dashboard/addappoinment">
+                              <div
+                                key={serviceIndex}
+                                className={`${style.appointmentBox3} ${condition ? style.dBox : style.cBox}`}
+                                style={{ minHeight: '134px' }}
+                              >
+                                <p className={style.addAppointment} >+ Add Appointments</p>
+                              </div>
+                            </Link>
+                          );
+                        } else {
+                          const { textcolor, background } = changeStatus(service.status);
+                          const { totalHeight } = convertTime(service.time_takenby_service);
+                          console.log(service)
+                          return (
+                            <div
+                              key={serviceIndex}
+                              className={`${style.appointmentBox} ${condition ? style.dBox : style.cBox}`}
+                              style={{ minHeight: `${totalHeight}px`, backgroundColor: `${service.color}` }}
+                            >
+                              <div className={style.clientDetailsBox}>
+                                <div>
+                                  <p className={style.timeDurations}>{service.time_takenby_service} ({service.exactTime})</p>
+                                  <p className={style.serviceNames}>{service.service_name}</p>
+                                  <p className={style.clientNames}>{service.clientName}</p>
+                                </div>
+                                <svg
+                                  onClick={() => toggleMenu(service.unique_id)}
+                                  className="w-6 h-6 text-gray-800 dark:text-white"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M12 6h.01M12 12h.01M12 18h.01" />
+                                </svg>
+                                {openMenus[service.unique_id] && (
+                                  <div
+                                    className={`${style.dropdowncontent} ${condition ? style.dropBox : style.cropBox}`}
+                                    key={service.unique_id}
+                                  >
+                                    <div className={style.inputContainer}>
+                                      <input
+                                        className={style.otpBox}
+                                        type="number"
+                                        placeholder='OTP'
+                                        value={otp}
+                                        onChange={handleOtpChange}
+                                        onKeyDown={(e) => handleEnter(e, service.unique_id)}
+                                      />
+                                    </div>
+                                    <div className={style.editButton}>Edit Details</div>
+                                    <div className={style.started} onClick={() => startAppointment(service.appid)}>Started</div>
+                                    <div className={style.started} onClick={() => noShowAppointment(service.appid)}>No-Show</div>
+                                    <div className={style.started} onClick={() => completeApp(service.appid)}>Completed</div>
+                                    <div className={style.started} onClick={() => cancelation(service.appid)}>Cancel Appointment</div>
+                                  </div>
+                                )}
+                              </div>
+                              <button
+                                className={style.statusButton}
+                                style={{ color: `${textcolor}`, background: `${background}` }}
+                              >
+                                {service.status}
+                              </button>
+                            </div>
+                          );
+                        }
+                      })}
                     </div>
-                    <button
-                      className={style.statusButton}
-                      style={{ color: `${textcolor}`, background: `${background}` }}
-                    >
-                      {service.status}
-                    </button>
-                  </div>
-                );
-              }
-            })}
-          </div>
-        ))}
-                        
-                      </React.Fragment>
-                    
+                  ))}
+
+                </React.Fragment>
+
               </div>
             </div>
           ))}
