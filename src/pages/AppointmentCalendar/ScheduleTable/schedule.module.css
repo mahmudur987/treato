@@ -73,19 +73,19 @@
 }
 .appointmentBox3 {
     position: relative;
-    min-height: 134px; /* Set the minimum height */
-    border: 1px solid #ccc;  transition: background-color 0.3s ease; /* Smooth transition for background color */
+    min-height: 134px; 
+    border: 1px solid #ccc;  transition: background-color 0.3s ease; 
     overflow: hidden; 
-    color: #0D69D7;;
+    color: #0D69D7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  
-  
-  
   .addAppointment {
     position: absolute;
+    text-align: center;
     height: 24px;
     width: 164px;
-    text-align:left;
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
@@ -99,6 +99,8 @@
   
   .appointmentBox3:hover .addAppointment {
     opacity: 1; /* Show on hover */
+
+    cursor: pointer;
   }
 .cBox{
     min-width: 160px;
@@ -185,6 +187,7 @@
 }
 .dropdowncontent{
     position: absolute;
+    z-index: 10;
     margin-left: 20px;
     margin-top: 20px;
     min-height: 296px;
