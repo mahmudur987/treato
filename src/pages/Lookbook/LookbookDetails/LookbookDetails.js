@@ -65,8 +65,7 @@ const LookbookDetails = () => {
     dispatch(addService(allServices));
     navigate(`/salons/${salonId}/book`);
   };
-  console.log(serviceData);
-  console.log(lookData);
+
   return (
     <div className={styles.LookbookDetails}>
       {lookData ? (
@@ -79,7 +78,7 @@ const LookbookDetails = () => {
             <p>{lookData?.description}</p>
             <img
               src={lookData?.photo?.public_url}
-              alt="Image"
+              alt="look"
               className={styles.lookbookImage}
             />
           </div>
@@ -108,7 +107,7 @@ const LookbookDetails = () => {
               <hr className={styles.line} />
 
               <div className={styles.stylistInfo}>
-                {lookData?.stylist.map((v, i) => {
+                {lookData?.stylist?.map((v, i) => {
                   return (
                     <img
                       src={mask}
@@ -117,7 +116,7 @@ const LookbookDetails = () => {
                     />
                   );
                 })}
-                {lookData?.stylist[0] ? (
+                {lookData?.stylist?.length > 0 && lookData?.stylist[0] ? (
                   <>
                     <span> by </span> {lookData?.stylist[0]?.stylist_name} +{" "}
                     {lookData?.stylist.length - 1}

@@ -336,6 +336,7 @@ const Lookbook = () => {
           <img src={chevronDown} alt="downArrow" />
         </div>
         {loc_MoboModal && (
+          // eslint-disable-next-line react/jsx-pascal-case
           <Search_MoboModal
             handle_close={handle_closeloc_Modal}
             setShow_Modal={setloc_MoboModal}
@@ -379,6 +380,7 @@ const Lookbook = () => {
         >
           <img
             src={chevronDown}
+            alt="nothing"
             className={`${isServiceListExpanded && styles.rotate180}`}
           />
         </div>
@@ -400,7 +402,11 @@ const Lookbook = () => {
           onClick={() => setIsDropdownVisible(true)}
         />
         {isDropdownVisible && (
-          <img src={closeIcon} onClick={() => handleCloseLocationDropdown()} />
+          <img
+            src={closeIcon}
+            onClick={() => handleCloseLocationDropdown()}
+            alt="nothing"
+          />
         )}
         <button
           className={`${styles.submitLocation} ${
