@@ -26,6 +26,7 @@ import {
   bookSalonAppointment,
 } from "../../../services/Appointments";
 import { toast } from "react-toastify";
+import CartPayment from "../../../payment/Payment";
 
 export default function BillSummary({
   setShowModal,
@@ -175,13 +176,13 @@ export default function BillSummary({
       };
       console.log(billInfo);
 
-      // bookSalonAppointment(billInfo).then((res) => {
-      //   let response = res?.res?.data;
-      //   if (response?.success) {
-      //     setOrderResponse(response?.order);
-      //     initPayment(response?.order);
-      //   }
-      // });
+      bookSalonAppointment(billInfo).then((res) => {
+        let response = res?.res?.data;
+        if (response?.success) {
+          setOrderResponse(response?.order);
+          initPayment(response?.order);
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -322,6 +323,12 @@ export default function BillSummary({
         ) : (
           <div className={styles.bill_sumG}>
             <button onClick={handlePayment}>Pay ₹{amountToPay}</button>
+
+            {/* <CartPayment
+              paymentotal={amountToPay}
+              selectedaddress={userDetails?.email ?? "India"}
+              amountToPay={amountToPay}
+            /> */}
           </div>
         )}
         <div

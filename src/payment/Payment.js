@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useRazorpay from "react-razorpay";
 import { redirect } from "react-router-dom";
-import ChangePassword2 from "../../components/models/ChangePassword2";
-const CartPayment = ({ selectedaddress, paymentotal }) => {
+
+const CartPayment = ({ selectedaddress, paymentotal, amountToPay }) => {
   const [paymentDetails, setPaymentDetails] = useState({
     razorpay_order_id: "",
     razorpay_merchant_key: "",
@@ -14,12 +14,10 @@ const CartPayment = ({ selectedaddress, paymentotal }) => {
   });
   const [model, setModel] = useState(false);
   const [Razorpay] = useRazorpay();
-  const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const token = localStorage.getItem("token");
   console.log(paymentDetails);
-  useEffect(() => {
-    initializePayment();
-  }, []);
+
   const initializePayment = async () => {
     try {
       const orderBody = {
@@ -29,10 +27,10 @@ const CartPayment = ({ selectedaddress, paymentotal }) => {
       };
       console.log("this is orderbody", orderBody);
       const headers = {
-        Authorization: `Bearer ${token}`,
+        token: localStorage.getItem("jwtToken"),
       };
       const orderResponse = await axios.post(
-        `${BASE_URL}/api/productsheet/create-order/`,
+        `${BASE_URL}/create-order`,
         orderBody,
         { headers }
       );
@@ -42,6 +40,9 @@ const CartPayment = ({ selectedaddress, paymentotal }) => {
       console.error("Error initializing payment:", error);
     }
   };
+  useEffect(() => {
+    initializePayment();
+  }, []);
   const displayRazorpay = () => {
     console.log("this is payment data", paymentDetails.razorpay_merchant_key);
     if (!paymentDetails.razorpay_merchant_key) {
@@ -152,21 +153,7 @@ const CartPayment = ({ selectedaddress, paymentotal }) => {
   };
   return (
     <>
-      <div className="pt-[150px] w-[60%] h-[100%]">
-        <div className="flex justify-center items-center w-[100%] h-[100%]">
-          <div className="w-[100%]">
-            <button
-              onClick={displayRazorpay}
-              className="p-4 bg-custom-btn w-[100%] text-white"
-            >
-              Pay Now By Razorpay
-            </button>
-          </div>
-        </div>
-      </div>
-      {model && (
-        <ChangePassword2 onClose={setModel} title={"Payment Successfully"} />
-      )}
+      <button onClick={displayRazorpay}> Pay ₹ {amountToPay}</button>
     </>
   );
 };
