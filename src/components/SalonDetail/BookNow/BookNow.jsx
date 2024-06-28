@@ -44,7 +44,6 @@ export default function BookNow({
   }, [salonServices]);
   let proceedPayment = () => {
     console.log("proceedPayment");
-
     const isValid = /\S+@\S+\.\S+/.test(contact.email);
 
     if (Disabled) {
@@ -56,9 +55,9 @@ export default function BookNow({
         toast.error("Please fill all required details perfectly!");
       }
       console.log(activeBookFlowBA);
-    } else if (contact.phone.length !== 13) {
+    } else if (activeBookFlowBA === 3 && contact.phone.length !== 13) {
       toast.error("Your phone number is wrong");
-    } else if (!isValid) {
+    } else if (!isValid && activeBookFlowBA === 3) {
       toast.error("Write a perfect Email");
     } else {
       if (updateActiveBookFlowBA) {

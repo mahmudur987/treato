@@ -164,23 +164,27 @@ export default function BillSummary({
             ? TotalServiceAmount - selectedOffer?.amount_for_discount
             : TotalServiceAmount
         }`,
-        time: "",
+        time: selectedServiceSlot,
+        servicetimetaken: selectedServices?.map((x) => x.service_time),
         selectedStylistId: stepTwoDetails?.workerData[0]?._id
           ? stepTwoDetails?.workerData[0]?._id
           : "",
         dateforService: serviceDetails?.serviceDate,
-        seletedSlot: selectedServiceSlot,
+
         userData: visitorDetails?.contact,
-        payment_mode: "online",
-        serviceDetails: selectedServices,
+        payment_mode: "on-site",
+        // serviceDetails: selectedServices,
+        noPreference: "noPreference",
       };
       console.log(billInfo);
 
       bookSalonAppointment(billInfo).then((res) => {
+        console.log(res);
+
         let response = res?.res?.data;
         if (response?.success) {
-          setOrderResponse(response?.order);
-          initPayment(response?.order);
+          // setOrderResponse(response?.order);
+          // initPayment(response?.order);
         }
       });
     } catch (error) {
