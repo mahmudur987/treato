@@ -481,9 +481,11 @@ const Lookbook = () => {
               />
             ))}
       </Masonry>
-      <button className={styles.showMore} onClick={handleShowMore}>
-        See more results
-      </button>
+      {allLookbook?.length > itemsToShow && (
+        <button className={styles.showMore} onClick={handleShowMore}>
+          See more results
+        </button>
+      )}
       {/* {itemsToShow < filteredServiceData?.length && (
         <button className={styles.showMore} onClick={handleShowMore}>
           See more results
