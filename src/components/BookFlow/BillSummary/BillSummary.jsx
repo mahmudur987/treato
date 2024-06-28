@@ -116,9 +116,9 @@ export default function BillSummary({
 
   // razorpay gateway
 
-  const initPayment = (order) => {
+  const initPayment = (order, id) => {
     const options = {
-      key: process.env.REACT_APP_Razorpay_Key,
+      key: id,
       amount: `${amountToPay}`,
       currency: "INR",
       name: "Treato",
@@ -172,23 +172,23 @@ export default function BillSummary({
         dateforService: serviceDetails?.serviceDate,
 
         userData: visitorDetails?.contact,
-        payment_mode: "on-site",
+        payment_mode: "online",
         // serviceDetails: selectedServices,
         noPreference: "noPreference",
       };
-      console.log(billInfo);
 
       bookSalonAppointment(billInfo).then((res) => {
-        console.log(res);
-
         let response = res?.res?.data;
+
+        console.log(response);
         if (response?.success) {
-          // setOrderResponse(response?.order);
-          // initPayment(response?.order);
+          setOrderResponse(response?.order);
+          initPayment(response?.order, response?.razorpayid);
         }
       });
     } catch (error) {
       console.log(error);
+      toast.error(error?.response?.data?.error ?? "Error");
     }
   };
 

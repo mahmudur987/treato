@@ -31,8 +31,6 @@ export default function BookNow({
   );
   const { contact } = useSelector((state) => state?.VisitorDetails);
 
-  console.log(contact);
-
   useEffect(() => {
     if (salonServices?.length) {
       let prices = salonServices.map((v, i) => {
