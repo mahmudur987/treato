@@ -77,12 +77,27 @@ export default function RecommendedSection({ mainData }) {
     async function fetchAllServices() {
       try {
         const { res, err } = await getAllServices();
-        console.log(res);
-        console.log(err);
+
         if (res) {
           // If the request was successful, update the state with the data
 
-          setallServices(res?.data?.data); // Assuming the response data contains a "data" property
+          const uniqueDataArray = res?.data?.data.reduce(
+            (uniqueArray, currentItem) => {
+              // Check if there's already an object with the same 'name' in uniqueArray
+              if (
+                !uniqueArray.some(
+                  (item) => item.service_name === currentItem.service_name
+                )
+              ) {
+                // If not found, add this object to uniqueArray
+                uniqueArray.push(currentItem);
+              }
+              return uniqueArray;
+            },
+            []
+          );
+
+          setallServices(uniqueDataArray); // Assuming the response data contains a "data" property
         } else {
           // If there was an error, handle it and set the error state
           setError(err);
@@ -116,7 +131,7 @@ export default function RecommendedSection({ mainData }) {
           {allServices.map((service, index) => (
             <a key={index} className={styles.rmdItem}>
               <img
-                src={service?.service_img?.public_url}
+                src={service?.service_img?.public_url ?? fingernail}
                 alt={service.service_name[0]}
               />
               <h4>{service.service_name}</h4>

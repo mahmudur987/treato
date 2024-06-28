@@ -198,6 +198,8 @@ export const getAvailableSlots = async (data) => {
         token: jwtToken,
       },
     });
+
+    console.log("slots response", res);
     return { res: res, err: null };
   } catch (error) {
     return { err: error, res: null };

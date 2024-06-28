@@ -272,7 +272,23 @@ const Lookbook = () => {
         const { res, err } = await getAllServices();
 
         if (res) {
-          setallServices(res?.data?.data);
+          const uniqueDataArray = res?.data?.data.reduce(
+            (uniqueArray, currentItem) => {
+              // Check if there's already an object with the same 'name' in uniqueArray
+              if (
+                !uniqueArray.some(
+                  (item) => item.service_name === currentItem.service_name
+                )
+              ) {
+                // If not found, add this object to uniqueArray
+                uniqueArray.push(currentItem);
+              }
+              return uniqueArray;
+            },
+            []
+          );
+
+          setallServices(uniqueDataArray);
         }
       } catch (error) {
         console.log(error);
