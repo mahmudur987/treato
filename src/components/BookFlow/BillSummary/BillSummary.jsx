@@ -180,15 +180,17 @@ export default function BillSummary({
       bookSalonAppointment(billInfo).then((res) => {
         let response = res?.res?.data;
 
-        console.log(response);
+        console.log(res);
         if (response?.success) {
           setOrderResponse(response?.order);
           initPayment(response?.order, response?.razorpayid);
+        } else if (res.err) {
+          toast.error(res?.err?.response?.data?.error ?? "Error");
         }
       });
     } catch (error) {
       console.log(error);
-      toast.error(error?.response?.data?.error ?? "Error");
+      toast.error(error?.message ?? "Error");
     }
   };
 
