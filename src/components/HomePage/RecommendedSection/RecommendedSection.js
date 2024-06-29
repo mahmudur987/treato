@@ -16,10 +16,9 @@ import Title from "../../Typography/Title/Title";
 import { getAllServices } from "../../../services/Services";
 
 export default function RecommendedSection({ mainData }) {
-  const [allServices, setallServices] = useState([]);
+  const [allServices, setAllServices] = useState([]);
   const [error, setError] = useState(null);
-  const rmdBoxRef = useRef(null);
-  const trSalonBoxRef = useRef(null);
+
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -39,20 +38,20 @@ export default function RecommendedSection({ mainData }) {
     },
   };
   //  service objects
-  const services = [
-    { icon: hair, title: "Hair" },
-    { icon: hairRemoval, title: "Hair removal" },
-    { icon: fingernail, title: "Nail care" },
-    { icon: skincare, title: "Facial & skincare" },
-    { icon: Makeup, title: "Makeup" },
-    { icon: massage, title: "massage" },
-    { icon: spa, title: "spa" },
-    { icon: skincare, title: "Facial & skincare" },
-    { icon: hair, title: "Hair" },
-    { icon: hairRemoval, title: "Hair removal" },
-    { icon: fingernail, title: "Nail care" },
-    { icon: skincare, title: "Facial & skincare" },
-  ];
+  // const services = [
+  //   { icon: hair, title: "Hair" },
+  //   { icon: hairRemoval, title: "Hair removal" },
+  //   { icon: fingernail, title: "Nail care" },
+  //   { icon: skincare, title: "Facial & skincare" },
+  //   { icon: Makeup, title: "Makeup" },
+  //   { icon: massage, title: "massage" },
+  //   { icon: spa, title: "spa" },
+  //   { icon: skincare, title: "Facial & skincare" },
+  //   { icon: hair, title: "Hair" },
+  //   { icon: hairRemoval, title: "Hair removal" },
+  //   { icon: fingernail, title: "Nail care" },
+  //   { icon: skincare, title: "Facial & skincare" },
+  // ];
 
   const CustomDot = ({ onMove, index, onClick, active }) => {
     // onMove means if dragging or swiping in progress.
@@ -97,7 +96,7 @@ export default function RecommendedSection({ mainData }) {
             []
           );
 
-          setallServices(uniqueDataArray); // Assuming the response data contains a "data" property
+          setAllServices(uniqueDataArray); // Assuming the response data contains a "data" property
         } else {
           // If there was an error, handle it and set the error state
           setError(err);
