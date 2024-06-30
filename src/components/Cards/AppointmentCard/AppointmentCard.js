@@ -28,7 +28,7 @@ const AppointmentCard = ({ salon, cardType }) => {
 
   return (
     <div className={styles.cardWrapper}>
-      {salon.payment_mode === "on-site" && (
+      {salon.payment_mode === "on-site" && cardType === "Upcoming" && (
         <div className={styles.shareOTPWrapper}>
           <h3>{salon?.otp}</h3>
           <p>
