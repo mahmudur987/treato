@@ -8,13 +8,19 @@ import { toast } from "react-toastify";
 
 const Options = ["Male", "Female", "All"];
 const FilterSection = ({ setClientsQuery }) => {
-  const { selectedClients, setSelectedClients } = useContext(reportContext);
+  const { selectedClients, commonSearch } = useContext(reportContext);
   const [selectedGender, setSelectedGender] = useState("Gender");
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     let querystring = `${searchText && `search=${searchText}`}${
+      commonSearch && `search=${commonSearch}`
+    }${
       searchText && selectedGender !== "Gender" && selectedGender !== "All"
+        ? "&"
+        : ""
+    }${
+      commonSearch && selectedGender !== "Gender" && selectedGender !== "All"
         ? "&"
         : ""
     }${
@@ -22,9 +28,9 @@ const FilterSection = ({ setClientsQuery }) => {
         ? `gender=${selectedGender.toLowerCase()}`
         : ""
     }`;
-
+    console.log(querystring);
     setClientsQuery(querystring);
-  }, [selectedGender, searchText, setClientsQuery]);
+  }, [selectedGender, searchText, setClientsQuery, commonSearch]);
 
   const handleDownload = () => {
     console.log(selectedClients);

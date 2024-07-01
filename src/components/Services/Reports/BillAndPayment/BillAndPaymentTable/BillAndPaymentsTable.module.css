@@ -5,10 +5,7 @@
   margin-right: 20px;
 }
 .tableContainer {
-  width: 98%;
-  padding-right: 2%;
-  margin: 0 auto;
-  overflow-x: auto;
+  width: 100%;
 }
 .styledTable {
   max-width: 1300px;
@@ -62,11 +59,12 @@
 }
 @media only screen and (max-width: 700px) {
   .mainContainer {
-    margin: 10px;
+    max-width: 96vw;
+    margin: 0 auto;
+    overflow-x: auto;
   }
 
   .tableContainer {
-    width: 800px;
-    overflow-x: auto;
+    min-width: 800px;
   }
 }

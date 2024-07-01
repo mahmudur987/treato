@@ -19,6 +19,9 @@ import NoDataDisplay from "../../../components/NodataToDisplay/NoDataDisplay";
 export const reportContext = createContext({});
 
 const Reports = () => {
+  const [isSearch, setIsSearch] = useState(true);
+  const [commonSearch, setCommonSearch] = useState("");
+
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedClients, setSelectedClients] = useState([]);
   const [pageDetails, setPageDetails] = useState("Appointments");
@@ -43,6 +46,7 @@ const Reports = () => {
     setSelectedItems,
     selectedClients,
     setSelectedClients,
+    commonSearch,
   };
 
   return (
@@ -52,8 +56,16 @@ const Reports = () => {
           <span>
             <IoArrowBack />
           </span>
-          <h3>Reports</h3>
-          <p>
+          {!isSearch && <h3>Reports</h3>}
+          {isSearch && (
+            <input
+              className={styles.input}
+              type="text"
+              onChange={(e) => setCommonSearch(e.target.value)}
+            />
+          )}
+
+          <p onClick={() => setIsSearch((pre) => !pre)}>
             <IoSearchOutline />
           </p>
         </div>
@@ -94,6 +106,7 @@ const Reports = () => {
             )}
           </section>
         )}
+
         {pageDetails === "Billing & Payment" && (
           <section>
             <FilterSection3 />
