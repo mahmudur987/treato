@@ -26,11 +26,13 @@ import {
   updateServiceTime,
 } from "../../redux/slices/salonServices";
 import { TreatoLogo } from "../../assets/images/icons";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 
 export default function BookFlow() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
   const [count, setCount] = useState();
+  const [loading, setLoading] = useState(false);
   // console.log("Count", count);
   let [activeBookFlowBA, updateActiveBookFlowBA] = useState(1);
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
@@ -80,6 +82,7 @@ export default function BookFlow() {
   }, [stepTwoDetails]);
   useEffect(() => {
     let SalonDataFunc = async () => {
+      setLoading(true);
       const { res, err } = await salon();
       if (res) {
         res.data.salons.map((v) => {
@@ -88,6 +91,7 @@ export default function BookFlow() {
           }
         });
       }
+      setLoading(false);
     };
     SalonDataFunc();
   }, []);
@@ -287,6 +291,21 @@ export default function BookFlow() {
       }
     });
   };
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <LoadSpinner />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.book_flowMain}>

@@ -9,7 +9,7 @@ function SampleNextArrow(props) {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block", background: "red" }}
+      style={{ ...style, display: "block" }}
       onClick={onClick}
     />
   );
@@ -23,7 +23,7 @@ function SamplePrevArrow(props) {
       style={{
         ...style,
         display: "block",
-        background: "green",
+
         color: "black",
       }}
       onClick={onClick}
@@ -60,7 +60,7 @@ export default function SalonSlickSLider({
               <div>
                 <img
                   src={v.public_url}
-                  alt="salon image"
+                  alt="salon images"
                   key={i}
                   width={400}
                   height={400}

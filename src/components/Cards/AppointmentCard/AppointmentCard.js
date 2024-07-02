@@ -14,9 +14,13 @@ import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import { openModal } from "../../../redux/slices/modal";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const AppointmentCard = ({ salon, cardType }) => {
   // Dynamic Content Rendering Based on cardType(prop)
+
+  const navigate = useNavigate();
+
   const [toggleDetails, settoggleDetails] = useState(false);
   const [toggleoptions, settoggleoptions] = useState(false);
   const dispatch = useDispatch();
@@ -24,7 +28,7 @@ const AppointmentCard = ({ salon, cardType }) => {
     console.log(buttonType);
     dispatch(openModal({ type: `${buttonType}`, closable: true, data: salon }));
   };
-  // console.log(salon);
+  console.log(salon);
 
   return (
     <div className={styles.cardWrapper}>
@@ -274,7 +278,7 @@ const AppointmentCard = ({ salon, cardType }) => {
               onClick={
                 cardType == "Upcoming"
                   ? () => handleModal("RescheduleAppointment")
-                  : () => console.log("booking again modal")
+                  : () => navigate(`/salons/${salon?.salonData[0]._id}`)
               }
             />
           </div>
