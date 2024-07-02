@@ -2,7 +2,7 @@
   width: 440px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   font-family: "Lato", sans-serif;
 }
 .modalTitle {
@@ -44,10 +44,10 @@
 }
 .startTime,
 .dateContainer {
-  gap: 24px;
+  gap: 14px;
 }
 .calendarWrapper {
-  height: 64px;
+  height: 54px;
   width: 100%;
   overflow: hidden;
   margin: auto;
@@ -56,7 +56,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: 150px;
+  height: 110px;
   gap: 20px;
   overflow-x: hidden;
   overflow-y: scroll;
