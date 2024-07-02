@@ -65,6 +65,24 @@
   }
 
   .tableContainer {
-    min-width: 800px;
+    min-width: 1200px;
+  }
+  .styledTable thead {
+    background: none;
+    color: #08090a;
+    border-left: none;
+    border-right: none;
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    text-align: left;
+  }
+  .checkbox {
+    display: none;
+  }
+  .styledTable tbody tr {
+    border-bottom: none;
   }
 }

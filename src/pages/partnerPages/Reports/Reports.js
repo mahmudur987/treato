@@ -19,7 +19,7 @@ import NoDataDisplay from "../../../components/NodataToDisplay/NoDataDisplay";
 export const reportContext = createContext({});
 
 const Reports = () => {
-  const [isSearch, setIsSearch] = useState(true);
+  const [isSearch, setIsSearch] = useState(false);
   const [commonSearch, setCommonSearch] = useState("");
 
   const [selectedItems, setSelectedItems] = useState([]);
