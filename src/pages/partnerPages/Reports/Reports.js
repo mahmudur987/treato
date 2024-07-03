@@ -15,6 +15,7 @@ import {
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
 import NoDataDisplay from "../../../components/NodataToDisplay/NoDataDisplay";
+import { Link } from "react-router-dom";
 
 export const reportContext = createContext({});
 
@@ -53,9 +54,11 @@ const Reports = () => {
     <reportContext.Provider value={value}>
       <main className={styles.mainContainer}>
         <div className={styles.top}>
-          <span>
-            <IoArrowBack />
-          </span>
+          <Link to={"/partner/dashboard"}>
+            <span>
+              <IoArrowBack />
+            </span>
+          </Link>
           {!isSearch && <h3>Reports</h3>}
           {isSearch && (
             <input
