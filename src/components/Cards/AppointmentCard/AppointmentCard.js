@@ -83,7 +83,7 @@ const AppointmentCard = ({ salon, cardType }) => {
             </div>
             <div
               className={`${
-                cardType == "Upcoming" ? styles.moreVertical : styles.d_none
+                cardType === "Upcoming" ? styles.moreVertical : styles.d_none
               }`}
             >
               <img
@@ -101,7 +101,7 @@ const AppointmentCard = ({ salon, cardType }) => {
             </div>
             <div
               className={`${
-                cardType == "Completed" ? styles.writeReview : styles.d_none
+                cardType === "Completed" ? styles.writeReview : styles.d_none
               }`}
               onClick={() => handleModal("WriteReview")}
             >
@@ -113,7 +113,11 @@ const AppointmentCard = ({ salon, cardType }) => {
         {/* mobile view salons timing  */}
         <div className={styles.timing_mobo}>
           <img src={clock} alt="clock" />
-          {salon.dateTime}
+          <p>
+            <span>{salon.start_date}</span>
+            <span>at</span>
+            <span> {salon.time}</span>
+          </p>
           <button
             onClick={() => settoggleDetails(!toggleDetails)}
             className={styles.toggledetails}
@@ -202,7 +206,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                 {salon?.stylistData?.map((x, i) => (
                   <div
                     className={`${styles.Professional} ${
-                      cardType == "Completed" ? styles.d_none : ""
+                      cardType === "Completed" ? styles.d_none : ""
                     }`}
                   >
                     <h4 className={styles.title}>Professional</h4>
@@ -258,7 +262,7 @@ const AppointmentCard = ({ salon, cardType }) => {
           </div>
           <div
             className={`${
-              cardType != "Upcoming" ? styles.writeReview_mobo : styles.d_none
+              cardType === "Upcoming" ? styles.writeReview_mobo : styles.d_none
             }`}
             onClick={() => handleModal("WriteReview")}
           >
@@ -266,17 +270,17 @@ const AppointmentCard = ({ salon, cardType }) => {
           </div>
           <div className={styles.buttons}>
             <SecondaryButton
-              children={cardType == "Upcoming" ? "Cancel" : "Help"}
+              children={cardType === "Upcoming" ? "Cancel" : "Help"}
               onClick={
-                cardType == "Upcoming"
+                cardType === "Upcoming"
                   ? () => handleModal("CancelAppointment")
                   : () => handleModal("HelpAppointment")
               }
             />
             <PrimaryButton
-              children={cardType == "Upcoming" ? "Reschedule" : "Book again"}
+              children={cardType === "Upcoming" ? "Reschedule" : "Book again"}
               onClick={
-                cardType == "Upcoming"
+                cardType === "Upcoming"
                   ? () => handleModal("RescheduleAppointment")
                   : () => navigate(`/salons/${salon?.salonData[0]._id}`)
               }
