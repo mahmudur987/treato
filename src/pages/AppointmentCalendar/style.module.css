@@ -115,17 +115,16 @@ svg{
 }
 .scheduleBox{
     position: absolute;
-    left: 10px;
     width: 1348px;
     height: 880px;
     margin-top: 24px;
     display: flex;
     overflow-y: scroll;
+    overflow-x: hidden;
     gap: 0;
     
 }
 .scheduleBox::-webkit-scrollbar{
-    height: 820px;
     min-width: 6px;
     background-color: #E9EDF2;
 }

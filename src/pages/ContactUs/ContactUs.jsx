@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import contactimage from '../../../src/assets/images/ContactUs/contactimage.png';
 import { contactDetails } from '../../services/careers';
 import { toast } from 'react-toastify';
+import ContactUsModal from '../../components/_modals/ContactUs/ContactUsModal';
 
 function ContactUs() {
   const [phoneNumberError, setPhoneNumberError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -49,7 +51,13 @@ function ContactUs() {
 
     const { res, err } = await contactDetails(formData);
     if (res) {
-      toast.success("Form received");
+      if (window.innerWidth < 500) {
+        setIsModalOpen(true)
+      }
+      else {
+        toast.success("Form received");
+      }
+
     } else {
       toast.error("Something went wrong");
     }
@@ -63,6 +71,7 @@ function ContactUs() {
       isAcceptPrivacy: false
     });
   };
+  
 
   return (
     <>
@@ -152,6 +161,7 @@ function ContactUs() {
           </form>
         </div>
       </div>
+      <ContactUsModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} ></ContactUsModal>
     </>
   );
 }
