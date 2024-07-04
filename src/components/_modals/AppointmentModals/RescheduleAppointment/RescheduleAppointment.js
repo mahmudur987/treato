@@ -398,7 +398,7 @@ const RescheduleAppointment = ({ data }) => {
         >
           <SecondaryButton
             children={"cancel"}
-            onClick={handleRescheduleAppointment}
+            onClick={() => dispatch(closeModal())}
           />
 
           <PrimaryButton
