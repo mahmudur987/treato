@@ -112,8 +112,6 @@ export default function BookFlow() {
     }
   }, [activeBookFlowBA, dispatch]);
 
-  // console.log(activeBookFlowBA);
-
   const convertDate = (inputDate, Year) => {
     const dateObject = new Date(inputDate);
     const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");
@@ -412,6 +410,7 @@ export default function BookFlow() {
                 SalonData={SalonData ? SalonData : null}
                 getWorkerData={getWorkerData}
                 availableSlots={availableSlots}
+                stepTwoDetails={stepTwoDetails}
               />
             ) : activeBookFlowBA === 3 ? (
               <VisitorDetail />

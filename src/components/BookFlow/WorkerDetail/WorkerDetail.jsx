@@ -11,6 +11,7 @@ export default function WorkerDetail({
   availableSlots,
   updateItemCounter,
   itemCounter,
+  stepTwoDetails,
 }) {
   const noneLabelRef = useRef(null);
   useEffect(() => {
@@ -59,6 +60,7 @@ export default function WorkerDetail({
         <ServiceTime
           getWorkerData={getWorkerData}
           availableSlots={availableSlots}
+          stepTwoDetails={stepTwoDetails}
         />
       </div>
     </div>
