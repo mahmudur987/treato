@@ -103,14 +103,13 @@ export default function AccountSettings() {
         : "",
       place: inputVal.place,
     };
-    if (e.target.phone.value == userData.phone) {
+    if (e.target.phone.value !== userData.phone) {
       setOtpModal(true);
       localStorage.setItem("tempUserData", JSON.stringify(formData));
     } else {
-      console.log(formData);
       updateUser(userJWt, formData)
         .then((res) => {
-          console.log(res?.res?.data?.data);
+          console.log(res);
           setShowSave(false);
           dispatch(updateUserDetails(res?.res?.data?.data));
           let states = {
@@ -121,9 +120,6 @@ export default function AccountSettings() {
             dob: true,
           };
           updateInputState(states);
-
-          // console.log(res);
-          console.log(res.data.data);
         })
         .catch((err) => {
           // console.log(err)
@@ -152,7 +148,7 @@ export default function AccountSettings() {
     updateInputVal(data);
     updateGender(userData.gender ? userData.gender : "");
   }, [userData]);
-  console.log(data);
+
   return (
     <>
       {userData ? (
