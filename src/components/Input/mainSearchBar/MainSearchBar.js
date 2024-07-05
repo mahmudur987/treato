@@ -10,7 +10,7 @@ import {
   mapPin,
   mapPinBlue,
   search,
-  arrowleft
+  arrowleft,
 } from "../../../assets/images/icons";
 import { getAllServices } from "../../../services/Services";
 import { salon } from "../../../services/salon";
@@ -42,8 +42,7 @@ const MainSearchBar = ({ place }) => {
   const [filteredSalonData, setFilteredSalonData] = useState([]);
   const [locationLat, setlocationLat] = useState("");
   const [locationLng, setlocationLng] = useState("");
-  const [datanav, setDataNav] = useState()
-  
+  const [datanav, setDataNav] = useState();
 
   const userDetails = useSelector((state) => state?.user?.user);
   const navigate = useNavigate();
@@ -66,7 +65,7 @@ const MainSearchBar = ({ place }) => {
   const handle_closeTrt_Modal = () => {
     setTrt_DesktopModal(false);
     setTrt_MoboModal(false);
-    setTreatmentInputValue("")
+    setTreatmentInputValue("");
     document.body.style.overflow = "auto";
   };
   // functions to open/Close desktop location modal
@@ -81,8 +80,8 @@ const MainSearchBar = ({ place }) => {
   const handle_closeloc_Modal = () => {
     setloc_DesktopModal(false);
     setloc_MoboModal(false);
-    // setLocationInputValue(""); 
-    setValue("")
+    // setLocationInputValue("");
+    setValue("");
     document.body.style.overflow = "auto";
   };
 
@@ -112,7 +111,7 @@ const MainSearchBar = ({ place }) => {
     clearSuggestions();
   });
   const handleInput = (e) => {
-   if (e.target.value === "") {
+    if (e.target.value === "") {
       setloc_DesktopModal(false);
       setLocationInputValue(e.target.value);
       setValue(e.target.value);
@@ -179,8 +178,25 @@ const MainSearchBar = ({ place }) => {
 
         if (res) {
           // If the request was successful, update the state with the data
-          setallServices(res?.data?.data); // Assuming the response data contains a "data" property
-          setFilteredServiceData(res?.data?.data);
+
+          const uniqueDataArray = res?.data?.data.reduce(
+            (uniqueArray, currentItem) => {
+              // Check if there's already an object with the same 'name' in uniqueArray
+              if (
+                !uniqueArray.some(
+                  (item) => item.service_name === currentItem.service_name
+                )
+              ) {
+                // If not found, add this object to uniqueArray
+                uniqueArray.push(currentItem);
+              }
+              return uniqueArray;
+            },
+            []
+          );
+
+          setallServices(uniqueDataArray); // Assuming the response data contains a "data" property
+          setFilteredServiceData(uniqueDataArray);
         } else {
           // If there was an error, handle it and set the error state
           setError(err);
@@ -235,7 +251,6 @@ const MainSearchBar = ({ place }) => {
 
     // Create a Set to store unique locationText values
     const uniqueLocations = new Set();
-    
 
     // Filter the data and add unique locationText values to the Set
     const filtered = allSalonList.filter((item) => {
@@ -264,7 +279,7 @@ const MainSearchBar = ({ place }) => {
           const { lat, lng } = getLatLng(results[0]);
           setlocationLat(lat);
           setlocationLng(lng);
-         
+
           navigate(
             `/salons?service=${treatmentInputValue}&lat=${lat ? lat : ""}&lng=${
               lng ? lng : ""
@@ -280,23 +295,23 @@ const MainSearchBar = ({ place }) => {
     }
   };
 
-//   useEffect(() => {
-//     const handleWindowClick = () => {
-//       console.log(value);
-//       console.log(treatmentInputValue);
-//       // Your condition goes here
-     
-//         handle_closeTrt_Modal();
-// };
+  //   useEffect(() => {
+  //     const handleWindowClick = () => {
+  //       console.log(value);
+  //       console.log(treatmentInputValue);
+  //       // Your condition goes here
 
-//     // Attach the event listener
-//     window.addEventListener('mousedown', handleWindowClick);
+  //         handle_closeTrt_Modal();
+  // };
 
-//     // Detach the event listener when the component unmounts
-//     return () => {
-//       window.removeEventListener('mousedown', handleWindowClick);
-//     };
-//   }, [handle_closeTrt_Modal]);
+  //     // Attach the event listener
+  //     window.addEventListener('mousedown', handleWindowClick);
+
+  //     // Detach the event listener when the component unmounts
+  //     return () => {
+  //       window.removeEventListener('mousedown', handleWindowClick);
+  //     };
+  //   }, [handle_closeTrt_Modal]);
   return (
     <>
       <div
@@ -307,9 +322,13 @@ const MainSearchBar = ({ place }) => {
         {/* search Treatments */}
         <div className={styles["searchTreatment"]}>
           <div className={styles["inputIcon"]}>
-         
-            {location.pathname === "/salons"?<Link to="/"><img src={arrowleft}  alt="arrowleft" /></Link>: <img src={search} alt="search" />}
-           
+            {location.pathname === "/salons" ? (
+              <Link to="/">
+                <img src={arrowleft} alt="arrowleft" />
+              </Link>
+            ) : (
+              <img src={search} alt="search" />
+            )}
           </div>
           <input
             className={styles["treatmentInput"]}
@@ -328,20 +347,19 @@ const MainSearchBar = ({ place }) => {
             className={`${styles["treatmentsResults"]} ${
               Trt_DesktopModal ? "" : styles["hidden"]
             }`}
-            
           >
             {/* treatments Content*/}
             <Treatments
               allServices={filteredServiceData}
               setTreatmentInputValue={setTreatmentInputValue}
               handle_close={handle_closeTrt_Modal}
-             />
+            />
           </div>
 
           <img
             src={closeIcon}
             className={`${styles["close_trtBox"]} ${
-              Trt_DesktopModal  ? "" : styles["hidden"]
+              Trt_DesktopModal ? "" : styles["hidden"]
             }`}
             onClick={handle_closeTrt_Modal}
             alt="closeIcon"
@@ -355,13 +373,11 @@ const MainSearchBar = ({ place }) => {
           <div className={styles["inputIcon"]}>
             <img src={mapPin} alt="mapPinImg" />
           </div>
-         
+
           <input
             className={styles["locationInput"]}
             placeholder={
-              winWidthMain > 767 
-              ? "Search by location" 
-              : "Current location"
+              winWidthMain > 767 ? "Search by location" : "Current location"
             }
             onClick={() => {
               if (winWidthMain < 767) {
@@ -373,7 +389,6 @@ const MainSearchBar = ({ place }) => {
             value={value}
             onChange={winWidthMain > 767 ? handleInput : ""}
             disabled={!ready}
-            
           />
           <img
             className={`${styles["close_trtBox"]} ${
