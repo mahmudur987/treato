@@ -29,7 +29,7 @@ export default function BookNow({
   const TotalServiceAmount = useSelector(
     (state) => state?.salonServices?.Amount
   );
-  const { contact } = useSelector((state) => state?.VisitorDetails);
+  const { contact, guest } = useSelector((state) => state?.VisitorDetails);
 
   useEffect(() => {
     if (salonServices?.length) {
@@ -52,7 +52,7 @@ export default function BookNow({
       } else {
         toast.error("Please fill all required details perfectly!");
       }
-      console.log(activeBookFlowBA);
+      console.log(guest);
     } else if (activeBookFlowBA === 3 && contact.phone.length !== 13) {
       toast.error("Your phone number is wrong");
     } else if (!isValid && activeBookFlowBA === 3) {

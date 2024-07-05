@@ -27,12 +27,6 @@ export default function VisitorDetail() {
     dispatch(
       updateVisitorContent({
         guest: value,
-        contact: {
-          name: "",
-          phone: "",
-          email: "",
-          preferences: "",
-        },
       })
     );
   };
@@ -83,6 +77,7 @@ export default function VisitorDetail() {
             NAME={"visitor"}
             setGuest={handleRadioChange}
             guest={false}
+            checked={!guest}
           />
           <div>Booking for myself</div>
         </div>
@@ -92,6 +87,7 @@ export default function VisitorDetail() {
             NAME={"visitor"}
             setGuest={handleRadioChange}
             guest={true}
+            checked={guest}
           />
           <div>Booking for someone else (guest)</div>
         </div>

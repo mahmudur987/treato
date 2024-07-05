@@ -262,7 +262,7 @@ const AppointmentCard = ({ salon, cardType }) => {
           </div>
           <div
             className={`${
-              cardType === "Upcoming" ? styles.writeReview_mobo : styles.d_none
+              cardType === "Completed" ? styles.writeReview_mobo : styles.d_none
             }`}
             onClick={() => handleModal("WriteReview")}
           >
