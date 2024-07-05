@@ -55,7 +55,7 @@ export default function AccountSettings() {
     email: userData.email ? userData.email : "",
     phone: userData.phone ? userData.phone : "",
     dob: userData.dob ? userData.dob : "",
-    place: userData.place ? userData.place : [],
+    place: userData.place ? userData.place : "",
     gender: userData.gender ? userData.gender : "",
   });
   let [activeGender, updateGender] = useState(
@@ -141,7 +141,7 @@ export default function AccountSettings() {
       email: userData.email ? userData.email : "",
       phone: userData.phone ? userData.phone : "",
       dob: userData.dob ? userData.dob : "",
-      place: userData?.place ? userData?.place : [],
+      place: userData?.place ? userData?.place : "",
       gender: userData.gender ? userData.gender : "",
     };
 

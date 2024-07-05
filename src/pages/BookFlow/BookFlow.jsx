@@ -27,6 +27,7 @@ import {
 } from "../../redux/slices/salonServices";
 import { TreatoLogo } from "../../assets/images/icons";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { updateVisitorContent } from "../../redux/slices/VisitorDetails";
 
 export default function BookFlow() {
   let navigate = useNavigate();
@@ -95,6 +96,23 @@ export default function BookFlow() {
     };
     SalonDataFunc();
   }, []);
+  useEffect(() => {
+    if (activeBookFlowBA < 3) {
+      dispatch(
+        updateVisitorContent({
+          guest: "",
+          contact: {
+            name: "",
+            phone: "",
+            email: "",
+            preferences: "",
+          },
+        })
+      );
+    }
+  }, [activeBookFlowBA, dispatch]);
+
+  // console.log(activeBookFlowBA);
 
   const convertDate = (inputDate, Year) => {
     const dateObject = new Date(inputDate);
@@ -120,7 +138,7 @@ export default function BookFlow() {
         oldData.workerData = filtered;
         oldData.isNoPreference = false;
         requiredData = {
-          salons_id: salonServices[0]?.salon_id,
+          salons_id: id,
           service_id: ServiceIds,
           selectedStylistId: filtered[0]?._id,
           dateforService: convertDate(stepTwoDetails?.dateData, selectedYear),
@@ -134,14 +152,14 @@ export default function BookFlow() {
         ];
         oldData.isNoPreference = true;
         requiredData = {
-          salons_id: salonServices[0]?.salon_id,
+          salons_id: id,
           service_id: ServiceIds,
           noPreference: true,
           dateforService: convertDate(stepTwoDetails?.dateData, selectedYear),
         };
       }
       if (stepTwoDetails?.dateData !== null) {
-        console.log("from selected Stylist");
+        console.log("from selected Stylist", requiredData);
         getAvailableSlots(requiredData).then((res) => {
           setavailableSlots(res?.res?.data?.data);
           dispatch(updateServiceDate(requiredData?.dateforService));
@@ -160,7 +178,7 @@ export default function BookFlow() {
         if (oldData.isNoPreference) {
           console.log("--date NoPReferene----");
           requiredData = {
-            salons_id: salonServices[0]?.salon_id,
+            salons_id: id,
             noPreference: oldData.isNoPreference,
             service_id: ServiceIds,
             dateforService: convertDate(e.target.value, year),
@@ -168,7 +186,7 @@ export default function BookFlow() {
         } else {
           console.log("--date PReferene----");
           requiredData = {
-            salons_id: salonServices[0]?.salon_id,
+            salons_id: id,
             service_id: ServiceIds,
             selectedStylistId: stepTwoDetails?.workerData[0]?._id,
             dateforService: convertDate(e.target.value, year),
@@ -372,11 +390,23 @@ export default function BookFlow() {
               ""
             )}
             {activeBookFlowBA === 1 ? (
-              <SalonServiceMain
-                hideTitle={true}
-                SalonData={SalonData ? SalonData : null}
-                setCount={setCount}
-              />
+              <>
+                {SalonData?.services.length > 0 &&
+                  SalonData?.services?.map((x, y) => {
+                    if (x.mainCategories.length > 0) {
+                      return (
+                        <SalonServiceMain
+                          key={y}
+                          data={x}
+                          hideTitle={false}
+                          SalonData={SalonData ? SalonData : null}
+                          setCount={setCount}
+                        />
+                      );
+                    }
+                    return null;
+                  })}
+              </>
             ) : activeBookFlowBA === 2 ? (
               <WorkerDetail
                 SalonData={SalonData ? SalonData : null}

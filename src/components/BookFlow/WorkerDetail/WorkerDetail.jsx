@@ -13,7 +13,6 @@ export default function WorkerDetail({
   itemCounter,
 }) {
   const noneLabelRef = useRef(null);
-  console.log(availableSlots);
   useEffect(() => {
     // Click the label when the component mounts
     noneLabelRef.current.click();

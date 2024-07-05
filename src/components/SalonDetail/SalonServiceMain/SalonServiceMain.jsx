@@ -31,7 +31,7 @@ export default function SalonServiceMain({ hideTitle, data, setCount }) {
   useEffect(() => {
     setAllServices(data?.mainCategories);
   }, [data]);
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <div
