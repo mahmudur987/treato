@@ -134,14 +134,10 @@ const MainSearchBar = ({ place }) => {
   const handleSelect =
     ({ description }) =>
     () => {
-      // When the user selects a place, we can replace the keyword without request data from API
-      // by setting the second parameter to "false"
       console.log(description);
       setLocationInputValue(description);
       setValue(description, false);
       clearSuggestions();
-
-      // Get latitude and longitude via utility functions
       getGeocode({ address: description }).then((results) => {
         const { lat, lng } = getLatLng(results[0]);
         setlocationLat(lat);
@@ -273,7 +269,7 @@ const MainSearchBar = ({ place }) => {
       toast.info("Please fill input fields to proceed. !");
     } else {
       console.log(locationInputValue, treatmentInputValue);
-      if (value != "") {
+      if (value !== "") {
         //if we have value in location input
         getGeocode({ address: value }).then((results) => {
           const { lat, lng } = getLatLng(results[0]);
@@ -438,6 +434,7 @@ const MainSearchBar = ({ place }) => {
         </button>
       </div>
       {Trt_MoboModal && (
+        // eslint-disable-next-line react/jsx-pascal-case
         <Search_MoboModal
           handle_close={handle_closeTrt_Modal}
           setShow_Modal={setloc_MoboModal}

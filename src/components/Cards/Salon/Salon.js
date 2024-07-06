@@ -71,7 +71,7 @@ const Salon = ({ salonData, place }) => {
             <h4 className={styles.location}>{salonData?.locationText}</h4>
           )}
         </div>
-        {place != "homePage" ? (
+        {place !== "homePage" ? (
           <>
             <div className={styles.servicesWrapper}>
               {salonData?.services?.map((service, index) => (
