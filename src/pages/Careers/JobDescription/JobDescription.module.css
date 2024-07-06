@@ -1,4 +1,4 @@
-.header{
+.header {
     margin-top: 139px;
     margin-left: 60px;
     height: 142px;
@@ -6,21 +6,24 @@
     display: flex;
     gap: 36px;
 }
-.subHeader{
+
+.subHeader {
     width: 461px;
     height: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-.jobHeading{
+
+.jobHeading {
     height: 74px;
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap:8px;
+    gap: 8px;
 }
-.jobHeading h3{
+
+.jobHeading h3 {
     height: 42px;
     max-width: 100%;
     font-size: 28px;
@@ -29,24 +32,28 @@
     font-weight: 600;
     color: #000000;
 }
-.arrow{
+
+.arrow {
     width: 44px;
     height: 44px;
     color: #000000;
 }
-.location{
+
+.location {
     max-width: 100%;
     height: 24px;
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.locationIcons{
+
+.locationIcons {
     width: 18px;
     height: 18px;
     color: #434141;
 }
-.location p{
+
+.location p {
     height: 24px;
     width: auto;
     font-size: 16px;
@@ -55,18 +62,25 @@
     line-height: 24px;
     color: #434141;
 }
-.verticalLine{
+
+.verticalLine {
     border-left: 1px solid #CED4DA;
     height: 15px;
 }
-.applyButton{
+
+.horizontalLine {
+    display: none;
+}
+
+.applyButton {
     width: 134px;
     height: 48px;
     background-color: #08080B;
     border-radius: 4px;
     padding: 16px 23px 16px 23px;
 }
-.applyButton p{
+
+.applyButton p {
     min-width: 86px;
     height: 16px;
     font-size: 16px;
@@ -75,14 +89,16 @@
     line-height: 16px;
     color: #FFFFFF;
 }
-.JobDescription{
+
+.JobDescription {
     padding: 40px 0 50px 140px;
-    
+
     width: 100%;
     height: auto;
     background-color: #F8F9FA;
 }
-.detailsBox{
+
+.detailsBox {
     height: auto;
     width: 984px;
     display: flex;
@@ -90,39 +106,45 @@
     gap: 50px;
     overflow: hidden;
 }
-.jobInfo{
+
+.jobInfo {
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
+
 .descriptionBox,
-.skills{
+.skills {
     display: flex;
     flex-direction: column;
     gap: 15px;
 
 }
-.descriptionBox{
+
+.descriptionBox {
     width: 100%;
-    height: auto; 
+    height: auto;
 }
-.descriptionBox h4{
+
+.descriptionBox h4 {
     font-size: 20px;
     font-family: Lato;
     font-weight: 600;
     line-height: 32px;
     color: #000000;
 }
-.descriptionBox div{
+
+.descriptionBox div {
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.jobInfo p{
+
+.jobInfo p {
     width: 100%;
     height: auto;
     font-size: 16px;
@@ -133,11 +155,13 @@
     color: #000000;
     text-align: justify;
 }
-.skills{
+
+.skills {
     width: 100%;
     height: auto;
 }
-.skills h3{
+
+.skills h3 {
     font-size: 20px;
     font-family: Lato;
     font-weight: 600;
@@ -145,56 +169,74 @@
     color: #000000;
 }
 
-.skills div{
+.skills div {
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
+
 @media screen and (max-width:500px) {
-    .header{
+    .header {
         margin: 0;
         margin-top: 104px;
         padding-left: 24px;
         width: 342px;
         height: auto;
         flex-direction: column;
-gap: 24px;
+        gap: 24px;
     }
-    .subHeader{
+
+    .horizontalLine {
+        display: block;
+        width: 342px;
+        border: 1px solid #EBEDF0;
+    }
+
+    .subHeader {
         width: 100%;
         height: 176px;
         gap: 28px;
     }
-    .jobHeading{
+
+    .jobHeading {
         width: 100%;
         height: 100px;
         gap: 4px;
     }
-    .jobHeading h3{
+
+    .jobHeading h3 {
         width: 100%;
         height: 72px;
         font-size: 24px;
         line-height: 36px;
     }
-    .applyButton{
+
+    .applyButton {
         margin-top: 20px;
     }
-    .JobDescription{
+
+    .JobDescription {
         width: 390px;
         height: auto;
         padding: 32px 24px 32px 24px;
-        
+
     }
-    .detailsBox{
+
+    .detailsBox {
         width: 100%;
         height: auto;
         gap: 24px;
     }
-    .jobInfo{
+
+    .jobInfo {
         gap: 12px;
     }
-    
-    
+    .arrow{
+        width: 24px;
+        height: 24px;
+    }
+
+
 }
