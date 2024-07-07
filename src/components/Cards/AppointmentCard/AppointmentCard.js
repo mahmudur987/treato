@@ -15,7 +15,12 @@ import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import { openModal } from "../../../redux/slices/modal";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const options = { weekday: "short", month: "short", day: "numeric" };
+  const formattedDate = new Intl.DateTimeFormat("en-US", options).format(date);
+  return formattedDate;
+};
 const AppointmentCard = ({ salon, cardType }) => {
   // Dynamic Content Rendering Based on cardType(prop)
 
@@ -57,7 +62,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                 <div className={styles.timing}>
                   <img src={clock} alt="clock" />
                   <p>
-                    <span>{salon.start_date}</span>
+                    <span>{formatDate(salon?.start_date)}</span>
                     <span>at</span>
                     <span> {salon.time}</span>
                   </p>
@@ -198,33 +203,48 @@ const AppointmentCard = ({ salon, cardType }) => {
                 </div>
               </div>
               {/* booked on */}
-              <div className={styles.others}>
-                <div className={styles.bookedOn}>
-                  <h4 className={styles.title}>Booked on</h4>
-                  <p className={styles.dateTime}>{salon.end_date ?? "N/A"}</p>
-                </div>
-                {salon?.stylistData?.map((x, i) => (
-                  <div
-                    className={`${styles.Professional} ${
-                      cardType === "Completed" ? styles.d_none : ""
-                    }`}
-                  >
-                    <h4 className={styles.title}>Professional</h4>
-                    <p className={styles.proName}>
-                      <img
-                        src={x?.stylist_Img.public_url}
-                        alt="pro_Avatar"
-                        className={styles.pro_Avatar}
-                      />
-                      {x?.stylist_name}
+              {(cardType === "Completed" || cardType === "Upcoming") && (
+                <div className={styles.others}>
+                  <div className={styles.bookedOn}>
+                    <h4 className={styles.title}>Booked on</h4>
+                    <p className={styles.dateTime}>
+                      {formatDate(salon.end_date) ?? "N/A"}
                     </p>
                   </div>
-                ))}
-              </div>
+                  {salon?.stylistData?.map((x, i) => (
+                    <div
+                      className={`${styles.Professional} ${
+                        cardType === "Completed" ? styles.d_none : ""
+                      }`}
+                    >
+                      <h4 className={styles.title}>Professional</h4>
+                      <p className={styles.proName}>
+                        <img
+                          src={x?.stylist_Img.public_url}
+                          alt="pro_Avatar"
+                          className={styles.pro_Avatar}
+                        />
+                        {x?.stylist_name}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {cardType === "Cancelled" && (
+                <div className={styles.others}>
+                  <div className={styles.bookedOn}>
+                    <h4 className={styles.title}>Cancelled on</h4>
+                    <p className={styles.dateTime}>
+                      {formatDate(salon.end_date) ?? "N/A"}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
             <hr className={styles.line} />
           </>
         )}
+
         {/* payment status , card buttons  */}
         <div className={styles.status}>
           <div className={styles.paymentStatus}>
@@ -260,6 +280,7 @@ const AppointmentCard = ({ salon, cardType }) => {
               </h4>
             )}
           </div>
+
           <div
             className={`${
               cardType === "Completed" ? styles.writeReview_mobo : styles.d_none

@@ -123,10 +123,14 @@
 
 .detailSection {
   display: flex;
+  justify-content: space-between;
   gap: 20px;
 }
 .serviceDetails {
   min-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 .serviceDetails .title {
   font-family: "Lato";
@@ -166,6 +170,8 @@
 }
 .qty_Name,
 .time_Amount {
+  min-height: 30px;
+
   display: flex;
   align-items: center;
   gap: 4px;
@@ -187,12 +193,16 @@
   font-family: "Lato", sans-serif;
 }
 .others {
+  width: 50%;
   display: flex;
+  justify-content: space-around;
   gap: 48px;
 }
-.bookedOn {
+.bookedOn,
+.Professional {
   display: flex;
   flex-direction: column;
+  gap: 5px;
   font-weight: 600px;
 }
 .status,

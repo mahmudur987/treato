@@ -70,7 +70,23 @@ export default function BlogDetail(props) {
     let getServices = async () => {
       const { res, err } = await getAllServices();
       if (res) {
-        setServiceData(res.data.data);
+        const uniqueDataArray = res?.data?.data.reduce(
+          (uniqueArray, currentItem) => {
+            // Check if there's already an object with the same 'name' in uniqueArray
+            if (
+              !uniqueArray.some(
+                (item) => item.service_name === currentItem.service_name
+              )
+            ) {
+              // If not found, add this object to uniqueArray
+              uniqueArray.push(currentItem);
+            }
+            return uniqueArray;
+          },
+          []
+        );
+
+        setServiceData(uniqueDataArray);
       }
     };
     let getBlogData = async () => {
