@@ -83,7 +83,7 @@ function QuestionOptions() {
                     })}
                 >Pricing</h6>
                 <h6
-                    className={selectedOption === 'Option 5' ? `${style.selected}` : ''}
+                    className={`${selectedOption === 'Option 5' ? style.selected : ''} ${style.contactUs}`}
                     width={137}
                     onClick={(() => {
                         getselectedOption('Contact Us');
@@ -125,7 +125,7 @@ function QuestionOptions() {
                         ))}
 
                 </div>
-                <div className={style.contactbox} ><p className={style.contactus} >Can’t find the answer you’re looking for?</p>
+                <div className={`${style.contactbox} ${style.contactUs}`} ><p className={style.contactus} >Can’t find the answer you’re looking for?</p>
                     <Link to="/contactus"><p className={style.linker} >Contact Us</p></Link>
                 </div>
             </div>

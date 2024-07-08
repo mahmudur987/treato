@@ -78,6 +78,9 @@
   .unSelected{
     color: #2E3032;
   }
+  .horizontal{
+    display: none;
+  }
   @media screen and (max-width: 500px){
     .container{
         margin-top: 20px;
@@ -117,7 +120,7 @@
         position: static;
         margin: 0;
         width: 390px;
-        max-height: 2538px;
+        max-height: fit-content;
         margin-top: 15px;
         padding: 0px 24px 0px 24px;
         gap: 24px;
@@ -134,6 +137,14 @@
         gap:12px;
         overflow: hidden;
         
+    }
+    .verticalLine{
+        display: none;
+    }
+    .horizontal{
+        display: block;
+        width: 342px;
+        border: 1px solid #EBEDF0;
     }
     .rightContainer section h2{
         height: 30px;
