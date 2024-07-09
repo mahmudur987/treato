@@ -37,9 +37,20 @@
   gap: 30px;
 }
 .btnWrapper {
+  max-width: 157px;
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+  border-radius: 4px;
+  background-color: black;
+  color: #fff;
+}
+.btnWrapper button {
   height: 48px;
   gap: 8px;
-  border-radius: 4px;
   background-color: black;
   color: #fff;
   cursor: pointer;
@@ -48,11 +59,6 @@
   gap: 5px;
   padding: 0 12px;
   font-size: 16px;
-}
-.btnWrapper button {
-  background: none;
-  border: none;
-  color: white;
 }
 
 .btnWrapper button:hover {
@@ -68,20 +74,21 @@
     display: none;
   }
   /* styles.module.css */
-
-  .mainContainer {
+  .mainContainerWrapper {
+    max-width: 96vw;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .mainContainerWrapper {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
   }
 
-  .mainContainer::-webkit-scrollbar {
+  .mainContainerWrapper::-webkit-scrollbar {
     display: none;
   }
-
   .mainContainer {
-    max-width: 700px;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    min-width: 600px;
   }
 }

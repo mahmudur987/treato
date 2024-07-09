@@ -15,9 +15,7 @@ import {
 } from "../../redux/slices/salons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import {
-  getfilterSalonByServiceLatLng,
-} from "../../utils/utils";
+import { getfilterSalonByServiceLatLng } from "../../utils/utils";
 import { arrowleft, closeIcon } from "../../assets/images/icons/index.js";
 import { getAllServices } from "../../services/Services.js";
 import Treatments from "../../components/HomePage/Hero/SearchContent/Treatments.js";
@@ -106,8 +104,7 @@ const Salons = React.memo(() => {
     ));
   }, [salonsState.filterContent]);
 
-console.log(Math.ceil(items?.length / ITEMS_PER_PAGE));
-console.log(salonsState);
+  console.log(salonsState);
 
   const totalPages = Math.ceil(items?.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -163,102 +160,102 @@ console.log(salonsState);
     setFilteredServiceData(allServices);
     setisServiceDropdownOpen(true);
   };
-  console.log(salonsState?.filterContent?.length);
-  console.log(totalPages);
-  console.log(currentPage);
-  return (<>
-   
-    <div className={styles.container}>
-      <div className={styles.mobo_ServiceBar}>
-        <button className={styles.backbutton} onClick={handleBack}>
-          <img src={arrowleft} alt="backArrow" />
-        </button>
-        <input
-          value={serviceInput_Mobo}
-          onChange={handleServiceInput}
-          onClick={handeOpenDropdown}
-        />
-        {isServiceDropdownOpen && (
-          <button className={styles.closebutton} onClick={handleClosedropdown}>
-            <img src={closeIcon} alt="closeIcon" />
+
+  return (
+    <>
+      <div className={styles.container}>
+        <div className={styles.mobo_ServiceBar}>
+          <button className={styles.backbutton} onClick={handleBack}>
+            <img src={arrowleft} alt="backArrow" />
           </button>
+          <input
+            value={serviceInput_Mobo}
+            onChange={handleServiceInput}
+            onClick={handeOpenDropdown}
+          />
+          {isServiceDropdownOpen && (
+            <button
+              className={styles.closebutton}
+              onClick={handleClosedropdown}
+            >
+              <img src={closeIcon} alt="closeIcon" />
+            </button>
+          )}
+        </div>
+        {isServiceDropdownOpen && (
+          <Treatments
+            allServices={filteredServiceData}
+            setTreatmentInputValue={setserviceInput_Mobo}
+            handle_close={handle_closeTrt_Modal}
+            pageName="salons"
+          />
+        )}
+        {/* mobo filter options */}
+
+        <div className={styles.mobo_filters}>
+          <button className={styles.filterIcon}>
+            <img src={filter} alt="filter" />
+          </button>
+
+          <button
+            className={styles.filter}
+            onClick={() => handleOpenModal("sortBy")}
+          >
+            Sort <img src={chevronDown} alt="chevronDown" />
+          </button>
+          <button
+            className={styles.filter}
+            onClick={() => handleOpenModal("price")}
+          >
+            Price <img src={chevronDown} alt="chevronDown" />
+          </button>
+          <button
+            className={styles.filter}
+            onClick={() => handleOpenModal("venue")}
+          >
+            Venue Type <img src={chevronDown} alt="chevronDown" />
+          </button>
+        </div>
+        {<MainSearchBar />}
+
+        <div className={styles.venueInfo}>
+          <h4>
+            Showing {visibleItems?.length} of{" "}
+            {salonsState?.filterContent?.length} venues
+          </h4>
+          <button
+            className={styles.filterDesk}
+            onClick={() => handleOpenModal("all")}
+          >
+            <img
+              src={filterDeskIcon}
+              alt="filterDeskIcon"
+              className={styles.filterDeskIcon}
+            />
+            Filters
+          </button>
+        </div>
+
+        <div className={styles.salonsWrapper}>
+          {isLoading ? (
+            <div className="zeroResponse">Loading...</div>
+          ) : showContent ? (
+            visibleItems?.length > 0 ? (
+              visibleItems
+            ) : (
+              <div className="zeroResponse">No result found</div>
+            )
+          ) : null}
+        </div>
+        {salonsState?.filterContent?.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         )}
       </div>
-      {isServiceDropdownOpen && (
-        <Treatments
-          allServices={filteredServiceData}
-          setTreatmentInputValue={setserviceInput_Mobo}
-          handle_close={handle_closeTrt_Modal}
-          pageName="salons"
-        />
-      )}
-      {/* mobo filter options */}
-
-      <div className={styles.mobo_filters}>
-        <button className={styles.filterIcon}>
-          <img src={filter} alt="filter" />
-        </button>
-
-        <button
-          className={styles.filter}
-          onClick={() => handleOpenModal("sortBy")}
-        >
-          Sort <img src={chevronDown} alt="chevronDown" />
-        </button>
-        <button
-          className={styles.filter}
-          onClick={() => handleOpenModal("price")}
-        >
-          Price <img src={chevronDown} alt="chevronDown" />
-        </button>
-        <button
-          className={styles.filter}
-          onClick={() => handleOpenModal("venue")}
-        >
-          Venue Type <img src={chevronDown} alt="chevronDown" />
-        </button>
-      </div>
-   { <MainSearchBar/>}
-
-      <div className={styles.venueInfo}>
-        <h4>
-          Showing {visibleItems?.length} of {salonsState?.filterContent?.length}{" "}
-          venues
-        </h4>
-        <button
-          className={styles.filterDesk}
-          onClick={() => handleOpenModal("all")}
-        >
-          <img
-            src={filterDeskIcon}
-            alt="filterDeskIcon"
-            className={styles.filterDeskIcon}
-          />
-          Filters
-        </button>
-      </div>
-
-      <div className={styles.salonsWrapper}>
-        {isLoading ? (
-          <div className="zeroResponse">Loading...</div>
-        ) : showContent ? (
-          visibleItems?.length > 0 ? (
-            visibleItems
-          ) : (
-            <div className="zeroResponse">No result found</div>
-          )
-        ) : null}
-      </div>
-      {salonsState?.filterContent?.length > 0 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
-      )}
-    </div>
-  </>
-     
+    </>
   );
 });
 

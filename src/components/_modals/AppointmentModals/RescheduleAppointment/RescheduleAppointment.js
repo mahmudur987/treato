@@ -14,6 +14,9 @@ import {
 } from "../../../../services/Appointments";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../../../redux/slices/modal";
+import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
+import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
+import SecondaryButton from "../../../Buttons/SecondaryButton/SecondaryButton";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
 
@@ -71,6 +74,7 @@ const RescheduleAppointment = ({ data }) => {
   const { refetch } = useUpcomingApponments();
   const [subcategoriesIds, setSubcategoriesIds] = useState([]);
 
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   useEffect(() => {
     const fetchData = () => {
       const ids = data?.serviceData?.flatMap((serviceList) => serviceList._id);
@@ -82,24 +86,31 @@ const RescheduleAppointment = ({ data }) => {
   const genarateSlotsData = {
     salons_id: data.salonData[0]?._id,
     service_id: subcategoriesIds,
-    noPreference: true,
-    dateforService: "2023-07-23",
+    noPreference: data?.noPreference,
+    dateforService: date,
   };
 
-  const { data: slots } = useTimeSlots(genarateSlotsData);
+  const {
+    data: slots,
+    isLoading,
+    isError,
+    error,
+  } = useTimeSlots(genarateSlotsData);
 
-  // const timeSlots = [
-  //   "10:30 AM",
-  //   "01:30 PM",
-  //   "03:30 PM",
-  //   "06:30 PM",
-  //   "08:30 PM",
-  // ];
-  // console.log(slots);
   const handleTimeSlotClick = (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
   };
 
+  useEffect(() => {
+    const fullDate =
+      showYear +
+      "-" +
+      String(showMonth).padStart(2, "0") +
+      "-" +
+      String(selectedDate.date).padStart(2, "0");
+    setDate(fullDate);
+  }, [showMonth, showYear, selectedDate]);
+  console.log(genarateSlotsData);
   const generateAllowedMonths = () => {
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
@@ -360,14 +371,42 @@ const RescheduleAppointment = ({ data }) => {
                   {timeSlot}
                 </button>
               ))}
+
+              {isLoading && <LoadSpinner />}
+
+              {isError && (
+                <ErrorComponent message={error?.message ?? "Error"} />
+              )}
             </div>
           </div>
         </div>
       </div>
-      <PrimaryButton
-        children={"Reschedule Appointment"}
-        onClick={handleRescheduleAppointment}
-      />
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+        }}
+      >
+        <p
+          style={{
+            width: "50%",
+            display: "flex",
+            justifyContent: "end",
+            gap: "10px",
+          }}
+        >
+          <SecondaryButton
+            children={"cancel"}
+            onClick={() => dispatch(closeModal())}
+          />
+
+          <PrimaryButton
+            children={"Save"}
+            onClick={handleRescheduleAppointment}
+          />
+        </p>
+      </div>
     </div>
   );
 };

@@ -29,7 +29,9 @@ const WhyTreato = () => {
               <img src={phone} alt="Left Image" />
             </figure>
           </div>
+        </div>
 
+        <div className={styles.itemsWrapper}>
           <ul className={styles.items}>
             <li>
               {" "}

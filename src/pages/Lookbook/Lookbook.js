@@ -272,7 +272,23 @@ const Lookbook = () => {
         const { res, err } = await getAllServices();
 
         if (res) {
-          setallServices(res?.data?.data);
+          const uniqueDataArray = res?.data?.data.reduce(
+            (uniqueArray, currentItem) => {
+              // Check if there's already an object with the same 'name' in uniqueArray
+              if (
+                !uniqueArray.some(
+                  (item) => item.service_name === currentItem.service_name
+                )
+              ) {
+                // If not found, add this object to uniqueArray
+                uniqueArray.push(currentItem);
+              }
+              return uniqueArray;
+            },
+            []
+          );
+
+          setallServices(uniqueDataArray);
         }
       } catch (error) {
         console.log(error);
@@ -336,6 +352,7 @@ const Lookbook = () => {
           <img src={chevronDown} alt="downArrow" />
         </div>
         {loc_MoboModal && (
+          // eslint-disable-next-line react/jsx-pascal-case
           <Search_MoboModal
             handle_close={handle_closeloc_Modal}
             setShow_Modal={setloc_MoboModal}
@@ -356,8 +373,9 @@ const Lookbook = () => {
       </div>
       {/* services Button Mobo version */}
       <div
-        className={`${styles.serviceButtonWrapperMobo} ${isServiceListExpanded ? styles.expandList : ""
-          }`}
+        className={`${styles.serviceButtonWrapperMobo} ${
+          isServiceListExpanded ? styles.expandList : ""
+        }`}
       >
         {allServices.map((service, index) => (
           <button
@@ -378,6 +396,7 @@ const Lookbook = () => {
         >
           <img
             src={chevronDown}
+            alt="nothing"
             className={`${isServiceListExpanded && styles.rotate180}`}
           />
         </div>
@@ -399,11 +418,16 @@ const Lookbook = () => {
           onClick={() => setIsDropdownVisible(true)}
         />
         {isDropdownVisible && (
-          <img src={closeIcon} onClick={() => handleCloseLocationDropdown()} />
+          <img
+            src={closeIcon}
+            onClick={() => handleCloseLocationDropdown()}
+            alt="nothing"
+          />
         )}
         <button
-          className={`${styles.submitLocation} ${locationInput ? styles.blueBg : ""
-            }`}
+          className={`${styles.submitLocation} ${
+            locationInput ? styles.blueBg : ""
+          }`}
           onClick={handleGoButtonClick}
         >
           GO
@@ -473,9 +497,11 @@ const Lookbook = () => {
               />
             ))}
       </Masonry>
-      <button className={styles.showMore} onClick={handleShowMore}>
+      {allLookbook?.length > itemsToShow && (
+        <button className={styles.showMore} onClick={handleShowMore}>
           See more results
         </button>
+      )}
       {/* {itemsToShow < filteredServiceData?.length && (
         <button className={styles.showMore} onClick={handleShowMore}>
           See more results

@@ -198,6 +198,8 @@ export const getAvailableSlots = async (data) => {
         token: jwtToken,
       },
     });
+
+    console.log("slots response", res);
     return { res: res, err: null };
   } catch (error) {
     return { err: error, res: null };
@@ -229,10 +231,9 @@ export const bookSalonAppointment = async (data) => {
       },
     });
 
-    console.log(res);
-
     return { res: res, err: null };
   } catch (error) {
+    console.error("handlePaymentError", error);
     return { err: error, res: null };
   }
 };

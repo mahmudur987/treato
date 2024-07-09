@@ -40,7 +40,7 @@ const Upcoming = () => {
       const { data } = await axiosInstance("sales/upcomingAppointments", {
         headers,
       });
-      console.log(data);
+
       return data;
     },
   });

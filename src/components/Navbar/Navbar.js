@@ -268,35 +268,35 @@ export default function Navbar() {
                   <small className={styles.userEmail}>{userInfo?.email}</small>
                 </div>
 
-                <li>
-                  <Link to="/my-appointments/upcoming">
-                    <div className={styles.listtext}>
-                      <img src={history} alt="history" />
-                      My Appointments
-                      {count > 0 && (
-                        <span className={styles.unSeenCounter}>{count}</span>
-                      )}
-                    </div>
-                    <div className={styles.chevronright}>
-                      <img src={chevronright} alt="chevronright" />
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/account-settings">
-                    <div className={styles.listtext}>
-                      <img src={accountSetting} alt="signin" />
-                      <a href="#">Account Settings</a>
-                    </div>
-                    <div className={styles.chevronright}>
-                      <img src={chevronright} alt="chevronright" />
-                    </div>
-                  </Link>
-                </li>
+                  <li>
+                    <Link to="/my-appointments/upcoming">
+                      <div className={styles.listtext}>
+                        <img src={history} alt="history" />
+                        My Appointments
+                        {count > 0 && (
+                          <span className={styles.unSeenCounter}>{count}</span>
+                        )}
+                      </div>
+                      <div className={styles.chevronright}>
+                        <img src={chevronright} alt="chevronright" />
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/account-settings">
+                      <div className={styles.listtext}>
+                        <img src={accountSetting} alt="signin" />
+                        <a href="#">Account Settings</a>
+                      </div>
+                      <div className={styles.chevronright}>
+                        <img src={chevronright} alt="chevronright" />
+                      </div>
+                    </Link>
+                  </li>
 
-                <hr className={styles.divideLine} />
-              </>
-            )}
+                  <hr className={styles.divideLine} />
+                </>
+              )}
 
             {!isLoggedIn && (
               <li>

@@ -8,7 +8,7 @@ import { countryCallingCodes } from './CountryCodes';
 import { FaArrowLeftLong } from "react-icons/fa6";
 function JobDetails() {
   const { id } = useParams();
-  const [phoneNumberError, setPhoneNumberError] = useState('');
+  const [phoneNumberError, setPhoneNumberError] = useState("");
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -30,13 +30,13 @@ function JobDetails() {
       val = val.slice(0, 10);
 
       if (val.length !== 10) {
-        setPhoneNumberError('Phone number must be exactly 10 digits long.');
+        setPhoneNumberError("Phone number must be exactly 10 digits long.");
       } else {
-        setPhoneNumberError('');
+        setPhoneNumberError("");
       }
     }
 
-    if (type === 'checkbox') {
+    if (type === "checkbox") {
       val = checked;
     }
 
@@ -64,22 +64,21 @@ function JobDetails() {
         toast.error(err.error);
       }
       setFormData({
-        first_name: '',
-        last_name: '',
-        email: '',
-        numbercode: '+91',
-        phone_number: '',
+        first_name: "",
+        last_name: "",
+        email: "",
+        numbercode: "+91",
+        phone_number: "",
         resume: null,
         career_id: id,
         isReadRoleDescription: false,
-        timestamps: true
+        timestamps: true,
       });
     } else {
-      toast.warning('Please correct the phone number.');
+      toast.warning("Please correct the phone number.");
     }
 
   };
-
 
   return (
     <>
@@ -90,23 +89,19 @@ function JobDetails() {
 
             <h3>software engineer</h3>
             <div className={style.location} >
-              <svg className={`${style.locationIcons} w-6 h-6 text-gray-800 dark:text-white`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z" />
-              </svg>
+              <img src={image2} width={18} height={18} alt="" srcset="" />
               <p>noida, india</p>
-              <div className={style.verticalLine} ></div>
+              <div className={style.verticalLine}></div>
               <p>Full-Time / on-site</p>
             </div>
           </div>
         </div>
-
       </div>
-      <div className={style.formContainer} >
+      <div className={style.formContainer}>
         <form onSubmit={handleSubmit}>
           <h4>Details</h4>
-          <div className={style.inputBox} >
-            <div className={style.subBox} >
+          <div className={style.inputBox}>
+            <div className={style.subBox}>
               <div>
                 <label htmlFor="firstName">First name</label>
                 <input
@@ -130,7 +125,7 @@ function JobDetails() {
                 />
               </div>
             </div>
-            <div className={style.subBox1} >
+            <div className={style.subBox1}>
               <div>
                 <label htmlFor="email">Email</label>
                 <input
@@ -175,12 +170,14 @@ function JobDetails() {
             </div>
           </div>
 
-          <div className={style.uploadBox} >
+          <div className={style.uploadBox}>
             <label htmlFor="file">Upload Resume</label>
             {formData.resume ? (
-              <div className={style.fileBox} >
+              <div className={style.fileBox}>
                 <span>{formData.resume.name}</span>
-                <button type="button" onClick={handleRemoveFile}>Remove</button>
+                <button type="button" onClick={handleRemoveFile}>
+                  Remove
+                </button>
               </div>
             ) : (
               <div className={style.uploadbtnwrapper}>
@@ -201,7 +198,7 @@ function JobDetails() {
               </div>
             )}
           </div>
-          <div className={style.checkBox} >
+          <div className={style.checkBox}>
             <input
               width={24}
               height={24}
@@ -212,14 +209,16 @@ function JobDetails() {
               onChange={handleChange}
               required
             />
-            <label htmlFor="agreedToRequirements">You have read all the requirements for this position and you think you will be a proper fit for this role.</label>
+            <label htmlFor="agreedToRequirements">
+              You have read all the requirements for this position and you think
+              you will be a proper fit for this role.
+            </label>
           </div>
           <button className={style.submitButton} type="submit"><p>Submit</p></button>
         </form>
-
       </div>
     </>
-  )
+  );
 }
 
 export default JobDetails;

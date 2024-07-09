@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import topImg from "../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./ClientsTable.module.css";
 import { MdOutlineFileDownload } from "react-icons/md";
 import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
+import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
+import { toast } from "react-toastify";
 const tableHeading = [
   {
     heading: "Clients Name",
@@ -44,6 +46,7 @@ const tableHeading = [
   },
 ];
 const ClientsTable = ({ data }) => {
+  const { selectedClients, setSelectedClients } = useContext(reportContext);
   const tableData = data?.data?.map((x) => {
     const data = {
       clientName:
@@ -58,6 +61,27 @@ const ClientsTable = ({ data }) => {
     };
     return data;
   });
+  const handleDownload = () => {
+    toast.error("This features is under maintenance");
+  };
+  const toggleSelection = (itemId) => {
+    if (selectedClients.includes(itemId)) {
+      setSelectedClients(selectedClients.filter((id) => id !== itemId));
+    } else {
+      setSelectedClients([...selectedClients, itemId]);
+    }
+  };
+
+  // Function to select all Clients
+  const selectAll = () => {
+    if (selectedClients.length === tableData.length) {
+      setSelectedClients([]);
+    } else {
+      const allIds = tableData.map((item) => item.txnId);
+      setSelectedClients(allIds);
+    }
+  };
+
   if (data?.data?.length === 0) {
     return <NoDataDisplay />;
   }
@@ -69,7 +93,12 @@ const ClientsTable = ({ data }) => {
             <tr>
               <td>
                 <div className={sty.checkbox}>
-                  <input type="checkbox" id="" />
+                  <input
+                    type="checkbox"
+                    id=""
+                    onClick={() => selectAll()}
+                    checked={selectedClients.length === tableData.length}
+                  />
                 </div>
               </td>
               {tableHeading?.map((item, i) => (
@@ -95,7 +124,12 @@ const ClientsTable = ({ data }) => {
               <tr style={{ borderBottom: "1px solid #ebedf0" }} key={i}>
                 <td>
                   <div className={sty.checkbox}>
-                    <input type="checkbox" id="" />
+                    <input
+                      onClick={() => toggleSelection(x?.clientName)}
+                      type="checkbox"
+                      id=""
+                      checked={selectedClients.includes(x.clientName)}
+                    />
                   </div>
                 </td>
                 <td>{x.clientName}</td>
@@ -105,7 +139,7 @@ const ClientsTable = ({ data }) => {
                 <td>{x.lastVisit}</td>
                 <td>{x.topService}</td>
                 <td>{x.spend}</td>
-                <td style={{ fontSize: "18px" }}>
+                <td style={{ fontSize: "18px" }} onClick={handleDownload}>
                   <MdOutlineFileDownload />
                 </td>
               </tr>

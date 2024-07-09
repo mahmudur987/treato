@@ -7,10 +7,13 @@ import TeamMembers from "../../../../components/Services/Look/AddLook/TeamMember
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
+import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 export const addLookContext = createContext({});
 const AddLook = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
+  const [renderImage, setRenderImage] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -18,21 +21,12 @@ const AddLook = () => {
     rating: "",
   });
   const [selectedPeople, setSelectedPeople] = useState([]);
-  const [serviceData, setServiceData] = useState([]);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(null);
   const [service, setService] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
-  const [salonId, setSalonId] = useState("");
-  const serviceCategoryID = serviceData?.find(
-    (x) => x.category_name === category
-  )?._id;
-  const serviceSubCategoryId = serviceData
-    ?.find((x) => x.category_name === category)
-    ?.subCategories?.find((x) => x.service_name === selectedServices)?._id;
-
   const handleSubmit = async () => {
-    if (!serviceCategoryID || !serviceSubCategoryId) {
+    if (!category || !selectedServices) {
       return toast.error("select service");
     }
 
@@ -51,16 +45,16 @@ const AddLook = () => {
     if (formData.rating === "") {
       return toast.error("Add Rating");
     }
-
+    setIsLoading(true);
     const data = new FormData();
     data.append("file", image);
     data.append("name", formData.name);
     data.append("description", formData.description);
     data.append("price", formData.price);
     data.append("rating", formData.rating);
-    data.append("serviceCategories", serviceCategoryID);
-    data.append("serviceSubCategoryId", serviceSubCategoryId);
-    data.append("salonId", salonId);
+    data.append("serviceCategories", category);
+    data.append("serviceSubCategoryId", selectedServices);
+
     // Append selectedPeople array elements as separate fields
     selectedPeople.forEach((id) => {
       data.append("stylishListIds[]", id);
@@ -70,31 +64,44 @@ const AddLook = () => {
       description: formData.description,
       price: formData.price,
       rating: formData.rating,
-      serviceCategoryID,
-      serviceSubCategoryId,
+      serviceCategoryID: category,
+      serviceSubCategoryId: selectedServices,
       stylishListIds: selectedPeople,
-      salonId,
     });
     try {
       const headers = {
         token: localStorage.getItem("jwtToken"),
       };
       const res = await axiosInstance.post("look-book/new", data, { headers });
-
       console.log(res.data);
+      if (res.data) {
+        toast.success("A New Looks Added Successfully");
+        setImage(null);
+        setRenderImage(null);
+        setFormData({
+          name: "",
+          description: "",
+          price: "",
+          rating: "",
+        });
+        setSelectedPeople([]);
+      }
     } catch (error) {
       console.error("Network error:", error?.response?.data);
+      toast.error("Error");
     }
+
+    setIsLoading(false);
   };
   const value = {
     image,
     setImage,
+    renderImage,
+    setRenderImage,
     formData,
     setFormData,
     selectedPeople,
     setSelectedPeople,
-    serviceData,
-    setServiceData,
     categories,
     setCategories,
     category,
@@ -103,8 +110,12 @@ const AddLook = () => {
     setService,
     selectedServices,
     setSelectedServices,
-    setSalonId,
   };
+
+  if (isLoading) {
+    return <LoadSpinner />;
+  }
+
   return (
     <addLookContext.Provider value={value}>
       <main className={styles.mainContainer}>

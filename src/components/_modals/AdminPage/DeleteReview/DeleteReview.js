@@ -6,24 +6,44 @@ import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 
 import { toast } from "react-toastify";
 import axiosInstance from "../../../../services/axios";
-import { adminToken } from "../../../../services/superAdmin/Dashboard";
+
+import { useParams } from "react-router-dom";
+import { useSalonReviews } from "../../../../services/superAdmin/Dashboard";
 
 const DeleteReviewModal = ({ showModal, onClose, data }) => {
-  const handleSubmit = async () => {
-    try {
-      const headers = {
-        token: adminToken,
-      };
+  let { id } = useParams();
+  const { refetch } = useSalonReviews(id);
+  const handleDeleteReview = async () => {
+    console.log({
+      salon_id: id,
+      reviewid: data?.id,
+    });
 
-      const { data } = await axiosInstance.post("super/createsalonreview", {
-        headers,
-      });
-      if (data) {
-        toast.success("review added successfully");
+    const headers = {
+      token: localStorage.getItem("jwtToken"),
+    };
+    let url = "super/salonreviewdelete";
+    const requestData = {
+      headers: headers,
+      data: {
+        salon_id: id,
+        reviewid: data?.id,
+      },
+    };
+    try {
+      const res = await axiosInstance.delete(url, requestData);
+
+      console.log(res);
+
+      if (res?.data) {
+        toast.success(res?.data?.message ?? "Review Delete Successfully");
       }
+
+      refetch();
+      onClose();
     } catch (error) {
-      console.error("error", error);
-      toast.error(error ? error.message : "Error");
+      console.error(error);
+      toast.error("Error");
     }
   };
   return (
@@ -52,7 +72,11 @@ const DeleteReviewModal = ({ showModal, onClose, data }) => {
           >
             Cancel
           </button>
-          <button className={styles.save} type="button">
+          <button
+            className={styles.save}
+            type="button"
+            onClick={handleDeleteReview}
+          >
             Yes, Delete
           </button>
         </div>

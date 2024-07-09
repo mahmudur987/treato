@@ -166,13 +166,10 @@ function App() {
         />
         <ModalManager />
 
-
         <Routes>
-
           <Route element={<CustomerPageLayout />}>
             {/* <Route  element={<Chatbot/>}/> */}
             <Route path="/" element={<Home />} />
-
             <Route path="/account-settings" element={<AccountSettings />} />
             <Route path="/salons" element={<Salons />} />
             <Route path="/salons/:id" element={<SalonDetail />} />
@@ -193,7 +190,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/verify-otp" element={<VerifyOTP />} />
-              <Route path="/reset-password/*" element={<ResetPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
             </Route>
           </Route>
           {/* Redirect to home for any wrong routes */}
@@ -206,7 +203,10 @@ function App() {
           {/* partner dashboard */}
           <Route path="/partner/dashboard" element={<ServicePage />}>
             <Route path="/partner/dashboard" element={<Dashboard />} />
-            <Route path="/partner/dashboard/appointment/calendar" element={<AppointmentCalendar />} />
+            <Route
+              path="/partner/dashboard/appointment/calendar"
+              element={<AppointmentCalendar />}
+            />
 
             <Route
               path="/partner/dashboard/service"
@@ -289,17 +289,20 @@ function App() {
               <Route path="/Privacy/termofuse" element={<Termoptions />} />
               <Route path="/Privacy/policy" element={<PrivacyService />} />
             </Route>
-
           </Route>
 
           {/* Careers page routes */}
-          <Route path="/careers" element={<CareersPage />} >
-            <Route path="/careers/currentopenings" element={<CurrentOpenings />} />
-            <Route path="/careers/jobdescription/:id" element={<JobDescription />} />
+          <Route path="/careers" element={<CareersPage />}>
+            <Route
+              path="/careers/currentopenings"
+              element={<CurrentOpenings />}
+            />
+            <Route
+              path="/careers/jobdescription/:id"
+              element={<JobDescription />}
+            />
             <Route path="/careers/jobdetails/:id" element={<JobDetails />} />
-
           </Route>
-
 
           {/* FrequentlyAskedQuestions page  */}
           <Route
@@ -315,7 +318,7 @@ function App() {
 
           <Route path="/admin" element={<AdminPageLayout />}>
             <Route path="/admin" element={<AdminDashboard />} />
-            
+
             <Route path="/admin/salon/active" element={<ActiveSalon />} />
             <Route
               path="/admin/salon/active/:id"
@@ -356,9 +359,10 @@ export default App;
 // }
 
 // {
-//   "email":"treatoadminsuper0707@gmail.com",
+//   "email":"treatoadminsuper0707@gmail.com"fhgfgh,
 //   "password":"TreatoSuperAdmin@070809"
 // }
-
+// devleor Email:mahmudur.banao@gmail.com
+// password :Test@123456
 // 6508592af8131fc40b478125    dont give this id on any api related to delete api for salon delete okay please
 // 6508592af8131fc40b478125

@@ -6,8 +6,6 @@
 }
 .tableContainer {
   width: 100%;
-  margin: 0 auto;
-  overflow-x: auto;
 }
 .styledTable {
   max-width: 1300px;
@@ -62,11 +60,31 @@
 }
 @media only screen and (max-width: 700px) {
   .mainContainer {
-    margin: 10px;
+    max-width: 96vw;
+    margin: 0 auto;
+    overflow-x: auto;
   }
 
   .tableContainer {
-    width: 800px;
-    overflow-x: auto;
+    min-width: 800px;
+  }
+
+  .styledTable thead {
+    background: none;
+    color: #08090a;
+    border-left: none;
+    border-right: none;
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    text-align: left;
+  }
+  .checkbox {
+    display: none;
+  }
+  .styledTable tbody tr {
+    border-bottom: none;
   }
 }

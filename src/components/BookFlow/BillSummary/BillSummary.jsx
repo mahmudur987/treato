@@ -26,6 +26,7 @@ import {
   bookSalonAppointment,
 } from "../../../services/Appointments";
 import { toast } from "react-toastify";
+import CartPayment from "../../../payment/Payment";
 
 export default function BillSummary({
   setShowModal,
@@ -115,9 +116,9 @@ export default function BillSummary({
 
   // razorpay gateway
 
-  const initPayment = (order) => {
+  const initPayment = (order, id) => {
     const options = {
-      key: process.env.REACT_APP_Razorpay_Key,
+      key: id,
       amount: `${amountToPay}`,
       currency: "INR",
       name: "Treato",
@@ -129,13 +130,10 @@ export default function BillSummary({
           let verificationData = { ...response, order };
           console.log(verificationData);
           AppointmentVerify({ ...response, order }).then((res) => {
-            if (
-              res?.res?.data?.message ===
-              "Payment Verified and Order Created Successfully"
-            ) {
+            console.log(res);
+            if (res?.res?.data?.success) {
               setCompletedPay(true);
             }
-            console.log(res);
           });
         } catch (error) {
           console.log(error);
@@ -163,25 +161,33 @@ export default function BillSummary({
             ? TotalServiceAmount - selectedOffer?.amount_for_discount
             : TotalServiceAmount
         }`,
-        time: "",
+        time: selectedServiceSlot,
+        servicetimetaken: selectedServices?.map((x) => x.service_time),
         selectedStylistId: stepTwoDetails?.workerData[0]?._id
           ? stepTwoDetails?.workerData[0]?._id
           : "",
         dateforService: serviceDetails?.serviceDate,
-        seletedSlot: selectedServiceSlot,
+
         userData: visitorDetails?.contact,
         payment_mode: "online",
-        serviceDetails: selectedServices,
+        // serviceDetails: selectedServices,
+        noPreference: "noPreference",
       };
+
       bookSalonAppointment(billInfo).then((res) => {
         let response = res?.res?.data;
+
+        console.log(res);
         if (response?.success) {
           setOrderResponse(response?.order);
-          initPayment(response?.order);
+          initPayment(response?.order, response?.razorpayid);
+        } else if (res.err) {
+          toast.error(res?.err?.response?.data?.error ?? "Error");
         }
       });
     } catch (error) {
       console.log(error);
+      toast.error(error?.message ?? "Error");
     }
   };
 
@@ -196,21 +202,31 @@ export default function BillSummary({
           ? TotalServiceAmount - selectedOffer?.amount_for_discount
           : TotalServiceAmount
       }`,
-      time: "",
+      time: selectedServiceSlot,
+      servicetimetaken: selectedServices?.map((x) => x.service_time),
       selectedStylistId: stepTwoDetails?.workerData[0]?._id
         ? stepTwoDetails?.workerData[0]?._id
         : "",
       dateforService: serviceDetails?.serviceDate,
-      seletedSlot: selectedServiceSlot,
+
       userData: visitorDetails?.contact,
       payment_mode: "on-site",
-      serviceDetails: selectedServices,
+      // serviceDetails: selectedServices,
+      noPreference: "noPreference",
     };
+    console.log(billInfo);
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
+
+      console.log(res);
+
       if (response?.success) {
         setOrderResponse(response?.order);
+        toast.success("Appointment Booked successfully");
+
         setCompletedPay(true);
+      } else if (res.err) {
+        toast.error(res?.err?.response?.data?.error ?? "Error");
       }
     });
   };
@@ -305,10 +321,17 @@ export default function BillSummary({
             setCompletedPay={setCompletedPay}
             handleOfflinePayment={handleOfflinePayment}
             salonId={id}
+            // handlePayment={handlePayment}
           />
         ) : (
           <div className={styles.bill_sumG}>
             <button onClick={handlePayment}>Pay ₹{amountToPay}</button>
+
+            {/* <CartPayment
+              paymentotal={amountToPay}
+              selectedaddress={userDetails?.email ?? "India"}
+              amountToPay={amountToPay}
+            /> */}
           </div>
         )}
         <div

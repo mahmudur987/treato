@@ -12,7 +12,7 @@ export default function PendingSalonMainPage({ addServices, addedServices }) {
 
   let { id } = useParams();
   const { data, isLoading, isError, error } = useSalonDetailsServices(id);
-  console.log(data?.data);
+
   return (
     <div className={styles.salon_main}>
       <div className={styles.salon_options}>

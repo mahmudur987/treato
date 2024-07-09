@@ -4,15 +4,16 @@ import { FaImage } from "react-icons/fa6";
 import replace from "../../../../../assets/icons/partner/replace.png";
 import { EditLookContext } from "../../../../../pages/partnerPages/Look/EditLook/EditLook";
 const LeftContent = () => {
-  const { image, setImage } = useContext(EditLookContext);
-  const fileInputRef = useRef(null);
+  const { setImage, renderImage, setRenderImage } = useContext(EditLookContext);
 
+  const fileInputRef = useRef(null);
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      setImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result);
+        setRenderImage(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -30,13 +31,13 @@ const LeftContent = () => {
       </p>
 
       <div className={styles.uploadContainer}>
-        {image ? (
+        {renderImage ? (
           <div className={styles.preview}>
-            <img src={image} alt="Preview" className={styles.image} />
+            <img src={renderImage} alt="Preview" className={styles.image} />
 
-            <div className={styles.replace}>
+            <div className={styles.replace} onClick={handleButtonClick}>
               <img className={styles.replaceIcon} src={replace} />
-              <button onClick={handleButtonClick}>Replace Image</button>
+              <button type="button">Replace Image</button>
             </div>
           </div>
         ) : (

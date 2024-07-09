@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./SingleSalon.module.css";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
-const SingleSalon = ({ salon }) => {
+
+const SingleSalon = ({ salon, refetch }) => {
   return (
     <Link to={`/admin/salon/active/${salon.id}`}>
       <div className={styles.card}>

@@ -72,15 +72,16 @@ const TeamDetails = () => {
       phone: x?.stylist_number || "N/A",
       rating: x?.rating || "N/A",
       address: x?.stylist_address || "N/A",
-      service: x?.stylist_service.length || 0,
+      service:
+        (x?.stylist_service?.length > 0 && x?.stylist_service?.length) || 0,
       bookingToday: x?.appointments,
       editPencil: editImg,
     };
   });
   const TeamDetailsData = filteredData?.filter(
     (item) =>
-      item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      item.serviceProfile.toLowerCase().includes(searchText.toLowerCase())
+      item?.name?.toLowerCase().includes(searchText?.toLowerCase()) ||
+      item?.serviceProfile?.toLowerCase()?.includes(searchText?.toLowerCase())
   );
   const navigate = useNavigate();
   const [isViewAll, setIsViewAll] = useState(false);
@@ -160,10 +161,10 @@ const TeamDetails = () => {
           {data &&
             !isLoading &&
             !isError &&
-            TeamDetailsData.length > 0 &&
+            TeamDetailsData?.length > 0 &&
             TeamDetailsData?.slice(
               0,
-              isViewAll ? TeamDetailsData.length : 8
+              isViewAll ? TeamDetailsData?.length : 8
             ).map((item, i) => (
               <>
                 <tr className={sty.mapData}>
@@ -200,7 +201,7 @@ const TeamDetails = () => {
       {TeamDetailsData?.length === 0 && <NoDataDisplay />}
       {isError && <ErrorComponent message={error.message} />}
       {TeamDetailsData &&
-        TeamDetailsData.length > 0 &&
+        TeamDetailsData?.length > 0 &&
         TeamDetailsData.map((item, i) => {
           return (
             <div key={i}>

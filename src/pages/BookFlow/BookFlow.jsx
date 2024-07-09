@@ -26,12 +26,15 @@ import {
   updateServiceTime,
 } from "../../redux/slices/salonServices";
 import { TreatoLogo } from "../../assets/images/icons";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+import { updateVisitorContent } from "../../redux/slices/VisitorDetails";
 
 export default function BookFlow() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
-  const [count, setCount] = useState()
-  console.log("Count", count);
+  const [count, setCount] = useState();
+  const [loading, setLoading] = useState(false);
+  // console.log("Count", count);
   let [activeBookFlowBA, updateActiveBookFlowBA] = useState(1);
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
   let [showPay, setShowPay] = useState(true);
@@ -61,7 +64,7 @@ export default function BookFlow() {
   const userDetails = useSelector((state) => state?.user?.user);
   const serviceDetails = useSelector((state) => state?.salonServices);
   useEffect(() => {
-    console.log(activeBookFlowBA);
+    // console.log(activeBookFlowBA);
   }, [activeBookFlowBA]);
 
   useEffect(() => {
@@ -80,6 +83,7 @@ export default function BookFlow() {
   }, [stepTwoDetails]);
   useEffect(() => {
     let SalonDataFunc = async () => {
+      setLoading(true);
       const { res, err } = await salon();
       if (res) {
         res.data.salons.map((v) => {
@@ -88,9 +92,25 @@ export default function BookFlow() {
           }
         });
       }
+      setLoading(false);
     };
     SalonDataFunc();
   }, []);
+  useEffect(() => {
+    if (activeBookFlowBA < 3) {
+      dispatch(
+        updateVisitorContent({
+          guest: "",
+          contact: {
+            name: "",
+            phone: "",
+            email: "",
+            preferences: "",
+          },
+        })
+      );
+    }
+  }, [activeBookFlowBA, dispatch]);
 
   const convertDate = (inputDate, Year) => {
     const dateObject = new Date(inputDate);
@@ -116,7 +136,7 @@ export default function BookFlow() {
         oldData.workerData = filtered;
         oldData.isNoPreference = false;
         requiredData = {
-          salons_id: salonServices[0]?.salon_id,
+          salons_id: id,
           service_id: ServiceIds,
           selectedStylistId: filtered[0]?._id,
           dateforService: convertDate(stepTwoDetails?.dateData, selectedYear),
@@ -130,14 +150,14 @@ export default function BookFlow() {
         ];
         oldData.isNoPreference = true;
         requiredData = {
-          salons_id: salonServices[0]?.salon_id,
+          salons_id: id,
           service_id: ServiceIds,
           noPreference: true,
           dateforService: convertDate(stepTwoDetails?.dateData, selectedYear),
         };
       }
       if (stepTwoDetails?.dateData !== null) {
-        console.log("from selected Stylist");
+        console.log("from selected Stylist", requiredData);
         getAvailableSlots(requiredData).then((res) => {
           setavailableSlots(res?.res?.data?.data);
           dispatch(updateServiceDate(requiredData?.dateforService));
@@ -156,7 +176,7 @@ export default function BookFlow() {
         if (oldData.isNoPreference) {
           console.log("--date NoPReferene----");
           requiredData = {
-            salons_id: salonServices[0]?.salon_id,
+            salons_id: id,
             noPreference: oldData.isNoPreference,
             service_id: ServiceIds,
             dateforService: convertDate(e.target.value, year),
@@ -164,7 +184,7 @@ export default function BookFlow() {
         } else {
           console.log("--date PReferene----");
           requiredData = {
-            salons_id: salonServices[0]?.salon_id,
+            salons_id: id,
             service_id: ServiceIds,
             selectedStylistId: stepTwoDetails?.workerData[0]?._id,
             dateforService: convertDate(e.target.value, year),
@@ -184,11 +204,12 @@ export default function BookFlow() {
   const initPayment = (order) => {
     const options = {
       key: process.env.REACT_APP_Razorpay_Key,
-      amount: `${serviceDetails?.appliedOffer?.amount_for_discount
-        ? serviceDetails?.Amount -
+      amount: `${
         serviceDetails?.appliedOffer?.amount_for_discount
-        : serviceDetails?.Amount
-        }`,
+          ? serviceDetails?.Amount -
+            serviceDetails?.appliedOffer?.amount_for_discount
+          : serviceDetails?.Amount
+      }`,
       currency: "INR",
       name: "Treato",
       description: "test ",
@@ -225,11 +246,12 @@ export default function BookFlow() {
         user_id: userDetails?._id,
         salons_id: id,
         service_id: serviceIDs,
-        final_amount: `${serviceDetails?.appliedOffer?.amount_for_discount
-          ? serviceDetails?.Amount -
+        final_amount: `${
           serviceDetails?.appliedOffer?.amount_for_discount
-          : serviceDetails?.Amount
-          }`,
+            ? serviceDetails?.Amount -
+              serviceDetails?.appliedOffer?.amount_for_discount
+            : serviceDetails?.Amount
+        }`,
         time: "",
         selectedStylistId: stepTwoDetails?.workerData[0]?._id
           ? stepTwoDetails?.workerData[0]?._id
@@ -240,12 +262,14 @@ export default function BookFlow() {
         payment_mode: "online",
         serviceDetails: serviceDetails?.salonContent,
       };
-      bookSalonAppointment(billInfo).then((res) => {
-        let response = res?.res?.data;
-        if (response?.success) {
-          initPayment(response?.order);
-        }
-      });
+      console.log(billInfo);
+
+      // bookSalonAppointment(billInfo).then((res) => {
+      //   let response = res?.res?.data;
+      //   if (response?.success) {
+      //     initPayment(response?.order);
+      //   }
+      // });
     } catch (error) {
       console.log(error);
     }
@@ -258,12 +282,14 @@ export default function BookFlow() {
       user_id: userDetails?._id,
       salons_id: id,
       service_id: serviceIDs,
-      final_amount: `${serviceDetails?.appliedOffer?.amount_for_discount
-        ? serviceDetails?.Amount -
+      final_amount: `${
         serviceDetails?.appliedOffer?.amount_for_discount
-        : serviceDetails?.Amount
-        }`,
+          ? serviceDetails?.Amount -
+            serviceDetails?.appliedOffer?.amount_for_discount
+          : serviceDetails?.Amount
+      }`,
       time: "",
+      servicetimetaken: ["1 hr 15 mins", "1 hr"],
       selectedStylistId: stepTwoDetails?.workerData[0]?._id
         ? stepTwoDetails?.workerData[0]?._id
         : "",
@@ -273,6 +299,7 @@ export default function BookFlow() {
       payment_mode: "offline",
       serviceDetails: serviceDetails?.salonContent,
     };
+    console.log(billInfo);
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
       if (response?.success) {
@@ -280,6 +307,21 @@ export default function BookFlow() {
       }
     });
   };
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <LoadSpinner />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.book_flowMain}>
@@ -300,18 +342,18 @@ export default function BookFlow() {
               {activeBookFlowBA === 1
                 ? "Select services"
                 : activeBookFlowBA === 2
-                  ? "Select professional and time"
-                  : activeBookFlowBA === 3
-                    ? "Visitor Details"
-                    : "Payment"}
+                ? "Select professional and time"
+                : activeBookFlowBA === 3
+                ? "Visitor Details"
+                : "Payment"}
             </div>
             <div className={styles.book_flowB}>
               <div
                 className={
                   activeBookFlowBA === 1 ||
-                    activeBookFlowBA === 2 ||
-                    activeBookFlowBA === 3 ||
-                    activeBookFlowBA === 4
+                  activeBookFlowBA === 2 ||
+                  activeBookFlowBA === 3 ||
+                  activeBookFlowBA === 4
                     ? `${styles.book_flowBA} ${styles.activeBook_flowBA}`
                     : styles.book_flowBA
                 }
@@ -319,8 +361,8 @@ export default function BookFlow() {
               <div
                 className={
                   activeBookFlowBA === 2 ||
-                    activeBookFlowBA === 3 ||
-                    activeBookFlowBA === 4
+                  activeBookFlowBA === 3 ||
+                  activeBookFlowBA === 4
                     ? `${styles.book_flowBA} ${styles.activeBook_flowBA}`
                     : styles.book_flowBA
                 }
@@ -346,17 +388,29 @@ export default function BookFlow() {
               ""
             )}
             {activeBookFlowBA === 1 ? (
-              <SalonServiceMain
-                hideTitle={true}
-                SalonData={SalonData ? SalonData : null}
-                setCount={setCount}
-              />
+              <>
+                {SalonData?.services.length > 0 &&
+                  SalonData?.services?.map((x, y) => {
+                    if (x.mainCategories.length > 0) {
+                      return (
+                        <SalonServiceMain
+                          key={y}
+                          data={x}
+                          hideTitle={false}
+                          SalonData={SalonData ? SalonData : null}
+                          setCount={setCount}
+                        />
+                      );
+                    }
+                    return null;
+                  })}
+              </>
             ) : activeBookFlowBA === 2 ? (
-
               <WorkerDetail
                 SalonData={SalonData ? SalonData : null}
                 getWorkerData={getWorkerData}
                 availableSlots={availableSlots}
+                stepTwoDetails={stepTwoDetails}
               />
             ) : activeBookFlowBA === 3 ? (
               <VisitorDetail />
@@ -420,18 +474,18 @@ export default function BookFlow() {
                     ? true
                     : false
                   : activeBookFlowBA === 2
-                    ? stepTwoDetails.workerData === null ||
-                      stepTwoDetails.dateData === null ||
-                      stepTwoDetails.timeData === null
-                      ? true
-                      : false
-                    : activeBookFlowBA === 3
-                      ? contact.name === "" ||
-                        contact.phone === "" ||
-                        contact.email === ""
-                        ? true
-                        : false
-                      : false
+                  ? stepTwoDetails.workerData === null ||
+                    stepTwoDetails.dateData === null ||
+                    stepTwoDetails.timeData === null
+                    ? true
+                    : false
+                  : activeBookFlowBA === 3
+                  ? contact.name === "" ||
+                    contact.phone === "" ||
+                    contact.email === ""
+                    ? true
+                    : false
+                  : false
               }
             />
           </div>

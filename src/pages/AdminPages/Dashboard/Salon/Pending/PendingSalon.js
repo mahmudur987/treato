@@ -24,7 +24,7 @@ const PendingSalon = () => {
   const [selectedSalon, setSelectedSalon] = useState([]);
   const { searchText } = useSelector((state) => state.admin);
   const { pathname } = useLocation();
-  const { data, isLoading, isError, error } = usePendingSalons(
+  const { data, isLoading, isError, error, refetch } = usePendingSalons(
     pathname === "/admin/salon/pending" ? searchText : ""
   );
   const pendingSalonData = data?.pendingSalons
@@ -58,36 +58,30 @@ const PendingSalon = () => {
   }, []);
 
   const handleApprove = async (id) => {
-    if (id) {
-      try {
-        const approveData = {};
-        const headers = { token: adminToken };
+    try {
+      const Data = {
+        salon_ids: [id],
+      };
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
 
-        const { data } = await axiosInstance.post("", approveData, headers);
-
-        if (data) {
-          console.log(data);
-          toast.success("Salon Approve Successfully");
+      const { data } = await axiosInstance.patch(
+        "super/salonapproveaction",
+        Data,
+        {
+          headers,
         }
-      } catch (error) {
-        console.error(error);
-        toast.error(error ? error.message : "Error");
-      }
-    } else {
-      try {
-        const approveData = {};
-        const headers = { token: adminToken };
+      );
+      console.log(data);
+      if (data) {
+        toast.success("Salon Approved successfully!");
 
-        const { data } = await axiosInstance.post("", approveData, headers);
-
-        if (data) {
-          console.log(data);
-          toast.success("Salon Approve Successfully");
-        }
-      } catch (error) {
-        console.error(error);
-        toast.error(error ? error.message : "Error");
+        refetch();
       }
+    } catch (error) {
+      console.error(error);
+      toast.error(error ? error?.message : "Error");
     }
   };
 

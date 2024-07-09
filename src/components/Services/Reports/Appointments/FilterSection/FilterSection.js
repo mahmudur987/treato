@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./FilterSection.module.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
 
 import CustomSelect4 from "../../../../Select/CustomeSelect4/CustomSelect4";
+import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
 
 const DaysOptions = [
   "Last 1 year",
@@ -15,6 +16,8 @@ const DaysOptions = [
 const StatusOptions = ["Upcoming", "Complete", "Cancelled", "No Show "];
 const BookingTypeOptions = ["Online ", "On-site"];
 const FilterSection = ({ setAppointmentsQuery }) => {
+  const { commonSearch } = useContext(reportContext);
+
   const [searchText, setSearchText] = useState(null);
   const [selectedDays, setSelectedDays] = useState("Last 1 Year");
   const [day, setDay] = useState(365);
@@ -44,9 +47,21 @@ const FilterSection = ({ setAppointmentsQuery }) => {
         selectedBookingType === "Booking Type"
           ? "on-site"
           : selectedBookingType.toLowerCase()
-      }${searchText ? `&search=${searchText}` : ""}`
+      }${searchText ? `&search=${searchText}` : ""}${
+        commonSearch ? `&search=${commonSearch}` : ""
+      }`
     );
-  }, [day, selectedBookingType, selectedStatus, searchText]);
+  }, [
+    day,
+    selectedBookingType,
+    selectedStatus,
+    searchText,
+    commonSearch,
+    setAppointmentsQuery,
+  ]);
+
+  const handleDownLoad = () => {};
+
   return (
     <div className={styles.mainContainerWrapper}>
       <div className={styles.mainContainer}>
@@ -78,7 +93,7 @@ const FilterSection = ({ setAppointmentsQuery }) => {
             value={selectedBookingType}
           />
           <div className={styles.btnWrapper}>
-            <button>
+            <button type="button" onClick={handleDownLoad}>
               <span>Download</span>
               <span>
                 <MdOutlineFileDownload />

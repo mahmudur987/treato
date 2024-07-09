@@ -9,7 +9,7 @@ const ReportsPageHeader = ({ pageDetails, setPageDetails }) => {
         {headerData.map((x) => (
           <h3
             style={{
-              borderBottom: `${pageDetails === x ? "1px solid #0D69D7" : ""}`,
+              borderBottom: `${pageDetails === x ? "3px solid #0D69D7" : ""}`,
             }}
             onClick={() => setPageDetails(x)}
           >

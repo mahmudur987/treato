@@ -30,19 +30,19 @@ const Pagination = ({
     <div className={styles.mainContainer}>
       <div className={styles.left}>
         <span>Showing</span>
-        <span>
-          <select onChange={handleItemPerPageChange}>
-            <option value={itemPerPage} disabled selected>
-              {itemPerPage}
-            </option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-        </span>
+
+        <select onChange={handleItemPerPageChange}>
+          <option value={itemPerPage} disabled selected>
+            {itemPerPage}
+          </option>
+          <option value="5">05</option>
+          <option value="6">06</option>
+          <option value="7">07</option>
+          <option value="8">08</option>
+          <option value="9">09</option>
+          <option value="10">10</option>
+        </select>
+
         <span>Out of {count}</span>
       </div>
 
@@ -58,7 +58,7 @@ const Pagination = ({
             }}
             onClick={() => setPageNumber(index + 1)}
           >
-            {index + 1}
+            {index < 9 && "0"} {index + 1}
           </span>
         ))}
         <button onClick={next}>Next</button>

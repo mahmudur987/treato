@@ -10,6 +10,7 @@ const DeactivatedAllSalon = ({
   setSelectedSalon,
   pendingSalonData,
   viewBy,
+  refetch,
 }) => {
   const toggleSelectCard = (id) => {
     const isSelected = selectedSalon.includes(id);
@@ -20,7 +21,6 @@ const DeactivatedAllSalon = ({
     }
   };
 
-  // Function to select all Salon
   const selectAllSalon = () => {
     if (selectedSalon.length === pendingSalonData.length) {
       return setSelectedSalon([]);
@@ -32,20 +32,30 @@ const DeactivatedAllSalon = ({
   const handleReActive = async (id) => {
     try {
       const Data = {
-        salonId: [id],
+        salon_ids: [id],
       };
-      const headers = {};
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
 
-      const { data } = await axiosInstance.post("", headers, Data);
+      const { data } = await axiosInstance.patch(
+        "super/salonreactivate",
+        Data,
+        {
+          headers,
+        }
+      );
 
       if (data) {
         toast.success("Salon activated successfully!");
+        refetch();
       }
     } catch (error) {
       console.error(error);
       toast.error(error ? error?.message : "Error");
     }
   };
+
   const handleDelete = async (id) => {
     try {
       const deleteData = {

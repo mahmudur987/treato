@@ -10,45 +10,41 @@ const FilterSection = ({
   viewBy,
   setViewBy,
   selectedSalon,
+  setSelectedSalon,
   count,
   value,
   data,
+  refetch,
 }) => {
   const { City, selectedCity, setSelectedCity } = value;
 
-  const handleReActiveAll = async (id) => {
-    if (selectedSalon.length > 0) {
-      try {
-        const Data = {
-          salonId: [id],
-        };
-        const headers = {};
+  const handleReActiveSalons = async () => {
+    console.log(selectedSalon);
 
-        const { data } = await axiosInstance.post("", headers, Data);
+    try {
+      const Data = {
+        salon_ids: [selectedSalon],
+      };
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
 
-        if (data) {
-          toast.success("Salons reactivated successfully!");
+      const { data } = await axiosInstance.patch(
+        "super/salonreactivate",
+        Data,
+        {
+          headers,
         }
-      } catch (error) {
-        console.error(error);
-        toast.error(error ? error?.message : "Error");
+      );
+      console.log(data);
+      if (data) {
+        toast.success("Salons are activated successfully!");
+        setSelectedSalon([]);
+        refetch();
       }
-    } else if (selectedSalon.length === 0) {
-      try {
-        const Data = {
-          salonId: [id],
-        };
-        const headers = {};
-
-        const { data } = await axiosInstance.post("", headers, Data);
-
-        if (data) {
-          toast.success("Salons reactivated successfully!");
-        }
-      } catch (error) {
-        console.error(error);
-        toast.error(error ? error?.message : "Error");
-      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error ? error?.message : "Error");
     }
   };
   const handleDeleteAll = async (id) => {
@@ -60,7 +56,7 @@ const FilterSection = ({
         };
         const headers = {};
 
-        const { data } = await axiosInstance.post("", headers, deleteData);
+        const { data } = await axiosInstance.delete("", headers, deleteData);
 
         if (data) {
           toast.success("Salons deleted successfully!");
@@ -120,7 +116,7 @@ const FilterSection = ({
             value={selectedCity}
           />
           <div className={styles.buttonWrapper}>
-            <button onClick={handleReActiveAll}>
+            <button onClick={handleReActiveSalons}>
               Reactivated
               {selectedSalon.length > 0 ? (
                 <span style={{ marginLeft: "7px" }}>

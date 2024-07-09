@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./StyleDetails.module.css";
 import { addLookContext } from "../../../../../pages/partnerPages/Look/AddALook/AddLook";
-import { useSingleSalon } from "../../../../../services/salon";
-import CustomSelect2 from "../../../../Select/CustomeSelect2/CustomeSelect2";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
+import { useGetPartnerServices } from "../../../../../services/Services";
+import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 export const getCombinedMainCategories = (services) => {
   let mainCategoriesCombined = [];
 
@@ -16,25 +16,21 @@ export const getCombinedMainCategories = (services) => {
     }
   });
 
-  return mainCategoriesCombined;
+  return mainCategoriesCombined.concat(mainCategoriesCombined.subCategories);
 };
 const StyleDetails = () => {
   const {
     formData,
     setFormData,
-    serviceData,
-    setServiceData,
     categories,
     setCategories,
     category,
     setCategory,
     service,
     setService,
-    selectedServices,
     setSelectedServices,
-    setSalonId,
   } = useContext(addLookContext);
-  const { data, isLoading, isError, error } = useSingleSalon();
+  const { data, isLoading, isError, error } = useGetPartnerServices();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,22 +40,17 @@ const StyleDetails = () => {
     });
   };
   useEffect(() => {
-    const services = getCombinedMainCategories(data?.salon?.services);
-    setServiceData(services);
-    const mainCategories = services.map((x) => x.category_name);
-    setCategories(mainCategories);
-    setCategory(mainCategories[0] ?? "null");
-
-    setSalonId(data?.salon?._id);
+    setCategories(data ? data?.data : []);
+    setCategory(data ? data?.data[0].service_id : "");
   }, [data]);
 
   useEffect(() => {
-    const services = serviceData
-      .find((x) => x.category_name === category)
-      ?.subCategories?.map((x) => x.service_name);
-    setService(services);
-    setSelectedServices(services ? services[0] : "null");
-  }, [category]);
+    const services = data?.data?.find((x) => x.service_id === category);
+    setService(services?.subCategories);
+    setSelectedServices(
+      services ? services?.subCategories[0]?.subCategory_id : "null"
+    );
+  }, [category, data]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,14 +69,19 @@ const StyleDetails = () => {
         <div className={styles.formGroup}>
           <label htmlFor="">Service Category</label>
 
-          {data && !isLoading && !isError && (
-            <CustomSelect2
-              options={categories}
-              value={category ? category : "please select one"}
-              onChange={setCategory}
-            />
+          {data && !isLoading && !isError && categories?.length > 0 && (
+            <select name="" id="" onChange={(e) => setCategory(e.target.value)}>
+              {categories?.map((x, i) => (
+                <option key={i} value={x.service_id}>
+                  {" "}
+                  {x.service_name}{" "}
+                </option>
+              ))}
+            </select>
           )}
-
+          {categories?.length === 0 && (
+            <NoDataDisplay message={"Please Add A Service"} />
+          )}
           {isLoading && <LoadSpinner />}
           {isError && <ErrorComponent message={"Error "} />}
         </div>
@@ -93,15 +89,15 @@ const StyleDetails = () => {
         {service && service?.length > 0 ? (
           <div className={styles.formGroup}>
             <label htmlFor="">Select Service </label>
-            <CustomSelect2
-              options={service}
-              value={
-                selectedServices.length > 0
-                  ? selectedServices
-                  : "please select one"
-              }
-              onChange={setSelectedServices}
-            />
+
+            <select onChange={(e) => setSelectedServices(e.target.value)}>
+              {service?.map((x, i) => (
+                <option key={i} value={x.subCategory_id}>
+                  {" "}
+                  {x.subCategory_name}
+                </option>
+              ))}
+            </select>
           </div>
         ) : (
           <p className={styles.noservice}>

@@ -32,7 +32,7 @@ const ActiveSalon = () => {
   const { searchText } = useSelector((state) => state.admin);
   const { pathname } = useLocation();
 
-  const { data, isError, isLoading, error } = useActiveSalons(
+  const { data, isError, isLoading, error, refetch } = useActiveSalons(
     pathname === "/admin/salon/active" ? searchText : ""
   );
   const ActiveSalons = data?.data
@@ -94,11 +94,11 @@ const ActiveSalon = () => {
             {viewBy ? (
               <div className={styles.container}>
                 {sortedSalons.map((x, i) => (
-                  <SingleSalon key={i} salon={x} />
+                  <SingleSalon key={i} salon={x} refetch={refetch} />
                 ))}
               </div>
             ) : (
-              <SalonTable tableData={sortedSalons} />
+              <SalonTable tableData={sortedSalons} refetch={refetch} />
             )}
           </>
         )}

@@ -61,6 +61,15 @@ const AddMemberProfile = () => {
     },
     []
   );
+  const allServices = allMainCategories.reduce((accumulator, service) => {
+    return accumulator.concat(service.subCategories);
+  }, []);
+  console.log(selectedServices);
+  console.log(allServices);
+
+  const selectedServiceDetails = allServices.filter((x) =>
+    selectedServices.includes(x._id)
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,3 +1,4 @@
+import { useQuery } from "react-query";
 import axiosInstance from "./axios";
 
 /** Register the user after Verifying the OTP `POST: /api/auth/register/` */
@@ -18,4 +19,17 @@ export const getSingleServices = async (id) => {
   } catch (error) {
     return { err: error, res: null };
   }
+};
+export const useGetPartnerServices = () => {
+  const token = localStorage.getItem("jwtToken");
+  const headers = { token };
+  return useQuery({
+    queryKey: ["servicess"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get("service/salonservices", {
+        headers,
+      });
+      return data;
+    },
+  });
 };

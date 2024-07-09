@@ -23,3 +23,18 @@ export const useCommissionStatistics = (days) => {
     refetchOnWindowFocus: false, // Disable refetch on window focus
   });
 };
+
+export const useCommissionHistory = (x) => {
+  let url = `super/getCommissionHistory?${x}`;
+  const headers = {
+    token: localStorage.getItem("jwtToken"),
+  };
+  return useQuery({
+    queryKey: ["getCommissionHistory", url],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(url, { headers });
+
+      return data;
+    },
+  });
+};

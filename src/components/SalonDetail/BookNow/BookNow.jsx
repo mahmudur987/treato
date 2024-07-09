@@ -18,6 +18,7 @@ export default function BookNow({
   Disabled,
   displayFinalAmount,
   handleOfflinePayment,
+  handlePayment,
 }) {
   let [totalServicesPrice, setTotalServicesPrice] = useState(0);
   let navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function BookNow({
   const TotalServiceAmount = useSelector(
     (state) => state?.salonServices?.Amount
   );
+  const { contact, guest } = useSelector((state) => state?.VisitorDetails);
 
   useEffect(() => {
     if (salonServices?.length) {
@@ -40,15 +42,21 @@ export default function BookNow({
   }, [salonServices]);
   let proceedPayment = () => {
     console.log("proceedPayment");
+    const isValid = /\S+@\S+\.\S+/.test(contact.email);
+
     if (Disabled) {
       if (activeBookFlowBA === 1) {
         toast.error("Please select your required services ");
       } else if (activeBookFlowBA === 2) {
         toast.error("Please select a stylist, date, and time slot to proceed.");
       } else {
-        toast.error("Please fill all required details!");
+        toast.error("Please fill all required details perfectly!");
       }
-      console.log(activeBookFlowBA);
+      console.log(guest);
+    } else if (activeBookFlowBA === 3 && contact.phone.length !== 13) {
+      toast.error("Your phone number is wrong");
+    } else if (!isValid && activeBookFlowBA === 3) {
+      toast.error("Write a perfect Email");
     } else {
       if (updateActiveBookFlowBA) {
         updateActiveBookFlowBA(
@@ -59,7 +67,7 @@ export default function BookNow({
         handleOfflinePayment();
         console.log("handleOfflinePayment");
       } else if (innerText === "Pay ₹") {
-        // handlePayment();
+        handlePayment();
       }
       if (setCompletedPay) {
         // setCompletedPay(true);

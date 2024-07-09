@@ -34,7 +34,7 @@ const AddNewReview = () => {
     try {
       setIsLoading(true);
       const headers = {
-        token: adminToken,
+        token: localStorage.getItem("jwtToken"),
       };
 
       const { data } = await axiosInstance.post(

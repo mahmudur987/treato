@@ -5,7 +5,6 @@ import { scrollright } from "../../../assets/images/icons";
 import { salon } from "../../../services/salon";
 import Title from "../../Typography/Title/Title";
 import { useSelector } from "react-redux";
-import MainSearchBar from "../../Input/mainSearchBar/MainSearchBar";
 
 const TopSalons = (props) => {
   const salonsState = useSelector((state) => state.salons);
@@ -51,7 +50,7 @@ const TopSalons = (props) => {
   };
 
   const carouselRef = useRef(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  // const [scrollPosition, setScrollPosition] = useState(0);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
 

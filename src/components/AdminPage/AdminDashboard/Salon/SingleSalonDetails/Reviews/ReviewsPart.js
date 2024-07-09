@@ -16,6 +16,7 @@ const ReviewsPart = () => {
   const { data, isLoading, isError, error } = useSalonReviews(id);
   const reviewData = data?.data?.map((x) => {
     const data = {
+      id: x._id,
       name: x.name ?? "N/A",
       profile_Img: "",
       rating: x.rating ?? "N/A",

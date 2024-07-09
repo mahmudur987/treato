@@ -66,8 +66,7 @@ export default function AddressModal({
       house_type: e.target.house_type.value,
       landmark: landmark ? landmark : "",
       house: house ? house : "",
-      place: userAddressText ? userAddressText : ""
-
+      place: userAddressText ? userAddressText : "",
     };
     console.log(address);
     let allData = { ...inputVal, address, ...address };
@@ -157,7 +156,6 @@ export default function AddressModal({
     }
   };
 
-
   return (
     <>
       {addressModal?.data ? (
@@ -226,7 +224,10 @@ export default function AddressModal({
                   </label>
                 </div>
                 <div className={styles.addressD}>
-                  <label htmlFor="landmark" onChange={() => setUpdateSave(true)}>
+                  <label
+                    htmlFor="landmark"
+                    onChange={() => setUpdateSave(true)}
+                  >
                     <div className={styles.addressDA}>Landmark (optional)</div>
                     <BasicInput
                       PlaceHolder={"e.g. opp. AXN Center"}
@@ -356,7 +357,10 @@ export default function AddressModal({
                   </label>
                 </div>
                 <div className={styles.addressD}>
-                  <label htmlFor="landmark" onChange={() => setUpdateSave(true)}>
+                  <label
+                    htmlFor="landmark"
+                    onChange={() => setUpdateSave(true)}
+                  >
                     <div className={styles.addressDA}>Landmark (optional)</div>
                     <BasicInput
                       PlaceHolder={"e.g. opp. AXN Center"}
