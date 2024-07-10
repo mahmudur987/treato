@@ -366,3 +366,5 @@ export default App;
 // password :Test@123456
 // 6508592af8131fc40b478125    dont give this id on any api related to delete api for salon delete okay please
 // 6508592af8131fc40b478125
+//princepanchal887@gmail.com
+//Brijesh@55

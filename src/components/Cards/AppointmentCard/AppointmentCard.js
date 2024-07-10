@@ -208,7 +208,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                   <div className={styles.bookedOn}>
                     <h4 className={styles.title}>Booked on</h4>
                     <p className={styles.dateTime}>
-                      {formatDate(salon.end_date) ?? "N/A"}
+                      {formatDate(salon.end_date) ?? "N/A"} at {salon.time}
                     </p>
                   </div>
                   {salon?.stylistData?.map((x, i) => (
@@ -235,7 +235,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                   <div className={styles.bookedOn}>
                     <h4 className={styles.title}>Cancelled on</h4>
                     <p className={styles.dateTime}>
-                      {formatDate(salon.end_date) ?? "N/A"}
+                      {formatDate(salon.end_date) ?? "N/A"} 
                     </p>
                   </div>
                 </div>
