@@ -158,6 +158,8 @@
   font-family: "Lato", sans-serif;
   font-weight: 400;
   flex-wrap: wrap;
+  flex-direction: row;
+  min-width: max-content;
 }
 .flexRow {
   flex-direction: row;
@@ -176,6 +178,12 @@
   align-items: center;
   gap: 4px;
 }
+/* .qty_Name{
+  overflow: hidden;
+  border: 1px solid red;
+  flex-direction: row;
+  min-width: max-content;
+} */
 .ellipse {
   height: 4px;
   width: 4px;
