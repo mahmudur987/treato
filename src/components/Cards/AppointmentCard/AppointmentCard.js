@@ -29,8 +29,14 @@ const AppointmentCard = ({ salon, cardType }) => {
   const [toggleDetails, settoggleDetails] = useState(false);
   const [toggleoptions, settoggleoptions] = useState(false);
   const dispatch = useDispatch();
+
+  const handleHelp = () => {
+    navigate("/contactus")
+  }
+
   const handleModal = (buttonType) => {
     console.log(buttonType);
+    
     dispatch(openModal({ type: `${buttonType}`, closable: true, data: salon }));
   };
   console.log(salon);
@@ -295,7 +301,7 @@ const AppointmentCard = ({ salon, cardType }) => {
               onClick={
                 cardType === "Upcoming"
                   ? () => handleModal("CancelAppointment")
-                  : () => handleModal("HelpAppointment")
+                  : () => handleHelp()
               }
             />
             <PrimaryButton
