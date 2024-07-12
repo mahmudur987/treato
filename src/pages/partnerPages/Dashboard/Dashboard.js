@@ -6,12 +6,24 @@ import RecentActivity from "../../../components/Services/Dashboard/RecentActivit
 import Upcoming from "../../../components/Services/Dashboard/Upcoming/Upcoming";
 import TopService from "../../../components/Services/Dashboard/TopService/TopService";
 import TeamSales from "../../../components/Services/Dashboard/TeamSales/TeamSales";
+import { useGetOutStandingPaymentStatus } from "../../../services/PartnerDashboard";
 const Dashboard = () => {
+  const {
+    data: status,
+    isLoading,
+    isError,
+    error,
+  } = useGetOutStandingPaymentStatus();
+  console.log(status);
+  const handlePayment = () => {
+    console.log("payment start");
+  };
+
   return (
     <main className={styles.mainContainer}>
       <div className={styles.top}>
-        <p>You have outstanding commissions. Pay now?</p>
-        <button>Pay</button>
+        <p>You have outstanding commissions of ₹ {status?.data}. Pay now?</p>
+        <button onClick={handlePayment}>Pay</button>
       </div>
 
       <Header />
