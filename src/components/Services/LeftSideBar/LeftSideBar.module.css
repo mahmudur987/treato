@@ -1,12 +1,12 @@
 .mainContainer {
+  position: absolute;
   max-width: 100px;
   width: 100%;
   min-height: 100%;
   display: flex;
-  z-index: 6;
+  z-index: 999999999;
   justify-content: center;
   font-family: var(--primary-font);
-  background: var(--Grey-Black, #08090a);
 }
 
 .container {
@@ -14,38 +14,38 @@
   top: 0%;
   max-width: 100px;
   width: 100%;
+  min-height: 100vh;
   display: flex;
   height: 100%;
   padding: 48px 20px 0px 20px;
   flex-direction: column;
   align-items: center;
-  flex-shrink: 0;
   background: var(--Grey-Black, #08090a);
   gap: 24px;
   color: white;
 }
 .containerHover {
-  position: sticky;
+  position: fixed;
   top: 0%;
-  z-index: 6;
-  left: 0;
-  width: 230px;
+  z-index: 9999;
+  left: 0%;
+  max-width: 230px;
+  width: 100%;
   display: flex;
-  min-height: 1616px;
+  min-height: 100vh;
   height: 100%;
   padding: 48px 20px 0px 20px;
   flex-direction: column;
   align-items: center;
-  flex-shrink: 0;
   background: var(--Grey-Black, #08090a);
   gap: 24px;
   color: white;
   transition: all 0.9s ease;
+  transform-origin: left;
 }
 
 .imageWrapper {
   display: flex;
-
   padding: 6px;
   justify-content: center;
   align-items: center;
