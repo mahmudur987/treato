@@ -29,7 +29,9 @@ const ScheduleTable = ({ profiles, getdata }) => {
   };
 
   useEffect(() => {
+    
     generateTimeArray();
+    console.log(profiles)
   }, []);
 
   useEffect(() => {
@@ -84,7 +86,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
   const convertTime = (timeString) => {
     const timeParts = timeString.split(" ");
     let totalMinutes = 0;
-    let totalHeight = 72;
+    let totalHeight = 134;
 
     for (let i = 0; i < timeParts.length; i += 2) {
       if (timeParts[i + 1] === "hr") {
@@ -94,7 +96,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
       }
     }
 
-    totalHeight = (totalMinutes / 30) * 72; // 72px per 30-minute slot
+    totalHeight = (totalMinutes / 30) * 134; // 72px per 30-minute slot
 
     return { totalMinutes, totalHeight };
   };
@@ -218,31 +220,32 @@ const ScheduleTable = ({ profiles, getdata }) => {
     return Math.floor(diff / 30);
   };
 
-  const createSlots = () => {
+  const createSlotsForProfile = (profile) => {
     const slots = Array(durations.length)
       .fill(null)
       .map(() => []);
-    profiles.forEach((profile) => {
-      profile.appointments.forEach((appointment) => {
-        let initialTime = appointment.time;
-        appointment.services.forEach((service) => {
-          const { totalMinutes } = convertTime(service.time_takenby_service);
-          const exactTime = generateNextServiceStartTime(
-            initialTime,
-            totalMinutes
-          );
-          const slotIndex = calculateSlotIndex(exactTime);
-          if (slotIndex >= 0 && slotIndex < slots.length) {
-            slots[slotIndex].push({
-              ...service,
-              appid: appointment._id,
-              clientName: appointment.ClientName,
-              status: appointment.status,
-              exactTime,
-            });
-          }
-          initialTime = exactTime;
-        });
+    profile.appointments.forEach((appointment) => {
+      let initialTime = appointment.time
+      console.log(appointment.time)
+      appointment.services.forEach((service, index) => {
+        console.log(appointment?.lasttimesofservices[index])
+        // 
+        const { totalMinutes } = convertTime(service.time_takenby_service);
+        const exactTime = generateNextServiceStartTime(
+          initialTime,
+          totalMinutes
+        );
+        const slotIndex = calculateSlotIndex(exactTime);
+        if (slotIndex >= 0 && slotIndex < slots.length) {
+          slots[slotIndex].push({
+            ...service,
+            appid: appointment._id,
+            clientName: appointment.ClientName,
+            status: appointment.status,
+            exactTime,
+          });
+        }
+        initialTime = exactTime;
       });
     });
 
@@ -250,18 +253,6 @@ const ScheduleTable = ({ profiles, getdata }) => {
       slot.length === 0 ? [{ isEmpty: true }] : slot
     );
   };
-
-  const slots = createSlots();
-
-  // const isServiceInTimeSlot = (serviceStartTime, serviceDuration, slotStartTime) => {
-  //   const serviceStart = parseTimeStringToDate(serviceStartTime);
-  //   const serviceEnd = new Date(serviceStart.getTime() + serviceDuration * 60000); // Convert duration to milliseconds
-
-  //   const slotStart = parseTimeStringToDate(slotStartTime);
-
-  //   // Check if slot start time is within the service duration
-  //   return slotStart >= serviceStart && slotStart < serviceEnd;
-  // };
 
   return (
     <>
@@ -288,20 +279,21 @@ const ScheduleTable = ({ profiles, getdata }) => {
         </button>
         <div className={style.carousel} id="header">
           {profiles &&
-            profiles.map((profile, index) => (
-              <div className={style.profileContainer} key={index}>
-                <div className={style.profileBox}>
-                  <img
-                    src={profile.stylistImage?.public_url}
-                    alt={profile.stylistName}
-                  />
-                  <p>{profile.stylistName}</p>
-                </div>
-                <div className={style.slides}>
-                  <React.Fragment>
+            profiles.map((profile, index) => {
+              const slots = createSlotsForProfile(profile);
+              return (
+                <div className={style.profileContainer} key={index}>
+                  <div className={style.profileBox}>
+                    <img
+                      src={profile.stylistImage?.public_url}
+                      alt={profile.stylistName}
+                    />
+                    <p>{profile.stylistName}</p>
+                  </div>
+                  <div className={style.slides}>
                     {slots &&
-                      slots.map((slot, index) => (
-                        <div key={index} className={style.slot}>
+                      slots.map((slot, slotIndex) => (
+                        <div key={slotIndex} className={style.slot}>
                           {slot.map((service, serviceIndex) => {
                             if (service.isEmpty) {
                               return (
@@ -326,9 +318,13 @@ const ScheduleTable = ({ profiles, getdata }) => {
                               const { totalHeight } = convertTime(
                                 service.time_takenby_service
                               );
-                              console.log(service);
+                              // console.log(service);
                               return (
-                                <div
+                               <div className="appointmentBox3"
+                               style={{
+                                    minHeight: `134px`,
+                                  }}>
+                                 <div
                                   key={serviceIndex}
                                   className={`${style.appointmentBox} ${
                                     condition ? style.dBox : style.cBox
@@ -439,15 +435,16 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                     {service.status}
                                   </button>
                                 </div>
+                               </div>
                               );
                             }
                           })}
                         </div>
                       ))}
-                  </React.Fragment>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
         </div>
         <button className={style.next} onClick={prevProfile}>
           &#10095;
