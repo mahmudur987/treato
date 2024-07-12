@@ -70,11 +70,11 @@ export default function SalonServices({
           </a>
         </ul>
       </div>
-      <SalonServiceMain
+      {/* <SalonServiceMain
         SalonData={SalonData ? SalonData : null}
         addServices={addServices}
         addedServices={addedServices}
-      />
+      /> */}
 
       {SalonData?.services.length > 0 &&
         SalonData?.services?.map((x, y) => {

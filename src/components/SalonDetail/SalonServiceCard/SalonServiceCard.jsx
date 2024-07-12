@@ -1,9 +1,9 @@
 import styles from "../SalonMain/SalonMain.module.css";
 import ellipse from "../../../assets/images/SalonDetail/Ellipse.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addService } from "../../../redux/slices/salonServices";
-import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function SalonServiceCard({
   salonServiceData,
@@ -16,6 +16,8 @@ export default function SalonServiceCard({
   const salonServices = useSelector(
     (state) => state.salonServices.salonContent
   );
+
+  const location = useLocation();
 
   let addServiceMain = (inc, dec) => {
     let isAlreadyAdded = salonServices.filter(
@@ -52,9 +54,9 @@ export default function SalonServiceCard({
       dispatch(addService(allServices));
     }
   };
-  let isAlreadyAdded = [];
+
   useEffect(() => {
-    isAlreadyAdded = salonServices.filter(
+    let isAlreadyAdded = salonServices.filter(
       (v) => v.service_id === salonServiceData?._id
     );
     // Trigger a re-render to update the component with the new value
@@ -70,43 +72,7 @@ export default function SalonServiceCard({
               {salonServiceData?.service_name}
             </div>
             <div>
-              {isAlreadyAdded[0]?.service_id === salonServiceData?._id ? (
-                <button className={styles.salon_serviceE}>
-                  {isAlreadyAdded[0]?.service_count !== 0 ? (
-                    <div className={styles.salon_serviceEA}>
-                      <div
-                        onClick={() => {
-                          updateItemCounter(
-                            itemCounter !== 0 ? itemCounter - 1 : 0
-                          );
-                          addServiceMain(0, 1);
-                        }}
-                      >
-                        -
-                      </div>
-                      <div>{itemCounter}</div>
-                      <div
-                        onClick={() => {
-                          updateItemCounter(itemCounter + 1);
-                          addServiceMain(1, 0);
-                        }}
-                      >
-                        +
-                      </div>
-                    </div>
-                  ) : (
-                    <div
-                      className={styles.salon_serviceEB}
-                      onClick={() => {
-                        updateItemCounter(1);
-                        addServiceMain(1, 0);
-                      }}
-                    >
-                      Add
-                    </div>
-                  )}
-                </button>
-              ) : (
+              {location.pathname.includes("/book") ? (
                 <button className={styles.salon_serviceE}>
                   {itemCounter !== 0 ? (
                     <div className={styles.salon_serviceEA}>
@@ -142,7 +108,7 @@ export default function SalonServiceCard({
                     </div>
                   )}
                 </button>
-              )}
+              ) : null}
             </div>
           </div>
           <div className={styles.salon_serviceF}>

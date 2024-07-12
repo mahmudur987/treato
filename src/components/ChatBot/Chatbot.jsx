@@ -3,6 +3,8 @@ import style from './chatbot.module.css';
 import chatBotLogo from "../../assets/icons/Chatbot/chatbot.png";
 import userImage from "../../assets/images/AccountSettings/userImg.png";
 import { GetAnswers } from '../../services/chatBot';
+import { IoMdArrowBack } from "react-icons/io";
+
 
 function Chatbot() {
 
@@ -89,6 +91,10 @@ function Chatbot() {
 
             {openMessage ? <>
                 <div className={style.messageContainer} >
+                <IoMdArrowBack onClick={(() => {
+                openMessageFn();
+                setOpen(true);
+            })}  className={style.backArrow} />
                     <nav className={style.chatNav} >
                         <img src={chatBotLogo} alt="Chatbot Logo" />
                         <p>Treatobot</p>

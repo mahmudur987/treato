@@ -1,6 +1,8 @@
 .mainContainer {
-  position: relative;
+  position: fixed;
   display: flex;
+  left: 62px;
+  z-index: 6;
   justify-content: center;
   font-family: var(--primary-font);
 }

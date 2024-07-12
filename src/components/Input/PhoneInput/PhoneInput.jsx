@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./PhoneInput.module.css";
 
 export default function PhoneInput({
@@ -11,7 +11,7 @@ export default function PhoneInput({
   updateInputVal,
   inputVal,
   onChange,
-  setPhone,
+  setPhone, // Ensure setPhone is destructured correctly
 }) {
   const [country, setCountry] = useState("+91");
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,6 +21,7 @@ export default function PhoneInput({
     "+88": 10,
     "+66": 9,
   };
+
   function validatePhoneNumber(phoneNumber) {
     const numberWithoutCountryCode = phoneNumber.replace(country, "");
     const isNumeric = /^\d+$/.test(numberWithoutCountryCode);
@@ -35,6 +36,7 @@ export default function PhoneInput({
     }
     return "";
   }
+
   function inputValue(e) {
     const phoneNumber = country + e.target.value;
     const validationError = validatePhoneNumber(phoneNumber);
@@ -44,7 +46,9 @@ export default function PhoneInput({
       console.log(validationError);
     } else {
       setErrorMessage("");
-      setPhone(phoneNumber);
+      if (typeof setPhone === "function") { // Ensure setPhone is a function
+        setPhone(phoneNumber);
+      }
     }
     if (updateInputVal) {
       let allValue = { ...inputVal };
@@ -52,9 +56,9 @@ export default function PhoneInput({
       updateInputVal(allValue);
     }
   }
+
   return (
     <>
-      {" "}
       <div className={styles.phone_inputMain}>
         <select
           onChange={(e) => setCountry(e.target.value)}

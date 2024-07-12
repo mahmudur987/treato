@@ -29,8 +29,14 @@ const AppointmentCard = ({ salon, cardType }) => {
   const [toggleDetails, settoggleDetails] = useState(false);
   const [toggleoptions, settoggleoptions] = useState(false);
   const dispatch = useDispatch();
+
+  const handleHelp = () => {
+    navigate("/contactus")
+  }
+
   const handleModal = (buttonType) => {
     console.log(buttonType);
+    
     dispatch(openModal({ type: `${buttonType}`, closable: true, data: salon }));
   };
   console.log(salon);
@@ -208,7 +214,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                   <div className={styles.bookedOn}>
                     <h4 className={styles.title}>Booked on</h4>
                     <p className={styles.dateTime}>
-                      {formatDate(salon.end_date) ?? "N/A"}
+                      {formatDate(salon.end_date) ?? "N/A"} at {salon.time}
                     </p>
                   </div>
                   {salon?.stylistData?.map((x, i) => (
@@ -235,7 +241,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                   <div className={styles.bookedOn}>
                     <h4 className={styles.title}>Cancelled on</h4>
                     <p className={styles.dateTime}>
-                      {formatDate(salon.end_date) ?? "N/A"}
+                      {formatDate(salon.end_date) ?? "N/A"} 
                     </p>
                   </div>
                 </div>
@@ -295,7 +301,7 @@ const AppointmentCard = ({ salon, cardType }) => {
               onClick={
                 cardType === "Upcoming"
                   ? () => handleModal("CancelAppointment")
-                  : () => handleModal("HelpAppointment")
+                  : () => handleHelp()
               }
             />
             <PrimaryButton

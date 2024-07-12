@@ -198,6 +198,7 @@
 @media screen and (max-width: 500px) {
     .careerBuildBox{
         margin: 0;
+        margin-left: 10px;
         margin-top: 120px;
         width: 343px;
         height: 598px;
@@ -252,6 +253,7 @@
         height: auto;
         gap: 10px;
         padding: 32px 24px 32px 24px;
+        background-color: #F8F9FA;
     }
     .currentOpeningBox{
         height: auto;
@@ -264,6 +266,7 @@
     .jobBox{
         flex-direction: column;
         gap: 12px;
+        
     }
     .jobContainer{
         width: 100%;
@@ -298,6 +301,10 @@
         width: fit-content;
         font-size: 13px;
         line-height: 21px;
+    }
+    .arrow{
+        width: 24px;
+        height: 24px;
     }
     
 }

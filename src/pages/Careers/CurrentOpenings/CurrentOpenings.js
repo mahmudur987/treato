@@ -66,7 +66,8 @@ function CurrentOpenings() {
         <div className={style.currentOpeningBox}>
           <h3>Current Openings</h3>
           <div className={style.jobBox}>
-            {postdata && postdata.jobs.map((ele) => {
+            {postdata && 
+            postdata.jobs.map((ele) => {
               const updatedAtDate = new Date(ele.updatedAt);
               const currentDate = new Date();
               const timeDifference = currentDate.getTime() - updatedAtDate.getTime();
