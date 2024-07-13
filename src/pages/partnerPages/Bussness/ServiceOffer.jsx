@@ -19,6 +19,8 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
   const [selectedDays, setSelectedDays] = useState([]);
   const [startTime, setStartTime] = useState("09:00");
   const [endTime, setEndTime] = useState("09:00");
+  const [serviceNames, setServiceNames] = useState([]);
+
   const generateScheduleData = useMemo(() => {
     return selectedDays.map((day) => {
       return {
@@ -73,14 +75,10 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
   };
 
   useEffect(() => {
-    const uniqueDataArray = salonData?.services_provided.reduce(
+    const uniqueDataArray = salonData?.services_provided?.reduce(
       (uniqueArray, currentItem) => {
         // Check if there's already an object with the same 'name' in uniqueArray
-        if (
-          !uniqueArray.some(
-            (item) => item.service_name === currentItem.service_name
-          )
-        ) {
+        if (!uniqueArray.some((item) => item === currentItem)) {
           // If not found, add this object to uniqueArray
           uniqueArray.push(currentItem);
         }
@@ -88,8 +86,8 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
       },
       []
     );
-
-    console.log(uniqueDataArray);
+    setServiceNames(uniqueDataArray);
+    console.log("uniqueDataArray", uniqueDataArray);
   }, [salonData]);
 
   return (
@@ -120,7 +118,7 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
               {
                 // salonData.services_provided.length ?
                 salonData.services_provided.length > 0 ? (
-                  salonData.services_provided.map((v) => {
+                  serviceNames.map((v) => {
                     return <div className={sty.offerDiv}>{v}</div>;
                   })
                 ) : (
