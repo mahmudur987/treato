@@ -105,7 +105,7 @@ const Upcoming = () => {
                       item?.time?.slice(0, 5),
                       item.serviceData?.time_takenby_service
                     );
-                    // console.log(item?.noPreference);
+                    // console.log(item);
                     return (
                       <tr key={i}>
                         <td className={styles.date_row}>
@@ -135,7 +135,7 @@ const Upcoming = () => {
                           {item?.status ? item?.status : "N/A"}
                         </td>
                         <td className={styles.row}>
-                          ₹{item.final_amount.toFixed(2)}
+                          ₹{item?.serviceData?.price ?? "not found"}
                         </td>
                       </tr>
                     );

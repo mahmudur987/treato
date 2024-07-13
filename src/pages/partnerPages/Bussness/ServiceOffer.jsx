@@ -71,6 +71,27 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    const uniqueDataArray = salonData?.services_provided.reduce(
+      (uniqueArray, currentItem) => {
+        // Check if there's already an object with the same 'name' in uniqueArray
+        if (
+          !uniqueArray.some(
+            (item) => item.service_name === currentItem.service_name
+          )
+        ) {
+          // If not found, add this object to uniqueArray
+          uniqueArray.push(currentItem);
+        }
+        return uniqueArray;
+      },
+      []
+    );
+
+    console.log(uniqueDataArray);
+  }, [salonData]);
+
   return (
     <div>
       <div className={sty.collapseForSmallScreen}>
