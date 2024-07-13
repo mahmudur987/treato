@@ -41,12 +41,15 @@
 }
 
 .slides {
-    border-left: 2px dotted #CED4DA;
-    min-height: auto;
+    overflow: hidden;
+    border-left: 2px dashed #CED4DA;
+    border-right: 1px solid #ccc;
+    
     min-width: 160px;
     max-width: max-content;
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
 
 }
@@ -77,12 +80,12 @@
 .appointmentBox2 {
     min-height: 134px;
 }
-
-.appointmentBox3 {
-    position: relative;
+.appointmentBox4{
+    max-height: 134px;
     min-height: 134px;
-    border: 1px solid #ccc;
-    border-left: none;
+}
+.appointmentBox3 {
+    min-height: 134px;
     transition: background-color 0.3s ease;
     overflow: hidden;
     color: #0D69D7;
@@ -92,17 +95,12 @@
 }
 
 .addAppointment {
-    position: absolute;
-    text-align: center;
     height: 24px;
     width: 164px;
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
     background-color: #EDF2F7;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -195,22 +193,9 @@
     line-height: 14px;
     text-align: center;
 }
-
-
-
-.appointmentBox {
-    position: absolute;
-    z-index: 6;
-}
-
-.clientDetailsBox svg {
-    cursor: pointer;
-    font-weight: 600;
-}
-
 .dropdowncontent {
     position: absolute;
-    z-index: 10;
+    z-index: 999;
     margin-left: 20px;
     margin-top: 20px;
     min-height: 296px;
@@ -221,6 +206,20 @@
     flex-direction: column;
     gap: 0;
 }
+
+
+
+.appointmentBox {
+    position:absolute;
+    z-index: 5;
+}
+
+.clientDetailsBox svg {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
 
 .dropBox {
     margin-left: 70%;

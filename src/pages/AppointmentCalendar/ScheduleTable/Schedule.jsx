@@ -226,10 +226,9 @@ const ScheduleTable = ({ profiles, getdata }) => {
       .map(() => []);
     profile.appointments.forEach((appointment) => {
       let initialTime = appointment.time
-      console.log(appointment.time)
-      appointment.services.forEach((service, index) => {
-        console.log(appointment?.lasttimesofservices[index])
-        // 
+      // console.log(appointment.time)
+      appointment.services.forEach((service) => {
+        
         const { totalMinutes } = convertTime(service.time_takenby_service);
         const exactTime = generateNextServiceStartTime(
           initialTime,
@@ -320,10 +319,9 @@ const ScheduleTable = ({ profiles, getdata }) => {
                               );
                               // console.log(service);
                               return (
-                               <div className="appointmentBox3"
-                               style={{
-                                    minHeight: `134px`,
-                                  }}>
+                               <div className={`${style.appointmentBox4} ${
+                                    condition ? style.dBox : style.cBox
+                                  }`}>
                                  <div
                                   key={serviceIndex}
                                   className={`${style.appointmentBox} ${
@@ -366,7 +364,19 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         d="M12 6h.01M12 12h.01M12 18h.01"
                                       />
                                     </svg>
-                                    {openMenus[service.unique_id] && (
+                                   
+                                  </div>
+                                  <button
+                                    className={style.statusButton}
+                                    style={{
+                                      color: `${textcolor}`,
+                                      background: `${background}`,
+                                    }}
+                                  >
+                                    {service.status}
+                                  </button>
+                                </div>
+                                {openMenus[service.unique_id] && (
                                       <div
                                         className={`${style.dropdowncontent} ${
                                           condition
@@ -424,17 +434,6 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         </div>
                                       </div>
                                     )}
-                                  </div>
-                                  <button
-                                    className={style.statusButton}
-                                    style={{
-                                      color: `${textcolor}`,
-                                      background: `${background}`,
-                                    }}
-                                  >
-                                    {service.status}
-                                  </button>
-                                </div>
                                </div>
                               );
                             }
