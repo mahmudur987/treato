@@ -34,6 +34,7 @@ const RecentActivity = () => {
             ?.sort(
               (a, b) => new Date(b.dateforService) - new Date(a.dateforService)
             )
+            .slice(0, 20)
             .map((item, i) => (
               <div className={styles.card}>
                 <div className={styles.cardLeft}>
