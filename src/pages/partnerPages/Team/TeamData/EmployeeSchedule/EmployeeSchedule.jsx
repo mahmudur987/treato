@@ -50,9 +50,11 @@ const EmployeeSchedule = () => {
   const [endDate, setEndDate] = useState(null);
   const { data, isLoading, isError, error, refetch } = useGetAllTeamMemSche();
   const toggleShiftTimes = (index) => {
-    const newShiftTimesVisible = [...shiftTimesVisible];
-    newShiftTimesVisible[index] = !newShiftTimesVisible[index];
-    setShiftTimesVisible(newShiftTimesVisible);
+    return toast.error("Shifting systems are not available right now");
+
+    // const newShiftTimesVisible = [...shiftTimesVisible];
+    // newShiftTimesVisible[index] = !newShiftTimesVisible[index];
+    // setShiftTimesVisible(newShiftTimesVisible);
   };
   const teamMembers = data?.data.map((x) => {
     return {
@@ -317,7 +319,7 @@ const EmployeeSchedule = () => {
 
                             {slots.map((x, i) => (
                               <option key={i} value="">
-                                {x.slot}{" "}
+                                {x}{" "}
                               </option>
                             ))}
                           </select>
@@ -328,7 +330,7 @@ const EmployeeSchedule = () => {
 
                             {slots.map((x, i) => (
                               <option key={i} value="">
-                                {x.slot}{" "}
+                                {x}{" "}
                               </option>
                             ))}
                           </select>

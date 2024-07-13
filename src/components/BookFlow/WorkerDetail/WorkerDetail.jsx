@@ -11,9 +11,9 @@ export default function WorkerDetail({
   availableSlots,
   updateItemCounter,
   itemCounter,
+  stepTwoDetails,
 }) {
   const noneLabelRef = useRef(null);
-  console.log(availableSlots);
   useEffect(() => {
     // Click the label when the component mounts
     noneLabelRef.current.click();
@@ -60,6 +60,7 @@ export default function WorkerDetail({
         <ServiceTime
           getWorkerData={getWorkerData}
           availableSlots={availableSlots}
+          stepTwoDetails={stepTwoDetails}
         />
       </div>
     </div>

@@ -1,82 +1,81 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap&family=Lato&display=swap");
 
-.acc_setting_page{
-    padding: 144px 60px;
-    font-family: 'Lato', sans-serif;
+.acc_setting_page {
+  padding: 144px 60px;
+  font-family: "Lato", sans-serif;
 }
 
-.acc_head{
-    font-size: 28px;
-    font-family: "Poppins", sans-serif;
-    margin-bottom: 12px;
+.acc_head {
+  font-size: 28px;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 12px;
 }
 
-.acc_setting_mid{
+.acc_setting_mid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 48px 0px;
+}
+
+.acc_setting_right {
+  flex-basis: 66%;
+}
+
+.acc_setting_mobile {
+  display: none;
+}
+
+.d_none {
+  display: none;
+}
+
+.acc_settingA {
+  width: 290px;
+  margin: 0px 0px 0px auto;
+  display: flex;
+  justify-content: start;
+  gap: 12px;
+  align-items: center;
+}
+
+@media only screen and (max-width: 767px) {
+  .acc_setting_mobile {
+    display: block;
+    font-family: "Lato", sans-serif;
+  }
+
+  .acc_setting_page {
+    padding: 80px 24px;
+  }
+
+  .acc_setting_right {
+    flex-basis: 100%;
+  }
+
+  .acc_setting_mid {
+    display: none;
+  }
+
+  .acc_intro {
+    display: none;
+  }
+
+  .acc_mob_options {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 48px 0px;
-}
-
-.acc_setting_right{
-    flex-basis: 66%;
-}
-
-.acc_setting_mobile{
-    display: none;
-}
-
-.d_none{
-    display: none;
-}
-
-.acc_settingA{
-    width: 290px;
-    margin: 0px 0px 0px auto;
-    display: flex;
-    justify-content: start;
-    gap: 12px;
     align-items: center;
-}
+    margin-bottom: 30px;
+    cursor: pointer;
+  }
 
-@media only screen and (max-width:767px){
-    .acc_setting_mobile{
-        display: block;
-        font-family: 'Lato', sans-serif;
-    }
-    
-    .acc_setting_page{
-        padding: 80px 24px;
-    }
+  .acc_mob_flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-    .acc_setting_right{
-        flex-basis: 100%;
-    }
-
-    .acc_setting_mid{
-        display: none;
-    }
-
-    .acc_intro{
-        display: none;
-    }
-
-    .acc_mob_options{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        cursor: pointer;
-    }
-
-    .acc_mob_flex{
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .acc_mob_options:last-child{
-        color: #DE2929;
-    }
-
+  .acc_mob_options:last-child {
+    color: #de2929;
+  }
 }

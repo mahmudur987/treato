@@ -70,11 +70,27 @@ export default function SalonServices({
           </a>
         </ul>
       </div>
-      <SalonServiceMain
+      {/* <SalonServiceMain
         SalonData={SalonData ? SalonData : null}
         addServices={addServices}
         addedServices={addedServices}
-      />
+      /> */}
+
+      {SalonData?.services.length > 0 &&
+        SalonData?.services?.map((x, y) => {
+          if (x.mainCategories.length > 0) {
+            return (
+              <SalonServiceMain
+                key={y}
+                data={x}
+                addServices={addServices}
+                addedServices={addedServices}
+              />
+            );
+          }
+          return null;
+        })}
+
       <div id="about" className={styles.salon_sections}>
         <div>
           <span className={styles.salon_section_title}>About</span>

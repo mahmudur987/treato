@@ -1,6 +1,5 @@
 .header {
-  margin-top: 139px;
-  margin-left: 60px;
+  margin: 139px 0 48px 60px;
   height: 74px;
   width: 541px;
   display: flex;
@@ -159,9 +158,10 @@
   min-width: 424px;
   min-height: 48px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 0;
-  /* overflow: hidden; */
 }
 
 .countryCode {
@@ -183,7 +183,6 @@
 }
 
 .phoneinputBorder {
-  margin-top: 12px;
   width: 1px;
   height: 24px;
   /* transform: rotate(-90deg); */
@@ -225,7 +224,7 @@
   background-size: 9.5px 1px, 9.5px 1px, 1px 7px, 1px 7px;
   color: #0D69D7;
   height: 75px;
-  width: 174;
+  width: 174px;
   background-color: transparent;
   padding: 8px 20px;
   display: flex;
@@ -252,17 +251,20 @@
   font-size: 20px;
   margin-right: 8px;
 }
-.svgStyle{
+
+.svgStyle {
   width: 25px;
   height: 25px;
   cursor: pointer;
 }
-.btn p{
+
+.btn p {
   font-size: 16px;
   font-family: Lato;
   font-weight: 600;
   line-height: 24px;
 }
+
 .fileBox {
   height: 24px;
   max-width: 400px;
@@ -298,11 +300,12 @@
   display: flex;
   gap: 10px;
   align-items: center;
- 
+
 }
-.checkBox input{
+
+.checkBox input {
   cursor: pointer;
-  
+
 }
 
 .checkBox label {
@@ -330,16 +333,19 @@
   background-color: #08080B;
   color: #FFFFFF;
 }
-.submitButton :active{
+
+.submitButton :active {
   transform: scale(0.95);
 }
 
 @media screen and (max-width: 500px) {
   .header {
+    padding: 0;
     width: 342px;
+    margin: 104px 0 48px 24px;
     height: auto;
-
     flex-direction: column;
+    gap: 28px;
   }
 
   .jobHeading h3 {
@@ -361,7 +367,7 @@
   .formContainer form {
     width: 100%;
     height: auto;
-    gap: 25px;
+    gap: 24px;
   }
 
   .formContainer form h4 {
@@ -392,10 +398,13 @@
   }
 
   .contactNumber {
-    min-width: fit-content;
+    padding: 0;
+    min-width: 342px;
     max-height: 48px;
-    align-items: baseline;
-    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow: hidden;
   }
 
   .countryCode {
@@ -403,7 +412,30 @@
   }
 
   .phoneno {
-    width: 290px;
+    width: 280px;
+  }
+
+  .checkBox {
+    width: 342px;
+    height: 63px;
+  }
+
+  .submitButton {
+    margin-top: 25px;
+  }
+
+  .uploadBox {
+    min-width: 342px;
+  }
+
+  .btn {
+    min-width: 342px;
+    height: 72px;
+  }
+
+  .arrows {
+    height: 24px;
+    width: 24px;
   }
 
 }

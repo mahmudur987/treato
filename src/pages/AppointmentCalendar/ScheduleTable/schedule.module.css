@@ -24,20 +24,22 @@
 }
 
 .carousel {
-    height:fit-content;
+    height: fit-content;
     width: auto;
     display: flex;
     align-items: baseline;
     /* overflow: hidden; */
     gap: 10px;
 }
-.profileContainer{
+
+.profileContainer {
     width: fit-content;
     height: auto;
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
+
 .slides {
     border-left: 2px dotted #CED4DA;
     min-height: auto;
@@ -46,8 +48,9 @@
     display: flex;
     align-items: baseline;
     flex-direction: column;
-    
+
 }
+
 .profileBox {
     min-width: 160px;
     height: 100%;
@@ -55,33 +58,40 @@
     align-items: center;
     gap: 8px;
 }
-.profileBox img{
+
+.profileBox img {
     width: 42px;
     height: 24px;
     border-radius: 50%;
 }
+
 .appointmentBox,
-.appointmentBox2{
+.appointmentBox2 {
     padding: 8px;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.appointmentBox2{
+
+.appointmentBox2 {
     min-height: 134px;
 }
+
 .appointmentBox3 {
     position: relative;
-    min-height: 134px; 
-    border: 1px solid #ccc;  transition: background-color 0.3s ease; 
-    overflow: hidden; 
+    min-height: 134px;
+    border: 1px solid #ccc;
+    border-left: none;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
     color: #0D69D7;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  .addAppointment {
+}
+
+.addAppointment {
     position: absolute;
     text-align: center;
     height: 24px;
@@ -93,47 +103,54 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0; 
-    transition: opacity 0.3s ease; 
-  }
-  
-  .appointmentBox3:hover .addAppointment {
-    opacity: 1; /* Show on hover */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.appointmentBox3:hover .addAppointment {
+    opacity: 1;
+    /* Show on hover */
 
     cursor: pointer;
-  }
-.cBox{
+}
+
+.cBox {
     min-width: 160px;
 }
-.dBox{
+
+.dBox {
     min-width: 1228px;
 }
 
-.clientDetailsBox{
+.clientDetailsBox {
     width: 96%;
     height: 58px;
     display: flex;
     justify-content: space-between;
 }
-.clientDetailsBox div{
+
+.clientDetailsBox div {
     width: 107px;
     height: 58px;
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
+
 .timeDurations,
 .serviceNames,
-.clientNames{
+.clientNames {
     font-size: 12px;
     font-family: Lato;
     font-weight: 400;
     line-height: 18px;
 }
+
 .serviceNames,
-.clientNames{
+.clientNames {
     color: #6D747A;
 }
+
 .durationsBox {
     margin-top: 48px;
     min-width: 62px;
@@ -143,7 +160,8 @@
     gap: 120px;
     background-color: #FFFFFF;
 }
-.grids{
+
+.grids {
     margin-left: 62px;
     margin-top: 46px;
     position: inherit;
@@ -151,14 +169,16 @@
     width: 1280px;
     height: auto;
 }
-.outerGrid{
+
+.outerGrid {
     border-top: 2px solid #CED4DA;
     min-height: 67px;
     min-width: 100%;
     display: flex;
     align-items: center;
 }
-.outerGrid div{
+
+.outerGrid div {
     min-height: 22.3px;
     min-width: 100%;
     border-top: 1px solid #CED4DA;
@@ -178,14 +198,17 @@
 
 
 
-.appointmentBox{
-    width: 100%;
+.appointmentBox {
+    position: absolute;
+    z-index: 6;
 }
-.clientDetailsBox svg{
+
+.clientDetailsBox svg {
     cursor: pointer;
     font-weight: 600;
 }
-.dropdowncontent{
+
+.dropdowncontent {
     position: absolute;
     z-index: 10;
     margin-left: 20px;
@@ -198,15 +221,18 @@
     flex-direction: column;
     gap: 0;
 }
-.dropBox{
+
+.dropBox {
     margin-left: 70%;
 }
-.inputContainer{
+
+.inputContainer {
     min-width: 100%;
     min-height: 48px;
     padding: 13px 12px 13px 12px;
 }
-.otpBox{
+
+.otpBox {
     min-width: 180px;
     min-height: 30px;
     border-radius: 4px;
@@ -215,7 +241,7 @@
 }
 
 .started,
-.editButton{
+.editButton {
     cursor: pointer;
     min-width: 100%;
     min-height: 48px;
@@ -227,10 +253,11 @@
     line-height: 24px;
 }
 
-.dropdowncontent :hover{
+.dropdowncontent :hover {
     background-color: #EBEDF0;
 }
-.statusButton{
+
+.statusButton {
     width: 75px;
     height: 21px;
     border-radius: 4px;
@@ -241,37 +268,46 @@
     line-height: 15px;
 
 }
-@media screen and (max-width: 700px){
-    .header{
+
+@media screen and (max-width: 700px) {
+    .header {
         width: 100%;
         height: auto;
     }
-    .durationsBox{
-        min-width:36px;
+
+    .durationsBox {
+        min-width: 36px;
         gap: 84px;
     }
-    .durationsBox p{
+
+    .durationsBox p {
         min-height: 36px;
         width: 36px;
     }
-    .grids{
+
+    .grids {
         margin-left: 40px;
         width: 325px;
     }
-    .prev{
+
+    .prev {
         left: 20px;
     }
-    .profileBox{
+
+    .profileBox {
         min-width: 96px;
     }
-    .profileBox img{
+
+    .profileBox img {
         width: 16px;
         height: 16px;
     }
-    .slides{
+
+    .slides {
         min-width: 100px;
     }
-    .dBox{
-        min-width:308px;
+
+    .dBox {
+        min-width: 308px;
     }
 }

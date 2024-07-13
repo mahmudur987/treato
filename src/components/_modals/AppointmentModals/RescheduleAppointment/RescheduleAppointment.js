@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { closeModal } from "../../../../redux/slices/modal";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
+import SecondaryButton from "../../../Buttons/SecondaryButton/SecondaryButton";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
 
@@ -380,10 +381,32 @@ const RescheduleAppointment = ({ data }) => {
           </div>
         </div>
       </div>
-      <PrimaryButton
-        children={"Reschedule Appointment"}
-        onClick={handleRescheduleAppointment}
-      />
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+        }}
+      >
+        <p
+          style={{
+            width: "50%",
+            display: "flex",
+            justifyContent: "end",
+            gap: "10px",
+          }}
+        >
+          <SecondaryButton
+            children={"cancel"}
+            onClick={() => dispatch(closeModal())}
+          />
+
+          <PrimaryButton
+            children={"Save"}
+            onClick={handleRescheduleAppointment}
+          />
+        </p>
+      </div>
     </div>
   );
 };

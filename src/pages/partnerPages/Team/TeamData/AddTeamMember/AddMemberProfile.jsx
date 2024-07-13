@@ -61,7 +61,15 @@ const AddMemberProfile = () => {
     },
     []
   );
+  const allServices = allMainCategories?.reduce((accumulator, service) => {
+    return accumulator.concat(service.subCategories);
+  }, []);
 
+  const selectedServiceDetails = allServices?.filter((x) =>
+    selectedServices.includes(x._id)
+  );
+  console.log(selectedServiceDetails);
+  console.log(allServices);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!firstName) {
@@ -282,9 +290,19 @@ const AddMemberProfile = () => {
                 </p>
                 {data && allMainCategories?.length > 0 ? (
                   <div className={styles.AllServices}>
-                    <h4 className={styles.AllServicesText}>
-                      All services (32)
-                    </h4>
+                    {selectedServiceDetails.length > 0 ? (
+                      <div className={styles.serviceList}>
+                        {selectedServiceDetails?.map((x, y) => (
+                          <h5 key={y}>{x.service_name}</h5>
+                        ))}
+                      </div>
+                    ) : (
+                      <h4 className={styles.AllServicesText}>
+                        All services (
+                        {allServices?.length > 0 ? allServices?.length : 0})
+                      </h4>
+                    )}
+
                     <div onClick={() => setIsModalOpen((pre) => !pre)}>
                       <p className={styles.editImgEdit}>
                         Edit

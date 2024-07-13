@@ -4,7 +4,11 @@ import TimeComponent from "./TimeComponent";
 import { useEffect, useRef, useState } from "react";
 import CalendarModal from "../../_modals/CalendarModal/CalendarModal";
 
-export default function ServiceTime({ getWorkerData, availableSlots }) {
+export default function ServiceTime({
+  getWorkerData,
+  availableSlots,
+  stepTwoDetails,
+}) {
   const timeFRef = useRef(null);
   let [activeTime, updateActiveTime] = useState(-1);
   let arr = [
@@ -16,8 +20,10 @@ export default function ServiceTime({ getWorkerData, availableSlots }) {
     "12:00 AM",
   ];
 
+  let timeSlots = availableSlots;
+  let date = "Fri - Jul 5";
+
   useEffect(() => {
-    // Scroll to the top when availableSlots change
     if (timeFRef.current) {
       timeFRef.current.scrollTop = 0;
     }
@@ -43,6 +49,7 @@ export default function ServiceTime({ getWorkerData, availableSlots }) {
                   getWorkerData={getWorkerData}
                   key={i}
                   timeData={v}
+                  stepTwoDetails={stepTwoDetails}
                 />
               );
             })

@@ -29,47 +29,66 @@ import PasswordActive from "../../components/_modals/PasswordActive/Passwordacti
 import { user } from "../../assets/images/icons";
 
 export default function AccountSettings() {
-  let data = useSelector((state) => state.user);
-  let dispatch = useDispatch();
-  let [mobileOpt, updateMobileOpt] = useState(-1);
-  let [passModal, setPassModal] = useState(false);
-  let [passActiveModal, setPassActiveModal] = useState(false);
-  let [profileModal, setProfileModal] = useState(false);
-  let [locationModal, setlocationModal] = useState(false);
-  let [addressModal, setAddressModal] = useState({ active: false, data: null });
+  const data = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const [mobileOpt, updateMobileOpt] = useState(-1);
+  const [passModal, setPassModal] = useState(false);
+  const [passActiveModal, setPassActiveModal] = useState(false);
+  const [profileModal, setProfileModal] = useState(false);
+  const [locationModal, setlocationModal] = useState(false);
+  const [addressModal, setAddressModal] = useState({ active: false, data: null });
   const [userAddressText, setuserAddressText] = useState("");
-  let [otpModal, setOtpModal] = useState(false);
-  let [showSave, setShowSave] = useState(false);
-  let [otpSuccess, setOtpSuccess] = useState(false);
-  let [inputState, updateInputState] = useState({
+  const [otpModal, setOtpModal] = useState(false);
+  const [showSave, setShowSave] = useState(false);
+  const [otpSuccess, setOtpSuccess] = useState(false);
+  const [inputState, updateInputState] = useState({
     first_name: true,
     last_name: true,
     email: true,
     phone: true,
     dob: true,
   });
+  
   const userData = data.user;
-  let [inputVal, updateInputVal] = useState({
+
+  const [inputVal, updateInputVal] = useState({
     first_name: userData.first_name ? userData.first_name : "",
     last_name: userData.last_name ? userData.last_name : "",
     email: userData.email ? userData.email : "",
     phone: userData.phone ? userData.phone : "",
     dob: userData.dob ? userData.dob : "",
-    place: userData.place ? userData.place : [],
+    place: userData.place ? userData.place : "",
     gender: userData.gender ? userData.gender : "",
   });
-  let [activeGender, updateGender] = useState(
-    userData.gender ? userData.gender : ""
-  );
-  let setDefault = () => {
-    let states = {
+
+  const [activeGender, updateGender] = useState(userData.gender ? userData.gender : "");
+
+  useEffect(() => {
+    const data = {
+      first_name: userData.first_name ? userData.first_name : "",
+      last_name: userData.last_name ? userData.last_name : "",
+      email: userData.email ? userData.email : "",
+      phone: userData.phone ? userData.phone : "",
+      dob: userData.dob ? userData.dob : "",
+      place: userData?.place ? userData?.place : "",
+      gender: userData.gender ? userData.gender : "",
+    };
+
+    updateInputVal(data);
+    updateGender(userData.gender ? userData.gender : "");
+  }, [userData]);
+
+  const setDefault = () => {
+    const states = {
       first_name: true,
       last_name: true,
       email: true,
       phone: true,
       dob: true,
     };
-    let data = {
+    const data = {
       first_name: userData.first_name ? userData.first_name : "",
       last_name: userData.last_name ? userData.last_name : "",
       email: userData.email ? userData.email : "",
@@ -82,10 +101,11 @@ export default function AccountSettings() {
     updateInputVal(data);
     setShowSave(false);
   };
-  let submitForm = (e) => {
+
+  const submitForm = (e) => {
     e.preventDefault();
     const userJWt = localStorage.getItem("jwtToken");
-    let formData = {
+    const formData = {
       first_name: e.target.first_name.value,
       last_name: e.target.last_name.value,
       email: e.target.email.value,
@@ -103,17 +123,16 @@ export default function AccountSettings() {
         : "",
       place: inputVal.place,
     };
-    if (e.target.phone.value == userData.phone) {
+    if (e.target.phone.value !== userData.phone) {
       setOtpModal(true);
       localStorage.setItem("tempUserData", JSON.stringify(formData));
     } else {
-      console.log(formData);
       updateUser(userJWt, formData)
         .then((res) => {
-          console.log(res?.res?.data?.data);
+          console.log(res);
           setShowSave(false);
           dispatch(updateUserDetails(res?.res?.data?.data));
-          let states = {
+          const states = {
             first_name: true,
             last_name: true,
             email: true,
@@ -121,38 +140,21 @@ export default function AccountSettings() {
             dob: true,
           };
           updateInputState(states);
-
-          // console.log(res);
-          console.log(res.data.data);
         })
         .catch((err) => {
-          // console.log(err)
+          console.error(err);
         });
     }
   };
-  const navigate = useNavigate();
-  let logOut = () => {
+
+  const logOut = () => {
     localStorage.removeItem("userData");
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("userPhoneNumber");
     navigate("/");
     window.location.reload();
   };
-  useEffect(() => {
-    let data = {
-      first_name: userData.first_name ? userData.first_name : "",
-      last_name: userData.last_name ? userData.last_name : "",
-      email: userData.email ? userData.email : "",
-      phone: userData.phone ? userData.phone : "",
-      dob: userData.dob ? userData.dob : "",
-      place: userData?.place ? userData?.place : [],
-      gender: userData.gender ? userData.gender : "",
-    };
 
-    updateInputVal(data);
-    updateGender(userData.gender ? userData.gender : "");
-  }, [userData]);
-  console.log(data);
   return (
     <>
       {userData ? (
@@ -163,8 +165,7 @@ export default function AccountSettings() {
               Account Settings
             </div>
             <div className={styles.acc_intro}>
-              Manage your Treato profile. Changes will be reflected across all
-              devices.
+              Manage your Treato profile. Changes will be reflected across all devices.
             </div>
             <div className={styles.acc_setting_mid}>
               <ProfileView
@@ -346,6 +347,7 @@ export default function AccountSettings() {
               otpSuccess={otpSuccess}
               setShowSave={setShowSave}
               updateInputState={updateInputState}
+              inputVal={inputVal}
             />
           ) : locationModal ? (
             <FindLocationModal

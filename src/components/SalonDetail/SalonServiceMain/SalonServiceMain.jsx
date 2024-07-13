@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 // ... (other imports)
 
-export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
+export default function SalonServiceMain({ hideTitle, data, setCount }) {
   let [allServices, setAllServices] = useState(null);
   let [activeOption, updateActiveOption] = useState([
     { selected: true },
@@ -29,9 +29,9 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
   };
 
   useEffect(() => {
-    setAllServices(SalonData?.services[0]?.mainCategories);
-  }, [SalonData]);
-
+    setAllServices(data?.mainCategories);
+  }, [data]);
+  // console.log(data);
   return (
     <>
       <div
@@ -43,7 +43,10 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
         {hideTitle ? (
           ""
         ) : (
-          <span className={styles.salon_section_title}>Services</span>
+          <h2 className={styles.salon_section_title}>
+            Services{" "}
+            <small style={{ fontSize: "18px" }}>({data?.service_name})</small>
+          </h2>
         )}
         <div
           className={
@@ -58,7 +61,7 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
                       key={i}
                       onClick={() => activeOptFunc(i)}
                       className={
-                        activeOption[i].selected
+                        activeOption[i]?.selected
                           ? styles.active_salon_service
                           : ""
                       }
@@ -84,7 +87,7 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
                         src={upIco}
                         alt="up arrow"
                         className={
-                          activeOption[i].selected
+                          activeOption[i]?.selected
                             ? styles.rotate_imgA
                             : styles.rotate_img
                         }
@@ -94,7 +97,7 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
                   <div className={styles.salon_serviceAB}>
                     <div
                       className={
-                        activeOption[i].selected
+                        activeOption[i]?.selected
                           ? `${styles.salon_serviceA} ${styles.showServices}`
                           : styles.salon_serviceA
                       }
@@ -105,7 +108,7 @@ export default function SalonServiceMain({ hideTitle, SalonData, setCount }) {
                               salonServiceData={val}
                               key={i}
                               serviceCategory={v?.category_name}
-                              salonId={SalonData?._id}
+                              salonId={data?._id}
                               setCount={setCount}
                             />
                           ))

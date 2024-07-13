@@ -130,13 +130,10 @@ export default function BillSummary({
           let verificationData = { ...response, order };
           console.log(verificationData);
           AppointmentVerify({ ...response, order }).then((res) => {
-            if (
-              res?.res?.data?.message ===
-              "Payment Verified and Order Created Successfully"
-            ) {
+            console.log(res);
+            if (res?.res?.data?.success) {
               setCompletedPay(true);
             }
-            console.log(res);
           });
         } catch (error) {
           console.log(error);

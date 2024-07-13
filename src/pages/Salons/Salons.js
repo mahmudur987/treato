@@ -104,7 +104,6 @@ const Salons = React.memo(() => {
     ));
   }, [salonsState.filterContent]);
 
-  console.log(Math.ceil(items?.length / ITEMS_PER_PAGE));
   console.log(salonsState);
 
   const totalPages = Math.ceil(items?.length / ITEMS_PER_PAGE);
@@ -161,9 +160,7 @@ const Salons = React.memo(() => {
     setFilteredServiceData(allServices);
     setisServiceDropdownOpen(true);
   };
-  console.log(salonsState?.filterContent?.length);
-  console.log(totalPages);
-  console.log(currentPage);
+
   return (
     <>
       <div className={styles.container}>
