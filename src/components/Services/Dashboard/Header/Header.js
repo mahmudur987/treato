@@ -43,7 +43,7 @@ const Header = () => {
   if (isLoading) {
     <LoadSpinner />;
   }
-
+  console.log(data);
   return (
     <section className={styles.mainContainer}>
       <h1 className={styles.heading}>Dashboard</h1>
@@ -56,7 +56,7 @@ const Header = () => {
         />
       </p>
 
-      {data && (
+      {data && !isLoading && !isError && (
         <div className={styles.contents}>
           {/* new user */}
           <div style={{ backgroundColor: "yellow" }} className={styles.card}>
@@ -71,7 +71,8 @@ const Header = () => {
 
             <div className={styles.cardRight}>
               <IoIosArrowUp />
-              {incrementOfNewUsers}({incrementOfNewUsersPercentage.slice(0, 3)}
+              {incrementOfNewUsers}(
+              {incrementOfNewAmountPercentage && incrementOfNewUsersPercentage}
               %)
             </div>
           </div>
@@ -88,8 +89,7 @@ const Header = () => {
 
             <div className={styles.cardRight}>
               <IoIosArrowUp />
-              {incrementOfNewAmount}(
-              {incrementOfNewAmountPercentage.slice(0, 3)}%)
+              {incrementOfNewAmount}({incrementOfNewAmountPercentage}%)
             </div>
           </div>
 
@@ -107,7 +107,7 @@ const Header = () => {
             <div className={styles.cardRight}>
               <IoIosArrowUp />
               {incrementOfNewAppointments}(
-              {incrementOfNewAppointmentsPercentage.slice(0, 3)}
+              {incrementOfNewAppointmentsPercentage}
               %)
             </div>
           </div>
