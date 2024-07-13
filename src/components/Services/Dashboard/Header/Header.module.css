@@ -35,7 +35,7 @@
   max-width: 396px;
   width: 100%;
   min-height: 112px;
-  padding: 24px;
+  padding: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,7 +46,7 @@
   font-size: 40px;
   text-align: center;
   display: flex;
-  gap: 20px;
+  gap: 10px;
   align-items: center;
 }
 
@@ -69,8 +69,9 @@
 }
 
 .cardRight {
-  width: 35%;
+  flex-grow: 1;
   display: flex;
+  justify-content: end;
   gap: 2px;
   cursor: caret;
   font-weight: 400;
@@ -95,14 +96,17 @@
   .card {
     width: 30%;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
+    padding: 10px 3px;
+    justify-content: center;
+    align-items: center;
   }
   .cardMiddle p {
     display: none;
   }
   .cardMiddle h3 {
     font-family: Lato;
-    font-size: 14px;
+    font-size: 0.7rem;
     font-weight: 600;
     line-height: 24px;
     letter-spacing: 0.01em;
@@ -112,6 +116,6 @@
     width: 100%;
     text-align: center;
     font-size: 12px;
-    letter-spacing: 0.1px;
+    justify-content: center;
   }
 }

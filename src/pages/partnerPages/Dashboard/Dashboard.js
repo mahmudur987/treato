@@ -70,7 +70,7 @@ const Dashboard = () => {
       );
       console.log(data);
 
-      initPayment(data?.order, data?.order?.id);
+      initPayment(data?.order, data?.razorpaykey);
     } catch (error) {
       console.error("outstanding payment Error", error);
     }

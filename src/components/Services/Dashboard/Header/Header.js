@@ -71,7 +71,8 @@ const Header = () => {
 
             <div className={styles.cardRight}>
               <IoIosArrowUp />
-              {incrementOfNewUsers}({incrementOfNewUsersPercentage}%)
+              {incrementOfNewUsers}({incrementOfNewUsersPercentage.slice(0, 3)}
+              %)
             </div>
           </div>
           {/* average sale  */}
@@ -87,7 +88,8 @@ const Header = () => {
 
             <div className={styles.cardRight}>
               <IoIosArrowUp />
-              {incrementOfNewAmount}({incrementOfNewAmountPercentage}%)
+              {incrementOfNewAmount}(
+              {incrementOfNewAmountPercentage.slice(0, 3)}%)
             </div>
           </div>
 
@@ -105,7 +107,7 @@ const Header = () => {
             <div className={styles.cardRight}>
               <IoIosArrowUp />
               {incrementOfNewAppointments}(
-              {incrementOfNewAppointmentsPercentage}
+              {incrementOfNewAppointmentsPercentage.slice(0, 3)}
               %)
             </div>
           </div>

@@ -12,7 +12,7 @@ const MobileView = ({ data }) => {
       <div className={styles.container}>
         {data &&
           data.map((x, i) => {
-            console.log(x);
+            // console.log(x);
 
             return (
               <div className={styles.card}>

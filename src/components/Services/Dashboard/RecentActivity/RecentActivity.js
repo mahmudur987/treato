@@ -20,6 +20,7 @@ const RecentActivity = () => {
       return data.data;
     },
   });
+  console.log(data);
 
   return (
     <div className={styles.maincontainer}>
@@ -29,58 +30,62 @@ const RecentActivity = () => {
         {/* dynamic card */}
         {data &&
           data.length > 0 &&
-          data.map((item, i) => (
-            <div className={styles.card}>
-              <div className={styles.cardLeft}>
-                <div className={styles.date}>
-                  <p>
-                    {
-                      new Date(item?.start_date)
-                        .toLocaleDateString("en-US", options)
-                        .split(" ")[1]
-                    }
-                  </p>
-                  <span>
-                    {
-                      new Date(item?.start_date)
-                        .toLocaleDateString("en-US", options)
-                        .split(" ")[0]
-                    }
-                  </span>
-                </div>
+          data
+            ?.sort(
+              (a, b) => new Date(b.dateforService) - new Date(a.dateforService)
+            )
+            .map((item, i) => (
+              <div className={styles.card}>
+                <div className={styles.cardLeft}>
+                  <div className={styles.date}>
+                    <p>
+                      {
+                        new Date(item?.start_date)
+                          .toLocaleDateString("en-US", options)
+                          .split(" ")[1]
+                      }
+                    </p>
+                    <span>
+                      {
+                        new Date(item?.start_date)
+                          .toLocaleDateString("en-US", options)
+                          .split(" ")[0]
+                      }
+                    </span>
+                  </div>
 
-                <div className={styles.contents}>
-                  <p>
-                    <span className={styles.appointmentDate}>
-                      {new Date(item?.dateforService).toLocaleDateString(
-                        "en-US",
-                        {
-                          weekday: "short",
-                          day: "numeric",
-                          month: "short",
-                        }
-                      )}
-                      {"  " + " "}
-                      {item.bookingTime}
-                    </span>{" "}
-                    <span className={styles.appointmentStatus}>
-                      {item.status}
-                    </span>
-                  </p>
-                  <p>
-                    <span className={styles.appointmentName}>
-                      Haircut women (1h 15m)
-                    </span>
-                    <span className={styles.appointmentFor}>Nayanika</span>
-                  </p>
+                  <div className={styles.contents}>
+                    <p>
+                      <span className={styles.appointmentDate}>
+                        {new Date(item?.dateforService).toLocaleDateString(
+                          "en-US",
+                          {
+                            weekday: "short",
+                            day: "numeric",
+                            month: "short",
+                          }
+                        )}
+                        {"  " + " "}
+                        {item.bookingTime}
+                      </span>{" "}
+                      <span className={styles.appointmentStatus}>
+                        {item.status}
+                      </span>
+                    </p>
+                    <p>
+                      <span className={styles.appointmentName}>
+                        Haircut women (1h 15m)
+                      </span>
+                      <span className={styles.appointmentFor}>Nayanika</span>
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.cardRight}>
+                  <p className={styles.price}>₹{item.final_amount}</p>
+                  <p className={styles.paymentType}>online</p>
                 </div>
               </div>
-              <div className={styles.cardRight}>
-                <p className={styles.price}>₹{item.final_amount}</p>
-                <p className={styles.paymentType}>online</p>
-              </div>
-            </div>
-          ))}
+            ))}
         {data && data.length === 0 && <NoDataDisplay />}
         {isLoading && <LoadSpinner />}
         {isError && (

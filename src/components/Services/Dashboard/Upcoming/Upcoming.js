@@ -8,26 +8,43 @@ import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 import MobileView from "./MobileView";
 const TimeAddition = (initialTime, additionalTime) => {
+  let hoursToAdd = 0;
+  let minutesToAdd = 0;
+
+  // Check if additionalTime matches the pattern "X hr Y min"
   const match = additionalTime.match(/(\d+)\s*hr\s*(\d*)\s*min/);
-  const hoursToAdd = match ? parseInt(match[1], 10) : 0;
-  const minutesToAdd = match ? parseInt(match[2], 10) : 0;
-  // Convert initialTime to Date object
+
+  if (match) {
+    hoursToAdd = parseInt(match[1], 10);
+    minutesToAdd = parseInt(match[2], 10);
+  } else {
+    // If match fails, try to parse just minutes
+    const minutesMatch = additionalTime.match(/(\d+)\s*min/);
+    if (minutesMatch) {
+      minutesToAdd = parseInt(minutesMatch[1], 10);
+    } else {
+      // Handle invalid additionalTime format
+      console.error("Invalid additionalTime format:", additionalTime);
+      return initialTime; // or handle error as needed
+    }
+  }
+
   const initialDate = new Date(
     `2000-01-01T${initialTime ? initialTime : "09:00"}:00`
   );
 
-  // Calculate new time by adding hours and minutes
   const newTime = new Date(
     initialDate.getTime() + (hoursToAdd * 60 + minutesToAdd) * 60000
   );
 
-  // Format the new time as HH:mm
   const formattedNewTime = newTime.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });
+
   return formattedNewTime;
 };
+
 const Upcoming = () => {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
@@ -58,7 +75,6 @@ const Upcoming = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  console.log(error);
   return (
     <>
       {innerWidth < 600 ? (
@@ -85,18 +101,19 @@ const Upcoming = () => {
               <tbody className={styles.tbody}>
                 {data &&
                   data?.data?.slice(0, 72).map((item, i) => {
+                    const addedTime = TimeAddition(
+                      item?.time?.slice(0, 5),
+                      item.serviceData?.time_takenby_service
+                    );
+                    // console.log(item?.noPreference);
                     return (
                       <tr key={i}>
                         <td className={styles.date_row}>
                           {item.dateforService}
                         </td>
                         <td className={styles.slot}>
-                          {item?.time}-
-                          {TimeAddition(
-                            item?.time?.slice(0, 5),
-                            item.serviceData?.time_takenby_service
-                          )}{" "}
-                          (45min)
+                          {item?.time}-{addedTime} (
+                          {item.serviceData?.time_takenby_service})
                         </td>
                         <td className={styles.row}>
                           {item?.userData?.name ? item?.userData?.name : "N/A"}
@@ -111,7 +128,7 @@ const Upcoming = () => {
                         </td>
                         <td className={styles.row}>
                           {item?.noPreference
-                            ? "N/A"
+                            ? "No Preference"
                             : item?.stylistData[0].stylist_name}
                         </td>
                         <td className={styles.booked}>
