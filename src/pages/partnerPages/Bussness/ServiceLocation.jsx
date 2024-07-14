@@ -5,6 +5,7 @@ import BasicInputs from "../Input/BasicInputs";
 import map from "../../../assets/images/partner/partnerSetting/Input_Field_Icons.png";
 import CollaseIcon from "../../../assets/images/TeamDetails/chevron-down.png";
 import { GoogleMap, Marker } from "@react-google-maps/api";
+import PartnerLocationMap from "./Map/PartnerLocationMap";
 
 const ServiceLocation = ({ setSalonData, salonData }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -136,11 +137,11 @@ const ServiceLocation = ({ setSalonData, salonData }) => {
                 </div>
               </div>
             </div>
-            <div>
+            <div style={{ width: "500px", height: "500px" }}>
               <p className={styles.mapImg1}>
                 Drag the pin to the correct location
               </p>
-              <img src={mapImg} alt="mapImg" className={styles.mapImg} />
+              <PartnerLocationMap />
             </div>
           </div>
         )}

@@ -87,7 +87,7 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
       []
     );
     setServiceNames(uniqueDataArray);
-    console.log("uniqueDataArray", uniqueDataArray);
+    // console.log("uniqueDataArray", uniqueDataArray);
   }, [salonData]);
 
   return (
@@ -117,8 +117,8 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
             <div className={sty.gridContainer}>
               {
                 // salonData.services_provided.length ?
-                salonData.services_provided.length > 0 ? (
-                  serviceNames.map((v) => {
+                salonData.services_provided?.length > 0 ? (
+                  serviceNames?.map((v) => {
                     return <div className={sty.offerDiv}>{v}</div>;
                   })
                 ) : (
