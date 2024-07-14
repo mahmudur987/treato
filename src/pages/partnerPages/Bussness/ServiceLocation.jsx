@@ -6,9 +6,23 @@ import map from "../../../assets/images/partner/partnerSetting/Input_Field_Icons
 import CollaseIcon from "../../../assets/images/TeamDetails/chevron-down.png";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import PartnerLocationMap from "./Map/PartnerLocationMap";
-
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import useOnclickOutside from "react-cool-onclickoutside";
+import { toast } from "react-toastify";
 const ServiceLocation = ({ setSalonData, salonData }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [position, setPosition] = useState(null);
+  const [show, setShow] = useState(true);
+  let [defaultProps, updateDefaultProps] = useState({
+    center: {
+      lat: "",
+      lng: "",
+    },
+    zoom: 10,
+  });
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 768) {
@@ -27,7 +41,94 @@ const ServiceLocation = ({ setSalonData, salonData }) => {
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    callbackName: "YOUR_CALLBACK_NAME",
+    requestOptions: {
+      /* Define search scope here */
+    },
+    debounce: 300,
+  });
+  const ref = useOnclickOutside(() => {
+    // When the user clicks outside of the component, we can dismiss
+    // the searched suggestions by calling this method
+    clearSuggestions();
+  });
 
+  useEffect(() => {
+    console.log(data);
+
+    if (data.length > 0) {
+      setShow(true);
+    }
+  }, [data]);
+
+  const handleSelect =
+    ({ description }) =>
+    () => {
+      console.log(description);
+      setValue(description, false);
+      setSalonData({ ...salonData, location: description });
+      clearSuggestions();
+      setShow(false);
+      getGeocode({ address: description }).then((results) => {
+        const { lat, lng } = getLatLng(results[0]);
+        defaultProps = {
+          center: {
+            lat: lat,
+            lng: lng,
+          },
+          zoom: 10,
+        };
+        updateDefaultProps(defaultProps);
+        setPosition({ lat, lng });
+        console.log("📍 Coordinates: ", { lat, lng });
+      });
+    };
+
+  const renderSuggestions = () => {
+    return data?.map((suggestion) => {
+      const {
+        place_id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        <li
+          key={place_id}
+          onClick={handleSelect(suggestion)}
+          className={styles.locationList}
+        >
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      );
+    });
+  };
+  const handleSearch = async (e) => {
+    setSalonData({ ...salonData, location: e.target.value });
+    console.log(e.target.value);
+    setValue(e.target.value);
+    getGeocode({ address: e.target.value })
+      .then((results) => {
+        const { lat, lng } = getLatLng(results[0]);
+        console.log({ lat, lng });
+        defaultProps = {
+          center: {
+            lat: lat,
+            lng: lng,
+          },
+          zoom: 10,
+        };
+        updateDefaultProps(defaultProps);
+        setPosition({ lat, lng });
+      })
+      .catch((err) => console.log("geocode Error", err));
+  };
   return (
     <>
       <div>
@@ -59,16 +160,16 @@ const ServiceLocation = ({ setSalonData, salonData }) => {
                     type="text"
                     NAME="location"
                     value={salonData.location}
-                    onChange={(e) =>
-                      setSalonData({ ...salonData, location: e.target.value })
-                    }
+                    onChange={(e) => handleSearch(e)}
                     placeholder="Search location"
                     styles={`${styles.locationInput}`}
                   />
                 </label>
                 <img src={map} alt="map" className={styles.mapLogo} />
               </div>
-
+              {show && (
+                <div className={styles.suggestions}>{renderSuggestions()}</div>
+              )}
               <div>
                 <div className={styles.inputtextNumber}>
                   <label htmlFor="building_number">
@@ -137,11 +238,18 @@ const ServiceLocation = ({ setSalonData, salonData }) => {
                 </div>
               </div>
             </div>
-            <div style={{ width: "500px", height: "500px" }}>
+            <div className={styles.mapConTainer}>
               <p className={styles.mapImg1}>
                 Drag the pin to the correct location
               </p>
-              <PartnerLocationMap />
+              <PartnerLocationMap
+                salonData={salonData}
+                setSalonData={setSalonData}
+                position={position}
+                setPosition={setPosition}
+                defaultProps={defaultProps}
+                updateDefaultProps={updateDefaultProps}
+              />
             </div>
           </div>
         )}

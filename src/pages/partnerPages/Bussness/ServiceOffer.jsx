@@ -224,7 +224,7 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
       )}
 
       <div className={sty.horizontalLine}></div>
-      <ManageHolidays showModal={isModalOpen} onClose={closeModal} />
+      {/* <ManageHolidays showModal={isModalOpen} onClose={closeModal} /> */}
     </div>
   );
 };
