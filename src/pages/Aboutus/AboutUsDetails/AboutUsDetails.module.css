@@ -57,11 +57,14 @@
 .box2{
     width: 88px;
 }
+.box2 p{
+    min-width: max-content;
+}
 .box3{
     width: fit-content;
 }
 .box3 p{
-    width: fit-content;
+    min-width: max-content;
 }
 .info div{
     height: 57px;
@@ -334,12 +337,13 @@ gap: 20px;
         text-align: justify;
     }
     .info{
+        padding: 16px;
         position: static;
-        width: 343px;
+        max-width: max-content;
         height: 85px;
         border-radius: 0px 20px 0px 20px;
-        padding: 16px;
-        gap: 16px;
+        
+        gap: 0;
     }
     .box1{
         height: 53px;
@@ -355,6 +359,9 @@ gap: 20px;
         height: 53px;
         width: 118px;
         gap: 5px;
+    }
+    .verticlalbar{
+        min-width: 52px;
     }
     .info div h4{
         height: 30px;
@@ -449,5 +456,10 @@ gap: 20px;
         height: 212px;
         border-radius: 4px;
         
+    }
+    .visionText p{
+        max-width: 342px;
+        height: max-content;
+        text-align: justify;
     }
 }
