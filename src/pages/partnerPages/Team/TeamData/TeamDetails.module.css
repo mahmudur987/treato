@@ -1,4 +1,6 @@
 .container {
+  max-width: 1500px;
+  width: 100%;
   padding: 3rem 3rem;
   font-family: "Lato", sans-serif;
   height: auto;
@@ -47,7 +49,8 @@
   margin-top: 10px;
 }
 .styledTable {
-  width: 1236px;
+  max-width: 1236px;
+  width: 100%;
   /* min-height: 512px; */
   height: auto;
   top: 168px;
