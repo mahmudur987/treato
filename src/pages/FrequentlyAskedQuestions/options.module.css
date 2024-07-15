@@ -196,10 +196,10 @@
   }
 
   .rightbox {
-    
     top: 200px;
     left: 24px;
-    width: 342px;
+    max-width: 100%;
+    height: auto;
     gap: 16px;
   }
 
@@ -208,7 +208,11 @@
   }
 .question{
   padding: 0;
+  max-width: 90%;
   align-items:normal;
+}
+.answer{
+  max-width: 90%;
 }
   .horizon {
     width: 342px;

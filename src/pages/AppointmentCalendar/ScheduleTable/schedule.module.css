@@ -44,7 +44,7 @@
     overflow: hidden;
     border-left: 2px dashed #CED4DA;
     border-right: 1px solid #ccc;
-    
+    height: auto;
     min-width: 160px;
     max-width: max-content;
     display: flex;
