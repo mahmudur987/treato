@@ -106,7 +106,7 @@ const TimeSchedule = () => {
     navigate("/partner/dashboard/EmployeeSchedule");
   };
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <TimeScheContext.Provider

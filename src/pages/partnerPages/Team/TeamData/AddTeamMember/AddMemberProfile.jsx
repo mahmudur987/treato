@@ -68,8 +68,7 @@ const AddMemberProfile = () => {
   const selectedServiceDetails = allServices?.filter((x) =>
     selectedServices.includes(x._id)
   );
-  console.log(selectedServiceDetails);
-  console.log(allServices);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!firstName) {
@@ -113,9 +112,14 @@ const AddMemberProfile = () => {
         headers,
       });
       console.log(data);
-      toast.success("Team member added successfullys");
+      toast.success("Team member added successfully");
+      setPhone("");
+      setFirstName("");
+      setAddress("");
+      setAddress("");
+      setServiceTitle("");
+      setPicture(null);
       setLoading(false);
-      navigate("/partner/dashboard/TeamManageMent");
     } catch (error) {
       console.log("error", error);
       setLoading(false);
@@ -138,7 +142,7 @@ const AddMemberProfile = () => {
   };
 
   if (loading) {
-    <LoadSpinner />;
+    return <LoadSpinner />;
   }
   return (
     <>
