@@ -78,25 +78,26 @@ const AddAppointment = () => {
     };
 
     setLoading(true);
+    console.log(newdata);
 
-    try {
-      const headers = {
-        token: localStorage.getItem("jwtToken"),
-      };
-      const { data } = await axiosInstance.post(
-        "/appointment/walkinAppointment",
-        newdata,
-        {
-          headers,
-        }
-      );
-      toast.success(
-        data ? data.message : "A New Appointment Has Been Added Successfully "
-      );
-    } catch (error) {
-      console.log("error", error);
-      toast.error(error ? error.message : "Failed");
-    }
+    // try {
+    //   const headers = {
+    //     token: localStorage.getItem("jwtToken"),
+    //   };
+    //   const { data } = await axiosInstance.post(
+    //     "/appointment/walkinAppointment",
+    //     newdata,
+    //     {
+    //       headers,
+    //     }
+    //   );
+    //   toast.success(
+    //     data ? data.message : "A New Appointment Has Been Added Successfully "
+    //   );
+    // } catch (error) {
+    //   console.log("error", error);
+    //   toast.error(error ? error.message : "Failed");
+    // }
     setLoading(false);
   };
   return (

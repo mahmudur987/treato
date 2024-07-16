@@ -80,8 +80,8 @@ const AddMemberProfile = () => {
     if (!picture) {
       return toast.error("Select a picture");
     }
-    if (!phone || phone.length < 3 || phone.length > 12) {
-      return toast.error("write your phone number ");
+    if (!phone || phone.length < 13) {
+      return toast.error("The phone number should be up to 10 digits long.");
     }
     if (!address) {
       return toast.error("write your address ");
@@ -112,6 +112,7 @@ const AddMemberProfile = () => {
         headers,
       });
       console.log(data);
+
       toast.success("Team member added successfully");
       setPhone("");
       setFirstName("");
