@@ -42,7 +42,6 @@
     border: 1px solid #CED4DA;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 30px;
 }
 .verticlalbar{
@@ -337,14 +336,18 @@ gap: 20px;
         text-align: justify;
     }
     .info{
+        padding: 0;
+        gap: 0;
+        border: 1px solid rebeccapurple;
         padding: 16px;
         position: static;
-        max-width: max-content;
-        height: 85px;
+        max-width: 343px;
+        min-height: 85px;
         border-radius: 0px 20px 0px 20px;
         
-        gap: 0;
+        
     }
+    
     .box1{
         height: 53px;
         width: 53px;
@@ -361,6 +364,7 @@ gap: 20px;
         gap: 5px;
     }
     .verticlalbar{
+        margin: -8px;
         min-width: 52px;
     }
     .info div h4{
