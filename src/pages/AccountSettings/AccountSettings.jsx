@@ -52,7 +52,6 @@ export default function AccountSettings() {
   });
   
   const userData = data.user;
-
   const [inputVal, updateInputVal] = useState({
     first_name: userData.first_name ? userData.first_name : "",
     last_name: userData.last_name ? userData.last_name : "",
@@ -328,7 +327,12 @@ export default function AccountSettings() {
               updateMobileOpt={updateMobileOpt}
             />
           ) : profileModal ? (
-            <ChangeProfile setProfileModal={setProfileModal} />
+            <ChangeProfile
+              setProfileModal={setProfileModal}
+              updateInputVal={updateInputVal}
+              inputVal={inputVal}
+              setShowSave={setShowSave}
+            />
           ) : addressModal.active ? (
             <AddressModal
               setAddressModal={setAddressModal}
