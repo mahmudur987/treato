@@ -55,14 +55,14 @@
   flex-direction: column;
   align-items: center;
 }
-.Inputs {
+.wrapper {
   position: relative;
 }
 .suggestions {
   width: 100%;
   background-color: rgb(216, 198, 198);
   position: absolute;
-  top: 15%;
+  top: 100%;
   z-index: 87;
   display: flex;
   flex-direction: column;

@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 const ServiceLocation = ({ setSalonData, salonData }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [position, setPosition] = useState(null);
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   let [defaultProps, updateDefaultProps] = useState({
     center: {
       lat: "",
@@ -129,6 +129,17 @@ const ServiceLocation = ({ setSalonData, salonData }) => {
       })
       .catch((err) => console.log("geocode Error", err));
   };
+  const handleDocumentClick = () => {
+    setShow(false);
+  };
+
+  // useEffect to add event listener for document click
+  useEffect(() => {
+    document.addEventListener("click", handleDocumentClick);
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
   return (
     <>
       <div>
@@ -153,23 +164,27 @@ const ServiceLocation = ({ setSalonData, salonData }) => {
         {isCollapsed && (
           <div className={styles.mainDiv}>
             <div className={styles.Inputs}>
-              <div className={styles.inputtextLoc}>
-                <label htmlFor="location">
-                  <div className={styles.labelText}>Business Location</div>
-                  <BasicInputs
-                    type="text"
-                    NAME="location"
-                    value={salonData.location}
-                    onChange={(e) => handleSearch(e)}
-                    placeholder="Search location"
-                    styles={`${styles.locationInput}`}
-                  />
-                </label>
-                <img src={map} alt="map" className={styles.mapLogo} />
+              <div className={styles.wrapper}>
+                <div className={styles.inputtextLoc}>
+                  <label htmlFor="location">
+                    <div className={styles.labelText}>Business Location</div>
+                    <BasicInputs
+                      type="text"
+                      NAME="location"
+                      value={salonData.location}
+                      onChange={(e) => handleSearch(e)}
+                      placeholder="Search location"
+                      styles={`${styles.locationInput}`}
+                    />
+                  </label>
+                  <img src={map} alt="map" className={styles.mapLogo} />
+                </div>
+                {show && (
+                  <div className={styles.suggestions}>
+                    {renderSuggestions()}
+                  </div>
+                )}
               </div>
-              {show && (
-                <div className={styles.suggestions}>{renderSuggestions()}</div>
-              )}
               <div>
                 <div className={styles.inputtextNumber}>
                   <label htmlFor="building_number">
