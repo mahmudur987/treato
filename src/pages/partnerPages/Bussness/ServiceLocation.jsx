@@ -12,17 +12,18 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { toast } from "react-toastify";
-const ServiceLocation = ({ setSalonData, salonData }) => {
+const ServiceLocation = ({
+  setSalonData,
+  salonData,
+  position,
+  setPosition,
+  defaultProps,
+  updateDefaultProps,
+}) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [position, setPosition] = useState(null);
+
   const [show, setShow] = useState(false);
-  let [defaultProps, updateDefaultProps] = useState({
-    center: {
-      lat: "",
-      lng: "",
-    },
-    zoom: 10,
-  });
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 768) {
@@ -55,8 +56,6 @@ const ServiceLocation = ({ setSalonData, salonData }) => {
     debounce: 300,
   });
   const ref = useOnclickOutside(() => {
-    // When the user clicks outside of the component, we can dismiss
-    // the searched suggestions by calling this method
     clearSuggestions();
   });
 

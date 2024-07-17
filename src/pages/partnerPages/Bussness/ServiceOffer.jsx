@@ -118,8 +118,12 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
               {
                 // salonData.services_provided.length ?
                 salonData.services_provided?.length > 0 ? (
-                  serviceNames?.map((v) => {
-                    return <div className={sty.offerDiv}>{v}</div>;
+                  serviceNames?.map((v, i) => {
+                    return (
+                      <div key={i} className={sty.offerDiv}>
+                        {v}
+                      </div>
+                    );
                   })
                 ) : (
                   <p>please add a service</p>
@@ -224,7 +228,7 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
       )}
 
       <div className={sty.horizontalLine}></div>
-      <ManageHolidays showModal={isModalOpen} onClose={closeModal} />
+      {/* <ManageHolidays showModal={isModalOpen} onClose={closeModal} /> */}
     </div>
   );
 };
