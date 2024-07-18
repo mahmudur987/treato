@@ -117,6 +117,14 @@ const AppointmentDetails = () => {
       selectedServices?.includes(service._id)
     )
   );
+  const extractMinutes = (timeString) => {
+    return parseInt(timeString.split(" ")[0], 10);
+  };
+
+  // Sum the time_takenby_service values
+  const totalMinutes = allSelectedServices?.reduce((total, item) => {
+    return total + extractMinutes(item.time_takenby_service);
+  }, 0);
   allSelectedServices.shift();
   const generateFinalData = useMemo(() => {
     return {
@@ -131,6 +139,12 @@ const AppointmentDetails = () => {
   useEffect(() => {
     setServiceDetails(generateFinalData);
   }, [generateFinalData]);
+
+  // Optionally, convert totalMinutes to hours and minutes
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  const formattedTime =
+    hours > 0 ? `${hours} hr ${minutes} min` : `${minutes} min`;
 
   if (salonLoading) {
     return <LoadSpinner />;
@@ -245,21 +259,9 @@ const AppointmentDetails = () => {
                 onChange={(e) => setduration(e.target.value)}
                 type="text"
                 placeholder="1 hour"
+                value={formattedTime ? formattedTime : "0 min"}
+                disabled
               />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="17"
-                viewBox="0 0 16 17"
-                fill="none"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M13.422 2.60727C12.6409 1.82622 11.3746 1.82622 10.5936 2.60727L10.1222 3.07867L13.422 6.37851L13.8934 5.9071C14.6745 5.12605 14.6745 3.85973 13.8934 3.07867L13.422 2.60727ZM12.4792 7.32133L9.17932 4.02149L3.11869 10.0821C2.98616 10.2147 2.89355 10.3818 2.85141 10.5644L2.16604 13.5343C2.05513 14.0149 2.48586 14.4455 2.96634 14.3346L5.93628 13.6493C6.1189 13.6071 6.286 13.5145 6.41852 13.382L12.4792 7.32133Z"
-                  fill="#0D69D7"
-                />
-              </svg>
             </p>
           </div>
         </div>

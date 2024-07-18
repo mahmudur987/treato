@@ -1,23 +1,34 @@
 // ColorSelect.js
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ColorSelect.module.css";
 
 const ColorSelect = () => {
   const [selectedColor, setSelectedColor] = useState("yellow");
   const [isOptionsVisible, setOptionsVisible] = useState(false);
-  const options = [
-    { label: "Red", color: "#FF0000" },
-    { label: "Red", color: "#FF0000" },
-    { label: "Green", color: "#00FF00" },
-    { label: "Green", color: "#00FF00" },
-    { label: "Green", color: "#00FF00" },
-    { label: "Green", color: "#00FF00" },
-    { label: "Blue", color: "#0000FF" },
-    { label: "Blue", color: "#0000FF" },
-    { label: "Blue", color: "#0000FF" },
-    { label: "Blue", color: "#0000FF" },
-  ];
+  const generateRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
+  // Function to generate an array of 10 random colors
+  const generateColorArray = () => {
+    const colors = [];
+    for (let i = 0; i < 10; i++) {
+      colors.push(generateRandomColor());
+    }
+    return colors;
+  };
+  const options = generateColorArray();
+
+  useEffect(() => {
+    setSelectedColor(options[0]);
+  }, []);
+
   const handleColorChange = (color) => {
     setSelectedColor(color);
     setOptionsVisible(false);
@@ -39,8 +50,8 @@ const ColorSelect = () => {
             <div
               key={option.color}
               className={`${styles.option}`}
-              onClick={() => handleColorChange(option.color)}
-              style={{ backgroundColor: `${option.color}` }}
+              onClick={() => handleColorChange(option)}
+              style={{ backgroundColor: `${option}` }}
             ></div>
           ))}
         </div>

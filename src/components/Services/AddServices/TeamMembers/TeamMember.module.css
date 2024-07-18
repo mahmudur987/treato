@@ -62,8 +62,9 @@
 
 .peoples {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 24px;
   align-items: center;
   justify-content: space-between;

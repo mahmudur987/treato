@@ -27,6 +27,7 @@ import {
 } from "../../../services/Appointments";
 import { toast } from "react-toastify";
 import CartPayment from "../../../payment/Payment";
+import WorkerDetail from "../WorkerDetail/WorkerDetail";
 
 export default function BillSummary({
   setShowModal,
@@ -71,7 +72,7 @@ export default function BillSummary({
       );
     }
   }, [stepTwoDetails]);
-
+  console.log(stepTwoDetails);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -171,13 +172,13 @@ export default function BillSummary({
         userData: visitorDetails?.contact,
         payment_mode: "online",
         // serviceDetails: selectedServices,
-        noPreference: "noPreference",
+        noPreference: stepTwoDetails?.isNoPreference ?? false,
       };
 
       bookSalonAppointment(billInfo).then((res) => {
         let response = res?.res?.data;
 
-        console.log(res);
+        // console.log(res);
         if (response?.success) {
           setOrderResponse(response?.order);
           initPayment(response?.order, response?.razorpayid);
@@ -212,18 +213,15 @@ export default function BillSummary({
       userData: visitorDetails?.contact,
       payment_mode: "on-site",
       // serviceDetails: selectedServices,
-      noPreference: "noPreference",
+      noPreference: stepTwoDetails?.isNoPreference ?? false,
     };
-    console.log(billInfo);
+    // console.log(billInfo);
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
-
-      console.log(res);
 
       if (response?.success) {
         setOrderResponse(response?.order);
         toast.success("Appointment Booked successfully");
-
         setCompletedPay(true);
       } else if (res.err) {
         toast.error(res?.err?.response?.data?.error ?? "Error");

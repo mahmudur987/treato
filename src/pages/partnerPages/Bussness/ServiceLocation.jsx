@@ -12,17 +12,18 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { toast } from "react-toastify";
-const ServiceLocation = ({ setSalonData, salonData }) => {
+const ServiceLocation = ({
+  setSalonData,
+  salonData,
+  position,
+  setPosition,
+  defaultProps,
+  updateDefaultProps,
+}) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [position, setPosition] = useState(null);
-  const [show, setShow] = useState(true);
-  let [defaultProps, updateDefaultProps] = useState({
-    center: {
-      lat: "",
-      lng: "",
-    },
-    zoom: 10,
-  });
+
+  const [show, setShow] = useState(false);
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 768) {
@@ -55,8 +56,6 @@ const ServiceLocation = ({ setSalonData, salonData }) => {
     debounce: 300,
   });
   const ref = useOnclickOutside(() => {
-    // When the user clicks outside of the component, we can dismiss
-    // the searched suggestions by calling this method
     clearSuggestions();
   });
 
@@ -129,6 +128,17 @@ const ServiceLocation = ({ setSalonData, salonData }) => {
       })
       .catch((err) => console.log("geocode Error", err));
   };
+  const handleDocumentClick = () => {
+    setShow(false);
+  };
+
+  // useEffect to add event listener for document click
+  useEffect(() => {
+    document.addEventListener("click", handleDocumentClick);
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
   return (
     <>
       <div>
@@ -153,23 +163,27 @@ const ServiceLocation = ({ setSalonData, salonData }) => {
         {isCollapsed && (
           <div className={styles.mainDiv}>
             <div className={styles.Inputs}>
-              <div className={styles.inputtextLoc}>
-                <label htmlFor="location">
-                  <div className={styles.labelText}>Business Location</div>
-                  <BasicInputs
-                    type="text"
-                    NAME="location"
-                    value={salonData.location}
-                    onChange={(e) => handleSearch(e)}
-                    placeholder="Search location"
-                    styles={`${styles.locationInput}`}
-                  />
-                </label>
-                <img src={map} alt="map" className={styles.mapLogo} />
+              <div className={styles.wrapper}>
+                <div className={styles.inputtextLoc}>
+                  <label htmlFor="location">
+                    <div className={styles.labelText}>Business Location</div>
+                    <BasicInputs
+                      type="text"
+                      NAME="location"
+                      value={salonData.location}
+                      onChange={(e) => handleSearch(e)}
+                      placeholder="Search location"
+                      styles={`${styles.locationInput}`}
+                    />
+                  </label>
+                  <img src={map} alt="map" className={styles.mapLogo} />
+                </div>
+                {show && (
+                  <div className={styles.suggestions}>
+                    {renderSuggestions()}
+                  </div>
+                )}
               </div>
-              {show && (
-                <div className={styles.suggestions}>{renderSuggestions()}</div>
-              )}
               <div>
                 <div className={styles.inputtextNumber}>
                   <label htmlFor="building_number">

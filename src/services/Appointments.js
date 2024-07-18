@@ -190,8 +190,6 @@ export const useTimeSlots = (data) => {
 
 export const getAvailableSlots = async (data) => {
   const jwtToken = localStorage.getItem("jwtToken");
-
-  console.log("slots Data", data);
   try {
     const res = await axiosInstance.post(`/appointment/generateSloats`, data, {
       headers: {

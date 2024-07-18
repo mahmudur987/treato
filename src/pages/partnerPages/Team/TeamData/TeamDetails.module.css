@@ -1,9 +1,9 @@
 .container {
-  max-width: 1500px;
+  max-width: 1300px;
   width: 100%;
-  padding: 3rem 3rem;
   font-family: "Lato", sans-serif;
   height: auto;
+  margin: 3rem auto;
 }
 .manageTeam {
   display: flex;
@@ -49,7 +49,7 @@
   margin-top: 10px;
 }
 .styledTable {
-  max-width: 1236px;
+  max-width: 1300px;
   width: 100%;
   /* min-height: 512px; */
   height: auto;

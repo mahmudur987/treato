@@ -32,7 +32,7 @@ const ClientsDetails = () => {
           name: "please select ",
         }
   );
-  console.log(data);
+  // console.log(data);
   const handleSelectTeamMember = (value) => {
     setSelectedTeamMember(value);
   };
@@ -91,8 +91,8 @@ const ClientsDetails = () => {
                   id="price"
                   onChange={(e) => setPrice(e.target.value)}
                   value={price}
-                  type="text"
-                  placeholder="$1.199.00"
+                  type="number"
+                  placeholder="₹ 1.199.00"
                 />
 
                 <label htmlFor="price">
@@ -119,9 +119,9 @@ const ClientsDetails = () => {
                 <input
                   id="discount"
                   onChange={(e) => setDiscount(e.target.value)}
-                  type="text"
+                  type="number"
                   value={discount}
-                  placeholder="$0.00"
+                  placeholder="₹ 0.00"
                 />
 
                 <label htmlFor="discount">

@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 export default function PartnerLocationMap({
-  setuserAddressText,
   defaultProps,
   updateDefaultProps,
   position,
@@ -13,31 +12,6 @@ export default function PartnerLocationMap({
   setSalonData,
   salonData,
 }) {
-  const userDetails = useSelector((state) => state.user);
-
-  let getLatLng = async () => {
-    let lat =
-      parseFloat(userDetails.user.latitude) !== NaN
-        ? parseFloat(userDetails.user.latitude)
-        : "";
-    let lng =
-      parseFloat(userDetails.user.longitude) !== NaN
-        ? parseFloat(userDetails.user.longitude)
-        : "";
-    defaultProps = {
-      center: {
-        lat: lat,
-        lng: lng,
-      },
-      zoom: 10,
-    };
-    updateDefaultProps(defaultProps);
-  };
-
-  useEffect(() => {
-    getLatLng();
-  }, []);
-
   const isLoaded = defaultProps.center.lat !== "" ? true : false;
 
   const containerStyle = {
