@@ -64,9 +64,10 @@
 }
 
 .addMenu {
+  border: 1px solid #EBEDF0;
   position: absolute;
   top: 60px;
-  right: 0;
+  right: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,6 +76,8 @@
   width: 204px;
   height: 96px;
   padding-left: 16px;
+  border-radius: 4px;
+  background-color: #FFFFFF;
 }
 .addMenu button,
 .addMenu a {

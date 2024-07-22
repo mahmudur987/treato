@@ -44,8 +44,24 @@
 }
 
 .salon_service_option {
+  overflow-x: scroll;
+  overflow-y: hidden;
   width: 100%;
 }
+.salon_service_option::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: #E9EDF2;
+}
+.salon_service_option::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #A1A9B6;
+}
+.salon_service_option::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #6B7280; /* Custom thumb color */
+}
+
 
 .salon_service_option ul {
   list-style: none;

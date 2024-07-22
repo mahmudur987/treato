@@ -11,7 +11,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
   const [selectCategory, setselectCategory] = useState(null);
   const [serviceName, setserviceName] = useState("");
   const [duration, setDuration] = useState("15 min");
-  const [availableFor, setAvailableFor] = useState("Male");
+  const [availableFor, setAvailableFor] = useState("Everyone");
   const [description, setDescription] = useState("");
   const [tax, setTax] = useState("Included");
   const [price, setPrice] = useState("0");
@@ -30,7 +30,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
     salon?.services
       ?.find((x) => x.service_name === selectedServiceType)
       ?.mainCategories?.map((category) => category.category_name) || [];
-  const AvailableFor = ["Male", "Female", "Both"];
+  const AvailableFor = ["Everyone","Female only", "Male only"];
   const TaxAndFees = ["included", "excluded"];
 
   useEffect(() => {
