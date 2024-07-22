@@ -79,10 +79,11 @@ const EditTeamData = () => {
     setLastName(member?.data?.stylist_name?.split(" ")[1]);
     setPhone(member?.data?.stylist_number);
     setAddress(member?.data?.stylist_address);
-    setServiceTitle(member?.data?.stylist_service[0]);
+    setServiceTitle(member?.data?.stylist_service);
     setServiceStartDate(member?.data?.created);
     setSelectedServices(member?.data.services);
   }, [member]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const phoneAsNumber = Number(phone);
@@ -167,6 +168,7 @@ const EditTeamData = () => {
   if (memIsError) {
     <ErrorComponent message={memError.message} />;
   }
+
   return (
     <>
       <div className={styles.container}>
@@ -236,9 +238,7 @@ const EditTeamData = () => {
                           required={true}
                           type="text"
                           name="firstName"
-                          VALUE={
-                            firstName ? firstName : member?.data?.stylist_name
-                          }
+                          VALUE={firstName}
                           onChange={(e) =>
                             updateInputValues({ firstName: e.target.value })
                           }
@@ -299,11 +299,7 @@ const EditTeamData = () => {
                     <BasicInputTeam
                       type="text"
                       name="service"
-                      VALUE={
-                        serviceTitle
-                          ? serviceTitle
-                          : member?.data?.stylist_service[0]
-                      }
+                      VALUE={serviceTitle}
                       onChange={(e) =>
                         updateInputValues({ serviceTitle: e.target.value })
                       }

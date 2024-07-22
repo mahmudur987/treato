@@ -128,7 +128,7 @@ export default function AddressModal({
     // You can use a reverse geocoding API to get the address based on latLng
     // For simplicity, let's assume you have such a function available
     const clickedAddress = getAddressFromLatLng(lat, lng);
-
+    console.log(clickedAddress);
     setPosition({ lat, lng });
   };
 

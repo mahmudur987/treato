@@ -8,6 +8,13 @@ import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
 import Loader from "../../../../components/LoadSpinner/Loader";
 export const AddAppointmentContext = createContext();
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 const AddAppointment = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -68,7 +75,7 @@ const AddAppointment = () => {
       time,
       noPreference: false,
       selectedStylistId: SelectedTeamMember?.id,
-      dateforService,
+      dateforService: formatDate(dateforService),
       userData: {
         name,
         email,
@@ -78,6 +85,7 @@ const AddAppointment = () => {
     };
 
     setLoading(true);
+    console.log(newdata);
 
     try {
       const headers = {
@@ -93,6 +101,7 @@ const AddAppointment = () => {
       toast.success(
         data ? data.message : "A New Appointment Has Been Added Successfully "
       );
+      console.log(data);
     } catch (error) {
       console.log("error", error);
       toast.error(error ? error.message : "Failed");

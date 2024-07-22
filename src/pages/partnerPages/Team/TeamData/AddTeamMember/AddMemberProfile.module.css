@@ -16,6 +16,9 @@
   margin-bottom: 40px;
   line-height: 42px;
 }
+.usr_detail_head a {
+  margin-right: 20px;
+}
 .usr_detail_Para {
   color: #6d747a;
   font-family: Lato;
@@ -57,10 +60,10 @@
 }
 .profileAdd {
   position: absolute;
-  width: 36px;
-  height: 36px;
-  top: 100px;
-  left: 80px;
+  width: 50px;
+  height: 50px;
+  bottom: -10%;
+  right: 5%;
   padding: 10px;
   border-radius: 200px;
   border: 2px;
@@ -153,6 +156,20 @@
   justify-content: space-between;
 }
 .AllServicesText {
+  color: #08090a;
+}
+.serviceList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.serviceList h5 {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
   color: #08090a;
 }
 .Schedule {

@@ -28,7 +28,7 @@ const CheckBoxComponent = ({ setTeamMember }) => {
   const { data, isLoading, isError, error } = useSingleSalon();
   const { pathname } = useLocation();
 
-  console.log(pathname);
+  // console.log(pathname);
 
   const allPeople = data.salon
     ? data?.salon?.stylists?.map((x) => {
@@ -65,8 +65,9 @@ const CheckBoxComponent = ({ setTeamMember }) => {
     if (selectedCheckboxes.length === filteredPeople.length) {
       setSelectedCheckboxes([]);
     } else {
-      setSelectedCheckboxes(filteredPeople.map((person) => person.name));
+      setSelectedCheckboxes(filteredPeople.map((person) => person.id));
     }
+    console.log(filteredPeople);
   };
   useEffect(() => {
     setTeamMember(selectedCheckboxes);

@@ -46,7 +46,7 @@ export default function SalonDetail() {
     SalonDataFunc();
     dispatch(resetSalonServicesState());
   }, []);
-
+  console.log(SalonData);
   if (loading) {
     return (
       <div

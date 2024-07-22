@@ -30,7 +30,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
     salon?.services
       ?.find((x) => x.service_name === selectedServiceType)
       ?.mainCategories?.map((category) => category.category_name) || [];
-  const AvailableFor = ["Male", "Female", "Unknown"];
+  const AvailableFor = ["Male", "Female", "Both"];
   const TaxAndFees = ["included", "excluded"];
 
   useEffect(() => {
@@ -38,7 +38,23 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
       try {
         const { res, err } = await getAllServices();
         if (res) {
-          const data = res?.data?.data.map((x) => x.service_name);
+          const uniqueDataArray = res?.data?.data.reduce(
+            (uniqueArray, currentItem) => {
+              // Check if there's already an object with the same 'name' in uniqueArray
+              if (
+                !uniqueArray.some(
+                  (item) => item.service_name === currentItem.service_name
+                )
+              ) {
+                // If not found, add this object to uniqueArray
+                uniqueArray.push(currentItem);
+              }
+              return uniqueArray;
+            },
+            []
+          );
+
+          const data = uniqueDataArray?.map((x) => x.service_name);
           setserviceType(data);
           setSelectedServiceType(data[0]);
         } else {
@@ -196,8 +212,6 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
           <input
             value={serviceName}
             type="text"
-            name=""
-            id=""
             placeholder="e.g. Haircut for men"
             onChange={(e) => setserviceName(e.target.value)}
             required
@@ -273,8 +287,6 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
 
         <textarea
           value={description}
-          name=""
-          id=""
           placeholder="Briefly describe the service and add relevant details such as aftercare."
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
@@ -287,8 +299,8 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
 
             <div className={styles.selectWrapper}>
               <input
-                type="text"
-                placeholder="e.g. ₹999.00"
+                type="number"
+                placeholder="e.g. ₹  999.00"
                 onChange={(e) => setPrice(e.target.value)}
                 required
               />

@@ -16,7 +16,10 @@
 }
 .left {
   max-width: 100px;
+  min-width: 100px;
   width: 100%;
+  position: relative;
+  min-height: 100%;
 }
 .Outlet {
   margin-left: 20px;

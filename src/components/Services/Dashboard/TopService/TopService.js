@@ -50,7 +50,7 @@ const TopService = () => {
         </div>
         {data && (
           <div>
-            {data?.map((item, index) => (
+            {data?.slice(0, 5).map((item, index) => (
               <ProgressBar
                 key={index}
                 name={item.serviceName}

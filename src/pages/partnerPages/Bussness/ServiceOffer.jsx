@@ -19,6 +19,8 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
   const [selectedDays, setSelectedDays] = useState([]);
   const [startTime, setStartTime] = useState("09:00");
   const [endTime, setEndTime] = useState("09:00");
+  const [serviceNames, setServiceNames] = useState([]);
+
   const generateScheduleData = useMemo(() => {
     return selectedDays.map((day) => {
       return {
@@ -71,6 +73,23 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    const uniqueDataArray = salonData?.services_provided?.reduce(
+      (uniqueArray, currentItem) => {
+        // Check if there's already an object with the same 'name' in uniqueArray
+        if (!uniqueArray.some((item) => item === currentItem)) {
+          // If not found, add this object to uniqueArray
+          uniqueArray.push(currentItem);
+        }
+        return uniqueArray;
+      },
+      []
+    );
+    setServiceNames(uniqueDataArray);
+    // console.log("uniqueDataArray", uniqueDataArray);
+  }, [salonData]);
+
   return (
     <div>
       <div className={sty.collapseForSmallScreen}>
@@ -98,9 +117,13 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
             <div className={sty.gridContainer}>
               {
                 // salonData.services_provided.length ?
-                salonData.services_provided.length > 0 ? (
-                  salonData.services_provided.map((v) => {
-                    return <div className={sty.offerDiv}>{v}</div>;
+                salonData.services_provided?.length > 0 ? (
+                  serviceNames?.map((v, i) => {
+                    return (
+                      <div key={i} className={sty.offerDiv}>
+                        {v}
+                      </div>
+                    );
                   })
                 ) : (
                   <p>please add a service</p>
@@ -205,7 +228,7 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
       )}
 
       <div className={sty.horizontalLine}></div>
-      <ManageHolidays showModal={isModalOpen} onClose={closeModal} />
+      {/* <ManageHolidays showModal={isModalOpen} onClose={closeModal} /> */}
     </div>
   );
 };

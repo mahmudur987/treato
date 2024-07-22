@@ -48,9 +48,8 @@ const CreateAccountPage = () => {
   const dispatch = useDispatch();
   const handleFormSubmit = (event) => {
     event.preventDefault();
-
     const errors = {};
-
+    const fullPhoneNumber = `+${getCountryCallingCode(country)}${phone}`;
     if (!firstName) {
       errors.firstName = "First name is required";
     }
@@ -86,7 +85,7 @@ const CreateAccountPage = () => {
       first_name: firstName,
       last_name: lastName,
       email,
-      phone: phone.length ? `+${getCountryCallingCode(country)}${phone}` : "",
+      phone: phone.length ? fullPhoneNumber : "",
       password,
       role: userChoice?.role?.role,
       type: "register",
@@ -95,8 +94,7 @@ const CreateAccountPage = () => {
     if (Object.keys(errors).length === 0) {
       localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
       localStorage.setItem("userPhoneNumber", JSON.stringify(formData.phone));
-
-      sendLoginOTP({ phoneNumber: phone }).then((res) => {
+      sendLoginOTP({ phoneNumber: fullPhoneNumber }).then((res) => {
         if (res && res?.res?.data.status === true) {
           dispatch(updateOTP(res?.res.data.otp));
           navigate("/verify-otp");
@@ -172,6 +170,9 @@ const CreateAccountPage = () => {
       }
     });
   };
+
+  console.log(`+${getCountryCallingCode(country)}${phone}`);
+
   useEffect(() => {
     if (!userChoice.role) {
       navigate("/auth-choice");

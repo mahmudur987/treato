@@ -39,11 +39,21 @@ const Business = () => {
     day: "",
     opening_time: "",
     closing_time: "",
+    lat: "",
+    lng: "",
+  });
+  const [workingHours, setWorkingHours] = useState([]);
+  const [position, setPosition] = useState(null);
+  let [defaultProps, updateDefaultProps] = useState({
+    center: {
+      lat: "",
+      lng: "",
+    },
+    zoom: 10,
   });
 
-  const [workingHours, setWorkingHours] = useState([]);
-
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const submitData = {
       salon_name: salonData.salon_name,
       salons_description: salonData.salons_description,
@@ -54,9 +64,14 @@ const Business = () => {
         landmark: salonData.landmark,
         city: salonData.city,
         postal_code: salonData.postal_code,
-        working_hours: workingHours,
+      },
+      working_hours: workingHours,
+      location: {
+        type: "Point",
+        coordinates: [position.lat, position.lng],
       },
     };
+    console.log(submitData);
     dispatch(adminBasicDetails(submitData));
     refetch();
     toast.success("Salon details updated successfully.", { id: 5 });
@@ -97,7 +112,32 @@ const Business = () => {
       closing_time: "",
     };
     setSalonData(newData);
+    setPosition({
+      lat:
+        salon?.location?.coordinates.length === 2
+          ? salon?.location?.coordinates[0]
+          : "28.7041",
+      lng:
+        salon?.location?.coordinates.length === 2
+          ? salon?.location?.coordinates[1]
+          : "77.1025",
+    });
+    let defaultProps = {
+      center: {
+        lat:
+          salon?.location?.coordinates.length === 2
+            ? salon?.location?.coordinates[0]
+            : "28.7041",
+        lng:
+          salon?.location?.coordinates.length === 2
+            ? salon?.location?.coordinates[1]
+            : "77.1025",
+      },
+      zoom: 10,
+    };
+    updateDefaultProps(defaultProps);
   }, [data]);
+
   if (isLoading || loading) {
     return <LoadSpinner />;
   }
@@ -130,6 +170,10 @@ const Business = () => {
             <ServiceLocation
               salonData={salonData}
               setSalonData={setSalonData}
+              position={position}
+              setPosition={setPosition}
+              defaultProps={defaultProps}
+              updateDefaultProps={updateDefaultProps}
             />
           </div>
           <div className={sty.SalonPicturesSmallScreen}>
