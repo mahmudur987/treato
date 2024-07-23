@@ -3,18 +3,40 @@
 /* Define specific styles for each class */
 .maincontainer {
   width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  border-radius: 8px;
+  border: 1px solid rgba(206, 212, 218, 1);
+}
+
+.maincontainer::-webkit-scrollbar {
+ display: none;
+}
+
+.hearderBox{
+  width: 100%;
+  max-height: 30px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+}
+.hearderBox h3{
+  cursor: pointer;
+  font-family: Lato;
+  font-weight: 600;
+  font-size: 16px;
+  color: #0D69D7;
+  line-height: 24px;
 }
 
 .container {
   width: 100%;
   background-color: #f5f5f5;
   padding: 20px;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(206, 212, 218, 1);
 }
 .heading {
   color: rgba(56, 62, 68, 1);
@@ -26,6 +48,7 @@
   letter-spacing: 0em;
   text-align: left;
 }
+
 .table {
   width: 100%;
   border-collapse: collapse;

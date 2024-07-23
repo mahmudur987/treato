@@ -47,7 +47,7 @@ export default function Home(props) {
           mainData={homeData.partner_section ? homeData.partner_section : ""}
         />
 
-        <ContactUs />
+        {/* <ContactUs /> */}
 
         <Testimonials />
       </div>

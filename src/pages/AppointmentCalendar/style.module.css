@@ -126,9 +126,10 @@ svg{
 }
 .scheduleBox::-webkit-scrollbar{
     min-width: 6px;
+    min-height: 6px;
     background-color: #E9EDF2;
 }
-.scheduleBox::-webkit-scrollbar-thumb {
+.scheduleBox::-webkit-scrollbar-button{
     min-width: 6px;
     border-radius: 20px;
     background-color: #A1A9B6;

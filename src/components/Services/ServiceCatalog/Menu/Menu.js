@@ -36,7 +36,7 @@ const Menu = ({ setShowBtnMenu, data, category }) => {
     <>
       <div className={styles.menuItems}>
         <p>
-          <Link to={"/service/addservice"}>Add a new service</Link>
+          <Link to={"/partner/dashboard/service/addservice"}>Add a new service</Link>
         </p>
         <p
           onClick={() => {
