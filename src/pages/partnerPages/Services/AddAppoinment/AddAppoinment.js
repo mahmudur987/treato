@@ -108,6 +108,10 @@ const AddAppointment = () => {
     }
     setLoading(false);
   };
+
+  const handleCancel =()=>{
+    window.location.reload()
+  }
   return (
     <AddAppointmentContext.Provider
       value={{
@@ -195,7 +199,7 @@ const AddAppointment = () => {
           </div>
 
           <div className={styles.buttonContainer}>
-            <button className={styles.cancel}>Cancel</button>
+            <button className={styles.cancel} onClick={handleCancel} >Cancel</button>
             <button className={styles.submit} onClick={handleSubmit}>
               {loading ? <Loader /> : "Submit"}
             </button>
