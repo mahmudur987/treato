@@ -63,12 +63,15 @@
 .peoples {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 4px;
+  row-gap: 24px;
   align-items: center;
-  justify-content: space-between;
 }
+.stylistBox{
+  width: 48%;
+}
+
 .people {
   display: flex;
   align-items: center;

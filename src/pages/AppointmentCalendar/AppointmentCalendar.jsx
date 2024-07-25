@@ -21,7 +21,7 @@ function AppointmentCalendar() {
         if (res) {
             setEmployee(res.data);
             setFilter(res.data)
-            console.log(res)
+            // console.log(res)
         }
         else {
             console.log(err);
@@ -45,7 +45,7 @@ function AppointmentCalendar() {
 
         getdata()
         console.log(profiles);
-        console.log(date)
+        // console.log(date)
     }, [date]);
 
     const filteredFn = (names) => {

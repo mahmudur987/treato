@@ -7,6 +7,7 @@ import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 import MobileView from "./MobileView";
+import { Link } from "react-router-dom";
 const TimeAddition = (initialTime, additionalTime) => {
   let hoursToAdd = 0;
   let minutesToAdd = 0;
@@ -57,7 +58,7 @@ const Upcoming = () => {
       const { data } = await axiosInstance("sales/upcomingAppointments", {
         headers,
       });
-
+      console.log(data)
       return data;
     },
   });
@@ -84,7 +85,9 @@ const Upcoming = () => {
       ) : (
         <div className={styles.maincontainer}>
           <div className={styles.container}>
-            <h2 className={styles.heading}>Upcoming</h2>
+            <div className={styles.hearderBox}><h2 className={styles.heading}>Upcoming</h2>
+              <Link to='/partner/dashboard/appointment/calendar' >
+                <h3>View Calendar</h3></Link></div>
             <table className={styles.table}>
               <thead className={styles.thead}>
                 <tr>

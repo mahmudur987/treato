@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./AppointmentDetails.module.css";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import SelectServiceModal from "../../../_modals/SelectServiceModal/SelectServiceModal";
@@ -17,6 +17,7 @@ const AppointmentDetails = () => {
     isError: salonIsError,
     error: salonError,
   } = useSingleSalon();
+  const dateInputRef = useRef(null);
 
   const [date, setDate] = useState("Oct 8 ,2022");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,6 +36,10 @@ const AppointmentDetails = () => {
   const [duration, setduration] = useState("");
   const [prevId, setPrevId] = useState("");
 
+  const handleWrapperClick = () => {
+    console.log(55);
+    dateInputRef.current.click();
+  };
   useEffect(() => {
     const salon = data?.salon;
     const data1 = salon?.services.map((service) => service.service_name);
@@ -152,12 +157,13 @@ const AppointmentDetails = () => {
       <div className={styles.container}>
         <h3 className={styles.heding}>Appointment Details</h3>
         {/* date select */}
-        <div className={styles.dateWrapper}>
+        <div className={styles.dateWrapper} onClick={handleWrapperClick}>
           <label htmlFor="date">Date</label>
           <p>
             <span>{date}</span>
 
             <input
+              ref={dateInputRef}
               onChange={(e) => {
                 const selectedDate = new Date(e.target.value);
                 const options = {

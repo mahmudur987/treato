@@ -38,18 +38,18 @@ function AboutUsDetails() {
                     </div>
                     <div className={style.info}>
                         <div className={style.box1} >
-                            <h4 width={63} >500+</h4>
-                            <p width={41} >Salons</p>
+                            <h4  >500+</h4>
+                            <p  >Salons</p>
                         </div>
                         <hr className={style.verticlalbar} />
                         <div className={style.box2}  >
-                            <h4 width={72}>1000+</h4>
-                            <p width={88}>Happy Clients</p>
+                            <h4 >1000+</h4>
+                            <p >Happy Clients</p>
                         </div>
                         <hr className={style.verticlalbar} />
                         <div className={style.box3}  >
-                            <h4 width={46} >20+</h4>
-                            <p >Cities Services Offered</p>
+                            <h4  >20+</h4>
+                            <p>Cities Services Offered</p>
                         </div>
                     </div>
 
@@ -112,7 +112,7 @@ function AboutUsDetails() {
                             <div className={style.visionText} >
                                 <h3>Our Mission</h3>
                                 <img src={image3} alt="" srcset="" />
-                                <p>Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. </p>
+                                <p className={style.ourMissionText}>Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. </p>
                             </div>
                             <div className={style.togglebtn}>
                                 <div className={`${style.roundbtn} ${toggle ? '' : ''}`} onClick={toggleOurVision} ></div>

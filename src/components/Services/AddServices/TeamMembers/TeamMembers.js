@@ -109,7 +109,8 @@ const CheckBoxComponent = ({ setTeamMember }) => {
           )}
           <div className={styles.peoples}>
             {filteredPeople.map((person) => (
-              <label key={person.name} className={styles.people}>
+              <div className={styles.stylistBox}>
+                <label key={person.name} className={styles.people}>
                 <input
                   type="checkbox"
                   onChange={() => handleCheckboxChange(person.id)}
@@ -121,6 +122,7 @@ const CheckBoxComponent = ({ setTeamMember }) => {
                   <span>{person.name}</span>
                 </p>
               </label>
+              </div>
             ))}
           </div>
         </form>
