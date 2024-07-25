@@ -90,7 +90,7 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
               <span className={styles.back} onClick={onClose}>
                 <IoMdArrowBack />
               </span>
-              <h2 className={styles.modalHeading}>Add A new category</h2>
+              <h2 className={styles.modalHeading}>Update Category</h2>
 
               <form className={styles.form}>
                 <div className={styles.formItems}>
@@ -121,10 +121,10 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
                     </span>
                   </div>
                 </div>
-                {/* categor Name */}
+                {/* category Name */}
 
                 <div className={styles.formItems}>
-                  <label htmlFor="servicetype"> Select Service Category</label>
+                  <label htmlFor="servicetype"> Category Name</label>
 
                   <div className={styles.selectWrapper}>
                     <input
