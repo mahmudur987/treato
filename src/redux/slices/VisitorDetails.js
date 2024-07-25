@@ -16,10 +16,10 @@ const VisitorDetails = createSlice({
   reducers: {
     updateVisitorContent: (state, action) => {
       state.guest = action.payload.guest;
-      state.contact.name = action.payload.contact.name;
-      state.contact.phone = action.payload.contact.phone;
-      state.contact.email = action.payload.contact.email;
-      state.contact.preferences = action.payload.contact.preferences;
+      state.contact.name = action.payload?.contact?.name;
+      state.contact.phone = action.payload?.contact?.phone;
+      state.contact.email = action.payload?.contact?.email;
+      state.contact.preferences = action.payload?.contact?.preferences;
     },
     resetVisitorState: (state) => {
       Object.assign(state, initialState);

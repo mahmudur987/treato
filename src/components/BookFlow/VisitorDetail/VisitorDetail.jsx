@@ -103,7 +103,7 @@ export default function VisitorDetail() {
             <BasicInput
               Type={"text"}
               PlaceHolder={"Shreyas Awasthi"}
-              VALUE={contact.name}
+              VALUE={contact?.name}
               onChange={(e) => handleInputChange("name", e.target.value)}
             />
           </div>
@@ -122,19 +122,19 @@ export default function VisitorDetail() {
                 onChange={(e) => setcountryCode(e.target.value)}
               >
                 <option
-                  selected={contact.phone.slice(0, 3) === "+91"}
+                  selected={contact?.phone?.slice(0, 3) === "+91"}
                   value="+91"
                 >
                   +91
                 </option>
                 <option
-                  selected={contact.phone.slice(0, 3) === "+88"}
+                  selected={contact?.phone?.slice(0, 3) === "+88"}
                   value="+88"
                 >
                   +88
                 </option>
                 <option
-                  selected={contact.phone.slice(0, 3) === "+66"}
+                  selected={contact?.phone?.slice(0, 3) === "+66"}
                   value="+66"
                 >
                   +66
@@ -143,7 +143,7 @@ export default function VisitorDetail() {
               <div className={styles.phone_inputBorder}></div>
 
               <input
-                value={contact.phone.slice(3, 14)}
+                value={contact?.phone?.slice(3, 14)}
                 type="tel"
                 placeholder={"Enter your phone number"}
                 maxLength={11}
@@ -160,7 +160,7 @@ export default function VisitorDetail() {
 
           <div className={styles.visitor_detailACB}>
             <BasicInput
-              VALUE={contact.email}
+              VALUE={contact?.email}
               Type={"email"}
               PlaceHolder={"shreya2716@gmail.com"}
               onChange={(e) => handleInputChange("email", e.target.value)}
@@ -172,7 +172,7 @@ export default function VisitorDetail() {
           <div className={styles.visitor_detailACA}>Preferences (optional)</div>
           <div className={styles.visitor_detailACB}>
             <TextArea
-              VALUE={contact.preferences}
+              VALUE={contact?.preferences}
               PlaceHolder={"Anything specific you want to share"}
               onChange={(e) => handleInputChange("preferences", e.target.value)}
             />
