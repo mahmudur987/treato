@@ -21,24 +21,24 @@ import VerifyOtp from "../../components/_modals/VerifyOtp/VerifyOtp";
 import { updateUser } from "../../services/updateUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { updateUserDetails } from "../../redux/slices/user";
 import FindLocationModal from "../../components/_modals/FindLocationModal/FindLocationModal";
 import SetPassword from "../../components/AccountSettings/PasswordChange/SetPassword";
 import PasswordActive from "../../components/_modals/PasswordActive/Passwordactive";
-import { user } from "../../assets/images/icons";
 
 export default function AccountSettings() {
   const data = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
   const [mobileOpt, updateMobileOpt] = useState(-1);
   const [passModal, setPassModal] = useState(false);
   const [passActiveModal, setPassActiveModal] = useState(false);
   const [profileModal, setProfileModal] = useState(false);
   const [locationModal, setlocationModal] = useState(false);
-  const [addressModal, setAddressModal] = useState({ active: false, data: null });
+  const [addressModal, setAddressModal] = useState({
+    active: false,
+    data: null,
+  });
   const [userAddressText, setuserAddressText] = useState("");
   const [otpModal, setOtpModal] = useState(false);
   const [showSave, setShowSave] = useState(false);
@@ -50,7 +50,7 @@ export default function AccountSettings() {
     phone: true,
     dob: true,
   });
-  
+
   const userData = data.user;
   const [inputVal, updateInputVal] = useState({
     first_name: userData.first_name ? userData.first_name : "",
@@ -62,7 +62,9 @@ export default function AccountSettings() {
     gender: userData.gender ? userData.gender : "",
   });
 
-  const [activeGender, updateGender] = useState(userData.gender ? userData.gender : "");
+  const [activeGender, updateGender] = useState(
+    userData.gender ? userData.gender : ""
+  );
 
   useEffect(() => {
     const data = {
@@ -74,7 +76,6 @@ export default function AccountSettings() {
       place: userData?.place ? userData?.place : "",
       gender: userData.gender ? userData.gender : "",
     };
-
     updateInputVal(data);
     updateGender(userData.gender ? userData.gender : "");
   }, [userData]);
@@ -164,7 +165,8 @@ export default function AccountSettings() {
               Account Settings
             </div>
             <div className={styles.acc_intro}>
-              Manage your Treato profile. Changes will be reflected across all devices.
+              Manage your Treato profile. Changes will be reflected across all
+              devices.
             </div>
             <div className={styles.acc_setting_mid}>
               <ProfileView

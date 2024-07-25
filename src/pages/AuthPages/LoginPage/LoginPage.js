@@ -55,7 +55,7 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
   const handleOTPForm = () => {
-    setShowEmailPassword(false);
+    setShowEmailPassword((pre) => !pre);
   };
   useEffect(() => {
     if (location.pathname === "/partner/login") {
@@ -349,7 +349,7 @@ const LoginPage = () => {
               )}
             </div>
           )}
-          {responseError != "" && (
+          {responseError !== "" && (
             <p className={styles.error}>{responseError}</p>
           )}
           <div className={styles.actions}>
@@ -359,10 +359,16 @@ const LoginPage = () => {
               <PrimaryButton className={styles.action}>Sign in</PrimaryButton>
             )}
 
-            {showEmailPassword && (
+            {showEmailPassword ? (
               <div onClick={handleOTPForm}>
                 <SecondaryButton className={styles.action}>
                   Sign in using OTP
+                </SecondaryButton>
+              </div>
+            ) : (
+              <div onClick={handleOTPForm}>
+                <SecondaryButton className={styles.action}>
+                  Sign in using Email and Password
                 </SecondaryButton>
               </div>
             )}
