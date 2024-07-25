@@ -21,7 +21,6 @@ const PicturesGallery = () => {
   const [loading, setLoading] = useState(false);
   const toggleDropdown = (index, item) => {
     setHoveredImageIndex(index);
-    setIsOpen(index);
     setKey(item.key);
   };
 
@@ -76,6 +75,8 @@ const PicturesGallery = () => {
         );
         console.log(data);
         refetch();
+        setIsOpen(0);
+
         toast.success("Image replace successfully");
       } catch (error) {
         toast.error(error ? error.message : "Error happen");
@@ -97,6 +98,8 @@ const PicturesGallery = () => {
       );
       console.log(data);
       refetch();
+      setIsOpen(0);
+
       toast.success("image delete successfully");
     } catch (error) {
       toast.error(error ? error.message : "Error happen");
@@ -117,6 +120,7 @@ const PicturesGallery = () => {
       );
       console.log(data);
       refetch();
+      setIsOpen(0);
       toast.success("make this image primary successfully");
     } catch (error) {
       toast.error(error ? error.message : "Error happen");
@@ -173,10 +177,15 @@ const PicturesGallery = () => {
                     className={sty.mapPic}
                     onMouseEnter={() => toggleDropdown(i, item)}
                   />
-                  {hoveredImageIndex === i && isOpen === i && (
+                  {hoveredImageIndex === i && (
                     <div className={sty.dropdownContainer}>
                       <div className={sty.dropdown}>
-                        <button className={sty.dropbtn}>
+                        <button
+                          className={sty.dropbtn}
+                          onClick={() =>
+                            setIsOpen((pre) => (pre === i ? 0 : i))
+                          }
+                        >
                           <img
                             src={moreVertical}
                             alt="moreVertical"
@@ -184,29 +193,34 @@ const PicturesGallery = () => {
                           />
                         </button>
 
-                        <div className={sty.dropdownContent}>
-                          <a
-                            onClick={handleMakePrimary}
-                            className={sty.dropdownContentA}
-                          >
-                            Make Primary
-                          </a>
-                          <input
-                            type="file"
-                            ref={replaceInputRef}
-                            style={{ display: "none" }}
-                            onChange={handleReplaceImg}
-                          />
-                          <a
-                            onClick={() => replaceInputRef.current.click()}
-                            className={sty.dropdownContentA}
-                          >
-                            Replace
-                          </a>
-                          <a onClick={handleDelete} className={sty.Delete}>
-                            Delete
-                          </a>
-                        </div>
+                        {isOpen === i && (
+                          <div className={sty.dropdownContent}>
+                            <button
+                              onClick={handleMakePrimary}
+                              className={sty.dropdownContentA}
+                            >
+                              Make Primary
+                            </button>
+                            <input
+                              type="file"
+                              ref={replaceInputRef}
+                              style={{ display: "none" }}
+                              onChange={handleReplaceImg}
+                            />
+                            <button
+                              onClick={() => replaceInputRef.current.click()}
+                              className={sty.dropdownContentA}
+                            >
+                              Replace
+                            </button>
+                            <button
+                              onClick={handleDelete}
+                              className={sty.Delete}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}

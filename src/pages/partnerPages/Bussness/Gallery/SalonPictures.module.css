@@ -73,30 +73,29 @@
 }
 
 .dropdownContent {
-  display: none;
   position: absolute;
   right: 0;
-  top: 20%;
-  margin-top: -18px;
+  top: 10%;
   background-color: #f9f9f9;
   min-width: 160px;
+  padding: 10px 20px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: start;
+  text-align: start;
 }
 
-.dropdownContent a {
+.dropdownContent button {
   color: black;
-  padding: 12px 16px;
+  border: none;
+  background: none;
   text-decoration: none;
   display: block;
-}
 
-.dropdownContent a:hover {
-  background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdownContent {
-  display: block;
+  text-align: start;
 }
 
 .dropdownContentA {
@@ -104,11 +103,6 @@
   font-size: large;
   background-color: #ffffff;
   font-family: "Lato";
-  width: 180px;
-  height: 30px;
-  padding: 13px, 16px, 13px, 16px;
-  border-radius: 4px;
-  gap: 16px;
 }
 
 .Delete {
@@ -116,11 +110,6 @@
   font-size: large;
   background-color: #ffffff;
   font-family: "Lato";
-  width: 180px;
-  height: 30px;
-  padding: 13px, 16px, 13px, 16px;
-  border-radius: 4px;
-  gap: 16px;
 }
 
 .dropdown:hover .dropbtn {
