@@ -28,8 +28,8 @@ const VerifyOTP = (props) => {
   useEffect(() => {
     inputRefs.current[0]?.focus();
     if (
-      localStorage.getItem("requiredRegisterData") != undefined ||
-      localStorage.getItem("requiredRegisterData") != null
+      localStorage.getItem("requiredRegisterData") !== undefined ||
+      localStorage.getItem("requiredRegisterData") !== null
     ) {
       setRequiredRegisterData(
         JSON.parse(localStorage.getItem("requiredRegisterData"))

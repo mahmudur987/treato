@@ -74,7 +74,12 @@ const Business = () => {
     console.log(submitData);
     dispatch(adminBasicDetails(submitData));
     refetch();
-    toast.success("Salon details updated successfully.", { id: 5 });
+    if (!updateError) {
+      toast.success("Salon details updated successfully.", { id: 5 });
+    }
+    if (updateError) {
+      toast.error(updateError ? updateError : "Error");
+    }
   };
 
   const handleChange = (event) => {
@@ -142,12 +147,8 @@ const Business = () => {
     return <LoadSpinner />;
   }
 
-  if (isError || updateError) {
-    return (
-      <ErrorComponent
-        message={error ? error : updateError ? updateError : "Error"}
-      />
-    );
+  if (isError) {
+    return <ErrorComponent message={error ? error : "Error"} />;
   }
 
   return (
