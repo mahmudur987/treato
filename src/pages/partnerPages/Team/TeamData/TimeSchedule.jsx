@@ -107,7 +107,9 @@ const TimeSchedule = () => {
   };
 
   // console.log(data);
-
+  if (isLoading) {
+    return <LoadSpinner />;
+  }
   return (
     <TimeScheContext.Provider
       value={{ schedule, member, refetch, sethandleShift }}
@@ -134,7 +136,7 @@ const TimeSchedule = () => {
                   {sD} - {eD} <img src={calendar_line} alt="calendar_line" />
                 </span>
               )}
-              {isLoading && <LoadSpinner />}
+              {/* {isLoading && <LoadSpinner />} */}
               <span onClick={increaseDates}>
                 <img
                   src={chevronRight}
@@ -314,8 +316,6 @@ const TimeSchedule = () => {
                   </tr>
                 );
               })}
-
-              {isLoading && <LoadSpinner />}
 
               {isError && (
                 <ErrorComponent message={error ? error.message : "Error"} />

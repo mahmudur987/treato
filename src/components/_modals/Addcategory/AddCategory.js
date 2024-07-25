@@ -10,12 +10,12 @@ import { toast } from "react-toastify";
 import axiosInstance from "../../../services/axios";
 const AddCategory = ({ showModal, onClose }) => {
   const { refetch } = useSingleSalon();
-
   const [error, setError] = useState(null);
   const [serviceType, setserviceType] = useState(null);
   const [selectedServiceType, setSelectedServiceType] = useState(["Error"]);
   const [selectCategory, setselectCategory] = useState("");
   const [service, setservice] = useState([]);
+  const [colorCode, setColorCode] = useState("");
   useEffect(() => {
     async function fetchAllServices() {
       try {
@@ -71,6 +71,7 @@ const AddCategory = ({ showModal, onClose }) => {
         category_name: selectCategory,
         subCategories: [],
       },
+      color: colorCode,
     };
 
     try {
@@ -156,7 +157,7 @@ const AddCategory = ({ showModal, onClose }) => {
             <label htmlFor="servicetype"> Appointment color</label>
 
             <div className={styles.selectWrapper}>
-              <ColorSelect />
+              <ColorSelect setColorCode={setColorCode} />
             </div>
           </div>
 
