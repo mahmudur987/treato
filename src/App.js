@@ -27,7 +27,6 @@ import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
 import PrivateFormRoutes from "./layouts/PrivateRoutes";
 import LocationAutocomplete from "./components/locations/LocationAutocomplete";
 import PartnerPage from "./layouts/PartnerPageLayout/PartnerPage";
-import ServicePage from "./layouts/ServicePageLayout/ServicePagelLayout";
 import ModalManager from "./components/_modals/ModalManager";
 import Dashboard from "./pages/partnerPages/Dashboard/Dashboard";
 import PartnerAccountSetting from "./pages/partnerPages/SettingP/PartnerAccountSetting";
@@ -75,6 +74,7 @@ import LookPage from "./pages/partnerPages/Look/LookPage/LookPage";
 import AddLook from "./pages/partnerPages/Look/AddALook/AddLook";
 import EditLook from "./pages/partnerPages/Look/EditLook/EditLook";
 import Commission from "./pages/AdminPages/Commissions/Commission";
+import PartnerPageLayout from "./layouts/ServicePageLayout/ServicePagelLayout";
 
 function App() {
   // Use the location hook to track route changes
@@ -201,7 +201,7 @@ function App() {
             <Route path="/partner/login" element={<LoginPage />} />
           </Route>
           {/* partner dashboard */}
-          <Route path="/partner/dashboard" element={<ServicePage />}>
+          <Route path="/partner/dashboard" element={<PartnerPageLayout />}>
             <Route path="/partner/dashboard" element={<Dashboard />} />
             <Route
               path="/partner/dashboard/appointment/calendar"

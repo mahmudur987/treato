@@ -10,7 +10,7 @@ import { getUserProfile } from "../../services/auth";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { updateIsLoggedIn, updateUserDetails } from "../../redux/slices/user";
 
-const ServicePage = () => {
+const PartnerPageLayout = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(true); // Start with loading state
@@ -59,4 +59,4 @@ const ServicePage = () => {
   );
 };
 
-export default ServicePage;
+export default PartnerPageLayout;

@@ -53,7 +53,7 @@ const AddServices = () => {
       toast.error("Error");
     }
   };
-
+  console.log(basicDetails.duration);
   // for the ui
   const handleNextStep = () => {
     setCurrentStep((prevStep) => (prevStep < 3 ? prevStep + 1 : prevStep));
