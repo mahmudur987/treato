@@ -1,0 +1,162 @@
+.container{
+    position: inherit;
+    width: 214px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+    top: 228px;
+    margin-left: 60px;
+}
+.optionBox{
+    position: inherit;
+    width: 214px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+}
+.tablename{
+    display: none;
+}
+.container h6{
+    height: 24px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: Poppins;
+    line-height: 24px;
+    cursor: pointer;
+}
+.rightContainer{
+    overflow-y: auto;
+    position: initial;
+    width: 984px;
+   max-height: 1845px;
+    margin-top: -180px;
+    margin-left: 396px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+}
+.header{
+    height: 60px;
+    width: 281px;
+    font-size: 40px;
+    font-weight: 600;
+    font-family: Poppins;
+    line-height: 60px;
+    color: #000000;
+}
+.rightContainer section{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+}
+.rightContainer section p{
+    font-size: 16px;
+    font-family: Lato;
+    font-weight: 400;
+    line-height: 27.2px;
+    color: #000000;
+    text-align: justify;
+    letter-spacing: 1%;
+}
+.verticalLine{
+    position: absolute;
+    top: 324px;
+    left: 228px;
+    width: 228px;
+    border: 1px solid #EBEDF0;
+    transform: rotate(-90deg);
+}
+.selected {
+    color: #0D69D7;
+  }
+  .unSelected{
+    color: #2E3032;
+  }
+  .horizontal{
+    display: none;
+  }
+  @media screen and (max-width: 500px){
+    .container{
+        margin-top: 20px;
+        margin-left: 24px;
+        width: 240px;
+        height: 218px;
+        gap: 12px;
+    }
+    .tablename{
+        display: block;
+        width: auto;
+        height: 24px;
+        font-size: 16px;
+        font-family: Poppins;
+        font-weight: 500;
+        line-height: 24px;
+        color: #000000;
+    }
+    .optionBox{
+        width: 240px;
+        height: 182px;
+        gap: 9px;
+        border: 1px solid #EBEDF0;
+        border-radius: 4px;
+    }
+    .optionBox h6{
+        width: 216px;
+        height: 34px;
+        font-size: 16px;
+        font-family: Lato;
+        font-weight: 400px;
+        color: #6D747A;
+        line-height: 24px;
+        padding-left: 10px;
+    }
+    .rightContainer{
+        position: static;
+        margin: 0;
+        width: 390px;
+        max-height: fit-content;
+        margin-top: 15px;
+        padding: 0px 24px 0px 24px;
+        gap: 24px;
+        overflow: hidden;
+        margin-bottom: 20px;
+
+    }
+    .header{
+        display: none;
+    }
+    .rightContainer selection{
+        width: 341px;
+        max-height: 806px;
+        gap:12px;
+        overflow: hidden;
+        
+    }
+    .verticalLine{
+        display: none;
+    }
+    .horizontal{
+        display: block;
+        width: 342px;
+        border: 1px solid #EBEDF0;
+    }
+    .rightContainer section h2{
+        height: 30px;
+        font-size: 20px;
+        font-family: Poppins;
+        font-weight: 600;
+        line-height: 30px;
+        color: #000000;
+    }
+    .rightContainer section p{
+        width: 341px;
+        max-height: 400px;
+        text-align: justify;
+    }
+  }

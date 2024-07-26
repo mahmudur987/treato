@@ -1,0 +1,310 @@
+.careerBuildBox{
+    margin-top: 182px;
+    margin-left: 60px;
+    width: 1320px;
+    height: 389px;
+    display: flex;
+    justify-content: space-between;
+}
+.joinus{
+    width: 575px;
+    height: 276px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+.subHeader{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.subHeader p{
+    width: 82px;
+    height: 36px;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: Lato;
+    color: #434141;
+    line-height: 36px;
+}
+.subHeader h3{
+    height: 42px;
+    width: 100%;
+    font-size: 28px;
+    font-weight: 600;
+    font-family: Poppins;
+    line-height: 42px;
+}
+.careerMimage{
+    display: none;
+}
+.para{
+    width: 100%;
+    height: 90px;
+    font-size: 20px;
+    font-family: Lato;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: justify;
+    color: #6D747A;
+}
+.viewPositions{
+    height: 48px;
+    width: 208px;
+    padding: 16px 20px 16px 20px;
+    border-radius: 4px;
+    background-color: #08080B;
+    display: flex;
+    gap:10px;
+    cursor: pointer;
+   
+}
+.viewPositions b{
+    width: 200px;
+    height: 16px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: -1%;
+    line-height: 16px;
+
+}
+.viewPositions :active{
+    transform: scale(0.90);
+}
+.careerimage{
+    width: 606px;
+    height: 389px;
+    border-radius: 10px;
+}
+.currentJobBox{
+    width: 100%;
+    height: 714px;
+    padding: 90px 60px 90px 60px;
+    display: flex;
+    gap: 10px;
+}
+.currentOpeningBox{
+    width: 100%;
+    height: 534px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+.currentOpeningBox h3{
+    width: fit-content;
+    height: 42px;
+    font-size: 28px;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 42px;
+    color: #000000;
+}
+.jobBox{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 35px;
+}
+.jobContainer{
+    padding: 20px;
+    width: 642px;
+    height: 136px;
+    border: 1px solid #CED4DA;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+.infoBox{
+    width: 408px;
+    height: 88px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.infoBox h4{
+    max-width: 100%;
+    height: 32px;
+    font-size: 20px;
+    font-family: Lato;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: 1%;
+    color: #08090A;
+}
+.arrow{
+    color: #0D69D7;
+    width: 36px;
+    height: 36px;
+}
+.jobDetails{
+    width: 100%;
+    height: 52px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.location{
+    width: 100%;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.location p{
+    height: 24px;
+    max-width: 100%;
+    font-size: 16px;
+    font-family: Lato;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 1%;
+    color: #6D747A;
+}
+.locationIcons{
+    width: 16px;
+    height: 16px;
+    color: #434141;
+}
+.postDetails{
+    width: 100%;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.postDetails p{
+    width: fit-content;
+    height: 24px;
+    font-size: 16px;
+    font-family: Lato;
+    font-weight: 600;
+    line-height: 24px;
+    color: #6D747A;
+    letter-spacing: 1%;
+}
+.verticalLine{
+    border-left: 1px solid #CED4DA;
+    height: 19px;
+}
+@media screen and (max-width: 500px) {
+    .careerBuildBox{
+        margin: 0;
+        margin-left: 10px;
+        margin-top: 120px;
+        width: 343px;
+        height: 598px;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .joinus{
+        padding: 0 10px 0 10px;
+        width: 343px;
+        height: 598px;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .careerimage{
+        display: none;
+    }
+    .subHeader{
+        width: 100%;
+        height: 116px;
+        gap: 12px;
+    }
+    .subHeader p{
+        width: fit-content;
+        height: 32px;
+        font-size: 20px;
+        color: #08080B;
+        line-height: 32px;
+    }
+    .subHeader h3{
+        width: 100%;
+        height: 72px;
+        font-size: 24px;
+        line-height: 36px;
+    }
+    .careerMimage{
+        display: block;
+        height: 220px;
+        width: 100%;
+        border-radius: 5px;
+    }
+    .para{
+        height: auto;
+        font-size: 12px;    
+    }
+    .joinus button{
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    .currentJobBox{
+        width: 390;
+        height: auto;
+        gap: 10px;
+        padding: 32px 24px 32px 24px;
+        background-color: #F8F9FA;
+    }
+    .currentOpeningBox{
+        height: auto;
+        gap: 24px;
+    }
+    .currentOpeningBox h3{
+        font-size: 20px;
+        line-height: 30px;
+    }
+    .jobBox{
+        flex-direction: column;
+        gap: 12px;
+        
+    }
+    .jobContainer{
+        width: 100%;
+        height: 106px;
+        gap: 8px;
+    }
+    .infoBox{
+        width: 290px;
+        height: 74px;
+    }
+    .infoBox h4{
+        height: 24px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+    .jobDetails{
+        height: 21px;
+    }
+    .location{
+        height: 21px;
+    }
+    .location p{
+        font-size: 14px;
+        line-height: 21px;
+    }
+    .postDetails{
+        width: 100%;
+        height: 21px;
+        gap: 5px;
+    }
+    .postDetails p{
+        width: fit-content;
+        font-size: 13px;
+        line-height: 21px;
+    }
+    .arrow{
+        width: 24px;
+        height: 24px;
+    }
+    
+}

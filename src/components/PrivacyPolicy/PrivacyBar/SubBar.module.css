@@ -1,0 +1,81 @@
+.subBar{
+    width: 100%;
+    height: 115px;
+    background-color: #FFFFFF;
+    
+    margin-top: 87px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.subBar hr{
+    border: 1px solid #EBEDF0;
+    width: 100%;
+}
+.termPrivacy{
+    width: 360px;
+    height: 39px;
+    display: flex;
+    gap: 48px;
+    float: left;
+    margin-left: 60px;
+
+}
+.termPrivacy div{
+    height: 39px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+
+.termPrivacy div h5{
+    height: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: Poppins;
+    line-height: 30px;
+    cursor: pointer;
+
+}
+.Highlighter{
+width: 100%;
+height: 3px;
+border-radius: 200px;
+background-color: #0D69D7;
+
+}
+.notSelected{
+    color: #2E3032;
+}
+/* .selected {
+    border-radius: 3px;
+    border-bottom: 3px solid #0D69D7;
+    
+  } */
+  @media screen and (max-width: 500px){
+    .subBar{
+        width: 366px;
+        height: 39px;
+        margin-top: 100px;
+        margin-left: 24px;
+
+    }
+    .termPrivacy{
+        margin: 0;
+        width: 243px;
+        height: 33px;
+        gap: 28px;
+    }
+    .termPrivacy div{
+        width: 116px;
+        height: 33px;
+        
+    }
+    .termPrivacy div h5{
+        width: 116px;
+        height: 24px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+  }

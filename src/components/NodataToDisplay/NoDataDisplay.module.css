@@ -1,0 +1,17 @@
+/* NoDataDisplay.module.css */
+
+.container {
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* Adjust height as needed */
+  border: 1px solid #ccc; /* Example border */
+  border-radius: 5px; /* Example border radius */
+}
+
+.container p {
+  font-size: 16px; /* Example font size */
+  color: #888; /* Example text color */
+}

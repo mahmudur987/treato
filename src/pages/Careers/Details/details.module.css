@@ -1,0 +1,441 @@
+.header {
+  margin: 139px 0 48px 60px;
+  height: 74px;
+  width: 541px;
+  display: flex;
+  gap: 36px;
+}
+
+.subHeader {
+  width: 461px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.jobHeading {
+  height: 74px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jobHeading h3 {
+  height: 42px;
+  max-width: 100%;
+  font-size: 28px;
+  font-family: Poppins;
+  line-height: 42px;
+  font-weight: 600;
+  color: #000000;
+}
+
+
+
+
+.location {
+  max-width: 100%;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.location p {
+  height: 24px;
+  width: auto;
+  font-size: 16px;
+  font-family: Lato;
+  font-weight: 600;
+  line-height: 24px;
+  color: #434141;
+}
+
+.arrows {
+  width: 44px;
+  height: 44px;
+  color: #000000;
+}
+
+.locationIcons {
+  width: 18px;
+  height: 18px;
+  color: #434141;
+}
+
+.verticalLine {
+  border-left: 1px solid #CED4DA;
+  height: 15px;
+}
+
+.formContainer {
+  width: 1440px;
+  height: 684px;
+  top: 255px;
+  background-color: #F8F9FA;
+  padding-top: 37px;
+  padding-left: 140px;
+}
+
+.formContainer form {
+  width: 872px;
+  height: 577px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.formContainer form h4 {
+  height: 36px;
+  width: auto;
+  font-size: 24px;
+  font-family: Poppins;
+  font-weight: 600;
+  line-height: 36px;
+  color: #000000;
+}
+
+.inputBox {
+  width: 100%;
+  height: 184px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+
+}
+
+.subBox,
+.subBox1 {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  gap: 24px;
+}
+
+.inputBox label {
+  display: inline;
+}
+
+.subBox div {
+  max-width: 47%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.subBox1 div {
+  max-width: 47%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.subBox div input {
+  width: 424px;
+  height: 48px;
+  padding: 13px 16px 13px 16px;
+  border: 1px solid #CED4DA;
+  border-radius: 4px;
+}
+
+.subinput {
+  width: 424px;
+  height: 48px;
+  padding: 13px 16px 13px 16px;
+  border: 1px solid #CED4DA;
+  border-radius: 4px;
+}
+
+.contactNumber {
+  padding: 0;
+  padding-bottom: -1px;
+  border-radius: 4px;
+  border: 1px solid #CED4DA;
+  min-width: 424px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.countryCode {
+  border: none;
+  width: 20%;
+  height: 48px;
+  display: flex;
+  color: #08090A;
+  font-size: 12px;
+  justify-content: space-between;
+}
+
+
+.phoneno {
+  padding-left: 10px;
+  border: none;
+  width: 335px;
+  height: 48px;
+}
+
+.phoneinputBorder {
+  width: 1px;
+  height: 24px;
+  /* transform: rotate(-90deg); */
+  background-color: #08090A;
+}
+
+.uploadBox {
+  width: 174px;
+  height: 108px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.uploadBox label {
+  height: 24px;
+  font-size: 16px;
+  font-family: Lato;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 1%;
+  color: #08090A;
+}
+
+.uploadbtnwrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn {
+  border: 2px solid transparent;
+  background-image: linear-gradient(to right, #CED4DA 3px, transparent 2px),
+    linear-gradient(to right, #CED4DA 3px, transparent 2px),
+    linear-gradient(to bottom, #CED4DA 3px, transparent 2px),
+    linear-gradient(to bottom, #CED4DA 3px, transparent 2px);
+  background-position: top, bottom, left, right;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size: 9.5px 1px, 9.5px 1px, 1px 7px, 1px 7px;
+  color: #0D69D7;
+  height: 75px;
+  width: 174px;
+  background-color: transparent;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.uploadbtnwrapper:hover {
+  cursor: pointer;
+}
+
+
+.fileInput {
+  position: absolute;
+  font-size: 100px;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+
+.uploadicon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.svgStyle {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.btn p {
+  font-size: 16px;
+  font-family: Lato;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.fileBox {
+  height: 24px;
+  max-width: 400px;
+  display: flex;
+  gap: 25px;
+}
+
+.fileBox span {
+  width: auto;
+  height: 24px;
+  font-size: 16px;
+  font-family: Lato;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 1%;
+  color: #08090A;
+}
+
+.fileBox button {
+  height: 24px;
+  width: 58px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-family: Lato;
+  font-weight: 600;
+  color: #DE2929;
+}
+
+.checkBox {
+  height: 24px;
+  width: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+}
+
+.checkBox input {
+  cursor: pointer;
+
+}
+
+.checkBox label {
+  height: 24px;
+  width: auto;
+  font-size: 16px;
+  font-family: Lato;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 1%;
+  color: #6D747A;
+  cursor: pointer;
+}
+
+.submitButton {
+  cursor: pointer;
+  padding: 14px 24px 14px 24px;
+  border-radius: 4px;
+  width: 106px;
+  height: 48px;
+  text-align: center;
+  font-size: 16px;
+  font-family: Poppins;
+  font-weight: 600;
+  background-color: #08080B;
+  color: #FFFFFF;
+}
+
+.submitButton :active {
+  transform: scale(0.95);
+}
+
+@media screen and (max-width: 500px) {
+  .header {
+    padding: 0;
+    width: 342px;
+    margin: 104px 0 48px 24px;
+    height: auto;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .jobHeading h3 {
+    height: 72px;
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .formContainer {
+    width: 390px;
+    max-height: 792px;
+    padding: 32px 24px 32px 24px;
+  }
+
+  .inputBox {
+    height: auto;
+  }
+
+  .formContainer form {
+    width: 100%;
+    height: auto;
+    gap: 24px;
+  }
+
+  .formContainer form h4 {
+
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+
+  .subBox div input {
+    width: 163px;
+    padding: 13px 12px 13px 12px;
+  }
+
+  .subBox1 {
+    height: auto;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .subBox1 div {
+    max-width: 390px;
+    height: auto;
+  }
+
+  .subBox1 div input {
+    width: 100%;
+  }
+
+  .contactNumber {
+    padding: 0;
+    min-width: 342px;
+    max-height: 48px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  .countryCode {
+    width: 80px;
+  }
+
+  .phoneno {
+    width: 280px;
+  }
+
+  .checkBox {
+    width: 342px;
+    height: 63px;
+  }
+
+  .submitButton {
+    margin-top: 25px;
+  }
+
+  .uploadBox {
+    min-width: 342px;
+  }
+
+  .btn {
+    min-width: 342px;
+    height: 72px;
+  }
+
+  .arrows {
+    height: 24px;
+    width: 24px;
+  }
+
+}

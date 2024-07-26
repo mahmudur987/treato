@@ -1,12 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import AuthPage from "../../../layouts/AuthPageLayout/AuthPage";
 import styles from "./VerifyOTP.module.css";
-import {  useNavigate } from "react-router-dom";
-import {
-  getUserProfile,
-  register,
-  sendLoginOTP,
-} from "../../../services/auth";
+import { useNavigate } from "react-router-dom";
+import { getUserProfile, register, sendLoginOTP } from "../../../services/auth";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetTempLoginInfo,
@@ -16,6 +12,7 @@ import {
 } from "../../../redux/slices/user";
 import { toast } from "react-toastify";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
+import { createSalon } from "../../../services/salon";
 const VerifyOTP = (props) => {
   const [otp, setOTP] = useState(["", "", "", ""]);
   const [OTPerror, setOTPerror] = useState(false);
@@ -30,7 +27,10 @@ const VerifyOTP = (props) => {
   const userDetails = useSelector((state) => state.user);
   useEffect(() => {
     inputRefs.current[0]?.focus();
-    if (localStorage.getItem("requiredRegisterData") != undefined || localStorage.getItem("requiredRegisterData") != null) {
+    if (
+      localStorage.getItem("requiredRegisterData") !== undefined ||
+      localStorage.getItem("requiredRegisterData") !== null
+    ) {
       setRequiredRegisterData(
         JSON.parse(localStorage.getItem("requiredRegisterData"))
       );
@@ -112,12 +112,10 @@ const VerifyOTP = (props) => {
         setOTPerror(true);
         seterrorMessage("Please fill the OTP");
       } else {
-        // Handle the case where the OTP doesn't match
         setOTPerror(true);
         seterrorMessage("Invalid OTP");
       }
     } else {
-      //handle verifyOTP  while [Registration]
       console.log("registration", enteredOTP, userDetails.OTP);
       if (enteredOTP === userDetails.OTP) {
         register(requiredRegisterData).then((res) => {
@@ -126,12 +124,23 @@ const VerifyOTP = (props) => {
           ) {
             localStorage.setItem("jwtToken", res?.res?.data.token);
             getUserProfile(res?.res?.data.token).then((res) => {
+              const user = res?.res?.data?.data;
+              if (user?.role === "partner") {
+                createSalon()
+                  .then((res) => console.log(res.res))
+                  .catch((err) => console.error(err));
+
+                navigate("/partner/dashboard/PartnerAccountSetting");
+              }
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(res?.res?.data?.data));
               dispatch(updateOTP(0));
-              navigate("/");
+
               toast("Welcome to Treato! Start exploring now!");
               localStorage.removeItem("requiredRegisterData");
+              if (user?.role !== "partner") {
+                navigate("/");
+              }
             });
             //TODO:need to add user data in localStorage
           } else {
@@ -169,10 +178,7 @@ const VerifyOTP = (props) => {
           <h3 className={styles.VerifyOTP}>Verify OTP</h3>
           <h4 className={styles.enterOTPText}>
             Enter the OTP sent to{" "}
-            {
-              localStorage.getItem("userPhoneNumber") ||
-              "your number"}
-            .
+            {localStorage.getItem("userPhoneNumber") || "your number"}.
           </h4>
         </div>
         <div className={styles.OTPWrapper}>

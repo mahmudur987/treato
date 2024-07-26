@@ -14,36 +14,41 @@ import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import { openModal } from "../../../redux/slices/modal";
 import { useDispatch } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const options = { weekday: "short", month: "short", day: "numeric" };
+  const formattedDate = new Intl.DateTimeFormat("en-US", options).format(date);
+  return formattedDate;
+};
 const AppointmentCard = ({ salon, cardType }) => {
   // Dynamic Content Rendering Based on cardType(prop)
+
+  const navigate = useNavigate();
+
   const [toggleDetails, settoggleDetails] = useState(false);
   const [toggleoptions, settoggleoptions] = useState(false);
   const dispatch = useDispatch();
+
+  const handleHelp = () => {
+    navigate("/contactus")
+  }
+
   const handleModal = (buttonType) => {
     console.log(buttonType);
+    
     dispatch(openModal({ type: `${buttonType}`, closable: true, data: salon }));
   };
-  let serveceIds = [];
-
-  const ids = () => {
-    return salon?.serviceData?.map((x) => {
-      return x.map((y) => {
-        return y.subCategories.map((item) => {
-          return serveceIds.pop(item._id);
-        });
-      });
-    });
-  };
+  console.log(salon);
 
   return (
     <div className={styles.cardWrapper}>
-      {salon.payment_mode === "on-site" && (
+      {salon.payment_mode === "on-site" && cardType === "Upcoming" && (
         <div className={styles.shareOTPWrapper}>
-          <h3>6078</h3>
+          <h3>{salon?.otp}</h3>
           <p>
-          is the 4-digit OTP for this booking. Please share the OTP at the salon to start the service.
-        
+            is the 4-digit OTP for this booking. Please share the OTP at the
+            salon to start the service.
           </p>
         </div>
       )}
@@ -53,7 +58,7 @@ const AppointmentCard = ({ salon, cardType }) => {
           <div key={i} className={styles.salonInfo}>
             <div className={styles.infos}>
               <img
-                src={x.salon_Img.public_url}
+                src={x.salon_Img?.public_url ?? x.salon_Img[0].public_url}
                 className={styles.frame1}
                 alt="frame1"
               />
@@ -62,7 +67,11 @@ const AppointmentCard = ({ salon, cardType }) => {
                 <h5 className={styles.location}>{x.locationText}</h5>
                 <div className={styles.timing}>
                   <img src={clock} alt="clock" />
-                  {salon.start_date} at {salon.time}
+                  <p>
+                    <span>{formatDate(salon?.start_date)}</span>
+                    <span>at</span>
+                    <span> {salon.time}</span>
+                  </p>
                   <button
                     onClick={() => settoggleDetails(!toggleDetails)}
                     className={styles.toggledetails}
@@ -85,7 +94,7 @@ const AppointmentCard = ({ salon, cardType }) => {
             </div>
             <div
               className={`${
-                cardType == "Upcoming" ? styles.moreVertical : styles.d_none
+                cardType === "Upcoming" ? styles.moreVertical : styles.d_none
               }`}
             >
               <img
@@ -103,7 +112,7 @@ const AppointmentCard = ({ salon, cardType }) => {
             </div>
             <div
               className={`${
-                cardType == "Completed" ? styles.writeReview : styles.d_none
+                cardType === "Completed" ? styles.writeReview : styles.d_none
               }`}
               onClick={() => handleModal("WriteReview")}
             >
@@ -115,7 +124,11 @@ const AppointmentCard = ({ salon, cardType }) => {
         {/* mobile view salons timing  */}
         <div className={styles.timing_mobo}>
           <img src={clock} alt="clock" />
-          {salon.dateTime}
+          <p>
+            <span>{salon.start_date}</span>
+            <span>at</span>
+            <span> {salon.time}</span>
+          </p>
           <button
             onClick={() => settoggleDetails(!toggleDetails)}
             className={styles.toggledetails}
@@ -137,102 +150,107 @@ const AppointmentCard = ({ salon, cardType }) => {
         {toggleDetails && (
           <>
             <div className={styles.detailSection}>
+              {/* details section */}
               <div className={styles.serviceDetails}>
                 <h4 className={styles.title}>Service Details</h4>
                 <div className={styles.sDetailWrapper}>
-                  {salon?.serviceData.map((x, i) => (
-                    <div key={i}>
-                      {x.map((y, j) => (
-                        <div key={j}>
-                          {y?.subCategories.map((item, index) => {
-                            return (
-                              <div
-                                key={index}
-                                className={`${styles.sDetail} ${
-                                  cardType !== "Upcoming"
-                                    ? styles.flexCol
-                                    : styles.flexRow
-                                }`}
-                              >
-                                <div className={styles.qty_Name}>
-                                  <p className={styles.quantity}>
-                                    {item.quantity ?? 1}
-                                  </p>
-                                  <img src={cross} alt="cross" />
-                                  <p className={styles.serviceName}>
-                                    {item.service_name}
-                                  </p>
-                                  <img
-                                    src={ellipse}
-                                    alt="ellipse"
-                                    className={`${styles.ellipse} ${
-                                      cardType !== "Upcoming"
-                                        ? styles.d_none
-                                        : ""
-                                    }`}
-                                  />
-                                </div>
-                                <div className={styles.time_Amount}>
-                                  <p className={styles.servicePeriod}>
-                                    {item.time_takenby_service}
-                                  </p>
-                                  <img src={ellipse} alt="ellipse" />
-                                  <p className={styles.servicePrice}>
-                                    ₹ {item.price}
-                                  </p>
-                                  <p
-                                    className={`${
-                                      cardType !== "Completed"
-                                        ? styles.d_none
-                                        : styles.proName
-                                    }`}
-                                  >
-                                    <img
-                                      src={pro_Avatar}
-                                      alt="pro_Avatar"
-                                      className={styles.pro_Avatar}
-                                    />
-                                    {item.professional}
-                                  </p>
-                                </div>
-                              </div>
-                            );
-                          })}
+                  {salon?.serviceData.map((item, index) => {
+                    console.log(item);
+
+                    return (
+                      <div
+                        key={index}
+                        className={`${styles.sDetail} ${
+                          cardType !== "Upcoming"
+                            ? styles.flexCol
+                            : styles.flexRow
+                        }`}
+                      >
+                        <div className={styles.qty_Name}>
+                          <p className={styles.quantity}>
+                            {item.quantity ?? 1}
+                          </p>
+                          <img src={cross} alt="cross" />
+                          <p className={styles.serviceName}>
+                            {item.service_name}
+                          </p>
+                          <img
+                            src={ellipse}
+                            alt="ellipse"
+                            className={`${styles.ellipse} ${
+                              cardType !== "Upcoming" ? styles.d_none : ""
+                            }`}
+                          />
                         </div>
-                      ))}
+                        <div className={styles.time_Amount}>
+                          <p className={styles.servicePeriod}>
+                            {item.time_takenby_service}
+                          </p>
+                          <img src={ellipse} alt="ellipse" />
+                          <p className={styles.servicePrice}>₹ {item.price}</p>
+                          <p
+                            className={`${
+                              cardType !== "Completed"
+                                ? styles.d_none
+                                : styles.proName
+                            }`}
+                          >
+                            <img
+                              src={pro_Avatar}
+                              alt="pro_Avatar"
+                              className={styles.pro_Avatar}
+                            />
+                            {item.professional}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              {/* booked on */}
+              {(cardType === "Completed" || cardType === "Upcoming") && (
+                <div className={styles.others}>
+                  <div className={styles.bookedOn}>
+                    <h4 className={styles.title}>Booked on</h4>
+                    <p className={styles.dateTime}>
+                      {formatDate(salon.end_date) ?? "N/A"} at {salon.time}
+                    </p>
+                  </div>
+                  {salon?.stylistData?.map((x, i) => (
+                    <div
+                      className={`${styles.Professional} ${
+                        cardType === "Completed" ? styles.d_none : ""
+                      }`}
+                    >
+                      <h4 className={styles.title}>Professional</h4>
+                      <p className={styles.proName}>
+                        <img
+                          src={x?.stylist_Img.public_url}
+                          alt="pro_Avatar"
+                          className={styles.pro_Avatar}
+                        />
+                        {x?.stylist_name}
+                      </p>
                     </div>
                   ))}
                 </div>
-
-                {/* Add more service details here */}
-              </div>
-              <div className={styles.others}>
-                <div className={styles.bookedOn}>
-                  <h4 className={styles.title}>Booked on</h4>
-                  <p className={styles.dateTime}>{salon.end_date}</p>
-                </div>
-                {salon?.stylistData?.map((x, i) => (
-                  <div
-                    className={`${styles.Professional} ${
-                      cardType == "Completed" ? styles.d_none : ""
-                    }`}
-                  >
-                    <h4 className={styles.title}>Professional</h4>
-                    <p className={styles.proName}>
-                      <img
-                        src={x?.stylist_Img.public_url}
-                        alt="pro_Avatar"
-                        className={styles.pro_Avatar}
-                      />
-                      {x?.stylist_name}
+              )}
+              {cardType === "Cancelled" && (
+                <div className={styles.others}>
+                  <div className={styles.bookedOn}>
+                    <h4 className={styles.title}>Cancelled on</h4>
+                    <p className={styles.dateTime}>
+                      {formatDate(salon.end_date) ?? "N/A"} 
                     </p>
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
             </div>
             <hr className={styles.line} />
           </>
         )}
+
         {/* payment status , card buttons  */}
         <div className={styles.status}>
           <div className={styles.paymentStatus}>
@@ -243,7 +261,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                 )}
                 {salon.payment_mode === "online" ? "paid" : "Due"}
                 <span className={styles.amount}>
-                  {salon.initial_amount ?? "00"}
+                  {Number(salon.final_amount).toFixed(2) ?? "00"}
                 </span>
                 ({salon.payment_mode})
               </h4>
@@ -268,9 +286,10 @@ const AppointmentCard = ({ salon, cardType }) => {
               </h4>
             )}
           </div>
+
           <div
             className={`${
-              cardType != "Upcoming" ? styles.writeReview_mobo : styles.d_none
+              cardType === "Completed" ? styles.writeReview_mobo : styles.d_none
             }`}
             onClick={() => handleModal("WriteReview")}
           >
@@ -278,19 +297,19 @@ const AppointmentCard = ({ salon, cardType }) => {
           </div>
           <div className={styles.buttons}>
             <SecondaryButton
-              children={cardType == "Upcoming" ? "Cancel" : "Help"}
+              children={cardType === "Upcoming" ? "Cancel" : "Help"}
               onClick={
-                cardType == "Upcoming"
+                cardType === "Upcoming"
                   ? () => handleModal("CancelAppointment")
-                  : () => handleModal("HelpAppointment")
+                  : () => handleHelp()
               }
             />
             <PrimaryButton
-              children={cardType == "Upcoming" ? "Reschedule" : "Book again"}
+              children={cardType === "Upcoming" ? "Reschedule" : "Book again"}
               onClick={
-                cardType == "Upcoming"
+                cardType === "Upcoming"
                   ? () => handleModal("RescheduleAppointment")
-                  : () => handleModal("BookAgainModal")
+                  : () => navigate(`/salons/${salon?.salonData[0]._id}`)
               }
             />
           </div>

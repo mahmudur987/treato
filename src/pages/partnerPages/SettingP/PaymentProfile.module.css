@@ -1,0 +1,140 @@
+.heading {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+}
+.arrowLeft {
+  margin-right: 25px;
+}
+
+.formContainer {
+  width: 424px;
+  display: flex;
+  flex-direction: column;
+}
+.formHeader {
+  margin-bottom: 18px;
+}
+.formFields {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.paymentSubmit {
+  margin-left: 20px;
+  display: flex;
+  height: 48px;
+  width: 80px;
+  padding: 16px 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  background: var(--Grey-Grey-40, #ebedf0);
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  line-height: 24px;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+  font-size: var(--font-medium);
+}
+
+.inputField {
+  padding: 20px;
+}
+/* SELETE option start */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+  padding: 0.5em;
+  width: 100%;
+  font-size: inherit;
+
+  padding: 13px 16px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  width: 100%;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+select {
+  background-image: url("../../../assets/images/partner/partnerSetting/chevron-down.png");
+  background-repeat: no-repeat;
+  background-position: right 0.7em top 50%;
+  background-size: 20px 20px;
+}
+
+select:hover,
+select:focus {
+  border-color: #aaa;
+}
+
+select:active {
+  border-color: #555;
+}
+
+select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* Select option start */
+
+@media only screen and (max-width: 1025px) {
+  .container {
+    padding: 2rem;
+  }
+  .formContainer {
+    width: 50%;
+    box-sizing: border-box;
+    padding: 0rem 1rem;
+  }
+  .formHeader > p {
+    font-size: var(--font-medium);
+  }
+}
+@media only screen and (max-width: 770px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+  .heading {
+    font-size: 48px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .Image {
+    display: none;
+  }
+  .formContainer {
+    width: 100%;
+    padding: 0rem;
+  }
+  .heading {
+    font-size: 28px;
+  }
+  .formHeader > h1,
+  .formHeader > p,
+  label {
+    font-size: var(--font-medium);
+  }
+  .checkboxText {
+    font-size: var(--font-small);
+    font-weight: 400;
+  }
+  .formHeader > p {
+    width: 100%;
+    font-weight: 400;
+  }
+}

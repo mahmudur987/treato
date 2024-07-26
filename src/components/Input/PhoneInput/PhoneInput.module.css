@@ -1,29 +1,33 @@
-.phone_inputMain{
-    border: 1px solid #CED4DA;
-    border-radius: 4px;
-    padding: 13px 16px;
-    width: 100%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 8px;
-    box-sizing: border-box;
+.phone_inputMain {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  /* padding: 13px 16px; */
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
 }
 
-.phone_input{
-    border: none;
-    width: 70%;
-    padding-left: 8px;
-    outline: none;
+.phone_input {
+  border: none;
+  width: 70%;
+  padding-left: 8px;
+  outline: none;
 }
 
-.phone_select{
-    border: none;
-    background-color: unset;
+.phone_select {
+  border: none;
+  background-color: unset;
+  width: 80px;
 }
 
-.phone_inputBorder{
-    width: 1px;
-    height: 20px;
-    background-color: #08090A;
+.phone_inputBorder {
+  width: 1px;
+  height: 20px;
+  background-color: #08090a;
+}
+.error_message {
+  color: red;
 }

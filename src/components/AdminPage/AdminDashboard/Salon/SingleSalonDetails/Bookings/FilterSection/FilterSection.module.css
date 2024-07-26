@@ -1,0 +1,38 @@
+.mainContainer {
+  max-width: 1340px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 20px;
+}
+
+.searchWrapper {
+  display: flex;
+  align-items: center;
+}
+.searchWrapper h3 {
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: left;
+  color: #08090a;
+}
+
+.selectsWrapper {
+  display: flex;
+  justify-content: end;
+  gap: 30px;
+}
+
+@media only screen and (max-width: 700px) {
+  .mainContainer {
+    flex-direction: column;
+    align-items: start;
+  }
+  .selectsWrapper {
+    gap: 10px;
+  }
+}

@@ -94,6 +94,20 @@
     cursor: pointer;
     padding: 1rem;
 }
+.saveButtons{
+    margin-top: 20px;
+    width: 376px;
+    height: 48px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+.cancelbtn{
+    width: 182px;
+    
+
+}
 @media only screen and (max-width:767px){
     .profileMain{
         align-items: flex-end;

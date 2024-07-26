@@ -14,7 +14,9 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { calculateSalonDistance, displayDistance } from "../../utils/utils.js";
 import { resetSalonServicesState } from "../../redux/slices/salonServices.jsx";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner.js";
 export default function SalonDetail() {
+  const [loading, setLoading] = useState(false);
   let [showGallery, setShowGallery] = useState(false);
   let [salonImages, setSalonImages] = useState(null);
   let [SalonData, setSalonData] = useState(null);
@@ -23,11 +25,11 @@ export default function SalonDetail() {
   let { id } = useParams();
   const dispatch = useDispatch();
   let [firstImage, setFirstImage] = useState(null);
-
   const userDetails = useSelector((state) => state?.user?.user);
 
   useEffect(() => {
     let SalonDataFunc = async () => {
+      setLoading(true);
       const { res, err } = await salon();
       if (res) {
         res?.data?.salons?.map((v) => {
@@ -39,10 +41,27 @@ export default function SalonDetail() {
           }
         });
       }
+      setLoading(false);
     };
     SalonDataFunc();
     dispatch(resetSalonServicesState());
   }, []);
+  console.log(SalonData);
+  if (loading) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <LoadSpinner />
+      </div>
+    );
+  }
+
   return (
     <div
       className={
@@ -84,7 +103,7 @@ export default function SalonDetail() {
           />
         </div>
         <div className={styles.salon_images_right}>
-          {SalonData?.salon_Img?.map((v, i) => {
+          {SalonData?.salon_Img?.slice(0, 4).map((v, i) => {
             if (i >= 1 && i <= SalonData?.salon_Img?.length) {
               return <img src={v.public_url} alt="salon image" key={i} />;
             }

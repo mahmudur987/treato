@@ -15,7 +15,7 @@ export default function SalonServices({
   const [sameTimingDays, setSameTimingDays] = useState(null);
   const [difTimingDays, setDifTimingDays] = useState(null);
   useEffect(() => {
-    let workingHours = SalonData?.working_hours
+    let workingHours = SalonData?.working_hours;
 
     let SameTimingDays = [];
     let difTimingDays = [];
@@ -26,9 +26,9 @@ export default function SalonServices({
       }
       if (
         e?.opening_time ===
-        SameTimingDays[SameTimingDays?.length - 1]?.opening_time &&
+          SameTimingDays[SameTimingDays?.length - 1]?.opening_time &&
         e?.closing_time ===
-        SameTimingDays[SameTimingDays?.length - 1]?.closing_time
+          SameTimingDays[SameTimingDays?.length - 1]?.closing_time
       ) {
         SameTimingDays.push({ ...e, i });
       } else {
@@ -70,11 +70,22 @@ export default function SalonServices({
           </a>
         </ul>
       </div>
-      <SalonServiceMain
-        SalonData={SalonData ? SalonData : null}
-        addServices={addServices}
-        addedServices={addedServices}
-      />
+
+      {SalonData?.services.length > 0 &&
+        SalonData?.services?.map((x, y) => {
+          if (x.mainCategories.length > 0) {
+            return (
+              <SalonServiceMain
+                key={y}
+                data={x}
+                addServices={addServices}
+                addedServices={addedServices}
+              />
+            );
+          }
+          return null;
+        })}
+
       <div id="about" className={styles.salon_sections}>
         <div>
           <span className={styles.salon_section_title}>About</span>
@@ -84,13 +95,25 @@ export default function SalonServices({
             </div>
             <div className={styles.salon_aboutB}>
               <div className={styles.salon_aboutBA}>Store timings</div>
-              {difTimingDays?.length && <div className={`${styles.salon_aboutBC} ${styles.salonTimings}`} >
-                <span>{sameTimingDays[0]?.day} - {sameTimingDays[sameTimingDays?.length - 1].day}</span> : {sameTimingDays[0].opening_time} - {sameTimingDays[0].closing_time}
-              </div>}
+              {difTimingDays?.length && (
+                <div
+                  className={`${styles.salon_aboutBC} ${styles.salonTimings}`}
+                >
+                  <span>
+                    {sameTimingDays[0]?.day} -{" "}
+                    {sameTimingDays[sameTimingDays?.length - 1].day}
+                  </span>{" "}
+                  : {sameTimingDays[0].opening_time} -{" "}
+                  {sameTimingDays[0].closing_time}
+                </div>
+              )}
               {difTimingDays?.length &&
                 difTimingDays?.map((v, i) => (
-                  <div className={`${styles.salon_aboutBC} ${styles.salonTimings}`} key={i}>
-                    <span>{v.day}</span>  : {v.opening_time} - {v.closing_time}
+                  <div
+                    className={`${styles.salon_aboutBC} ${styles.salonTimings}`}
+                    key={i}
+                  >
+                    <span>{v.day}</span> : {v.opening_time} - {v.closing_time}
                   </div>
                 ))}
             </div>

@@ -1,0 +1,262 @@
+.container {
+  padding: 3rem 3rem;
+  font-family: "Lato", sans-serif;
+}
+
+.mainDiv {
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 20%;
+  margin-top: 5%;
+}
+.usr_detail_head {
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 42px;
+}
+.usr_detail_head a {
+  margin-right: 20px;
+}
+.usr_detail_head p {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+
+  line-height: 42px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.newBtnWrapper {
+  border: 1px solid salmon;
+  background-color: white;
+  color: salmon;
+  font-weight: 700;
+  padding: 8px;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+.btnWrapper .usr_detail_Para {
+  color: #6d747a;
+  font-family: Lato;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  margin-left: 25px;
+}
+.profileRounded1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profileRounded input {
+  display: none;
+}
+.profileRounded {
+  margin-top: 30px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 144px;
+  height: 144px;
+  border-radius: 100px;
+}
+.profileAdd {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 100px;
+  left: 80px;
+  padding: 10px;
+  border-radius: 200px;
+  border: 2px;
+}
+.inputtextLoc {
+  margin-top: 20px;
+  width: 442px;
+  height: 48px;
+  padding: 12px, 32px, 60px, 16px;
+  border-radius: 4px;
+  border: 1px;
+  gap: 16px;
+}
+.inputtextPick {
+  width: 442px;
+}
+.usr_detail_Phone {
+  margin-top: 20px;
+}
+.textarea {
+  width: 442px;
+  height: 96px;
+  resize: none;
+}
+.input,
+.textarea {
+  border: 1px solid var(--Grey-30);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  box-sizing: border-box;
+}
+.textarea {
+  padding-top: 1rem;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--Grey-10);
+  font-family: "Lato", sans-serif;
+  font-size: var(--font-medium);
+}
+
+.inputtext {
+  display: flex;
+  width: 442px;
+  height: 48px;
+  gap: 4%;
+  margin-top: 10%;
+  margin-bottom: 50px;
+}
+.inputtextPick {
+  display: flex;
+  width: 442px;
+  gap: 4%;
+  margin-top: 10%;
+}
+
+.dateInput,
+.names {
+  width: 216px;
+}
+
+.labelText {
+  margin-top: 10px;
+}
+
+.horizontalLine {
+  margin-top: 30px;
+  width: 424px;
+  border: 1px solid;
+  color: #ebedf0;
+}
+.offerTeam {
+  margin-top: 10px;
+  color: #08090a;
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 400px;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  /* text-align: left; */
+}
+.ServiceAssignment {
+  line-height: 44px;
+}
+.AllServices {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.AllServicesText {
+  color: #08090a;
+}
+.Schedule {
+  line-height: 44px;
+}
+.Employee1 {
+  line-height: 24px;
+}
+.Employee,
+.editImgEdit {
+  font-weight: bold;
+  color: #0d69d7;
+}
+.SubmitBtn {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  margin-top: 65px;
+}
+.CancelBtn {
+  width: 88px;
+  height: 48px;
+  padding: 16px, 24px, 16px, 24px;
+  border-radius: 4px;
+  gap: 10px;
+  color: #08080b;
+  background-color: white;
+  border: 1px solid #08080b;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+.SaveBtn {
+  width: 88px;
+  height: 48px;
+  padding: 16px, 24px, 16px, 24px;
+  border-radius: 4px;
+  gap: 10px;
+  color: white;
+  background-color: #08080b;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    padding: 1rem 1.5rem;
+    width: 302px;
+  }
+  .mainDiv {
+    flex-direction: column;
+    width: 302px;
+  }
+  .usr_detail_Para {
+    display: none;
+  }
+  .names {
+    width: 141px;
+  }
+  .textarea {
+    width: 302px;
+  }
+  .inputtextLoc1 {
+    margin-top: 100px;
+  }
+  .inputtextLoc {
+    width: 302px;
+  }
+  .inputtextPick {
+    display: flex;
+    gap: 0px;
+    width: 310px;
+  }
+  .horizontalLine {
+    width: 302px;
+  }
+  .CancelBtn {
+    display: none;
+  }
+  .SaveBtn {
+    width: 302px;
+    background-color: #ebedf0;
+    color: #939ca3;
+  }
+}

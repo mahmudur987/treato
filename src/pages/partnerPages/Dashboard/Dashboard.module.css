@@ -1,0 +1,69 @@
+.mainContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  font-family: var(--primary-font);
+}
+
+.container {
+  padding-left: 30px;
+  max-width: 1270px;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+.salesTrandContainer {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.top {
+  width: 100%;
+  min-height: 48px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 20px 7px 20px;
+  gap: 0px;
+  border-radius: 8px;
+  background: #fbc9c9;
+  border: 1px dotted #ff5252;
+}
+.top p {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+.top button {
+  width: 73px;
+  height: 35px;
+  padding: 6px 21px 5px 22px;
+  border-radius: 4px;
+  background: #da3838;
+  color: var(--Grey-White, #ffffff);
+}
+
+@media only screen and (max-width: 1024px) {
+  .mainContainer {
+    max-width: 100vw;
+    gap: 20px;
+  }
+  .container {
+    flex-direction: column;
+    max-width: 100vw;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .salesTrandContainer {
+    max-width: 100vw;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}

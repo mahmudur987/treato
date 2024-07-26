@@ -1,0 +1,186 @@
+/* module.css */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 6;
+}
+
+.modalContent {
+  background-color: #fff;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.modalHeading {
+  font-size: 25px;
+  font-family: Lato;
+}
+
+.search {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+  font-size: 25px;
+}
+.selectAll {
+  width: 100%;
+}
+
+.selectAll label {
+  display: flex;
+  gap: 10px;
+}
+.hrDivider {
+  height: 0.5px;
+  width: 108%;
+  border-top: 2px solid #ccc;
+}
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: Lato;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+/* ServiceForm.module.css */
+.serviceForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.categories {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.category {
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.categoryHeader {
+  width: 100%;
+  padding: 10px 5px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  gap: 10px;
+}
+
+.services {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.service {
+  padding: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.service p {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.buttonContainer {
+  width: 100%;
+  margin-top: 15px;
+  text-align: right;
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+}
+
+.show {
+  display: block;
+}
+
+.cancel {
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+.save {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+.back {
+  display: none;
+}
+@media only screen and (max-width: 700px) {
+  .modalContent {
+    position: fixed;
+    top: 0%;
+    left: auto;
+    width: 90%;
+    height: 100vh;
+    justify-content: start;
+  }
+  .close {
+    display: none;
+  }
+  .form {
+    justify-content: start;
+    gap: 40px;
+  }
+  .buttonContainer {
+    flex-grow: 1;
+
+    align-items: end;
+    margin: 0;
+    justify-content: center;
+    padding-bottom: 30px;
+  }
+  .buttonContainer button {
+    width: 100%;
+  }
+  .back {
+    display: block;
+    position: absolute;
+    left: 10%;
+    margin-top: 5px;
+    font-size: 30px;
+  }
+}

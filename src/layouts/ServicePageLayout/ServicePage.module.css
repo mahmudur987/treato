@@ -1,0 +1,33 @@
+.mainContainer {
+  width: 100%;
+  margin-bottom: 0px;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+}
+.downContainer {
+  flex-grow: 1;
+}
+.left {
+  max-width: 100px;
+  min-width: 100px;
+  width: 100%;
+  position: relative;
+  min-height: 100%;
+}
+.Outlet {
+  margin-left: 20px;
+  margin-top: 30px;
+}
+@media only screen and (max-width: 700px) {
+  .left,
+  .Navbar {
+    display: none;
+  }
+}

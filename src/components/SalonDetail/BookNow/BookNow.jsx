@@ -29,6 +29,7 @@ export default function BookNow({
   const TotalServiceAmount = useSelector(
     (state) => state?.salonServices?.Amount
   );
+  const { contact, guest } = useSelector((state) => state?.VisitorDetails);
 
   useEffect(() => {
     if (salonServices?.length) {
@@ -41,15 +42,21 @@ export default function BookNow({
   }, [salonServices]);
   let proceedPayment = () => {
     console.log("proceedPayment");
+    const isValid = /\S+@\S+\.\S+/.test(contact.email);
+
     if (Disabled) {
       if (activeBookFlowBA === 1) {
         toast.error("Please select your required services ");
       } else if (activeBookFlowBA === 2) {
         toast.error("Please select a stylist, date, and time slot to proceed.");
       } else {
-        toast.error("Please fill all required details!");
+        toast.error("Please fill all required details perfectly!");
       }
-      console.log(activeBookFlowBA);
+      console.log(guest);
+    } else if (activeBookFlowBA === 3 && contact.phone.length !== 13) {
+      toast.error("Your phone number is wrong");
+    } else if (!isValid && activeBookFlowBA === 3) {
+      toast.error("Write a perfect Email");
     } else {
       if (updateActiveBookFlowBA) {
         updateActiveBookFlowBA(
@@ -71,7 +78,8 @@ export default function BookNow({
     <div className={styles.book_nowA}>
       <div className={styles.book_nowB}>
         {SalonDetails ? (
-          `${totalSalonServices ? totalSalonServices : null
+          `${
+            totalSalonServices ? totalSalonServices : null
           } services to choose from`
         ) : activeBookFlowBA === 4 ? (
           <>
@@ -108,7 +116,7 @@ export default function BookNow({
               {innerText}{" "}
               {selectedOffer?.amount_for_discount
                 ? TotalServiceAmount -
-                selectedOffer?.amount_for_discount?.toLocaleString()
+                  selectedOffer?.amount_for_discount?.toLocaleString()
                 : TotalServiceAmount?.toLocaleString()}
             </button>
           </Link>
@@ -122,7 +130,7 @@ export default function BookNow({
         ) : (
           <Link to={updateActiveBookFlowBA ? "" : `/salons/${salonId}/book`}>
             <button onClick={proceedPayment} className={styles.book_nowAA}>
-              {innerText ? `${innerText}` : "Book Now"}
+              {innerText ? `${innerText}` : "Book an appointment"}
             </button>
           </Link>
         )}

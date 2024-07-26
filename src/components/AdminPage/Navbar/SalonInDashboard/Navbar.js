@@ -1,0 +1,95 @@
+import React, { useState } from "react";
+import styles from "./Navbar.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  resetUserDetails,
+  updateIsLoggedIn,
+} from "../../../../redux/slices/user";
+import mask from "../../../../assets/images/NavbarImages/Mask.png";
+import { CiSearch } from "react-icons/ci";
+import { updateSearchText } from "../../../../redux/slices/AdminSlice";
+const SalonInDashboardNavbar = () => {
+  const navigate = useNavigate();
+  const userData = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const [showProfile, setShowProfile] = useState(false);
+  const handleLogout = () => {
+    dispatch(updateIsLoggedIn(false));
+    dispatch(resetUserDetails({}));
+    localStorage.removeItem("userData");
+    localStorage.removeItem("jwtToken");
+    navigate("/partner");
+  };
+
+  return (
+    <div className={styles.mainContainer}>
+      <div className={styles.container}>
+        <p className={styles.searchWrapper}>
+          <label htmlFor="salonSearch">
+            <CiSearch />
+          </label>
+          <input
+            type="text"
+            name="salonSearch"
+            id="salonSearch"
+            placeholder="Search Salons"
+            onChange={(e) =>
+              dispatch(updateSearchText({ searchText: e.target.value }))
+            }
+          />
+        </p>
+
+        <p className={styles.actionWrapper}>
+          {userData?.isLoggedIn && (
+            <div
+              className={styles.account}
+              onClick={() => setShowProfile((pre) => !pre)}
+            >
+              <img
+                src={userData?.user?.avatar?.public_url ?? ""}
+                onError={(e) => (e.target.src = mask)}
+                alt=""
+              />
+              <h3>{userData?.user?.first_name}</h3>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M6 9L12 15L18 9"
+                  stroke="black"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          )}
+        </p>
+        {showProfile && (
+          <div
+            onClick={() => setShowProfile((pre) => !pre)}
+            className={styles.profileContainer}
+          >
+            <img
+              src={userData?.user?.avatar?.public_url ?? ""}
+              onError={(e) => (e.target.src = mask)}
+              alt=""
+            />
+            <h3>{userData?.user?.first_name}</h3>
+            {userData.user.role === "partner" && (
+              <Link to={"/partner/dashboard"}>Dashboard</Link>
+            )}
+            <Link onClick={handleLogout}>LogOut</Link>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default SalonInDashboardNavbar;

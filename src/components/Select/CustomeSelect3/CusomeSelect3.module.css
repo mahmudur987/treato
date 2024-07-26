@@ -1,0 +1,177 @@
+/* CustomSelect.module.css */
+.selectWrapper {
+  max-width: 424px;
+  width: 100%;
+  height: 70px;
+  border-radius: 4px;
+  border: 1px solid var(--Grey-Grey-30, #ced4da);
+  background: #fff;
+  position: relative;
+}
+
+.icon {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.customSelect {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.selectHeader {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+.headerItems {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+}
+.headerItem {
+  color: var(--Grey-Black, #08090a);
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.16px;
+}
+.headerItem2 {
+  color: var(--Grey-Black, #08090a);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+}
+
+.optionsContainer {
+  z-index: 5;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  border-top: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+.searchClientWrapper {
+  border-bottom: 6px solid rgba(211, 211, 211, 0.8);
+  cursor: pointer;
+}
+
+.searchClientWrapper {
+  width: 100%;
+
+  border-bottom: 6px solid rgb(214, 209, 209);
+}
+.searchClient {
+  width: 90%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  margin: 5%;
+  border: 1px solid gray;
+  gap: 20px;
+  border-radius: 8px;
+  /* border-bottom: 6px solid rgba(211, 211, 211, 0); */
+}
+.searchClient span {
+  width: 10%;
+  font-size: 25px;
+  margin: auto;
+  font-weight: 800;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.searchClient input {
+  height: 100%;
+  width: 90%;
+  margin: 5px;
+}
+.option {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+.option p {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: var(--Grey-Black, #08090a);
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.16px;
+}
+.option span {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: var(--Grey-Black, #08090a);
+  font-family: Lato;
+}
+
+.option:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  background-color: #ddd;
+}
+
+@media only screen and (max-width: 700px) {
+  .selected {
+    background: none;
+  }
+
+  .backgroundOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 2, 2, 0.8);
+    z-index: 98;
+    opacity: 0.3;
+  }
+  .optionsContainer {
+    background-color: white;
+    position: fixed;
+    z-index: 99; /* Higher z-index than backgroundOverlay */
+    top: 50%;
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+}

@@ -1,5 +1,6 @@
 .navbarInputWrapper {
-  margin-top: 0rem;
+  margin-top: 10rem;
+  /* margin-bottom: 0rem; */
 }
 .blueButton {
   background-color: var(--primary-color);

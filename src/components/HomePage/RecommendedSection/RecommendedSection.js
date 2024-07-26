@@ -12,14 +12,13 @@ import {
   skincare,
   spa,
 } from "../../../assets/images/recommendImages";
-import { getAllServices } from "../../../services/Services";
 import Title from "../../Typography/Title/Title";
+import { getAllServices } from "../../../services/Services";
 
-export default function RecommendedSection({mainData}) {
-  const [allServices, setallServices] = useState([]);
+export default function RecommendedSection({ mainData }) {
+  const [allServices, setAllServices] = useState([]);
   const [error, setError] = useState(null);
-  const rmdBoxRef = useRef(null);
-  const trSalonBoxRef = useRef(null);
+
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -39,59 +38,77 @@ export default function RecommendedSection({mainData}) {
     },
   };
   //  service objects
-  const services = [
-    { icon: hair, title: "Hair" },
-    { icon: hairRemoval, title: "Hair removal" },
-    { icon: fingernail, title: "Nail care" },
-    { icon: skincare, title: "Facial & skincare" },
-    { icon: Makeup, title: "Makeup" },
-    { icon: massage, title: "massage" },
-    { icon: spa, title: "spa" },
-    { icon: skincare, title: "Facial & skincare" },
-    { icon: hair, title: "Hair" },
-    { icon: hairRemoval, title: "Hair removal" },
-    { icon: fingernail, title: "Nail care" },
-    { icon: skincare, title: "Facial & skincare" },
-  ];
-  
+  // const services = [
+  //   { icon: hair, title: "Hair" },
+  //   { icon: hairRemoval, title: "Hair removal" },
+  //   { icon: fingernail, title: "Nail care" },
+  //   { icon: skincare, title: "Facial & skincare" },
+  //   { icon: Makeup, title: "Makeup" },
+  //   { icon: massage, title: "massage" },
+  //   { icon: spa, title: "spa" },
+  //   { icon: skincare, title: "Facial & skincare" },
+  //   { icon: hair, title: "Hair" },
+  //   { icon: hairRemoval, title: "Hair removal" },
+  //   { icon: fingernail, title: "Nail care" },
+  //   { icon: skincare, title: "Facial & skincare" },
+  // ];
+
   const CustomDot = ({ onMove, index, onClick, active }) => {
     // onMove means if dragging or swiping in progress.
     // active is provided by this lib for checking if the item is active or not.
     return (
-      <button className={`${styles.carouselDot} ${active ? styles.dotActive : ""}`} onClick={() => onClick()}></button>
+      <button
+        className={`${styles.carouselDot} ${active ? styles.dotActive : ""}`}
+        onClick={() => onClick()}
+      ></button>
     );
   };
   const CustomRight = ({ onClick }) => (
-    <button className={styles.rightArrow} onClick={onClick} >
-    </button>
+    <button className={styles.rightArrow} onClick={onClick}></button>
   );
   const CustomLeft = ({ onClick }) => (
-    <button className={styles.leftArrow} onClick={onClick}>
-    </button>
+    <button className={styles.leftArrow} onClick={onClick}></button>
   );
 
   //api fetching
-useEffect(() => {
-   // Call the getAllServices function when the component mounts
-   async function fetchAllServices() {
-    try {
-      const { res, err } = await getAllServices();
+  useEffect(() => {
+    // Call the getAllServices function when the component mounts
+    async function fetchAllServices() {
+      try {
+        const { res, err } = await getAllServices();
 
-      if (res) {
-        // If the request was successful, update the state with the data
-        setallServices(res?.data?.data); // Assuming the response data contains a "data" property
-      } else {
-        // If there was an error, handle it and set the error state
-        setError(err);
+        if (res) {
+          // If the request was successful, update the state with the data
+
+          const uniqueDataArray = res?.data?.data.reduce(
+            (uniqueArray, currentItem) => {
+              // Check if there's already an object with the same 'name' in uniqueArray
+              if (
+                !uniqueArray.some(
+                  (item) => item.service_name === currentItem.service_name
+                )
+              ) {
+                // If not found, add this object to uniqueArray
+                uniqueArray.push(currentItem);
+              }
+              return uniqueArray;
+            },
+            []
+          );
+
+          setAllServices(uniqueDataArray); // Assuming the response data contains a "data" property
+        } else {
+          // If there was an error, handle it and set the error state
+          setError(err);
+        }
+      } catch (error) {
+        // Handle unexpected errors here
+        setError(error);
       }
-    } catch (error) {
-      // Handle unexpected errors here
-      setError(error);
     }
-  }
 
-  fetchAllServices();
-}, [])
+    fetchAllServices();
+  }, []);
 
   return (
     <section id="recommended" className={styles.container}>
@@ -112,7 +129,10 @@ useEffect(() => {
         >
           {allServices.map((service, index) => (
             <a key={index} className={styles.rmdItem}>
-              <img src={service?.service_img?.public_url} alt={service.service_name[0]} />
+              <img
+                src={service?.service_img?.public_url ?? fingernail}
+                alt={service.service_name[0]}
+              />
               <h4>{service.service_name}</h4>
             </a>
           ))}

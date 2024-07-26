@@ -38,8 +38,8 @@
   width: auto !important;
 }
 .logo img {
-  height: 40px;
-  width: 109px;
+  height: 24px;
+  width: 93.43px;
   object-fit: contain;
 }
 .navigation {
@@ -68,6 +68,7 @@
 .buttons {
   display: flex;
   align-items: center;
+  gap: 24px;
 }
 .buttons button {
   padding: 1rem;
@@ -81,8 +82,8 @@
   background: none;
   color: var(--dark-color);
 }
-.divideLine{
-  color: #CED4DA;
+.divideLine {
+  color: #ced4da;
 }
 .signupButton,
 .signinButton {
@@ -102,14 +103,15 @@
   height: 48px;
   border: none !important;
 }
-.signinButton .chevrondown{
+.signinButton .chevrondown {
   width: 24px;
   height: 24px;
 }
 .signinButton img {
+  object-fit: cover;
   height: 44px;
   width: 44px;
-  border-radius:50%;
+  border-radius: 50%;
 }
 .menuButton {
   display: none;
@@ -117,7 +119,7 @@
 
 .mobileNavDropBox {
   width: 100%;
- 
+
   font-family: "Lato", sans-serif;
 }
 
@@ -132,7 +134,7 @@
   justify-content: space-between;
 }
 .mobileNavDropBox ul li:last-child {
-margin-bottom: 0rem;
+  margin-bottom: 0rem;
 }
 .mobileNavDropBox ul li:hover {
   background-color: var(--light-color);
@@ -163,12 +165,12 @@ margin-bottom: 0rem;
   width: 84px;
   height: 84px;
   object-fit: contain;
-  border-radius:50%;
+  border-radius: 50%;
 }
 .userName {
   font-size: var(--font-medium);
   font-weight: 600;
-  margin-top: .4rem;
+  margin-top: 0.4rem;
 }
 .userEmail {
   font-size: var(--font-small);
@@ -224,16 +226,16 @@ margin-bottom: 0rem;
   .navigation li {
     font-size: var(--font-small);
   }
-  .listtext{
+  .listtext {
     font-size: var(--font-medium);
   }
-  .mobileNavDropBox{
+  .mobileNavDropBox {
     height: 100vh;
   }
-  .mobileNavDropBox ul li{
+  .mobileNavDropBox ul li {
     margin: 1rem 0;
   }
-  .navUserInfo{
+  .navUserInfo {
     margin-top: 15%;
   }
 }

@@ -1,0 +1,312 @@
+.header {
+    width: 1268px;
+    height: auto;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    /* overflow: hidden; */
+}
+
+.prev {
+    position: absolute;
+    left: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.next {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    position: absolute;
+    right: 10px;
+}
+
+.carousel {
+    height: fit-content;
+    width: auto;
+    display: flex;
+    align-items: baseline;
+    /* overflow: hidden; */
+    gap: 10px;
+}
+
+.profileContainer {
+    width: fit-content;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.slides {
+    overflow: hidden;
+    border-left: 2px dashed #CED4DA;
+    border-right: 1px solid #ccc;
+    height: auto;
+    min-width: 160px;
+    max-width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.profileBox {
+    min-width: 160px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profileBox img {
+    width: 42px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.appointmentBox,
+.appointmentBox2 {
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.appointmentBox2 {
+    min-height: 134px;
+}
+.appointmentBox4{
+    max-height: 134px;
+    min-height: 134px;
+}
+.appointmentBox3 {
+    min-height: 134px;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
+    color: #0D69D7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addAppointment {
+    height: 24px;
+    width: 164px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    background-color: #EDF2F7;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.appointmentBox3:hover .addAppointment {
+    opacity: 1;
+    /* Show on hover */
+
+    cursor: pointer;
+}
+
+.cBox {
+    min-width: 160px;
+}
+
+.dBox {
+    min-width: 1228px;
+}
+
+.clientDetailsBox {
+    width: 96%;
+    height: 58px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.clientDetailsBox div {
+    width: 107px;
+    height: 58px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.timeDurations,
+.serviceNames,
+.clientNames {
+    font-size: 12px;
+    font-family: Lato;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.serviceNames,
+.clientNames {
+    color: #6D747A;
+}
+
+.durationsBox {
+    margin-top: 48px;
+    min-width: 62px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    background-color: #FFFFFF;
+}
+
+.grids {
+    margin-left: 62px;
+    margin-top: 46px;
+    position: inherit;
+    z-index: -10;
+    width: 1280px;
+    height: auto;
+}
+
+.outerGrid {
+    border-top: 2px solid #CED4DA;
+    min-height: 67px;
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.outerGrid div {
+    min-height: 22.3px;
+    min-width: 100%;
+    border-top: 1px solid #CED4DA;
+    border-bottom: 1px solid #CED4DA;
+}
+
+.durationsBox p {
+
+    height: 24px;
+    width: 100%;
+    font-family: Lato;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: center;
+}
+.dropdowncontent {
+    position: absolute;
+    z-index: 999;
+    margin-left: 20px;
+    margin-top: 20px;
+    min-height: 296px;
+    border-radius: 4px;
+    min-width: 204px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+
+
+.appointmentBox {
+    position:absolute;
+    z-index: 5;
+}
+
+.clientDetailsBox svg {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
+
+.dropBox {
+    margin-left: 70%;
+}
+
+.inputContainer {
+    min-width: 100%;
+    min-height: 48px;
+    padding: 13px 12px 13px 12px;
+}
+
+.otpBox {
+    min-width: 180px;
+    min-height: 30px;
+    border-radius: 4px;
+    padding: 8px;
+    border: 1px solid #CED4DA;
+}
+
+.started,
+.editButton {
+    cursor: pointer;
+    min-width: 100%;
+    min-height: 48px;
+    padding: 13px 16px 13px 16px;
+    background-color: #FFFFFF;
+    font-size: 16px;
+    font-family: Lato;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.dropdowncontent :hover {
+    background-color: #EBEDF0;
+}
+
+.statusButton {
+    width: 75px;
+    height: 21px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    font-family: Lato;
+    line-height: 15px;
+
+}
+
+@media screen and (max-width: 700px) {
+    .header {
+        width: 100%;
+        height: auto;
+    }
+
+    .durationsBox {
+        min-width: 36px;
+        gap: 84px;
+    }
+
+    .durationsBox p {
+        min-height: 36px;
+        width: 36px;
+    }
+
+    .grids {
+        margin-left: 40px;
+        width: 325px;
+    }
+
+    .prev {
+        left: 20px;
+    }
+
+    .profileBox {
+        min-width: 96px;
+    }
+
+    .profileBox img {
+        width: 16px;
+        height: 16px;
+    }
+
+    .slides {
+        min-width: 100px;
+    }
+
+    .dBox {
+        min-width: 308px;
+    }
+}

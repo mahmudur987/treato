@@ -14,8 +14,7 @@ export default function SalonMap({ SalonData }) {
   }, [SalonData]);
   useEffect(() => {
     console.log(Latitude, Longitude);
-  }, [Latitude, Longitude])
-
+  }, [Latitude, Longitude]);
 
   const containerStyle = {
     width: "100%",
@@ -40,15 +39,15 @@ export default function SalonMap({ SalonData }) {
       </div>
       <div className={styles.salon_MapB}>
         {Latitude && Longitude ? (
-
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={{ lat: Latitude, lng: Longitude }}
             zoom={15}
           >
-            <Marker position={{ lat: Latitude, lng: Longitude }}
+            <Marker
+              position={{ lat: Latitude, lng: Longitude }}
               icon={{
-                url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', // URL of the red pin icon
+                url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png", // URL of the red pin icon
                 scaledSize: new window.google.maps.Size(30, 30), // Size of the pin
               }}
             />

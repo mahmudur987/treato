@@ -1,0 +1,31 @@
+.mainContainers {
+  width: 100vw;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--Grey-Black, #08090a);
+  color: white;
+  padding: 20px;
+  display: none;
+}
+
+.container a {
+  display: flex;
+  border-radius: 10px;
+  padding: 10px;
+}
+.containerHover a {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  border-radius: 10px;
+  padding: 10px;
+}
+@media only screen and (max-width: 700px) {
+  .container {
+    display: flex;
+  }
+}

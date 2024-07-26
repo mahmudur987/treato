@@ -1,0 +1,133 @@
+/* AnotherComponent.module.css */
+.mainContainer {
+  max-width: 1440px;
+  width: 100%;
+  min-height: 823px;
+  display: flex;
+  justify-content: center;
+}
+.container {
+  max-width: 1096px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+}
+
+.top {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.top h2 {
+  color: var(--Grey-Black, #08090a);
+  text-align: center;
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 60px */
+}
+.top span {
+  color: var(--Secondary-colour, #0d69d7);
+  font-family: Poppins;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+}
+.top p {
+  color: var(--Grey-Grey-10, #6d747a);
+  text-align: center;
+  font-family: Lato;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.2px;
+}
+.bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+ul {
+  list-style: none;
+}
+.left,
+.right {
+  width: 50%;
+}
+.left ul,
+.right ul {
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+}
+.left li,
+.right li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.listItem p {
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.listItem strong {
+  color: var(--Grey-Black, #08090a);
+  font-family: Lato;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 27px */
+  letter-spacing: 0.18px;
+}
+.listItem span {
+  color: var(--Grey-Grey-10, #6d747a);
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.16px;
+}
+/* Additional styles as needed */
+
+@media only screen and (max-width: 1024px) {
+}
+@media only screen and (max-width: 770px) {
+  .container {
+    padding: 10px;
+  }
+  .top h2,
+  .top span {
+    font-size: 20px;
+  }
+  .top p,
+  .listItem strong {
+    font-size: 16px;
+  }
+  .bottom,
+  .bottom ul {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .listItem span {
+    font-size: 14px;
+  }
+  .listItem img {
+    max-width: 16px;
+    width: 100%;
+    height: 21px;
+  }
+  .left,
+  .right {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 600px) {
+}

@@ -1,0 +1,105 @@
+
+.modaloverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #FFFFFF;
+  padding: 24px 16px 24px 16px;
+  border-radius: 4px;
+  border: 1px solid #CED4DA;
+  position: relative;
+  z-index: 1001;
+  max-width: 358px;
+  height: 288px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.header {
+  height: 32px;
+  width: 326px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.heading {
+  height: 30px;
+  width: 107px;
+  margin-left: 110px;
+  font-family: Poppins;
+  color: #08090A;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.closebutton {
+
+  background: none;
+  border: none;
+  height: 32px;
+  width: 32px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.rightLogo {
+  background-color: #0D69D7D6;
+  min-width: 64px;
+  min-height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkIcon {
+  color: #FFFFFF;
+  width: 24px;
+  height: 24px;
+}
+
+.messageBox,
+.homeButton {
+  font-family: Lato;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.messageBox {
+  width: 326px;
+  height: 48px;
+  color: #434141;
+
+}
+.homeButton{
+  width: 103px;
+  height: 24px;
+  color: #0D69D7;
+  cursor: pointer;
+}
+
+.modalcontent {
+  margin-top: 20px;
+}
+
+@media (min-width: 600px) {
+  .modal {
+    width: 500px;
+  }
+}

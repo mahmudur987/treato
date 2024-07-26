@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "./Footer.module.css";
+import { toast } from "react-toastify";
 import {
   DownloadAppStore,
   DownloadPlayStore,
@@ -11,9 +12,18 @@ import {
   twitter,
 } from "../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
 
 const Footer = () => {
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const navigate = useNavigate(); 
+  const [locationLat, setlocationLat] = useState("");
+  const [locationLng, setlocationLng] = useState("");
+  const [locationInputValue, setLocationInputValue] = useState("");
+  const [treatmentInputValue, setTreatmentInputValue] = useState("");
+
   const footerLinks = ["Blogs", "Careers", "FAQs", "Pricing", "Contact us"];
   const socialLinks = [
     { icon: facebook, alt: "facebook" },
@@ -36,11 +46,35 @@ const Footer = () => {
           });
         }
       }, 450);
-    } else {
+    } else if(link === "Careers") {
+      navigate("/careers/currentopenings");
+      console.log(link);
+    }
+     else if(link === "Terms of use") {
+      navigate("/Privacy/Termofuse");
+    }
+     else  {
       // Handle other links as needed
       // For example, you can navigate to a different page
     }
   };
+
+  const handleSearch = () => {
+    if (treatmentInputValue === "") {
+      // Navigate to /salons with services and location as query parameters
+      toast.info("Please fill input fields to proceed. !");
+    } else {
+      console.log(treatmentInputValue);
+      
+        //if we  dont have value in location input
+        navigate(
+          `/salons?service=${treatmentInputValue}&lat=${locationLat}&lng=${locationLng}&location=${locationInputValue}`
+        );
+      }
+    }
+ 
+
+
   return (
     <div className={styles.container}>
       <div className={styles.head}>
@@ -56,10 +90,12 @@ const Footer = () => {
             />
             <input
               className={styles.searchInput}
+              value={treatmentInputValue}
+              onChange={(e)=>setTreatmentInputValue(e.target.value)}
               placeholder="Search treatments, venues and more..."
             />
           </div>
-          <button className={styles.searchButton}>Search</button>
+          <button className={styles.searchButton} onClick={handleSearch} >Search</button>
         </div>
       </div>
       <div className={styles.contentWrapper}>
@@ -75,27 +111,22 @@ const Footer = () => {
           </div>
         </div>
         <div className={styles.footerLinks}>
-          <h4 className={styles.heading}>About Treato</h4>
+          <h4 className={styles.heading}><Link to="/Aboutuspage" >About Treato</Link></h4>
           <div className={styles.links}>
-            {footerLinks.map((link, index) => (
-              <Link
-                key={index}
-                to="#"
-                onClick={() => handleFooterLinkClick(link)}
-              >
-                {link}
-              </Link>
-            ))}
+          <Link to="/blogs" >Blog</Link>
+              <Link to="/careers/currentopenings" >Careers</Link>
+              <Link to="/frequentlyaskedquestions" >FAQs</Link>
+              <Link to="/Pricing" >Pricing</Link>
+              <Link to="/contactus" >Contact us</Link>
+            
           </div>
         </div>
         <div className={styles.legalLinks}>
           <h4 className={styles.heading}>Legal</h4>
           <div className={styles.links}>
-            {legalLinks.map((link, index) => (
-              <a key={index} href="#">
-                {link}
-              </a>
-            ))}
+            <Link to="/Privacy/policy">Privacy policy</Link>
+            <Link>Terms of service</Link>
+            <Link to="/Privacy/Termofuse" >Terms of use</Link>
           </div>
         </div>
         <div className={styles.social}>

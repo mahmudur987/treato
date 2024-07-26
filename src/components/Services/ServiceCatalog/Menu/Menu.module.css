@@ -1,0 +1,25 @@
+.menuItems {
+  position: absolute;
+  right: 0px;
+  top: 100%;
+  z-index: 3;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-shadow: 2px 2px 2px 2px rgb(202, 196, 196);
+}
+.menuItems p {
+  cursor: pointer;
+  width: 180px;
+  padding: 10px;
+}
+.menuItems p:hover {
+  background-color: burlywood;
+}
+.delete {
+  color: rgb(216, 57, 57);
+}
+.overlay {
+  display: none;
+}

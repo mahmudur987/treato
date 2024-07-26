@@ -9,7 +9,7 @@
     background: #FFF;
     padding: 30px;
     flex-basis: 22%;
-    max-height: 290px;
+    height: fit-content;
     font-family: 'Lato', sans-serif;
 }
 

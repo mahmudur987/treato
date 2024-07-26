@@ -9,31 +9,48 @@ import Testimonials from "../../components/HomePage/Testimonials/Testimonials";
 import Contactus from "../../components/HomePage/Contactus/Contactus";
 import LatestBlog from "../../components/HomePage/LatestBlog/LatestBlog";
 import { HomePage } from "../../services/HomePage";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
+import ContactUs from "../../components/HomePage/Contactus/Contactus";
 
 export default function Home(props) {
-  let [homeData,setHomeData] = useState([])
+  let [homeData, setHomeData] = useState([]);
   useEffect(() => {
     let getHomeData = async () => {
-      const { res, err } = await HomePage()
-      if(res){
-      setHomeData(res.data.homepageCMS[0])
+      const { res, err } = await HomePage();
+      if (res) {
+        setHomeData(res.data.homepageCMS[0]);
       }
-    }
+    };
     getHomeData();
-  }, [])
+  }, []);
 
   return (
-    <div className={styles["container"]}>
-      <HeroSection mainData={homeData.main_heading?homeData.main_heading:''}/>
-      <RecommendedSection mainData={homeData.recommended_section?homeData.recommended_section:''}/>
-      <TopSalons heading={"Top-rated Hair Salons"} />
-      <LatestBlog />
-      <AppDownloadInfo mainData={homeData.downloadApp_section?homeData.downloadApp_section:''}/>
-      <TopSalons heading={"Popular near you"} fromPopular={true}/>
-      <PartnerBanner mainData={homeData.partner_section?homeData.partner_section:''}/>
-      <Testimonials />
-      <Contactus mainData={homeData.contact_us_image?homeData.contact_us_image:''}/>
-    </div>
+    <>
+      <div className={styles["container"]}>
+        <HeroSection
+          mainData={homeData.main_heading ? homeData.main_heading : ""}
+        />
+        <RecommendedSection
+          mainData={
+            homeData.recommended_section ? homeData.recommended_section : ""
+          }
+        />
+        <TopSalons heading={"Top-rated Hair Salons"} />
+        <LatestBlog />
+        <AppDownloadInfo
+          mainData={
+            homeData.downloadApp_section ? homeData.downloadApp_section : ""
+          }
+        />
+        <TopSalons heading={"Popular near you"} fromPopular={true} />
+        <PartnerBanner
+          mainData={homeData.partner_section ? homeData.partner_section : ""}
+        />
+
+        {/* <ContactUs /> */}
+
+        <Testimonials />
+      </div>
+    </>
   );
 }

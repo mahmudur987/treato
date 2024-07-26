@@ -10,8 +10,8 @@ import rightIco from "../../../assets/images/SalonDetail/chevron-right.svg"
 import leftIco from "../../../assets/images/SalonDetail/chevron-right.svg"
 import { useEffect } from 'react';
 
-export default function CalendarModal({getWorkerData}) {
-    let [actveCard, updateActiveCard] = useState(-1)
+export default function CalendarModal({ getWorkerData }) {
+  let [actveCard, updateActiveCard] = useState(-1)
   const [allowMonths, setallowMonths] = useState([]);
   const [showMonth, setShowMonth] = useState(new Date().getMonth());
   const [showYear, setShowYear] = useState(new Date().getFullYear());
@@ -22,26 +22,26 @@ export default function CalendarModal({getWorkerData}) {
   const year = date.getFullYear();
   let threeMonths = [];
   const [selectedMonthYear, setSelectedMonthYear] = useState(`${months[new Date().getMonth()]} ${new Date().getFullYear()}`);
-    const settings = {
-        dots: false,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 7,
-        slidesToScroll: 3,
-        autoplay: false,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 4,
-                }
-            }
-        ]
-    };
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 7,
+    slidesToScroll: 3,
+    autoplay: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+        }
+      }
+    ]
+  };
 
 
-// -----------
-const generateAllowedMonths = () => {
+  // -----------
+  const generateAllowedMonths = () => {
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
     const allowedMonths = [];
@@ -56,7 +56,7 @@ const generateAllowedMonths = () => {
   };
 
   const handleIncrement = () => {
-      const allowedMonths = generateAllowedMonths();
+    const allowedMonths = generateAllowedMonths();
 
     const nextMonth = (showMonth + 1) % 12;
     const nextYear = showMonth === 11 ? showYear + 1 : showYear;
@@ -142,46 +142,45 @@ const generateAllowedMonths = () => {
       }
     }
 
-    setallCalendar([{ allDates, allDays,showYear }]);
+    setallCalendar([{ allDates, allDays, showYear }]);
   }, [showMonth, showYear]);
-// ---------------
+  // ---------------
 
 
 
-    return (
-        <div>
-            <div className={styles.service_timeC}>Date</div>
-            <div className={styles.service_timeMonth}>
-                <img src={leftIco} alt="left icon" onClick={handleDecrement} className={ `${styles.leftarrowIcon} ${
-                  allowMonths[0] === `${months[showMonth]} ${showYear}`
-                    ? styles.disabled
-                    : ""
-                }`}/>
-                {`${months[showMonth]} ${showYear}`}
-                <img src={rightIco} alt="right icon" onClick={handleIncrement} className={`${styles.rightarrowIcon} ${
-                  allowMonths[2] === `${months[showMonth]} ${showYear}`
-                    ? styles.disabled
-                    : ""
-                }`}/>
-            </div>
-            <div className={`time_slick`}>
-                {
-                    allCalendar ?
-                        <Slider {...settings}>
-                            {
-                                allCalendar[0].allDates.map((v, i) => {
-                                    return (
-                                     
-                                        <DateComponent index={i} updateActiveCard={updateActiveCard} actveCard={actveCard} allCalendar={allCalendar} key={i} getWorkerData={getWorkerData} month={months[showMonth]}/>
-                                    )
-                                })
-                            }
-                        </Slider>
-                        :
-                        null
-                }
+  return (
+    <div>
+      <div className={styles.service_timeC}>Date</div>
+      <div className={styles.service_timeMonth}>
 
-            </div>
-        </div>
-    )
+        <img src={leftIco} alt="left icon" onClick={handleDecrement} className={`${styles.leftarrowIcon} ${allowMonths[0] === `${months[showMonth]} ${showYear}`
+          ? styles.disabled
+          : ""
+          }`} />
+        {`${months[showMonth]} ${showYear}`}
+        <img src={rightIco} alt="right icon" onClick={handleIncrement} className={`${styles.rightarrowIcon} ${allowMonths[2] === `${months[showMonth]} ${showYear}`
+          ? styles.disabled
+          : ""
+          }`} />
+      </div>
+      <div className={`time_slick`}>
+        {
+          allCalendar ?
+            <Slider {...settings}>
+              {
+                allCalendar[0].allDates.map((v, i) => {
+                  return (
+
+                    <DateComponent index={i} updateActiveCard={updateActiveCard} actveCard={actveCard} allCalendar={allCalendar} key={i} getWorkerData={getWorkerData} month={months[showMonth]} />
+                  )
+                })
+              }
+            </Slider>
+            :
+            null
+        }
+
+      </div>
+    </div>
+  )
 }

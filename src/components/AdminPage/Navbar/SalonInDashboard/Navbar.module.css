@@ -1,0 +1,117 @@
+.mainContainer {
+  width: 100%;
+  min-height: 72px;
+  margin: 0 auto;
+  box-shadow: 0px 4px 0px 0px #00000026;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  min-height: 72px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.searchWrapper {
+  max-width: 400px;
+  height: 50px;
+  width: 100%;
+  border: 1px solid #ced4da;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+.searchWrapper label {
+  font-size: 20px;
+}
+.searchWrapper input {
+  outline: none;
+  border: none;
+  background: none;
+}
+.searchWrapper input::placeholder {
+  color: black;
+}
+.actionWrapper {
+  max-width: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.account h3 {
+  color: var(--Primary-000, #08080b);
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%; /* 16px */
+  letter-spacing: -0.16px;
+}
+.account img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.profileContainer {
+  max-width: 350px;
+  width: 100%;
+  padding: 30px 0px;
+  background-color: #fff;
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  color: var(--Primary-000, #08080b);
+  cursor: pointer;
+}
+.profileContainer img {
+  height: 50px;
+  width: 50px;
+  border-radius: 10%;
+}
+.profileContainer h3 {
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%; /* 16px */
+  letter-spacing: -0.16px;
+}
+.profileContainer a {
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%; /* 16px */
+  letter-spacing: -0.16px;
+}
+
+@media only screen and (max-width: 700px) {
+  .mainContainer {
+    display: none;
+  }
+}

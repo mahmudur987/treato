@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Righteous&family=Roboto&display=swap&family=Lato&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 /* change colors, its just a template */
 
 * {
@@ -11,28 +13,44 @@
   background-color: none;
   border: none;
 }
+textarea {
+  border: none;
+  outline: none;
+  resize: none;
+}
+/* styles.css */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 
 :root {
   --primary-color: #007bff;
   --secondary-color: #6c757d;
   --black-color: #08090a;
   --grey-color: #6d747a;
-  --Grey-10: #6D747A;
-  --Grey-30: #CED4DA;
-  --Grey-40:#EBEDF0;
-  --Grey-50:#DCE6E9;
-  --light-blue:#EDF2F7;
+  --Grey-10: #6d747a;
+  --Grey-30: #ced4da;
+  --Grey-40: #ebedf0;
+  --Grey-50: #dce6e9;
+  --light-blue: #edf2f7;
   --light-color: #f3f3f3;
-  --Card-Stroke:#EAEFF2;
-  --White:#FFF;
-  --Success-Green: #3AAB7C;
-  --Error-Red:#DE2929;
+  --Card-Stroke: #eaeff2;
+  --White: #fff;
+  --Success-Green: #3aab7c;
+  --Error-Red: #de2929;
   --font-small: 14px;
   --font-medium: 16px;
   --fonts-large: 18px;
   --navbar-height: 90px;
   --page-padding-x: 1rem;
-  --z-index-modal: 5000
+  --z-index-modal: 5000;
+  --primary-font: "Lato", "Sans-Serif";
+  --secondary-font: "Poppins", sans-serif;
 }
 
 @media only screen and (min-width: 1100px) {
@@ -67,5 +85,5 @@
   font-family: "Lato";
   margin: 2rem auto;
   font-weight: bolder;
-  height:40vh;
+  height: 40vh;
 }

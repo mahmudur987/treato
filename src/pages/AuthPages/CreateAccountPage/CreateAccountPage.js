@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
 import styles from "./CreateAccountPage.module.css";
@@ -11,7 +11,11 @@ import {
   eyeline,
 } from "../../../assets/images/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { google_Login, facebook_Login, facebookAuth } from "../../../services/auth";
+import {
+  google_Login,
+  facebook_Login,
+  getUserProfile,
+} from "../../../services/auth";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { sendLoginOTP } from "../../../services/auth";
@@ -26,7 +30,7 @@ import { getCountryCallingCode } from "react-phone-number-input/input";
 import en from "react-phone-number-input/locale/en";
 import CountrySelect from "../../../components/Countrycode/CountrySelect";
 import { handleInputChange } from "../../../utils/utils";
-import { openFbDialog } from "../../../utils/facebookLogin";
+import { createSalon } from "../../../services/salon";
 
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -44,9 +48,8 @@ const CreateAccountPage = () => {
   const dispatch = useDispatch();
   const handleFormSubmit = (event) => {
     event.preventDefault();
-
     const errors = {};
-
+    const fullPhoneNumber = `+${getCountryCallingCode(country)}${phone}`;
     if (!firstName) {
       errors.firstName = "First name is required";
     }
@@ -82,7 +85,7 @@ const CreateAccountPage = () => {
       first_name: firstName,
       last_name: lastName,
       email,
-      phone: phone.length ? `+${getCountryCallingCode(country)}${phone}` : "",
+      phone: phone.length ? fullPhoneNumber : "",
       password,
       role: userChoice?.role?.role,
       type: "register",
@@ -91,8 +94,7 @@ const CreateAccountPage = () => {
     if (Object.keys(errors).length === 0) {
       localStorage.setItem("requiredRegisterData", JSON.stringify(formData));
       localStorage.setItem("userPhoneNumber", JSON.stringify(formData.phone));
-
-      sendLoginOTP({ phoneNumber: formData?.phone }).then((res) => {
+      sendLoginOTP({ phoneNumber: fullPhoneNumber }).then((res) => {
         if (res && res?.res?.data.status === true) {
           dispatch(updateOTP(res?.res.data.otp));
           navigate("/verify-otp");
@@ -112,16 +114,29 @@ const CreateAccountPage = () => {
     onSuccess: async (response) => {
       try {
         const { access_token } = response;
+        const role = userChoice.role.role;
         // Make a request to your backend API
-        google_Login(access_token).then((res) => {
+        google_Login(access_token, role).then((res) => {
           if (res?.res?.data && res?.res.status === 200) {
-            dispatch(updateIsLoggedIn(true));
-            dispatch(
-              updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
-            );
             localStorage.setItem("jwtToken", res?.res?.data?.token);
-            navigate("/");
-            toast("Welcome to Treato! Start exploring now!");
+            getUserProfile(res?.res?.data.token).then((res) => {
+              const user = res?.res?.data?.data;
+              if (user?.role === "partner") {
+                createSalon()
+                  .then((res) => console.log(res.res))
+                  .catch((err) => console.error(err));
+                navigate("/partner/dashboard/PartnerAccountSetting");
+              }
+              dispatch(updateIsLoggedIn(true));
+              dispatch(updateUserDetails(res?.res?.data?.data));
+              dispatch(updateOTP(0));
+
+              toast("Welcome to Treato! Start exploring now!");
+              localStorage.removeItem("requiredRegisterData");
+              if (user?.role !== "partner") {
+                navigate("/");
+              }
+            });
           } else {
             toast.error(`An unexpected error occurred. Please try again.`);
           }
@@ -155,32 +170,14 @@ const CreateAccountPage = () => {
       }
     });
   };
-  const redirectUri = "https://treato.netlify.app/";
-   const myFbLogin = async () => {
-    try {
-        let token = await openFbDialog();
-        
-        console.log(":rocket: ~ file: Login.js:51 ~ myFbLogin ~ token:", token)
-        facebookAuth(token,redirectUri).then((res)=>{
-            console.log("manual fb login",res);
-            if(res?.res?.data?.data){
-                dispatch(updateIsLoggedIn(true));
-                dispatch(
-                  updateUserDetails(res?.res?.data?.data || res?.res?.data.data)
-                );
-                localStorage.setItem("jwtToken", res?.res?.data?.token);
-                navigate("/");
-                toast("Welcome to Treato! Start exploring now!");
-            }
-            else{
-                toast.error(`An unexpected error occurred. Please try again.`);
-            }
-        })
 
-    } catch (ex) {
-        console.log("there was an error");
+  console.log(`+${getCountryCallingCode(country)}${phone}`);
+
+  useEffect(() => {
+    if (!userChoice.role) {
+      navigate("/auth-choice");
     }
-}
+  }, [userChoice]);
   return (
     <AuthPage>
       <div className={styles.container}>
@@ -312,7 +309,16 @@ const CreateAccountPage = () => {
               Create account
             </PrimaryButton>
             <p className={styles.alreadyHaveAccount}>
-              Already have an account? <Link to="/login">Log in</Link>
+              Already have an account?{" "}
+              <Link
+                to={`${
+                  userChoice.role.role === "partner"
+                    ? "/partner/login"
+                    : "/login"
+                }`}
+              >
+                Log in
+              </Link>
             </p>
           </div>
         </form>
@@ -328,10 +334,20 @@ const CreateAccountPage = () => {
               <img src={Google_Logo} />
               Google
             </SecondaryButton>
-            <SecondaryButton className={styles.facebook} onClick={myFbLogin}>
-                <img src={Facebook_Logo}/>
+            <LoginSocialFacebook
+              appId={facebookAppId}
+              onResolve={(response) => {
+                facebookAuthLogin(response?.data);
+              }}
+              onReject={(error) => {
+                console.log(error);
+              }}
+            >
+              <SecondaryButton className={styles.facebook}>
+                <img src={Facebook_Logo} />
                 Facebook
               </SecondaryButton>
+            </LoginSocialFacebook>
           </div>
         </div>
         <div className={styles.termsWrapper}>

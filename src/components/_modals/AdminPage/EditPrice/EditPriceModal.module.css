@@ -1,0 +1,201 @@
+/* module.css */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 6;
+}
+
+.modalContent {
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 450px;
+  width: 100%;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: #08090a;
+}
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+.modalHeading {
+  color: #08090a;
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: center;
+}
+
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+}
+.top figure {
+  max-width: 56px;
+  width: 100%;
+  height: 48px;
+}
+.top img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.top h5 {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: Lato;
+}
+.serviceName {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.serviceName label {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+.serviceName input {
+  background: none;
+  border: 1px solid #ced4da;
+  outline: none;
+  min-height: 48px;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.inputWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.wrapper label {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+.wrapper input {
+  background: none;
+  border: 1px solid #ced4da;
+  outline: none;
+  min-height: 48px;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+.note {
+  color: #6d747a;
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+}
+.buttonContainer {
+  width: 100%;
+  margin-top: 15px;
+  text-align: right;
+  display: flex;
+  gap: 15px;
+  justify-content: end;
+}
+
+.show {
+  display: block;
+}
+
+.cancel {
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+.save {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+.back {
+  display: none;
+}
+@media only screen and (max-width: 700px) {
+  .modalContent {
+    position: fixed;
+    top: 0%;
+    left: auto;
+    width: 90%;
+    height: 100vh;
+    justify-content: start;
+  }
+  .close {
+    display: none;
+  }
+  .form {
+    justify-content: start;
+    gap: 40px;
+  }
+  .buttonContainer {
+    flex-grow: 1;
+
+    align-items: end;
+    margin: 0;
+    justify-content: center;
+    padding-bottom: 30px;
+  }
+  .buttonContainer button {
+    width: 100%;
+  }
+  .back {
+    display: block;
+    position: absolute;
+    left: 10%;
+    margin-top: 5px;
+    font-size: 30px;
+  }
+}
