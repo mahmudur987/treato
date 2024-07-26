@@ -4,10 +4,8 @@ import { chevronright } from "../../../assets/images/icons";
 import mapBlue from "../../../assets/images/SalonDetail/mapBlue.svg";
 import { starBlack } from "../../../assets/images/SalonsPageImages";
 import { Link } from "react-router-dom";
-import { displayDistance } from "../../../utils/utils";
+import img1 from "../../../assets/images/SalonsPageImages/cardImage.png";
 import { useSelector } from "react-redux";
-import { logDOM } from "@testing-library/react";
-import MainSearchBar from "../../Input/mainSearchBar/MainSearchBar";
 
 const Salon = ({ salonData, place }) => {
   const openMapInNewWindow = () => {
@@ -33,7 +31,13 @@ const Salon = ({ salonData, place }) => {
   useEffect(() => {
     updateDistance();
   }, [Distance]);
-  console.log(salonData.salon_image);
+  const salonImage = salonData.salon_Img.find((x) => {
+    if (x.isPrimary) {
+      return x;
+    }
+    return null;
+  });
+  console.log(salonImage);
   return (
     <>
       <div
@@ -43,7 +47,7 @@ const Salon = ({ salonData, place }) => {
       >
         <Link to={salonData ? `/salons/${salonData._id}` : null}>
           <img
-            src={salonData.salon_image ? salonData.salon_image.public_url : ""}
+            src={salonImage ? salonImage.public_url : img1}
             alt="cardImage"
             className={`${styles.cardImage} ${
               place === "homePage" ? styles.cardImage_Home : ""
