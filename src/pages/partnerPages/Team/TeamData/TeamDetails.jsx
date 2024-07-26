@@ -15,6 +15,7 @@ import { useGetAllTeamMembers } from "../../../../services/Team";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
 import NoDataDisplay from "../../../../components/NodataToDisplay/NoDataDisplay";
+import { MdKeyboardArrowUp } from "react-icons/md";
 
 const tableHeading = [
   {
@@ -261,7 +262,7 @@ const TeamDetails = () => {
                 <img
                   src={VectorBlue}
                   alt="VectorBlue"
-                  className={sty.viewAllBtnIcon}
+                  className={sty.viewAllBtnDownIcon}
                 />
               </button>
             ) : (

@@ -87,6 +87,10 @@
 .viewAllBtnIcon {
   color: #0d69d7;
 }
+.viewAllBtnDownIcon {
+  color: #0d69d7;
+  transform: rotate(180deg);
+}
 .viewAllBtn {
   font-weight: bold;
   width: 86px;

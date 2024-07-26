@@ -90,6 +90,34 @@ select:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+
+.editableContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.editIcon {
+  position:absolute;
+  z-index: 6;
+  bottom: 35px; /* Adjust based on your design */
+  left: 90%;
+  cursor: pointer;
+  font-size: 1.2rem; /* Adjust size as needed */
+  color: #007bff; /* Adjust color as needed */
+}
+
+.editableContainer{
+
+}
+.editIcon{
+  width: 24px;
+  height: 24px;
+  position: relative;
+  z-index: 5;
+  top: 5%;
+}
 /* Select option start */
 
 @media only screen and (max-width: 1025px) {
