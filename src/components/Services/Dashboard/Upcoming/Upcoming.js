@@ -58,7 +58,6 @@ const Upcoming = () => {
       const { data } = await axiosInstance("sales/upcomingAppointments", {
         headers,
       });
-      console.log(data)
       return data;
     },
   });
@@ -85,14 +84,18 @@ const Upcoming = () => {
       ) : (
         <div className={styles.maincontainer}>
           <div className={styles.container}>
-            <div className={styles.hearderBox}><h2 className={styles.heading}>Upcoming</h2>
-              <Link to='/partner/dashboard/appointment/calendar' >
-                <h3>View Calendar</h3></Link></div>
+            <div className={styles.hearderBox}>
+              <h2 className={styles.heading}>Upcoming</h2>
+              <Link to="/partner/dashboard/appointment/calendar">
+                <h3>View Calendar</h3>
+              </Link>
+            </div>
             <table className={styles.table}>
               <thead className={styles.thead}>
                 <tr>
                   <th className={styles.th}>Date</th>
                   <th className={styles.th}>Time slot</th>
+                  <th className={styles.th}>Booking Type</th>
                   <th className={styles.th}>Client</th>
                   <th className={styles.th}>Phone/email</th>
                   <th className={styles.th}>Service Name</th>
@@ -119,6 +122,11 @@ const Upcoming = () => {
                           {item.serviceData?.time_takenby_service})
                         </td>
                         <td className={styles.row}>
+                          {item?.PaymentMode
+                            ? item?.PaymentMode
+                            : "PaymentMode"}
+                        </td>
+                        <td className={styles.row}>
                           {item?.userData?.name ? item?.userData?.name : "N/A"}
                         </td>
                         <td className={styles.row}>
@@ -130,9 +138,26 @@ const Upcoming = () => {
                           {item?.serviceData?.service_name}
                         </td>
                         <td className={styles.row}>
-                          {item?.noPreference
-                            ? "No Preference"
-                            : item?.stylistData[0].stylist_name}
+                          <div className={styles.teamMember}>
+                            <img
+                              style={{
+                                height: "20px",
+                                width: "20px",
+                                borderRadius: "50%",
+                              }}
+                              src={
+                                item?.noPreference
+                                  ? "No Preference"
+                                  : item?.stylistData[0].stylist_Img?.public_url
+                              }
+                              alt=""
+                            />
+                            <span>
+                              {item?.noPreference
+                                ? "No Preference"
+                                : item?.stylistData[0].stylist_name}
+                            </span>
+                          </div>
                         </td>
                         <td className={styles.booked}>
                           {item?.status ? item?.status : "N/A"}

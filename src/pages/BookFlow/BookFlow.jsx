@@ -157,9 +157,10 @@ export default function BookFlow() {
         };
       }
       if (stepTwoDetails?.dateData !== null) {
-        console.log("from selected Stylist", requiredData);
+        // console.log("from selected Stylist", requiredData);
         getAvailableSlots(requiredData).then((res) => {
           setavailableSlots(res?.res?.data?.data);
+          // console.log("from selected Stylist", res?.res?.data?.data);
           dispatch(updateServiceDate(requiredData?.dateforService));
         });
       }

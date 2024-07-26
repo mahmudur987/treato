@@ -10,12 +10,7 @@ import { useGetOutStandingPaymentStatus } from "../../../services/PartnerDashboa
 import { toast } from "react-toastify";
 import axiosInstance from "../../../services/axios";
 const Dashboard = () => {
-  const {
-    data: status,
-    isLoading,
-    isError,
-    error,
-  } = useGetOutStandingPaymentStatus();
+  const { data: status, isLoading, isError } = useGetOutStandingPaymentStatus();
 
   const initPayment = (order, id) => {
     const options = {
@@ -68,7 +63,6 @@ const Dashboard = () => {
         {},
         { headers }
       );
-      console.log(data);
 
       initPayment(data?.order, data?.razorpaykey);
     } catch (error) {
@@ -78,10 +72,12 @@ const Dashboard = () => {
 
   return (
     <main className={styles.mainContainer}>
-      <div className={styles.top}>
-        <p>You have outstanding commissions of ₹ {status?.data}. Pay now?</p>
-        <button onClick={handlePayment}>Pay</button>
-      </div>
+      {status && !isError && !isLoading && (
+        <div className={styles.top}>
+          <p>You have outstanding commissions of ₹ {status?.data}. Pay now?</p>
+          <button onClick={handlePayment}>Pay</button>
+        </div>
+      )}
 
       <Header />
 

@@ -21,9 +21,7 @@ const ServiceLocation = ({
   updateDefaultProps,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-
   const [show, setShow] = useState(false);
-
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 768) {
@@ -34,9 +32,7 @@ const ServiceLocation = ({
     };
 
     handleResize();
-
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   const toggleCollapse = () => {
@@ -60,8 +56,6 @@ const ServiceLocation = ({
   });
 
   useEffect(() => {
-    console.log(data);
-
     if (data.length > 0) {
       setShow(true);
     }

@@ -3,6 +3,7 @@ import calendar_cancel from "../../../assets/images/SalonDetail/calendar-cancel.
 import TimeComponent from "./TimeComponent";
 import { useEffect, useRef, useState } from "react";
 import CalendarModal from "../../_modals/CalendarModal/CalendarModal";
+import ErrorComponent from "../../ErrorComponent/ErrorComponent";
 
 export default function ServiceTime({
   getWorkerData,
@@ -11,17 +12,6 @@ export default function ServiceTime({
 }) {
   const timeFRef = useRef(null);
   let [activeTime, updateActiveTime] = useState(-1);
-  let arr = [
-    "10:30 AM",
-    "10:45 AM",
-    "11:00 AM",
-    "11:15 AM",
-    "11:30 AM",
-    "12:00 AM",
-  ];
-
-  let timeSlots = availableSlots;
-  let date = "Fri - Jul 5";
 
   useEffect(() => {
     if (timeFRef.current) {
@@ -39,32 +29,23 @@ export default function ServiceTime({
       <CalendarModal getWorkerData={getWorkerData} />
       <div className={styles.service_timeC}>Start time</div>
       <div className={styles.service_timeF} ref={timeFRef}>
-        {availableSlots?.length
-          ? availableSlots.map((v, i) => {
-              return (
-                <TimeComponent
-                  index={i}
-                  activeTime={activeTime}
-                  updateActiveTime={updateActiveTime}
-                  getWorkerData={getWorkerData}
-                  key={i}
-                  timeData={v}
-                  stepTwoDetails={stepTwoDetails}
-                />
-              );
-            })
-          : arr.map((v, i) => {
-              return (
-                <TimeComponent
-                  index={i}
-                  activeTime={activeTime}
-                  updateActiveTime={updateActiveTime}
-                  getWorkerData={getWorkerData}
-                  key={i}
-                  timeData={v}
-                />
-              );
-            })}
+        {availableSlots?.length > 0 ? (
+          availableSlots.map((v, i) => {
+            return (
+              <TimeComponent
+                index={i}
+                activeTime={activeTime}
+                updateActiveTime={updateActiveTime}
+                getWorkerData={getWorkerData}
+                key={i}
+                timeData={v}
+                stepTwoDetails={stepTwoDetails}
+              />
+            );
+          })
+        ) : (
+          <ErrorComponent message={"No slots are available"} />
+        )}
       </div>
       <div className={styles.service_timeE}>
         <img src={calendar_cancel} alt="" />

@@ -154,6 +154,16 @@
   letter-spacing: 0em;
   text-align: right;
 }
+.teamMember {
+  display: flex;
+  justify-content: start;
+  gap: 5px;
+}
+.teamMember img {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
 
 @media only screen and (max-width: 700px) {
   .maincontainer {

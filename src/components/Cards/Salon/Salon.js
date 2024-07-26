@@ -33,7 +33,7 @@ const Salon = ({ salonData, place }) => {
   useEffect(() => {
     updateDistance();
   }, [Distance]);
-
+  console.log(salonData.salon_image);
   return (
     <>
       <div

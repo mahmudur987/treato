@@ -23,13 +23,13 @@ const BasicDetailsForm = ({
   const [tax, setTax] = useState("Included");
   const [price, setPrice] = useState(subcategory?.price);
   const durationOfService = [
-    "15 min",
-    "30 min",
-    "45 min",
+    "15 mins",
+    "30 mins",
+    "45 mins",
     "1 h",
-    "1 h 15 min",
-    "1 h 30 min",
-    "1 h 45 min",
+    "1 h 15 mins",
+    "1 h 30 mins",
+    "1 h 45 mins",
     "2 h ",
     "2 h +",
   ];

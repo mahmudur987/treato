@@ -14,17 +14,36 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
   const [error, setError] = useState(null);
   const [serviceType, setserviceType] = useState(null);
   const [selectedServiceType, setSelectedServiceType] = useState(
-    data.service_name
+    data?.service_name
   );
   const [selectCategory, setselectCategory] = useState(category.category_name);
   const [service, setservice] = useState([]);
+
+  const [colorCode, setColorCode] = useState("");
+
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchAllServices() {
       try {
         const { res, err } = await getAllServices();
         if (res) {
-          const data = res?.data?.data.map((x) => x.service_name);
+          const uniqueDataArray = res?.data?.data.reduce(
+            (uniqueArray, currentItem) => {
+              // Check if there's already an object with the same 'name' in uniqueArray
+              if (
+                !uniqueArray.some(
+                  (item) => item.service_name === currentItem.service_name
+                )
+              ) {
+                // If not found, add this object to uniqueArray
+                uniqueArray.push(currentItem);
+              }
+              return uniqueArray;
+            },
+            []
+          );
+
+          const data = uniqueDataArray?.map((x) => x.service_name);
           setservice(res?.data?.data);
           setserviceType(data);
         } else {
@@ -36,20 +55,14 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
     }
     fetchAllServices();
   }, []);
-  const serviceId = service?.find((x) => {
-    if (x.service_name === selectedServiceType) {
-      return x._id;
-    }
-  })?._id;
-
+  const serviceId = data?._id;
   const handleSubmit = async () => {
     const newCategory = {
       serviceId,
       mainCategoryId: category._id,
       newCategoryName: selectCategory,
+      color: colorCode,
     };
-
-    console.log(newCategory);
 
     try {
       const headers = {
@@ -90,7 +103,7 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
               <span className={styles.back} onClick={onClose}>
                 <IoMdArrowBack />
               </span>
-              <h2 className={styles.modalHeading}>Add A new category</h2>
+              <h2 className={styles.modalHeading}>Update Category</h2>
 
               <form className={styles.form}>
                 <div className={styles.formItems}>
@@ -101,6 +114,7 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
                       options={serviceType}
                       value={selectedServiceType}
                       onChange={setSelectedServiceType}
+                      disable={true}
                     />
                     <span>
                       <svg
@@ -121,10 +135,10 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
                     </span>
                   </div>
                 </div>
-                {/* categor Name */}
+                {/* category Name */}
 
                 <div className={styles.formItems}>
-                  <label htmlFor="servicetype"> Select Service Category</label>
+                  <label htmlFor="servicetype"> Category Name</label>
 
                   <div className={styles.selectWrapper}>
                     <input
@@ -138,7 +152,7 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
                   <label htmlFor="servicetype"> Appointment color</label>
 
                   <div className={styles.selectWrapper}>
-                    <ColorSelect />
+                    <ColorSelect setColorCode={setColorCode} />
                     <span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

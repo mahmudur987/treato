@@ -20,7 +20,6 @@ const RecentActivity = () => {
       return data.data;
     },
   });
-  // console.log(data);
 
   return (
     <div className={styles.maincontainer}>
@@ -56,7 +55,7 @@ const RecentActivity = () => {
                   </div>
 
                   <div className={styles.contents}>
-                    <p>
+                    <p className={styles.contentsP}>
                       <span className={styles.appointmentDate}>
                         {new Date(item?.dateforService).toLocaleDateString(
                           "en-US",
@@ -75,15 +74,25 @@ const RecentActivity = () => {
                     </p>
                     <p>
                       <span className={styles.appointmentName}>
-                        Haircut women (1h 15m)
+                        {item?.serviceData?.service_name || "No Name"} (
+                        {item?.serviceData?.time_takenby_service})
                       </span>
-                      <span className={styles.appointmentFor}>Nayanika</span>
+                      {item.stylistData.map((x, y) => (
+                        <div className={styles.teamMember}>
+                          <img src={x.stylist_Img?.public_url} alt="" />
+                          <span className={styles.appointmentFor}>
+                            {x.stylist_name}
+                          </span>
+                        </div>
+                      ))}
                     </p>
                   </div>
                 </div>
                 <div className={styles.cardRight}>
                   <p className={styles.price}>₹{item.final_amount}</p>
-                  <p className={styles.paymentType}>online</p>
+                  <p className={styles.paymentType}>
+                    {item.PaymentMode || "Payment Mode"}
+                  </p>
                 </div>
               </div>
             ))}

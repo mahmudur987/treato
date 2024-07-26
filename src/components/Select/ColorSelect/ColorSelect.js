@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ColorSelect.module.css";
 
-const ColorSelect = () => {
+const ColorSelect = ({ setColorCode }) => {
   const [selectedColor, setSelectedColor] = useState("yellow");
   const [isOptionsVisible, setOptionsVisible] = useState(false);
   const generateRandomColor = () => {
@@ -28,6 +28,9 @@ const ColorSelect = () => {
   useEffect(() => {
     setSelectedColor(options[0]);
   }, []);
+  useEffect(() => {
+    setColorCode(selectedColor);
+  }, [selectedColor]);
 
   const handleColorChange = (color) => {
     setSelectedColor(color);

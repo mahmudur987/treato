@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import styles from "./customeSelect.module.css";
 
-const CustomSelect = ({ options, onChange, value }) => {
+const CustomSelect = ({ options, onChange, value, disable }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef(null);
 
@@ -20,6 +20,10 @@ const CustomSelect = ({ options, onChange, value }) => {
     };
   }, []);
   const handleToggle = () => {
+    if (disable) {
+      return;
+    }
+
     setIsOpen(!isOpen);
   };
 
