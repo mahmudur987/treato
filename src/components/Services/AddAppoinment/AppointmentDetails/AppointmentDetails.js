@@ -38,7 +38,7 @@ const AppointmentDetails = () => {
 
   const handleWrapperClick = () => {
     console.log(55);
-    dateInputRef.current.click();
+    dateInputRef.current.showPicker();
   };
   useEffect(() => {
     const salon = data?.salon;

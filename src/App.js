@@ -75,7 +75,7 @@ import AddLook from "./pages/partnerPages/Look/AddALook/AddLook";
 import EditLook from "./pages/partnerPages/Look/EditLook/EditLook";
 import Commission from "./pages/AdminPages/Commissions/Commission";
 import PartnerPageLayout from "./layouts/ServicePageLayout/ServicePagelLayout";
-import PersonalDetails from "./components/Services/PersonalDetails/PersonalDetails";
+import PersonalDetails from "./pages/partnerPages/PersonalDetails/PersonalDetails";
 
 function App() {
   // Use the location hook to track route changes

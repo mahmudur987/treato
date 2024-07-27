@@ -40,13 +40,14 @@ export default function PhoneInput({
   function inputValue(e) {
     const phoneNumber = country + e.target.value;
     const validationError = validatePhoneNumber(phoneNumber);
-
+    setErrorMessage("");
     if (validationError) {
       setErrorMessage(validationError);
       console.log(validationError);
     } else {
       setErrorMessage("");
-      if (typeof setPhone === "function") { // Ensure setPhone is a function
+      if (typeof setPhone === "function") {
+        // Ensure setPhone is a function
         setPhone(phoneNumber);
       }
     }
