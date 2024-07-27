@@ -17,6 +17,17 @@ const PartnerAccountSetting = () => {
       line: <div className={style.horizontalLine}></div>,
     },
     {
+      profile: "Personal Details",
+      content:
+        "View and edit business owner details - such as name, contact details and more.",
+      link: (
+        <Link to="/partner/dashboard/personalDetails">
+          <img src={RightIcon} alt="" />
+        </Link>
+      ),
+      line: <div className={style.horizontalLine}></div>,
+    },
+    {
       profile: "Payments",
       content: "View and edit bank accounts and payment details.",
       link: (
