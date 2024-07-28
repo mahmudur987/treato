@@ -2,7 +2,16 @@ import React, { useRef, useState } from "react";
 import styles from "./PersonalDetails.module.css";
 import { Link } from "react-router-dom";
 import penIcon from "../../../assets/icons/penIcon.png";
+import { toast } from "react-toastify";
+function validatePhoneNumber(phoneNumber) {
+  const isNumeric = /^\d+$/.test(phoneNumber);
 
+  if (!isNumeric) {
+    return false;
+  }
+
+  return true;
+}
 const PersonalDetails = () => {
   const dateInputRef = useRef(null);
   const [date, setDate] = useState("Oct 8 ,2022");
@@ -17,21 +26,46 @@ const PersonalDetails = () => {
     lastName: true,
     email: true,
     phone: true,
+    gender: true,
   });
 
   const updateGender = (value) => {
-    console.log(value);
     setActiveGender(value);
   };
   const handleWrapperClick = () => {
-    console.log(55);
     dateInputRef.current.showPicker();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let PhoneNumber = countryCode + Phone;
-    console.log({ firstName, Phone, PhoneNumber });
+    const isValid = validatePhoneNumber(Phone);
+
+    if (firstName === "First Name") {
+      return toast.error("write your First name");
+    }
+    if (firstName === "Last Name") {
+      return toast.error("write your Last name");
+    }
+    if (firstName === "Email") {
+      return toast.error("write your Email");
+    }
+    if (
+      firstName === "Mobile Number" ||
+      PhoneNumber.length !== 13 ||
+      !isValid
+    ) {
+      return toast.error("write your valid contact number");
+    }
+
+    console.log({
+      firstName,
+      LastName,
+      PhoneNumber,
+      Email,
+      activeGender,
+      date,
+    });
   };
 
   return (
@@ -90,9 +124,7 @@ const PersonalDetails = () => {
               />
             </svg>
           </Link>
-          <h1>
-            <span> Personal Details</span>
-          </h1>
+          <h1>Personal Details</h1>
         </header>
 
         <div className={styles.formHeader}>
@@ -256,7 +288,17 @@ const PersonalDetails = () => {
               </p>
             </div>
 
-            <div className={styles.usr_detail_box}>
+            <div
+              className={styles.usr_detail_box}
+              onClick={() =>
+                setActive((pre) => {
+                  return {
+                    ...pre,
+                    gender: !pre.gender,
+                  };
+                })
+              }
+            >
               <label htmlFor="gender">
                 <div className={styles.usr_detail_label}>Gender</div>
                 <div className={styles.usr_genders}>
@@ -306,7 +348,26 @@ const PersonalDetails = () => {
           </div>
 
           <div className={styles.action}>
-            <button type="submit" className={styles.save}>
+            <button
+              type="submit"
+              className={styles.save}
+              style={{
+                backgroundColor: `${
+                  active.firstName &&
+                  active.lastName &&
+                  active.email &&
+                  active.phone &&
+                  active.gender
+                    ? "gray"
+                    : ""
+                }`,
+              }}
+              disabled={
+                active.lastName && active.email && active.phone && active.gender
+                  ? true
+                  : false
+              }
+            >
               Save
             </button>
           </div>
