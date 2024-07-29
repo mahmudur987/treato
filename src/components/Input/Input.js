@@ -1,17 +1,23 @@
 import React from 'react';
-import inputStyles from "./Input.module.css"
+import inputStyles from "./Input.module.css";
 
 const InputField = (props) => {
-  const { name, value, onChange, type, placeholder, checked, styles,label, setValue, error } = props;
+  const { name, value, onChange, type, placeholder, checked, styles, label, disabled } = props;
   return (
     <label className={inputStyles.label}>
       {type === 'checkbox' ? (
         <>
-          <input type="checkbox" name={name} checked={checked} onChange={onChange} className={""} />
+          <input
+            type="checkbox"
+            name={name}
+            checked={checked}
+            onChange={onChange}
+            className={""}
+          />
         </>
       ) : type === 'textarea' ? (
         <>
-          {props.label}
+          {label}
           <textarea
             name={name}
             value={value}
@@ -22,7 +28,7 @@ const InputField = (props) => {
         </>
       ) : (
         <>
-          {props.label}
+          {label}
           <input
             type={type}
             name={name}
@@ -30,6 +36,7 @@ const InputField = (props) => {
             onChange={onChange}
             placeholder={placeholder}
             className={inputStyles.input}
+            disabled={disabled}
           />
         </>
       )}

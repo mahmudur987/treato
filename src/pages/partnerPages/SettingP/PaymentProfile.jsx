@@ -9,6 +9,7 @@ import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
 import { useDispatch } from "react-redux";
 import { adminBasicDetails } from "../../../redux/slices/adminSlice/adminBasicAction";
 import { toast } from "react-toastify";
+import { MdEdit } from "react-icons/md";
 
 const PaymentProfile = () => {
   const { data, isLoading, isError, error, refetch } = useSingleSalon();
@@ -21,6 +22,28 @@ const PaymentProfile = () => {
     bank_name: "",
   });
 
+  const [editableFields, setEditableFields] = useState({
+    IFSC_code: false,
+    account_holder_name: false,
+    account_number: false,
+  });
+
+  const banks = [
+    "Bank of India",
+    "State Bank Of India",
+    "Punjab National Bank",
+    "ICICI Bank",
+    "HDFC Bank",
+    // Add more banks as needed
+  ];
+
+  const handleEditClick = (field) => {
+    setEditableFields((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -28,7 +51,7 @@ const PaymentProfile = () => {
     };
     dispatch(adminBasicDetails(data));
     refetch();
-    toast.success("Bank details update successfully", { id: 5 });
+    toast.success("Bank details updated successfully", { id: 5 });
   };
 
   const handleChange = (e) => {
@@ -47,7 +70,9 @@ const PaymentProfile = () => {
   };
 
   useEffect(() => {
-    setFormData(data?.salon?.bank_details);
+    if (data?.salon?.bank_details) {
+      setFormData(data.salon.bank_details);
+    }
   }, [data]);
 
   if (isLoading || loading) {
@@ -57,6 +82,7 @@ const PaymentProfile = () => {
   if (isError) {
     return <ErrorComponent message={error ? error : "Error"} />;
   }
+
   return (
     <>
       <section className={styles["container"]}>
@@ -77,54 +103,86 @@ const PaymentProfile = () => {
 
             <form onSubmit={handleSubmit} className={styles["formFields"]}>
               <div className={styles["inputField"]}>
-                <InputField
-                  label="Bank Name"
-                  type="text"
+                <label>Bank Name</label>
+                <select
                   name="bank_name"
-                  value={formData?.bank_name}
+                  value={formData.bank_name || ""}
                   onChange={handleChange}
-                  placeholder="Enter Bank Name"
-                />
+                  className={styles["dropdown"]}
+                >
+                  <option value="" disabled>
+                    Select Bank
+                  </option>
+                  {banks.map((bank) => (
+                    <option key={bank} value={bank}>
+                      {bank}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className={styles["inputField"]}>
-                <InputField
-                  label="Account Number"
-                  type="text"
-                  name="account_number"
-                  value={formData?.account_number}
-                  onChange={(e) => {
-                    const inputValue = e.target.value;
-                    const nonNumericRegex = /[^0-9]/;
+                <label>Account Number</label>
+                <div className={styles["editableContainer"]}>
+                  <InputField
+                    type="text"
+                    name="account_number"
+                    value={formData.account_number || ""}
+                    onChange={(e) => {
+                      const inputValue = e.target.value;
+                      const nonNumericRegex = /[^0-9]/;
 
-                    if (nonNumericRegex.test(inputValue)) {
-                      return window.alert("Please enter numbers only.");
-                    }
+                      if (nonNumericRegex.test(inputValue)) {
+                        return window.alert("Please enter numbers only.");
+                      }
 
-                    handleChange(e);
-                  }}
-                  placeholder="Enter 11-digit bank account number"
-                />
+                      if (inputValue.length > 16) {
+                        return window.alert("Account number cannot exceed 16 digits.");
+                      }
+
+                      handleChange(e);
+                    }}
+                    placeholder="Enter 11-digit bank account number"
+                    disabled={!editableFields.account_number}
+                  />
+                  <MdEdit
+                    className={styles["editIcon"]}
+                    onClick={() => handleEditClick("account_number")}
+                  />
+                </div>
               </div>
               <div className={styles["inputField"]}>
-                <InputField
-                  label="Name of the Account Holder"
-                  type="text"
-                  name="account_holder_name"
-                  value={formData?.account_holder_name}
-                  onChange={handleChange}
-                  placeholder="ABC Ventures Pvt. Ltd."
-                />
+                <label>Name of the Account Holder</label>
+                <div className={styles["editableContainer"]}>
+                  <InputField
+                    type="text"
+                    name="account_holder_name"
+                    value={formData.account_holder_name || ""}
+                    onChange={handleChange}
+                    placeholder="ABC Ventures Pvt. Ltd."
+                    disabled={!editableFields.account_holder_name}
+                  />
+                  <MdEdit
+                    className={styles["editIcon"]}
+                    onClick={() => handleEditClick("account_holder_name")}
+                  />
+                </div>
               </div>
               <div className={styles["inputField"]}>
-                <InputField
-                  label="IFSC Code"
-                  type="text"
-                  name="IFSC_code"
-                  value={formData?.IFSC_code}
-                  onChange={handleChange}
-                  placeholder="SBIN0001234"
-                  // styles={styles.input}
-                />
+                <label>IFSC Code</label>
+                <div className={styles["editableContainer"]}>
+                  <InputField
+                    type="text"
+                    name="IFSC_code"
+                    value={formData.IFSC_code || ""}
+                    onChange={handleChange}
+                    placeholder="SBIN0001234"
+                    disabled={!editableFields.IFSC_code}
+                  />
+                  <MdEdit
+                    className={styles["editIcon"]}
+                    onClick={() => handleEditClick("IFSC_code")}
+                  />
+                </div>
               </div>
 
               <button className={styles["paymentSubmit"]}>Submit</button>

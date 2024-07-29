@@ -25,6 +25,8 @@ import { updateUserDetails } from "../../redux/slices/user";
 import FindLocationModal from "../../components/_modals/FindLocationModal/FindLocationModal";
 import SetPassword from "../../components/AccountSettings/PasswordChange/SetPassword";
 import PasswordActive from "../../components/_modals/PasswordActive/Passwordactive";
+import { user } from "../../assets/images/icons";
+import { sendLoginOTP } from "../../services/auth";
 
 export default function AccountSettings() {
   const data = useSelector((state) => state.user);
@@ -42,6 +44,7 @@ export default function AccountSettings() {
   const [userAddressText, setuserAddressText] = useState("");
   const [otpModal, setOtpModal] = useState(false);
   const [showSave, setShowSave] = useState(false);
+  const [otpVerify, setVerifyOtp] = useState(0)
   const [otpSuccess, setOtpSuccess] = useState(false);
   const [inputState, updateInputState] = useState({
     first_name: true,
@@ -154,6 +157,18 @@ export default function AccountSettings() {
     navigate("/");
     window.location.reload();
   };
+  const verifyOtp = async () =>{
+    
+    const phonedata = {
+      phoneNumber:inputVal.phone
+    }
+const res = await sendLoginOTP(phonedata)
+
+    console.log(res.res.data.otp);
+    setVerifyOtp(res.res.data.otp)
+    console.log(inputVal);
+
+  }
 
   return (
     <>
@@ -204,6 +219,7 @@ export default function AccountSettings() {
                 <div className={showSave ? styles.acc_settingA : styles.d_none}>
                   <SecondaryButton children={"Cancel"} onClick={setDefault} />
                   <PrimaryButton
+                  onClick={verifyOtp}
                     children={"Save Changes"}
                     form={"acc_set_form"}
                   />
@@ -354,6 +370,8 @@ export default function AccountSettings() {
               setShowSave={setShowSave}
               updateInputState={updateInputState}
               inputVal={inputVal}
+              userOTP={otpVerify}
+
             />
           ) : locationModal ? (
             <FindLocationModal

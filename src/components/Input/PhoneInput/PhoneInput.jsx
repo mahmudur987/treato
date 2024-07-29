@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./PhoneInput.module.css";
 
 export default function PhoneInput({
@@ -11,7 +11,7 @@ export default function PhoneInput({
   updateInputVal,
   inputVal,
   onChange,
-  setPhone, // Ensure setPhone is destructured correctly
+  setPhone,
 }) {
   const [country, setCountry] = useState("+91");
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,6 +21,17 @@ export default function PhoneInput({
     "+88": 10,
     "+66": 9,
   };
+
+  useEffect(() => {
+    if (VALUE) {
+      const matchedCountry = Object.keys(countryPhoneLengths).find((code) =>
+        VALUE.startsWith(code)
+      );
+      if (matchedCountry) {
+        setCountry(matchedCountry);
+      }
+    }
+  }, [VALUE]);
 
   function validatePhoneNumber(phoneNumber) {
     const numberWithoutCountryCode = phoneNumber.replace(country, "");
@@ -43,17 +54,14 @@ export default function PhoneInput({
     setErrorMessage("");
     if (validationError) {
       setErrorMessage(validationError);
-      console.log(validationError);
     } else {
       setErrorMessage("");
       if (typeof setPhone === "function") {
-        // Ensure setPhone is a function
         setPhone(phoneNumber);
       }
     }
     if (updateInputVal) {
-      let allValue = { ...inputVal };
-      allValue[e.target.name] = e.target.value;
+      let allValue = { ...inputVal, [e.target.name]: phoneNumber };
       updateInputVal(allValue);
     }
   }
@@ -63,8 +71,8 @@ export default function PhoneInput({
       <div className={styles.phone_inputMain}>
         <select
           onChange={(e) => setCountry(e.target.value)}
+          value={country}
           name="country"
-          id=""
           className={styles.phone_select}
         >
           <option value="+91">+91</option>
