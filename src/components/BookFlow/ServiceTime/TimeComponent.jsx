@@ -86,7 +86,7 @@ export default function TimeComponent({
     }
   }, [isPast, isToday, updateActiveTime]);
 
-  // console.log(isToday, isPast);
+  console.log(givenDateString, givenTimeString);
 
   return (
     <label

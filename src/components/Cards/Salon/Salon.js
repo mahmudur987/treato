@@ -37,7 +37,7 @@ const Salon = ({ salonData, place }) => {
     }
     return null;
   });
-  console.log(salonImage);
+
   return (
     <>
       <div

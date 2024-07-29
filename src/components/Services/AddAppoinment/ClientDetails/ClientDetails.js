@@ -21,6 +21,8 @@ const ClientsDetails = () => {
     setCustomerDetails,
     isError: teamIsError,
     error: teamError,
+    comments,
+    setcomments,
   } = useContext(AddAppointmentContext);
 
   const { data, isLoading, isError, error } = useGetClients();
@@ -55,9 +57,7 @@ const ClientsDetails = () => {
     <section className={styles.mainContainer}>
       <div className={styles.container}>
         <h3 className={styles.heding}>Client Details</h3>
-
         {/* Select an existing client */}
-
         <div className={styles.existingClient}>
           <label htmlFor="">Select an existing client</label>
           {data && data?.data?.length > 0 && !isError && !isLoading ? (
@@ -74,12 +74,10 @@ const ClientsDetails = () => {
             <NoDataDisplay message={"You Have No Existing Clients"} />
           )}
         </div>
-
         <p onClick={() => openModal()} className={styles.addNewClient}>
           <span>+</span>
           <span>Add a new client</span>
         </p>
-
         {/* Pricing*/}
         <h3>Pricing</h3>
         <div className={styles.selectPrice}>
@@ -143,10 +141,21 @@ const ClientsDetails = () => {
               </p>
             </div>
           </div>
+        </div>{" "}
+        <div className={styles.comments}>
+          <label htmlFor="comments">
+            Additional comments <span>(optional)</span>
+          </label>
+          <textarea
+            onChange={(e) => setcomments(e.target.value)}
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+          ></textarea>
         </div>
-
         {/* assign professional*/}
-        <h3 className={styles.heding}>Assign Professional</h3>
+        {/* <h3 className={styles.heading}>Assign Professional</h3>
 
         <div className={styles.professional}>
           {teamMembers?.length > 0 && !teamIsError ? (
@@ -154,7 +163,13 @@ const ClientsDetails = () => {
               options={null}
               value={SelectedTeamMember}
               onChange={handleSelectTeamMember}
-              teamMembers={teamMembers}
+              teamMembers={[
+                ...teamMembers,
+                {
+                  name: "No preference",
+                  imageUrl: "",
+                },
+              ]}
             />
           ) : (
             <ErrorComponent message={teamError?.message} />
@@ -163,7 +178,7 @@ const ClientsDetails = () => {
           {teamMembers?.length === 0 && (
             <NoDataDisplay message={"No Team Members Available"} />
           )}
-        </div>
+        </div> */}
       </div>
       <AddNewClient showModal={isModalOpen} onClose={closeModal} />
     </section>

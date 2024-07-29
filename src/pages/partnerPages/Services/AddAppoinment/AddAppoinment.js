@@ -8,7 +8,7 @@ import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
 import Loader from "../../../../components/LoadSpinner/Loader";
 export const AddAppointmentContext = createContext();
-function formatDate(dateString) {
+export function formatDate(dateString) {
   const date = new Date(dateString);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
@@ -24,6 +24,10 @@ const AddAppointment = () => {
     name: "",
     email: "",
   });
+  const [comments, setcomments] = useState("");
+  const { name, email, phone } = customerDetails;
+  const { service_id, time, dateforService, additionalComments } =
+    servicesDetails;
   const { data, isLoading, isError, error } = useSingleSalon();
 
   const teamMembers = data?.salon?.stylists.map((x) => {
@@ -40,11 +44,77 @@ const AddAppointment = () => {
   useEffect(() => {
     setSelectedTeamMember(teamMembers ? teamMembers[0] : "");
   }, [data]);
+  const [isPast, setIsPast] = useState(false);
+  const [isToday, setIsToday] = useState(false);
+  const givenDateString = dateforService; //
+  const givenTimeString = time;
+  console.log(isToday, isPast);
+  useEffect(() => {
+    // Get current time
+    const currentTime = new Date();
+
+    // Parse the given time
+    const [hours, minutes] = givenTimeString?.split(":")?.map(Number);
+    const givenTime = new Date();
+    givenTime.setHours(hours);
+    givenTime.setMinutes(minutes);
+    givenTime.setSeconds(0);
+    givenTime.setMilliseconds(0);
+
+    // Compare times
+    if (currentTime > givenTime) {
+      setIsPast(true);
+    } else {
+      setIsPast(false);
+    }
+  }, [givenTimeString]);
+
+  useEffect(() => {
+    if (givenDateString) {
+      // Get current date
+      const currentDate = new Date();
+
+      // Parse the given date
+      const parts = givenDateString?.split(",");
+
+      const day = parseInt(parts[0]?.split(" ")[1]);
+      const monthString = parts[0]?.split(" ")[0].slice(0, 3);
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+
+      const monthIndex = months.indexOf(monthString);
+      const givenDate = new Date(
+        currentDate.getFullYear(),
+        monthIndex,
+        parseInt(day)
+      );
+
+      // Compare dates
+      if (
+        currentDate.getDate() === givenDate.getDate() &&
+        currentDate.getMonth() === givenDate.getMonth() &&
+        currentDate.getFullYear() === givenDate.getFullYear()
+      ) {
+        setIsToday(true);
+      } else {
+        setIsToday(false);
+      }
+    }
+  }, [givenDateString]);
 
   const handleSubmit = async () => {
-    const { name, email, phone } = customerDetails;
-    const { service_id, time, dateforService, additionalComments, duration } =
-      servicesDetails;
     if (!dateforService) {
       return toast.error("select date ");
     }
@@ -54,7 +124,9 @@ const AddAppointment = () => {
     if (!time) {
       return toast.error("select a time ");
     }
-
+    if (isToday && isPast) {
+      return toast.error("the slot already past");
+    }
     if (!name) {
       return toast.error("customer name not available");
     }
@@ -109,9 +181,9 @@ const AddAppointment = () => {
     setLoading(false);
   };
 
-  const handleCancel =()=>{
-    window.location.reload()
-  }
+  const handleCancel = () => {
+    window.location.reload();
+  };
   return (
     <AddAppointmentContext.Provider
       value={{
@@ -127,6 +199,8 @@ const AddAppointment = () => {
         isLoading,
         isError,
         error,
+        comments,
+        setcomments,
       }}
     >
       <main className={styles.mainContainer}>
@@ -199,7 +273,9 @@ const AddAppointment = () => {
           </div>
 
           <div className={styles.buttonContainer}>
-            <button className={styles.cancel} onClick={handleCancel} >Cancel</button>
+            <button className={styles.cancel} onClick={handleCancel}>
+              Cancel
+            </button>
             <button className={styles.submit} onClick={handleSubmit}>
               {loading ? <Loader /> : "Submit"}
             </button>
