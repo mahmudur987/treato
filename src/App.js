@@ -76,6 +76,7 @@ import EditLook from "./pages/partnerPages/Look/EditLook/EditLook";
 import Commission from "./pages/AdminPages/Commissions/Commission";
 import PartnerPageLayout from "./layouts/ServicePageLayout/ServicePagelLayout";
 import PersonalDetails from "./pages/partnerPages/PersonalDetails/PersonalDetails";
+import NewSalonSetting from "./pages/partnerPages/NewSalonSetting/NewSalonSetting";
 
 function App() {
   // Use the location hook to track route changes
@@ -208,7 +209,10 @@ function App() {
               path="/partner/dashboard/appointment/calendar"
               element={<AppointmentCalendar />}
             />
-
+            <Route
+              path="/partner/dashboard/newSalonSetting"
+              element={<NewSalonSetting />}
+            />
             <Route
               path="/partner/dashboard/service"
               element={<ServiceCatalog />}

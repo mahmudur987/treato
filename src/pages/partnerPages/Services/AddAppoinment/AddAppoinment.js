@@ -157,7 +157,7 @@ const AddAppointment = () => {
     };
 
     setLoading(true);
-    console.log(newdata);
+    // console.log(newdata);
 
     try {
       const headers = {

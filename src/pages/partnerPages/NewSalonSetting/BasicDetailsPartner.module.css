@@ -1,0 +1,147 @@
+.container {
+  max-width: 1440px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.usr_detail_head {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.usr_detail_head h1 {
+  color: #08090a;
+  font-family: Poppins;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: left;
+}
+.usr_detail_head p {
+  font-family: Lato;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  color: #2e3032;
+}
+.Heading1 {
+  color: #08090a;
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: left;
+}
+.from {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.Pictures {
+  margin-top: 20px;
+  /* margin: 1%; */
+  /* font-size: 42px; */
+}
+
+.usr_detail_body {
+  display: flex;
+  gap: 24px;
+}
+
+.usr_detail_box {
+  flex-basis: 48.6%;
+  margin-bottom: 24px;
+  position: relative;
+}
+.usr_detail_boxs {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.usr_detail_label {
+  color: var(--Grey-Black, #08090a);
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+  letter-spacing: 0.16px;
+}
+
+.usr_detail_edit {
+  position: absolute;
+  top: 50px;
+  right: 3%;
+  cursor: pointer;
+}
+.usr_detail_edit_text {
+  position: absolute;
+  left: 46%;
+  top: 50px;
+  right: 3%;
+  cursor: pointer;
+}
+.optional {
+  color: #6d747a;
+}
+.input {
+  height: 48px;
+}
+.textarea {
+  height: 200px;
+  width: 49%;
+  resize: none;
+}
+.input,
+.textarea {
+  border: 1px solid var(--Grey-30);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  box-sizing: border-box;
+}
+.textarea {
+  padding-top: 1rem;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--Grey-10);
+  font-family: "Lato", sans-serif;
+  font-size: var(--font-medium);
+}
+.horizontalLine {
+  margin-top: 30px;
+  width: 1132px;
+  border: 1px solid;
+  color: #ebedf0;
+}
+
+@media only screen and (max-width: 767px) {
+  .usr_detail_head {
+    display: flex;
+    font-size: 33px;
+  }
+  .usr_detail_body {
+    flex-direction: column;
+    width: 70%;
+  }
+  .textarea {
+    width: 70%;
+  }
+  .usr_detail_edit_text {
+    position: absolute;
+    left: 65%;
+    top: 50px;
+    right: 3%;
+    cursor: pointer;
+  }
+  .horizontalLine {
+    width: 70%;
+  }
+}

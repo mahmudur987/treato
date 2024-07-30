@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import style from "./ServicePage.module.css";
 import LeftSideBar from "../../components/Services/LeftSideBar/LeftSideBar";
 import ServicePageNavbar from "../../components/Services/Navbar/ServicePageNavbar";
@@ -12,9 +12,15 @@ import { updateIsLoggedIn, updateUserDetails } from "../../redux/slices/user";
 
 const PartnerPageLayout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { user } = useSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(true); // Start with loading state
   const dispatch = useDispatch();
+
+  const isNewSalonSettingPage =
+    location.pathname === "/partner/dashboard/newSalonSetting";
+
   useEffect(() => {
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
@@ -37,25 +43,39 @@ const PartnerPageLayout = () => {
     navigate("/partner"); // Redirect only after user data is loaded
     return null; // Return null to prevent rendering the main content
   }
-
+  console.log(isNewSalonSettingPage);
   return (
-    <main className={style.mainContainer}>
-      <section className={style.container}>
-        <div className={style.left}>
-          <LeftSideBar />
+    <>
+      {isNewSalonSettingPage ? (
+        <div className={style.container}>
+          <Outlet />
         </div>
+      ) : (
+        <>
+          <main className={style.mainContainer}>
+            <section className={style.container}>
+              {!isNewSalonSettingPage && (
+                <div className={style.left}>
+                  <LeftSideBar />
+                </div>
+              )}
 
-        <div className={style.downContainer}>
-          <div className={style.navbar}>
-            <ServicePageNavbar />
-          </div>
-          <div className={style.Outlet}>
-            <Outlet />
-          </div>
-        </div>
-      </section>
-      <BottomNav />
-    </main>
+              <div className={style.downContainer}>
+                {!isNewSalonSettingPage && (
+                  <div className={style.navbar}>
+                    <ServicePageNavbar />
+                  </div>
+                )}
+                <div className={style.Outlet}>
+                  <Outlet />
+                </div>
+              </div>
+            </section>
+            {!isNewSalonSettingPage && <BottomNav />}
+          </main>
+        </>
+      )}
+    </>
   );
 };
 
