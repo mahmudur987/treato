@@ -101,8 +101,24 @@ const NewSalonSetting = () => {
               updateDefaultProps={updateDefaultProps}
             />
           </div>
-          <div className={sty.SalonPicturesSmallScreen}>
-            <SalonPictures salonData={salonData} setSalonData={setSalonData} />
+          <div className={sty.SalonTeamDetails}>
+            <h3 className={sty.teamDetailsH}>Team details</h3>
+
+            <div className={sty.inputWrapper}>
+              <label
+                htmlFor="
+  "
+              >
+                Number of team members
+              </label>
+
+              <input type="text" value={5} />
+            </div>
+
+            <p className={sty.description}>
+              We’ll setup Sonia as a dummy team member. You can always add/edit
+              team members and their details on your Teams page.
+            </p>
           </div>
 
           {/* <SalonPictures /> */}
