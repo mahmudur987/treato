@@ -190,6 +190,7 @@ input:checked + .toggleSlider:before {
 }
 
 .HolidaysDiv {
+  margin-top: 20px;
   color: #0d69d7;
   font-family: "Lato";
   font-weight: 600;

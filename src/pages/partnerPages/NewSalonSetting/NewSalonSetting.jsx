@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 const NewSalonSetting = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [mobileScreen, setMobileScreen] = useState(true);
-  const [PcScreen, setPcScreen] = useState(false);
+  const [PcScreen, setPcScreen] = useState(true);
   const [salonData, setSalonData] = useState({
     salon_name: "",
     salons_description: "",
@@ -58,7 +58,7 @@ const NewSalonSetting = () => {
       setPcScreen(true);
     }
   };
-
+  console.log(PcScreen);
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
