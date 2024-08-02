@@ -44,7 +44,7 @@ export default function AccountSettings() {
   const [userAddressText, setuserAddressText] = useState("");
   const [otpModal, setOtpModal] = useState(false);
   const [showSave, setShowSave] = useState(false);
-  const [otpVerify, setVerifyOtp] = useState(0)
+  const [otpVerify, setVerifyOtp] = useState(0);
   const [otpSuccess, setOtpSuccess] = useState(false);
   const [inputState, updateInputState] = useState({
     first_name: true,
@@ -157,18 +157,16 @@ export default function AccountSettings() {
     navigate("/");
     window.location.reload();
   };
-  const verifyOtp = async () =>{
-    
+  const verifyOtp = async () => {
     const phonedata = {
-      phoneNumber:inputVal.phone
-    }
-const res = await sendLoginOTP(phonedata)
+      phoneNumber: inputVal.phone,
+    };
+    const res = await sendLoginOTP(phonedata);
 
     console.log(res.res.data.otp);
-    setVerifyOtp(res.res.data.otp)
+    setVerifyOtp(res.res.data.otp);
     console.log(inputVal);
-
-  }
+  };
 
   return (
     <>
@@ -219,7 +217,7 @@ const res = await sendLoginOTP(phonedata)
                 <div className={showSave ? styles.acc_settingA : styles.d_none}>
                   <SecondaryButton children={"Cancel"} onClick={setDefault} />
                   <PrimaryButton
-                  onClick={verifyOtp}
+                    onClick={verifyOtp}
                     children={"Save Changes"}
                     form={"acc_set_form"}
                   />
@@ -371,7 +369,6 @@ const res = await sendLoginOTP(phonedata)
               updateInputState={updateInputState}
               inputVal={inputVal}
               userOTP={otpVerify}
-
             />
           ) : locationModal ? (
             <FindLocationModal

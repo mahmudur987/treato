@@ -50,8 +50,7 @@ export default function PartnerLocationMap({
       return `Address for ${lat}, ${lng}`;
     }
   };
-  console.log(position);
-  console.log(defaultProps);
+
   return (
     <>
       {isLoaded && (

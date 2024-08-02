@@ -1,3 +1,8 @@
+.mainContainer {
+  padding: 2rem 6rem;
+  font-family: "Lato", sans-serif;
+  margin: 0px auto;
+}
 .container {
   padding: 2rem 6rem;
   font-family: "Lato", sans-serif;
@@ -54,7 +59,16 @@
   gap: 10px;
   border: 1px solid #ced4da;
   outline: none;
+  position: relative;
 }
+.offerDiv img {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  height: 10px;
+  width: 10px;
+}
+
 .sectionHeading {
   width: 100%;
   display: flex;
@@ -297,22 +311,36 @@ input:checked + .toggleSlider:before {
 }
 
 @media only screen and (max-width: 768px) {
+  .mainContainer {
+    padding: 0;
+    margin: 0;
+    max-width: 98vw;
+    padding: 20px 1vw;
+  }
   .mainDiv {
+    display: flex;
     flex-direction: column;
+    gap: 30px;
   }
   .offerTitle {
-    width: 70%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
   }
   .offerTitle p {
     color: var(--Grey-Black, #08090a);
     font-family: Lato;
     font-style: normal;
     width: 100%;
+    display: none;
   }
 
   .gridContainer {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   .offerDiv {
@@ -327,9 +355,14 @@ input:checked + .toggleSlider:before {
   }
 
   .scheHeading1 {
-    width: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
-
+  .scheHeading p {
+    display: none;
+  }
   .toggle {
     width: 20%;
   }
@@ -349,15 +382,14 @@ input:checked + .toggleSlider:before {
   .horizontalLineSelete {
     width: 90%;
   }
+  .selectsContainer {
+    width: 100%;
+    flex-direction: column;
+  }
   .content {
-    width: 130px;
     cursor: pointer;
   }
   .content h3 {
-    display: none;
-  }
-  .content h4 {
-    display: block;
   }
   .days {
     display: flex;
@@ -369,7 +401,9 @@ input:checked + .toggleSlider:before {
     width: 24px;
     height: 24px;
   }
-
+  .CheckBoxForm {
+    gap: 30px;
+  }
   .collapseForSmallScreen {
     display: flex;
     gap: 20px;

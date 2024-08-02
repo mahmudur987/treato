@@ -126,7 +126,7 @@ const VerifyOTP = (props) => {
             getUserProfile(res?.res?.data.token).then((res) => {
               const user = res?.res?.data?.data;
               if (user?.role === "partner") {
-                createSalon()
+                navigate("/partner/dashboard/personalDetails")
                   .then((res) => console.log(res.res))
                   .catch((err) => console.error(err));
 

@@ -3,6 +3,31 @@
   font-family: "Lato", sans-serif;
   margin: 0px auto;
   color: var(--Grey-Black, #08090a);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.usr_detail_head {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.usr_detail_head h1 {
+  color: #08090a;
+  font-family: Poppins;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: left;
+}
+.usr_detail_head p {
+  font-family: Lato;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  color: #2e3032;
 }
 .saveBtn {
   background-color: black;
@@ -64,18 +89,53 @@
   line-height: 21px;
   text-align: left;
 }
-
+.Proceed {
+  display: none;
+}
+.steps {
+  display: none;
+}
 @media screen and (max-width: 768px) {
   .container {
-    padding: 1rem 1rem;
+    max-width: 98vw;
     width: 100%;
+    padding: 20px 2vw;
+  }
+  .usr_detail_head {
+    display: flex;
+    font-size: 33px;
+    gap: 20px;
+  }
+  .usr_detail_head p {
+    display: none;
+  }
+  .steps {
+    display: flex;
+    gap: 5px;
+  }
+  .step {
+    background: var(--Grey-Grey-40, #ebedf0);
+    height: 6px;
+    width: 100%;
+    display: block;
+    border-radius: 100px;
+  }
+  .form {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .saveBtnDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
+    margin-right: 30%;
   }
 
   .saveBtn {
-    /* padding: 6px;  */
     outline: none;
     border: #ebedf0;
     color: black;
@@ -84,12 +144,18 @@
     background-color: #ebedf0;
     width: 390px;
     text-align: center;
+    display: none;
   }
-
-  .saveBtnDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 30%;
+  .Proceed {
+    width: 90vw;
+    height: 48px;
+    display: block;
+    border-radius: 4px;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: -0.01em;
   }
 }
