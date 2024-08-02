@@ -1,8 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./PersonalDetails.module.css";
 import { Link } from "react-router-dom";
 import penIcon from "../../../assets/icons/penIcon.png";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { useGetUser } from "../../../services/user";
+import axiosInstance from "../../../services/axios";
 function validatePhoneNumber(phoneNumber) {
   const isNumeric = /^\d+$/.test(phoneNumber);
 
@@ -12,15 +15,26 @@ function validatePhoneNumber(phoneNumber) {
 
   return true;
 }
+const formatDate = (date) => {
+  const month = date.getMonth() + 1; // Months are zero-based
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  return `${month}-${day}-${year}`;
+};
 const PersonalDetails = () => {
+  const { data, refetch } = useGetUser();
+  const { data: user } = data;
   const dateInputRef = useRef(null);
   const [date, setDate] = useState("Oct 8 ,2022");
-  const [activeGender, setActiveGender] = useState("male");
   const [firstName, setFirstName] = useState("First Name");
   const [LastName, setLastName] = useState("Last Name");
   const [Email, setEmail] = useState("Email");
   const [countryCode, setCountryCode] = useState("+91");
   const [Phone, setPhone] = useState("Mobile Number");
+  const [birthDate, setBirthDate] = useState(null);
+  const [activeGender, setActiveGender] = useState("male");
+
   const [active, setActive] = useState({
     firstName: true,
     lastName: true,
@@ -29,6 +43,12 @@ const PersonalDetails = () => {
     gender: true,
   });
 
+  useEffect(() => {
+    setFirstName(user.first_name);
+    setLastName(user.last_name);
+    setEmail(user.email);
+  }, [user]);
+
   const updateGender = (value) => {
     setActiveGender(value);
   };
@@ -36,7 +56,7 @@ const PersonalDetails = () => {
     dateInputRef.current.showPicker();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let PhoneNumber = countryCode + Phone;
     const isValid = validatePhoneNumber(Phone);
@@ -50,22 +70,57 @@ const PersonalDetails = () => {
     if (firstName === "Email") {
       return toast.error("write your Email");
     }
-    if (
-      firstName === "Mobile Number" ||
-      PhoneNumber.length !== 13 ||
-      !isValid
-    ) {
+    if (!birthDate) {
+      return toast.error("Select your Date of Birth");
+    }
+    if (Phone === "Mobile Number" || PhoneNumber.length !== 13 || !isValid) {
       return toast.error("write your valid contact number");
     }
 
+    const formData = new FormData();
+    formData.append("first_name", firstName);
+    formData.append("last_name", LastName);
+    formData.append("phone", PhoneNumber);
+    formData.append("email", Email);
+    formData.append("gender", activeGender);
+    formData.append("dob", birthDate);
     console.log({
       firstName,
       LastName,
       PhoneNumber,
       Email,
       activeGender,
-      date,
+      birthDate,
     });
+
+    try {
+      const token = localStorage.getItem("jwtToken");
+      const headers = { token };
+
+      const res = await axiosInstance.patch(
+        "profile/update",
+        { data: formData },
+        { headers }
+      );
+
+      console.log(res.data);
+
+      if (res?.data.status) {
+        toast.success(res?.data?.message);
+        refetch();
+        setActive({
+          firstName: true,
+          lastName: true,
+          email: true,
+          phone: true,
+          gender: true,
+        });
+      }
+    } catch (error) {
+      console.log("updateProfileError", error);
+
+      toast.error("Error ");
+    }
   };
 
   return (
@@ -263,13 +318,14 @@ const PersonalDetails = () => {
             </div>
             {/* date select */}
             <div className={styles.dateWrapper} onClick={handleWrapperClick}>
-              <label htmlFor="date">Date</label>
+              <label htmlFor="date">Birth Date</label>
               <p>
                 <span>{date}</span>
 
                 <input
                   ref={dateInputRef}
                   onChange={(e) => {
+                    setBirthDate(e.target.value);
                     const selectedDate = new Date(e.target.value);
                     const options = {
                       month: "long",
