@@ -48,24 +48,26 @@ const AddAppointment = () => {
   const [isToday, setIsToday] = useState(false);
   const givenDateString = dateforService; //
   const givenTimeString = time;
-  console.log(isToday, isPast);
+  // console.log(isToday, isPast);
   useEffect(() => {
     // Get current time
-    const currentTime = new Date();
+    if (givenTimeString) {
+      const currentTime = new Date();
 
-    // Parse the given time
-    const [hours, minutes] = givenTimeString?.split(":")?.map(Number);
-    const givenTime = new Date();
-    givenTime.setHours(hours);
-    givenTime.setMinutes(minutes);
-    givenTime.setSeconds(0);
-    givenTime.setMilliseconds(0);
+      // Parse the given time
+      const [hours, minutes] = givenTimeString?.split(":")?.map(Number);
+      const givenTime = new Date();
+      givenTime.setHours(hours);
+      givenTime.setMinutes(minutes);
+      givenTime.setSeconds(0);
+      givenTime.setMilliseconds(0);
 
-    // Compare times
-    if (currentTime > givenTime) {
-      setIsPast(true);
-    } else {
-      setIsPast(false);
+      // Compare times
+      if (currentTime > givenTime) {
+        setIsPast(true);
+      } else {
+        setIsPast(false);
+      }
     }
   }, [givenTimeString]);
 

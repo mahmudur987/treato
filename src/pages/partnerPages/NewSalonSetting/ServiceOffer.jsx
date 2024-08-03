@@ -112,7 +112,7 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
 
     // console.log("uniqueDataArray", uniqueDataArray);
   }, [salonData]);
-  console.log(serviceNames);
+
   return (
     <div>
       <div className={sty.collapseForSmallScreen}>
@@ -140,7 +140,10 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
             <div className={sty.gridContainer}>
               {serviceNames?.map((v, i) => {
                 return (
-                  <div key={i} className={sty.offerDiv}>
+                  <div
+                    key={i}
+                    className={i === 1 ? sty.selectedServiceDiv : sty.offerDiv}
+                  >
                     {v?.service_name}
                   </div>
                 );
