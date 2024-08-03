@@ -39,7 +39,7 @@ const AppointmentCard = ({ salon, cardType }) => {
     
     dispatch(openModal({ type: `${buttonType}`, closable: true, data: salon }));
   };
-  console.log(salon);
+  // console.log(salon);
 
   return (
     <div className={styles.cardWrapper}>
@@ -70,7 +70,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                   <p>
                     <span>{formatDate(salon?.start_date)}</span>
                     <span>at</span>
-                    <span> {salon.time}</span>
+                    <span> {salon.bookingTime}</span>
                   </p>
                   <button
                     onClick={() => settoggleDetails(!toggleDetails)}

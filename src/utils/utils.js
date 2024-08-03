@@ -185,6 +185,7 @@ export const getfilterSalon = async(userDetails,fetchType,serviceName,salonlocat
 
 export const getfilterSalonByServiceLatLng = async(userDetails,fetchType,serviceName,salonlocation,locationLat,locationLng) =>  {
   let result;
+  console.log("i am here")
   if(fetchType==="searchBase"){
   result = await getSalonListByServiceLocation(serviceName,locationLat,locationLng);
   }

@@ -26,6 +26,7 @@ export const getSalonListByServiceLocation = async (
   locationLat,
   locationLng
 ) => {
+  console.log("hello data");
   try {
     const res = await axiosInstance.get(
       `salon/getSalonByLatLngService?service=${serviceName}&latitude=${locationLat}&longitude=${locationLng}`
