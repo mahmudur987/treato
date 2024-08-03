@@ -6,28 +6,6 @@
   gap: 30px;
 }
 
-.usr_detail_head {
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  flex-direction: column;
-}
-.usr_detail_head h1 {
-  color: #08090a;
-  font-family: Poppins;
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 42px;
-  text-align: left;
-}
-.usr_detail_head p {
-  font-family: Lato;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 30px;
-  letter-spacing: 0.01em;
-  text-align: left;
-  color: #2e3032;
-}
 .Heading1 {
   color: #08090a;
   font-family: Poppins;
@@ -123,16 +101,12 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .usr_detail_head {
-    display: flex;
-    font-size: 33px;
-  }
   .usr_detail_body {
     flex-direction: column;
-    width: 70%;
+    width: 90%;
   }
   .textarea {
-    width: 70%;
+    width: 90%;
   }
   .usr_detail_edit_text {
     position: absolute;

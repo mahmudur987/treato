@@ -43,7 +43,7 @@ const PartnerPageLayout = () => {
     navigate("/partner"); // Redirect only after user data is loaded
     return null; // Return null to prevent rendering the main content
   }
-  console.log(isNewSalonSettingPage);
+
   return (
     <>
       {isNewSalonSettingPage ? (

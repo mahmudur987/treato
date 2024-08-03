@@ -7,13 +7,6 @@ const BasicDetailsPartner = ({ salonData, handleChange }) => {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.usr_detail_head}>
-          <h1>Set up your account</h1>
-          <p>
-            Tell us about your business. You can always edit the details later.
-          </p>
-        </div>
-
         <div className={styles.from}>
           <h2 className={styles.Heading1}>Basic Details</h2>
           <div className={styles.usr_detail_body}>

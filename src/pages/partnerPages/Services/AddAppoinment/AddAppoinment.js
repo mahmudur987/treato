@@ -7,7 +7,9 @@ import { useSingleSalon } from "../../../../services/salon";
 import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
 import Loader from "../../../../components/LoadSpinner/Loader";
+
 export const AddAppointmentContext = createContext();
+
 export function formatDate(dateString) {
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -15,6 +17,7 @@ export function formatDate(dateString) {
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
+
 const AddAppointment = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -27,34 +30,35 @@ const AddAppointment = () => {
   const [comments, setcomments] = useState("");
   const { name, email, phone } = customerDetails;
   const { service_id, time, dateforService, additionalComments } =
-    servicesDetails;
+    servicesDetails || {};
   const { data, isLoading, isError, error } = useSingleSalon();
 
-  const teamMembers = data?.salon?.stylists.map((x) => {
-    return {
-      name: x.stylist_name,
-      imageUrl: x.stylist_Img.public_url,
-      id: x._id,
-    };
-  });
+  const teamMembers =
+    data?.salon?.stylists?.map((x) => {
+      return {
+        name: x.stylist_name,
+        imageUrl: x.stylist_Img.public_url,
+        id: x._id,
+      };
+    }) || [];
+
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
   const [SelectedTeamMember, setSelectedTeamMember] = useState({});
 
   useEffect(() => {
-    setSelectedTeamMember(teamMembers ? teamMembers[0] : "");
+    if (teamMembers.length > 0) {
+      setSelectedTeamMember(teamMembers.length > 0 ? teamMembers[0] : {});
+    }
   }, [data]);
+
   const [isPast, setIsPast] = useState(false);
   const [isToday, setIsToday] = useState(false);
-  const givenDateString = dateforService; //
+  const givenDateString = dateforService || null;
   const givenTimeString = time;
-  // console.log(isToday, isPast);
   useEffect(() => {
-    // Get current time
     if (givenTimeString) {
       const currentTime = new Date();
-
-      // Parse the given time
       const [hours, minutes] = givenTimeString?.split(":")?.map(Number);
       const givenTime = new Date();
       givenTime.setHours(hours);
@@ -62,7 +66,6 @@ const AddAppointment = () => {
       givenTime.setSeconds(0);
       givenTime.setMilliseconds(0);
 
-      // Compare times
       if (currentTime > givenTime) {
         setIsPast(true);
       } else {
@@ -73,12 +76,8 @@ const AddAppointment = () => {
 
   useEffect(() => {
     if (givenDateString) {
-      // Get current date
       const currentDate = new Date();
-
-      // Parse the given date
       const parts = givenDateString?.split(",");
-
       const day = parseInt(parts[0]?.split(" ")[1]);
       const monthString = parts[0]?.split(" ")[0].slice(0, 3);
       const months = [
@@ -103,7 +102,6 @@ const AddAppointment = () => {
         parseInt(day)
       );
 
-      // Compare dates
       if (
         currentDate.getDate() === givenDate.getDate() &&
         currentDate.getMonth() === givenDate.getMonth() &&
@@ -120,7 +118,7 @@ const AddAppointment = () => {
     if (!dateforService) {
       return toast.error("select date ");
     }
-    if (service_id.length === 0) {
+    if (!service_id || service_id.length === 0) {
       return toast.error("select services ");
     }
     if (!time) {
@@ -138,7 +136,6 @@ const AddAppointment = () => {
     if (!phone) {
       return toast.error("customer phone not available in Database");
     }
-
     if (!price) {
       return toast.error("select price ");
     }
@@ -159,7 +156,6 @@ const AddAppointment = () => {
     };
 
     setLoading(true);
-    // console.log(newdata);
 
     try {
       const headers = {
@@ -175,9 +171,7 @@ const AddAppointment = () => {
       toast.success(
         data ? data.message : "A New Appointment Has Been Added Successfully "
       );
-      console.log(data);
     } catch (error) {
-      console.log("error", error);
       toast.error(error ? error.message : "Failed");
     }
     setLoading(false);
@@ -186,6 +180,7 @@ const AddAppointment = () => {
   const handleCancel = () => {
     window.location.reload();
   };
+
   return (
     <AddAppointmentContext.Provider
       value={{
