@@ -11,39 +11,38 @@ import NoDataDisplay from "../../../NodataToDisplay/NoDataDisplay";
 
 const ClientsDetails = () => {
   const {
-    teamMembers,
-    SelectedTeamMember,
-    setSelectedTeamMember,
     price,
     setPrice,
     discount,
     setDiscount,
     setCustomerDetails,
-    isError: teamIsError,
-    error: teamError,
-    comments,
-    setcomments,
+    setComments,
   } = useContext(AddAppointmentContext);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
   const { data, isLoading, isError, error } = useGetClients();
-  const clients = data?.data;
-  const [selectedClient, setSelectedClient] = useState(
-    clients
-      ? clients[0]
-      : {
-          name: "please select ",
-        }
+  const contacts = data?.data;
+  const [selectedClient, setSelectedClient] = useState({
+    name: "No Clients ",
+  });
+
+  const clients = contacts.filter(
+    (contact) =>
+      contact.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      contact.phone.includes(searchText) ||
+      contact.email.toLowerCase().includes(searchText.toLowerCase())
   );
-  // console.log(data);
-  const handleSelectTeamMember = (value) => {
-    setSelectedTeamMember(value);
-  };
+  useEffect(() => {
+    if (clients.length > 0) {
+      setSelectedClient(clients[0]);
+    }
+  }, [clients]);
+
   const handleSelectClient = (value) => {
     setSelectedClient(value);
     setCustomerDetails(value);
   };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -56,7 +55,7 @@ const ClientsDetails = () => {
   return (
     <section className={styles.mainContainer}>
       <div className={styles.container}>
-        <h3 className={styles.heding}>Client Details</h3>
+        <h3 className={styles.heading}>Client Details</h3>
         {/* Select an existing client */}
         <div className={styles.existingClient}>
           <label htmlFor="">Select an existing client</label>
@@ -65,6 +64,7 @@ const ClientsDetails = () => {
               options={clients}
               value={selectedClient}
               onChange={handleSelectClient}
+              setSearchText={setSearchText}
             />
           ) : (
             <ErrorComponent message={error?.message} />
@@ -147,7 +147,7 @@ const ClientsDetails = () => {
             Additional comments <span>(optional)</span>
           </label>
           <textarea
-            onChange={(e) => setcomments(e.target.value)}
+            onChange={(e) => setComments(e.target.value)}
             name=""
             id=""
             cols="30"

@@ -27,7 +27,7 @@ const AddAppointment = () => {
     name: "",
     email: "",
   });
-  const [comments, setcomments] = useState("");
+  const [comments, setComments] = useState("");
   const { name, email, phone } = customerDetails;
   const { service_id, time, dateforService, additionalComments } =
     servicesDetails || {};
@@ -197,7 +197,7 @@ const AddAppointment = () => {
         isError,
         error,
         comments,
-        setcomments,
+        setComments,
       }}
     >
       <main className={styles.mainContainer}>
