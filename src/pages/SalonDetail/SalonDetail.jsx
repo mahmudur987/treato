@@ -41,6 +41,11 @@ export default function SalonDetail() {
           }
         });
       }
+
+      if (err) {
+        console.log("salon details fetching error");
+      }
+
       setLoading(false);
     };
     SalonDataFunc();
@@ -134,8 +139,8 @@ export default function SalonDetail() {
             <div>Closed</div>
             <img src={ellipse} alt="" />
             <div>
-              Opens {SalonData?.working_hours[0].opening_time}{" "}
-              {SalonData?.working_hours[0].day}
+              Opens {SalonData?.working_hours[0]?.opening_time}{" "}
+              {SalonData?.working_hours[0]?.day}
             </div>
           </div>
         </div>
