@@ -123,25 +123,24 @@ const VerifyOTP = (props) => {
             res?.res?.data.message === "User Information Saved Successfully"
           ) {
             localStorage.setItem("jwtToken", res?.res?.data.token);
-            getUserProfile(res?.res?.data.token).then((res) => {
-              const user = res?.res?.data?.data;
-              if (user?.role === "partner") {
-                navigate("/partner/dashboard/personalDetails")
-                  .then((res) => console.log(res.res))
-                  .catch((err) => console.error(err));
+            getUserProfile(res?.res?.data.token)
+              .then((res) => {
+                const user = res?.res?.data?.data;
 
-                navigate("/partner/dashboard/PartnerAccountSetting");
-              }
-              dispatch(updateIsLoggedIn(true));
-              dispatch(updateUserDetails(res?.res?.data?.data));
-              dispatch(updateOTP(0));
+                dispatch(updateIsLoggedIn(true));
+                dispatch(updateUserDetails(res?.res?.data?.data));
+                dispatch(updateOTP(0));
 
-              toast("Welcome to Treato! Start exploring now!");
-              localStorage.removeItem("requiredRegisterData");
-              if (user?.role !== "partner") {
-                navigate("/");
-              }
-            });
+                toast("Welcome to Treato! Start exploring now!");
+                localStorage.removeItem("requiredRegisterData");
+                if (user?.role === "partner") {
+                  navigate("/partner/dashboard/personalDetails");
+                }
+                if (user?.role !== "partner") {
+                  navigate("/");
+                }
+              })
+              .catch((err) => console.error("GetUserProfile error", err));
             //TODO:need to add user data in localStorage
           } else {
             setOTPerror(true);

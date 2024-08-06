@@ -177,13 +177,19 @@ const LoginPage = () => {
         // Make a request to your backend API
         google_Login(access_token, role).then((res) => {
           if (res?.res?.data && res?.res.status === 200) {
+            const user = res?.res?.data?.data;
             dispatch(updateIsLoggedIn(true));
             dispatch(
               updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
             );
             localStorage.setItem("jwtToken", res?.res?.data?.token);
-            navigate("/");
             toast("Welcome to Treato! Start exploring now!");
+            if (user?.role === "partner") {
+              navigate("/partner/dashboard");
+            }
+            if (user?.role !== "partner") {
+              navigate("/");
+            }
           } else {
             toast.error(`An unexpected error occurred. Please try again.`);
           }
