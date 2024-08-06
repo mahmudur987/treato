@@ -37,7 +37,7 @@ const TopSalons = (props) => {
       }
       setTopSalonData(filterResult);
     }
-  }, [salonsState]);
+  }, [salonsState, props, userDetails]);
   const trSalonBoxRef = useRef(null);
 
   const handle_trScrollRight = () => {
@@ -82,7 +82,7 @@ const TopSalons = (props) => {
     return () => {
       carouselRef?.current?.removeEventListener("scroll", handleScroll);
     };
-  }, [topSalonData, salon, userDetails]);
+  }, [topSalonData, userDetails]);
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
   function reportWindowSize() {
     let winWidth = window.innerWidth;
@@ -97,7 +97,11 @@ const TopSalons = (props) => {
             {winWidthMain <= 768 ? (
               <div className={styles["trMobHeading"]}>
                 <h3>{props.heading}</h3>
-                <img src={scrollright} className={styles.mobScrollRight} />
+                <img
+                  src={scrollright}
+                  className={styles.mobScrollRight}
+                  alt="salon images"
+                />
               </div>
             ) : (
               <Title>{props.heading}</Title>
@@ -114,7 +118,7 @@ const TopSalons = (props) => {
               />
             )}
             <div ref={carouselRef} className={styles["trWrapper"]}>
-              {topSalonData.length ? (
+              {topSalonData.length > 0 ? (
                 topSalonData.map((salon, index) => (
                   <Salon salonData={salon} place={"homePage"} key={index} />
                 ))

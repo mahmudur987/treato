@@ -37,7 +37,7 @@ const Salon = ({ salonData, place }) => {
     }
     return null;
   });
-
+  console.log(salonData);
   return (
     <>
       <div
@@ -72,7 +72,9 @@ const Salon = ({ salonData, place }) => {
             {salonData.total_rating} ratings)
           </h4>
           {userDetails?.user.isLocationAllow && (
-            <h4 className={styles.location}>{salonData?.locationText}</h4>
+            <h4 className={styles.location}>
+              {salonData?.location_details?.location}
+            </h4>
           )}
         </div>
         {place !== "homePage" ? (

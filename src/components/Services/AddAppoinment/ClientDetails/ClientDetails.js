@@ -27,14 +27,14 @@ const ClientsDetails = () => {
     name: "No Clients ",
   });
 
-  const clients = contacts.filter(
+  const clients = contacts?.filter(
     (contact) =>
       contact.name.toLowerCase().includes(searchText.toLowerCase()) ||
       contact.phone.includes(searchText) ||
       contact.email.toLowerCase().includes(searchText.toLowerCase())
   );
   useEffect(() => {
-    if (clients.length > 0) {
+    if (clients?.length > 0) {
       setSelectedClient(clients[0]);
     }
   }, [clients]);
