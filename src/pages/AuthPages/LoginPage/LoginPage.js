@@ -115,6 +115,7 @@ const LoginPage = () => {
           }
           (async () => {
             const profileResponse = await getUserProfile(res?.res.data.token);
+            console.log(profileResponse);
             if (profileResponse?.res.status === 200) {
               const profileData = profileResponse?.res?.data?.data;
               delete Object.assign(profileData, {

@@ -37,7 +37,7 @@ const Salon = ({ salonData, place }) => {
     }
     return null;
   });
-  console.log(salonData);
+  // console.log(salonData);
   return (
     <>
       <div
