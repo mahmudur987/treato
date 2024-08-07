@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styles from "./SalonMain.module.css";
 import SalonReview from "../SalonReview/SalonReview";
 import SalonTeam from "../SalonTeam/SalonTeam";
@@ -11,82 +11,104 @@ export default function SalonServices({
   addServices,
   addedServices,
 }) {
-  let [activeSalon, updateActiveSalon] = useState(1);
+  const [activeSalon, updateActiveSalon] = useState(1);
   const [sameTimingDays, setSameTimingDays] = useState(null);
   const [difTimingDays, setDifTimingDays] = useState(null);
-  useEffect(() => {
-    let workingHours = SalonData?.working_hours;
 
-    let SameTimingDays = [];
-    let difTimingDays = [];
-    let cal = workingHours?.map((e, i) => {
-      if (i === 0) {
-        SameTimingDays.push({ ...e, i });
-        return;
-      }
-      if (
-        e?.opening_time ===
-          SameTimingDays[SameTimingDays?.length - 1]?.opening_time &&
-        e?.closing_time ===
-          SameTimingDays[SameTimingDays?.length - 1]?.closing_time
-      ) {
+  const aboutRef = useRef(null);
+  const servicesRef = useRef(null);
+  const offersRef = useRef(null);
+  const teamRef = useRef(null);
+  const reviewRef = useRef(null);
+
+  useEffect(() => {
+    const workingHours = SalonData?.working_hours;
+
+    const SameTimingDays = [];
+    const difTimingDays = [];
+    workingHours?.forEach((e, i) => {
+      if (i === 0 || 
+          (e.opening_time === SameTimingDays[SameTimingDays.length - 1]?.opening_time &&
+          e.closing_time === SameTimingDays[SameTimingDays.length - 1]?.closing_time)) {
         SameTimingDays.push({ ...e, i });
       } else {
         difTimingDays.push({ ...e, i });
       }
     });
+
     setSameTimingDays(SameTimingDays);
     setDifTimingDays(difTimingDays);
   }, [SalonData]);
+
+  const handleScrollToSection = (ref, index) => {
+    updateActiveSalon(index);
+    const offset = 100; 
+    const bodyRect = document.body.getBoundingClientRect().top;
+    const elementRect = ref.current.getBoundingClientRect().top;
+    const elementPosition = elementRect - bodyRect;
+    const offsetPosition = elementPosition - offset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth"
+    });
+  };
 
   return (
     <div className={styles.salon_main}>
       <div className={styles.salon_options}>
         <ul>
-          <a href="#services" onClick={() => updateActiveSalon(1)}>
-            <li className={activeSalon === 1 ? styles.active_salon_option : ""}>
-              Services
-            </li>
-          </a>
-          <a href="#about" onClick={() => updateActiveSalon(2)}>
-            <li className={activeSalon === 2 ? styles.active_salon_option : ""}>
-              About
-            </li>
-          </a>
-          <a href="#offers" onClick={() => updateActiveSalon(3)}>
-            <li className={activeSalon === 3 ? styles.active_salon_option : ""}>
-              Offers & Benefits
-            </li>
-          </a>
-          <a href="#team" onClick={() => updateActiveSalon(4)}>
-            <li className={activeSalon === 4 ? styles.active_salon_option : ""}>
-              Team
-            </li>
-          </a>
-          <a href="#review" onClick={() => updateActiveSalon(5)}>
-            <li className={activeSalon === 5 ? styles.active_salon_option : ""}>
-              Reviews
-            </li>
-          </a>
+          <li
+            className={activeSalon === 1 ? styles.active_salon_option : ""}
+            onClick={() => handleScrollToSection(servicesRef, 1)}
+          >
+            Services
+          </li>
+          <li
+            className={activeSalon === 2 ? styles.active_salon_option : ""}
+            onClick={() => handleScrollToSection(aboutRef, 2)}
+          >
+            About
+          </li>
+          <li
+            className={activeSalon === 3 ? styles.active_salon_option : ""}
+            onClick={() => handleScrollToSection(offersRef, 3)}
+          >
+            Offers & Benefits
+          </li>
+          <li
+            className={activeSalon === 4 ? styles.active_salon_option : ""}
+            onClick={() => handleScrollToSection(teamRef, 4)}
+          >
+            Team
+          </li>
+          <li
+            className={activeSalon === 5 ? styles.active_salon_option : ""}
+            onClick={() => handleScrollToSection(reviewRef, 5)}
+          >
+            Reviews
+          </li>
         </ul>
       </div>
 
-      {SalonData?.services.length > 0 &&
-        SalonData?.services?.map((x, y) => {
-          if (x.mainCategories.length > 0) {
-            return (
-              <SalonServiceMain
-                key={y}
-                data={x}
-                addServices={addServices}
-                addedServices={addedServices}
-              />
-            );
-          }
-          return null;
-        })}
+      <div ref={servicesRef}>
+        {SalonData?.services.length > 0 &&
+          SalonData.services.map((x, y) => {
+            if (x.mainCategories.length > 0) {
+              return (
+                <SalonServiceMain
+                  key={y}
+                  data={x}
+                  addServices={addServices}
+                  addedServices={addedServices}
+                />
+              );
+            }
+            return null;
+          })}
+      </div>
 
-      <div id="about" className={styles.salon_sections}>
+      <div id="about" ref={aboutRef} className={styles.salon_sections}>
         <div>
           <span className={styles.salon_section_title}>About</span>
           <div className={styles.salon_section_main}>
@@ -95,7 +117,7 @@ export default function SalonServices({
             </div>
             <div className={styles.salon_aboutB}>
               <div className={styles.salon_aboutBA}>Store timings</div>
-              {difTimingDays?.length && (
+              {sameTimingDays?.length && (
                 <div
                   className={`${styles.salon_aboutBC} ${styles.salonTimings}`}
                 >
@@ -108,7 +130,7 @@ export default function SalonServices({
                 </div>
               )}
               {difTimingDays?.length &&
-                difTimingDays?.map((v, i) => (
+                difTimingDays.map((v, i) => (
                   <div
                     className={`${styles.salon_aboutBC} ${styles.salonTimings}`}
                     key={i}
@@ -129,37 +151,37 @@ export default function SalonServices({
           </div>
         </div>
       </div>
-      <div id="offers" className={styles.salon_sections}>
+      <div id="offers" ref={offersRef} className={styles.salon_sections}>
         <div>
           <span className={styles.salon_section_title}>Offers & Benefits</span>
           <div className={styles.salon_section_main}>
             <div className={styles.salon_offersA}>
-              {SalonData?.salon_offers?.map((v, i) => {
-                return <SalonOffers offerData={v} key={i} />;
-              })}
+              {SalonData?.salon_offers?.map((v, i) => (
+                <SalonOffers offerData={v} key={i} />
+              ))}
             </div>
           </div>
         </div>
       </div>
-      <div id="team" className={styles.salon_sections}>
+      <div id="team" ref={teamRef} className={styles.salon_sections}>
         <div>
           <span className={styles.salon_section_title}>Meet the team</span>
           <div className={styles.salon_section_main}>
             <div className={styles.salon_teamA}>
-              {SalonData?.stylists?.map((v, i) => {
-                return <SalonTeam stylistData={v} key={i} />;
-              })}
+              {SalonData?.stylists?.map((v, i) => (
+                <SalonTeam stylistData={v} key={i} />
+              ))}
             </div>
           </div>
         </div>
       </div>
-      <div id="review" className={styles.salon_sections}>
+      <div id="review" ref={reviewRef} className={styles.salon_sections}>
         <div>
           <span className={styles.salon_section_title}>Reviews</span>
           <div className={styles.salon_section_main}>
-            {SalonData?.reviews?.map((v, i) => {
-              return <SalonReview reviewData={v} key={i} />;
-            })}
+            {SalonData?.reviews?.map((v, i) => (
+              <SalonReview reviewData={v} key={i} />
+            ))}
           </div>
         </div>
       </div>

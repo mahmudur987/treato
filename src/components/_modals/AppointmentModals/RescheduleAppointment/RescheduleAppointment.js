@@ -89,7 +89,7 @@ const RescheduleAppointment = ({ data }) => {
     noPreference: data?.noPreference,
     dateforService: date,
   };
-
+console.log(useTimeSlots(genarateSlotsData))
   const {
     data: slots,
     isLoading,
@@ -110,7 +110,7 @@ const RescheduleAppointment = ({ data }) => {
       String(selectedDate.date).padStart(2, "0");
     setDate(fullDate);
   }, [showMonth, showYear, selectedDate]);
-  console.log(genarateSlotsData);
+  // console.log(genarateSlotsData);
   const generateAllowedMonths = () => {
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
