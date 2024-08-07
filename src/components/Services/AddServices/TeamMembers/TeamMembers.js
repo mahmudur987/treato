@@ -111,17 +111,17 @@ const CheckBoxComponent = ({ setTeamMember }) => {
             {filteredPeople.map((person) => (
               <div className={styles.stylistBox}>
                 <label key={person.name} className={styles.people}>
-                <input
-                  type="checkbox"
-                  onChange={() => handleCheckboxChange(person.id)}
-                  checked={selectedCheckboxes.includes(person.id)}
-                />
+                  <input
+                    type="checkbox"
+                    onChange={() => handleCheckboxChange(person.id)}
+                    checked={selectedCheckboxes.includes(person.id)}
+                  />
 
-                <p>
-                  <img src={person.avatar ?? img1} alt="" />
-                  <span>{person.name}</span>
-                </p>
-              </label>
+                  <p>
+                    <img src={person.avatar ?? img1} alt="" />
+                    <span>{person.name}</span>
+                  </p>
+                </label>
               </div>
             ))}
           </div>
@@ -139,8 +139,37 @@ const SchedulingCheckBox = ({ setdays }) => {
   const [closeTime, setCloseTime] = useState("08:00");
   const allDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  const { data } = useGetSlots();
-  const slots = data?.slotsPerDay[0].slots;
+  // const { data } = useGetSlots();
+  const slots = [
+    "08:00",
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
+    "18:30",
+    "19:00",
+    "19:30",
+    "20:00",
+    "20:30",
+    "21:00",
+    "21:30",
+  ];
   const handleDayClick = (day) => {
     const updatedDays = selectedDays.includes(day)
       ? selectedDays.filter((selectedDay) => selectedDay !== day)
@@ -210,23 +239,6 @@ const SchedulingCheckBox = ({ setdays }) => {
                     </option>
                   ))}
               </select>
-              {/* <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span> */}
             </div>
           </div>
 
