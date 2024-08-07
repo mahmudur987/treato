@@ -10,6 +10,7 @@ import { useSingleSalon } from "../../../services/salon";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
 import { toast } from "react-toastify";
+import { getReadableAddress } from "../../../utils/getReadAbleAddress";
 
 const Business = () => {
   const { data, isLoading, isError, error, refetch } = useSingleSalon();
@@ -52,6 +53,25 @@ const Business = () => {
     zoom: 10,
   });
 
+  useEffect(() => {
+    if (position) {
+      getReadableAddress(position.lat, position.lng)
+        .then((res) => {
+          const parts = res.split(", ");
+          const newAddress = parts.slice(1).join(", ");
+
+          setSalonData({
+            ...salonData,
+            salons_address: newAddress,
+            locationText: newAddress,
+          });
+        })
+        .catch((error) => {
+          console.error("readable address error", error);
+        });
+    }
+  }, [position]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const submitData = {
@@ -70,8 +90,8 @@ const Business = () => {
         type: "Point",
         coordinates: [position.lat, position.lng],
       },
+      locationText: salonData.locationText,
     };
-    console.log(submitData);
     dispatch(adminBasicDetails(submitData));
     refetch();
     if (!updateError) {
