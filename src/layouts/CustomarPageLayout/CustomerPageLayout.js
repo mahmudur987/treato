@@ -31,20 +31,11 @@ export default function CustomerPageLayout() {
   const isServicePage = location.pathname.startsWith("/partner/dashboard");
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    if (user.role === "partner") {
-      navigate("/partner/dashboard");
-    }
-  }, [user]);
-  useEffect(() => {
-    if (user.role === "super") {
-      navigate("/admin");
-    }
-  }, [user]);
-
+  console.log(user);
   if (user.role === "partner") {
     return navigate("/partner/dashboard");
+  } else if (user.role === "super") {
+    navigate("/admin");
   } else {
     return (
       <div>
@@ -52,7 +43,7 @@ export default function CustomerPageLayout() {
         {/* <ModalManager /> */}
         {showModal && !isMobileView && <SalonFilterModalDesktop />}
         {showModal && isMobileView && <SalonFilterModalMobile />}
-        <Chatbot/>
+        <Chatbot />
         <Outlet />
         {!isMyAppointmentsRoute && !isServicePage && !isSpecialPage && (
           <Footer />

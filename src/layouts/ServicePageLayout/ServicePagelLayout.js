@@ -14,7 +14,7 @@ const PartnerPageLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { user } = useSelector((state) => state.user);
+  const { user, newPartner } = useSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(true); // Start with loading state
   const dispatch = useDispatch();
 
@@ -26,14 +26,14 @@ const PartnerPageLayout = () => {
     if (isTokenExist) {
       getUserProfile(isTokenExist).then((res) => {
         dispatch(updateIsLoggedIn(true));
-        dispatch(updateUserDetails(res?.res?.data?.data));
+        dispatch(updateUserDetails(res?.res?.data));
         setIsLoading(false); // Set loading to false once user data is fetched
       });
     } else {
       setIsLoading(false); // Set loading to false if no token is found
     }
   }, []);
-
+  console.log(newPartner);
   if (isLoading) {
     return <LoadSpinner />;
   }

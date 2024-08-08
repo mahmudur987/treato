@@ -12,6 +12,10 @@ const initialState = {
   },
   OTP: 0,
   tempLoginInfo: {},
+  newPartner: {
+    emptyMandatoryFields: [],
+    isProfileComplete: false,
+  },
 };
 
 const user = createSlice({
@@ -22,10 +26,13 @@ const user = createSlice({
       state.isLoggedIn = payload;
     },
     updateUserDetails: (state, { payload }) => {
-      state.user = { ...state.user, ...payload };
+      // console.log(payload);
+      state.user = { ...state.user, ...payload?.data };
+      state.newPartner.isProfileComplete = payload?.isProfileComplete;
+      state.newPartner.emptyMandatoryFields = payload.emptyMandatoryFields;
       state.toggle = !state.toggle;
     },
-   
+
     resetUserDetails: (state, { payload }) => {
       state.user = { ...payload };
     },

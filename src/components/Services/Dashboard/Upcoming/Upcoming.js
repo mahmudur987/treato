@@ -58,7 +58,7 @@ const Upcoming = () => {
       const { data } = await axiosInstance("sales/upcomingAppointments", {
         headers,
       });
-      console.log(data)
+      // console.log(data)
       return data;
     },
   });
@@ -122,9 +122,7 @@ const Upcoming = () => {
                           {item?.time}-{addedTime} (
                           {item.serviceData?.time_takenby_service})
                         </td>
-                        <td className={styles.row}>
-                          {item?.paymentMode}
-                        </td>
+                        <td className={styles.row}>{item?.paymentMode}</td>
                         <td className={styles.row}>
                           {item?.userData?.name ? item?.userData?.name : "N/A"}
                         </td>

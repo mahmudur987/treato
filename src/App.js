@@ -138,7 +138,7 @@ function App() {
     if (isTokenExist) {
       getUserProfile(isTokenExist).then((res) => {
         dispatch(updateIsLoggedIn(true));
-        dispatch(updateUserDetails(res?.res?.data?.data));
+        dispatch(updateUserDetails(res?.res?.data));
       });
     }
   }, []);
