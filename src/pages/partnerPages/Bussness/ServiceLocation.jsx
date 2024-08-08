@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-import mapImg from "../../../assets/images/partner/Screenshot 2023-08-07 at 2.01 1.png";
 import styles from "./ServiceLocation.module.css";
 import BasicInputs from "../Input/BasicInputs";
 import map from "../../../assets/images/partner/partnerSetting/Input_Field_Icons.png";
 import CollaseIcon from "../../../assets/images/TeamDetails/chevron-down.png";
-import { GoogleMap, Marker } from "@react-google-maps/api";
 import PartnerLocationMap from "./Map/PartnerLocationMap";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
-import { toast } from "react-toastify";
+
 const ServiceLocation = ({
   setSalonData,
   salonData,
@@ -80,7 +78,6 @@ const ServiceLocation = ({
         };
         updateDefaultProps(defaultProps);
         setPosition({ lat, lng });
-        console.log("📍 Coordinates: ", { lat, lng });
       });
     };
 
@@ -104,7 +101,6 @@ const ServiceLocation = ({
   };
   const handleSearch = async (e) => {
     setSalonData({ ...salonData, location: e.target.value });
-    console.log(e.target.value);
     setValue(e.target.value);
     getGeocode({ address: e.target.value })
       .then((results) => {
@@ -118,6 +114,7 @@ const ServiceLocation = ({
           zoom: 10,
         };
         updateDefaultProps(defaultProps);
+
         setPosition({ lat, lng });
       })
       .catch((err) => console.log("geocode Error", err));

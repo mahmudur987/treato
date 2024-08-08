@@ -19,7 +19,6 @@ export const getReadableAddress = async (lat, lng) => {
       throw new Error("Failed to fetch address");
     }
   } catch (error) {
-    console.error(error);
     return "Unknown location";
   }
 };
