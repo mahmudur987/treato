@@ -125,18 +125,23 @@ const VerifyOTP = (props) => {
             localStorage.setItem("jwtToken", res?.res?.data.token);
             getUserProfile(res?.res?.data.token)
               .then((res) => {
-                const user = res?.res?.data?.data;
+                const user = res?.res?.data;
 
                 dispatch(updateIsLoggedIn(true));
-                dispatch(updateUserDetails(res?.res?.data?.data));
+                dispatch(updateUserDetails(user));
                 dispatch(updateOTP(0));
 
                 toast("Welcome to Treato! Start exploring now!");
                 localStorage.removeItem("requiredRegisterData");
-                if (user?.role === "partner") {
+                if (user?.data?.role === "partner") {
                   navigate("/partner/dashboard/personalDetails");
+                } else if (
+                  user?.data?.role === "partner" &&
+                  !user?.isProfileComplete
+                ) {
+                  navigate("/partner/dashboard/newSalonSetting");
                 }
-                if (user?.role !== "partner") {
+                if (user?.data?.role !== "partner") {
                   navigate("/");
                 }
               })

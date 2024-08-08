@@ -117,16 +117,22 @@ const LoginPage = () => {
             const profileResponse = await getUserProfile(res?.res.data.token);
             console.log(profileResponse);
             if (profileResponse?.res.status === 200) {
-              const profileData = profileResponse?.res?.data?.data;
+              const profileData = profileResponse?.res?.data;
               delete Object.assign(profileData, {
                 ["place"]: profileData["location"],
               })["location"];
               // localStorage.setItem("userData", JSON.stringify(profileData));
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(profileData));
-              if (profileData.role === "super") {
+              console.log(profileData);
+              if (profileData?.data.role === "super") {
                 navigate("/admin");
-              } else if (userChoice.role.role === "partner") {
+              } else if (
+                profileData?.data?.role === "partner" &&
+                !profileData?.isProfileComplete
+              ) {
+                navigate("/partner/dashboard/newSalonSetting");
+              } else if (profileData?.data?.role === "partner") {
                 navigate("/partner/dashboard");
               } else {
                 navigate("/");
@@ -178,17 +184,16 @@ const LoginPage = () => {
         // Make a request to your backend API
         google_Login(access_token, role).then((res) => {
           if (res?.res?.data && res?.res.status === 200) {
-            const user = res?.res?.data?.data;
+            const user = res?.res?.data;
             dispatch(updateIsLoggedIn(true));
-            dispatch(
-              updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
-            );
+            dispatch(updateUserDetails(user));
             localStorage.setItem("jwtToken", res?.res?.data?.token);
             toast("Welcome to Treato! Start exploring now!");
-            if (user?.role === "partner") {
+            if (user?.data?.role === "partner" && !user?.isProfileComplete) {
+              navigate("/partner/dashboard/newSalonSetting");
+            } else if (user?.data?.role === "partner") {
               navigate("/partner/dashboard");
-            }
-            if (user?.role !== "partner") {
+            } else if (user?.data?.role !== "partner") {
               navigate("/");
             }
           } else {

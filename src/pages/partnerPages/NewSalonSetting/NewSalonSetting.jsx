@@ -58,7 +58,7 @@ const NewSalonSetting = () => {
       setPcScreen(true);
     }
   };
-  console.log(PcScreen);
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {

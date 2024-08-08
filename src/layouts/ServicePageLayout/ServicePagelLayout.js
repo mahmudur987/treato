@@ -13,11 +13,9 @@ import { updateIsLoggedIn, updateUserDetails } from "../../redux/slices/user";
 const PartnerPageLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const { user, newPartner } = useSelector((state) => state.user);
-  const [isLoading, setIsLoading] = useState(true); // Start with loading state
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-
   const isNewSalonSettingPage =
     location.pathname === "/partner/dashboard/newSalonSetting";
 
@@ -27,21 +25,26 @@ const PartnerPageLayout = () => {
       getUserProfile(isTokenExist).then((res) => {
         dispatch(updateIsLoggedIn(true));
         dispatch(updateUserDetails(res?.res?.data));
-        setIsLoading(false); // Set loading to false once user data is fetched
+        setIsLoading(false);
       });
     } else {
-      setIsLoading(false); // Set loading to false if no token is found
+      setIsLoading(false);
     }
-  }, []);
-  console.log(newPartner);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (user.role !== "partner") {
+        toast.error("Please login as a partner", { id: 12 });
+        navigate("/partner");
+      } else if (!newPartner.isProfileComplete) {
+        // navigate("/partner/dashboard/newSalonSetting");
+      }
+    }
+  }, [isLoading, user.role, newPartner.isProfileComplete, navigate]);
+
   if (isLoading) {
     return <LoadSpinner />;
-  }
-
-  if (user.role !== "partner") {
-    toast.error("Please login as a partner", { id: 12 });
-    navigate("/partner"); // Redirect only after user data is loaded
-    return null; // Return null to prevent rendering the main content
   }
 
   return (
@@ -54,24 +57,19 @@ const PartnerPageLayout = () => {
         <>
           <main className={style.mainContainer}>
             <section className={style.container}>
-              {!isNewSalonSettingPage && (
-                <div className={style.left}>
-                  <LeftSideBar />
-                </div>
-              )}
-
+              <div className={style.left}>
+                <LeftSideBar />
+              </div>
               <div className={style.downContainer}>
-                {!isNewSalonSettingPage && (
-                  <div className={style.navbar}>
-                    <ServicePageNavbar />
-                  </div>
-                )}
+                <div className={style.navbar}>
+                  <ServicePageNavbar />
+                </div>
                 <div className={style.Outlet}>
                   <Outlet />
                 </div>
               </div>
             </section>
-            {!isNewSalonSettingPage && <BottomNav />}
+            <BottomNav />
           </main>
         </>
       )}
