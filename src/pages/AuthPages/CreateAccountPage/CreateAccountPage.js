@@ -121,13 +121,12 @@ const CreateAccountPage = () => {
             localStorage.setItem("jwtToken", res?.res?.data?.token);
             getUserProfile(res?.res?.data.token).then((res) => {
               const user = res?.res?.data;
-
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(user));
               dispatch(updateOTP(0));
-
               toast("Welcome to Treato! Start exploring now!");
               localStorage.removeItem("requiredRegisterData");
+              console.log(user);
               if (user?.data?.role === "partner" && !user?.isProfileComplete) {
                 navigate("/partner/dashboard/newSalonSetting");
               } else if (user?.data?.role === "partner") {

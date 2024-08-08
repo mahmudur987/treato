@@ -189,6 +189,7 @@ const LoginPage = () => {
             dispatch(updateUserDetails(user));
             localStorage.setItem("jwtToken", res?.res?.data?.token);
             toast("Welcome to Treato! Start exploring now!");
+            console.log(user);
             if (user?.data?.role === "partner" && !user?.isProfileComplete) {
               navigate("/partner/dashboard/newSalonSetting");
             } else if (user?.data?.role === "partner") {
