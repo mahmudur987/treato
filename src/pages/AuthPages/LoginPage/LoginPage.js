@@ -115,7 +115,7 @@ const LoginPage = () => {
           }
           (async () => {
             const profileResponse = await getUserProfile(res?.res.data.token);
-            console.log(profileResponse);
+
             if (profileResponse?.res.status === 200) {
               const profileData = profileResponse?.res?.data;
               delete Object.assign(profileData, {
@@ -184,19 +184,28 @@ const LoginPage = () => {
         // Make a request to your backend API
         google_Login(access_token, role).then((res) => {
           if (res?.res?.data && res?.res.status === 200) {
-            const user = res?.res?.data;
-            dispatch(updateIsLoggedIn(true));
-            dispatch(updateUserDetails(user));
             localStorage.setItem("jwtToken", res?.res?.data?.token);
-            toast("Welcome to Treato! Start exploring now!");
-            console.log(user);
-            if (user?.data?.role === "partner" && !user?.isProfileComplete) {
-              navigate("/partner/dashboard/newSalonSetting");
-            } else if (user?.data?.role === "partner") {
-              navigate("/partner/dashboard");
-            } else if (user?.data?.role !== "partner") {
-              navigate("/");
-            }
+            getUserProfile(res?.res?.data?.token)
+              .then((res) => {
+                console.log(res);
+                const user = res?.res?.data;
+                dispatch(updateIsLoggedIn(true));
+                dispatch(updateUserDetails(user));
+                toast("Welcome to Treato! Start exploring now!");
+                if (
+                  user?.data?.role === "partner" &&
+                  !user?.isProfileComplete
+                ) {
+                  navigate("/partner/dashboard/newSalonSetting");
+                } else if (user?.data?.role === "partner") {
+                  navigate("/partner/dashboard");
+                } else if (user?.data?.role !== "partner") {
+                  navigate("/");
+                }
+              })
+              .catch((err) => {
+                console.log("after google login get profile error", err);
+              });
           } else {
             toast.error(`An unexpected error occurred. Please try again.`);
           }
