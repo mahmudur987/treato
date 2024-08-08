@@ -38,7 +38,7 @@ const PartnerPageLayout = () => {
         toast.error("Please login as a partner", { id: 12 });
         navigate("/partner");
       } else if (!newPartner.isProfileComplete) {
-        // navigate("/partner/dashboard/newSalonSetting");
+        navigate("/partner/dashboard/newSalonSetting");
       }
     }
   }, [isLoading, user.role, newPartner.isProfileComplete, navigate]);

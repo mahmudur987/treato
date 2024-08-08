@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import sty from "./ServiceOffer.module.css";
-import CollaseIcon from "../../../assets/images/TeamDetails/chevron-down.png";
+
 import selectedCircle from "../../../assets/icons/Success Circle.png";
 import ManageHolidays from "../../../components/_modals/ManageHolyDays/ManageHolidays";
 import { getAllServices } from "../../../services/Services";
@@ -22,6 +22,7 @@ const ServiceOffer = ({
     "Saturday",
     "Sunday",
   ];
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDays, setSelectedDays] = useState([]);
   const [startTime, setStartTime] = useState("09:00");
@@ -159,7 +160,7 @@ const ServiceOffer = ({
 
     fetchAllServices();
   }, [salonData]);
-
+  // console.log(selectedService);
   return (
     <div className={sty.mainContainer}>
       <div className={sty.mainDiv}>
@@ -176,21 +177,23 @@ const ServiceOffer = ({
                   <div
                     key={i}
                     className={sty.offerDiv}
-                    onClick={() => handleSelectServices(v._id)}
+                    onClick={() => handleSelectServices(v.service_name)}
                     style={{
                       border: `${
-                        selectedService.includes(v._id)
+                        selectedService.includes(v.service_name)
                           ? "1px solid #0D69D7"
                           : ""
                       }`,
                       background: `${
-                        selectedService.includes(v._id) ? " #0D69D71A" : ""
+                        selectedService.includes(v.service_name)
+                          ? " #0D69D71A"
+                          : ""
                       }`,
                     }}
                   >
                     {v?.service_name}
 
-                    {selectedService.includes(v._id) && (
+                    {selectedService.includes(v.service_name) && (
                       <img src={selectedCircle} alt="" />
                     )}
                   </div>

@@ -30,7 +30,6 @@ import { getCountryCallingCode } from "react-phone-number-input/input";
 import en from "react-phone-number-input/locale/en";
 import CountrySelect from "../../../components/Countrycode/CountrySelect";
 import { handleInputChange } from "../../../utils/utils";
-import { createSalon } from "../../../services/salon";
 
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -126,7 +125,7 @@ const CreateAccountPage = () => {
               dispatch(updateOTP(0));
               toast("Welcome to Treato! Start exploring now!");
               localStorage.removeItem("requiredRegisterData");
-              console.log(user?.data?.role, !user?.isProfileComplete);
+
               if (user?.data?.role === "partner" && !user?.isProfileComplete) {
                 navigate("/partner/dashboard/newSalonSetting");
               } else if (user?.data?.role === "partner") {

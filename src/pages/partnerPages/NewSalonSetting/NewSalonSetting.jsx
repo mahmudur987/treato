@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import BasicDetailsPartner from "./BasicDetailsPartner";
 import ServiceOffer from "./ServiceOffer";
 import ServiceLocation from "./ServiceLocation";
-import SalonPictures from "./Gallery/SalonPictures";
+
 import sty from "./NewSalonSetting.module.css";
-import { createSalon } from "../../../services/salon";
+import { createSalon, useSingleSalon } from "../../../services/salon";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { adminBasicDetails } from "../../../redux/slices/adminSlice/adminBasicAction";
 
 const NewSalonSetting = () => {
+  const { newPartner } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const { data, refetch } = useSingleSalon();
   const [currentStep, setCurrentStep] = useState(1);
   const [mobileScreen, setMobileScreen] = useState(true);
   const [PcScreen, setPcScreen] = useState(true);
@@ -58,6 +63,58 @@ const NewSalonSetting = () => {
       setPcScreen(true);
     }
   };
+  useEffect(() => {
+    const salon = data?.salon;
+    const newData = {
+      salon_name: salon?.salon_name,
+      salons_description: salon?.salons_description,
+      salons_address: salon?.salons_address,
+      website: salon?.website,
+      services_provided: salon?.services?.map((x) => x?.service_name),
+      location: salon?.location_details?.location,
+      building_number: salon?.location_details?.building_number,
+      landmark: salon?.location_details?.landmark,
+      city: salon?.location_details?.city,
+      postal_code: salon?.location_details?.postal_code,
+      locationText: salon?.locationText,
+      type: salon?.location?.type,
+      coordinates: salon?.location?.coordinates,
+      salons_phone_number: salon?.salon_phone_number,
+      salon_email: salon?.salon_email,
+      account_number: salon?.bank_details?.account_number,
+      bank_name: salon?.bank_details?.bank_name,
+      account_holder_name: salon?.bank_details?.account_holder_name,
+      IFSC_code: salon?.bank_details?.IFSC_code,
+      day: "",
+      opening_time: "",
+      closing_time: "",
+    };
+    setSalonData(newData);
+    setPosition({
+      lat:
+        salon?.location?.coordinates.length === 2
+          ? salon?.location?.coordinates[0]
+          : "28.7041",
+      lng:
+        salon?.location?.coordinates.length === 2
+          ? salon?.location?.coordinates[1]
+          : "77.1025",
+    });
+    let defaultProps = {
+      center: {
+        lat:
+          salon?.location?.coordinates.length === 2
+            ? salon?.location?.coordinates[0]
+            : "28.7041",
+        lng:
+          salon?.location?.coordinates.length === 2
+            ? salon?.location?.coordinates[1]
+            : "77.1025",
+      },
+      zoom: 10,
+    };
+    updateDefaultProps(defaultProps);
+  }, [data]);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -118,19 +175,28 @@ const NewSalonSetting = () => {
         coordinates: [position.lat, position.lng],
       },
     };
-
-    console.log(submitData);
-    const { res, err } = await createSalon(submitData);
-
-    if (res) {
-      console.log(res);
+    if (
+      newPartner?.emptyMandatoryFields.length < 4 &&
+      !newPartner?.isProfileComplete
+    ) {
+      console.log("55");
+    } else if (!newPartner?.isProfileComplete) {
+      console.log(submitData);
     }
-    if (err) {
-      console.log(err);
-      toast.error(err?.response?.data?.error || "Error");
-    }
+
+    // dispatch(adminBasicDetails(submitData));
+    // refetch();
+    // const { res, err } = await createSalon(submitData);
+
+    // if (res) {
+    //   console.log(res);
+    // }
+    // if (err) {
+    //   console.log(err);
+    //   toast.error(err?.response?.data?.error || "Error");
+    // }
   };
-
+  console.log(newPartner);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setSalonData((prevState) => ({
