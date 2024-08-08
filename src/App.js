@@ -137,7 +137,6 @@ function App() {
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
       getUserProfile(isTokenExist).then((res) => {
-        console.log(res);
         dispatch(updateIsLoggedIn(true));
         dispatch(updateUserDetails(res?.res?.data));
       });

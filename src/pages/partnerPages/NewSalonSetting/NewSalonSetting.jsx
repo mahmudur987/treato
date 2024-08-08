@@ -8,11 +8,15 @@ import { createSalon, useSingleSalon } from "../../../services/salon";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { adminBasicDetails } from "../../../redux/slices/adminSlice/adminBasicAction";
+import { useNavigate } from "react-router-dom";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 
 const NewSalonSetting = () => {
   const { newPartner } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { data, refetch } = useSingleSalon();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [mobileScreen, setMobileScreen] = useState(true);
   const [PcScreen, setPcScreen] = useState(true);
@@ -41,6 +45,7 @@ const NewSalonSetting = () => {
     closing_time: "",
     lat: "",
     lng: "",
+    teamMemberCount: 0,
   });
   const [workingHours, setWorkingHours] = useState([]);
   const [position, setPosition] = useState({
@@ -64,44 +69,34 @@ const NewSalonSetting = () => {
     }
   };
   useEffect(() => {
-    const salon = data?.salon;
-    const newData = {
-      salon_name: salon?.salon_name,
-      salons_description: salon?.salons_description,
-      salons_address: salon?.salons_address,
-      website: salon?.website,
-      services_provided: salon?.services?.map((x) => x?.service_name),
-      location: salon?.location_details?.location,
-      building_number: salon?.location_details?.building_number,
-      landmark: salon?.location_details?.landmark,
-      city: salon?.location_details?.city,
-      postal_code: salon?.location_details?.postal_code,
-      locationText: salon?.locationText,
-      type: salon?.location?.type,
-      coordinates: salon?.location?.coordinates,
-      salons_phone_number: salon?.salon_phone_number,
-      salon_email: salon?.salon_email,
-      account_number: salon?.bank_details?.account_number,
-      bank_name: salon?.bank_details?.bank_name,
-      account_holder_name: salon?.bank_details?.account_holder_name,
-      IFSC_code: salon?.bank_details?.IFSC_code,
-      day: "",
-      opening_time: "",
-      closing_time: "",
-    };
-    setSalonData(newData);
-    setPosition({
-      lat:
-        salon?.location?.coordinates.length === 2
-          ? salon?.location?.coordinates[0]
-          : "28.7041",
-      lng:
-        salon?.location?.coordinates.length === 2
-          ? salon?.location?.coordinates[1]
-          : "77.1025",
-    });
-    let defaultProps = {
-      center: {
+    if (data) {
+      const salon = data?.salon;
+      const newData = {
+        salon_name: salon?.salon_name,
+        salons_description: salon?.salons_description,
+        salons_address: salon?.salons_address,
+        website: salon?.website,
+        services_provided: salon?.services?.map((x) => x?.service_name),
+        location: salon?.location_details?.location,
+        building_number: salon?.location_details?.building_number,
+        landmark: salon?.location_details?.landmark,
+        city: salon?.location_details?.city,
+        postal_code: salon?.location_details?.postal_code,
+        locationText: salon?.locationText,
+        type: salon?.location?.type,
+        coordinates: salon?.location?.coordinates,
+        salons_phone_number: salon?.salon_phone_number,
+        salon_email: salon?.salon_email,
+        account_number: salon?.bank_details?.account_number,
+        bank_name: salon?.bank_details?.bank_name,
+        account_holder_name: salon?.bank_details?.account_holder_name,
+        IFSC_code: salon?.bank_details?.IFSC_code,
+        day: "",
+        opening_time: "",
+        closing_time: "",
+      };
+      setSalonData(newData);
+      setPosition({
         lat:
           salon?.location?.coordinates.length === 2
             ? salon?.location?.coordinates[0]
@@ -110,10 +105,22 @@ const NewSalonSetting = () => {
           salon?.location?.coordinates.length === 2
             ? salon?.location?.coordinates[1]
             : "77.1025",
-      },
-      zoom: 10,
-    };
-    updateDefaultProps(defaultProps);
+      });
+      let defaultProps = {
+        center: {
+          lat:
+            salon?.location?.coordinates.length === 2
+              ? salon?.location?.coordinates[0]
+              : "28.7041",
+          lng:
+            salon?.location?.coordinates.length === 2
+              ? salon?.location?.coordinates[1]
+              : "77.1025",
+        },
+        zoom: 10,
+      };
+      updateDefaultProps(defaultProps);
+    }
   }, [data]);
 
   useEffect(() => {
@@ -130,30 +137,33 @@ const NewSalonSetting = () => {
       }
     }
 
-    if (salonData.salon_name === "") {
+    if (!salonData.salon_name) {
       return toast.error("write your salon name");
     }
 
-    if (salonData.salons_description === "") {
+    if (!salonData.salons_description) {
       return toast.error("write something about  your salon");
     }
 
-    if (salonData.location === "") {
+    if (!salonData.location) {
       return toast.error("choose your location");
     }
-    if (salonData.building_number === "") {
+    if (!salonData.building_number) {
       return toast.error("write your building number");
     }
-    if (salonData.landmark === "") {
+    if (!salonData.landmark) {
       return toast.error("write your landmark");
     }
-    if (salonData.postal_code === "") {
+    if (!salonData.city) {
+      return toast.error("write your City");
+    }
+    if (!salonData.postal_code) {
       return toast.error("write your post code");
     }
     if (workingHours.length < 1) {
       return toast.error("select your salon schedule");
     }
-    if (salonData.services_provided.length < 1) {
+    if (salonData?.services_provided?.length < 1) {
       return toast.error("select your provided service");
     }
 
@@ -174,29 +184,32 @@ const NewSalonSetting = () => {
         type: "Point",
         coordinates: [position.lat, position.lng],
       },
+      teamMemberCount: salonData?.teamMemberCount,
     };
+    setLoading(true);
     if (
-      newPartner?.emptyMandatoryFields.length < 4 &&
+      newPartner?.emptyMandatoryFields?.length > 0 &&
       !newPartner?.isProfileComplete
     ) {
+      dispatch(adminBasicDetails(submitData));
+      refetch();
+      navigate("partner/dashboard");
       console.log("55");
     } else if (!newPartner?.isProfileComplete) {
       console.log(submitData);
+      const { res, err } = await createSalon(submitData);
+      if (res) {
+        console.log(res);
+        navigate("partner/dashboard");
+      }
+      if (err) {
+        console.log(err);
+        toast.error(err?.response?.data?.error || "Error");
+      }
     }
-
-    // dispatch(adminBasicDetails(submitData));
-    // refetch();
-    // const { res, err } = await createSalon(submitData);
-
-    // if (res) {
-    //   console.log(res);
-    // }
-    // if (err) {
-    //   console.log(err);
-    //   toast.error(err?.response?.data?.error || "Error");
-    // }
+    setLoading(false);
   };
-  console.log(newPartner);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setSalonData((prevState) => ({
@@ -204,6 +217,10 @@ const NewSalonSetting = () => {
       [name]: value,
     }));
   };
+
+  if (loading) {
+    return <LoadSpinner />;
+  }
 
   return (
     <>
@@ -283,7 +300,16 @@ const NewSalonSetting = () => {
                   Number of team members
                 </label>
 
-                <input type="text" value={5} />
+                <input
+                  type="text"
+                  value={salonData.teamMemberCount}
+                  onChange={(e) =>
+                    setSalonData({
+                      ...salonData,
+                      teamMemberCount: e.target.value,
+                    })
+                  }
+                />
               </div>
 
               <p className={sty.description}>

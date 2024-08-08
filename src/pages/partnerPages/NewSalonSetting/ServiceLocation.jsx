@@ -133,6 +133,7 @@ const ServiceLocation = ({
       document.removeEventListener("click", handleDocumentClick);
     };
   }, []);
+  // console.log(salonData);
   return (
     <>
       <div>
