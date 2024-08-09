@@ -21,7 +21,9 @@ const Upcoming = () => {
 
   return (
     <>
+    <button onClick={()=>console.log(data)} >xh</button>
       {data && (
+        
         <div className={styles.UpcomingWrapper}>
           {data?.res?.data?.data?.map((salon, index) => (
             <AppointmentCard salon={salon} key={index} cardType="Upcoming" />

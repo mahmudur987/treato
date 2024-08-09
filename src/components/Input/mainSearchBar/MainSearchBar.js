@@ -265,31 +265,64 @@ const MainSearchBar = ({ place }) => {
   };
   const handleSearch = () => {
     if (locationInputValue === "" && treatmentInputValue === "") {
-      // Navigate to /salons with services and location as query parameters
       toast.info("Please fill input fields to proceed. !");
     } else {
       console.log(locationInputValue, treatmentInputValue);
-      if (value !== "") {
-        //if we have value in location input
+  
+      setTrt_DesktopModal(false);
+      setTrt_MoboModal(false);
+      setloc_DesktopModal(false);
+      setloc_MoboModal(false);
+      document.body.style.overflow = "auto"; 
+  
+      if (value !== "" && locationInputValue !== "Current Location") {
         getGeocode({ address: value }).then((results) => {
           const { lat, lng } = getLatLng(results[0]);
           setlocationLat(lat);
           setlocationLng(lng);
-
+  
           navigate(
             `/salons?service=${treatmentInputValue}&lat=${lat ? lat : ""}&lng=${
               lng ? lng : ""
             }&location=${locationInputValue}`
           );
+        }).catch((error) => {
+          console.error("Geocode was not successful for the following reason: ", error);
         });
       } else {
-        //if we  dont have value in location input
         navigate(
           `/salons?service=${treatmentInputValue}&lat=${locationLat}&lng=${locationLng}&location=${locationInputValue}`
         );
       }
     }
   };
+  // const handleSearch = () => {
+  //   if (locationInputValue === "" && treatmentInputValue === "") {
+  //     // Navigate to /salons with services and location as query parameters
+  //     toast.info("Please fill input fields to proceed. !");
+  //   } else {
+  //     console.log(locationInputValue, treatmentInputValue);
+  //     if (value !== "") {
+  //       //if we have value in location input
+  //       getGeocode({ address: value }).then((results) => {
+  //         const { lat, lng } = getLatLng(results[0]);
+  //         setlocationLat(lat);
+  //         setlocationLng(lng);
+
+  //         navigate(
+  //           `/salons?service=${treatmentInputValue}&lat=${lat ? lat : ""}&lng=${
+  //             lng ? lng : ""
+  //           }&location=${locationInputValue}`
+  //         );
+  //       });
+  //     } else {
+  //       //if we  dont have value in location input
+  //       navigate(
+  //         `/salons?service=${treatmentInputValue}&lat=${locationLat}&lng=${locationLng}&location=${locationInputValue}`
+  //       );
+  //     }
+  //   }
+  // };
 
   //   useEffect(() => {
   //     const handleWindowClick = () => {

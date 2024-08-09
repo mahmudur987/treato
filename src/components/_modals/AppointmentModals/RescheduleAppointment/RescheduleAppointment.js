@@ -88,8 +88,11 @@ const RescheduleAppointment = ({ data }) => {
     service_id: subcategoriesIds,
     noPreference: data?.noPreference,
     dateforService: date,
+    selectedStylistId: data._id
   };
-console.log(useTimeSlots(genarateSlotsData))
+  // 6697a4454d4461d71f1fcc1a
+console.log(data)
+// console.log(useTimeSlots(genarateSlotsData))
   const {
     data: slots,
     isLoading,
@@ -105,11 +108,12 @@ console.log(useTimeSlots(genarateSlotsData))
     const fullDate =
       showYear +
       "-" +
-      String(showMonth).padStart(2, "0") +
+      String(showMonth + 1).padStart(2, "0") +
       "-" +
       String(selectedDate.date).padStart(2, "0");
     setDate(fullDate);
-  }, [showMonth, showYear, selectedDate]);
+}, [showMonth, showYear, selectedDate]);
+
   // console.log(genarateSlotsData);
   const generateAllowedMonths = () => {
     const currentMonth = new Date().getMonth();
