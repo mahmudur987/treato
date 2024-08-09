@@ -187,12 +187,10 @@ const NewSalonSetting = () => {
       working_hours: workingHours,
       location: {
         type: "Point",
-        coordinates: [position.lat, position.lng],
+        coordinates: [position.lng, position.lat],
       },
-      teamMemberCount: salonData?.teamMemberCount,
+      teamMemberCount: Number(salonData?.teamMemberCount),
     };
-
-    console.log(newPartner);
 
     setLoading(true);
     if (
@@ -202,6 +200,7 @@ const NewSalonSetting = () => {
       const { res, err } = await UpdateSalon(submitData);
       if (res) {
         console.log(res);
+        navigate("/partner/dashboard");
       }
       if (err) {
         console.log(err);
@@ -256,7 +255,7 @@ const NewSalonSetting = () => {
       [name]: value,
     }));
   };
-
+  console.log(newPartner);
   if (loading) {
     return <LoadSpinner />;
   }

@@ -29,7 +29,7 @@ const user = createSlice({
       // console.log(payload);
       state.user = { ...state.user, ...payload?.data };
       state.newPartner.isProfileComplete = payload?.isProfileComplete;
-      state.newPartner.emptyMandatoryFields = payload.emptyMandatoryFields;
+      state.newPartner.emptyMandatoryFields = payload?.emptyMandatoryFields;
       state.toggle = !state.toggle;
     },
 
