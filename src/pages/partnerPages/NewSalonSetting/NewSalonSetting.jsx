@@ -4,12 +4,17 @@ import ServiceOffer from "./ServiceOffer";
 import ServiceLocation from "./ServiceLocation";
 
 import sty from "./NewSalonSetting.module.css";
-import { createSalon, useSingleSalon } from "../../../services/salon";
+import {
+  createSalon,
+  UpdateSalon,
+  useSingleSalon,
+} from "../../../services/salon";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { adminBasicDetails } from "../../../redux/slices/adminSlice/adminBasicAction";
 import { useNavigate } from "react-router-dom";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import axiosInstance from "../../../services/axios";
 
 const NewSalonSetting = () => {
   const { newPartner } = useSelector((state) => state.user);
@@ -131,6 +136,7 @@ const NewSalonSetting = () => {
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (mobileScreen) {
       if (currentStep < 4) {
         return setCurrentStep((pre) => pre + 1);
@@ -144,7 +150,12 @@ const NewSalonSetting = () => {
     if (!salonData.salons_description) {
       return toast.error("write something about  your salon");
     }
-
+    if (salonData?.services_provided?.length < 1) {
+      return toast.error("select your provided service");
+    }
+    if (workingHours.length < 1) {
+      return toast.error("select your salon schedule");
+    }
     if (!salonData.location) {
       return toast.error("choose your location");
     }
@@ -159,12 +170,6 @@ const NewSalonSetting = () => {
     }
     if (!salonData.postal_code) {
       return toast.error("write your post code");
-    }
-    if (workingHours.length < 1) {
-      return toast.error("select your salon schedule");
-    }
-    if (salonData?.services_provided?.length < 1) {
-      return toast.error("select your provided service");
     }
 
     const submitData = {
@@ -186,21 +191,27 @@ const NewSalonSetting = () => {
       },
       teamMemberCount: salonData?.teamMemberCount,
     };
+
+    console.log(newPartner);
+
     setLoading(true);
     if (
       newPartner?.emptyMandatoryFields?.length > 0 &&
       !newPartner?.isProfileComplete
     ) {
-      dispatch(adminBasicDetails(submitData));
-      refetch();
-      navigate("partner/dashboard");
-      console.log("55");
+      const { res, err } = await UpdateSalon(submitData);
+      if (res) {
+        console.log(res);
+      }
+      if (err) {
+        console.log(err);
+        toast.error(err?.response?.data?.error || "Error");
+      }
     } else if (!newPartner?.isProfileComplete) {
       console.log(submitData);
       const { res, err } = await createSalon(submitData);
       if (res) {
         console.log(res);
-        navigate("partner/dashboard");
       }
       if (err) {
         console.log(err);
@@ -208,6 +219,34 @@ const NewSalonSetting = () => {
       }
     }
     setLoading(false);
+
+    setSalonData({
+      salon_name: "",
+      salons_description: "",
+      salons_address: "",
+      website: "",
+      services_provided: [],
+      location: "",
+      building_number: "",
+      landmark: "",
+      city: "",
+      postal_code: "",
+      locationText: "",
+      type: "",
+      coordinates: 0,
+      salons_phone_number: "",
+      salon_email: "",
+      account_number: "",
+      bank_name: "",
+      account_holder_name: "",
+      IFSC_code: "",
+      day: "",
+      opening_time: "",
+      closing_time: "",
+      lat: "",
+      lng: "",
+      teamMemberCount: 0,
+    });
   };
 
   const handleChange = (event) => {
@@ -301,7 +340,7 @@ const NewSalonSetting = () => {
                 </label>
 
                 <input
-                  type="text"
+                  type="number"
                   value={salonData.teamMemberCount}
                   onChange={(e) =>
                     setSalonData({

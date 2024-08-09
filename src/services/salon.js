@@ -122,3 +122,16 @@ export const createSalon = async (data) => {
     return { res: null, err: error };
   }
 };
+export const UpdateSalon = async (data) => {
+  try {
+    const res = await axiosInstance.patch("/salon/updateSalon", data, {
+      headers: {
+        token: localStorage.getItem("jwtToken"),
+      },
+    });
+
+    return { res: res.data, err: null };
+  } catch (error) {
+    return { res: null, err: error };
+  }
+};
