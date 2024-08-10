@@ -86,12 +86,10 @@ const RescheduleAppointment = ({ data }) => {
   const genarateSlotsData = {
     salons_id: data.salonData[0]?._id,
     service_id: subcategoriesIds,
-    noPreference: data?.noPreference,
-    dateforService: date,
-    selectedStylistId: data._id
+    noPreference: true,
+    dateforService:date,
   };
-  // 6697a4454d4461d71f1fcc1a
-console.log(data)
+// console.log(data)
 // console.log(useTimeSlots(genarateSlotsData))
   const {
     data: slots,
