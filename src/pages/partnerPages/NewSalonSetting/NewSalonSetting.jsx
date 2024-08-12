@@ -207,10 +207,14 @@ const NewSalonSetting = () => {
       if (res) {
         console.log(res);
         toast.success("salon update successfully");
+        setLoading(false);
+
         return navigate("/partner/dashboard");
       }
       if (err) {
         console.log(err);
+        setLoading(false);
+
         toast.error(err?.response?.data?.error || "Error");
       }
     } else if (!newPartner?.isProfileComplete) {
@@ -219,48 +223,29 @@ const NewSalonSetting = () => {
         console.log(res);
         let isTokenExist = localStorage.getItem("jwtToken");
         if (isTokenExist) {
-          getUserProfile(isTokenExist).then((res) => {
-            dispatch(updateIsLoggedIn(true));
-            dispatch(updateUserDetails(res?.res?.data));
-            toast.success("salon created successfully");
-            navigate("/partner/dashboard");
-          });
+          getUserProfile(isTokenExist)
+            .then((res) => {
+              dispatch(updateIsLoggedIn(true));
+              dispatch(updateUserDetails(res?.res?.data));
+              toast.success("salon created successfully");
+
+              navigate("/partner/dashboard");
+              setLoading(false);
+            })
+            .catch((err) => {
+              setLoading(false);
+
+              toast.error("Error");
+            });
         }
       }
       if (err) {
         console.log(err);
+        setLoading(false);
+
         toast.error(err?.response?.data?.error || "Error");
       }
     }
-    setLoading(false);
-
-    setSalonData({
-      salon_name: "",
-      salons_description: "",
-      salons_address: "",
-      website: "",
-      services_provided: [],
-      location: "",
-      building_number: "",
-      landmark: "",
-      city: "",
-      postal_code: "",
-      locationText: "",
-      type: "",
-      coordinates: 0,
-      salons_phone_number: "",
-      salon_email: "",
-      account_number: "",
-      bank_name: "",
-      account_holder_name: "",
-      IFSC_code: "",
-      day: "",
-      opening_time: "",
-      closing_time: "",
-      lat: "",
-      lng: "",
-      teamMemberCount: 0,
-    });
   };
 
   const handleChange = (event) => {
