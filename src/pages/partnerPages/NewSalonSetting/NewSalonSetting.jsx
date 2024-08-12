@@ -195,6 +195,8 @@ const NewSalonSetting = () => {
       const { res, err } = await UpdateSalon(submitData);
       if (res) {
         console.log(res);
+        toast.success("salon update successfully");
+
         navigate("/partner/dashboard");
       }
       if (err) {
