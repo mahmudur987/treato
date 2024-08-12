@@ -10,16 +10,13 @@ import {
   useSingleSalon,
 } from "../../../services/salon";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { adminBasicDetails } from "../../../redux/slices/adminSlice/adminBasicAction";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
-import axiosInstance from "../../../services/axios";
 
 const NewSalonSetting = () => {
   const { newPartner } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const { data, refetch } = useSingleSalon();
+  const { data } = useSingleSalon();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
@@ -134,9 +131,7 @@ const NewSalonSetting = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     if (mobileScreen) {
       if (currentStep < 4) {
         return setCurrentStep((pre) => pre + 1);
@@ -360,7 +355,8 @@ const NewSalonSetting = () => {
           <div className={sty.saveBtnDiv}>
             <button
               style={{ cursor: "pointer" }}
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
               className={sty.saveBtn}
             >
               Save
@@ -371,7 +367,8 @@ const NewSalonSetting = () => {
                 background: `${currentStep === 4 ? "black" : ""}`,
                 color: `${currentStep === 4 ? "white" : ""}`,
               }}
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
               className={sty.Proceed}
             >
               Proceed

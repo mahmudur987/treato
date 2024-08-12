@@ -40,6 +40,8 @@ const PartnerPageLayout = () => {
       } else if (!newPartner.isProfileComplete) {
         navigate("/partner/dashboard/newSalonSetting");
       }
+    } else if (newPartner.isProfileComplete) {
+      navigate("/partner/dashboard");
     }
   }, [isLoading, user.role, newPartner.isProfileComplete, navigate]);
 
