@@ -126,6 +126,11 @@ const NewSalonSetting = () => {
   }, [data]);
 
   useEffect(() => {
+    if (newPartner.isProfileComplete) {
+      navigate("/partner/dashboard");
+    }
+  }, [newPartner, navigate, data]);
+  useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -197,7 +202,7 @@ const NewSalonSetting = () => {
         console.log(res);
         toast.success("salon update successfully");
 
-        navigate("/partner/dashboard");
+        return navigate("/partner/dashboard");
       }
       if (err) {
         console.log(err);
@@ -208,7 +213,7 @@ const NewSalonSetting = () => {
       if (res) {
         console.log(res);
         toast.success("salon created successfully");
-        navigate("/partner/dashboard");
+        return navigate("/partner/dashboard");
       }
       if (err) {
         console.log(err);
