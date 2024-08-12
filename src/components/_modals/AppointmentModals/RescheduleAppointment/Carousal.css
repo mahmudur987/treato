@@ -13,6 +13,9 @@
     background-size: cover;
     height: 24px;
     width: 24px;
+    transform: rotate(180deg);
+    margin-top: -47px;
+    margin-left: -20px;
     display: block; /* This is to make it display inline with the content */
     background-image: url("../../../../assets/images/icons/chevronLeft.svg");
   }
