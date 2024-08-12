@@ -10,12 +10,18 @@ import {
   useSingleSalon,
 } from "../../../services/salon";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { getUserProfile } from "../../../services/auth";
+import {
+  updateIsLoggedIn,
+  updateUserDetails,
+} from "../../../redux/slices/user";
 
 const NewSalonSetting = () => {
   const { newPartner } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const { data } = useSingleSalon();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -201,7 +207,6 @@ const NewSalonSetting = () => {
       if (res) {
         console.log(res);
         toast.success("salon update successfully");
-
         return navigate("/partner/dashboard");
       }
       if (err) {
@@ -212,8 +217,15 @@ const NewSalonSetting = () => {
       const { res, err } = await createSalon(submitData);
       if (res) {
         console.log(res);
-        toast.success("salon created successfully");
-        return navigate("/partner/dashboard");
+        let isTokenExist = localStorage.getItem("jwtToken");
+        if (isTokenExist) {
+          getUserProfile(isTokenExist).then((res) => {
+            dispatch(updateIsLoggedIn(true));
+            dispatch(updateUserDetails(res?.res?.data));
+            toast.success("salon created successfully");
+            navigate("/partner/dashboard");
+          });
+        }
       }
       if (err) {
         console.log(err);
@@ -258,7 +270,7 @@ const NewSalonSetting = () => {
       [name]: value,
     }));
   };
-  console.log(newPartner);
+
   if (loading) {
     return <LoadSpinner />;
   }
