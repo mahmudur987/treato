@@ -186,7 +186,7 @@ const NewSalonSetting = () => {
       },
       teamMemberCount: Number(salonData?.teamMemberCount),
     };
-
+    console.log(submitData);
     setLoading(true);
     if (
       newPartner?.emptyMandatoryFields?.length > 0 &&
@@ -202,10 +202,11 @@ const NewSalonSetting = () => {
         toast.error(err?.response?.data?.error || "Error");
       }
     } else if (!newPartner?.isProfileComplete) {
-      console.log(submitData);
       const { res, err } = await createSalon(submitData);
       if (res) {
         console.log(res);
+        toast.success("salon created successfully");
+        navigate("/partner/dashboard");
       }
       if (err) {
         console.log(err);
