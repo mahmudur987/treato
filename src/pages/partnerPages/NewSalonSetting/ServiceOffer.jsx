@@ -26,7 +26,7 @@ const ServiceOffer = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDays, setSelectedDays] = useState([]);
   const [startTime, setStartTime] = useState("09:00");
-  const [endTime, setEndTime] = useState("09:00");
+  const [endTime, setEndTime] = useState("20:00");
   const [serviceNames, setServiceNames] = useState([]);
   const [selectedService, setSelectedService] = useState([]);
   const generateScheduleData = useMemo(() => {
@@ -247,9 +247,10 @@ const ServiceOffer = ({
                       onChange={(e) => setStartTime(e.target.value)}
                       className={sty.selectWrapperOption}
                     >
-                      <option value="">please select</option>
                       {slots.map((x, i) => (
-                        <option value={x}>{x}</option>
+                        <option key={i} value={x}>
+                          {x}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -262,9 +263,10 @@ const ServiceOffer = ({
                       onChange={(e) => setEndTime(e.target.value)}
                       className={sty.selectWrapperOption}
                     >
-                      <option value="">please select</option>
-                      {slots.map((x, i) => (
-                        <option value={x}>{x}</option>
+                      {slots.reverse().map((x, i) => (
+                        <option key={i} value={x}>
+                          {x}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -272,13 +274,6 @@ const ServiceOffer = ({
               </div>
             </div>
             <div>
-              {/* <div className={sty.store_closed_today}>
-                <p>Mark store closed for today</p>
-                <label className={sty.toggle} id="toggle">
-                  <input type="checkbox" />
-                  <span className={sty.toggleSlider}></span>
-                </label>
-              </div> */}
               <div onClick={openModal} className={sty.HolidaysDiv}>
                 Manage Holidays
               </div>

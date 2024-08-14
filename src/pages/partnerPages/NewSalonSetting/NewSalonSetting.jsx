@@ -22,7 +22,6 @@ import {
 const NewSalonSetting = () => {
   const { newPartner } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const { data } = useSingleSalon();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
@@ -76,66 +75,12 @@ const NewSalonSetting = () => {
       setPcScreen(true);
     }
   };
-  useEffect(() => {
-    if (data) {
-      const salon = data?.salon;
-      const newData = {
-        salon_name: salon?.salon_name,
-        salons_description: salon?.salons_description,
-        salons_address: salon?.salons_address,
-        website: salon?.website,
-        services_provided: salon?.services?.map((x) => x?.service_name),
-        location: salon?.location_details?.location,
-        building_number: salon?.location_details?.building_number,
-        landmark: salon?.location_details?.landmark,
-        city: salon?.location_details?.city,
-        postal_code: salon?.location_details?.postal_code,
-        locationText: salon?.locationText,
-        type: salon?.location?.type,
-        coordinates: salon?.location?.coordinates,
-        salons_phone_number: salon?.salon_phone_number,
-        salon_email: salon?.salon_email,
-        account_number: salon?.bank_details?.account_number,
-        bank_name: salon?.bank_details?.bank_name,
-        account_holder_name: salon?.bank_details?.account_holder_name,
-        IFSC_code: salon?.bank_details?.IFSC_code,
-        day: "",
-        opening_time: "",
-        closing_time: "",
-      };
-      setSalonData(newData);
-      setPosition({
-        lat:
-          salon?.location?.coordinates.length === 2
-            ? salon?.location?.coordinates[0]
-            : "28.7041",
-        lng:
-          salon?.location?.coordinates.length === 2
-            ? salon?.location?.coordinates[1]
-            : "77.1025",
-      });
-      let defaultProps = {
-        center: {
-          lat:
-            salon?.location?.coordinates.length === 2
-              ? salon?.location?.coordinates[0]
-              : "28.7041",
-          lng:
-            salon?.location?.coordinates.length === 2
-              ? salon?.location?.coordinates[1]
-              : "77.1025",
-        },
-        zoom: 10,
-      };
-      updateDefaultProps(defaultProps);
-    }
-  }, [data]);
 
   useEffect(() => {
     if (newPartner.isProfileComplete) {
       navigate("/partner/dashboard");
     }
-  }, [newPartner, navigate, data]);
+  }, [newPartner, navigate]);
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
@@ -177,7 +122,7 @@ const NewSalonSetting = () => {
     if (!salonData.postal_code) {
       return toast.error("write your post code");
     }
-
+    setLoading(true);
     const submitData = {
       salon_name: salonData.salon_name,
       salons_description: salonData.salons_description,
@@ -198,11 +143,8 @@ const NewSalonSetting = () => {
       teamMemberCount: Number(salonData?.teamMemberCount),
     };
     console.log(submitData);
-    setLoading(true);
-    if (
-      newPartner?.emptyMandatoryFields?.length > 0 &&
-      !newPartner?.isProfileComplete
-    ) {
+
+    if (newPartner?.emptyMandatoryFields?.length > 0) {
       const { res, err } = await UpdateSalon(submitData);
       if (res) {
         console.log(res);
@@ -217,10 +159,10 @@ const NewSalonSetting = () => {
 
         toast.error(err?.response?.data?.error || "Error");
       }
-    } else if (!newPartner?.isProfileComplete) {
+    } else {
       const { res, err } = await createSalon(submitData);
       if (res) {
-        console.log(res);
+        console.log("create salon", res);
         let isTokenExist = localStorage.getItem("jwtToken");
         if (isTokenExist) {
           getUserProfile(isTokenExist)
@@ -228,13 +170,11 @@ const NewSalonSetting = () => {
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(res?.res?.data));
               toast.success("salon created successfully");
-
               navigate("/partner/dashboard");
               setLoading(false);
             })
             .catch((err) => {
               setLoading(false);
-
               toast.error("Error");
             });
         }
@@ -242,12 +182,11 @@ const NewSalonSetting = () => {
       if (err) {
         console.log(err);
         setLoading(false);
-
         toast.error(err?.response?.data?.error || "Error");
       }
     }
   };
-
+  console.log(newPartner);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setSalonData((prevState) => ({

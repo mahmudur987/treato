@@ -32,7 +32,8 @@
 .saveBtn {
   background-color: black;
   color: white;
-  width: 4%;
+  max-width: 80px;
+  width: 100%;
   padding: 8px 8px 8px 8px;
   border: solid black 1px;
   border-radius: 20%;

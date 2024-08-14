@@ -136,10 +136,14 @@ function App() {
   useEffect(() => {
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
-      getUserProfile(isTokenExist).then((res) => {
-        dispatch(updateIsLoggedIn(true));
-        dispatch(updateUserDetails(res?.res?.data));
-      });
+      getUserProfile(isTokenExist)
+        .then((res) => {
+          dispatch(updateIsLoggedIn(true));
+          dispatch(updateUserDetails(res?.res?.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, []);
 
