@@ -76,11 +76,13 @@ export default function AccountSettings() {
       email: userData.email ? userData.email : "",
       phone: userData.phone ? userData.phone : "",
       dob: userData.dob ? userData.dob : "",
-      place: userData?.place ? userData?.place : "",
+      place: userData?.location.place ? userData?.location.place : "",
       gender: userData.gender ? userData.gender : "",
     };
     updateInputVal(data);
     updateGender(userData.gender ? userData.gender : "");
+
+    console.log(userData);
   }, [userData]);
 
   const setDefault = () => {
@@ -118,14 +120,14 @@ export default function AccountSettings() {
       google: "",
       fb: "",
       instagram: "",
-      house: inputVal.place.length
-        ? inputVal.place[inputVal.place.length - 1].house
-        : "",
-      landmark: inputVal.place.length
-        ? inputVal.place[inputVal.place.length - 1].landmark
-        : "",
-      place: inputVal.place,
+      house: inputVal?.address?.house ?? "",
+      landmark: inputVal.address?.landmark ?? "",
+      place: inputVal?.address?.place ?? "",
+      address_type: inputVal?.address?.house_type ?? "",
     };
+
+    console.log(formData);
+
     if (e.target.phone.value !== userData.phone) {
       setOtpModal(true);
       localStorage.setItem("tempUserData", JSON.stringify(formData));
@@ -162,9 +164,8 @@ export default function AccountSettings() {
       phoneNumber: inputVal.phone,
     };
     const res = await sendLoginOTP(phonedata);
-
-    console.log(res.res.data.otp);
-    setVerifyOtp(res.res.data.otp);
+    console.log(res?.res?.data.otp);
+    setVerifyOtp(res?.res?.data.otp);
     console.log(inputVal);
   };
 
@@ -217,7 +218,7 @@ export default function AccountSettings() {
                 <div className={showSave ? styles.acc_settingA : styles.d_none}>
                   <SecondaryButton children={"Cancel"} onClick={setDefault} />
                   <PrimaryButton
-                    onClick={verifyOtp}
+                    // onClick={verifyOtp}
                     children={"Save Changes"}
                     form={"acc_set_form"}
                   />
