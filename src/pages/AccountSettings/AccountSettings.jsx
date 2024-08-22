@@ -77,6 +77,14 @@ export default function AccountSettings() {
       phone: userData.phone ? userData.phone : "",
       dob: userData.dob ? userData.dob : "",
       place: userData?.location.place ? userData?.location.place : "",
+      house_type: userData?.location?.address_type
+        ? userData?.location?.address_type
+        : "",
+      house: userData?.location?.house ? userData?.location?.house : "",
+      landmark: userData?.location?.landmark
+        ? userData?.location?.landmark
+        : "",
+
       gender: userData.gender ? userData.gender : "",
     };
     updateInputVal(data);
