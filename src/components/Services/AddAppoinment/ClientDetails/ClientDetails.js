@@ -29,9 +29,9 @@ const ClientsDetails = () => {
 
   const clients = contacts?.filter(
     (contact) =>
-      contact.name.toLowerCase().includes(searchText.toLowerCase()) ||
-      contact.phone.includes(searchText) ||
-      contact.email.toLowerCase().includes(searchText.toLowerCase())
+      contact?.name?.toLowerCase().includes(searchText?.toLowerCase()) ||
+      contact?.phone?.includes(searchText) ||
+      contact?.email?.toLowerCase().includes(searchText?.toLowerCase())
   );
   useEffect(() => {
     if (clients?.length > 0) {
@@ -154,31 +154,6 @@ const ClientsDetails = () => {
             rows="10"
           ></textarea>
         </div>
-        {/* assign professional*/}
-        {/* <h3 className={styles.heading}>Assign Professional</h3>
-
-        <div className={styles.professional}>
-          {teamMembers?.length > 0 && !teamIsError ? (
-            <CustomSelect2
-              options={null}
-              value={SelectedTeamMember}
-              onChange={handleSelectTeamMember}
-              teamMembers={[
-                ...teamMembers,
-                {
-                  name: "No preference",
-                  imageUrl: "",
-                },
-              ]}
-            />
-          ) : (
-            <ErrorComponent message={teamError?.message} />
-          )}
-
-          {teamMembers?.length === 0 && (
-            <NoDataDisplay message={"No Team Members Available"} />
-          )}
-        </div> */}
       </div>
       <AddNewClient showModal={isModalOpen} onClose={closeModal} />
     </section>

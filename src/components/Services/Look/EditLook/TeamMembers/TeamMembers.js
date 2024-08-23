@@ -36,7 +36,7 @@ const TeamMembers = () => {
   };
 
   const isSelected = (id) => selectedPeople?.includes(id);
-
+  console.log(selectedPeople);
   return (
     <div className={styles.mainContainer}>
       <div className={styles.heading}>
