@@ -37,13 +37,14 @@ const ClientsDetails = () => {
     if (clients?.length > 0) {
       setSelectedClient(clients[0]);
     }
-  }, [clients]);
+  }, []);
 
   const handleSelectClient = (value) => {
     setSelectedClient(value);
     setCustomerDetails(value);
+    setSearchText("");
   };
-
+  console.log(selectedClient);
   const openModal = () => {
     setIsModalOpen(true);
   };
