@@ -22,22 +22,24 @@ const ClientsDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const { data, isLoading, isError, error } = useGetClients();
-  const contacts = data?.data;
+
   const [selectedClient, setSelectedClient] = useState({
     name: "No Clients ",
   });
+  const [clients, setClients] = useState([]);
 
-  const clients = contacts?.filter(
-    (contact) =>
-      contact?.name?.toLowerCase().includes(searchText?.toLowerCase()) ||
-      contact?.phone?.includes(searchText) ||
-      contact?.email?.toLowerCase().includes(searchText?.toLowerCase())
-  );
   useEffect(() => {
-    if (clients?.length > 0) {
-      setSelectedClient(clients[0]);
-    }
-  }, []);
+    const searchResult = data?.data?.filter(
+      (contact) =>
+        contact?.name?.toLowerCase().includes(searchText?.toLowerCase()) ||
+        contact?.phone?.includes(searchText) ||
+        contact?.email?.toLowerCase().includes(searchText?.toLowerCase())
+    );
+    setClients(searchResult);
+    setSelectedClient(
+      searchResult?.length > 0 && !searchText ? searchResult[0] : ""
+    );
+  }, [data, searchText]);
 
   const handleSelectClient = (value) => {
     setSelectedClient(value);
