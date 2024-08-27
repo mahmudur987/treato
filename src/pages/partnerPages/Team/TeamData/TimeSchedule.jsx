@@ -100,7 +100,7 @@ const TimeSchedule = () => {
     navigate("/partner/dashboard/EmployeeSchedule");
   };
 
-  console.log(data?.data?.length);
+  // console.log(data?.data?.length);
   // if (isLoading) {
   //   return <LoadSpinner />;
   // }

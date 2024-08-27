@@ -150,12 +150,13 @@ const EditTeamData = () => {
       const headers = {
         token: localStorage.getItem("jwtToken"),
       };
-      let url = `/stylist/teamMembers/removeStylist/${id}`;
+      let url = `/stylist/removeStylist/${id}`;
       const { data } = await axiosInstance.patch(url, {}, { headers });
-      console.log(url);
-      console.log(data);
-      toast.success("Team member delete successfully ");
-      navigate("/partner/dashboard/TeamManageMent");
+
+      if (data.success) {
+        toast.success("Team member delete successfully ");
+        navigate("/partner/dashboard/TeamManageMent");
+      }
     } catch (error) {
       console.error(error);
       toast.error(error ? error.message : "Error");
