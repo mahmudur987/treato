@@ -7,12 +7,11 @@ import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import CountrySelect from "../../Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
 import { AddAppointmentContext } from "../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
-const AddNewClient = ({ showModal, onClose }) => {
+const AddNewClient = ({ showModal, onClose, setSelectedClient, clients }) => {
   const { setCustomerDetails } = useContext(AddAppointmentContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [comments, setComments] = useState("");
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("IN");
   const [selectedOption, setSelectedOption] = useState("Male");
@@ -30,7 +29,8 @@ const AddNewClient = ({ showModal, onClose }) => {
     };
 
     setCustomerDetails(data);
-
+    setSelectedClient(data);
+    clients.pop(data);
     onClose();
   };
 
@@ -94,6 +94,7 @@ const AddNewClient = ({ showModal, onClose }) => {
                   onChange={(e) => setPhone(e.target.value)}
                   type="number"
                   placeholder="phone number"
+                  maxLength={10}
                   required
                 />
               </p>

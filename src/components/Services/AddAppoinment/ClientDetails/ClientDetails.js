@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import styles from "./ClientDetails.module.css";
-import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import CustomSelect3 from "../../../Select/CustomeSelect3/CustomSelect3";
 import AddNewClient from "../../../_modals/AddNewClient/AddNewClient";
 
@@ -46,7 +45,7 @@ const ClientsDetails = () => {
     setCustomerDetails(value);
     setSearchText("");
   };
-  console.log(selectedClient);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -158,7 +157,12 @@ const ClientsDetails = () => {
           ></textarea>
         </div>
       </div>
-      <AddNewClient showModal={isModalOpen} onClose={closeModal} />
+      <AddNewClient
+        showModal={isModalOpen}
+        onClose={closeModal}
+        setSelectedClient={setSelectedClient}
+        clients={clients}
+      />
     </section>
   );
 };

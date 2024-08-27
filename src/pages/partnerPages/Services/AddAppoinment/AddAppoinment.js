@@ -19,7 +19,6 @@ export function formatDate(dateString) {
 }
 
 const AddAppointment = () => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [servicesDetails, setServiceDetails] = useState({});
   const [customerDetails, setCustomerDetails] = useState({
