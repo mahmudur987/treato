@@ -66,9 +66,6 @@ const TimeSchedule = () => {
   });
 
   const increaseDates = () => {
-    // if (data?.data[0]?.time_for_service.length < 7) {
-    //   return;
-    // }
     const newStartDate = new Date(startDate);
     newStartDate.setDate(newStartDate.getDate() + 1);
     setStartDate(formatStateDate(newStartDate));
@@ -78,9 +75,6 @@ const TimeSchedule = () => {
   };
 
   const decreaseDates = () => {
-    // if (data?.data[0]?.time_for_service.length < 7) {
-    //   return;
-    // }
     const newStartDate = new Date(startDate);
     newStartDate.setDate(newStartDate.getDate() - 1);
     setStartDate(formatStateDate(newStartDate));
@@ -106,10 +100,10 @@ const TimeSchedule = () => {
     navigate("/partner/dashboard/EmployeeSchedule");
   };
 
-  // console.log(data);
-  if (isLoading) {
-    return <LoadSpinner />;
-  }
+  console.log(data?.data?.length);
+  // if (isLoading) {
+  //   return <LoadSpinner />;
+  // }
   return (
     <TimeScheContext.Provider
       value={{ schedule, member, refetch, sethandleShift }}
@@ -131,10 +125,12 @@ const TimeSchedule = () => {
                 />
               </span>
 
-              {data?.data[0]?.time_for_service.length > 0 && (
+              {data?.data[0]?.time_for_service.length > 0 ? (
                 <span className={sty.cal}>
                   {sD} - {eD} <img src={calendar_line} alt="calendar_line" />
                 </span>
+              ) : (
+                <span className={sty.cal}>Add A Team Member</span>
               )}
               {/* {isLoading && <LoadSpinner />} */}
               <span onClick={increaseDates}>
@@ -207,10 +203,6 @@ const TimeSchedule = () => {
 
                     {item?.schedule && item?.schedule.length > 0 ? (
                       item?.schedule.map((y, i) => {
-                        {
-                          /* closebutton */
-                        }
-
                         if (y.isClosed) {
                           return (
                             <td>
