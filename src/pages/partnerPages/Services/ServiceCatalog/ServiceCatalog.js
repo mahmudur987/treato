@@ -59,8 +59,8 @@ const ServiceCatalog = () => {
       return x.service_name === selectedServiceType;
     }
   });
-  // const y = filteredData.filter((x) => console.log(x?.mainCategories));
-  // // console.log(filteredData);
+
+  console.log(filteredData);
 
   const openModal = () => {
     setIsModalOpen(true);

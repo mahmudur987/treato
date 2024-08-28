@@ -230,13 +230,13 @@ function App() {
               element={<EditService />}
             />
 
-            {/* add appoinment */}
+            {/* add appointment */}
 
             <Route
               path="/partner/dashboard/addappoinment"
               element={<AddAppoinment />}
             />
-            {/* partner accountsetting */}
+            {/* partner accountSetting */}
             <Route
               path="/partner/dashboard/PartnerAccountSetting"
               element={<PartnerAccountSetting />}
