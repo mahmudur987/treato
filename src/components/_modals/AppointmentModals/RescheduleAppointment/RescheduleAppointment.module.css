@@ -54,10 +54,12 @@
 }
 .timeSlotsWrapper {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px;
   flex-wrap: wrap;
   height: 110px;
-  gap: 20px;
+
   overflow-x: hidden;
   overflow-y: scroll;
 }

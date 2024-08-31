@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RescheduleAppointment.module.css";
-import { frame1 } from "../../../../assets/images/Appointments";
 import rightIco from "../../../../assets/images/SalonDetail/chevron-right.svg";
 import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
 import Slider from "react-slick";
@@ -17,8 +16,9 @@ import { closeModal } from "../../../../redux/slices/modal";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 import SecondaryButton from "../../../Buttons/SecondaryButton/SecondaryButton";
+import Time from "./Time/Time.jsx";
 function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
+  const { className, onClick } = props;
 
   return (
     <div className={className} onClick={onClick}>
@@ -87,10 +87,9 @@ const RescheduleAppointment = ({ data }) => {
     salons_id: data.salonData[0]?._id,
     service_id: subcategoriesIds,
     noPreference: true,
-    dateforService:date,
+    dateforService: date,
   };
-// console.log(data)
-// console.log(useTimeSlots(genarateSlotsData))
+
   const {
     data: slots,
     isLoading,
@@ -110,7 +109,7 @@ const RescheduleAppointment = ({ data }) => {
       "-" +
       String(selectedDate.date).padStart(2, "0");
     setDate(fullDate);
-}, [showMonth, showYear, selectedDate]);
+  }, [showMonth, showYear, selectedDate]);
 
   // console.log(genarateSlotsData);
   const generateAllowedMonths = () => {
@@ -291,6 +290,7 @@ const RescheduleAppointment = ({ data }) => {
       );
     }
   };
+  console.log(selectedTimeSlot);
 
   return (
     <div className={styles.RescheduleModal}>
@@ -362,17 +362,22 @@ const RescheduleAppointment = ({ data }) => {
           <div className={styles.startTime}>
             <h4>Start time</h4>
             <div className={styles.timeSlotsWrapper}>
-              {slots?.res?.data?.map((timeSlot, index) => (
-                <button
-                  key={index}
-                  className={`${styles.timeSlot} ${
-                    selectedTimeSlot === timeSlot ? styles.selected : ""
-                  }`}
-                  onClick={() => handleTimeSlotClick(timeSlot)}
-                >
-                  {timeSlot}
-                </button>
-              ))}
+              {slots?.res?.data?.length > 0 ? (
+                slots?.res?.data?.map((v, i) => {
+                  return (
+                    <Time
+                      index={v}
+                      activeTime={selectedTimeSlot}
+                      updateActiveTime={handleTimeSlotClick}
+                      key={i}
+                      timeData={v}
+                      date={date}
+                    />
+                  );
+                })
+              ) : (
+                <ErrorComponent message={"No slots are available"} />
+              )}
 
               {isLoading && <LoadSpinner />}
 

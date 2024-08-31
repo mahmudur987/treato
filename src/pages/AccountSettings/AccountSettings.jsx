@@ -76,7 +76,7 @@ export default function AccountSettings() {
       email: userData.email ? userData.email : "",
       phone: userData.phone ? userData.phone : "",
       dob: userData.dob ? userData.dob : "",
-      place: userData?.location.place ? userData?.location.place : "",
+      place: userData?.location?.place ? userData?.location?.place : "",
       house_type: userData?.location?.address_type
         ? userData?.location?.address_type
         : "",
