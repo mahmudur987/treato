@@ -11,83 +11,46 @@ export default function Time({
 }) {
   const [isPast, setIsPast] = useState(false);
   const [isToday, setIsToday] = useState(false);
-  const givenDateString = date; //
+
+  const givenDateString = date;
   const givenTimeString = timeData;
 
   useEffect(() => {
-    // Get current time
-    const currentTime = new Date();
-
-    // Parse the given time
-    const [hours, minutes] = givenTimeString?.split(":")?.map(Number);
-    const givenTime = new Date();
-    givenTime.setHours(hours);
-    givenTime.setMinutes(minutes);
-    givenTime.setSeconds(0);
-    givenTime.setMilliseconds(0);
-
-    // Compare times
-    if (currentTime > givenTime) {
-      setIsPast(true);
-    } else {
-      setIsPast(false);
-    }
-  }, [givenTimeString]);
-
-  useEffect(() => {
-    if (givenDateString) {
-      // Get current date
-      const currentDate = new Date();
+    if (givenDateString && givenTimeString) {
+      // Get current date and time
+      const currentDateTime = new Date();
 
       // Parse the given date
-      const parts = givenDateString?.split(" - ");
-      const day = parseInt(parts[1]?.split(" ")[1]);
-      const monthString = parts[1]?.split(" ")[0];
-      const months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
+      const [year, month, day] = givenDateString.split("-").map(Number);
+      const [hours, minutes] = givenTimeString.split(":").map(Number);
 
-      const monthIndex = months.indexOf(monthString);
-      const givenDate = new Date(
-        currentDate.getFullYear(),
-        monthIndex,
-        parseInt(day)
+      const givenDateTime = new Date(
+        year,
+        month - 1,
+        day,
+        hours,
+        minutes,
+        0,
+        0
       );
 
-      // Compare dates
-      if (
-        currentDate.getDate() === givenDate.getDate() &&
-        currentDate.getMonth() === givenDate.getMonth() &&
-        currentDate.getFullYear() === givenDate.getFullYear()
-      ) {
-        setIsToday(true);
+      // Update states based on date and time comparisons
+      const isToday =
+        currentDateTime.toDateString() === givenDateTime.toDateString();
+      setIsToday(isToday);
+
+      if (currentDateTime > givenDateTime) {
+        setIsPast(true);
       } else {
-        setIsToday(false);
+        setIsPast(false);
       }
     }
-  }, [givenDateString]);
+  }, [givenDateString, givenTimeString]);
 
-  useEffect(() => {
-    if (isPast && isToday) {
-      updateActiveTime("");
-    }
-  }, [isPast, isToday, updateActiveTime]);
-  console.log(givenDateString, givenTimeString);
   return (
     <label
       htmlFor={`time${index}`}
-      style={{ background: `${isPast && isToday ? "lightGray" : ""}` }}
+      style={{ background: isPast && isToday ? "lightGray" : "" }}
       className={
         activeTime === index
           ? `${styles.timeMain} ${styles.activeTimeMain}`
@@ -95,12 +58,13 @@ export default function Time({
       }
       onClick={(e) => {
         if (isPast && isToday) {
-          return toast.error("The slot is past", { toastId: 1 });
+          toast.error("The slot is past", { toastId: 1 });
+          return;
         }
-        updateActiveTime(index);
+        updateActiveTime(timeData);
       }}
     >
-      <div className={styles.timeMainA}>{timeData ? timeData : null}</div>
+      <div className={styles.timeMainA}>{timeData || null}</div>
     </label>
   );
 }
