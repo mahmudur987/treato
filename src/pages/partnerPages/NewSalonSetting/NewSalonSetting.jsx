@@ -122,7 +122,7 @@ const NewSalonSetting = () => {
     if (!salonData.postal_code) {
       return toast.error("write your post code");
     }
-    setLoading(true);
+    // setLoading(true);
     const submitData = {
       salon_name: salonData.salon_name,
       salons_description: salonData.salons_description,
@@ -144,49 +144,32 @@ const NewSalonSetting = () => {
     };
     console.log(submitData);
 
-    if (newPartner?.emptyMandatoryFields?.length > 0) {
-      const { res, err } = await UpdateSalon(submitData);
-      if (res) {
-        console.log(res);
-        toast.success("salon update successfully");
-        setLoading(false);
-
-        return navigate("/partner/dashboard");
-      }
-      if (err) {
-        console.log(err);
-        setLoading(false);
-
-        toast.error(err?.response?.data?.error || "Error");
-      }
-    } else {
-      const { res, err } = await createSalon(submitData);
-      if (res) {
-        console.log("create salon", res);
-        let isTokenExist = localStorage.getItem("jwtToken");
-        if (isTokenExist) {
-          getUserProfile(isTokenExist)
-            .then((res) => {
-              dispatch(updateIsLoggedIn(true));
-              dispatch(updateUserDetails(res?.res?.data));
-              toast.success("salon created successfully");
-              navigate("/partner/dashboard");
-              setLoading(false);
-            })
-            .catch((err) => {
-              setLoading(false);
-              toast.error("Error");
-            });
-        }
-      }
-      if (err) {
-        console.log(err);
-        setLoading(false);
-        toast.error(err?.response?.data?.error || "Error");
+    const { res, err } = await createSalon(submitData);
+    if (res) {
+      console.log("create salon", res);
+      let isTokenExist = localStorage.getItem("jwtToken");
+      if (isTokenExist) {
+        getUserProfile(isTokenExist)
+          .then((res) => {
+            dispatch(updateIsLoggedIn(true));
+            dispatch(updateUserDetails(res?.res?.data));
+            toast.success("salon created successfully");
+            navigate("/partner/dashboard");
+            setLoading(false);
+          })
+          .catch((err) => {
+            setLoading(false);
+            toast.error("Error");
+          });
       }
     }
+    if (err) {
+      console.log(err);
+      setLoading(false);
+      toast.error(err?.response?.data?.error || "Error");
+    }
   };
-  console.log(newPartner);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setSalonData((prevState) => ({
@@ -231,7 +214,7 @@ const NewSalonSetting = () => {
             ></span>
           </div>
         </div>
-        <form onSubmit={handleSubmit} className={sty.form}>
+        <div className={sty.form}>
           {(PcScreen || (mobileScreen && currentStep === 1)) && (
             <div className={sty.ServiceOfferSmallScreen}>
               <BasicDetailsPartner
@@ -297,28 +280,32 @@ const NewSalonSetting = () => {
           )}
 
           <div className={sty.saveBtnDiv}>
-            <button
-              style={{ cursor: "pointer" }}
-              type="button"
-              onClick={handleSubmit}
-              className={sty.saveBtn}
-            >
-              Save
-            </button>
-            <button
-              style={{
-                cursor: "pointer",
-                background: `${currentStep === 4 ? "black" : ""}`,
-                color: `${currentStep === 4 ? "white" : ""}`,
-              }}
-              type="button"
-              onClick={handleSubmit}
-              className={sty.Proceed}
-            >
-              Proceed
-            </button>
+            {PcScreen && (
+              <button
+                style={{ cursor: "pointer" }}
+                type="button"
+                onClick={handleSubmit}
+                className={sty.saveBtn}
+              >
+                Save
+              </button>
+            )}
+            {mobileScreen && (
+              <button
+                style={{
+                  cursor: "pointer",
+                  background: `${currentStep === 4 ? "black" : ""}`,
+                  color: `${currentStep === 4 ? "white" : ""}`,
+                }}
+                type="button"
+                onClick={handleSubmit}
+                className={sty.Proceed}
+              >
+                Proceed
+              </button>
+            )}
           </div>
-        </form>
+        </div>
       </div>
     </>
   );

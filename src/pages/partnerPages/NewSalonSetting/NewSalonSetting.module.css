@@ -32,19 +32,30 @@
 .saveBtn {
   background-color: black;
   color: white;
-  max-width: 80px;
+  max-width: 110px;
   width: 100%;
   padding: 8px 8px 8px 8px;
   border: solid black 1px;
-  border-radius: 20%;
-  margin-top: 2%;
+  border-radius: 8px;
+  margin-top: 10px;
 }
 .saveBtnDiv {
   display: flex;
   justify-content: end;
   align-items: end;
 }
-
+.Proceed {
+  width: 90vw;
+  height: 48px;
+  display: block;
+  border-radius: 4px;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+}
 .SalonPicturesSmallScreen .ServiceOfferSmallScreen .ServiceLocationSmallScreen {
   display: none;
 }
@@ -90,9 +101,7 @@
   line-height: 21px;
   text-align: left;
 }
-.Proceed {
-  display: none;
-}
+
 .steps {
   display: none;
 }
@@ -134,29 +143,5 @@
     justify-content: center;
     align-items: center;
     margin-right: 30%;
-  }
-
-  .saveBtn {
-    outline: none;
-    border: #ebedf0;
-    color: black;
-    border-radius: 4px;
-    height: 48px;
-    background-color: #ebedf0;
-    width: 390px;
-    text-align: center;
-    display: none;
-  }
-  .Proceed {
-    width: 90vw;
-    height: 48px;
-    display: block;
-    border-radius: 4px;
-    text-align: center;
-    font-family: Poppins;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 16px;
-    letter-spacing: -0.01em;
   }
 }
