@@ -72,7 +72,7 @@ export default function BillSummary({
       );
     }
   }, [stepTwoDetails]);
-  console.log(stepTwoDetails);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();

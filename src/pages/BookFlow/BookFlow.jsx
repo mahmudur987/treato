@@ -308,7 +308,6 @@ export default function BookFlow() {
       }
     });
   };
-  console.log(availableSlots);
 
   if (loading) {
     return (

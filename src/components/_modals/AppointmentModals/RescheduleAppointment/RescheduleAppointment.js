@@ -158,25 +158,24 @@ const RescheduleAppointment = ({ data }) => {
 
   const handleRescheduleAppointment = async () => {
     // You can now access the selectedDate, selectedTime, and selectedTimeSlot
-    // console.log("Selected Date:", selectedDate);
-    // console.log("Selected Time:", selectedMonthYear);
-    // console.log("Selected Time Slot:", selectedTimeSlot);
+    console.log("Selected Date:", date);
+
     if (!selectedDate || !selectedMonthYear || !selectedTimeSlot) {
       return toast.error("please select your Time slot", { toastId: 1 });
     }
     const reschedule = {
-      date: (selectedDate.day =
-        " " + selectedDate.date + " " + selectedMonthYear),
+      date,
 
       time: selectedTimeSlot,
     };
+    console.log(reschedule);
 
     const res = await rescheduleAppointment(data?._id, reschedule);
 
     if (res.res) {
       dispatch(closeModal());
       refetch();
-      return toast.success("The appointments Reschedule confirmd");
+      return toast.success("The appointments Reschedule confirmed");
     }
     if (res.err) {
       return toast.error("Not confirm please try again");
@@ -290,7 +289,6 @@ const RescheduleAppointment = ({ data }) => {
       );
     }
   };
-  console.log(selectedTimeSlot);
 
   return (
     <div className={styles.RescheduleModal}>

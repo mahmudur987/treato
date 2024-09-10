@@ -124,7 +124,7 @@ const LoginPage = () => {
               // localStorage.setItem("userData", JSON.stringify(profileData));
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(profileData));
-              console.log(profileData);
+
               if (profileData?.data.role === "super") {
                 navigate("/admin");
               } else if (

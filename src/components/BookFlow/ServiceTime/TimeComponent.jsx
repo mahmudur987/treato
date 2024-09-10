@@ -86,8 +86,6 @@ export default function TimeComponent({
     }
   }, [isPast, isToday, updateActiveTime]);
 
-  console.log(givenDateString, givenTimeString);
-
   return (
     <label
       htmlFor={`time${index}`}
