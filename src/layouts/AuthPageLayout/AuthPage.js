@@ -41,6 +41,7 @@ const AuthPage = ({ children }) => {
           src={arrowleft}
           className={styles.arrowLeft}
           onClick={handleBack}
+          alt="auth page "
         />
         {children} {/* Dynamically rendered content */}
       </div>

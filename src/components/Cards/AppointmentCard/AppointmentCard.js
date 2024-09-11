@@ -297,7 +297,7 @@ const AppointmentCard = ({ salon, cardType }) => {
               <h4>
                 Refund:{" "}
                 <span className={styles.amount}>
-                  {salon.final_amount.toFixed(1) ?? "00"}
+                  {salon.final_amount.toFixed(2) ?? "00"}
                 </span>
                 ({salon.payment_mode})
               </h4>
