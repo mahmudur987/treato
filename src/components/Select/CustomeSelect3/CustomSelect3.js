@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import styles from "./CusomeSelect3.module.css";
 import { CiSearch } from "react-icons/ci";
-const CustomSelect3 = ({ options, onChange, value }) => {
+const CustomSelect3 = ({ options, onChange, value, setSearchText }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef(null);
 
@@ -45,13 +45,18 @@ const CustomSelect3 = ({ options, onChange, value }) => {
                   <CiSearch />
                 </span>
 
-                <input name="search" type="text" placeholder="find client" />
+                <input
+                  name="search"
+                  type="text"
+                  placeholder="find client"
+                  onChange={(e) => setSearchText(e.target.value)}
+                />
               </p>
             </div>
 
-            {options.map((option) => (
+            {options.map((option, i) => (
               <div
-                key={option}
+                key={i}
                 className={classNames(styles.option, {
                   [styles.selected]: option === value,
                 })}

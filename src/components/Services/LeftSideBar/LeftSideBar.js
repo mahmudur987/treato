@@ -49,7 +49,7 @@ const LeftSideBar = () => {
           />
         </svg>
       ),
-      text: "Calender",
+      text: "Calendar",
     },
     {
       to: "/partner/dashboard/addappoinment",

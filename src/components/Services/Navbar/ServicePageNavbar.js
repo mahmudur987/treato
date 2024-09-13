@@ -36,7 +36,7 @@ const ServicePageNavbar = () => {
   return (
     <div ref={profileRef} className={styles.mainContainer}>
       <div className={styles.container}>
-        <p className={styles.actionWrapper}>
+        <div className={styles.actionWrapper}>
           {userData?.isLoggedIn && (
             <div
               className={styles.account}
@@ -65,7 +65,7 @@ const ServicePageNavbar = () => {
               </svg>
             </div>
           )}
-        </p>
+        </div>
         {showProfile && (
           <div
             onClick={() => setShowProfile((pre) => !pre)}

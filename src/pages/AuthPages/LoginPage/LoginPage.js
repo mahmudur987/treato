@@ -115,17 +115,24 @@ const LoginPage = () => {
           }
           (async () => {
             const profileResponse = await getUserProfile(res?.res.data.token);
+
             if (profileResponse?.res.status === 200) {
-              const profileData = profileResponse?.res?.data?.data;
+              const profileData = profileResponse?.res?.data;
               delete Object.assign(profileData, {
                 ["place"]: profileData["location"],
               })["location"];
               // localStorage.setItem("userData", JSON.stringify(profileData));
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(profileData));
-              if (profileData.role === "super") {
+
+              if (profileData?.data.role === "super") {
                 navigate("/admin");
-              } else if (userChoice.role.role === "partner") {
+              } else if (
+                profileData?.data?.role === "partner" &&
+                !profileData?.isProfileComplete
+              ) {
+                navigate("/partner/dashboard/newSalonSetting");
+              } else if (profileData?.data?.role === "partner") {
                 navigate("/partner/dashboard");
               } else {
                 navigate("/");
@@ -177,13 +184,28 @@ const LoginPage = () => {
         // Make a request to your backend API
         google_Login(access_token, role).then((res) => {
           if (res?.res?.data && res?.res.status === 200) {
-            dispatch(updateIsLoggedIn(true));
-            dispatch(
-              updateUserDetails(res?.res?.data?.newUser || res?.res?.data.user)
-            );
             localStorage.setItem("jwtToken", res?.res?.data?.token);
-            navigate("/");
-            toast("Welcome to Treato! Start exploring now!");
+            getUserProfile(res?.res?.data?.token)
+              .then((res) => {
+                console.log(res);
+                const user = res?.res?.data;
+                dispatch(updateIsLoggedIn(true));
+                dispatch(updateUserDetails(user));
+                toast("Welcome to Treato! Start exploring now!");
+                if (
+                  user?.data?.role === "partner" &&
+                  !user?.isProfileComplete
+                ) {
+                  navigate("/partner/dashboard/newSalonSetting");
+                } else if (user?.data?.role === "partner") {
+                  navigate("/partner/dashboard");
+                } else if (user?.data?.role !== "partner") {
+                  navigate("/");
+                }
+              })
+              .catch((err) => {
+                console.log("after google login get profile error", err);
+              });
           } else {
             toast.error(`An unexpected error occurred. Please try again.`);
           }

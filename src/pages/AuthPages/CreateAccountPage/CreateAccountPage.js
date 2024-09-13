@@ -30,7 +30,6 @@ import { getCountryCallingCode } from "react-phone-number-input/input";
 import en from "react-phone-number-input/locale/en";
 import CountrySelect from "../../../components/Countrycode/CountrySelect";
 import { handleInputChange } from "../../../utils/utils";
-import { createSalon } from "../../../services/salon";
 
 const CreateAccountPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -120,20 +119,18 @@ const CreateAccountPage = () => {
           if (res?.res?.data && res?.res.status === 200) {
             localStorage.setItem("jwtToken", res?.res?.data?.token);
             getUserProfile(res?.res?.data.token).then((res) => {
-              const user = res?.res?.data?.data;
-              if (user?.role === "partner") {
-                createSalon()
-                  .then((res) => console.log(res.res))
-                  .catch((err) => console.error(err));
-                navigate("/partner/dashboard/PartnerAccountSetting");
-              }
+              const user = res?.res?.data;
               dispatch(updateIsLoggedIn(true));
-              dispatch(updateUserDetails(res?.res?.data?.data));
+              dispatch(updateUserDetails(user));
               dispatch(updateOTP(0));
-
               toast("Welcome to Treato! Start exploring now!");
               localStorage.removeItem("requiredRegisterData");
-              if (user?.role !== "partner") {
+
+              if (user?.data?.role === "partner" && !user?.isProfileComplete) {
+                navigate("/partner/dashboard/newSalonSetting");
+              } else if (user?.data?.role === "partner") {
+                navigate("/partner/dashboard");
+              } else if (user?.data?.role !== "partner") {
                 navigate("/");
               }
             });

@@ -1,11 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SalonFilterModalDesktop from "../../components/_modals/filterSalon/SalonFilterModalDesktop/SalonFilterModalDesktop.js";
 import SalonFilterModalMobile from "../../components/_modals/filterSalon/SalonFilterModalMobile/SalonFilterModalMobile.js";
 import Footer from "../../components/Footer/Footer.js";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Chatbot from "../../components/ChatBot/Chatbot.jsx";
+import { getUserProfile } from "../../services/auth.js";
+import {
+  updateIsLoggedIn,
+  updateUserDetails,
+} from "../../redux/slices/user.js";
+import LoadSpinner from "../../components/LoadSpinner/LoadSpinner.js";
 
 export default function CustomerPageLayout() {
   const showModal = useSelector((state) => state?.salonModal.showModal);
@@ -31,20 +37,28 @@ export default function CustomerPageLayout() {
   const isServicePage = location.pathname.startsWith("/partner/dashboard");
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
+  const [isLoading, setIsLoading] = useState(true); // Start with loading state
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user.role === "partner") {
-      navigate("/partner/dashboard");
+    let isTokenExist = localStorage.getItem("jwtToken");
+    if (isTokenExist) {
+      getUserProfile(isTokenExist).then((res) => {
+        dispatch(updateIsLoggedIn(true));
+        dispatch(updateUserDetails(res?.res?.data));
+        setIsLoading(false); // Set loading to false once user data is fetched
+      });
+    } else {
+      setIsLoading(false); // Set loading to false if no token is found
     }
-  }, [user]);
-  useEffect(() => {
-    if (user.role === "super") {
-      navigate("/admin");
-    }
-  }, [user]);
-
+  }, []);
+  if (isLoading) {
+    return <LoadSpinner />;
+  }
   if (user.role === "partner") {
     return navigate("/partner/dashboard");
+  } else if (user.role === "super") {
+    navigate("/admin");
   } else {
     return (
       <div>
@@ -52,7 +66,7 @@ export default function CustomerPageLayout() {
         {/* <ModalManager /> */}
         {showModal && !isMobileView && <SalonFilterModalDesktop />}
         {showModal && isMobileView && <SalonFilterModalMobile />}
-        <Chatbot/>
+        <Chatbot />
         <Outlet />
         {!isMyAppointmentsRoute && !isServicePage && !isSpecialPage && (
           <Footer />

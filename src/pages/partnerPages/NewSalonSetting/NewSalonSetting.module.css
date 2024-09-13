@@ -1,0 +1,147 @@
+.container {
+  padding: 1rem;
+  font-family: "Lato", sans-serif;
+  margin: 0px auto;
+  color: var(--Grey-Black, #08090a);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.usr_detail_head {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.usr_detail_head h1 {
+  color: #08090a;
+  font-family: Poppins;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 42px;
+  text-align: left;
+}
+.usr_detail_head p {
+  font-family: Lato;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  color: #2e3032;
+}
+.saveBtn {
+  background-color: black;
+  color: white;
+  max-width: 110px;
+  width: 100%;
+  padding: 8px 8px 8px 8px;
+  border: solid black 1px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+.saveBtnDiv {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+.Proceed {
+  width: 90vw;
+  height: 48px;
+  display: block;
+  border-radius: 4px;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+}
+.SalonPicturesSmallScreen .ServiceOfferSmallScreen .ServiceLocationSmallScreen {
+  display: none;
+}
+.SalonTeamDetails {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.teamDetailsH {
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: left;
+}
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.inputWrapper label {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+.inputWrapper input {
+  max-width: 424px;
+  width: 100%;
+  height: 48px;
+  border: 1px solid var(--Grey-Grey-30, #ced4da);
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+.description {
+  color: var(--Grey-Grey-10, #6d747a);
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+}
+
+.steps {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 98vw;
+    width: 100%;
+    padding: 20px 2vw;
+  }
+  .usr_detail_head {
+    display: flex;
+    font-size: 33px;
+    gap: 20px;
+  }
+  .usr_detail_head p {
+    display: none;
+  }
+  .steps {
+    display: flex;
+    gap: 5px;
+  }
+  .step {
+    background: var(--Grey-Grey-40, #ebedf0);
+    height: 6px;
+    width: 100%;
+    display: block;
+    border-radius: 100px;
+  }
+  .form {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .saveBtnDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30%;
+  }
+}

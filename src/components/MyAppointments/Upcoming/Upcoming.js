@@ -21,6 +21,7 @@ const Upcoming = () => {
 
   return (
     <>
+      <button onClick={() => console.log(data)}></button>
       {data && (
         <div className={styles.UpcomingWrapper}>
           {data?.res?.data?.data?.map((salon, index) => (

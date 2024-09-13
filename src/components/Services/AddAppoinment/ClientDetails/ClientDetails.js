@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import styles from "./ClientDetails.module.css";
-import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import CustomSelect3 from "../../../Select/CustomeSelect3/CustomSelect3";
 import AddNewClient from "../../../_modals/AddNewClient/AddNewClient";
 
@@ -11,37 +10,41 @@ import NoDataDisplay from "../../../NodataToDisplay/NoDataDisplay";
 
 const ClientsDetails = () => {
   const {
-    teamMembers,
-    SelectedTeamMember,
-    setSelectedTeamMember,
     price,
     setPrice,
     discount,
     setDiscount,
     setCustomerDetails,
-    isError: teamIsError,
-    error: teamError,
+    setComments,
   } = useContext(AddAppointmentContext);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
   const { data, isLoading, isError, error } = useGetClients();
-  const clients = data?.data;
-  const [selectedClient, setSelectedClient] = useState(
-    clients
-      ? clients[0]
-      : {
-          name: "please select ",
-        }
-  );
-  // console.log(data);
-  const handleSelectTeamMember = (value) => {
-    setSelectedTeamMember(value);
-  };
+
+  const [selectedClient, setSelectedClient] = useState({
+    name: "No Clients ",
+  });
+  const [clients, setClients] = useState([]);
+
+  useEffect(() => {
+    const searchResult = data?.data?.filter(
+      (contact) =>
+        contact?.name?.toLowerCase().includes(searchText?.toLowerCase()) ||
+        contact?.phone?.includes(searchText) ||
+        contact?.email?.toLowerCase().includes(searchText?.toLowerCase())
+    );
+    setClients(searchResult);
+    setSelectedClient(
+      searchResult?.length > 0 && !searchText ? searchResult[0] : ""
+    );
+  }, [data, searchText]);
+
   const handleSelectClient = (value) => {
     setSelectedClient(value);
     setCustomerDetails(value);
+    setSearchText("");
   };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -54,10 +57,8 @@ const ClientsDetails = () => {
   return (
     <section className={styles.mainContainer}>
       <div className={styles.container}>
-        <h3 className={styles.heding}>Client Details</h3>
-
+        <h3 className={styles.heading}>Client Details</h3>
         {/* Select an existing client */}
-
         <div className={styles.existingClient}>
           <label htmlFor="">Select an existing client</label>
           {data && data?.data?.length > 0 && !isError && !isLoading ? (
@@ -65,6 +66,7 @@ const ClientsDetails = () => {
               options={clients}
               value={selectedClient}
               onChange={handleSelectClient}
+              setSearchText={setSearchText}
             />
           ) : (
             <ErrorComponent message={error?.message} />
@@ -74,12 +76,10 @@ const ClientsDetails = () => {
             <NoDataDisplay message={"You Have No Existing Clients"} />
           )}
         </div>
-
         <p onClick={() => openModal()} className={styles.addNewClient}>
           <span>+</span>
           <span>Add a new client</span>
         </p>
-
         {/* Pricing*/}
         <h3>Pricing</h3>
         <div className={styles.selectPrice}>
@@ -143,29 +143,26 @@ const ClientsDetails = () => {
               </p>
             </div>
           </div>
-        </div>
-
-        {/* assign professional*/}
-        <h3 className={styles.heding}>Assign Professional</h3>
-
-        <div className={styles.professional}>
-          {teamMembers?.length > 0 && !teamIsError ? (
-            <CustomSelect2
-              options={null}
-              value={SelectedTeamMember}
-              onChange={handleSelectTeamMember}
-              teamMembers={teamMembers}
-            />
-          ) : (
-            <ErrorComponent message={teamError?.message} />
-          )}
-
-          {teamMembers?.length === 0 && (
-            <NoDataDisplay message={"No Team Members Available"} />
-          )}
+        </div>{" "}
+        <div className={styles.comments}>
+          <label htmlFor="comments">
+            Additional comments <span>(optional)</span>
+          </label>
+          <textarea
+            onChange={(e) => setComments(e.target.value)}
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+          ></textarea>
         </div>
       </div>
-      <AddNewClient showModal={isModalOpen} onClose={closeModal} />
+      <AddNewClient
+        showModal={isModalOpen}
+        onClose={closeModal}
+        setSelectedClient={setSelectedClient}
+        clients={clients}
+      />
     </section>
   );
 };

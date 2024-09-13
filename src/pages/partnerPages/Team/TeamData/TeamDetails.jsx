@@ -103,9 +103,12 @@ const TeamDetails = () => {
         </div>
         <div style={{ display: "flex" }}>
           <span className={sty.searchBox}>
-            <img src={search} alt="search" className={sty.searchBoxImg} />
+            <label htmlFor="search">
+              <img src={search} alt="search" className={sty.searchBoxImg} />
+            </label>
             <input
-              type="search"
+              type="text"
+              id="search"
               placeholder="Search by name or service title "
               className={sty.searchInp}
               onChange={(e) => setSearchText(e.target.value)}

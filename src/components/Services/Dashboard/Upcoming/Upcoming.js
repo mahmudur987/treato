@@ -58,6 +58,7 @@ const Upcoming = () => {
       const { data } = await axiosInstance("sales/upcomingAppointments", {
         headers,
       });
+      // console.log(data)
       return data;
     },
   });
@@ -104,7 +105,7 @@ const Upcoming = () => {
                   <th className={styles.th}>Price</th>
                 </tr>
               </thead>
-              <tbody className={styles.tbody}>
+              <tbody className={`${styles.tbody} ${styles.scroll}`}>
                 {data &&
                   data?.data?.slice(0, 72).map((item, i) => {
                     const addedTime = TimeAddition(
@@ -121,11 +122,7 @@ const Upcoming = () => {
                           {item?.time}-{addedTime} (
                           {item.serviceData?.time_takenby_service})
                         </td>
-                        <td className={styles.row}>
-                          {item?.PaymentMode
-                            ? item?.PaymentMode
-                            : "PaymentMode"}
-                        </td>
+                        <td className={styles.row}>{item?.paymentMode}</td>
                         <td className={styles.row}>
                           {item?.userData?.name ? item?.userData?.name : "N/A"}
                         </td>

@@ -68,8 +68,9 @@ export default function AddressModal({
       house: house ? house : "",
       place: userAddressText ? userAddressText : "",
     };
-    console.log(address);
+
     let allData = { ...inputVal, address, ...address };
+    console.log(allData);
     updateInputVal(allData);
     setAddressModal(false);
     setShowSave(true);
@@ -155,7 +156,7 @@ export default function AddressModal({
       return `Address for ${lat}, ${lng}`;
     }
   };
-
+  console.log(addressModal);
   return (
     <>
       {addressModal?.data ? (

@@ -31,15 +31,15 @@ const AppointmentCard = ({ salon, cardType }) => {
   const dispatch = useDispatch();
 
   const handleHelp = () => {
-    navigate("/contactus")
-  }
+    navigate("/contactus");
+  };
 
   const handleModal = (buttonType) => {
     console.log(buttonType);
-    
+
     dispatch(openModal({ type: `${buttonType}`, closable: true, data: salon }));
   };
-  console.log(salon);
+  // console.log(salon);
 
   return (
     <div className={styles.cardWrapper}>
@@ -70,7 +70,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                   <p>
                     <span>{formatDate(salon?.start_date)}</span>
                     <span>at</span>
-                    <span> {salon.time}</span>
+                    <span> {salon.bookingTime}</span>
                   </p>
                   <button
                     onClick={() => settoggleDetails(!toggleDetails)}
@@ -241,9 +241,26 @@ const AppointmentCard = ({ salon, cardType }) => {
                   <div className={styles.bookedOn}>
                     <h4 className={styles.title}>Cancelled on</h4>
                     <p className={styles.dateTime}>
-                      {formatDate(salon.end_date) ?? "N/A"} 
+                      {formatDate(salon.end_date) ?? "N/A"}
                     </p>
                   </div>
+                  {salon?.stylistData?.map((x, i) => (
+                    <div
+                      className={`${styles.Professional} ${
+                        cardType === "Completed" ? styles.d_none : ""
+                      }`}
+                    >
+                      <h4 className={styles.title}>Professional</h4>
+                      <p className={styles.proName}>
+                        <img
+                          src={x?.stylist_Img.public_url}
+                          alt="pro_Avatar"
+                          className={styles.pro_Avatar}
+                        />
+                        {x?.stylist_name}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
@@ -280,7 +297,7 @@ const AppointmentCard = ({ salon, cardType }) => {
               <h4>
                 Refund:{" "}
                 <span className={styles.amount}>
-                  {salon.final_amount ?? "00"}
+                  {salon.final_amount.toFixed(2) ?? "00"}
                 </span>
                 ({salon.payment_mode})
               </h4>

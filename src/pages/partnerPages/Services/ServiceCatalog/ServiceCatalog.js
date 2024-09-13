@@ -52,15 +52,17 @@ const ServiceCatalog = () => {
     fetchAllServices();
   }, []);
 
-  const filteredData = data?.salon?.services?.filter((x) => {
-    if (selectedServiceType === "All") {
-      return x;
-    } else {
-      return x.service_name === selectedServiceType;
-    }
-  });
-  // const y = filteredData.filter((x) => console.log(x?.mainCategories));
-  // // console.log(filteredData);
+  const filteredData = data?.salon?.services
+    ?.filter((x) => {
+      if (selectedServiceType === "All") {
+        return x;
+      } else {
+        return x.service_name === selectedServiceType;
+      }
+    })
+    ?.filter((x) => x.mainCategories.length > 0);
+
+  console.log(filteredData);
 
   const openModal = () => {
     setIsModalOpen(true);

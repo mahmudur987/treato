@@ -44,7 +44,7 @@ export default function AccountSettings() {
   const [userAddressText, setuserAddressText] = useState("");
   const [otpModal, setOtpModal] = useState(false);
   const [showSave, setShowSave] = useState(false);
-  const [otpVerify, setVerifyOtp] = useState(0)
+  const [otpVerify, setVerifyOtp] = useState(0);
   const [otpSuccess, setOtpSuccess] = useState(false);
   const [inputState, updateInputState] = useState({
     first_name: true,
@@ -76,11 +76,21 @@ export default function AccountSettings() {
       email: userData.email ? userData.email : "",
       phone: userData.phone ? userData.phone : "",
       dob: userData.dob ? userData.dob : "",
-      place: userData?.place ? userData?.place : "",
+      place: userData?.location?.place ? userData?.location?.place : "",
+      house_type: userData?.location?.address_type
+        ? userData?.location?.address_type
+        : "",
+      house: userData?.location?.house ? userData?.location?.house : "",
+      landmark: userData?.location?.landmark
+        ? userData?.location?.landmark
+        : "",
+
       gender: userData.gender ? userData.gender : "",
     };
     updateInputVal(data);
     updateGender(userData.gender ? userData.gender : "");
+
+    console.log(userData);
   }, [userData]);
 
   const setDefault = () => {
@@ -118,14 +128,14 @@ export default function AccountSettings() {
       google: "",
       fb: "",
       instagram: "",
-      house: inputVal.place.length
-        ? inputVal.place[inputVal.place.length - 1].house
-        : "",
-      landmark: inputVal.place.length
-        ? inputVal.place[inputVal.place.length - 1].landmark
-        : "",
-      place: inputVal.place,
+      house: inputVal?.address?.house ?? "",
+      landmark: inputVal.address?.landmark ?? "",
+      place: inputVal?.address?.place ?? "",
+      address_type: inputVal?.address?.house_type ?? "",
     };
+
+    console.log(formData);
+
     if (e.target.phone.value !== userData.phone) {
       setOtpModal(true);
       localStorage.setItem("tempUserData", JSON.stringify(formData));
@@ -157,18 +167,15 @@ export default function AccountSettings() {
     navigate("/");
     window.location.reload();
   };
-  const verifyOtp = async () =>{
-    
+  const verifyOtp = async () => {
     const phonedata = {
-      phoneNumber:inputVal.phone
-    }
-const res = await sendLoginOTP(phonedata)
-
-    console.log(res.res.data.otp);
-    setVerifyOtp(res.res.data.otp)
+      phoneNumber: inputVal.phone,
+    };
+    const res = await sendLoginOTP(phonedata);
+    console.log(res?.res?.data.otp);
+    setVerifyOtp(res?.res?.data.otp);
     console.log(inputVal);
-
-  }
+  };
 
   return (
     <>
@@ -219,7 +226,7 @@ const res = await sendLoginOTP(phonedata)
                 <div className={showSave ? styles.acc_settingA : styles.d_none}>
                   <SecondaryButton children={"Cancel"} onClick={setDefault} />
                   <PrimaryButton
-                  onClick={verifyOtp}
+                    // onClick={verifyOtp}
                     children={"Save Changes"}
                     form={"acc_set_form"}
                   />
@@ -371,7 +378,6 @@ const res = await sendLoginOTP(phonedata)
               updateInputState={updateInputState}
               inputVal={inputVal}
               userOTP={otpVerify}
-
             />
           ) : locationModal ? (
             <FindLocationModal

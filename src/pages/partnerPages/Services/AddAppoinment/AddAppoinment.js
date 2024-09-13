@@ -7,16 +7,18 @@ import { useSingleSalon } from "../../../../services/salon";
 import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
 import Loader from "../../../../components/LoadSpinner/Loader";
+
 export const AddAppointmentContext = createContext();
-function formatDate(dateString) {
+
+export function formatDate(dateString) {
   const date = new Date(dateString);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
+
 const AddAppointment = () => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [servicesDetails, setServiceDetails] = useState({});
   const [customerDetails, setCustomerDetails] = useState({
@@ -24,37 +26,106 @@ const AddAppointment = () => {
     name: "",
     email: "",
   });
+  const [comments, setComments] = useState("");
+  const { name, email, phone } = customerDetails;
+  const { service_id, time, dateforService, additionalComments } =
+    servicesDetails || {};
   const { data, isLoading, isError, error } = useSingleSalon();
 
-  const teamMembers = data?.salon?.stylists.map((x) => {
-    return {
-      name: x.stylist_name,
-      imageUrl: x.stylist_Img.public_url,
-      id: x._id,
-    };
-  });
+  const teamMembers =
+    data?.salon?.stylists?.map((x) => {
+      return {
+        name: x.stylist_name,
+        imageUrl: x.stylist_Img.public_url,
+        id: x._id,
+      };
+    }) || [];
+
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
   const [SelectedTeamMember, setSelectedTeamMember] = useState({});
 
   useEffect(() => {
-    setSelectedTeamMember(teamMembers ? teamMembers[0] : "");
+    if (teamMembers.length > 0) {
+      setSelectedTeamMember(teamMembers.length > 0 ? teamMembers[0] : {});
+    }
   }, [data]);
 
+  const [isPast, setIsPast] = useState(false);
+  const [isToday, setIsToday] = useState(false);
+  const givenDateString = dateforService || null;
+  const givenTimeString = time;
+  useEffect(() => {
+    if (givenTimeString) {
+      const currentTime = new Date();
+      const [hours, minutes] = givenTimeString?.split(":")?.map(Number);
+      const givenTime = new Date();
+      givenTime.setHours(hours);
+      givenTime.setMinutes(minutes);
+      givenTime.setSeconds(0);
+      givenTime.setMilliseconds(0);
+
+      if (currentTime > givenTime) {
+        setIsPast(true);
+      } else {
+        setIsPast(false);
+      }
+    }
+  }, [givenTimeString]);
+
+  useEffect(() => {
+    if (givenDateString) {
+      const currentDate = new Date();
+      const parts = givenDateString?.split(",");
+      const day = parseInt(parts[0]?.split(" ")[1]);
+      const monthString = parts[0]?.split(" ")[0].slice(0, 3);
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+
+      const monthIndex = months.indexOf(monthString);
+      const givenDate = new Date(
+        currentDate.getFullYear(),
+        monthIndex,
+        parseInt(day)
+      );
+
+      if (
+        currentDate.getDate() === givenDate.getDate() &&
+        currentDate.getMonth() === givenDate.getMonth() &&
+        currentDate.getFullYear() === givenDate.getFullYear()
+      ) {
+        setIsToday(true);
+      } else {
+        setIsToday(false);
+      }
+    }
+  }, [givenDateString]);
+
   const handleSubmit = async () => {
-    const { name, email, phone } = customerDetails;
-    const { service_id, time, dateforService, additionalComments, duration } =
-      servicesDetails;
     if (!dateforService) {
       return toast.error("select date ");
     }
-    if (service_id.length === 0) {
+    if (!service_id || service_id.length === 0) {
       return toast.error("select services ");
     }
     if (!time) {
       return toast.error("select a time ");
     }
-
+    if (isToday && isPast) {
+      return toast.error("the slot already past");
+    }
     if (!name) {
       return toast.error("customer name not available");
     }
@@ -64,7 +135,6 @@ const AddAppointment = () => {
     if (!phone) {
       return toast.error("customer phone not available in Database");
     }
-
     if (!price) {
       return toast.error("select price ");
     }
@@ -85,7 +155,6 @@ const AddAppointment = () => {
     };
 
     setLoading(true);
-    console.log(newdata);
 
     try {
       const headers = {
@@ -101,17 +170,16 @@ const AddAppointment = () => {
       toast.success(
         data ? data.message : "A New Appointment Has Been Added Successfully "
       );
-      console.log(data);
     } catch (error) {
-      console.log("error", error);
       toast.error(error ? error.message : "Failed");
     }
     setLoading(false);
   };
 
-  const handleCancel =()=>{
-    window.location.reload()
-  }
+  const handleCancel = () => {
+    window.location.reload();
+  };
+
   return (
     <AddAppointmentContext.Provider
       value={{
@@ -127,6 +195,8 @@ const AddAppointment = () => {
         isLoading,
         isError,
         error,
+        comments,
+        setComments,
       }}
     >
       <main className={styles.mainContainer}>
@@ -199,7 +269,9 @@ const AddAppointment = () => {
           </div>
 
           <div className={styles.buttonContainer}>
-            <button className={styles.cancel} onClick={handleCancel} >Cancel</button>
+            <button className={styles.cancel} onClick={handleCancel}>
+              Cancel
+            </button>
             <button className={styles.submit} onClick={handleSubmit}>
               {loading ? <Loader /> : "Submit"}
             </button>

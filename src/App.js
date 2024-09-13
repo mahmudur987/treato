@@ -75,6 +75,8 @@ import AddLook from "./pages/partnerPages/Look/AddALook/AddLook";
 import EditLook from "./pages/partnerPages/Look/EditLook/EditLook";
 import Commission from "./pages/AdminPages/Commissions/Commission";
 import PartnerPageLayout from "./layouts/ServicePageLayout/ServicePagelLayout";
+import PersonalDetails from "./pages/partnerPages/PersonalDetails/PersonalDetails";
+import NewSalonSetting from "./pages/partnerPages/NewSalonSetting/NewSalonSetting";
 
 function App() {
   // Use the location hook to track route changes
@@ -134,10 +136,14 @@ function App() {
   useEffect(() => {
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
-      getUserProfile(isTokenExist).then((res) => {
-        dispatch(updateIsLoggedIn(true));
-        dispatch(updateUserDetails(res?.res?.data?.data));
-      });
+      getUserProfile(isTokenExist)
+        .then((res) => {
+          dispatch(updateIsLoggedIn(true));
+          dispatch(updateUserDetails(res?.res?.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, []);
 
@@ -207,7 +213,10 @@ function App() {
               path="/partner/dashboard/appointment/calendar"
               element={<AppointmentCalendar />}
             />
-
+            <Route
+              path="/partner/dashboard/newSalonSetting"
+              element={<NewSalonSetting />}
+            />
             <Route
               path="/partner/dashboard/service"
               element={<ServiceCatalog />}
@@ -221,13 +230,13 @@ function App() {
               element={<EditService />}
             />
 
-            {/* add appoinment */}
+            {/* add appointment */}
 
             <Route
               path="/partner/dashboard/addappoinment"
               element={<AddAppoinment />}
             />
-            {/* partner accountsetting */}
+            {/* partner accountSetting */}
             <Route
               path="/partner/dashboard/PartnerAccountSetting"
               element={<PartnerAccountSetting />}
@@ -235,6 +244,10 @@ function App() {
             <Route
               path="/partner/dashboard/serviceBussness"
               element={<Bussness />}
+            />
+            <Route
+              path="/partner/dashboard/personalDetails"
+              element={<PersonalDetails />}
             />
             <Route
               path="/partner/dashboard/PaymentProfile"

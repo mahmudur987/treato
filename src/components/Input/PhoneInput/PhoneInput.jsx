@@ -24,7 +24,9 @@ export default function PhoneInput({
 
   useEffect(() => {
     if (VALUE) {
-      const matchedCountry = Object.keys(countryPhoneLengths).find(code => VALUE.startsWith(code));
+      const matchedCountry = Object.keys(countryPhoneLengths).find((code) =>
+        VALUE.startsWith(code)
+      );
       if (matchedCountry) {
         setCountry(matchedCountry);
       }
@@ -49,7 +51,7 @@ export default function PhoneInput({
   function inputValue(e) {
     const phoneNumber = country + e.target.value;
     const validationError = validatePhoneNumber(phoneNumber);
-
+    setErrorMessage("");
     if (validationError) {
       setErrorMessage(validationError);
     } else {

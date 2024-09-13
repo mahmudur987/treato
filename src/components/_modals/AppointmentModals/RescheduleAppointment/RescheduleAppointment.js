@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RescheduleAppointment.module.css";
-import { frame1 } from "../../../../assets/images/Appointments";
 import rightIco from "../../../../assets/images/SalonDetail/chevron-right.svg";
 import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
 import Slider from "react-slick";
@@ -17,8 +16,9 @@ import { closeModal } from "../../../../redux/slices/modal";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 import SecondaryButton from "../../../Buttons/SecondaryButton/SecondaryButton";
+import Time from "./Time/Time.jsx";
 function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
+  const { className, onClick } = props;
 
   return (
     <div className={className} onClick={onClick}>
@@ -86,7 +86,7 @@ const RescheduleAppointment = ({ data }) => {
   const genarateSlotsData = {
     salons_id: data.salonData[0]?._id,
     service_id: subcategoriesIds,
-    noPreference: data?.noPreference,
+    noPreference: true,
     dateforService: date,
   };
 
@@ -105,12 +105,13 @@ const RescheduleAppointment = ({ data }) => {
     const fullDate =
       showYear +
       "-" +
-      String(showMonth).padStart(2, "0") +
+      String(showMonth + 1).padStart(2, "0") +
       "-" +
       String(selectedDate.date).padStart(2, "0");
     setDate(fullDate);
   }, [showMonth, showYear, selectedDate]);
-  console.log(genarateSlotsData);
+
+  // console.log(genarateSlotsData);
   const generateAllowedMonths = () => {
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
@@ -157,25 +158,24 @@ const RescheduleAppointment = ({ data }) => {
 
   const handleRescheduleAppointment = async () => {
     // You can now access the selectedDate, selectedTime, and selectedTimeSlot
-    // console.log("Selected Date:", selectedDate);
-    // console.log("Selected Time:", selectedMonthYear);
-    // console.log("Selected Time Slot:", selectedTimeSlot);
+    console.log("Selected Date:", date);
+
     if (!selectedDate || !selectedMonthYear || !selectedTimeSlot) {
       return toast.error("please select your Time slot", { toastId: 1 });
     }
     const reschedule = {
-      date: (selectedDate.day =
-        " " + selectedDate.date + " " + selectedMonthYear),
+      date,
 
       time: selectedTimeSlot,
     };
+    console.log(reschedule);
 
     const res = await rescheduleAppointment(data?._id, reschedule);
 
     if (res.res) {
       dispatch(closeModal());
       refetch();
-      return toast.success("The appointments Reschedule confirmd");
+      return toast.success("The appointments Reschedule confirmed");
     }
     if (res.err) {
       return toast.error("Not confirm please try again");
@@ -360,17 +360,22 @@ const RescheduleAppointment = ({ data }) => {
           <div className={styles.startTime}>
             <h4>Start time</h4>
             <div className={styles.timeSlotsWrapper}>
-              {slots?.res?.data?.map((timeSlot, index) => (
-                <button
-                  key={index}
-                  className={`${styles.timeSlot} ${
-                    selectedTimeSlot === timeSlot ? styles.selected : ""
-                  }`}
-                  onClick={() => handleTimeSlotClick(timeSlot)}
-                >
-                  {timeSlot}
-                </button>
-              ))}
+              {slots?.res?.data?.length > 0 ? (
+                slots?.res?.data?.map((v, i) => {
+                  return (
+                    <Time
+                      index={v}
+                      activeTime={selectedTimeSlot}
+                      updateActiveTime={handleTimeSlotClick}
+                      key={i}
+                      timeData={v}
+                      date={date}
+                    />
+                  );
+                })
+              ) : (
+                <ErrorComponent message={"No slots are available"} />
+              )}
 
               {isLoading && <LoadSpinner />}
 

@@ -8,7 +8,11 @@ import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 import { useContext } from "react";
-import { AddAppointmentContext } from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
+import {
+  AddAppointmentContext,
+  formatDate,
+} from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
+import NoDataDisplay from "../../../NodataToDisplay/NoDataDisplay";
 
 const AppointmentDetails = () => {
   const {
@@ -20,8 +24,17 @@ const AppointmentDetails = () => {
   const dateInputRef = useRef(null);
 
   const [date, setDate] = useState("Oct 8 ,2022");
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { setServiceDetails } = useContext(AddAppointmentContext);
+  const {
+    setServiceDetails,
+    teamMembers,
+    SelectedTeamMember,
+    setSelectedTeamMember,
+    comments,
+    isError: teamIsError,
+    error: teamError,
+  } = useContext(AddAppointmentContext);
   const [serviceType, setServiceType] = useState([]);
   const [selectedServiceType, setSelectedServiceType] = useState("");
   const [mainCategories, setMainCategories] = useState([]);
@@ -32,13 +45,13 @@ const AppointmentDetails = () => {
   const [service, setService] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
   const [time, setTime] = useState("09:00");
-  const [comments, setcomments] = useState("");
+  // const [comments, setcomments] = useState("");
   const [duration, setduration] = useState("");
   const [prevId, setPrevId] = useState("");
 
   const handleWrapperClick = () => {
     console.log(55);
-    dateInputRef.current.click();
+    dateInputRef.current.showPicker();
   };
   useEffect(() => {
     const salon = data?.salon;
@@ -64,17 +77,44 @@ const AppointmentDetails = () => {
     .find((x) => x.category_name === category)
     ?.subCategories.map((x) => x.service_name);
 
+  useEffect(() => {
+    const selectedDate = new Date(Date.now());
+    const options = {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    };
+    const formattedDate = selectedDate.toLocaleDateString("en-US", options);
+    setDate(formattedDate);
+  }, []);
+
   const generateSlotsData = useMemo(() => {
+    if (SelectedTeamMember.name === "No preference") {
+      return {
+        salons_id: data?.salon?._id || "",
+        service_id: selectedServices,
+        noPreference: true,
+        dateforService: formatDate(date),
+      };
+    }
+
     return {
       salons_id: data?.salon?._id || "",
       service_id: selectedServices,
-      noPreference: true,
-      dateforService: date,
+      dateforService: formatDate(date),
+      selectedStylistId: SelectedTeamMember?.id,
     };
-  }, [data?.salon?._id, selectedServices, date]);
+  }, [data?.salon?._id, selectedServices, SelectedTeamMember, date]);
 
+  // console.log(generateSlotsData);
   const { data: slots, isLoading, error } = useTimeSlots(generateSlotsData);
-  const times = slots?.res?.data || ["09:00", "9:30", "10:00"];
+  const times = slots?.res?.data || ["09:00"];
+  // console.log(slots);
+
+  useEffect(() => {
+    setTime(times.length > 0 ? times[0] : "09:00");
+  }, [times]);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -102,8 +142,7 @@ const AppointmentDetails = () => {
         const newSelectedServices = [...prevSelectedServices].filter(
           (x) => x !== serviceId
         );
-        console.log(existingnewIndex);
-        console.log(newSelectedServices);
+
         return newSelectedServices;
       } else {
         return [serviceId, ...prevSelectedServices]; // Add the new item at the beginning
@@ -126,26 +165,28 @@ const AppointmentDetails = () => {
     return total + extractMinutes(item.time_takenby_service);
   }, 0);
   allSelectedServices.shift();
-  const generateFinalData = useMemo(() => {
-    return {
-      service_id: selectedServices,
-      time,
-      dateforService: date,
-      additionalComments: comments,
-      duration,
-    };
-  }, [time, selectedServices, date, comments, duration]);
-
-  useEffect(() => {
-    setServiceDetails(generateFinalData);
-  }, [generateFinalData]);
 
   // Optionally, convert totalMinutes to hours and minutes
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
   const formattedTime =
     hours > 0 ? `${hours} hr ${minutes} min` : `${minutes} min`;
+  const handleSelectTeamMember = (value) => {
+    setSelectedTeamMember(value);
+  };
+  const generateFinalData = useMemo(() => {
+    return {
+      service_id: selectedServices,
+      time,
+      dateforService: date,
+      additionalComments: comments,
+      duration: formattedTime,
+    };
+  }, [time, selectedServices, date, comments, formattedTime]);
 
+  useEffect(() => {
+    setServiceDetails(generateFinalData);
+  }, [generateFinalData, setServiceDetails]);
   if (salonLoading) {
     return <LoadSpinner />;
   }
@@ -239,17 +280,47 @@ const AppointmentDetails = () => {
           </p>
         )}
 
+        {/* assign professional*/}
+        <h3 className={styles.heading}>Assign Professional</h3>
+
+        <div className={styles.professional}>
+          {teamMembers?.length > 0 && !teamIsError ? (
+            <CustomSelect2
+              options={null}
+              value={SelectedTeamMember}
+              onChange={handleSelectTeamMember}
+              teamMembers={[
+                ...teamMembers,
+                {
+                  name: "No preference",
+                  imageUrl: "",
+                },
+              ]}
+            />
+          ) : (
+            <ErrorComponent message={teamError?.message} />
+          )}
+
+          {teamMembers?.length === 0 && (
+            <NoDataDisplay message={"No Team Members Available"} />
+          )}
+        </div>
         {/* time */}
 
         <div className={styles.timeWrapper}>
           <div className={styles.selectService}>
             <label htmlFor="">Start Time </label>
-            {slots && !isLoading && (
+            {times && times?.length > 0 && !isLoading && (
               <CustomSelect2
                 options={times ? times : [error?.message]}
                 value={time}
                 onChange={setTime}
               />
+            )}
+            {times?.length === 0 && (
+              <div style={{ height: "48px", color: "red" }}>
+                No slots available
+              </div>
             )}
           </div>{" "}
           <div className={styles.selectService}>
@@ -266,8 +337,8 @@ const AppointmentDetails = () => {
           </div>
         </div>
 
-        {/* adition al comments */}
-        <div className={styles.comments}>
+        {/* addition al comments */}
+        {/* <div className={styles.comments}>
           <label htmlFor="comments">
             Additional comments <span>(optional)</span>
           </label>
@@ -278,7 +349,7 @@ const AppointmentDetails = () => {
             cols="30"
             rows="10"
           ></textarea>
-        </div>
+        </div> */}
       </div>
       <SelectServiceModal
         mainCategories={mainCategories}

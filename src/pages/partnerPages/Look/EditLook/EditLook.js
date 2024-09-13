@@ -39,7 +39,9 @@ const EditLook = () => {
       price: singleLook?.price ?? "0",
       rating: singleLook?.rating ?? "0",
     });
-    const peoples = singleLook?.stylists?.map((x) => x._id);
+    const peoples = singleLook?.stylists
+      ?.filter((stylist) => stylist.isContributing)
+      ?.map((x) => x._id);
     setSelectedPeople(peoples);
     setCategory(singleLook?.service_categories);
     setSelectedServices(singleLook?.service_subcategory_id);
@@ -90,7 +92,7 @@ const EditLook = () => {
     }
     setLoading(false);
   };
-
+  console.log(data?.data);
   const value = {
     image,
     setImage,
