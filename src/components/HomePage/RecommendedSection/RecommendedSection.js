@@ -20,42 +20,13 @@ export default function RecommendedSection({ mainData }) {
   const [error, setError] = useState(null);
 
   const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 7,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 7,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 7,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 4,
-    },
+    superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 7 },
+    desktop: { breakpoint: { max: 3000, min: 1024 }, items: 5 },
+    tablet: { breakpoint: { max: 1024, min: 464 }, items: 3 },
+    mobile: { breakpoint: { max: 464, min: 0 }, items: 3 }, // Adjust this for better mobile display
   };
-  //  service objects
-  // const services = [
-  //   { icon: hair, title: "Hair" },
-  //   { icon: hairRemoval, title: "Hair removal" },
-  //   { icon: fingernail, title: "Nail care" },
-  //   { icon: skincare, title: "Facial & skincare" },
-  //   { icon: Makeup, title: "Makeup" },
-  //   { icon: massage, title: "massage" },
-  //   { icon: spa, title: "spa" },
-  //   { icon: skincare, title: "Facial & skincare" },
-  //   { icon: hair, title: "Hair" },
-  //   { icon: hairRemoval, title: "Hair removal" },
-  //   { icon: fingernail, title: "Nail care" },
-  //   { icon: skincare, title: "Facial & skincare" },
-  // ];
 
   const CustomDot = ({ onMove, index, onClick, active }) => {
-    // onMove means if dragging or swiping in progress.
-    // active is provided by this lib for checking if the item is active or not.
     return (
       <button
         className={`${styles.carouselDot} ${active ? styles.dotActive : ""}`}
