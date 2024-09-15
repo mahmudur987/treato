@@ -12,13 +12,11 @@
   height: 100%;
 }
 .AuthImage {
-  background-image: url("../../assets/images/AuthImages/Hero_Signup.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 .PartnerAuthImage {
-  background-image: url("../../assets/images/AuthImages/partnerauthchoice.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
