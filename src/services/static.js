@@ -71,3 +71,33 @@ export const useGetAllLegal = () => {
     },
   });
 };
+export const useGetCarer = () => {
+  return useQuery({
+    queryKey: ["/crud/getcareer"],
+    queryFn: async () => {
+      let url = "/crud/getcareer";
+      const { data } = await axiosInstance.get(url);
+      return data;
+    },
+  });
+};
+export const useGetAlSubscription = () => {
+  return useQuery({
+    queryKey: ["/crud/getallsubscription"],
+    queryFn: async () => {
+      let url = "/crud/getallsubscription";
+      const { data } = await axiosInstance.get(url);
+      return data;
+    },
+  });
+};
+export const useGetContactUs = () => {
+  return useQuery({
+    queryKey: ["/crud/contactimage"],
+    queryFn: async () => {
+      let url = "/crud/contactimage";
+      const { data } = await axiosInstance.get(url);
+      return data;
+    },
+  });
+};

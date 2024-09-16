@@ -1,37 +1,40 @@
-import React, { useState } from 'react';
-import style from './contactUs.module.css';
-import { Link } from 'react-router-dom';
-import contactimage from '../../../src/assets/images/ContactUs/contactimage.png';
-import { contactDetails } from '../../services/careers';
-import { toast } from 'react-toastify';
-import ContactUsModal from '../../components/_modals/ContactUs/ContactUsModal';
+import React, { useState } from "react";
+import style from "./contactUs.module.css";
+import { Link } from "react-router-dom";
+import contactimage from "../../../src/assets/images/ContactUs/contactimage.png";
+import { contactDetails } from "../../services/careers";
+import { toast } from "react-toastify";
+import ContactUsModal from "../../components/_modals/ContactUs/ContactUsModal";
+import { useGetContactUs } from "../../services/static";
 
 function ContactUs() {
-  const [phoneNumberError, setPhoneNumberError] = useState('');
+  const [phoneNumberError, setPhoneNumberError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    message: '',
-    phonenumber: '',
-    isAcceptPrivacy: false
+    first_name: "",
+    last_name: "",
+    email: "",
+    message: "",
+    phonenumber: "",
+    isAcceptPrivacy: false,
   });
-
+  const { data, isLoading, isError } = useGetContactUs();
   const validatePhoneNumber = (phone) => {
     const phonePattern = /^\d{10}$/; // Adjust the regex pattern as needed
     return phonePattern.test(phone);
   };
-
+  console.log(data);
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
+    const newValue = type === "checkbox" ? checked : value;
 
-    if (name === 'phonenumber') {
+    if (name === "phonenumber") {
       if (!validatePhoneNumber(newValue)) {
-        setPhoneNumberError('Invalid phone number. Please enter a 10-digit number.');
+        setPhoneNumberError(
+          "Invalid phone number. Please enter a 10-digit number."
+        );
       } else {
-        setPhoneNumberError('');
+        setPhoneNumberError("");
       }
     }
 
@@ -45,41 +48,42 @@ function ContactUs() {
     e.preventDefault();
 
     if (phoneNumberError) {
-      toast.error('Please fix the errors before submitting.');
+      toast.error("Please fix the errors before submitting.");
       return;
     }
 
     const { res, err } = await contactDetails(formData);
     if (res) {
       if (window.innerWidth < 500) {
-        setIsModalOpen(true)
-      }
-      else {
+        setIsModalOpen(true);
+      } else {
         toast.success("Form received");
       }
-
     } else {
       toast.error("Something went wrong");
     }
 
     setFormData({
-      first_name: '',
-      last_name: '',
-      email: '',
-      message: '',
-      phonenumber: '',
-      isAcceptPrivacy: false
+      first_name: "",
+      last_name: "",
+      email: "",
+      message: "",
+      phonenumber: "",
+      isAcceptPrivacy: false,
     });
   };
-  
 
   return (
     <>
       <div className={style.container}>
-        <img src={contactimage} alt="Contact" />
+        <img
+          src={data?.data?.Contact?.public_url ?? contactimage}
+          onError={(e) => (e.target.src = contactimage)}
+          alt="Contact"
+        />
         <div className={style.formContainer}>
           <div className={style.formHeader}>
-            <h2>Contact us</h2>
+            <h2>{data?.data?.Title}</h2>
             <p>Need help? Have feedback for us? Get in touch now!</p>
             <h6>Reach out and we’ll get in touch within 24 hours</h6>
           </div>
@@ -90,7 +94,7 @@ function ContactUs() {
                 <input
                   type="text"
                   name="first_name"
-                  placeholder='First name'
+                  placeholder="First name"
                   value={formData.first_name}
                   onChange={handleChange}
                   required
@@ -101,7 +105,7 @@ function ContactUs() {
                 <input
                   type="text"
                   name="last_name"
-                  placeholder='Last name'
+                  placeholder="Last name"
                   value={formData.last_name}
                   onChange={handleChange}
                   required
@@ -114,7 +118,7 @@ function ContactUs() {
                 <input
                   type="email"
                   name="email"
-                  placeholder='e.g. Person@gmail.com'
+                  placeholder="e.g. Person@gmail.com"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -125,12 +129,14 @@ function ContactUs() {
                 <input
                   type="text"
                   name="phonenumber"
-                  placeholder='Phone Number'
+                  placeholder="Phone Number"
                   value={formData.phonenumber}
                   onChange={handleChange}
                   required
                 />
-                {phoneNumberError && <p className={style.error}>{phoneNumberError}</p>}
+                {phoneNumberError && (
+                  <p className={style.error}>{phoneNumberError}</p>
+                )}
               </div>
             </div>
             <div className={style.msBox}>
@@ -138,7 +144,7 @@ function ContactUs() {
                 <p width={63}>Message</p>
                 <textarea
                   name="message"
-                  placeholder='Leave us a message'
+                  placeholder="Leave us a message"
                   value={formData.message}
                   onChange={handleChange}
                   required
@@ -154,14 +160,24 @@ function ContactUs() {
                   onChange={handleChange}
                   required
                 />
-                <p width={242}>You agree to our friendly <Link to="/Privacy/policy"><span className={style.linker}>privacy policy</span></Link></p>
+                <p width={242}>
+                  You agree to our friendly{" "}
+                  <Link to="/Privacy/policy">
+                    <span className={style.linker}>privacy policy</span>
+                  </Link>
+                </p>
               </div>
-              <button className={style.submitButton} type="submit"><b>Submit</b></button>
+              <button className={style.submitButton} type="submit">
+                <b>Submit</b>
+              </button>
             </div>
           </form>
         </div>
       </div>
-      <ContactUsModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} ></ContactUsModal>
+      <ContactUsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      ></ContactUsModal>
     </>
   );
 }
