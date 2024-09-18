@@ -89,8 +89,6 @@ export default function AccountSettings() {
     };
     updateInputVal(data);
     updateGender(userData.gender ? userData.gender : "");
-
-    console.log(userData);
   }, [userData]);
 
   const setDefault = () => {
@@ -174,8 +172,8 @@ export default function AccountSettings() {
     const res = await sendLoginOTP(phonedata);
     console.log(res?.res?.data.otp);
     setVerifyOtp(res?.res?.data.otp);
-    console.log(inputVal);
   };
+  console.log(inputVal);
 
   return (
     <>
@@ -195,6 +193,7 @@ export default function AccountSettings() {
                 setProfileModal={setProfileModal}
                 logOut={logOut}
                 user={data?.user}
+                inputVal={inputVal}
               />
               <div className={styles.acc_setting_right}>
                 <form id="acc_set_form" onSubmit={submitForm}>
