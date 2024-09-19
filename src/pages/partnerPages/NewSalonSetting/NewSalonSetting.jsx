@@ -25,7 +25,7 @@ const NewSalonSetting = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-  const [mobileScreen, setMobileScreen] = useState(true);
+  const [mobileScreen, setMobileScreen] = useState(false);
   const [PcScreen, setPcScreen] = useState(true);
   const [salonData, setSalonData] = useState({
     salon_name: "",
