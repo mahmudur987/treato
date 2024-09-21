@@ -51,7 +51,7 @@ const ServiceCatalog = () => {
     }
     fetchAllServices();
   }, []);
-
+  console.log(data);
   const filteredData = data?.salon?.services
     ?.filter((x) => {
       if (selectedServiceType === "All") {
@@ -61,8 +61,6 @@ const ServiceCatalog = () => {
       }
     })
     ?.filter((x) => x.mainCategories.length > 0);
-
-  console.log(filteredData);
 
   const openModal = () => {
     setIsModalOpen(true);
