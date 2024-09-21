@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./ColorSelect.module.css";
 
 const ColorSelect = ({ setColorCode }) => {
-  const [selectedColor, setSelectedColor] = useState("yellow");
+  const [selectedColor, setSelectedColor] = useState("#CEB739");
   const [isOptionsVisible, setOptionsVisible] = useState(false);
   const generateRandomColor = () => {
     const letters = "0123456789ABCDEF";
@@ -23,7 +23,21 @@ const ColorSelect = ({ setColorCode }) => {
     }
     return colors;
   };
-  const options = generateColorArray();
+  const options = [
+    "#CEB739",
+    "#DE6296",
+    "#801A7F",
+    "#B3B59C",
+    "#111B1F",
+    "#0D3FC0",
+    "#D952DA",
+    "#E5EF4D",
+    "#EDE092",
+    "#6a5acd",
+    "#F12783",
+    "#F12124",
+    "#F18865",
+  ];
 
   useEffect(() => {
     setSelectedColor(options[0]);

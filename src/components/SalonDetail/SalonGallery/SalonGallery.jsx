@@ -7,7 +7,7 @@ import cross from "../../../assets/images/icons/white-cross.svg";
 import SalonGalleryCard from "../../Cards/SalonGalleryCard/SalonGalleryCard";
 import Carousel from "react-gallery-carousel";
 import "react-gallery-carousel/dist/index.css";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 export default function SalonGallery({ gallery, setShowGallery }) {
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
@@ -101,3 +101,5 @@ export default function SalonGallery({ gallery, setShowGallery }) {
     </div>
   );
 }
+
+export const MemoizeSalonGallery = memo(SalonGallery);

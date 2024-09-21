@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SalonSlickSlider.css";
-import { useState } from "react";
+import { memo, useState } from "react";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -81,3 +81,5 @@ export default function SalonSlickSLider({
     </>
   );
 }
+
+export const MemoizeSalonSlickSlider = memo(SalonSlickSLider);

@@ -36,6 +36,16 @@ export const getSalonListByServiceLocation = async (
     return { err: error, res: null };
   }
 };
+export const useGetSalonByID = (id) => {
+  return useQuery({
+    queryKey: [id],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(`salon/getSalonById/${id}`);
+
+      return data;
+    },
+  });
+};
 export const getSingleSalonData = async (id) => {
   try {
     const headers = {

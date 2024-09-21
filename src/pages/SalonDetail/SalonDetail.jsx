@@ -1,22 +1,23 @@
 import styles from "./SalonDetail.module.css";
 import star from "../../assets/images/SalonDetail/star_line.svg";
 import ellipse from "../../assets/images/SalonDetail/Ellipse.svg";
+import { MemoizeSalonMain } from "../../components/SalonDetail/SalonMain/SalonMain";
 import SalonMain from "../../components/SalonDetail/SalonMain/SalonMain";
-import SalonCard from "../../components/SalonDetail/SalonCard/SalonCard";
+import { MemoizeSalonCard } from "../../components/SalonDetail/SalonCard/SalonCard";
 import BackButton from "../../components/Buttons/BackButton/BackButton";
-import BookNow from "../../components/SalonDetail/BookNow/BookNow";
-import SalonSlickSlider from "./SalonSlickSlider";
-import SalonGallery from "../../components/SalonDetail/SalonGallery/SalonGallery";
+import { MemoizeBookNow } from "../../components/SalonDetail/BookNow/BookNow";
+import { MemoizeSalonSlickSlider } from "./SalonSlickSlider";
+import { MemoizeSalonGallery } from "../../components/SalonDetail/SalonGallery/SalonGallery";
 import { useState } from "react";
-import { salon } from "../../services/salon";
+import { salon, useGetSalonByID } from "../../services/salon";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { calculateSalonDistance, displayDistance } from "../../utils/utils.js";
 import { resetSalonServicesState } from "../../redux/slices/salonServices.jsx";
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner.js";
+import ErrorComponent from "../../components/ErrorComponent/ErrorComponent.js";
 export default function SalonDetail() {
-  const [loading, setLoading] = useState(false);
   let [showGallery, setShowGallery] = useState(false);
   let [salonImages, setSalonImages] = useState(null);
   let [SalonData, setSalonData] = useState(null);
@@ -26,33 +27,18 @@ export default function SalonDetail() {
   const dispatch = useDispatch();
   let [firstImage, setFirstImage] = useState(null);
   const userDetails = useSelector((state) => state?.user?.user);
+  const { data, isLoading, isError, error } = useGetSalonByID(id);
 
   useEffect(() => {
-    let SalonDataFunc = async () => {
-      setLoading(true);
-      const { res, err } = await salon();
-      if (res) {
-        res?.data?.salons?.map((v) => {
-          if (v?._id === id) {
-            setSalonData(v);
-            setTotalSalonServices(v?.services[0]?.mainCategories?.length);
-            setFirstImage(v?.salon_Img[0]?.public_url);
-            setSalonImages(v?.salon_Img);
-          }
-        });
-      }
-
-      if (err) {
-        console.log("salon details fetching error");
-      }
-
-      setLoading(false);
-    };
-    SalonDataFunc();
+    let v = data?.salon;
+    setSalonData(v);
+    setTotalSalonServices(v?.services[0]?.mainCategories?.length);
+    setFirstImage(v?.salon_Img[0]?.public_url);
+    setSalonImages(v?.salon_Img);
     dispatch(resetSalonServicesState());
-  }, []);
-  console.log(SalonData);
-  if (loading) {
+  }, [data]);
+
+  if (isLoading) {
     return (
       <div
         style={{
@@ -66,7 +52,9 @@ export default function SalonDetail() {
       </div>
     );
   }
-
+  if (isError) {
+    return <ErrorComponent message={error ? error.message : ""} />;
+  }
   return (
     <div
       className={
@@ -102,7 +90,7 @@ export default function SalonDetail() {
       </div>
       <div className={styles.salon_images}>
         <div className={`${styles.salon_image_slider} salon_slick`}>
-          <SalonSlickSlider
+          <MemoizeSalonSlickSlider
             setShowGallery={setShowGallery}
             SalonData={SalonData ? SalonData : null}
           />
@@ -147,11 +135,11 @@ export default function SalonDetail() {
       </div>
       <div className={styles.salon_middle}>
         <SalonMain
-          SalonData={SalonData ? SalonData : null}
+          SalonData={SalonData}
           addServices={addServices}
           addedServices={addedServices}
         />
-        <SalonCard
+        <MemoizeSalonCard
           SalonData={SalonData ? SalonData : null}
           addServices={addServices}
           addedServices={addedServices}
@@ -159,14 +147,17 @@ export default function SalonDetail() {
         />
       </div>
       <div className={styles.book_flowMob}>
-        <BookNow
+        <MemoizeBookNow
           SalonDetails={true}
           salonId={id}
           totalSalonServices={totalSalonServices}
         />
       </div>
       {showGallery ? (
-        <SalonGallery gallery={salonImages} setShowGallery={setShowGallery} />
+        <MemoizeSalonGallery
+          gallery={salonImages}
+          setShowGallery={setShowGallery}
+        />
       ) : (
         ""
       )}

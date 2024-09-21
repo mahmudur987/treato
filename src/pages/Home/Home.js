@@ -11,6 +11,7 @@ import LatestBlog from "../../components/HomePage/LatestBlog/LatestBlog";
 import { HomePage } from "../../services/HomePage";
 import { useState, useEffect } from "react";
 import ContactUs from "../../components/HomePage/Contactus/Contactus";
+import { toast } from "react-toastify";
 
 export default function Home(props) {
   let [homeData, setHomeData] = useState([]);
@@ -19,6 +20,9 @@ export default function Home(props) {
       const { res, err } = await HomePage();
       if (res) {
         setHomeData(res.data.homepageCMS[0]);
+      }
+      if (err) {
+        toast.error("Error");
       }
     };
     getHomeData();
