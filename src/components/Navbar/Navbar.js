@@ -136,7 +136,7 @@ export default function Navbar() {
               <ul>
                 <li className={styles.logo}>
                   <Link to="/">
-                    <img src={TreatoLogo} alt="TreatoLogo" />
+                    <img loading="lazy" src={TreatoLogo} alt="TreatoLogo" />
                   </Link>
                 </li>
 
@@ -164,6 +164,7 @@ export default function Navbar() {
             >
               {!isMobileMenuOpen ? (
                 <img
+                  loading="lazy"
                   src={
                     isLoggedIn
                       ? userInfo?.avatar?.public_url
@@ -174,7 +175,7 @@ export default function Navbar() {
                   alt="menuLogo"
                 />
               ) : (
-                <img src={x} alt="closeIcon" />
+                <img loading="lazy" src={x} alt="closeIcon" />
               )}
             </button>
             <Link to={"/partner"}>
@@ -196,11 +197,13 @@ export default function Navbar() {
                 onClick={handleDesktopMenuToggle}
               >
                 <img
-                  src={userInfo?.avatar?.public_url || mask}
+                  loading="lazy"
+                  src={
+                    userInfo?.avatar?.public_url
+                      ? userInfo?.avatar?.public_url
+                      : mask
+                  }
                   alt="mask"
-                  onError={(e) => {
-                    e.target.src = mask;
-                  }}
                 />
                 {userInfo?.first_name}
                 {isDesktopMenuOpen ? (
@@ -253,6 +256,7 @@ export default function Navbar() {
                 <>
                   <div className={styles.navUserInfo}>
                     <img
+                      loading="lazy"
                       src={
                         userInfo?.avatar?.public_url
                           ? userInfo?.avatar?.public_url
@@ -269,25 +273,33 @@ export default function Navbar() {
                   <li>
                     <Link to="/my-appointments/upcoming">
                       <div className={styles.listtext}>
-                        <img src={history} alt="history" />
+                        <img loading="lazy" src={history} alt="history" />
                         My Appointments
                         {count > 0 && (
                           <span className={styles.unSeenCounter}>{count}</span>
                         )}
                       </div>
                       <div className={styles.chevronright}>
-                        <img src={chevronright} alt="chevronright" />
+                        <img
+                          loading="lazy"
+                          src={chevronright}
+                          alt="chevronright"
+                        />
                       </div>
                     </Link>
                   </li>
                   <li>
                     <Link to="/account-settings">
                       <div className={styles.listtext}>
-                        <img src={accountSetting} alt="signin" />
+                        <img loading="lazy" src={accountSetting} alt="signin" />
                         <a href="#">Account Settings</a>
                       </div>
                       <div className={styles.chevronright}>
-                        <img src={chevronright} alt="chevronright" />
+                        <img
+                          loading="lazy"
+                          src={chevronright}
+                          alt="chevronright"
+                        />
                       </div>
                     </Link>
                   </li>
@@ -300,11 +312,15 @@ export default function Navbar() {
                 <li>
                   <a href="/auth-choice">
                     <div className={styles.listtext}>
-                      <img src={signin} alt="signin" />
+                      <img loading="lazy" src={signin} alt="signin" />
                       Sign up / Sign-in
                     </div>
                     <div className={styles.chevronright}>
-                      <img src={chevronright} alt="chevronright" />
+                      <img
+                        loading="lazy"
+                        src={chevronright}
+                        alt="chevronright"
+                      />
                     </div>
                   </a>
                 </li>
@@ -317,22 +333,34 @@ export default function Navbar() {
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <div className={styles.listtext}>
-                        <img src={notetext} alt="notetext" />
+                        <img loading="lazy" src={notetext} alt="notetext" />
                         Blog
                       </div>
                       <div className={styles.chevronright}>
-                        <img src={chevronright} alt="chevronright" />
+                        <img
+                          loading="lazy"
+                          src={chevronright}
+                          alt="chevronright"
+                        />
                       </div>
                     </Link>
                   </li>
                   <li>
                     <Link to={"/lookbook"}>
                       <div className={styles.listtext}>
-                        <img src={lookbookIcon} alt="lookbookIcon" />
+                        <img
+                          loading="lazy"
+                          src={lookbookIcon}
+                          alt="lookbookIcon"
+                        />
                         Lookbook
                       </div>
                       <div className={styles.chevronright}>
-                        <img src={chevronright} alt="chevronright" />
+                        <img
+                          loading="lazy"
+                          src={chevronright}
+                          alt="chevronright"
+                        />
                       </div>
                     </Link>
                   </li>
@@ -341,20 +369,28 @@ export default function Navbar() {
                     onClick={() => scrollToSection(navigate, "partnerSection")}
                   >
                     <div className={styles.listtext}>
-                      <img src={briefcase} alt="briefcase" />
+                      <img loading="lazy" src={briefcase} alt="briefcase" />
                       Become a partner
                     </div>
                     <div className={styles.chevronright}>
-                      <img src={chevronright} alt="chevronright" />
+                      <img
+                        loading="lazy"
+                        src={chevronright}
+                        alt="chevronright"
+                      />
                     </div>
                   </li>
                   <li onClick={() => scrollToSection(navigate, "AppDownload")}>
                     <div className={styles.listtext}>
-                      <img src={download} alt="download" />
+                      <img loading="lazy" src={download} alt="download" />
                       Download app
                     </div>
                     <div className={styles.chevronright}>
-                      <img src={chevronright} alt="chevronright" />
+                      <img
+                        loading="lazy"
+                        src={chevronright}
+                        alt="chevronright"
+                      />
                     </div>
                   </li>
                 </>
@@ -367,7 +403,7 @@ export default function Navbar() {
                       className={`${styles.listtext} ${styles.signout}`}
                       onClick={handleLogout}
                     >
-                      <img src={signout} alt="signout" />
+                      <img loading="lazy" src={signout} alt="signout" />
                       Signout
                     </div>
                   </a>

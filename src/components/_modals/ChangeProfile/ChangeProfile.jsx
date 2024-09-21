@@ -91,11 +91,16 @@ export default function ChangeProfile({
         <div className={styles.profileB}>
           <div className={styles.profileBA}>Profile picture</div>
           <div className={styles.profileBB}>
-            <img src={Grey_Close} alt="" onClick={handleCancel} />
+            <img
+              loading="lazy"
+              src={Grey_Close}
+              alt=""
+              onClick={handleCancel}
+            />
           </div>
         </div>
         <div className={styles.profileC}>
-          <img src={selectedImage} alt="" />
+          <img loading="lazy" src={selectedImage || userImg} alt="" />
         </div>
         <div className={styles.profileD}>
           <div className={styles.profileDA} htmlFor="uploadImageInput">
@@ -108,7 +113,7 @@ export default function ChangeProfile({
             />
             <label htmlFor="uploadImageInput" className={styles.uploadLabel}>
               <div className={styles.profileDAA}>
-                <img src={gallery} alt="gallery" />
+                <img loading="lazy" src={gallery} alt="gallery" />
               </div>
               <div>Upload</div>
             </label>
@@ -118,13 +123,13 @@ export default function ChangeProfile({
             onClick={() => setIsCameraOpen(true)}
           >
             <div className={styles.profileDAA}>
-              <img src={camera} alt="camera" />
+              <img loading="lazy" src={camera} alt="camera" />
             </div>
             <div>Camera</div>
           </div>
           <div className={styles.profileDA} onClick={handleDelete}>
             <div className={styles.profileDAA}>
-              <img src={deleteIcon} alt="deleteIcon" />
+              <img loading="lazy" src={deleteIcon} alt="deleteIcon" />
             </div>
             <div>Delete</div>
           </div>

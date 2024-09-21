@@ -19,7 +19,7 @@ const PaymentMethods = () => {
             <h4>Debit or Credit Card</h4>
 
             <div className={styles.card}>
-              <img src={visa} alt="" />
+              <img loading="lazy" src={visa} alt="" />
               <div className={styles.cardMiddle}>
                 <h5>HDFC dinner club credit card</h5>
 
@@ -29,7 +29,7 @@ const PaymentMethods = () => {
               <input type="radio" name="" id="" />
             </div>
             <div className={styles.card}>
-              <img src={visa} alt="" />
+              <img loading="lazy" src={visa} alt="" />
               <div className={styles.cardMiddle}>
                 <h5>HDFC dinner club credit card</h5>
 
@@ -40,7 +40,7 @@ const PaymentMethods = () => {
             </div>
 
             <div className={styles.addNew}>
-              <img src={plus} alt="" />
+              <img loading="lazy" src={plus} alt="" />
               <button>Add New Card</button>
             </div>
           </div>
@@ -48,7 +48,7 @@ const PaymentMethods = () => {
             <h4>UPI</h4>
 
             <div className={styles.card}>
-              <img src={paytm} alt="" />
+              <img loading="lazy" src={paytm} alt="" />
               <div className={styles.cardMiddle}>
                 <h5>HDFC dinner club credit card</h5>
               </div>
@@ -56,7 +56,7 @@ const PaymentMethods = () => {
               <input type="radio" name="" id="" />
             </div>
             <div className={styles.card}>
-              <img src={paytm} alt="" />
+              <img loading="lazy" src={paytm} alt="" />
               <div className={styles.cardMiddle}>
                 <h5>HDFC dinner club credit card</h5>
               </div>
@@ -65,7 +65,7 @@ const PaymentMethods = () => {
             </div>
 
             <div className={styles.addNew} style={{ borderBottom: "none" }}>
-              <img src={plus} alt="" />
+              <img loading="lazy" src={plus} alt="" />
               <button>Add New UPI ID</button>
             </div>
           </div>
@@ -78,14 +78,14 @@ const PaymentMethods = () => {
             <h4>Wallets</h4>
 
             <div className={styles.downCard}>
-              <img src={phonepe} alt="" />
+              <img loading="lazy" src={phonepe} alt="" />
               <p className={styles.downCardMiddle}>
                 payTm,phonePay,Amazon Pay and more
               </p>
 
               <button>
                 {" "}
-                <img src={rightBlue} alt="" />{" "}
+                <img loading="lazy" src={rightBlue} alt="" />{" "}
               </button>
             </div>
           </div>
@@ -93,12 +93,12 @@ const PaymentMethods = () => {
             <h4>Net Banking</h4>
 
             <div className={styles.downCard}>
-              <img src={bank} alt="" />
+              <img loading="lazy" src={bank} alt="" />
               <p className={styles.downCardMiddle}>select from list of Bank</p>
 
               <button>
                 {" "}
-                <img src={rightBlue} alt="" />{" "}
+                <img loading="lazy" src={rightBlue} alt="" />{" "}
               </button>
             </div>
           </div>
@@ -106,14 +106,14 @@ const PaymentMethods = () => {
             <h4>Simpl</h4>
 
             <div className={styles.downCard}>
-              <img src={simpl} alt="" />
+              <img loading="lazy" src={simpl} alt="" />
               <p className={styles.downCardMiddle}>
                 Book Now,pay Letter using Simpl,No additional cost
               </p>
 
               <button>
                 {" "}
-                <img src={rightBlue} alt="" />{" "}
+                <img loading="lazy" src={rightBlue} alt="" />{" "}
               </button>
             </div>
           </div>

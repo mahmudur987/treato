@@ -38,10 +38,15 @@ function ContactUs() {
       }
     }
 
-    setFormData({
+    const updatedFormData = {
       ...formData,
       [name]: newValue,
-    });
+    };
+
+    setFormData(updatedFormData);
+
+    // Store form data in localStorage whenever it changes
+    localStorage.setItem("contactFormData", JSON.stringify(updatedFormData));
   };
 
   const handleSubmit = async (e) => {
@@ -63,14 +68,17 @@ function ContactUs() {
       toast.error("Something went wrong");
     }
 
-    setFormData({
+    // Clear form data after submission
+    const clearedFormData = {
       first_name: "",
       last_name: "",
       email: "",
       message: "",
       phonenumber: "",
       isAcceptPrivacy: false,
-    });
+    };
+    setFormData(clearedFormData);
+    localStorage.setItem("contactFormData", JSON.stringify(clearedFormData));
   };
 
   return (
@@ -127,7 +135,7 @@ function ContactUs() {
               <div className={style.emailBox}>
                 <p width={150}>Phone Number</p>
                 <input
-                  type="text"
+                  type="tel"
                   name="phonenumber"
                   placeholder="Phone Number"
                   value={formData.phonenumber}

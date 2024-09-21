@@ -25,7 +25,7 @@ const PartnerBanner = ({ mainData }) => {
           </div>
         </div>
         <div className={styles["bannerImage"]}>
-          <img src={PartnerBannerImg} />
+          <img loading="lazy" src={PartnerBannerImg} />
         </div>
       </div>
     </section>

@@ -25,7 +25,7 @@ const PartnerHero = () => {
           </div>
           <div className={styles.imageContainer}>
             <figure className={styles.imageWrapper}>
-              <img src={img1} alt="Hero Image" />
+              <img loading="lazy" src={img1} alt="Hero Image" />
             </figure>
           </div>
         </div>

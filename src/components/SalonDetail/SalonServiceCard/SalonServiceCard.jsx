@@ -113,7 +113,7 @@ export default function SalonServiceCard({
           </div>
           <div className={styles.salon_serviceF}>
             <div>{salonServiceData?.time_takenby_service}</div>
-            <img src={ellipse} alt="" />
+            <img loading="lazy" src={ellipse} alt="" />
             <div>₹{salonServiceData?.price}</div>
           </div>
         </div>

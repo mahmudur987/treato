@@ -156,7 +156,7 @@ const ServiceLocation = ({
                     styles={`${styles.locationInput}`}
                   />
                 </label>
-                <img src={map} alt="map" className={styles.mapLogo} />
+                <img loading="lazy" src={map} alt="map" className={styles.mapLogo} />
               </div>
               {show && (
                 <div className={styles.suggestions}>{renderSuggestions()}</div>

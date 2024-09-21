@@ -58,7 +58,7 @@ const PendingSalonGallery = () => {
       <div className={styles.header}>
         <Link to={`/admin/salon/pending/${id}`}>
           <div className={styles.back}>
-            <img src={leftIco} alt="" />
+            <img loading="lazy" src={leftIco} alt="" />
           </div>
         </Link>
         <h2>Pictures</h2>
@@ -75,7 +75,7 @@ const PendingSalonGallery = () => {
                 setShowButton(false);
               }}
             >
-              <img src={x.public_url} alt="" />
+              <img loading="lazy" src={x.public_url} alt="" />
               {x._id === showMenu && (
                 <span onClick={() => setShowButton(!showButton)}>
                   <BsThreeDotsVertical />

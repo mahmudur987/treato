@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link, Outlet } from 'react-router-dom';
 import style from './SubBar.module.css';
+import { FaArrowLeft } from "react-icons/fa";
 
 function SubBar() {
   const location = useLocation();
@@ -16,7 +17,10 @@ function SubBar() {
 
   return (
     <>
-      <div className={style.subBar}>
+      <div  className={style.subBar}>
+        <Link to="/contactus"><FaArrowLeft className={style.backArrow} /></Link>
+
+      
         <div className={style.termPrivacy}>
           <div
             className={selectOption === 'TermOfUse' ? style.selected : style.notSelected}

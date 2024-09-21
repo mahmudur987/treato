@@ -49,7 +49,7 @@ export default function UserAddress({
         <div className={styles.addr_main_top}>
           {inputVal.house && inputVal.landmark && inputVal.place ? (
             <div>
-              <img
+              <img loading="lazy"
                 src={moreVertical}
                 alt=""
                 className={`${styles.addr_edit_click} `}

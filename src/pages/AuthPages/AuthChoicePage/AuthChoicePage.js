@@ -28,12 +28,12 @@ const AuthChoicePage = () => {
           >
             <div>
               <div className={styles.info}>
-                <img src={user} alt="User Icon"  className={styles.userIcon}/>
+                <img loading="lazy" src={user} alt="User Icon"  className={styles.userIcon}/>
                 Customers
               </div>
               <p className={styles.desc}>Explore and book salons near you</p>
             </div>
-            <img
+            <img loading="lazy"
               src={arrowright}
               className={styles.arrowright1}
               alt="Arrow Right Icon"
@@ -45,14 +45,14 @@ const AuthChoicePage = () => {
           >
             <div>
               <div className={styles.info}>
-                <img src={briefcase} alt="Briefcase Icon" />
+                <img loading="lazy" src={briefcase} alt="Briefcase Icon" />
                 Businesses
               </div>
               <p className={styles.desc}>
                 Manage and grow your business with Treato
               </p>
             </div>
-            <img
+            <img loading="lazy"
               src={arrowright}
               className={styles.arrowright2}
               alt="Arrow Right Icon"

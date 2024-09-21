@@ -19,10 +19,10 @@ export default function HeroSection({mainData}) {
 
       <div className={styles["storeLinks"]}>
         <a>
-          <img src={AppStore_black} alt="AppStoreImg" />
+          <img loading="lazy" src={AppStore_black} alt="AppStoreImg" />
         </a>
         <a>
-          <img src={PlayStore_black} alt="PlayStoreImg" />
+          <img loading="lazy" src={PlayStore_black} alt="PlayStoreImg" />
         </a>
       </div>
     </div>

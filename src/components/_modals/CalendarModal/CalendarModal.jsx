@@ -153,12 +153,12 @@ export default function CalendarModal({ getWorkerData }) {
       <div className={styles.service_timeC}>Date</div>
       <div className={styles.service_timeMonth}>
 
-        <img src={leftIco} alt="left icon" onClick={handleDecrement} className={`${styles.leftarrowIcon} ${allowMonths[0] === `${months[showMonth]} ${showYear}`
+        <img loading="lazy" src={leftIco} alt="left icon" onClick={handleDecrement} className={`${styles.leftarrowIcon} ${allowMonths[0] === `${months[showMonth]} ${showYear}`
           ? styles.disabled
           : ""
           }`} />
         {`${months[showMonth]} ${showYear}`}
-        <img src={rightIco} alt="right icon" onClick={handleIncrement} className={`${styles.rightarrowIcon} ${allowMonths[2] === `${months[showMonth]} ${showYear}`
+        <img loading="lazy" src={rightIco} alt="right icon" onClick={handleIncrement} className={`${styles.rightarrowIcon} ${allowMonths[2] === `${months[showMonth]} ${showYear}`
           ? styles.disabled
           : ""
           }`} />

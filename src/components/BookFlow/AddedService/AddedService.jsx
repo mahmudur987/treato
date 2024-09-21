@@ -9,7 +9,7 @@ export default function AddedService(item) {
       <>      
         <div className={styles.addedServiceB}>
             <div>{item?.service_count}</div>
-            <img src={cross} alt="x" />
+            <img loading="lazy" src={cross} alt="x" />
             <div>{item?.service_name}</div>
         </div>
         <div className={styles.addedServiceC}>
@@ -20,7 +20,7 @@ export default function AddedService(item) {
       <>
           <div className={styles.addedServiceB}>
             <div>1</div>
-            <img src={cross} alt="x" />
+            <img loading="lazy" src={cross} alt="x" />
             <div>Hair cut girls</div>
         </div>
         <div className={styles.addedServiceC}>

@@ -72,8 +72,8 @@ const BillHistoryTable = ({ data }) => {
                         flexDirection: "column",
                       }}
                     >
-                      <img src={item.topImg} alt="" />
-                      <img src={item.bottomImg} alt="" />
+                      <img loading="lazy" src={item.topImg} alt="" />
+                      <img loading="lazy" src={item.bottomImg} alt="" />
                     </div>
                   </div>
                 </td>
@@ -88,7 +88,7 @@ const BillHistoryTable = ({ data }) => {
                   <div className={sty.bodyRow}>
                     <p className={sty.wrapper}>
                       <figure className={sty.profile}>
-                        <img
+                        <img loading="lazy"
                           src={x?.profileImage}
                           alt="profile image"
                           onError={(e) =>

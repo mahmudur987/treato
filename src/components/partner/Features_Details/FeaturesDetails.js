@@ -48,7 +48,7 @@ const FeaturesDetails = () => {
             return (
               <div key={index} className={style.card}>
                 <figure className={style.logo}>
-                  <img src={logo} alt={`${header} Logo`} />
+                  <img loading="lazy" src={logo} alt={`${header} Logo`} />
                 </figure>
                 <h2 className={style.cardHeader}>{header}</h2>
                 <p className={style.description}>{description}</p>

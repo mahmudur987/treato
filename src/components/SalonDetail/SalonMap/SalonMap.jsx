@@ -34,7 +34,7 @@ export default function SalonMap({ SalonData }) {
   return (
     <>
       <div className={styles.salon_MapA}>
-        <img src={map} alt="" />
+        <img loading="lazy" src={map} alt="" />
         <div>{SalonData ? SalonData.locationText : null}</div>
       </div>
       <div className={styles.salon_MapB}>
@@ -55,7 +55,7 @@ export default function SalonMap({ SalonData }) {
         ) : null}
         <button className={styles.salon_MapBA} onClick={openMapInNewWindow}>
           View on map
-          <img src={mapBlue} alt="" />
+          <img loading="lazy" src={mapBlue} alt="" />
         </button>
       </div>
     </>

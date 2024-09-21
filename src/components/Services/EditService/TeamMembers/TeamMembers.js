@@ -125,7 +125,7 @@ const CheckBoxComponent = ({ setTeamMember }) => {
               />
 
               <p>
-                <img src={person.avatar ?? img1} alt="" />
+                <img loading="lazy" src={person.avatar ?? img1} alt="" />
                 <span>{person.name}</span>
               </p>
             </label>

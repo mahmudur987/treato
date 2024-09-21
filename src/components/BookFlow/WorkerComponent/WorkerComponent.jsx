@@ -11,7 +11,7 @@ export default function WorkerComponent({ workerData, index, getWorkerData }) {
       onClick={getWorkerData}
     >
       <div className={styles.worker_compAA}>
-        <img src={workerData?.stylist_Img?.public_url} alt="" />
+        <img loading="lazy" src={workerData?.stylist_Img?.public_url} alt="" />
         <div className={styles.worker_compAC}>
           <div className={styles.worker_compACBA}>
             <div className={styles.worker_compACA}>
@@ -25,9 +25,9 @@ export default function WorkerComponent({ workerData, index, getWorkerData }) {
               <SalonStar fill="#6D747A" />
               <div>({workerData?.reviews?.length})</div>
             </div>
-            <img src={ellipse} alt="" />
+            <img loading="lazy" src={ellipse} alt="" />
             <div>{workerData?.stylist_service}</div>
-            <img src={ellipse} alt="" />
+            <img loading="lazy" src={ellipse} alt="" />
             <div>251 bookings</div>
           </div>
         </div>

@@ -126,13 +126,13 @@ export default function FindLocationModal({
       <div className={styles.locationBack}>
         <div className={styles.locationA}>
           <div className={styles.locationAA}>Find your location</div>
-          <img src={DarkCross} alt="close" onClick={closeModal} />
+          <img loading="lazy" src={DarkCross} alt="close" onClick={closeModal} />
         </div>
         <div className={styles.locationB}>
-          <img src={smallMapPin} alt="mapPin" />
+          <img loading="lazy" src={smallMapPin} alt="mapPin" />
 
           <BasicInput Type={"text"} onChange={handleInput} VALUE={value} />
-          <img
+          <img loading="lazy"
             src={smallCross}
             alt="smallCross"
             onClick={() => setLocationValue(" ")}
@@ -140,7 +140,7 @@ export default function FindLocationModal({
         </div>
         {userDetails.isLocationAllow && (
           <div className={styles.locationC} onClick={handleCurrentLocation}>
-            <img src={mapPinBlue} alt="mapPin" />
+            <img loading="lazy" src={mapPinBlue} alt="mapPin" />
             <div>Current Location</div>
           </div>
         )}

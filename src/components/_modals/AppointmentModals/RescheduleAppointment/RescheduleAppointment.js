@@ -296,7 +296,7 @@ const RescheduleAppointment = ({ data }) => {
       <div className={styles.modalContent}>
         {data?.salonData.map((x, i) => (
           <div key={i} className={styles.salonInfo}>
-            <img
+            <img loading="lazy"
               src={x.salon_Img?.public_url}
               alt="frame1"
               className={styles.salonProfileImg}
@@ -315,7 +315,7 @@ const RescheduleAppointment = ({ data }) => {
             </h2>
             <h4>Date</h4>
             <div className={styles.service_timeMonth}>
-              <img
+              <img loading="lazy"
                 src={rightIco}
                 alt="leftIcon"
                 onClick={handleDecrement}
@@ -326,7 +326,7 @@ const RescheduleAppointment = ({ data }) => {
                 }`}
               />
               <div>{`${months[showMonth]} ${showYear}`}</div>
-              <img
+              <img loading="lazy"
                 src={rightIco}
                 alt="rightIcon"
                 onClick={handleIncrement}

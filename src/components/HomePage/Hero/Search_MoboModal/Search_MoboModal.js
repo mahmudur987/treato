@@ -75,7 +75,7 @@ const Search_MoboModal = (props) => {
   return (
     <div className={styles["container"]}>
       <div className={styles["modalNav"]}>
-        <img
+        <img loading="lazy"
           src={arrowleft}
           className={styles["arrowLeft"]}
           onClick={handle_close}
@@ -85,14 +85,14 @@ const Search_MoboModal = (props) => {
       <div className={styles["modalHeader"]}>
         <h2>{title}</h2>
         <div className={styles["inputWrapper"]}>
-          <img
+          <img loading="lazy"
             src={icon}
             className={styles["loc_Icon"]}
             onClick={handle_close}
             alt="search"
           />
           <input  className={styles["loc_Input"]} onChange={handleInputChange} placeholder={placeholderText}/>
-          <img
+          <img loading="lazy"
             src={closeIcon}
             className={styles["closeInput"]}
             onClick={handle_close}

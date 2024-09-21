@@ -98,14 +98,22 @@ const TeamDetails = () => {
     <div className={sty.container}>
       <div className={sty.manageTeam}>
         <div className={sty.TeamScheduleForResponsive}>
-          <img src={arrowLeft} alt="arrowLeft" className={sty.arrowLeft} />
+          <img
+            loading="lazy"
+            src={arrowLeft}
+            alt="arrowLeft"
+            className={sty.arrowLeft}
+          />
           <h1 className={sty.headingTeam}>Manage your team</h1>
         </div>
         <div style={{ display: "flex" }}>
           <span className={sty.searchBox}>
-            <label htmlFor="search">
-              <img src={search} alt="search" className={sty.searchBoxImg} />
-            </label>
+            <img
+              loading="lazy"
+              src={search}
+              alt="search"
+              className={sty.searchBoxImg}
+            />
             <input
               type="text"
               id="search"
@@ -123,6 +131,7 @@ const TeamDetails = () => {
               </div>
               <div className={sty.rightIconHead}>
                 <img
+                  loading="lazy"
                   src={rightIcon}
                   alt="rightIcon"
                   onClick={() => EditTeamMemberData}
@@ -153,8 +162,8 @@ const TeamDetails = () => {
                       marginTop: "5px",
                     }}
                   >
-                    <img src={item.topImg} alt="" />
-                    <img src={item.bottomImg} alt="" />
+                    <img loading="lazy" src={item.topImg} alt="" />
+                    <img loading="lazy" src={item.bottomImg} alt="" />
                   </div>
                 </div>
               </td>
@@ -175,6 +184,7 @@ const TeamDetails = () => {
                   <td>
                     <div className={sty.nameProfile}>
                       <img
+                        loading="lazy"
                         src={item.profile}
                         alt="profile"
                         className={sty.profile}
@@ -193,7 +203,11 @@ const TeamDetails = () => {
                     <Link
                       to={`/partner/dashboard/EditMemberProfile/${item.id}`}
                     >
-                      <img src={item.editPencil} alt="editPencil" />
+                      <img
+                        loading="lazy"
+                        src={item.editPencil}
+                        alt="editPencil"
+                      />
                     </Link>
                   </td>
                 </tr>
@@ -213,13 +227,14 @@ const TeamDetails = () => {
                 <div>
                   <div className={sty.nameProfileR}>
                     <img
+                      loading="lazy"
                       src={item.profile}
                       alt="profile"
                       className={sty.profile}
                     />
                     <span className={sty.name}>{item.name}</span>
                     <span className={sty.name}>
-                      <img src={retingStar} alt="" />
+                      <img loading="lazy" src={retingStar} alt="" />
                     </span>
                     <span className={sty.rating}>{item.rating}</span>
                   </div>
@@ -227,7 +242,7 @@ const TeamDetails = () => {
                     <p>{item.serviceProfile} </p>
 
                     <span style={{ marginLeft: " 10px", marginRight: "10px" }}>
-                      <img src={dot} alt="" />
+                      <img loading="lazy" src={dot} alt="" />
                     </span>
                     <span>{item.bookingToday} </span>
                     <span>booking Today</span>
@@ -237,6 +252,7 @@ const TeamDetails = () => {
                 <div className={sty.rightIconR}>
                   <Link to={`/partner/dashboard/EditMemberProfile/${item.id}`}>
                     <img
+                      loading="lazy"
                       src={rightIcon}
                       alt="rightIcon"
                       onClick={EditTeamMemberData}
@@ -263,6 +279,7 @@ const TeamDetails = () => {
               >
                 View less{" "}
                 <img
+                  loading="lazy"
                   src={VectorBlue}
                   alt="VectorBlue"
                   className={sty.viewAllBtnDownIcon}
@@ -275,6 +292,7 @@ const TeamDetails = () => {
               >
                 View all{" "}
                 <img
+                  loading="lazy"
                   src={VectorBlue}
                   alt="VectorBlue"
                   className={sty.viewAllBtnIcon}

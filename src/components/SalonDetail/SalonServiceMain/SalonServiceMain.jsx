@@ -84,7 +84,7 @@ export default function SalonServiceMain({ hideTitle, data }) {
                       {v?.category_name} ({v?.subCategories.length} items)
                     </div>
                     <div>
-                      <img
+                      <img loading="lazy"
                         src={upIco}
                         alt="up arrow"
                         className={

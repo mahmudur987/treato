@@ -37,7 +37,7 @@ const Treatments = ({
                 onClick={() => setinput(treatment.service_name)}
               >
                 <div>
-                  <img src={search_Blue} alt="Treatment" />
+                  <img loading="lazy" src={search_Blue} alt="Treatment" />
                 </div>
                 <p>{treatment.service_name}</p>
               </div>

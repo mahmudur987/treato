@@ -65,6 +65,19 @@ function Chatbot() {
     if (messageRef.current) {
       messageRef.current.scrollTop = messageRef.current.scrollHeight;
     }
+    const openMessageFn = () => {
+      setMessage(!openMessage);
+    };
+    const handleClick = (index) => {
+      setSelectedQuestion(index);
+      inputData(quetions[index]);
+    };
+  }, []);
+  useEffect(() => {
+    // Scroll to the bottom of the message container whenever messages change
+    if (messageRef.current) {
+      messageRef.current.scrollTop = messageRef.current.scrollHeight;
+    }
   }, [userQuetion]);
 
   return (

@@ -27,7 +27,15 @@
     flex-direction: column;
     gap: 6px;
 }
+.backArrow{
+    position: absolute;
+    z-index: 5;
+    width: 20px;
+    height: 20px;
+    left: 3.9%;
+    top: 12%;
 
+}
 
 .termPrivacy div h5{
     height: 30px;
@@ -60,6 +68,13 @@ background-color: #0D69D7;
         margin-top: 100px;
         margin-left: 24px;
 
+    }
+    .backArrow{
+        width: 16px;
+        height: 16px;
+        color: black;
+        left: 6%;
+        top: 11%;
     }
     .termPrivacy{
         margin: 0;

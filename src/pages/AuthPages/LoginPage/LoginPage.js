@@ -302,7 +302,7 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   className={`${styles.pass}`}
                 />
-                <img
+                <img loading="lazy"
                   src={eyeline}
                   className={styles.eyeline}
                   onClick={() => {
@@ -411,12 +411,12 @@ const LoginPage = () => {
               className={styles.google}
               onClick={googleAuthLogin}
             >
-              <img src={Google_Logo} />
+              <img loading="lazy" src={Google_Logo} />
               Google
             </SecondaryButton>
 
             <SecondaryButton className={styles.facebook} onClick={myFbLogin}>
-              <img src={Facebook_Logo} />
+              <img loading="lazy" src={Facebook_Logo} />
               Facebook
             </SecondaryButton>
           </div>

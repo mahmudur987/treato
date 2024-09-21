@@ -141,7 +141,7 @@ const PicturesGallery = () => {
       <div className={sty.container}>
         <div className={sty.imgarrowLeft}>
           <Link to={"/partner/dashboard/serviceBussness"}>
-            <img src={arrowLeft} alt="arrowLeft" className={sty.Pictures} />
+            <img loading="lazy" src={arrowLeft} alt="arrowLeft" className={sty.Pictures} />
           </Link>
           Pictures
         </div>
@@ -155,7 +155,7 @@ const PicturesGallery = () => {
               onChange={handleFileChange}
               multiple
             />
-            <img src={slide1} alt="slide1" className={sty.UploadInp} />
+            <img loading="lazy" src={slide1} alt="slide1" className={sty.UploadInp} />
           </div>
           {data &&
             !isError &&
@@ -171,7 +171,7 @@ const PicturesGallery = () => {
                   className={sty.mapPic}
                   onMouseLeave={closeDropdown}
                 >
-                  <img
+                  <img loading="lazy"
                     src={item.public_url}
                     alt="img"
                     className={sty.mapPic}
@@ -186,7 +186,7 @@ const PicturesGallery = () => {
                             setIsOpen((pre) => (pre === i ? 0 : i))
                           }
                         >
-                          <img
+                          <img loading="lazy"
                             src={moreVertical}
                             alt="moreVertical"
                             className={sty.modalLeft}

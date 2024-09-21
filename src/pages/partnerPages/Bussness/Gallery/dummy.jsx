@@ -4,7 +4,7 @@ export const dummy = () => {
     return (
         <div>
             <div class="circele-img">
-                <img src="./assets/img/main.svg" class="main-img img-fluid" alt="" />
+                <img loading="lazy" src="./assets/img/main.svg" class="main-img img-fluid" alt="" />
             </div>
         </div>
     )

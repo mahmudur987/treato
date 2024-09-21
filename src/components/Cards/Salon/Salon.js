@@ -46,7 +46,7 @@ const Salon = ({ salonData, place }) => {
         }`}
       >
         <Link to={salonData ? `/salons/${salonData._id}` : null}>
-          <img
+          <img loading="lazy"
             src={salonImage ? salonImage.public_url : img1}
             alt="cardImage"
             className={`${styles.cardImage} ${
@@ -68,7 +68,7 @@ const Salon = ({ salonData, place }) => {
             {salonData.salon_name ? salonData.salon_name : "Salon Name"}
           </Link>
           <h4 className={styles.ratings}>
-            {salonData.rating} <img src={starBlack} alt="star" /> (
+            {salonData.rating} <img loading="lazy" src={starBlack} alt="star" /> (
             {salonData.total_rating} ratings)
           </h4>
           {userDetails?.user.isLocationAllow && (
@@ -104,12 +104,12 @@ const Salon = ({ salonData, place }) => {
               <Link to={salonData ? `/salons/${salonData._id}` : null}>
                 <button className={styles.viewDetails}>
                   View details
-                  <img src={chevronright} alt="chevronRight" />
+                  <img loading="lazy" src={chevronright} alt="chevronRight" />
                 </button>
               </Link>
               <button className={styles.viewMap} onClick={openMapInNewWindow}>
                 View on map
-                <img src={mapBlue} alt="mapPin" />
+                <img loading="lazy" src={mapBlue} alt="mapPin" />
               </button>
             </div>
           </>

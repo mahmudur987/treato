@@ -264,7 +264,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
               return (
                 <div className={style.profileContainer} key={index}>
                   <div className={style.profileBox}>
-                    <img
+                    <img loading="lazy"
                       src={profile.stylistImage?.public_url}
                       alt={profile.stylistName}
                     />
@@ -376,9 +376,9 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                           }
                                         />
                                       </div>
-                                      <div className={style.editButton}>
+                                      {/*<div className={style.editButton}>
                                         Edit Details
-                                      </div>
+                                      </div>*/}
                                       <div
                                         className={style.started}
                                         onClick={() =>

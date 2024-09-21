@@ -152,7 +152,7 @@ const AddMemberProfile = () => {
           <div className={styles.usr_detail_head}>
             <Link to={"/partner/dashboard/TeamManageMent"}>
               <span>
-                <img
+                <img loading="lazy"
                   src={arrowLeft}
                   alt="arrowLeft"
                   className={styles.Pictures}
@@ -174,7 +174,7 @@ const AddMemberProfile = () => {
                     className={styles.profileRounded}
                     onClick={handleButtonClick}
                   >
-                    <img
+                    <img loading="lazy"
                       src={picture ? URL.createObjectURL(picture) : profileImg}
                       alt="profileImg"
                       style={{ maxWidth: "100%" }}
@@ -187,7 +187,7 @@ const AddMemberProfile = () => {
                       onChange={handleFileChange}
                       style={{ display: "none" }}
                     />
-                    <img
+                    <img loading="lazy"
                       src={Profile_Pic}
                       alt="Profile_Pic"
                       className={styles.profileAdd}
@@ -311,7 +311,7 @@ const AddMemberProfile = () => {
                     <div onClick={() => setIsModalOpen((pre) => !pre)}>
                       <p className={styles.editImgEdit}>
                         Edit
-                        <img src={editImg} alt="editImg" />
+                        <img loading="lazy" src={editImg} alt="editImg" />
                       </p>
                     </div>
                   </div>

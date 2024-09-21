@@ -29,7 +29,7 @@ const Pick = ({ ondateChange, date }) => {
         popperPlacement="bottom-end"
         toggleCalendarOnIconClick
         showIcon
-        icon={<img className={sty.calIcon} src={calendarIcon} alt="icon" />}
+        icon={<img loading="lazy" className={sty.calIcon} src={calendarIcon} alt="icon" />}
       />
     </div>
   );

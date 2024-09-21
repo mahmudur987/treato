@@ -194,7 +194,7 @@ const ServiceOffer = ({
                     {v?.service_name}
 
                     {selectedService.includes(v.service_name) && (
-                      <img src={selectedCircle} alt="" />
+                      <img loading="lazy" src={selectedCircle} alt="" />
                     )}
                   </div>
                 );

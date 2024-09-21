@@ -129,7 +129,7 @@ const PendingSalon = () => {
                 <div className={styles.cardWrapper}>
                   <div className={styles.card}>
                     <figure>
-                      <img src={x.image} alt="" />
+                      <img loading="lazy" src={x.image} alt="" />
                     </figure>
 
                     <div className={styles.cardBottom}>

@@ -71,8 +71,8 @@ const BookingsPartTable = ({ data }) => {
                         flexDirection: "column",
                       }}
                     >
-                      <img src={item.topImg} alt="" />
-                      <img src={item.bottomImg} alt="" />
+                      <img loading="lazy"  src={item.topImg} alt="" />
+                      <img loading="lazy"  src={item.bottomImg} alt="" />
                     </div>
                   </div>
                 </td>
@@ -95,8 +95,8 @@ const BookingsPartTable = ({ data }) => {
                         flexDirection: "column",
                       }}
                     >
-                      <img src={topImg} alt="" />
-                      <img src={bottomImg} alt="" />
+                      <img loading="lazy"  src={topImg} alt="" />
+                      <img loading="lazy"  src={bottomImg} alt="" />
                     </span>
                   </p>
                 </div>
@@ -109,7 +109,7 @@ const BookingsPartTable = ({ data }) => {
                 <td>
                   <div className={sty.bodyRow}>
                     <p className={sty.profile}>
-                      <img
+                      <img loading="lazy" 
                         className={sty.customerImage}
                         src={
                           x.customerImage

@@ -235,7 +235,7 @@ export default function BillSummary({
         <div className={styles.bill_sumA}>Bill Summary</div>
         <div className={styles.bill_sumI}>
           <div className={styles.bill_sumB}>
-            <img
+            <img loading="lazy"
               src={salon?.salon_image ? salon?.salon_image?.public_url : slide1}
               alt="salonImage"
             />
@@ -283,7 +283,7 @@ export default function BillSummary({
           {!selectedOffer ? (
             <div className={styles.applyOffer}>
               <div className={`${styles.bill_sumFC}`}>
-                <img src={discountIco} alt="" />
+                <img loading="lazy" src={discountIco} alt="" />
                 <div>Offers & Benefits</div>
               </div>
               <div
@@ -291,14 +291,14 @@ export default function BillSummary({
                 onClick={() => (setShowModal ? setShowModal(true) : "")}
               >
                 <div>4 offers</div>
-                <img src={rightBlue} alt="" />
+                <img loading="lazy" src={rightBlue} alt="" />
               </div>
             </div>
           ) : (
             <div className={styles.appliedOffer}>
               <div className={styles.offerDetails}>
                 <div className={styles.firstLine}>
-                  <img src={offerIcon} alt="offerIcon" />
+                  <img loading="lazy" src={offerIcon} alt="offerIcon" />
                   <span className={styles.offerName}>
                     {selectedOffer?.title}
                   </span>
@@ -308,7 +308,7 @@ export default function BillSummary({
                 </div>
               </div>
               <div className={styles.deleteOption} onClick={handleDeleteOffer}>
-                <img src={deleteOfferIcon} alt="deleteIcon" />
+                <img loading="lazy" src={deleteOfferIcon} alt="deleteIcon" />
               </div>
             </div>
           )}
@@ -348,7 +348,7 @@ export default function BillSummary({
         </div>
       </div>
       <div className={styles.bill_sumH}>
-        <img src={calendar_cancel} alt="" />
+        <img loading="lazy" src={calendar_cancel} alt="" />
         <div className={styles.bill_sumHA}>
           Free cancellation & rescheduling till 4 hours before the start time,
           post that cancellation charge(s) apply.{" "}

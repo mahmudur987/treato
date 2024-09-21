@@ -15,7 +15,7 @@ const Venues = () => {
       {venues.map((venue) => (
         <div key={venue.id} className={styles["vn_resultItem"]}>
           <div className={styles["vn_itemImage"]}>
-            <img src={Frame1} alt="Venue" />
+            <img loading="lazy" src={Frame1} alt="Venue" />
           </div>
           <div className={styles["vn_itemdetails"]}>
             <p>{venue.name}</p>

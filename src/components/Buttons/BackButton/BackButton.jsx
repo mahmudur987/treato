@@ -13,6 +13,7 @@ export default function BackButton({
     <>
       <button className={styles.acc_mob_back}>
         <img
+          loading="lazy"
           src={leftIco}
           alt=""
           onClick={() =>

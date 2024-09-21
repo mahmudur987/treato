@@ -99,7 +99,7 @@ const ResetPassword = () => {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />
-              <img
+              <img loading="lazy"
                 src={eyeline}
                 alt="eyeIcon"
                 className={styles.eyeIcon}
@@ -117,7 +117,7 @@ const ResetPassword = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <img
+              <img loading="lazy"
                 src={eyeline}
                 alt="eyeIcon"
                 className={styles.eyeIcon}
@@ -140,7 +140,7 @@ const ResetPassword = () => {
           <div className={styles.wrapper}>
             <h2>Password reset successful</h2>
             <figure>
-              <img src={img} alt="im" />
+              <img loading="lazy" src={img} alt="im" />
             </figure>
             <p>
               {" "}

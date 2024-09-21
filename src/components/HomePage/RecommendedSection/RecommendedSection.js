@@ -84,7 +84,7 @@ export default function RecommendedSection({ mainData }) {
         >
           {allServices.map((service, index) => (
             <a key={index} className={styles.rmdItem}>
-              <img
+              <img loading="lazy"
                 src={service?.service_img?.public_url ?? fingernail}
                 alt={service.service_name[0]}
               />
@@ -95,7 +95,7 @@ export default function RecommendedSection({ mainData }) {
         {/* <div className={styles.rmdWrapperMobo}>
         {allServices.map((service, index) => (
             <a key={index} className={styles.rmdItem}>
-              <img src={service?.service_img?.public_url} alt={service.service_name[0]} />
+              <img loading="lazy" src={service?.service_img?.public_url} alt={service.service_name[0]} />
               <h4>{service.service_name}</h4>
             </a>
           ))}

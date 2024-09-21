@@ -139,7 +139,7 @@ const ServiceLocation = ({
             <p>Add and edit salon location details.</p>
           </div>
           <div className={styles.CollaseIconImg1}>
-            <img
+            <img loading="lazy"
               src={CollaseIcon}
               alt="CollapseIcon"
               onClick={toggleCollapse}
@@ -167,7 +167,7 @@ const ServiceLocation = ({
                       styles={`${styles.locationInput}`}
                     />
                   </label>
-                  <img src={map} alt="map" className={styles.mapLogo} />
+                  <img loading="lazy" src={map} alt="map" className={styles.mapLogo} />
                 </div>
                 {show && (
                   <div className={styles.suggestions}>

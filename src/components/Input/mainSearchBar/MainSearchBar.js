@@ -353,10 +353,10 @@ const MainSearchBar = ({ place }) => {
           <div className={styles["inputIcon"]}>
             {location.pathname === "/salons" ? (
               <Link to="/">
-                <img src={arrowleft} alt="arrowleft" />
+                <img loading="lazy" src={arrowleft} alt="arrowleft" />
               </Link>
             ) : (
-              <img src={search} alt="search" />
+              <img loading="lazy" src={search} alt="search" />
             )}
           </div>
           <input
@@ -385,7 +385,7 @@ const MainSearchBar = ({ place }) => {
             />
           </div>
 
-          <img
+          <img loading="lazy"
             src={closeIcon}
             className={`${styles["close_trtBox"]} ${
               Trt_DesktopModal ? "" : styles["hidden"]
@@ -400,7 +400,7 @@ const MainSearchBar = ({ place }) => {
         {/* search location */}
         <div className={styles["searchlocation"]}>
           <div className={styles["inputIcon"]}>
-            <img src={mapPin} alt="mapPinImg" />
+            <img loading="lazy" src={mapPin} alt="mapPinImg" />
           </div>
 
           <input
@@ -419,7 +419,7 @@ const MainSearchBar = ({ place }) => {
             onChange={winWidthMain > 767 ? handleInput : ""}
             disabled={!ready}
           />
-          <img
+          <img loading="lazy"
             className={`${styles["close_trtBox"]} ${
               loc_DesktopModal ? "" : styles["hidden"]
             }`}
@@ -451,7 +451,7 @@ const MainSearchBar = ({ place }) => {
                     className={`${styles.locationList} ${styles.CurrentLocation}`}
                     onClick={handleSelectCurrentLocation}
                   >
-                    <img src={mapPinBlue} alt="pinIcon"></img>
+                    <img loading="lazy" src={mapPinBlue} alt="pinIcon"></img>
                     Current Location
                   </li>
                 )}

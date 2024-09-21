@@ -18,37 +18,59 @@ const NoSubscription = () => {
           </h2>
           <p>Unlimited usage with no subscription charges for your business.</p>
         </div>
-        {data && !isLoading && !isError && (
-          <div className={styles.bottom}>
-            {" "}
-            <div className={styles.left}>
-              <ul>
-                {data?.data?.slice(0, 3)?.map((x, i) => (
-                  <li className={styles.listItem}>
-                    <img src={x?.icon?.public_url} alt="check" />{" "}
-                    <p>
-                      <strong> {x.mainTitle} </strong>
-                      <span> {x?.SmallTitle} </span>
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className={styles.right}>
-              <ul>
-                {data?.data?.slice(3, 6)?.map((x, i) => (
-                  <li className={styles.listItem}>
-                    <img src={x?.icon?.public_url} alt="check" />{" "}
-                    <p>
-                      <strong> {x.mainTitle} </strong>
-                      <span> {x?.SmallTitle} </span>
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div className={styles.bottom}>
+          {" "}
+          <div className={styles.left}>
+            <ul>
+              <li className={styles.listItem}>
+                <img loading="lazy" src={check} />{" "}
+                <p>
+                  <strong>Track and grow your sales with ease</strong>
+                  <span>Attract new customers with 24X7 online booking</span>
+                </p>
+              </li>
+              <li className={styles.listItem}>
+                <img loading="lazy" src={check} />{" "}
+                <p>
+                  <strong>Track and grow your sales with ease</strong>
+                  <span>Attract new customers with 24X7 online booking</span>
+                </p>
+              </li>
+              <li className={styles.listItem}>
+                <img loading="lazy" src={check} />{" "}
+                <p>
+                  <strong>Track and grow your sales with ease</strong>
+                  <span>Attract new customers with 24X7 online booking</span>
+                </p>
+              </li>
+            </ul>
           </div>
-        )}
+          <div className={styles.right}>
+            <ul>
+              <li className={styles.listItem}>
+                <img loading="lazy" src={check} />{" "}
+                <p>
+                  <strong>Track and grow your sales with ease</strong>
+                  <span>Attract new customers with 24X7 online booking</span>
+                </p>
+              </li>
+              <li className={styles.listItem}>
+                <img loading="lazy" src={check} />{" "}
+                <p>
+                  <strong>Track and grow your sales with ease</strong>
+                  <span>Attract new customers with 24X7 online booking</span>
+                </p>
+              </li>
+              <li className={styles.listItem}>
+                <img loading="lazy" src={check} />{" "}
+                <p>
+                  <strong>Track and grow your sales with ease</strong>
+                  <span>Attract new customers with 24X7 online booking</span>
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </main>
   );

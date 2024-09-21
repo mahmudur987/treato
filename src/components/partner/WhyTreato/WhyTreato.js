@@ -8,7 +8,7 @@ const WhyTreato = () => {
       <div className={styles.left}>
         <figure className={styles.imageWrapper}>
           {" "}
-          <img src={phone} alt="Left Image" />
+          <img loading="lazy" src={phone} alt="Left Image" />
         </figure>
       </div>
       <div className={styles.right}>
@@ -26,7 +26,7 @@ const WhyTreato = () => {
           <div className={styles.middle}>
             <figure className={styles.middleimageWrapper}>
               {" "}
-              <img src={phone} alt="Left Image" />
+              <img loading="lazy" src={phone} alt="Left Image" />
             </figure>
           </div>
         </div>
@@ -35,19 +35,19 @@ const WhyTreato = () => {
           <ul className={styles.items}>
             <li>
               {" "}
-              <img src={check} />{" "}
+              <img loading="lazy" src={check} />{" "}
               <span>Attract new customers with 24X7 online booking</span>
             </li>
             <li>
               {" "}
-              <img src={check} />{" "}
+              <img loading="lazy" src={check} />{" "}
               <span>
                 Use sales reporting & analytics to boost your business
               </span>
             </li>
             <li>
               {" "}
-              <img src={check} />{" "}
+              <img loading="lazy" src={check} />{" "}
               <span>
                 AImprove customer retention with relevant insights. Integrate
                 data from walk-in appointments
@@ -55,17 +55,17 @@ const WhyTreato = () => {
             </li>
             <li>
               {" "}
-              <img src={check} />{" "}
+              <img loading="lazy" src={check} />{" "}
               <span>Manage appointments with our all-in-one calendar</span>
             </li>
             <li>
               {" "}
-              <img src={check} />{" "}
+              <img loading="lazy" src={check} />{" "}
               <span>Review all employee data in one place</span>
             </li>
             <li>
               {" "}
-              <img src={check} />{" "}
+              <img loading="lazy" src={check} />{" "}
               <span>
                 Track revenues with our integrated billing & payments system.
                 On-site payments available!

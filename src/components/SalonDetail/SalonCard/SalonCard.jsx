@@ -8,7 +8,7 @@ import BookNow from "../BookNow/BookNow";
 import { memo, useState } from "react";
 import { useEffect } from "react";
 
-export const SalonCard = ({ SalonData, salonId }) => {
+export default function SalonCard({ SalonData, salonId }) {
   const currentTime = new Date().toLocaleTimeString();
   let [checkSalonOpen, setCheckSalonOpen] = useState(false);
   useEffect(() => {
@@ -26,29 +26,29 @@ export const SalonCard = ({ SalonData, salonId }) => {
       </div>
       <div className={styles.salon_cardB}>
         <div>{SalonData ? SalonData.rating : null} </div>
-        <img src={star} alt="" />
+        <img loading="lazy" src={star} alt="" />
         <div>
           (based on {SalonData ? SalonData.total_rating : null} ratings)
         </div>
-        <img src={ellipse} alt="" />
+        <img loading="lazy" src={ellipse} alt="" />
         <div>See reviews</div>
       </div>
       <div className={styles.salon_cardC}>
         <BookNow salonId={salonId ? salonId : null} />
       </div>
       <div className={styles.salon_cardD}>
-        <img src={discount} alt="" />
+        <img loading="lazy" src={discount} alt="" />
         <div>
           Use code <span>BEAUTY100</span> during checkout and get 15% off up to
           ₹99. <span>T&C apply</span>
         </div>
       </div>
       <div className={styles.salon_cardD}>
-        <img src={clock} alt="" />
+        <img loading="lazy" src={clock} alt="" />
         <div>
           <div className={styles.salon_cardDA}>
             <div>{checkSalonOpen ? "Open" : "Closed"}</div>
-            <img src={ellipse} alt="" />
+            <img loading="lazy" src={ellipse} alt="" />
             <div>
               Opens {SalonData?.working_hours[0]?.opening_time}{" "}
               {SalonData?.working_hours[0]?.day}
@@ -60,6 +60,6 @@ export const SalonCard = ({ SalonData, salonId }) => {
       <SalonMap SalonData={SalonData ? SalonData : null} />
     </div>
   );
-};
+}
 
 export const MemoizeSalonCard = memo(SalonCard);

@@ -48,7 +48,7 @@ export default function ServiceTime({
         )}
       </div>
       <div className={styles.service_timeE}>
-        <img src={calendar_cancel} alt="" />
+        <img loading="lazy" src={calendar_cancel} alt="" />
         <div className={styles.service_timeEA}>
           Free cancellation & rescheduling till 4 hours before the start time,
           post that cancellation charge(s) apply.{" "}

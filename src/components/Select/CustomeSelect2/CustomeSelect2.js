@@ -61,7 +61,7 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
                 }`,
               }}
             >
-              <img src={value?.imageUrl} alt="" />
+              <img loading="lazy" src={value?.imageUrl} alt="" />
               <span>{value?.name}</span>
             </p>
           )}
@@ -91,7 +91,7 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
                 onClick={() => handleSelect(option)}
               >
                 <p className={styles.wrapper}>
-                  <img src={option?.imageUrl} alt="" />
+                  <img loading="lazy" src={option?.imageUrl} alt="" />
                   <span>{option?.name}</span>
                 </p>
               </div>

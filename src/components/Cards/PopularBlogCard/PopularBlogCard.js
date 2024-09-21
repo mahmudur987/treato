@@ -12,7 +12,7 @@ const PopularBlogCard = ({ blog }) => {
           {" "}
           {blog.writer_name}{" "}
         </p>
-        <img src={Timer} alt="timer" />
+        <img loading="lazy" src={Timer} alt="timer" />
         <p className={styles["popular-blog-duration"]}>
           {" "}
           {'9 min read'}{" "}

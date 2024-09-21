@@ -66,7 +66,7 @@ const ForgotPassword = () => {
                 Don’t worry! We have sent a link to reset password on your
                 registered email address {email}
               </h4>
-              <img src={SuccessCircle} className={styles.SuccessCircle} />
+              <img loading="lazy" src={SuccessCircle} className={styles.SuccessCircle} />
               <h4 className={styles.desc}>
                 Once reset, click below to sign in with the new password.
               </h4>

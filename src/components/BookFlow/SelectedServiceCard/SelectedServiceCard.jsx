@@ -69,7 +69,7 @@ export default function SelectedServiceCard({
             <div>Service Details:</div>
           </div>
           <div className={styles.service_cardF}>
-            <img src={clock} alt="" />
+            <img loading="lazy" src={clock} alt="" />
             <div>
               {stepTwoDetails?.dateData
                 ? stepTwoDetails?.timeData
@@ -80,7 +80,7 @@ export default function SelectedServiceCard({
           </div>
           <div className={styles.service_cardG}>
             <div className={styles.service_cardGA}>
-              <img
+              <img loading="lazy"
                 src={
                   workerData
                     ? workerData?.stylist_Img?.public_url
@@ -100,7 +100,7 @@ export default function SelectedServiceCard({
             <div>Service Details:</div>
           </div>
           <div className={styles.service_cardF}>
-            <img src={clock} alt="" />
+            <img loading="lazy" src={clock} alt="" />
             <div>
               {stepTwoDetails?.dateData
                 ? stepTwoDetails?.timeData
@@ -111,7 +111,7 @@ export default function SelectedServiceCard({
           </div>
           <div className={styles.service_cardG}>
             <div className={styles.service_cardGA}>
-              <img
+              <img loading="lazy"
                 src={
                   workerData
                     ? workerData?.stylist_Img?.public_url
@@ -131,7 +131,7 @@ export default function SelectedServiceCard({
             <div>Service Details:</div>
           </div>
           <div className={styles.service_cardF}>
-            <img src={clock} alt="" />
+            <img loading="lazy" src={clock} alt="" />
             <div>
               {stepTwoDetails?.dateData
                 ? stepTwoDetails?.timeData
@@ -142,7 +142,7 @@ export default function SelectedServiceCard({
           </div>
           <div className={styles.service_cardG}>
             <div className={styles.service_cardGA}>
-              <img
+              <img loading="lazy"
                 src={
                   workerData
                     ? workerData?.stylist_Img?.public_url

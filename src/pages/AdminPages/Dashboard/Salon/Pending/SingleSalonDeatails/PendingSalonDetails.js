@@ -97,7 +97,7 @@ export default function PendingSalonDetail() {
         <div className={styles.salon_pcView}>
           <Link to={"/admin/salon/pending"}>
             <div className={styles.back}>
-              <img src={leftIco} alt="" />
+              <img loading="lazy" src={leftIco} alt="" />
             </div>
           </Link>
           <div className={styles.wrapper}>
@@ -109,12 +109,12 @@ export default function PendingSalonDetail() {
                 {SalonDetails1?.salon_rating > 0
                   ? SalonDetails1?.salon_rating
                   : ""}{" "}
-                {SalonDetails1?.salon_rating > 0 && <img src={star} alt="" />}
+                {SalonDetails1?.salon_rating > 0 && <img loading="lazy" src={star} alt="" />}
               </div>
               {SalonDetails1?.total_rating && (
                 <div>({SalonDetails1?.total_rating || ""})</div>
               )}
-              <img src={ellipse} alt="" />
+              <img loading="lazy" src={ellipse} alt="" />
               <div>{SalonDetails1 ? SalonDetails1.salon_address : null}</div>
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function PendingSalonDetail() {
             </div>
             <div className={styles.salon_images_right}>
               {SalonDetails1?.salon_image?.slice(1, 4).map((v, i) => {
-                return <img src={v.public_url} alt="salon image" key={i} />;
+                return <img loading="lazy" src={v.public_url} alt="salon image" key={i} />;
               })}
               {SalonDetails1?.salon_image?.length > 3 && (
                 <Link
@@ -157,7 +157,7 @@ export default function PendingSalonDetail() {
                     </div>
                     <div>images</div>
                   </div>
-                  <img src={firstImage ? firstImage : null} alt="" />
+                  <img loading="lazy" src={firstImage ? firstImage : null} alt="" />
                 </Link>
               )}
             </div>
@@ -170,7 +170,7 @@ export default function PendingSalonDetail() {
         <div className={styles.salon_info}>
           <div className={styles.salon_star}>
             {SalonDetails1?.salon_rating > 0 ? SalonDetails1?.salon_rating : ""}{" "}
-            {SalonDetails1?.salon_rating > 0 && <img src={star} alt="" />}{" "}
+            {SalonDetails1?.salon_rating > 0 && <img loading="lazy" src={star} alt="" />}{" "}
             {SalonDetails1?.total_rating && (
               <div>({SalonDetails1?.total_rating || ""})</div>
             )}
