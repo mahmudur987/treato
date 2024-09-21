@@ -58,7 +58,7 @@ export const SalonPictures = () => {
                 className={sty.mainDiv2}
                 onClick={() => allComponentOpenSmallScreen(item.title)}
               >
-                <img src={item.icon} alt="RightIcon" className={sty.mainDiv3} />
+                <img loading="lazy" src={item.icon} alt="RightIcon" className={sty.mainDiv3} />
               </p>
             </div>
             <div className={sty.horizontalLine}></div>
@@ -84,7 +84,7 @@ const SalonPicturesDefaultScreen = () => {
           </div>
         </div>
         <p className={sty.mainDiv2} onClick={() => PicturesGalleryFun()}>
-          <img src={RightIcon} alt="RightIcon" className={sty.mainDiv3} />
+          <img loading="lazy" src={RightIcon} alt="RightIcon" className={sty.mainDiv3} />
         </p>
       </div>
       <div className={sty.horizontalLine}></div>

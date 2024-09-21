@@ -85,11 +85,11 @@ const WriteReview = ({ data }) => {
       <h1 className={styles.modalTitle}>Write a review</h1>
       <div className={styles.modalContent}>
         <div className={styles.salonInfo}>
-          <img src={frame1} alr="frame1" className={styles.salonProfileImg} />
+          <img loading="lazy" src={frame1} alr="frame1" className={styles.salonProfileImg} />
           <div className={styles.details}>
             <h4 className={styles.salonName}>She Hair & Beauty</h4>
             <p className={styles.appointmentDate}>
-              Fri, Apr 21 <img src={ellipse} alt="ellipse" />
+              Fri, Apr 21 <img loading="lazy" src={ellipse} alt="ellipse" />
               <span className={styles.services}>2 services</span>
             </p>
           </div>
@@ -108,7 +108,7 @@ const WriteReview = ({ data }) => {
                     }`}
                     onClick={() => handleStarClick(value)}
                   >
-                    <img src={star_line} alt="star_line" />
+                    <img loading="lazy" src={star_line} alt="star_line" />
                   </span>
                 ))}
               </div>
@@ -129,7 +129,7 @@ const WriteReview = ({ data }) => {
                     }`}
                     onClick={() => handleStylistStarClick(value)}
                   >
-                    <img src={star_line} alt="star_line" />
+                    <img loading="lazy" src={star_line} alt="star_line" />
                   </span>
                 ))}
               </div>

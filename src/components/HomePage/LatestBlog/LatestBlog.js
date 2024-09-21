@@ -54,7 +54,7 @@ const LatestBlog = () => {
         <div className={styles["header"]}>
           <Title>Latest from our blog</Title>
           <Link to="/blogs" className={styles["headerViewAll"]}>
-            View all <img src={chevronLeft} />
+            View all <img loading="lazy" src={chevronLeft} />
           </Link>
         </div>
         <div className={styles["blogWrapper"]}>

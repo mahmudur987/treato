@@ -53,7 +53,7 @@ const PendingAllSalon = ({
           {pendingSalonData?.map((salon) => (
             <div key={salon.id} className={styles.card}>
               <figure>
-                <img src={salon.image} alt="" />
+                <img loading="lazy" src={salon.image} alt="" />
               </figure>
               {pendingSalonData.length > 1 && (
                 <p className={styles.selectSalon}>

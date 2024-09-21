@@ -33,7 +33,7 @@ function AboutUsDetails() {
                 <div className={style.aboutcontainer}>
                     <h3 className={style.title}>About us</h3>
                     <div className={style.aboutcontent}>
-                        <img src={aboutusImage} className={style.imagemobile} alt="" srcset="" />
+                        <img loading="lazy" src={aboutusImage} className={style.imagemobile} alt="" srcset="" />
                         <p>Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.</p>
                     </div>
                     <div className={style.info}>
@@ -55,7 +55,7 @@ function AboutUsDetails() {
 
                 </div>
                 <div className={style.backeffect} ></div>
-                <img src={aboutusImage} className={style.aboutimage} alt="" srcset="" />
+                <img loading="lazy" src={aboutusImage} className={style.aboutimage} alt="" srcset="" />
                 <div className={style.OurTeamBox}>
                     <div className={style.ourTeamHeader}>
                         <h3>Our Team</h3>
@@ -72,7 +72,7 @@ function AboutUsDetails() {
                     </div>
                     <div className={style.outTeamContent} id='header'>
                         <div className={style.contentBox} >
-                            <img src={image1} width={203} height={202} alt="" srcset="" />
+                            <img loading="lazy" src={image1} width={203} height={202} alt="" srcset="" />
                             <div className={style.ourTeamInfo} >
                                 <h3>Krishna</h3>
                                 <p className={style.subHeading} >CEO, Wipro</p>
@@ -80,7 +80,7 @@ function AboutUsDetails() {
                             </div>
                         </div>
                         <div className={style.contentBox} >
-                            <img src={image1} width={203} height={202} alt="" srcset="" />
+                            <img loading="lazy" src={image1} width={203} height={202} alt="" srcset="" />
                             <div className={style.ourTeamInfo} >
                                 <h3>Krishna</h3>
                                 <p className={style.subHeading}>CEO, Wipro</p>
@@ -88,7 +88,7 @@ function AboutUsDetails() {
                             </div>
                         </div>
                         <div className={style.contentBox} >
-                            <img src={image1} width={203} height={202} alt="" srcset="" />
+                            <img loading="lazy" src={image1} width={203} height={202} alt="" srcset="" />
                             <div className={style.ourTeamInfo} >
                                 <h3>vivek</h3>
                                 <p className={style.subHeading} >CEO, Wipro</p>
@@ -96,7 +96,7 @@ function AboutUsDetails() {
                             </div>
                         </div>
                         <div className={style.contentBox} >
-                            <img src={image1} width={203} height={202} alt="" srcset="" />
+                            <img loading="lazy" src={image1} width={203} height={202} alt="" srcset="" />
                             <div className={style.ourTeamInfo} >
                                 <h3>Nitin</h3>
                                 <p className={style.subHeading}>CEO, Wipro</p>
@@ -108,10 +108,10 @@ function AboutUsDetails() {
                 <div className={style.ourVisionBox} >
                     {toggle ? <>
                         <div className={style.visionContentBox} >
-                            <img src={image3} alt="" srcset="" />
+                            <img loading="lazy" src={image3} alt="" srcset="" />
                             <div className={style.visionText} >
                                 <h3>Our Mission</h3>
-                                <img src={image3} alt="" srcset="" />
+                                <img loading="lazy" src={image3} alt="" srcset="" />
                                 <p className={style.ourMissionText}>Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. </p>
                             </div>
                             <div className={style.togglebtn}>
@@ -121,10 +121,10 @@ function AboutUsDetails() {
                             </div>
                         </div></> : <>
                         <div className={style.visionContentBox} >
-                            <img src={image2} alt="" srcset="" />
+                            <img loading="lazy" src={image2} alt="" srcset="" />
                             <div className={style.visionText} >
                                 <h3>Our Vision</h3>
-                                <img src={image2} alt="" srcset="" />
+                                <img loading="lazy" src={image2} alt="" srcset="" />
                                 <p>Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. </p>
                             </div>
                             <div className={style.togglebtn}>
@@ -134,10 +134,10 @@ function AboutUsDetails() {
                             </div>
                         </div></>}
                         <div className={`${style.visionContentBox} ${style.forMobileView}`} >
-                            <img src={image3} alt="" srcset="" />
+                            <img loading="lazy" src={image3} alt="" srcset="" />
                             <div className={style.visionText} >
                                 <h3>Our Mission</h3>
-                                <img src={image3} alt="" srcset="" />
+                                <img loading="lazy" src={image3} alt="" srcset="" />
                                 <p>Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. We believe in the power of simplicity, and our spa reflects this philosophy. Every detail, from the soothing decor to the user-friendly online experience, is designed to enhance your wellness journey.Immerse yourself in the calming ambience as we curate an oasis for your mind, body, and soul. </p>
                             </div>
                             <div className={style.togglebtn}>

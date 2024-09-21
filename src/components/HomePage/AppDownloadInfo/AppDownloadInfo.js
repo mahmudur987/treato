@@ -7,12 +7,12 @@ const AppDownloadInfo = ({mainData}) => {
       <div className={styles["bannerWrapper"]}>
         <div className={styles["bannerDetails"]}>
           <div className={styles.textWrapper}>          
-          <small>Available on <img src={AppleLogo} /><img src={GoogleLogo} /></small>
+          <small>Available on <img loading="lazy" src={AppleLogo} /><img loading="lazy" src={GoogleLogo} /></small>
           <h1>{mainData?mainData.downloadApp_heading:''}</h1>
           <p className={styles.desc}>{mainData?mainData.downloadApp_subheading:''}</p>
           <div className={styles["socialLinks"]}>
-            <a className={styles["Appstore"]}><img src={AppStore_black} alt="AppStore_black"/></a>
-            <a className={styles["googlePlay"]}><img src={PlayStore_black} alt="PlayStore_black"/></a>
+            <a className={styles["Appstore"]}><img loading="lazy" src={AppStore_black} alt="AppStore_black"/></a>
+            <a className={styles["googlePlay"]}><img loading="lazy" src={PlayStore_black} alt="PlayStore_black"/></a>
           </div >
           </div>
         </div>

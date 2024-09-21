@@ -15,7 +15,7 @@ export default function PoliciesModal({ setOpenModal, mainIcon, desc, title }) {
                     <div className={styles.taxesMain}>
                         <div className={styles.taxesPC}>
                             <div className={styles.taxesA}>
-                                <img src={mainIcon ? mainIcon : null} alt="tax_icon" />
+                                <img loading="lazy" src={mainIcon ? mainIcon : null} alt="tax_icon" />
                                 <div className={styles.taxesB}>
                                     {
                                         title ? title : null
@@ -37,9 +37,9 @@ export default function PoliciesModal({ setOpenModal, mainIcon, desc, title }) {
                                             title ? title : null
                                         }
                                     </div>
-                                    <img src={DarkCross} alt="cross" onClick={() => { setCloseModal(true); setOpenModal({ taxModal: false, cancelModal: false }) }} />
+                                    <img loading="lazy" src={DarkCross} alt="cross" onClick={() => { setCloseModal(true); setOpenModal({ taxModal: false, cancelModal: false }) }} />
                                 </div>
-                                <img src={mainIcon ? mainIcon : null} alt="tax_icon" className={styles.taxesIco} />
+                                <img loading="lazy" src={mainIcon ? mainIcon : null} alt="tax_icon" className={styles.taxesIco} />
                                 <div className={styles.taxesC}>
                                     {
                                         desc ? desc : null

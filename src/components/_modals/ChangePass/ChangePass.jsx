@@ -73,7 +73,7 @@ export default function ChangePass({ setPassModal, updateMobileOpt }) {
           <div className={styles.passB}>
             <div className={styles.passBA}>Change Password</div>
             <div className={styles.passBB}>
-              <img
+              <img loading="lazy"
                 src={Grey_Close}
                 alt=""
                 onClick={() => setPassModal(false)}

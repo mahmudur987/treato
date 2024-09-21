@@ -55,8 +55,8 @@ const SalonTable = ({ tableData }) => {
                         flexDirection: "column",
                       }}
                     >
-                      <img src={item.topImg} alt="" />
-                      <img src={item.bottomImg} alt="" />
+                      <img loading="lazy" src={item.topImg} alt="" />
+                      <img loading="lazy" src={item.bottomImg} alt="" />
                     </div>
                   </div>
                 </td>

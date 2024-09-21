@@ -46,7 +46,7 @@ const SalonInDashboardNavbar = () => {
               className={styles.account}
               onClick={() => setShowProfile((pre) => !pre)}
             >
-              <img
+              <img loading="lazy"
                 src={userData?.user?.avatar?.public_url ?? ""}
                 onError={(e) => (e.target.src = mask)}
                 alt=""
@@ -75,7 +75,7 @@ const SalonInDashboardNavbar = () => {
             onClick={() => setShowProfile((pre) => !pre)}
             className={styles.profileContainer}
           >
-            <img
+            <img loading="lazy"
               src={userData?.user?.avatar?.public_url ?? ""}
               onError={(e) => (e.target.src = mask)}
               alt=""

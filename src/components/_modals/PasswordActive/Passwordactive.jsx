@@ -70,7 +70,8 @@ const PasswordActive = ({ setPassActiveModal, updateMobileOpt }) => {
         <div className={styles.passB}>
           <div className={styles.passBA}>Set Password</div>
           <div className={styles.passBB}>
-            <img
+            <img 
+            loading="lazy"
               src={Grey_Close}
               alt=""
               onClick={() => setPassActiveModal(false)}

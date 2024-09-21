@@ -15,7 +15,7 @@ export default function SalonOffers({
         >
           <div className={styles.salon_offersModalA}>
             <div className={styles.salon_offersAB}>
-              <img src={discount_shape} alt="" />
+              <img loading="lazy" src={discount_shape} alt="" />
               <div>{offerData?.title} </div>
             </div>
             <div className={styles.salon_offersAC}>
@@ -35,7 +35,7 @@ export default function SalonOffers({
           onClick={() => handleOfferClick(offerData)}
         >
           <div className={styles.salon_offersAB}>
-            <img src={discount_shape} alt="" />
+            <img loading="lazy" src={discount_shape} alt="" />
             <div>{offerData?.title} </div>
           </div>
           <div className={styles.salon_offersAC}>{offerData?.description}</div>

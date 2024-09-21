@@ -177,7 +177,7 @@ const EditTeamData = () => {
             <div className={styles.usr_detail_head}>
               <Link to={"/partner/dashboard/TeamManageMent"}>
                 <span>
-                  <img
+                  <img loading="lazy"
                     src={arrowLeft}
                     alt="arrowLeft"
                     className={styles.Pictures}
@@ -204,7 +204,7 @@ const EditTeamData = () => {
                     className={styles.profileRounded}
                     onClick={handleButtonClick}
                   >
-                    <img
+                    <img loading="lazy"
                       className={styles.profileRounded}
                       src={
                         picture
@@ -222,7 +222,7 @@ const EditTeamData = () => {
                       onChange={handleFileChange}
                       style={{ display: "none" }}
                     />
-                    <img
+                    <img loading="lazy"
                       src={img2}
                       alt="Profile_Pic"
                       className={styles.profileAdd}
@@ -337,7 +337,7 @@ const EditTeamData = () => {
                     <div onClick={() => setIsModalOpen((pre) => !pre)}>
                       <p className={styles.editImgEdit}>
                         Edit
-                        <img src={editImg} alt="editImg" />
+                        <img loading="lazy" src={editImg} alt="editImg" />
                       </p>
                     </div>
                   </div>

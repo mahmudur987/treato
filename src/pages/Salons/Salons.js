@@ -166,7 +166,7 @@ const Salons = React.memo(() => {
       <div className={styles.container}>
         <div className={styles.mobo_ServiceBar}>
           <button className={styles.backbutton} onClick={handleBack}>
-            <img src={arrowleft} alt="backArrow" />
+            <img loading="lazy" src={arrowleft} alt="backArrow" />
           </button>
           <input
             value={serviceInput_Mobo}
@@ -178,7 +178,7 @@ const Salons = React.memo(() => {
               className={styles.closebutton}
               onClick={handleClosedropdown}
             >
-              <img src={closeIcon} alt="closeIcon" />
+              <img loading="lazy" src={closeIcon} alt="closeIcon" />
             </button>
           )}
         </div>
@@ -194,26 +194,26 @@ const Salons = React.memo(() => {
 
         <div className={styles.mobo_filters}>
           <button className={styles.filterIcon}>
-            <img src={filter} alt="filter" />
+            <img loading="lazy" src={filter} alt="filter" />
           </button>
 
           <button
             className={styles.filter}
             onClick={() => handleOpenModal("sortBy")}
           >
-            Sort <img src={chevronDown} alt="chevronDown" />
+            Sort <img loading="lazy" src={chevronDown} alt="chevronDown" />
           </button>
           <button
             className={styles.filter}
             onClick={() => handleOpenModal("price")}
           >
-            Price <img src={chevronDown} alt="chevronDown" />
+            Price <img loading="lazy" src={chevronDown} alt="chevronDown" />
           </button>
           <button
             className={styles.filter}
             onClick={() => handleOpenModal("venue")}
           >
-            Venue Type <img src={chevronDown} alt="chevronDown" />
+            Venue Type <img loading="lazy" src={chevronDown} alt="chevronDown" />
           </button>
         </div>
         {<MainSearchBar />}
@@ -227,7 +227,7 @@ const Salons = React.memo(() => {
             className={styles.filterDesk}
             onClick={() => handleOpenModal("all")}
           >
-            <img
+            <img loading="lazy"
               src={filterDeskIcon}
               alt="filterDeskIcon"
               className={styles.filterDeskIcon}

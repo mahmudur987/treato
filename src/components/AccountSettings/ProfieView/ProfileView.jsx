@@ -19,10 +19,10 @@ export default function ProfileView({ setProfileModal, logOut, inputVal }) {
         <div className={styles.user_profile}>
             <div className={styles.user_img_main}>
                 <div>
-                    <img src={inputVal?.avatar?.public_url ? inputVal?.avatar?.public_url : selectedImage || userImg} alt="" className={styles.user_img} />
+                    <img loading="lazy" src={inputVal?.avatar?.public_url ? inputVal?.avatar?.public_url : selectedImage || userImg} alt="" className={styles.user_img} />
                 </div>
                 <div className={styles.user_img_edit} onClick={() => setProfileModal(true)}>
-                    <img src={pencilIco} alt="editIcon" />
+                    <img loading="lazy" src={pencilIco} alt="editIcon" />
                 </div>
             </div>
             <div className={styles.user_name}>

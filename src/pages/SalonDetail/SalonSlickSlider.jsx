@@ -58,7 +58,7 @@ export default function SalonSlickSLider({
           {SalonData?.salon_Img?.map((v, i) => {
             return (
               <div>
-                <img
+                <img loading="lazy"
                   src={v.public_url}
                   alt="salon images"
                   key={i}

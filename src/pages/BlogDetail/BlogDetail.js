@@ -162,7 +162,7 @@ export default function BlogDetail(props) {
 
           <header className={styles["header"]}>
             <div className={styles["header-left"]}>
-              <img
+              <img loading="lazy"
                 src={
                   mainBlogData?.length
                     ? mainBlogData[0]?.blog_Img?.public_url
@@ -178,7 +178,7 @@ export default function BlogDetail(props) {
                 </p>
                 <p className={styles["header-date"]}>
                   {date}
-                  <img src={Timer} alt="timer" />
+                  <img loading="lazy" src={Timer} alt="timer" />
                   <span className={styles["header-duration"]}>
                     {detail.duration}
                   </span>
@@ -190,19 +190,19 @@ export default function BlogDetail(props) {
               <div className={styles["social-icons"]}>
                 {/* <div className={styles.allborder}> */}
                 <button onClick={shareOnFacebook}>
-                  <img src={Facebook} alt="Facebook" />
+                  <img loading="lazy" src={Facebook} alt="Facebook" />
                 </button>
                 <button onClick={shareOnTwitter}>
-                  <img src={Twitter} alt="Twitter" />
+                  <img loading="lazy" src={Twitter} alt="Twitter" />
                 </button>
                 <button onClick={shareOnLinkedin}>
-                  <img src={Linkedin} alt="Linkedin" />
+                  <img loading="lazy" src={Linkedin} alt="Linkedin" />
                 </button>
                 <button onClick={shareOnInstagram}>
-                  <img src={Instagram} alt="Instagram" />
+                  <img loading="lazy" src={Instagram} alt="Instagram" />
                 </button>
                 <button onClick={copyLinkToClipboard}>
-                  <img src={CopyLink} alt="CopyLink" />
+                  <img loading="lazy" src={CopyLink} alt="CopyLink" />
                 </button>
                 {/* </div> */}
               </div>
@@ -213,7 +213,7 @@ export default function BlogDetail(props) {
         </div>
         <div className={styles.blogWrapper}>
           <div className={styles.sectionLeft}>
-            <img
+            <img loading="lazy"
               src={
                 mainBlogData?.length
                   ? mainBlogData[0]?.blog_Img?.public_url
@@ -237,7 +237,7 @@ export default function BlogDetail(props) {
             <p className={styles["blog-text"]}>
               {mainBlogData?.length ? mainBlogData[0]?.blog_description : ""}
             </p>
-            <img
+            <img loading="lazy"
               src={
                 mainBlogData?.length
                   ? mainBlogData[0]?.blog_Img?.public_url
@@ -257,19 +257,19 @@ export default function BlogDetail(props) {
               <p>Share:</p>
               <div className={styles["social-icons"]}>
                 <button onClick={shareOnFacebook}>
-                  <img src={Facebook} alt="Facebook" />
+                  <img loading="lazy" src={Facebook} alt="Facebook" />
                 </button>
                 <button onClick={shareOnTwitter}>
-                  <img src={Twitter} alt="Twitter" />
+                  <img loading="lazy" src={Twitter} alt="Twitter" />
                 </button>
                 <button onClick={shareOnLinkedin}>
-                  <img src={Linkedin} alt="Linkedin" />
+                  <img loading="lazy" src={Linkedin} alt="Linkedin" />
                 </button>
                 <button onClick={shareOnInstagram}>
-                  <img src={Instagram} alt="Instagram" />
+                  <img loading="lazy" src={Instagram} alt="Instagram" />
                 </button>
                 <button onClick={copyLinkToClipboard}>
-                  <img src={CopyLink} alt="CopyLink" />
+                  <img loading="lazy" src={CopyLink} alt="CopyLink" />
                 </button>
               </div>
             </div>

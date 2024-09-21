@@ -89,7 +89,7 @@ function JobDetails() {
 
             <h3>software engineer</h3>
             <div className={style.location} >
-              <img src={image2} width={18} height={18} alt="" srcset="" />
+              <img loading="lazy" src={image2} width={18} height={18} alt="" srcset="" />
               <p>noida, india</p>
               <div className={style.verticalLine}></div>
               <p>Full-Time / on-site</p>

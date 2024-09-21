@@ -19,7 +19,7 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
             className={styles.Pictures}
           >
             <span>
-              <img src={arrowLeft} alt="arrowLeft" />
+              <img loading="lazy" src={arrowLeft} alt="arrowLeft" />
             </span>
           </Link>
           <p>Business Profile</p>
@@ -42,7 +42,7 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
                 />
               </label>
 
-              <img
+              <img loading="lazy"
                 src={editImg}
                 alt=""
                 className={styles.usr_detail_edit}
@@ -65,7 +65,7 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
                 />
               </label>
 
-              <img
+              <img loading="lazy"
                 src={editImg}
                 alt="editImg"
                 className={styles.usr_detail_edit}
@@ -87,7 +87,7 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
               DISABLED={about}
             />
 
-            <img
+            <img loading="lazy"
               src={editImg}
               alt="editImg"
               className={styles.usr_detail_edit_text}

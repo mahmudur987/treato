@@ -132,7 +132,7 @@ const EditAdminModal = ({ onClose }) => {
               {date}
             </div>
             <div className={styles.shareB}>
-              <img src={Grey_Close} alt="close" onClick={onClose} />
+              <img loading="lazy" src={Grey_Close} alt="close" onClick={onClose} />
             </div>
           </div>
           <form className={styles.CheckBoxForm}>
@@ -144,7 +144,7 @@ const EditAdminModal = ({ onClose }) => {
                   <select name="" id="" className={styles.Select}>
                     <option value="">{member?.name}</option>
                   </select>
-                  <img
+                  <img loading="lazy"
                     src={member ? member.profile : Profile_Pic}
                     alt="Profile_Pic"
                     className={styles.Profile_Img}
@@ -243,7 +243,7 @@ const EditAdminModal = ({ onClose }) => {
             </div>
             {timeFieldsCount === 2 ? null : (
               <div onClick={handleAddTimeFields} className={styles.plusDiv}>
-                <img src={plus} alt="plus" className={styles.plus} />
+                <img loading="lazy" src={plus} alt="plus" className={styles.plus} />
                 <span>Add another shift for this day</span>
               </div>
             )}

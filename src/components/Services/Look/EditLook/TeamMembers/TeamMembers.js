@@ -72,7 +72,7 @@ const TeamMembers = () => {
                   htmlFor={`person-${person?.id}`}
                   className={styles.label}
                 >
-                  <img
+                  <img loading="lazy"
                     src={person?.image}
                     alt={person?.name}
                     className={styles.image}

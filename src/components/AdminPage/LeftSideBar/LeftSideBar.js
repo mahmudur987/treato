@@ -45,14 +45,14 @@ const LeftSideBar = () => {
         {!show && (
           <div className={styles.imageWrapper}>
             <Link to={"/admin/dashboard"}>
-              <img src={treao} alt="" />
+              <img loading="lazy" src={treao} alt="" />
             </Link>
           </div>
         )}
         {show && (
           <div className={styles.imageWrapper1}>
             <Link to={"/admin/dashboard"}>
-              <img src={treato} alt="" />
+              <img loading="lazy" src={treato} alt="" />
             </Link>
           </div>
         )}
@@ -92,7 +92,7 @@ const LeftSideBar = () => {
                 }`,
               }}
             >
-              <img src={salonIcon} alt="" />
+              <img loading="lazy" src={salonIcon} alt="" />
 
               <span style={{ fontWeight: "600" }}>Salons</span>
               <span className={styles.downIcon}>

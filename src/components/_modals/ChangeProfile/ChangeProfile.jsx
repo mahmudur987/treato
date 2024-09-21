@@ -83,25 +83,25 @@ export default function ChangeProfile({ setProfileModal, updateInputVal, inputVa
             <div className={`${styles.profileA} ${isCameraOpen ? styles.hidden : ""}`}>
                 <div className={styles.profileB}>
                     <div className={styles.profileBA}>Profile picture</div>
-                    <div className={styles.profileBB}><img src={Grey_Close} alt="" onClick={handleCancel} /></div>
+                    <div className={styles.profileBB}><img loading="lazy" src={Grey_Close} alt="" onClick={handleCancel} /></div>
                 </div>
                 <div className={styles.profileC}>
-                    <img src={selectedImage || userImg} alt="" />
+                    <img loading="lazy" src={selectedImage || userImg} alt="" />
                 </div>
                 <div className={styles.profileD}>
                     <div className={styles.profileDA} htmlFor="uploadImageInput">
                         <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} id="uploadImageInput" />
                         <label htmlFor="uploadImageInput" className={styles.uploadLabel}>
-                            <div className={styles.profileDAA}><img src={gallery} alt="gallery" /></div>
+                            <div className={styles.profileDAA}><img loading="lazy" src={gallery} alt="gallery" /></div>
                             <div>Upload</div>
                         </label>
                     </div>
                     <div className={styles.profileDA} onClick={() => setIsCameraOpen(true)}>
-                        <div className={styles.profileDAA}><img src={camera} alt="camera" /></div>
+                        <div className={styles.profileDAA}><img loading="lazy" src={camera} alt="camera" /></div>
                         <div>Camera</div>
                     </div>
                     <div className={styles.profileDA} onClick={handleDelete}>
-                        <div className={styles.profileDAA}><img src={deleteIcon} alt="deleteIcon" /></div>
+                        <div className={styles.profileDAA}><img loading="lazy" src={deleteIcon} alt="deleteIcon" /></div>
                         <div>Delete</div>
                     </div>
                 </div>

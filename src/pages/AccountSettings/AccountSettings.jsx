@@ -246,7 +246,7 @@ export default function AccountSettings() {
                   >
                     <div className={styles.acc_mob_flex}>
                       <div>
-                        <img
+                        <img loading="lazy"
                           src={userIco}
                           alt="user"
                           className={styles.acc_mob_opt_ico}
@@ -255,7 +255,7 @@ export default function AccountSettings() {
                       <div>Personal Details</div>
                     </div>
                     <div>
-                      <img src={chevronRight} alt="" />
+                      <img loading="lazy" src={chevronRight} alt="" />
                     </div>
                   </div>
                   <div
@@ -264,7 +264,7 @@ export default function AccountSettings() {
                   >
                     <div className={styles.acc_mob_flex}>
                       <div>
-                        <img
+                        <img loading="lazy"
                           src={mapPin}
                           alt="address"
                           className={styles.acc_mob_opt_ico}
@@ -273,7 +273,7 @@ export default function AccountSettings() {
                       <div>Manage Addresses</div>
                     </div>
                     <div>
-                      <img src={chevronRight} alt="" />
+                      <img loading="lazy" src={chevronRight} alt="" />
                     </div>
                   </div>
                   <div
@@ -282,7 +282,7 @@ export default function AccountSettings() {
                   >
                     <div className={styles.acc_mob_flex}>
                       <div>
-                        <img
+                        <img loading="lazy"
                           src={lock}
                           alt="lock"
                           className={styles.acc_mob_opt_ico}
@@ -291,13 +291,13 @@ export default function AccountSettings() {
                       <div>Change Password</div>
                     </div>
                     <div>
-                      <img src={chevronRight} alt="" />
+                      <img loading="lazy" src={chevronRight} alt="" />
                     </div>
                   </div>
                   <div className={styles.acc_mob_options}>
                     <div className={styles.acc_mob_flex} onClick={logOut}>
                       <div>
-                        <img
+                        <img loading="lazy"
                           src={signOut}
                           alt=""
                           className={styles.acc_mob_opt_ico}

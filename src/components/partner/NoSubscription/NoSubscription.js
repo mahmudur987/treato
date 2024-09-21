@@ -16,21 +16,21 @@ const NoSubscription = () => {
           <div className={styles.left}>
             <ul>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>
                 </p>
               </li>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>
                 </p>
               </li>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>
@@ -41,21 +41,21 @@ const NoSubscription = () => {
           <div className={styles.right}>
             <ul>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>
                 </p>
               </li>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>
                 </p>
               </li>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>

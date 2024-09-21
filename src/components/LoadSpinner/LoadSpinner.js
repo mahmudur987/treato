@@ -13,7 +13,7 @@ const LoadSpinner = () => {
       }}
       className={styles.loaderContainer}
     >
-      <img
+      <img loading="lazy"
         src={LoadSpinnerIcon} // Replace with the actual path to your SVG file
         alt="Loading Spinner"
         className={styles.spinner}

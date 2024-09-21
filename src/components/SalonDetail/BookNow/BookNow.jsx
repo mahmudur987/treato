@@ -94,7 +94,7 @@ export default function BookNow({
               <div>
                 {salonServices?.length ? salonServices.length : 0} services
               </div>
-              <img src={ellipse} alt="" />
+              <img loading="lazy" src={ellipse} alt="" />
               <div>
                 {salonServices?.length
                   ? salonServices.at(-1)?.service_time

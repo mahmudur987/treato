@@ -91,7 +91,7 @@ function ContactUs() {
   return (
     <>
       <div className={style.container}>
-        <img src={contactimage} alt="Contact" />
+        <img loading="lazy" src={contactimage} alt="Contact" />
         <div className={style.formContainer}>
           <div className={style.formHeader}>
             <h2>Contact us</h2>

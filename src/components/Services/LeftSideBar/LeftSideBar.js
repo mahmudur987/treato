@@ -192,7 +192,7 @@ const LeftSideBar = () => {
         {/* logo */}
         <div className={styles.imageWrapper}>
           <Link to={"/partner/dashboard"}>
-            <img src={treao} alt="" />
+            <img loading="lazy" src={treao} alt="" />
           </Link>
         </div>
         {/* routes */}

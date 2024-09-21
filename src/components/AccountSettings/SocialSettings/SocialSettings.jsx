@@ -75,7 +75,7 @@ export default function SocialSettings({ user }) {
       <div className={styles.usr_social_opt}>
         <div className={styles.social_options}>
           <div className={styles.social_opt_left}>
-            <img src={google} alt="" />
+            <img loading="lazy" src={google} alt="" />
             Google
           </div>
           <div className={styles.social_opt_right}>
@@ -95,7 +95,7 @@ export default function SocialSettings({ user }) {
         </div>
         <div className={styles.social_options}>
           <div className={styles.social_opt_left}>
-            <img src={facebook} alt="" className={styles.social_opt_logo} />
+            <img loading="lazy" src={facebook} alt="" className={styles.social_opt_logo} />
             Facebook
           </div>
           <div className={styles.social_opt_right}>
@@ -124,7 +124,7 @@ export default function SocialSettings({ user }) {
         </div>
         <div className={styles.social_options}>
           <div className={styles.social_opt_left}>
-            <img src={instagram} alt="" className={styles.social_opt_logo} />
+            <img loading="lazy" src={instagram} alt="" className={styles.social_opt_logo} />
             Instagram
           </div>
           <div className={styles.social_opt_right}>

@@ -43,7 +43,7 @@ export default function UserDetails({ mobView, setOtpModal, setShowSave, updateI
                         <BasicInput Type={'text'} VALUE={inputVal?.first_name} DISABLED={inputState?.first_name} id={"first_name"} NAME={"first_name"} updateInputVal={updateInputVal} inputVal={inputVal} />
                     </label>
 
-                    <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState?.first_name ? { first_name: false } : { first_name: true })} />
+                    <img loading="lazy" src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState?.first_name ? { first_name: false } : { first_name: true })} />
 
                 </div>
                 <div className={styles.usr_detail_box}>
@@ -52,7 +52,7 @@ export default function UserDetails({ mobView, setOtpModal, setShowSave, updateI
                         <BasicInput Type={'text'} VALUE={inputVal?.last_name} DISABLED={inputState?.last_name} id={"last_name"} NAME={"last_name"} updateInputVal={updateInputVal} inputVal={inputVal} />
                     </label>
 
-                    <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState?.last_name ? { last_name: false } : { last_name: true })} />
+                    <img loading="lazy" src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState?.last_name ? { last_name: false } : { last_name: true })} />
                 </div>
                 <div className={styles.usr_detail_box}>
                     <label htmlFor="email">
@@ -60,7 +60,7 @@ export default function UserDetails({ mobView, setOtpModal, setShowSave, updateI
                         <BasicInput Type={'email'} VALUE={inputVal?.email} DISABLED={inputState?.email} id={"email"} NAME={"email"} updateInputVal={updateInputVal} inputVal={inputVal} />
                     </label>
 
-                    <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState?.email ? { email: false } : { email: true })} />
+                    <img loading="lazy" src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState?.email ? { email: false } : { email: true })} />
                 </div>
                 <div className={styles.usr_detail_box}>
                     <label htmlFor="phone">
@@ -69,7 +69,7 @@ export default function UserDetails({ mobView, setOtpModal, setShowSave, updateI
                     </label>
                     <div>
                     </div>
-                    <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.phone ? { phone: false } : { phone: true })} />
+                    <img loading="lazy" src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => updateInput(inputState.phone ? { phone: false } : { phone: true })} />
                 </div>
                 <div className={styles.usr_detail_box}>
                     <label htmlFor="dob">
@@ -77,7 +77,7 @@ export default function UserDetails({ mobView, setOtpModal, setShowSave, updateI
                         <BasicInput Type={'text'} VALUE={inputVal?.dob !== '' ? inputVal?.dob : 'Enter Your Date Of Birth'} DISABLED={true} id={"dob"} NAME={"dob"} updateInputVal={updateInputVal} inputVal={inputVal} />
                     </label>
 
-                    <img src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => { updateInput(inputState.dob ? { dob: false } : { dob: true }); setShowCalendar(prev => !prev) }} />
+                    <img loading="lazy" src={editImg} alt="" className={styles.usr_detail_edit} onClick={() => { updateInput(inputState.dob ? { dob: false } : { dob: true }); setShowCalendar(prev => !prev) }} />
                 </div>
                 <div className={styles.usr_detail_box}>
                     <label htmlFor="gender">

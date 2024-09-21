@@ -51,7 +51,7 @@ function CurrentOpenings() {
             <p>Careers</p>
             <h3>Join us and build the future of Treato</h3>
           </div>
-          <img src={image1} className={style.careerMimage} alt="" />
+          <img loading="lazy" src={image1} className={style.careerMimage} alt="" />
           <p className={style.para}>
             If you’re looking for a promising career in the beauty & wellness industry that allows you to work and make an
             impact in the offline as well as digital space, you’ve come to the right place.
@@ -60,7 +60,7 @@ function CurrentOpenings() {
             <b>View open positions</b>
           </button>
         </div>
-        <img src={image1} className={style.careerimage} alt="" />
+        <img loading="lazy" src={image1} className={style.careerimage} alt="" />
       </div>
       <div className={style.currentJobBox} ref={currentOpeningRef}>
         <div className={style.currentOpeningBox}>

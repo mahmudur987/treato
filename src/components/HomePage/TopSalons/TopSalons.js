@@ -97,7 +97,7 @@ const TopSalons = (props) => {
             {winWidthMain <= 768 ? (
               <div className={styles["trMobHeading"]}>
                 <h3>{props.heading}</h3>
-                <img
+                <img loading="lazy"
                   src={scrollright}
                   className={styles.mobScrollRight}
                   alt="salon images"
@@ -110,7 +110,7 @@ const TopSalons = (props) => {
 
           <div>
             {showLeftArrow && (
-              <img
+              <img loading="lazy"
                 src={scrollright}
                 onClick={scrollLeft}
                 alt="scrollleft"
@@ -130,7 +130,7 @@ const TopSalons = (props) => {
             </div>
 
             {showRightArrow && (
-              <img
+              <img loading="lazy"
                 src={scrollright}
                 onClick={scrollRight}
                 alt="scrollRight"

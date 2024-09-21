@@ -57,7 +57,7 @@ const AppointmentCard = ({ salon, cardType }) => {
         {salon?.salonData?.map((x, i) => (
           <div key={i} className={styles.salonInfo}>
             <div className={styles.infos}>
-              <img
+              <img loading="lazy"
                 src={x.salon_Img?.public_url ?? x.salon_Img[0].public_url}
                 className={styles.frame1}
                 alt="frame1"
@@ -66,7 +66,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                 <h4 className={styles.name}>{x.salon_name}</h4>
                 <h5 className={styles.location}>{x.locationText}</h5>
                 <div className={styles.timing}>
-                  <img src={clock} alt="clock" />
+                  <img loading="lazy" src={clock} alt="clock" />
                   <p>
                     <span>{formatDate(salon?.start_date)}</span>
                     <span>at</span>
@@ -79,13 +79,13 @@ const AppointmentCard = ({ salon, cardType }) => {
                     {!toggleDetails && (
                       <>
                         View details{" "}
-                        <img src={chevronDownBlue} alt="chevronUpBlue" />
+                        <img loading="lazy" src={chevronDownBlue} alt="chevronUpBlue" />
                       </>
                     )}
                     {toggleDetails && (
                       <>
                         Hide details{" "}
-                        <img src={chevronUpBlue} alt="chevronUpBlue" />
+                        <img loading="lazy" src={chevronUpBlue} alt="chevronUpBlue" />
                       </>
                     )}
                   </button>
@@ -97,7 +97,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                 cardType === "Upcoming" ? styles.moreVertical : styles.d_none
               }`}
             >
-              <img
+              <img loading="lazy"
                 src={moreVertical}
                 alt="moreVertical"
                 onClick={() => settoggleoptions(!toggleoptions)}
@@ -123,7 +123,7 @@ const AppointmentCard = ({ salon, cardType }) => {
         <hr className={styles.line} />
         {/* mobile view salons timing  */}
         <div className={styles.timing_mobo}>
-          <img src={clock} alt="clock" />
+          <img loading="lazy" src={clock} alt="clock" />
           <p>
             <span>{salon.start_date}</span>
             <span>at</span>
@@ -135,12 +135,12 @@ const AppointmentCard = ({ salon, cardType }) => {
           >
             {!toggleDetails && (
               <>
-                View details <img src={chevronDownBlue} alt="chevronUpBlue" />
+                View details <img loading="lazy" src={chevronDownBlue} alt="chevronUpBlue" />
               </>
             )}
             {toggleDetails && (
               <>
-                Hide details <img src={chevronUpBlue} alt="chevronUpBlue" />
+                Hide details <img loading="lazy" src={chevronUpBlue} alt="chevronUpBlue" />
               </>
             )}
           </button>
@@ -170,11 +170,11 @@ const AppointmentCard = ({ salon, cardType }) => {
                           <p className={styles.quantity}>
                             {item.quantity ?? 1}
                           </p>
-                          <img src={cross} alt="cross" />
+                          <img loading="lazy" src={cross} alt="cross" />
                           <p className={styles.serviceName}>
                             {item.service_name}
                           </p>
-                          <img
+                          <img loading="lazy"
                             src={ellipse}
                             alt="ellipse"
                             className={`${styles.ellipse} ${
@@ -186,7 +186,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                           <p className={styles.servicePeriod}>
                             {item.time_takenby_service}
                           </p>
-                          <img src={ellipse} alt="ellipse" />
+                          <img loading="lazy" src={ellipse} alt="ellipse" />
                           <p className={styles.servicePrice}>₹ {item.price}</p>
                           <p
                             className={`${
@@ -195,7 +195,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                                 : styles.proName
                             }`}
                           >
-                            <img
+                            <img loading="lazy"
                               src={pro_Avatar}
                               alt="pro_Avatar"
                               className={styles.pro_Avatar}
@@ -225,7 +225,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                     >
                       <h4 className={styles.title}>Professional</h4>
                       <p className={styles.proName}>
-                        <img
+                        <img loading="lazy"
                           src={x?.stylist_Img.public_url}
                           alt="pro_Avatar"
                           className={styles.pro_Avatar}
@@ -257,7 +257,7 @@ const AppointmentCard = ({ salon, cardType }) => {
             {salon.status === "upcoming" && (
               <h4>
                 {salon.payment_mode === "online" && (
-                  <img src={checkCircleFill} alt="Payment Icon" />
+                  <img loading="lazy" src={checkCircleFill} alt="Payment Icon" />
                 )}
                 {salon.payment_mode === "online" ? "paid" : "Due"}
                 <span className={styles.amount}>
@@ -268,7 +268,7 @@ const AppointmentCard = ({ salon, cardType }) => {
             )}
             {salon.status === "completed" && (
               <h4>
-                <img src={checkCircleFill} alt="Payment Icon" />
+                <img loading="lazy" src={checkCircleFill} alt="Payment Icon" />
                 Paid:{" "}
                 <span className={styles.amount}>
                   {salon.final_amount ?? "00"}

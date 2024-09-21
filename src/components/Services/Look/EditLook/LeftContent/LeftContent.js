@@ -33,10 +33,10 @@ const LeftContent = () => {
       <div className={styles.uploadContainer}>
         {renderImage ? (
           <div className={styles.preview}>
-            <img src={renderImage} alt="Preview" className={styles.image} />
+            <img loading="lazy" src={renderImage} alt="Preview" className={styles.image} />
 
             <div className={styles.replace} onClick={handleButtonClick}>
-              <img className={styles.replaceIcon} src={replace} />
+              <img loading="lazy" className={styles.replaceIcon} src={replace} />
               <button type="button">Replace Image</button>
             </div>
           </div>

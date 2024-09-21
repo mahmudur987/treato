@@ -14,7 +14,7 @@ const SingleReview = ({ data }) => {
       <div className={styles.mainContainer}>
         <div className={styles.profile}>
           <figure>
-            <img src={profileImage} alt="" />
+            <img loading="lazy" src={profileImage} alt="" />
           </figure>
 
           <div className={styles.wrapper}>

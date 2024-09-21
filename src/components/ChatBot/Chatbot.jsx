@@ -61,7 +61,7 @@ function Chatbot() {
 
             {openGreeting ? "" : <div className={style.aiContainer} >
                 <section className={style.subBox} >
-                    <img src={chatBotLogo} alt="Chatbot Logo" />
+                    <img loading="lazy" src={chatBotLogo} alt="Chatbot Logo" />
                     <div className={style.greetingBox} >
                         <div>
                             <p>👋</p>
@@ -96,12 +96,12 @@ function Chatbot() {
                 setOpen(true);
             })}  className={style.backArrow} />
                     <nav className={style.chatNav} >
-                        <img src={chatBotLogo} alt="Chatbot Logo" />
+                        <img loading="lazy" src={chatBotLogo} alt="Chatbot Logo" />
                         <p>Treatobot</p>
                     </nav>
                     <div ref={messageRef} className={style.subMsgBox} >
                         <section className={style.introBox} >
-                            <img src={chatBotLogo} alt="Chatbot Logo" />
+                            <img loading="lazy" src={chatBotLogo} alt="Chatbot Logo" />
                             <div className={style.msgBox} >
                                 <div><p>Got questions? I’m an AI chatbot here to help you find your way.</p></div>
                                 <div><p>Got questions? I’m an AI chatbot here to help you find your way.</p></div>
@@ -127,14 +127,14 @@ function Chatbot() {
                                             <div className={style.queansBox}>
                                                 <p className={style.queans} >{item?.que}</p>
                                             </div>
-                                            <img className={style.queImage} src={userImage} alt="" />
+                                            <img loading="lazy" className={style.queImage} src={userImage} alt="" />
 
                                         </div>
                                     )}
 
                                     {item.ans && (
                                         <div className={style.botSide}>
-                                            <img className={style.ansImage} src={chatBotLogo} alt="" />
+                                            <img loading="lazy" className={style.ansImage} src={chatBotLogo} alt="" />
                                             <div className={style.ansBox}>
                                                 <p className={style.queans}>{item.ans}</p>
                                             </div>

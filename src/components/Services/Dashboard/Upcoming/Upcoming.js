@@ -136,7 +136,7 @@ const Upcoming = () => {
                         </td>
                         <td className={styles.row}>
                           <div className={styles.teamMember}>
-                            <img
+                            <img loading="lazy"
                               style={{
                                 height: "20px",
                                 width: "20px",

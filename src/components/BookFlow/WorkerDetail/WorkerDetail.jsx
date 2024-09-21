@@ -25,7 +25,7 @@ export default function WorkerDetail({
         <div className={styles.worker_detailA}>
           <div className={styles.worker_detailAD}>
             <div className={styles.worker_detailAA}>
-              <img src={userIco} alt="" />
+              <img loading="lazy" src={userIco} alt="" />
             </div>
             <div className={styles.worker_detailAB}>
               <div>No Preference</div>
