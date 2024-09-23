@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./NotFound.module.css";
-import notFoundImage from "../../assets/404.jpg";
+import notFoundImage from "../../assets/404.webp";
 
 const NotFound = () => {
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "./contactUs.module.css";
 import { Link } from "react-router-dom";
-import contactimage from "../../../src/assets/images/ContactUs/contactimage.png";
+import contactimage from "../../../src/assets/images/ContactUs/contactimage.webp";
 import { contactDetails } from "../../services/careers";
 import { toast } from "react-toastify";
 import ContactUsModal from "../../components/_modals/ContactUs/ContactUsModal";

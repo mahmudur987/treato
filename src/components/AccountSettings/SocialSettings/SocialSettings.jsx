@@ -1,7 +1,7 @@
 import styles from "./SocialSettings.module.css";
-import facebook from "../../../assets/images/AccountSettings/facebook.png";
-import instagram from "../../../assets/images/AccountSettings/Instagram.png";
-import google from "../../../assets/images/AccountSettings/google.png";
+import facebook from "../../../assets/images/AccountSettings/facebook.webp";
+import instagram from "../../../assets/images/AccountSettings/Instagram.webp";
+import google from "../../../assets/images/AccountSettings/google.webp";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useDispatch, useSelector } from "react-redux";
 import {

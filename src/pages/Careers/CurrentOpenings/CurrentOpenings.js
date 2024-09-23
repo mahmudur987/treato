@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import style from "./Style.module.css";
 import { Link } from "react-router-dom";
-import image1 from "../../../../src/assets/images/Careers/image1.png";
-import image2 from "../../../../src/assets/images/Careers/placeholder.png";
+import image1 from "../../../../src/assets/images/Careers/image1.webp";
+import image2 from "../../../../src/assets/images/Careers/placeholder.webp";
 import { GetPostDetails } from "../../../services/careers";
 import { FaArrowRight } from "react-icons/fa6";
 import { useGetCarer } from "../../../services/static";

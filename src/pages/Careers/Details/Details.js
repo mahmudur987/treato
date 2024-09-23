@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import style from './details.module.css'
-import image2 from '../../../../src/assets/images/Careers/placeholder.png';
+import image2 from '../../../../src/assets/images/Careers/placeholder.webp';
 import { jobApplicationData } from '../../../services/careers';
 import { toast } from 'react-toastify';
 import { countryCallingCodes } from './CountryCodes';

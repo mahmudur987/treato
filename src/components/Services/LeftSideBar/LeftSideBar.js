@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./LeftSideBar.module.css";
-import treao from "../../../assets/logo.png";
+import treao from "../../../assets/logo.webp";
 import { Link, useLocation } from "react-router-dom";
 
 const LeftSideBar = () => {
