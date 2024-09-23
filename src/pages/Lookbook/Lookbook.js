@@ -394,7 +394,8 @@ const Lookbook = () => {
           className={`${styles.expandServicesList}`}
           onClick={() => setisServiceListExpanded(!isServiceListExpanded)}
         >
-          <img loading="lazy"
+          <img
+            loading="lazy"
             src={chevronDown}
             alt="nothing"
             className={`${isServiceListExpanded && styles.rotate180}`}
@@ -418,7 +419,8 @@ const Lookbook = () => {
           onClick={() => setIsDropdownVisible(true)}
         />
         {isDropdownVisible && (
-          <img loading="lazy"
+          <img
+            loading="lazy"
             src={closeIcon}
             onClick={() => handleCloseLocationDropdown()}
             alt="nothing"
@@ -502,11 +504,6 @@ const Lookbook = () => {
           See more results
         </button>
       )}
-      {/* {itemsToShow < filteredServiceData?.length && (
-        <button className={styles.showMore} onClick={handleShowMore}>
-          See more results
-        </button>
-      )} */}
     </div>
   );
 };

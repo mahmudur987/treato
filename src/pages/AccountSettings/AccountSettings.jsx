@@ -132,8 +132,6 @@ export default function AccountSettings() {
       address_type: inputVal?.address?.house_type ?? "",
     };
 
-    console.log(Data);
-
     if (e.target.phone.value !== userData.phone) {
       setOtpModal(true);
       localStorage.setItem("tempUserData", JSON.stringify(Data));
