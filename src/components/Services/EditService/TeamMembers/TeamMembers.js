@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./TeamMember.module.css";
-import img1 from "../../../../assets/icons/services/a-1.png";
+import img1 from "../../../../assets/icons/services/a-1.webp";
 
 import { useGetTemMembers, useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
