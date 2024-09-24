@@ -6,7 +6,7 @@ import user, {
   resetUserDetails,
   updateIsLoggedIn,
 } from "../../../redux/slices/user";
-import mask from "../../../assets/images/NavbarImages/Mask.png";
+import mask from "../../../assets/images/NavbarImages/Mask.webp";
 // import mask from "../../../assets/images/NavbarImages/Mask.png";
 const ServicePageNavbar = () => {
   const navigate = useNavigate();

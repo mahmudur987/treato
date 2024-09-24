@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Navbar.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import mask2 from "../../assets/images/NavbarImages/Mask2.png";
-import mask from "../../assets/images/NavbarImages/Mask.png";
+import mask2 from "../../assets/images/NavbarImages/Mask2.webp";
+import mask from "../../assets/images/NavbarImages/Mask.webp";
 import MainSearchBar from "../Input/mainSearchBar/MainSearchBar";
 import {
   TreatoLogo,

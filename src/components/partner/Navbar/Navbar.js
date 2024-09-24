@@ -13,7 +13,7 @@ import download from "../../../assets/icons/partner/download.png";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
-import mask from "../../../assets/images/NavbarImages/Mask.png";
+import mask from "../../../assets/images/NavbarImages/Mask.webp";
 
 const Navbar = () => {
   const navigate = useNavigate();

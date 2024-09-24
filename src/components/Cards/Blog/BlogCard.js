@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./BlogCard.module.css"
-import moreHorizontal from "../../../assets/images/HomeLatestBlogs/moreHorizontal.png";
+import moreHorizontal from "../../../assets/images/HomeLatestBlogs/moreHorizontal.webp";
 import share_forward from "../../../assets/images/icons/share_forward.svg";
 import share_forward_white from "../../../assets/images/icons/share_forward_white.svg";
 import { Link, useLocation } from "react-router-dom";

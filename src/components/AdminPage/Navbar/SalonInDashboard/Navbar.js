@@ -6,7 +6,7 @@ import {
   resetUserDetails,
   updateIsLoggedIn,
 } from "../../../../redux/slices/user";
-import mask from "../../../../assets/images/NavbarImages/Mask.png";
+import mask from "../../../../assets/images/NavbarImages/Mask.webp";
 import { CiSearch } from "react-icons/ci";
 import { updateSearchText } from "../../../../redux/slices/AdminSlice";
 const SalonInDashboardNavbar = () => {

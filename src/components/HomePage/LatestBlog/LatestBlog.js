@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./LatestBlog.module.css";
-import chevronLeft from "../../../assets/images/HomeLatestBlogs/chevronLeft.png";
+import chevronLeft from "../../../assets/images/HomeLatestBlogs/chevronLeft.webp";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import BlogCard from "../../Cards/Blog/BlogCard";
