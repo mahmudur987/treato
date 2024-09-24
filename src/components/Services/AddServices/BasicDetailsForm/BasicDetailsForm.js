@@ -5,9 +5,7 @@ import { getAllServices } from "../../../../services/Services";
 import { toast } from "react-toastify";
 const BasicDetailsForm = ({ salon, setBasicDetails }) => {
   const [showCategoryOption, setshowCategoryOption] = useState(false);
-  const [error, setError] = useState(null);
-  const [serviceType, setserviceType] = useState(null);
-  const [selectedServiceType, setSelectedServiceType] = useState(["Error"]);
+  const [selectedServiceType, setSelectedServiceType] = useState("");
   const [selectCategory, setselectCategory] = useState(null);
   const [serviceName, setserviceName] = useState("");
   const [duration, setDuration] = useState("15 mins");
@@ -28,49 +26,34 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
   ];
   const categories =
     salon?.services
-      ?.find((x) => x.service_name === selectedServiceType)
+      ?.find((x) => x._id === selectedServiceType?.id)
       ?.mainCategories?.map((category) => category.category_name) || [];
   const AvailableFor = ["Everyone", "Female only", "Male only"];
   const TaxAndFees = ["included", "excluded"];
 
-  useEffect(() => {
-    async function fetchAllServices() {
-      try {
-        const { res, err } = await getAllServices();
-        if (res) {
-          const uniqueDataArray = res?.data?.data.reduce(
-            (uniqueArray, currentItem) => {
-              // Check if there's already an object with the same 'name' in uniqueArray
-              if (
-                !uniqueArray.some(
-                  (item) => item.service_name === currentItem.service_name
-                )
-              ) {
-                // If not found, add this object to uniqueArray
-                uniqueArray.push(currentItem);
-              }
-              return uniqueArray;
-            },
-            []
-          );
+  // const x = salon?.services
+  //   ?.filter((x) => x.service_name === selectedServiceType)
+  //   .reduce((acc, service) => {
+  //     if (service.mainCategories && service.mainCategories.length > 0) {
+  //       acc = acc.concat(service.mainCategories);
+  //     }
+  //     return acc;
+  //   }, []);
+  const serviceType =
+    salon?.services?.map((x) => {
+      const data = {
+        name: x.service_name,
+        id: x._id,
+      };
+      return data;
+    }) || null;
 
-          const data = uniqueDataArray?.map((x) => x.service_name);
-          setserviceType(data);
-          setSelectedServiceType(data[0]);
-        } else {
-          setError(err);
-        }
-      } catch (error) {
-        setError(error);
-      }
-    }
-    fetchAllServices();
-  }, []);
   useEffect(() => {
-    if (categories && !selectCategory) {
+    if (categories) {
       setselectCategory(categories[0]);
     }
   }, [categories]);
+  console.log(selectCategory);
 
   const data = useMemo(
     () => ({
@@ -99,17 +82,25 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
     setBasicDetails(data);
   }, [data]);
 
-  if (error) {
-    toast.error("error happen ", { toastId: 1 });
-  }
-
   return (
     <form className={styles.form}>
       {/* service type */}
       <div className={styles.serviceType}>
         <label htmlFor="serviceType">Service Type</label>
         <div className={styles.selectWrapper}>
-          <CustomSelect
+          <select
+            onChange={(e) =>
+              setSelectedServiceType(serviceType[e.target.value])
+            }
+          >
+            {serviceType.map((x, y) => (
+              <option key={y} value={y}>
+                {x?.name}
+              </option>
+            ))}
+          </select>
+
+          {/* <CustomSelect
             options={serviceType}
             value={selectedServiceType ? selectedServiceType : serviceType[0]}
             onChange={setSelectedServiceType}
@@ -130,7 +121,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
                 stroke-linejoin="round"
               />
             </svg>
-          </span>
+          </span> */}
         </div>
       </div>
       {/* add  service category */}

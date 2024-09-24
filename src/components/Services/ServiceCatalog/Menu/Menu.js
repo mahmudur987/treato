@@ -23,20 +23,22 @@ const Menu = ({ setShowBtnMenu, data, category }) => {
     try {
       const { data } = await axiosInstance.delete(url, { headers });
       console.log(data);
-      toast.success("service delete successfully");
+      toast.success("Service Delete successfully");
       navigate("/partner/dashboard/service");
       refetch();
       setShowBtnMenu("");
     } catch (error) {
-      console.log("Erroor deleting data", error);
-      toast.error(error.message);
+      console.log("Error deleting data", error);
+      toast.error("Error");
     }
   };
   return (
     <>
       <div className={styles.menuItems}>
         <p>
-          <Link to={"/partner/dashboard/service/addservice"}>Add a new service</Link>
+          <Link to={"/partner/dashboard/service/addservice"}>
+            Add a new service
+          </Link>
         </p>
         <p
           onClick={() => {
