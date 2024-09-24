@@ -252,7 +252,7 @@ const AddAppointment = () => {
               </svg>
             </Link>
             <h1>
-              <span> Add Appoinments</span>
+              <span> Add Appointments</span>
             </h1>
             <p>
               Enter visit details to add a walk-in appointment to your database

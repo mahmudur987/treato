@@ -11,17 +11,17 @@ import axiosInstance from "../../../services/axios";
 import { useNavigate } from "react-router-dom";
 const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
   const { refetch } = useSingleSalon();
-  const [error, setError] = useState(null);
+
   const [serviceType, setserviceType] = useState(null);
   const [selectedServiceType, setSelectedServiceType] = useState(
     data?.service_name
   );
   const [selectCategory, setselectCategory] = useState(category.category_name);
-  const [service, setservice] = useState([]);
-
   const [colorCode, setColorCode] = useState("");
-
   const navigate = useNavigate();
+  useEffect(() => {
+    setColorCode(category?.color ? category.color : "");
+  }, [category]);
   useEffect(() => {
     async function fetchAllServices() {
       try {
@@ -44,13 +44,13 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
           );
 
           const data = uniqueDataArray?.map((x) => x.service_name);
-          setservice(res?.data?.data);
+
           setserviceType(data);
         } else {
-          setError(err);
+          console.log(err);
         }
       } catch (error) {
-        setError(error);
+        console.log(error);
       }
     }
     fetchAllServices();
@@ -87,10 +87,7 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
     }
     onClose();
   };
-
-  if (error) {
-    toast.error("error happen");
-  }
+  console.log(category);
   return (
     <>
       {showModal && (
@@ -152,7 +149,10 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
                   <label htmlFor="servicetype"> Appointment color</label>
 
                   <div className={styles.selectWrapper}>
-                    <ColorSelect setColorCode={setColorCode} />
+                    <ColorSelect
+                      setColorCode={setColorCode}
+                      colorCode={colorCode}
+                    />
                     <span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

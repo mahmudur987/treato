@@ -132,7 +132,12 @@ export default function VerifyOtp({
             {otpSuccess ? "Update Successful!" : "Verify OTP"}
           </div>
           <div className={styles.otpBB}>
-            <img loading="lazy" src={Grey_Close} alt="" onClick={() => setOtpModal(false)} />
+            <img
+              loading="lazy"
+              src={Grey_Close}
+              alt=""
+              onClick={() => setOtpModal(false)}
+            />
           </div>
         </div>
         {otpSuccess ? (

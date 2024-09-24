@@ -40,7 +40,7 @@ const ServiceCatalog = () => {
             },
             []
           );
-
+          console.log(res);
           const data = uniqueDataArray?.map((x) => x.service_name);
           setserviceType(data);
         }
@@ -50,7 +50,7 @@ const ServiceCatalog = () => {
     }
     fetchAllServices();
   }, []);
-
+  console.log(data);
   const filteredData = data?.salon?.services
     ?.filter((x) => {
       if (selectedServiceType === "All") {

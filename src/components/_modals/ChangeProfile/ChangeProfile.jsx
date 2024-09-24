@@ -27,7 +27,6 @@ export default function ChangeProfile({
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    console.log(file);
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -61,8 +60,6 @@ export default function ChangeProfile({
   };
 
   const handleSave = () => {
-    // Implement the save functionality to send the image to the backend
-    // Example: saveImageToBackend(inputVal.avatarFile);
     setProfileModal(false);
   };
 
