@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./WhyTreato.module.css";
-import phone from "./../../../assets/images/partner/iPhone 15 Pro Portrait Mockup (1) 1.png";
-import check from "./../../../assets/images/partner/check.png";
+import phone from "./../../../assets/images/partner/iPhone 15 Pro Portrait Mockup (1) 1.webp";
+import check from "./../../../assets/images/partner/check.webp";
 const WhyTreato = () => {
   return (
     <div className={styles.container}>

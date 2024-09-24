@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./PartnerHero.module.css";
 
-import img1 from "../../../assets/images/partner/computer.png";
+import img1 from "../../../assets/images/partner/computer.webp";
 import { Link } from "react-router-dom";
 
 const PartnerHero = () => {

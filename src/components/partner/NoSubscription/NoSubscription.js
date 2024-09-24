@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./NoSubscription.module.css";
-import check from "../../../assets/images/partner/check.png";
+import check from "../../../assets/images/partner/check.webp";
 import { useGetAlSubscription } from "../../../services/static";
 import LoadSpinner from "../../LoadSpinner/LoadSpinner";
 const NoSubscription = () => {

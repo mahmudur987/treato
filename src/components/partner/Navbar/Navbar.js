@@ -2,7 +2,7 @@ import React from "react";
 import style from "./Navbar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { TreatoLogo } from "../../../assets/images/icons";
-import TreatoLogo2 from "../../../assets/images/partner/Treato2.png";
+import TreatoLogo2 from "../../../assets/images/partner/Treato2.webp";
 import menu from "../../../assets/icons/menu.png";
 import signin from "../../../assets/icons/partner/signin.png";
 import cross from "../../../assets/icons/partner/cross.png";
