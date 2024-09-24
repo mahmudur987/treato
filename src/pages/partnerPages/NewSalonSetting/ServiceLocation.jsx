@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import mapImg from "../../../assets/images/partner/Screenshot 2023-08-07 at 2.01 1.webp";
 import styles from "./ServiceLocation.module.css";
 import BasicInputs from "../Input/BasicInputs";
-import map from "../../../assets/images/partner/partnerSetting/Input_Field_Icons.png";
+import map from "../../../assets/images/partner/partnerSetting/Input_Field_Icons.webp";
 import CollaseIcon from "../../../assets/images/TeamDetails/chevron-down.png";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import PartnerLocationMap from "./Map/PartnerLocationMap";

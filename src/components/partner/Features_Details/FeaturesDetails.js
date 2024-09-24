@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./FeaturesDetails.module.css";
 
-import img2 from "../../../assets/icons/partner/icon2.png";
+import img2 from "../../../assets/icons/partner/icon2.webp";
 
 import {
   useGetAllDetails,

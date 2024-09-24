@@ -1,5 +1,5 @@
 import styles from "../../../pages/BookFlow/BookFlow.module.css";
-import slide1 from "../../../assets/images/SalonDetail/slide1.png";
+import slide1 from "../../../assets/images/SalonDetail/slide1.webp";
 import discountIco from "../../../assets/images/SalonDetail/discountIco.svg";
 import rightBlue from "../../../assets/images/SalonDetail/rightBlue.svg";
 import calendar_cancel from "../../../assets/images/SalonDetail/calendar-cancel.svg";

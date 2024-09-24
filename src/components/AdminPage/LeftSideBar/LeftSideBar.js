@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./LeftSideBar.module.css";
 import treao from "../../../assets/icons/services/treato.png";
-import treato from "../../../assets/images/superAdmin/Treato.png";
+import treato from "../../../assets/images/superAdmin/Treato.webp";
 import { Link, useLocation } from "react-router-dom";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
-import salonIcon from "../../../assets/icons/admin/salonIcon.png";
+import salonIcon from "../../../assets/icons/admin/salonIcon.webp";
 import { useSelector } from "react-redux";
 const LeftSideBar = () => {
   const [show, setShow] = useState(true);

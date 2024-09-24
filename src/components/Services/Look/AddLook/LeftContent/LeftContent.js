@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import styles from "./LeftContent.module.css";
 import { addLookContext } from "../../../../../pages/partnerPages/Look/AddALook/AddLook";
 import { FaImage } from "react-icons/fa6";
-import replace from "../../../../../assets/icons/partner/replace.png";
+import replace from "../../../../../assets/icons/partner/replace.webp";
 const LeftContent = () => {
   const { setImage, renderImage, setRenderImage } = useContext(addLookContext);
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./ActiveSalon.module.css";
 import SalonInDashBoard from "../../../../../layouts/Admin/SalonInDashboard/SalonInDashBoard";
 import FilterSection from "../../../../../components/AdminPage/AdminDashboard/Salon/Active/FilterSection/FilterSection";
-import salonImage from "../../../../../assets/images/SalonsPageImages/cardImage.png";
+import salonImage from "../../../../../assets/images/SalonsPageImages/cardImage.webp";
 import SingleSalon from "../../../../../components/AdminPage/AdminDashboard/Salon/Active/SingleSalon/SingleSalon";
 import SalonTable from "../../../../../components/AdminPage/AdminDashboard/Salon/Active/SalonTable/SalonTable";
 import {

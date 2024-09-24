@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import styles from "./Testimonials.module.css";
-import scrollRight from "../../../assets/images/recommendImages/scrollRight.png";
-import star from "../../../assets/images/testimonialsImages/star.png";
-import mask1 from "../../../assets/images/testimonialsImages/mask1.png";
+import scrollRight from "../../../assets/images/recommendImages/scrollRight.webp";
+import star from "../../../assets/images/testimonialsImages/star.webp";
+import mask1 from "../../../assets/images/testimonialsImages/mask1.webp";
 
 const Testimonials = () => {
 

@@ -71,7 +71,7 @@ select::-ms-expand {
 }
 
 select {
-  background-image: url("../../../assets/images/partner/partnerSetting/chevron-down.png");
+  background-image: url("../../../assets/images/partner/partnerSetting/chevron-down.webp");
   background-repeat: no-repeat;
   background-position: right 0.7em top 50%;
   background-size: 20px 20px;

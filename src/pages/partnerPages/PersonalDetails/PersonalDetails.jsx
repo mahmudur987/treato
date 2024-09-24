@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./PersonalDetails.module.css";
 import { Link } from "react-router-dom";
-import penIcon from "../../../assets/icons/penIcon.png";
+import penIcon from "../../../assets/icons/penIcon.webp";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useGetUser } from "../../../services/user";

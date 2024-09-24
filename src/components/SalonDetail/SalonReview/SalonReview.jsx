@@ -1,6 +1,6 @@
 import styles from '../SalonMain/SalonMain.module.css'
 import SalonStar from '../SalonStar/SalonStar'
-import pp2 from "../../../assets/images/SalonDetail/profilepic2.png"
+import pp2 from "../../../assets/images/SalonDetail/profilepic2.webp"
 
 export default function SalonReview({ reviewData }) {
     let starData = [1, 2, 3, 4, 5]

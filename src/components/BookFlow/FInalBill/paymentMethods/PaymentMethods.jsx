@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./PaymentMethods.module.css";
-import visa from "../../../../assets/images/SalonDetail/visa.png";
-import phonepe from "../../../../assets/images/SalonDetail/phonepe.png";
-import paytm from "../../../../assets/images/SalonDetail/paytm.png";
+import visa from "../../../../assets/images/SalonDetail/visa.webp";
+import phonepe from "../../../../assets/images/SalonDetail/phonepe.webp";
+import paytm from "../../../../assets/images/SalonDetail/paytm.webp";
 import plus from "../../../../assets/images/SalonDetail/plus.svg";
 import rightBlue from "../../../../assets/images/SalonDetail/rightBlue.svg";
 import bank from "../../../../assets/images/SalonDetail/bank.svg";
-import simpl from "../../../../assets/images/SalonDetail/simpl.png";
+import simpl from "../../../../assets/images/SalonDetail/simpl.webp";
 const PaymentMethods = () => {
   return (
     <div className={styles.mainContainer}>

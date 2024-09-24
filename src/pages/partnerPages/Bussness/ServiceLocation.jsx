@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ServiceLocation.module.css";
 import BasicInputs from "../Input/BasicInputs";
-import map from "../../../assets/images/partner/partnerSetting/Input_Field_Icons.png";
+import map from "../../../assets/images/partner/partnerSetting/Input_Field_Icons.webp";
 import CollaseIcon from "../../../assets/images/TeamDetails/chevron-down.png";
 import PartnerLocationMap from "./Map/PartnerLocationMap";
 import usePlacesAutocomplete, {

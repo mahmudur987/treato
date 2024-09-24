@@ -4,7 +4,7 @@ import { chevronright } from "../../../assets/images/icons";
 import mapBlue from "../../../assets/images/SalonDetail/mapBlue.svg";
 import { starBlack } from "../../../assets/images/SalonsPageImages";
 import { Link } from "react-router-dom";
-import img1 from "../../../assets/images/SalonsPageImages/cardImage.png";
+import img1 from "../../../assets/images/SalonsPageImages/cardImage.webp";
 import { useSelector } from "react-redux";
 
 const Salon = ({ salonData, place }) => {

@@ -6,7 +6,7 @@ import Twitter from "../../assets/icons/social-media/twitter.svg";
 import Linkedin from "../../assets/icons/social-media/linkedin.svg";
 import Instagram from "../../assets/icons/social-media/instagram.svg";
 import CopyLink from "../../assets/icons/social-media/copy-link.svg";
-import image from "../../assets/images/testimonialsImages/mask1.png";
+import image from "../../assets/images/testimonialsImages/mask1.webp";
 import { getFormattedDate } from "../../utils/utils";
 import Title from "../../components/Typography/Title/Title";
 import BlogCard from "../../components/Cards/Blog/BlogCard";

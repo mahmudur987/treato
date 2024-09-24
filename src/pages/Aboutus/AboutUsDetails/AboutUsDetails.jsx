@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import style from "./AboutUsDetails.module.css";
 import aboutusImage from "../../../assets/images/AboutUs/aboutus.webp";
-import image1 from "../../../assets/icons/Aboutus/image1.png";
-import image2 from "../../../assets/icons/Aboutus/image2.png";
-import image3 from "../../../assets/icons/Aboutus/image3.png";
+import image1 from "../../../assets/icons/Aboutus/image1.webp";
+import image2 from "../../../assets/icons/Aboutus/image2.webp";
+import image3 from "../../../assets/icons/Aboutus/image3.webp";
 import {
   useGetAllStatus,
   useGetAllTeam,

@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { resetPassword } from "../../../services/auth";
 import { toast } from "react-toastify";
-import img from "../../../assets/icons/Success Circle.png";
+import img from "../../../assets/icons/Success Circle.webp";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");

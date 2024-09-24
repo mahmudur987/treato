@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import style from "./chatbot.module.css";
-import chatBotLogo from "../../assets/icons/Chatbot/chatbot.png";
+import chatBotLogo from "../../assets/icons/Chatbot/chatbot.webp";
 import userImage from "../../assets/images/AccountSettings/userImg.png";
 import { GetAnswers } from "../../services/chatBot";
 import { IoMdArrowBack } from "react-icons/io";

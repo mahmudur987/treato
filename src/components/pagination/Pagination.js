@@ -1,8 +1,8 @@
 
 import React from 'react';
 import styles from "./pagination.module.css";
-import arrowLeft from "../../assets/images/SalonsPageImages/arrow-left.png"
-import chevronright from "../../assets/images/SalonsPageImages/chevron-right.png";
+import arrowLeft from "../../assets/images/SalonsPageImages/arrow-left.webp"
+import chevronright from "../../assets/images/SalonsPageImages/chevron-right.webp";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
  

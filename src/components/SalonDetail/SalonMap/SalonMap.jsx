@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import styles from "../SalonMain/SalonMain.module.css";
 import map from "../../../assets/images/SalonDetail/map.svg";
-import gmap from "../../../assets/images/SalonDetail/gmap.png";
+import gmap from "../../../assets/images/SalonDetail/gmap.webp";
 import mapBlue from "../../../assets/images/SalonDetail/mapBlue.svg";
 
 export default function SalonMap({ SalonData }) {

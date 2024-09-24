@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import styles from "./LeftContent.module.css";
 import { FaImage } from "react-icons/fa6";
-import replace from "../../../../../assets/icons/partner/replace.png";
+import replace from "../../../../../assets/icons/partner/replace.webp";
 import { EditLookContext } from "../../../../../pages/partnerPages/Look/EditLook/EditLook";
 const LeftContent = () => {
   const { setImage, renderImage, setRenderImage } = useContext(EditLookContext);

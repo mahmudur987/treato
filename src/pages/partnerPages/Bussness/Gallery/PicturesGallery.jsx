@@ -3,7 +3,7 @@ import sty from "./SalonPictures.module.css";
 import arrowLeft from "../../../../assets/images/AccountSettings/arrow-left.svg";
 import moreVertical from "../../../../assets/images/AccountSettings/more-vertical.svg";
 import { Link } from "react-router-dom";
-import slide1 from "../../../../assets/images/partner/partnerSetting/Edit_Picture (3).png";
+import slide1 from "../../../../assets/images/partner/partnerSetting/Edit_Picture (3).webp";
 
 import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";

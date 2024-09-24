@@ -3,7 +3,7 @@ import SalonInDashBoard from "../../../../../layouts/Admin/SalonInDashboard/Salo
 import styles from "./DeactivatedSalon.module.css";
 import FilterSection from "../../../../../components/AdminPage/AdminDashboard/Salon/Deactivated/FilterSection/FilterSection";
 import DeactivatedAllSalon from "../../../../../components/AdminPage/AdminDashboard/Salon/Deactivated/DeactivatedAllSalon/DeactivatedAllSalon";
-import img from "../../../../../assets/images/SalonDetail/slide4.png";
+import img from "../../../../../assets/images/SalonDetail/slide4.webp";
 import {
   getCities,
   useGetDeactivatedSalons,
