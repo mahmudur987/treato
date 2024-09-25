@@ -21,6 +21,13 @@
   background-color: #6d747a;
   color: white;
 }
+.imageBox{
+  display: flex;
+  flex-direction: column;
+}
+.tableBorder{
+  border-bottom: 1px solid #ebedf0;
+}
 
 .styledTable tbody tr {
   border-bottom: 1px solid #ebedf0;
@@ -34,6 +41,8 @@
 .bodyRow {
   text-align: left;
   padding-left: 10px;
+  font-size: 20px;
+  text-align: center;
 }
 .headingRow {
   width: 100%;

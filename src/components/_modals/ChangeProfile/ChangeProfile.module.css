@@ -12,7 +12,9 @@
   font-family: "Lato", sans-serif;
   z-index: 999;
 }
-
+.imageUpload{
+  display: none;
+}
 .profileA {
   padding: 24px;
   background-color: #fff;

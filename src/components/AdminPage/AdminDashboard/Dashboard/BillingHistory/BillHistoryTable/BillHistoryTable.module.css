@@ -21,6 +21,13 @@
   background-color: #6d747a;
   color: white;
 }
+.xyBox{
+  display: flex;
+  flex-direction: column;
+}
+.borderBottom{
+  border-bottom: 1px solid #ebedf0;
+}
 .wrapper {
   display: flex;
   gap: 8px;
@@ -46,6 +53,8 @@
 .bodyRow {
   text-align: left;
   padding-left: 10px;
+  font-size: 24px;
+  text-align: center;
 }
 .headingRow {
   width: 100%;

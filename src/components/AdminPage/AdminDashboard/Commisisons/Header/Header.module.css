@@ -39,6 +39,14 @@
   justify-content: space-between;
   border-radius: 4px;
   margin: 5px auto;
+  
+}
+
+.bgCard{
+  background: linear-gradient(180deg, #BDE7FF 0%, #88C5E8 100%) ;
+}
+.bgCard1{
+  background: linear-gradient(180deg, #FFDFA2 0%, #FFCE6E 100%) ;
 }
 
 .cardLeft {
@@ -71,6 +79,15 @@
   background: none;
   outline: none;
   font-size: 25px;
+}
+.faUser{
+  color: #F0A20B;
+}
+.faPen{
+  color: #08090A;
+}
+.arrowUp{
+  color: #08090A;
 }
 .cardRight {
   display: flex;
