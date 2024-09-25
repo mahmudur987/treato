@@ -59,7 +59,7 @@ const Lookbook = () => {
         View details
       </Link>
       <span className={styles.imageRating}>
-        <img src={starBlack} alt="starIcon" /> {rating}
+        <img loading="lazy" src={starBlack} alt="starIcon" /> {rating}
       </span>
       <p className={styles.imageText}>{description}</p>
     </div>
@@ -342,14 +342,14 @@ const Lookbook = () => {
     <div className={styles.lookbookContainer}>
       <div className={styles.headerWrapper}>
         <button className={styles.backIcon}>
-          <img src={arrowleft} alt="back" />
+          <img loading="lazy" src={arrowleft} alt="back" />
         </button>
         <div
           className={styles.locationWrap}
           onClick={() => setloc_MoboModal(true)}
         >
           {locationInputValue}
-          <img src={chevronDown} alt="downArrow" />
+          <img loading="lazy" src={chevronDown} alt="downArrow" />
         </div>
         {loc_MoboModal && (
           // eslint-disable-next-line react/jsx-pascal-case
@@ -395,6 +395,7 @@ const Lookbook = () => {
           onClick={() => setisServiceListExpanded(!isServiceListExpanded)}
         >
           <img
+            loading="lazy"
             src={chevronDown}
             alt="nothing"
             className={`${isServiceListExpanded && styles.rotate180}`}
@@ -410,7 +411,7 @@ const Lookbook = () => {
         directly.
       </h2>
       <div className={styles.inputWrapper}>
-        <img src={mapPin} alt="locationIcon" />
+        <img loading="lazy" src={mapPin} alt="locationIcon" />
         <input
           placeholder="Search by location"
           value={locationInput}
@@ -419,6 +420,7 @@ const Lookbook = () => {
         />
         {isDropdownVisible && (
           <img
+            loading="lazy"
             src={closeIcon}
             onClick={() => handleCloseLocationDropdown()}
             alt="nothing"
@@ -439,7 +441,7 @@ const Lookbook = () => {
                 className={styles.currentLocation}
                 onClick={handleCurrentLocation}
               >
-                <img src={mapPinBlue} />
+                <img loading="lazy" src={mapPinBlue} />
                 <h4>Current Location</h4>
               </div>
             )}
@@ -502,11 +504,6 @@ const Lookbook = () => {
           See more results
         </button>
       )}
-      {/* {itemsToShow < filteredServiceData?.length && (
-        <button className={styles.showMore} onClick={handleShowMore}>
-          See more results
-        </button>
-      )} */}
     </div>
   );
 };

@@ -77,6 +77,7 @@ import Commission from "./pages/AdminPages/Commissions/Commission";
 import PartnerPageLayout from "./layouts/ServicePageLayout/ServicePagelLayout";
 import PersonalDetails from "./pages/partnerPages/PersonalDetails/PersonalDetails";
 import NewSalonSetting from "./pages/partnerPages/NewSalonSetting/NewSalonSetting";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   // Use the location hook to track route changes
@@ -200,7 +201,7 @@ function App() {
             </Route>
           </Route>
           {/* Redirect to home for any wrong routes */}
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<NotFound />} />
           <Route path="/partner" element={<PartnerPage />}>
             <Route path="/partner" element={<PartnerHome />} />
             <Route path="/partner/authchoice" element={<AuthChoice />} />

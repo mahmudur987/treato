@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import styles from "./LeftContent.module.css";
 import { FaImage } from "react-icons/fa6";
-import replace from "../../../../../assets/icons/partner/replace.png";
+import replace from "../../../../../assets/icons/partner/replace.webp";
 import { EditLookContext } from "../../../../../pages/partnerPages/Look/EditLook/EditLook";
 const LeftContent = () => {
   const { setImage, renderImage, setRenderImage } = useContext(EditLookContext);
@@ -33,10 +33,10 @@ const LeftContent = () => {
       <div className={styles.uploadContainer}>
         {renderImage ? (
           <div className={styles.preview}>
-            <img src={renderImage} alt="Preview" className={styles.image} />
+            <img loading="lazy" src={renderImage} alt="Preview" className={styles.image} />
 
             <div className={styles.replace} onClick={handleButtonClick}>
-              <img className={styles.replaceIcon} src={replace} />
+              <img loading="lazy" className={styles.replaceIcon} src={replace} />
               <button type="button">Replace Image</button>
             </div>
           </div>

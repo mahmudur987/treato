@@ -109,7 +109,7 @@ const handleAddToCalendar = async () => {
     <div className={styles.payMain}>
         <div className={styles.payMainA}>
             <div className={styles.payMainB}>
-                <img src={SuccessCircle} alt="success" />
+                <img loading="lazy" src={SuccessCircle} alt="success" />
             </div>
             <div className={styles.payMainC}>
                 Your appointment at <span>{salon?.salon_name}</span> was successfully booked. {" "}
@@ -124,14 +124,14 @@ const handleAddToCalendar = async () => {
                     Order Details
                 </div>
                 <div className={styles.payMainEB}>
-                    <img src={clock} alt="" />
+                    <img loading="lazy" src={clock} alt="" />
                     <div>{formatDate(bookingDetails?.serviceDate)}, {bookingDetails?.serviceTime}</div>
                 </div>
                 {bookingDetails?.salonContent?.map((item)=>(
                     <div className={styles.addedServiceA}>            
               <div className={styles.addedServiceB}>
               <div>{item?.service_count}</div>
-              <img src={cross} alt="x" />
+              <img loading="lazy" src={cross} alt="x" />
               <div>{item?.service_name}</div>
           </div>
           <div className={styles.addedServiceC}>

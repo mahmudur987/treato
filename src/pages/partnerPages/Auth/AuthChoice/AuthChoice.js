@@ -32,12 +32,12 @@ const AuthChoice = () => {
           >
             <div>
               <div className={styles.info}>
-                <img src={user} alt="User Icon" />
+                <img loading="lazy" src={user} alt="User Icon" />
                 Customers
               </div>
               <p className={styles.desc}>Explore and book salons near you</p>
             </div>
-            <img
+            <img loading="lazy"
               src={arrowright}
               className={styles.arrowright2}
               alt="Arrow Right Icon"
@@ -49,7 +49,7 @@ const AuthChoice = () => {
           >
             <div>
               <div className={styles.info}>
-                <img
+                <img loading="lazy"
                   src={briefcase}
                   alt="Briefcase Icon"
                   className={styles.userIcon}
@@ -60,7 +60,7 @@ const AuthChoice = () => {
                 Manage and grow your business with Treato
               </p>
             </div>
-            <img
+            <img loading="lazy"
               src={arrowright}
               className={styles.arrowright1}
               alt="Arrow Right Icon"

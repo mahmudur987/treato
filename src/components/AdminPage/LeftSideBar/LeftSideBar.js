@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./LeftSideBar.module.css";
-import treao from "../../../assets/icons/services/treato.png";
-import treato from "../../../assets/images/superAdmin/Treato.png";
+import treao from "../../../assets/icons/services/treato.webp";
+import treato from "../../../assets/images/superAdmin/Treato.webp";
 import { Link, useLocation } from "react-router-dom";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
-import salonIcon from "../../../assets/icons/admin/salonIcon.png";
+import salonIcon from "../../../assets/icons/admin/salonIcon.webp";
 import { useSelector } from "react-redux";
 const LeftSideBar = () => {
   const [show, setShow] = useState(true);
@@ -45,14 +45,14 @@ const LeftSideBar = () => {
         {!show && (
           <div className={styles.imageWrapper}>
             <Link to={"/admin/dashboard"}>
-              <img src={treao} alt="" />
+              <img loading="lazy" src={treao} alt="" />
             </Link>
           </div>
         )}
         {show && (
           <div className={styles.imageWrapper1}>
             <Link to={"/admin/dashboard"}>
-              <img src={treato} alt="" />
+              <img loading="lazy" src={treato} alt="" />
             </Link>
           </div>
         )}
@@ -92,7 +92,7 @@ const LeftSideBar = () => {
                 }`,
               }}
             >
-              <img src={salonIcon} alt="" />
+              <img loading="lazy" src={salonIcon} alt="" />
 
               <span style={{ fontWeight: "600" }}>Salons</span>
               <span className={styles.downIcon}>

@@ -3,7 +3,7 @@ import userIco from "../../../assets/images/SalonDetail/userIco.svg";
 import WorkerComponent from "../WorkerComponent/WorkerComponent";
 import ServiceTime from "../ServiceTime/ServiceTime";
 import RadioInput from "../../Input/RadioInput/RadioInput";
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 
 export default function WorkerDetail({
   SalonData,
@@ -25,7 +25,7 @@ export default function WorkerDetail({
         <div className={styles.worker_detailA}>
           <div className={styles.worker_detailAD}>
             <div className={styles.worker_detailAA}>
-              <img src={userIco} alt="" />
+              <img loading="lazy" src={userIco} alt="" />
             </div>
             <div className={styles.worker_detailAB}>
               <div>No Preference</div>
@@ -66,3 +66,5 @@ export default function WorkerDetail({
     </div>
   );
 }
+
+export const MemoizeWorkersDetails = memo(WorkerDetail);

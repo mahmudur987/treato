@@ -6,7 +6,7 @@ import {
   resetUserDetails,
   updateIsLoggedIn,
 } from "../../../../redux/slices/user";
-import mask from "../../../../assets/images/NavbarImages/Mask.png";
+import mask from "../../../../assets/images/NavbarImages/Mask.webp";
 import { CiSearch } from "react-icons/ci";
 import { updateSearchText } from "../../../../redux/slices/AdminSlice";
 const SalonInDashboardNavbar = () => {
@@ -46,7 +46,7 @@ const SalonInDashboardNavbar = () => {
               className={styles.account}
               onClick={() => setShowProfile((pre) => !pre)}
             >
-              <img
+              <img loading="lazy"
                 src={userData?.user?.avatar?.public_url ?? ""}
                 onError={(e) => (e.target.src = mask)}
                 alt=""
@@ -75,7 +75,7 @@ const SalonInDashboardNavbar = () => {
             onClick={() => setShowProfile((pre) => !pre)}
             className={styles.profileContainer}
           >
-            <img
+            <img loading="lazy"
               src={userData?.user?.avatar?.public_url ?? ""}
               onError={(e) => (e.target.src = mask)}
               alt=""

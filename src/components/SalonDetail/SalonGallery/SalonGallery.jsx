@@ -7,7 +7,7 @@ import cross from "../../../assets/images/icons/white-cross.svg";
 import SalonGalleryCard from "../../Cards/SalonGalleryCard/SalonGalleryCard";
 import Carousel from "react-gallery-carousel";
 import "react-gallery-carousel/dist/index.css";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 export default function SalonGallery({ gallery, setShowGallery }) {
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
@@ -35,7 +35,7 @@ export default function SalonGallery({ gallery, setShowGallery }) {
     <div className={styles.salon_GalleryMain}>
       {lightBox.open && winWidthMain > 767 ? (
         <div className={"salon_LightBox"}>
-          <img
+          <img loading="lazy"
             src={cross}
             alt=""
             className={styles.lightBoxClose}
@@ -51,14 +51,14 @@ export default function SalonGallery({ gallery, setShowGallery }) {
             hasMediaButton={false}
             hasIndexBoard={false}
             leftIcon={
-              <img
+              <img loading="lazy"
                 src={blackArrowleft}
                 alt=""
                 className={styles.lightBoxLeft}
               />
             }
             rightIcon={
-              <img
+              <img loading="lazy"
                 src={blackArrowright}
                 alt=""
                 className={styles.lightBoxRight}
@@ -70,7 +70,7 @@ export default function SalonGallery({ gallery, setShowGallery }) {
         <>
           <div className={styles.salon_GalleryA}>
             <div>
-              <img
+              <img loading="lazy"
                 src={arrowleft}
                 alt=""
                 onClick={() => setShowGallery(false)}
@@ -80,7 +80,7 @@ export default function SalonGallery({ gallery, setShowGallery }) {
               </div>
             </div>
             <div>
-              <img src={cross} alt="" onClick={() => setShowGallery(false)} />
+              <img loading="lazy" src={cross} alt="" onClick={() => setShowGallery(false)} />
             </div>
           </div>
           <div className={styles.salon_GalleryB}>
@@ -101,3 +101,5 @@ export default function SalonGallery({ gallery, setShowGallery }) {
     </div>
   );
 }
+
+export const MemoizeSalonGallery = memo(SalonGallery);

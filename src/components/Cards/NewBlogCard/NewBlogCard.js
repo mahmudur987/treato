@@ -7,7 +7,7 @@ const NewBlogCard = ({ blog }) => {
     <div className={styles["NewBlogCardMain"]}>
       <Link to={`/blogs/${blog._id}`}>
         <div className={styles["NewBlogCardA"]}>
-          <img className={styles["blogImage"]} src={blog ? blog?.blog_Img?.public_url : ''} alt="blogImage" />
+          <img loading="lazy" className={styles["blogImage"]} src={blog ? blog?.blog_Img?.public_url : ''} alt="blogImage" />
         </div>
       </Link>
       <div className={styles["blogDetails"]}>

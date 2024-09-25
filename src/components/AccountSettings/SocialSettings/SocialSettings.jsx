@@ -1,7 +1,7 @@
 import styles from "./SocialSettings.module.css";
-import facebook from "../../../assets/images/AccountSettings/facebook.png";
-import instagram from "../../../assets/images/AccountSettings/Instagram.png";
-import google from "../../../assets/images/AccountSettings/google.png";
+import facebook from "../../../assets/images/AccountSettings/facebook.webp";
+import instagram from "../../../assets/images/AccountSettings/Instagram.webp";
+import google from "../../../assets/images/AccountSettings/google.webp";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -75,7 +75,7 @@ export default function SocialSettings({ user }) {
       <div className={styles.usr_social_opt}>
         <div className={styles.social_options}>
           <div className={styles.social_opt_left}>
-            <img src={google} alt="" />
+            <img loading="lazy" src={google} alt="" />
             Google
           </div>
           <div className={styles.social_opt_right}>
@@ -95,7 +95,7 @@ export default function SocialSettings({ user }) {
         </div>
         <div className={styles.social_options}>
           <div className={styles.social_opt_left}>
-            <img src={facebook} alt="" className={styles.social_opt_logo} />
+            <img loading="lazy" src={facebook} alt="" className={styles.social_opt_logo} />
             Facebook
           </div>
           <div className={styles.social_opt_right}>
@@ -124,7 +124,7 @@ export default function SocialSettings({ user }) {
         </div>
         <div className={styles.social_options}>
           <div className={styles.social_opt_left}>
-            <img src={instagram} alt="" className={styles.social_opt_logo} />
+            <img loading="lazy" src={instagram} alt="" className={styles.social_opt_logo} />
             Instagram
           </div>
           <div className={styles.social_opt_right}>

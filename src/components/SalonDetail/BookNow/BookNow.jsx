@@ -1,7 +1,7 @@
 import styles from "../SalonMain/SalonMain.module.css";
 import ellipse from "../../../assets/images/SalonDetail/Ellipse.svg";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -94,7 +94,7 @@ export default function BookNow({
               <div>
                 {salonServices?.length ? salonServices.length : 0} services
               </div>
-              <img src={ellipse} alt="" />
+              <img loading="lazy" src={ellipse} alt="" />
               <div>
                 {salonServices?.length
                   ? salonServices.at(-1)?.service_time
@@ -138,3 +138,5 @@ export default function BookNow({
     </div>
   );
 }
+
+export const MemoizeBookNow = memo(BookNow);

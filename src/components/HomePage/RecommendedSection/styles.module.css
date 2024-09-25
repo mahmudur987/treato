@@ -55,9 +55,9 @@
   transition: all ease-in-out 0.3s;
   cursor: pointer;
   border-radius: 4px;
-  padding: 0.75rem 0.4rem;
-  user-select: none;
-  gap: 8px;
+  padding: 0.4rem;
+
+  gap: 5px;
 }
 .rmdItem:hover {
   background: var(--light-blue);
@@ -113,7 +113,7 @@
 .trScrollRight_mobo {
   display: none;
 }
-.rmdWrapperMobo{
+.rmdWrapperMobo {
   display: none;
 }
 /* media queries */
@@ -123,8 +123,8 @@
     padding: 2rem 1rem;
     padding-bottom: 0rem;
   }
-  .rmdWrapperMobo{
-    overflow-x: scroll;
+  .rmdWrapperMobo {
+    overflow-x: hidden;
     height: 210px;
     overflow-y: hidden;
     display: flex;
@@ -133,8 +133,8 @@
     margin-top: 1.5rem;
     padding: 0rem;
   }
-  .rmdWrapper{
-    display: none !important;
+  .rmdWrapper {
+    /* display: none !important; */
   }
 }
 
@@ -150,13 +150,11 @@
     flex-wrap: wrap;
     flex-direction: column;
   }
-  .rmdItem{
+  .rmdItem {
     width: 84px;
     height: 84px;
     padding: 0px;
     background: #edf2f7;
-    margin-right: 16px;
-    margin-bottom: 16px;
   }
   .rmdItem img {
     width: 24px;
@@ -186,6 +184,16 @@
   .scroll_left,
   .scroll_right {
     display: none;
+  }
+  .rightArrow,
+  .leftArrow {
+    display: none;
+  }
+  .custom-dot-list-style {
+    display: none;
+  }
+  .rmdWrapperMobo {
+    display: block;
   }
 }
 

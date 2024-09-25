@@ -53,7 +53,7 @@ const Contactus = ({ mainData }) => {
       <h1 className={styles["heading"]}>Contact us</h1>
       <div className={styles["contactWrapper"]}>
         <div className={styles["Image"]}>
-          <img
+          <img loading="lazy"
             src={mainData ? mainData.public_url : contactUsBanner}
             alt="Contact Us Banner"
           />

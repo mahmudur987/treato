@@ -165,7 +165,7 @@ export default function AddressModal({
             <div className={styles.addressBack}>
               <div className={styles.addressA}>
                 <div className={styles.addressAA}>Edit address</div>
-                <img
+                <img loading="lazy"
                   src={DarkCross}
                   alt="close"
                   onClick={() => setAddressModal({ active: false, data: null })}
@@ -306,7 +306,7 @@ export default function AddressModal({
             <div className={styles.addressBack}>
               <div className={styles.addressA}>
                 <div className={styles.addressAA}>Add new address</div>
-                <img
+                <img loading="lazy"
                   src={DarkCross}
                   alt="close"
                   onClick={() => setAddressModal({ active: false, data: null })}

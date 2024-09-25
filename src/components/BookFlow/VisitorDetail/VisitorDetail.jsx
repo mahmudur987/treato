@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useRef } from "react";
 import styles from "../../../pages/BookFlow/BookFlow.module.css";
 import BasicInput from "../../Input/BasicInput/BasicInput";
@@ -13,7 +13,7 @@ export default function VisitorDetail() {
   const [visitorPhone, setvisitorPhone] = useState("");
   const [countryCode, setcountryCode] = useState("+91");
   const { contact } = useSelector((state) => state?.VisitorDetails);
-  const userDetails = useSelector((state) => state?.user?.user);
+
   const isFirstRender = useRef(null);
   const [err, setErr] = useState("");
   const [isValidEmail, setIsValidEmail] = useState("");
@@ -182,3 +182,5 @@ export default function VisitorDetail() {
     </div>
   );
 }
+
+export const MemoizeVisitorsDetails = memo(VisitorDetail);

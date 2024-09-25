@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ServiceCatalog.module.css";
-import CustomSelect from "../../../../components/Select/CustomeSelect";
+
 import ServicesDropDown from "../../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
 
 import AddCategory from "../../../../components/_modals/Addcategory/AddCategory";
@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 import { getAllServices } from "../../../../services/Services";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
 import CustomSelect2 from "../../../../components/Select/CustomeSelect2/CustomeSelect2";
-import CustomSelect3 from "../../../../components/Select/CustomeSelect3/CustomSelect3";
 import NoDataDisplay from "../../../../components/NodataToDisplay/NoDataDisplay";
 const ServiceCatalog = () => {
   const [showAddMenu, setshowAddmenu] = useState(false);
@@ -41,7 +40,7 @@ const ServiceCatalog = () => {
             },
             []
           );
-
+          console.log(res);
           const data = uniqueDataArray?.map((x) => x.service_name);
           setserviceType(data);
         }
@@ -51,7 +50,7 @@ const ServiceCatalog = () => {
     }
     fetchAllServices();
   }, []);
-
+  console.log(data);
   const filteredData = data?.salon?.services
     ?.filter((x) => {
       if (selectedServiceType === "All") {
@@ -61,8 +60,6 @@ const ServiceCatalog = () => {
       }
     })
     ?.filter((x) => x.mainCategories.length > 0);
-
-  console.log(filteredData);
 
   const openModal = () => {
     setIsModalOpen(true);

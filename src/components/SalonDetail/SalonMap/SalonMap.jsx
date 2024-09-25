@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import styles from "../SalonMain/SalonMain.module.css";
 import map from "../../../assets/images/SalonDetail/map.svg";
-import gmap from "../../../assets/images/SalonDetail/gmap.png";
+import gmap from "../../../assets/images/SalonDetail/gmap.webp";
 import mapBlue from "../../../assets/images/SalonDetail/mapBlue.svg";
 
 export default function SalonMap({ SalonData }) {
@@ -34,7 +34,7 @@ export default function SalonMap({ SalonData }) {
   return (
     <>
       <div className={styles.salon_MapA}>
-        <img src={map} alt="" />
+        <img loading="lazy" src={map} alt="" />
         <div>{SalonData ? SalonData.locationText : null}</div>
       </div>
       <div className={styles.salon_MapB}>
@@ -55,7 +55,7 @@ export default function SalonMap({ SalonData }) {
         ) : null}
         <button className={styles.salon_MapBA} onClick={openMapInNewWindow}>
           View on map
-          <img src={mapBlue} alt="" />
+          <img loading="lazy" src={mapBlue} alt="" />
         </button>
       </div>
     </>

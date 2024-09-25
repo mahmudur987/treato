@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import style from './details.module.css'
-import image2 from '../../../../src/assets/images/Careers/placeholder.png';
+import image2 from '../../../../src/assets/images/Careers/placeholder.webp';
 import { jobApplicationData } from '../../../services/careers';
 import { toast } from 'react-toastify';
 import { countryCallingCodes } from './CountryCodes';
@@ -89,7 +89,7 @@ function JobDetails() {
 
             <h3>software engineer</h3>
             <div className={style.location} >
-              <img src={image2} width={18} height={18} alt="" srcset="" />
+              <img loading="lazy" src={image2} width={18} height={18} alt="" srcset="" />
               <p>noida, india</p>
               <div className={style.verticalLine}></div>
               <p>Full-Time / on-site</p>

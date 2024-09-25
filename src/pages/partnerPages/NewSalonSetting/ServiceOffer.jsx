@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import sty from "./ServiceOffer.module.css";
 
-import selectedCircle from "../../../assets/icons/Success Circle.png";
+import selectedCircle from "../../../assets/icons/Success Circle.webp";
 import ManageHolidays from "../../../components/_modals/ManageHolyDays/ManageHolidays";
 import { getAllServices } from "../../../services/Services";
 
@@ -194,7 +194,7 @@ const ServiceOffer = ({
                     {v?.service_name}
 
                     {selectedService.includes(v.service_name) && (
-                      <img src={selectedCircle} alt="" />
+                      <img loading="lazy" src={selectedCircle} alt="" />
                     )}
                   </div>
                 );

@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SalonSlickSlider.css";
-import { useState } from "react";
+import { memo, useState } from "react";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -58,7 +58,7 @@ export default function SalonSlickSLider({
           {SalonData?.salon_Img?.map((v, i) => {
             return (
               <div>
-                <img
+                <img loading="lazy"
                   src={v.public_url}
                   alt="salon images"
                   key={i}
@@ -81,3 +81,5 @@ export default function SalonSlickSLider({
     </>
   );
 }
+
+export const MemoizeSalonSlickSlider = memo(SalonSlickSLider);

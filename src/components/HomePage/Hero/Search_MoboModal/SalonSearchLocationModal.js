@@ -167,7 +167,7 @@ const {
   return (
     <div className={styles["container"]}>
       <div className={styles["modalNav"]}>
-        <img
+        <img loading="lazy"
           src={arrowleft}
           className={styles["arrowLeft"]}
           onClick={handle_close}
@@ -177,7 +177,7 @@ const {
       <div className={styles["modalHeader"]}>
         <h2>{title}</h2>
         <div className={styles["inputWrapper"]}>
-          <img
+          <img loading="lazy"
             src={icon}
             className={styles["loc_Icon"]}
             onClick={handle_close}
@@ -191,7 +191,7 @@ const {
             onChange={ handleInput}
             disabled={!ready}
           />
-          <img
+          <img loading="lazy"
             src={closeIcon}
             className={styles["closeInput"]}
             onClick={handle_close}
@@ -203,7 +203,7 @@ const {
         {status === "OK" && (
            <ul className={styles.locationUl}>
         {userDetails?.isLocationAllow &&    <li className={`${styles.locationList} ${styles.CurrentLocation}`} onClick={handleSelectCurrentLocation}>
-             <img src={mapPinBlue} alt="pinIcon"></img>
+             <img loading="lazy" src={mapPinBlue} alt="pinIcon"></img>
              Current Location</li>}
             <>{renderSuggestions()}</>
           </ul>

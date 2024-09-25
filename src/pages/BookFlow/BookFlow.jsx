@@ -5,19 +5,22 @@ import BillSummary from "../../components/BookFlow/BillSummary/BillSummary";
 import CompletedPay from "../../components/BookFlow/CompletedPay/CompletedPay";
 import FinalBill from "../../components/BookFlow/FInalBill/FinalBill";
 import SelectedServiceCard from "../../components/BookFlow/SelectedServiceCard/SelectedServiceCard";
-import VisitorDetail from "../../components/BookFlow/VisitorDetail/VisitorDetail";
-import WorkerDetail from "../../components/BookFlow/WorkerDetail/WorkerDetail";
-import BackButton from "../../components/Buttons/BackButton/BackButton";
+import VisitorDetail, {
+  MemoizeVisitorsDetails,
+} from "../../components/BookFlow/VisitorDetail/VisitorDetail";
+import WorkerDetail, {
+  MemoizeWorkersDetails,
+} from "../../components/BookFlow/WorkerDetail/WorkerDetail";
+import { MemoizeBackButton } from "../../components/Buttons/BackButton/BackButton";
 import BookNow from "../../components/SalonDetail/BookNow/BookNow";
 import SalonServiceMain from "../../components/SalonDetail/SalonServiceMain/SalonServiceMain";
 import SalonDetailModal from "../../components/_modals/SalonDetailModal/SalonDetailModal";
 import { useDispatch, useSelector } from "react-redux";
-import { salon } from "../../services/salon";
-import { ToastContainer, toast } from "react-toastify";
+import { useGetSalonByID } from "../../services/salon";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./BookFlow.module.css";
 import {
-  AppointmentVerify,
   bookSalonAppointment,
   getAvailableSlots,
 } from "../../services/Appointments";
@@ -25,16 +28,14 @@ import {
   updateServiceDate,
   updateServiceTime,
 } from "../../redux/slices/salonServices";
-import { TreatoLogo } from "../../assets/images/icons";
+
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
 import { updateVisitorContent } from "../../redux/slices/VisitorDetails";
+import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
 
 export default function BookFlow() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
-  const [count, setCount] = useState();
-  const [loading, setLoading] = useState(false);
-  // console.log("Count", count);
   let [activeBookFlowBA, updateActiveBookFlowBA] = useState(1);
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
   let [showPay, setShowPay] = useState(true);
@@ -57,6 +58,7 @@ export default function BookFlow() {
   let [showModal, setShowModal] = useState(false);
   let [completedPay, setCompletedPay] = useState(false);
   let { id } = useParams();
+  const { data, isLoading, isError } = useGetSalonByID(id);
   const salonServices = useSelector(
     (state) => state.salonServices.salonContent
   );
@@ -82,20 +84,9 @@ export default function BookFlow() {
     }
   }, [stepTwoDetails]);
   useEffect(() => {
-    let SalonDataFunc = async () => {
-      setLoading(true);
-      const { res, err } = await salon();
-      if (res) {
-        res.data.salons.map((v) => {
-          if (v._id === id) {
-            setSalonData(v);
-          }
-        });
-      }
-      setLoading(false);
-    };
-    SalonDataFunc();
-  }, []);
+    let v = data?.salon;
+    setSalonData(v);
+  }, [data]);
   useEffect(() => {
     if (activeBookFlowBA < 3) {
       dispatch(
@@ -202,45 +193,6 @@ export default function BookFlow() {
   };
   //function to handle mobile view online razorpay payment
 
-  const initPayment = (order) => {
-    const options = {
-      key: process.env.REACT_APP_Razorpay_Key,
-      amount: `${
-        serviceDetails?.appliedOffer?.amount_for_discount
-          ? serviceDetails?.Amount -
-            serviceDetails?.appliedOffer?.amount_for_discount
-          : serviceDetails?.Amount
-      }`,
-      currency: "INR",
-      name: "Treato",
-      description: "test ",
-      image: TreatoLogo,
-      order_id: order?.id,
-      handler: async (response) => {
-        try {
-          AppointmentVerify({ ...response, order }).then((res) => {
-            if (
-              res?.res?.data?.message ===
-              "Payment Verified and Order Created Successfully"
-            ) {
-              setCompletedPay(true);
-            }
-          });
-        } catch (error) {
-          console.log(error);
-          toast.error(`Payment failed`, {
-            duration: 6000,
-          });
-        }
-      },
-      theme: {
-        color: "#000000",
-      },
-    };
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
-  };
-
   const handlePayment = async () => {
     try {
       let billInfo = {
@@ -309,7 +261,7 @@ export default function BookFlow() {
     });
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div
         style={{
@@ -323,6 +275,9 @@ export default function BookFlow() {
       </div>
     );
   }
+  if (isError) {
+    return <ErrorComponent />;
+  }
 
   return (
     <div className={styles.book_flowMain}>
@@ -331,7 +286,7 @@ export default function BookFlow() {
         <CompletedPay />
       ) : (
         <>
-          <BackButton
+          <MemoizeBackButton
             updateActiveBookFlowBA={
               updateActiveBookFlowBA ? updateActiveBookFlowBA : ""
             }
@@ -399,7 +354,6 @@ export default function BookFlow() {
                           data={x}
                           hideTitle={false}
                           SalonData={SalonData ? SalonData : null}
-                          setCount={setCount}
                         />
                       );
                     }
@@ -407,14 +361,14 @@ export default function BookFlow() {
                   })}
               </>
             ) : activeBookFlowBA === 2 ? (
-              <WorkerDetail
+              <MemoizeWorkersDetails
                 SalonData={SalonData ? SalonData : null}
                 getWorkerData={getWorkerData}
                 availableSlots={availableSlots}
                 stepTwoDetails={stepTwoDetails}
               />
             ) : activeBookFlowBA === 3 ? (
-              <VisitorDetail />
+              <MemoizeVisitorsDetails />
             ) : activeBookFlowBA === 4 ? (
               <FinalBill
                 setShowPay={setShowPay}

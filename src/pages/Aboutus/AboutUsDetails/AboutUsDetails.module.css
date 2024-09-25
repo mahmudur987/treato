@@ -1,469 +1,457 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-.aboutcontainer{
-    width: 648px;
-    height: 457px;
-    margin-top: 182px;
-    margin-left: 60px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+.aboutcontainer {
+  width: 648px;
+  height: 457px;
+  margin-top: 182px;
+  margin-left: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
-.title{
-    width: 128px;
-    height: 42px;
-    color: #000000;
-    font-family: Poppins;
-    font-size: 28px;
-    font-weight: 600;
+.title {
+  width: 128px;
+  height: 42px;
+  color: #000000;
+  font-family: Poppins;
+  font-size: 28px;
+  font-weight: 600;
 }
-.imagemobile{
-    display: none;
+.imagemobile {
+  display: none;
 }
-.aboutcontent{
-    width: 100%;
-    height: 270px;
-    font-family: Lato;
-    font-size: 20px;
-    font-weight: 400;
-    text-align: justify;
-    letter-spacing: 1%;
-    color: #434141;
+.aboutcontent {
+  width: 100%;
+  height: 270px;
+  font-family: Lato;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: justify;
+  letter-spacing: 1%;
+  color: #434141;
 }
-.info{
-    width: 589px;
-    height: 97px;
-    padding: 20px 30px 20px 30px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border: 1px solid #CED4DA;
-    display: flex;
-    align-items: center;
-    gap: 30px;
+.info {
+  width: 589px;
+  height: 97px;
+  padding: 20px 30px 20px 30px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border: 1px solid #ced4da;
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
-.verticlalbar{
-    width: 52px;
-    border: 0.5px solid #CED4DA;
-    transform: rotate(-90deg);
+.verticlalbar {
+  width: 52px;
+  border: 0.5px solid #ced4da;
+  transform: rotate(-90deg);
+}
+.box1 {
+  width: 63px;
+}
+.box2 {
+  width: 88px;
+}
+.box2 p {
+  min-width: max-content;
+}
+.box3 {
+  width: fit-content;
+}
+.box3 p {
+  min-width: max-content;
+}
+.info div {
+  height: 57px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.info div h4 {
+  height: 36px;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 600;
+  color: #0d69d7;
+}
+.info div p {
+  height: 21px;
+  font-family: Lato;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1%;
+  color: #6d747a;
+}
 
+.backeffect {
+  width: 445px;
+  height: 362px;
+  position: absolute;
+  top: 194px;
+  left: 995px;
+  border-radius: 6px 0px 0px 6px;
+  background-color: #f8f9fa;
 }
-.box1{
-    width: 63px;
+.aboutimage {
+  width: 434px;
+  height: 284px;
+  position: absolute;
+  top: 233px;
+  left: 820px;
+  z-index: 1;
+  border-radius: 10px;
 }
-.box2{
-    width: 88px;
+.OurTeamBox {
+  width: 1320px;
+  height: 319px;
+  position: inherit;
+  margin-top: 95px;
+  margin-left: 60px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-.box2 p{
-    min-width: max-content;
-}
-.box3{
-    width: fit-content;
-}
-.box3 p{
-    min-width: max-content;
-}
-.info div{
-    height: 57px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.info div h4{
-    height: 36px;
-    font-family: Poppins;
-    font-size: 24px;
-    font-weight: 600;
-    color: #0D69D7;
-}
-.info div p{
-    height: 21px;
-    font-family: Lato;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 1%;
-    color: #6D747A;
-}
-
-.backeffect{
-    width: 445px;
-    height: 362px;
-    position: absolute;
-    top: 194px;
-    left: 995px;
-    border-radius: 6px 0px 0px 6px;
-    background-color: #F8F9FA;
-}
-.aboutimage{
-    width: 434px;
-    height: 284px;
-    position: absolute;
-    top: 233px;
-    left: 820px;
-    z-index: 1;
-    border-radius: 10px;
-}
-.OurTeamBox{
-    width: 1320px;
-    height: 319px;
-    position: inherit;
-    margin-top: 95px;
-    margin-left: 60px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-.arrows{
-    width: 24px;
-    height: 24px;
+.arrows {
+  width: 24px;
+  height: 24px;
 }
 .arrows:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
-.ourTeamHeader{
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.ourTeamHeader {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.ourTeamHeader h3{
-    width: 142px;
-    height: 42px;
-    font-size: 28px;
-    font-weight: 600;
-    font-family: Poppins;
-    color: #000000;
+.ourTeamHeader h3 {
+  width: 142px;
+  height: 42px;
+  font-size: 28px;
+  font-weight: 600;
+  font-family: Poppins;
+  color: #000000;
 }
-.btns{
-display: flex;
-align-items: center;
-gap: 20px;
+.btns {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
-.Arrowbtn{
-    cursor: pointer;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    background-color: #08080B;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #F8F9FA;
+.Arrowbtn {
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #08080b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f8f9fa;
 }
 .outTeamContent {
-    overflow: hidden;
-    width: 1219px;
-    height: 232px;
-    display: flex;
-    align-items: center;
-    gap: 50px;
+  overflow: hidden;
+  width: 1219px;
+  height: 232px;
+  display: flex;
+  align-items: center;
+  gap: 50px;
 }
 
-.contentBox{
-    padding: 8px;
-    height: 100%;
-    width: 634px;
-    border: 1px solid #CED4DA;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+.contentBox {
+  padding: 8px;
+  height: 100%;
+  width: 634px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
-.ourTeamInfo{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items:first baseline;
-
+.ourTeamInfo {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: first baseline;
 }
-.ourTeamInfo h3{
-    width: 89px;
-    height: 32px;
-    font-size: 20px;
-    font-weight: 600;
-    font-family: Lato;
-    line-height: 32px;
+.ourTeamInfo h3 {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: Lato;
+  line-height: 32px;
 }
-.subHeading{
-    height: 21px;
-    width: 74px;
-    font-size: 14px;
-    font-weight: 400;
-    font-family: Lato;
-    line-height: 21px;
-    color: #6D747A;
+.subHeading {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Lato;
+  line-height: 21px;
+  color: #6d747a;
 }
-.contentPara{
-    width: 356px;
-    height: 126px;
-    font-size: 14px;
-    font-weight: 400;
-    font-family: Lato;
-    text-align: justify;
+.contentPara {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Lato;
+  text-align: justify;
 }
-.ourVisionBox{
-    width: 1318px;
-    height: 353px;
-    padding-top: 43px;
-    padding-left: 60px;
-    margin-top: 100px;
-    margin-left: 62px;
-    border-radius: 5px;
-    background-color: #F8F9FA;
+.ourVisionBox {
+  width: 1318px;
+  height: 353px;
+  padding-top: 43px;
+  padding-left: 60px;
+  margin-top: 100px;
+  margin-left: 62px;
+  border-radius: 5px;
+  background-color: #f8f9fa;
 }
-.togglebtn{
-    width: 14px;
-    height: 145px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.togglebtn {
+  width: 14px;
+  height: 145px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.changeColor{
-    background-color: #0D69D780;
+.changeColor {
+  background-color: #0d69d780;
 }
-.verticalLine{
-    
-    height: 117px;
-    width: 0.5px;
-    border: 1px solid #CED4DA;
+.verticalLine {
+  height: 117px;
+  width: 0.5px;
+  border: 1px solid #ced4da;
 }
-.roundbtn{
-    cursor: pointer;
-    border: 1px solid #CED4DA;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
+.roundbtn {
+  cursor: pointer;
+  border: 1px solid #ced4da;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
 }
-.visionContentBox{
-    width: 1233px;
-    height: 266px;
-    display: flex;
-    align-items: center;
-    gap: 52px;
+.visionContentBox {
+  width: 1233px;
+  height: 266px;
+  display: flex;
+  align-items: center;
+  gap: 52px;
 }
-.visionContentBox img{
-    width: 427px;
-    height: 266px;
-    border-radius: 10px;
-    
+.visionContentBox img {
+  width: 427px;
+  height: 266px;
+  border-radius: 10px;
 }
-.visionText{
-    height: 100%;
-    width: 695px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.visionText {
+  height: 100%;
+  width: 695px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-.visionText img{
-    display: none;
+.visionText img {
+  display: none;
 }
-.visionText h3{
-    min-width: fit-content;
-    color: #434141;
-    height: 42px;
-    font-size: 28px;
-    font-weight: 600;
-    font-family: Poppins;
-    line-height: 42px;
+.visionText h3 {
+  min-width: fit-content;
+  color: #434141;
+  height: 42px;
+  font-size: 28px;
+  font-weight: 600;
+  font-family: Poppins;
+  line-height: 42px;
 }
-.visionText p{
-    height: 180px;
-    width: 695px;
-    font-size: 20px;
-    font-weight: 400;
-    font-family: Lato;
-    line-height: 30px;
-    text-align: justify;
+.visionText p {
+  height: 180px;
+  width: 695px;
+  font-size: 20px;
+  font-weight: 400;
+  font-family: Lato;
+  line-height: 30px;
+  text-align: justify;
 }
-.forMobileView{
-    display: none;
+.forMobileView {
+  display: none;
 }
 .Footer {
-    position: inherit;
+  position: inherit;
+}
+@media screen and (max-width: 700px) {
+  .mainContainer {
+    padding-bottom: 150px;
+    width: 390px;
+    max-height: 3405px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 45px;
   }
-  @media screen and (max-width: 700px) {
-    .mainContainer{
-        padding-bottom: 150px;
-        width: 390px;
-        max-height: 3405px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 45px;
-    }
-    .aboutcontainer{
-        margin: 0;
-        padding: 0;
-        width: 342px;
-        height: 718px;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
-    .title{
-        height: 36px;
-        width: 110px;
-        font-size: 24px;
-    }
-    .backeffect,
-    .aboutimage{
-        display: none;
-    }
-    .imagemobile{
-        display: block;
-        width: 342px;
-        height: 224px;
-        border-radius: 4px;
-    }
-    .aboutcontent{
-        width: 343px;
-        height: 657px;
-        display: flex;
-        flex-direction: column;
-        gap:16px;
-    }
-    .aboutcontent p{
-        height: 312px;
-        width: 342px;
-        font-size: 16px;
-        text-align: justify;
-    }
-    .info{
-        padding: 0;
-        gap: 0;
-        border: 1px solid rebeccapurple;
-        padding: 16px;
-        position: static;
-        max-width: 343px;
-        min-height: 85px;
-        border-radius: 0px 20px 0px 20px;
-        
-        
-    }
-    
-    .box1{
-        height: 53px;
-        width: 53px;
-        gap: 5px;
-    }
-    .box2{
-        height: 53px;
-        width: 76px;
-        gap: 5px;
-    }
-    .box3{
-        height: 53px;
-        width: 118px;
-        gap: 5px;
-    }
-    .verticlalbar{
-        margin: -8px;
-        min-width: 52px;
-    }
-    .info div h4{
-        height: 30px;
-        width: auto;
-        font-size: 20px;
-        font-weight: 600;
-        color: #2E3032;
-    }
-    .info div p{
-        width: auto;
-        height: 18px;
-        font-size: 12px;
-        font-weight: 400;
-        text-align: center;
-    }
-    .btns{
-        display: none;
-    }
-    .OurTeamBox{
-        margin: 0;
-        padding: 0;
-        height: 536px;
-        width: 343px;
-    }
-    .ourTeamHeader h3{
-        font-size: 24px;
-    }
-    .outTeamContent{
-        position: static;
-        width: 343px;
-        height: 476px;
-        flex-direction: column;
-        overflow: hidden;
-    }
-    .togglebtn{
-        display: none;
-    }
-    .contentBox{
-        position: static;
-        width: 343px;
-        height: 476px;
-        flex-direction: column;
-        align-items: center;
-    }
-    .contentBox img{
-        width: 310px;
-        height: 224px;
-        border-radius: 4px;
-    }
-    .ourTeamInfo{
-        height: 205px;
-        width: 306px;
-        gap: 10px;
-        align-items: center;
-        justify-content: center;
-    }
-    .ourTeamInfo h3{
-        font-size: 18px;
-        height: 27px;
-    }
-    .contentPara{
-        width: 303px;
-        height: 147px;
-        font-size: 14px;
-    }
-    .visionContentBox img{
-        display: none;
-    }
-    .forMobileView{
-        display: block;
-    }
-    .ourVisionBox,
-    .visionContentBox,
-    .visionText{
-        margin: 0;
-        padding: 0;
-        position: static;
-        width: 342px;
-        height: fit-content;
-        gap:24px;
-        background: none;
-    }
-    .our
-    .visionContentBox p{
-        width: 343px;
-        height: 168px;
-        font-size: 16px;
-    }
-    .visionText img{
-        display: block;
-        width: 340px;
-        height: 212px;
-        border-radius: 4px;
-        
-    }
-    .visionText p{
-        max-width: 342px;
-        height: max-content;
-        text-align: justify;
-    }
+  .aboutcontainer {
+    margin: 0;
+    padding: 0;
+    width: 342px;
+    height: 718px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .title {
+    height: 36px;
+    width: 110px;
+    font-size: 24px;
+  }
+  .backeffect,
+  .aboutimage {
+    display: none;
+  }
+  .imagemobile {
+    display: block;
+    width: 342px;
+    height: 224px;
+    border-radius: 4px;
+  }
+  .aboutcontent {
+    width: 343px;
+    height: 657px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .aboutcontent p {
+    height: 312px;
+    width: 342px;
+    font-size: 16px;
+    text-align: justify;
+  }
+  .info {
+    padding: 0;
+    gap: 0;
+    border: 1px solid rebeccapurple;
+    padding: 16px;
+    position: static;
+    max-width: 343px;
+    min-height: 85px;
+    border-radius: 0px 20px 0px 20px;
+  }
+
+  .box1 {
+    height: 53px;
+    width: 53px;
+    gap: 5px;
+  }
+  .box2 {
+    height: 53px;
+    width: 76px;
+    gap: 5px;
+  }
+  .box3 {
+    height: 53px;
+    width: 118px;
+    gap: 5px;
+  }
+  .verticlalbar {
+    margin: -8px;
+    min-width: 52px;
+  }
+  .info div h4 {
+    height: 30px;
+    width: auto;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2e3032;
+  }
+  .info div p {
+    width: auto;
+    height: 18px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+  }
+  .btns {
+    display: none;
+  }
+  .OurTeamBox {
+    margin: 0;
+    padding: 0;
+    height: 536px;
+    width: 343px;
+  }
+  .ourTeamHeader h3 {
+    font-size: 24px;
+  }
+  .outTeamContent {
+    position: static;
+    width: 343px;
+    height: 476px;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .togglebtn {
+    display: none;
+  }
+  .contentBox {
+    position: static;
+    width: 343px;
+    height: 476px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .contentBox img {
+    width: 310px;
+    height: 224px;
+    border-radius: 4px;
+  }
+  .ourTeamInfo {
+    height: 205px;
+    width: 306px;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  .ourTeamInfo h3 {
+    font-size: 18px;
+    height: 27px;
+  }
+  .contentPara {
+    width: 303px;
+    height: 147px;
+    font-size: 14px;
+  }
+  .visionContentBox img {
+    display: none;
+  }
+  .forMobileView {
+    display: block;
+  }
+  .ourVisionBox,
+  .visionContentBox,
+  .visionText {
+    margin: 0;
+    padding: 0;
+    position: static;
+    width: 342px;
+    height: fit-content;
+    gap: 24px;
+    background: none;
+  }
+  .our .visionContentBox p {
+    width: 343px;
+    height: 168px;
+    font-size: 16px;
+  }
+  .visionText img {
+    display: block;
+    width: 340px;
+    height: 212px;
+    border-radius: 4px;
+  }
+  .visionText p {
+    max-width: 342px;
+    height: max-content;
+    text-align: justify;
+  }
 }

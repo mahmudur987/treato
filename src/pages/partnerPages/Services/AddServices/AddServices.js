@@ -19,7 +19,7 @@ const AddServices = () => {
   const { data, isLoading, isError, error } = useSingleSalon();
 
   const service = data?.salon.services.find(
-    (x) => x.service_name === basicDetails.selectedServiceType
+    (x) => x._id === basicDetails.selectedServiceType?.id
   );
   const mainCategory = service?.mainCategories.find(
     (x) => x.category_name === basicDetails.selectCategory
@@ -41,7 +41,7 @@ const AddServices = () => {
         },
       ],
     };
-
+    console.log(newService);
     const res = await addNewService(newService);
     if (res.res) {
       toast.success("A New Service Add Successfully");
@@ -53,7 +53,7 @@ const AddServices = () => {
       toast.error("Error");
     }
   };
-  console.log(basicDetails.duration);
+
   // for the ui
   const handleNextStep = () => {
     setCurrentStep((prevStep) => (prevStep < 3 ? prevStep + 1 : prevStep));

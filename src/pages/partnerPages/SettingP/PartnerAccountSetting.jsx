@@ -11,7 +11,7 @@ const PartnerAccountSetting = () => {
         "View and edit salon details - name, location, pictures, descriptions and more.",
       link: (
         <Link to="/partner/dashboard/serviceBussness">
-          <img src={RightIcon} alt="" />
+          <img loading="lazy" src={RightIcon} alt="" />
         </Link>
       ),
       line: <div className={style.horizontalLine}></div>,
@@ -22,7 +22,7 @@ const PartnerAccountSetting = () => {
         "View and edit business owner details - such as name, contact details and more.",
       link: (
         <Link to="/partner/dashboard/personalDetails">
-          <img src={RightIcon} alt="" />
+          <img loading="lazy" src={RightIcon} alt="" />
         </Link>
       ),
       line: <div className={style.horizontalLine}></div>,
@@ -32,7 +32,7 @@ const PartnerAccountSetting = () => {
       content: "View and edit bank accounts and payment details.",
       link: (
         <Link to="/partner/dashboard/PaymentProfile">
-          <img src={RightIcon} alt="" />
+          <img loading="lazy" src={RightIcon} alt="" />
         </Link>
       ),
       line: <div className={style.horizontalLine}></div>,
@@ -42,7 +42,7 @@ const PartnerAccountSetting = () => {
       content: "Add/edit service items or categories on your Services page.",
       link: (
         <Link to="/partner/dashboard/service">
-          <img src={RightIcon} alt="" />
+          <img loading="lazy" src={RightIcon} alt="" />
         </Link>
       ),
       line: <div className={style.horizontalLine}></div>,
@@ -52,7 +52,7 @@ const PartnerAccountSetting = () => {
       content: "Add/edit team members and details on your Team page.",
       link: (
         <Link to="/partner/dashboard/TeamManageMent">
-          <img src={RightIcon} alt="" />
+          <img loading="lazy" src={RightIcon} alt="" />
         </Link>
       ),
       line: <div className={style.horizontalLine}></div>,

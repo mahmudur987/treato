@@ -67,7 +67,7 @@ const Locations = ({
     <div className={styles["locWrapper"]}>
       {userDetails?.user?.isLocationAllow && (
         <div className={styles["locHeading"]} onClick={handleCurrentLocation}>
-          <img src={mapPinBlue} />
+          <img loading="lazy" src={mapPinBlue} />
           <h4>Current Location</h4>
         </div>
       )}

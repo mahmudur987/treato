@@ -44,7 +44,7 @@ const SalonFilterModalDesktop = () => {
       <div className={styles.innerBox} onClick={handleInnerBoxClick}>
         <div className={styles.header}>
           <h3>Filter</h3>
-          <img src={Close} alt="close" onClick={handleCloseModal} />
+          <img loading="lazy" src={Close} alt="close" onClick={handleCloseModal} />
         </div>
         {/* Pass relevant props to SalonFilterOptions */}
         <SalonFilterOptions

@@ -127,7 +127,7 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
           <p>Manage opening and closing hours.</p>
         </div>
         <div className={sty.CollaseIconImg1}>
-          <img
+          <img loading="lazy"
             src={CollaseIcon}
             alt="CollapseIcon"
             onClick={toggleCollapse}

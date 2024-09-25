@@ -2,18 +2,18 @@ import React from "react";
 import style from "./Navbar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { TreatoLogo } from "../../../assets/images/icons";
-import TreatoLogo2 from "../../../assets/images/partner/Treato2.png";
-import menu from "../../../assets/icons/menu.png";
-import signin from "../../../assets/icons/partner/signin.png";
-import cross from "../../../assets/icons/partner/cross.png";
-import right from "../../../assets/icons/partner/chevron-right.png";
-import user from "../../../assets/icons/partner/user.png";
-import pricing from "../../../assets/icons/partner/price.png";
-import download from "../../../assets/icons/partner/download.png";
+import TreatoLogo2 from "../../../assets/images/partner/Treato2.webp";
+import menu from "../../../assets/icons/menu.webp";
+import signin from "../../../assets/icons/partner/signin.webp";
+import cross from "../../../assets/icons/partner/cross.webp";
+import right from "../../../assets/icons/partner/chevron-right.webp";
+import user from "../../../assets/icons/partner/user.webp";
+import pricing from "../../../assets/icons/partner/price.webp";
+import download from "../../../assets/icons/partner/download.webp";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
-import mask from "../../../assets/images/NavbarImages/Mask.png";
+import mask from "../../../assets/images/NavbarImages/Mask.webp";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ const Navbar = () => {
       <header className={style.container}>
         <nav className={style.siteNamewrapper}>
           <Link to={"/"} className={style.siteName}>
-            <img src={TreatoLogo} />
+            <img loading="lazy" src={TreatoLogo} />
           </Link>
         </nav>
 
@@ -71,7 +71,7 @@ const Navbar = () => {
                 onClick={() => setShowProfile((pre) => !pre)}
                 className={style.account}
               >
-                <img
+                <img loading="lazy"
                   src={userData?.user?.avatar?.public_url ?? ""}
                   alt=""
                   onError={(e) => (e.target.src = mask)}
@@ -111,7 +111,7 @@ const Navbar = () => {
             onClick={() => setShowProfile((pre) => !pre)}
             className={style.profileContainer}
           >
-            <img
+            <img loading="lazy"
               src={userData?.user?.avatar?.public_url ?? ""}
               alt=""
               onError={(e) => (e.target.src = mask)}
@@ -127,66 +127,66 @@ const Navbar = () => {
 
         <div className={style.mobilemenu}>
           <Link to={"/"} className={style.siteName}>
-            <img src={TreatoLogo2} />
+            <img loading="lazy" src={TreatoLogo2} />
           </Link>
           <button onClick={() => setshow((pre) => !pre)}>
-            <img className={style.humburger} src={menu} />
+            <img loading="lazy" className={style.humburger} src={menu} />
           </button>
 
           {show && (
             <div className={style.mobileMenuContainer}>
               <div className={style.mobileMenhHEading}>
                 <Link to={"/"} className={style.siteName}>
-                  <img src={TreatoLogo} />
+                  <img loading="lazy" src={TreatoLogo} />
                 </Link>
                 <button onClick={() => setshow((pre) => !pre)}>
-                  <img src={cross} />
+                  <img loading="lazy" src={cross} />
                 </button>
               </div>
               <div className={style.mobileMenuItms}>
                 <div className={style.mobileMenuItem}>
                   <Link to={"/partner/authchoice"}>
-                    <img src={signin} /> <span>Sign up / Sign-in</span>
+                    <img loading="lazy" src={signin} /> <span>Sign up / Sign-in</span>
                   </Link>
                   <button onClick={() => setshow((pre) => !pre)}>
-                    <img src={right} />
+                    <img loading="lazy" src={right} />
                   </button>
                 </div>
 
                 <div className={style.mobileMenuItem}>
                   <Link to={"/"}>
-                    <img src={user} /> <span>For Customers</span>
+                    <img loading="lazy" src={user} /> <span>For Customers</span>
                   </Link>
                   <button onClick={() => setshow((pre) => !pre)}>
-                    <img src={right} />
+                    <img loading="lazy" src={right} />
                   </button>
                 </div>
                 <div className={style.mobileMenuItem}>
                   <Link to={"#"}>
-                    <img src={pricing} /> <span>Pricing</span>
+                    <img loading="lazy" src={pricing} /> <span>Pricing</span>
                   </Link>
                   <button onClick={() => setshow((pre) => !pre)}>
-                    <img src={right} />
+                    <img loading="lazy" src={right} />
                   </button>
                 </div>
                 <div className={style.mobileMenuItem}>
                   <Link to={"/"}>
-                    <img src={download} /> <span>Download app</span>
+                    <img loading="lazy" src={download} /> <span>Download app</span>
                   </Link>
                   <button onClick={() => setshow((pre) => !pre)}>
-                    <img src={right} />
+                    <img loading="lazy" src={right} />
                   </button>
                 </div>
                 {userData.user.role === "partner" && (
                   <div className={style.mobileMenuItem}>
                     {userData.user.role === "partner" && (
                       <Link to={"/partner/dashboard"}>
-                        <img src={user} />
+                        <img loading="lazy" src={user} />
                         <span> Dashboard</span>
                       </Link>
                     )}
                     <button onClick={() => setshow((pre) => !pre)}>
-                      <img src={right} />
+                      <img loading="lazy" src={right} />
                     </button>
                   </div>
                 )}

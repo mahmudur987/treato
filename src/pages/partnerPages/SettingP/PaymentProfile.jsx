@@ -91,7 +91,7 @@ const PaymentProfile = () => {
             <div className={styles["heading"]}>
               <Link to={"/partner/dashboard/PartnerAccountSetting"}>
                 <span>
-                  <img
+                  <img loading="lazy"
                     src={arrowLeft}
                     alt="arrowLeft"
                     className={styles["arrowLeft"]}

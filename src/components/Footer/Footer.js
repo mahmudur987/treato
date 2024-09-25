@@ -79,11 +79,11 @@ const Footer = () => {
     <div className={styles.container}>
       <div className={styles.head}>
         <a href="/">
-          <img src={Treato} alt="Treato" className={styles.logo} />
+          <img loading="lazy" src={Treato} alt="Treato" className={styles.logo} />
         </a>
         <div className={styles.searchWrapper}>
           <div className={styles.inputWrapper}>
-            <img
+            <img loading="lazy"
               src={searchGrey}
               alt="searchIcon"
               className={styles.searchIcon}
@@ -103,10 +103,10 @@ const Footer = () => {
           <h4 className={styles.heading}>Get the app</h4>
           <div className={styles.downloads}>
             <a href="#">
-              <img src={DownloadAppStore} alt="DownloadAppStore" />
+              <img loading="lazy" src={DownloadAppStore} alt="DownloadAppStore" />
             </a>
             <a href="#">
-              <img src={DownloadPlayStore} alt="DownloadPlayStore" />
+              <img loading="lazy" src={DownloadPlayStore} alt="DownloadPlayStore" />
             </a>
           </div>
         </div>
@@ -134,7 +134,7 @@ const Footer = () => {
           <div className={styles.sociallinks}>
             {socialLinks.map((socialMedia, index) => (
               <a key={index} href="#">
-                <img
+                <img loading="lazy"
                   src={socialMedia.icon}
                   alt={socialMedia.alt}
                   className={styles.socialIcon}

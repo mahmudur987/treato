@@ -15,6 +15,9 @@ const PartnerHome = () => {
       if (res) {
         setHomeData(res.data.homepageCMS[0]);
       }
+      if (err) {
+        console.error(err);
+      }
     };
     getHomeData();
   }, []);

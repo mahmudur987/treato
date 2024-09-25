@@ -1,7 +1,14 @@
 import React from "react";
 import styles from "./NoSubscription.module.css";
-import check from "../../../assets/images/partner/check.png";
+import check from "../../../assets/images/partner/check.webp";
+import { useGetAlSubscription } from "../../../services/static";
+import LoadSpinner from "../../LoadSpinner/LoadSpinner";
 const NoSubscription = () => {
+  const { data, isLoading, isError } = useGetAlSubscription();
+  if (isLoading) {
+    return <LoadSpinner />;
+  }
+
   return (
     <main className={styles.mainContainer}>
       <div className={styles.container}>
@@ -16,21 +23,21 @@ const NoSubscription = () => {
           <div className={styles.left}>
             <ul>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>
                 </p>
               </li>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>
                 </p>
               </li>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>
@@ -41,21 +48,21 @@ const NoSubscription = () => {
           <div className={styles.right}>
             <ul>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>
                 </p>
               </li>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>
                 </p>
               </li>
               <li className={styles.listItem}>
-                <img src={check} />{" "}
+                <img loading="lazy" src={check} />{" "}
                 <p>
                   <strong>Track and grow your sales with ease</strong>
                   <span>Attract new customers with 24X7 online booking</span>

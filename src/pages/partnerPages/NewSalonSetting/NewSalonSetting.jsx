@@ -25,7 +25,7 @@ const NewSalonSetting = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-  const [mobileScreen, setMobileScreen] = useState(true);
+  const [mobileScreen, setMobileScreen] = useState(false);
   const [PcScreen, setPcScreen] = useState(true);
   const [salonData, setSalonData] = useState({
     salon_name: "",
@@ -113,9 +113,7 @@ const NewSalonSetting = () => {
     if (!salonData.building_number) {
       return toast.error("write your building number");
     }
-    if (!salonData.landmark) {
-      return toast.error("write your landmark");
-    }
+
     if (!salonData.city) {
       return toast.error("write your City");
     }
@@ -131,7 +129,7 @@ const NewSalonSetting = () => {
       location_details: {
         location: salonData.location,
         building_number: salonData.building_number,
-        landmark: salonData.landmark,
+        landmark: salonData.landmark ?? "N/A",
         city: salonData.city,
         postal_code: salonData.postal_code,
       },

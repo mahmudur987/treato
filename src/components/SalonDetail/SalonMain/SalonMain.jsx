@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, memo } from "react";
 import styles from "./SalonMain.module.css";
 import SalonReview from "../SalonReview/SalonReview";
 import SalonTeam from "../SalonTeam/SalonTeam";
@@ -27,9 +27,13 @@ export default function SalonServices({
     const SameTimingDays = [];
     const difTimingDays = [];
     workingHours?.forEach((e, i) => {
-      if (i === 0 || 
-          (e.opening_time === SameTimingDays[SameTimingDays.length - 1]?.opening_time &&
-          e.closing_time === SameTimingDays[SameTimingDays.length - 1]?.closing_time)) {
+      if (
+        i === 0 ||
+        (e.opening_time ===
+          SameTimingDays[SameTimingDays.length - 1]?.opening_time &&
+          e.closing_time ===
+            SameTimingDays[SameTimingDays.length - 1]?.closing_time)
+      ) {
         SameTimingDays.push({ ...e, i });
       } else {
         difTimingDays.push({ ...e, i });
@@ -42,7 +46,7 @@ export default function SalonServices({
 
   const handleScrollToSection = (ref, index) => {
     updateActiveSalon(index);
-    const offset = 100; 
+    const offset = 100;
     const bodyRect = document.body.getBoundingClientRect().top;
     const elementRect = ref.current.getBoundingClientRect().top;
     const elementPosition = elementRect - bodyRect;
@@ -50,7 +54,7 @@ export default function SalonServices({
 
     window.scrollTo({
       top: offsetPosition,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
@@ -188,3 +192,5 @@ export default function SalonServices({
     </div>
   );
 }
+
+export const MemoizeSalonMain = memo(SalonServiceMain);

@@ -89,8 +89,6 @@ export default function AccountSettings() {
     };
     updateInputVal(data);
     updateGender(userData.gender ? userData.gender : "");
-
-    console.log(userData);
   }, [userData]);
 
   const setDefault = () => {
@@ -118,7 +116,7 @@ export default function AccountSettings() {
   const submitForm = (e) => {
     e.preventDefault();
     const userJWt = localStorage.getItem("jwtToken");
-    const formData = {
+    const Data = {
       first_name: e.target.first_name.value,
       last_name: e.target.last_name.value,
       email: e.target.email.value,
@@ -134,12 +132,26 @@ export default function AccountSettings() {
       address_type: inputVal?.address?.house_type ?? "",
     };
 
-    console.log(formData);
-
     if (e.target.phone.value !== userData.phone) {
       setOtpModal(true);
-      localStorage.setItem("tempUserData", JSON.stringify(formData));
+      localStorage.setItem("tempUserData", JSON.stringify(Data));
     } else {
+      const formData = new FormData();
+      formData.append("first_name", e.target.first_name.value);
+      formData.append("last_name", e.target.last_name.value);
+      formData.append("email", e.target.email.value);
+      formData.append("phone", e.target.phone.value);
+      formData.append("dob", e.target.dob.value);
+      formData.append("gender", activeGender);
+      formData.append("google", "");
+      formData.append("fb", "");
+      formData.append("instagram", "");
+      formData.append("house", inputVal?.address?.house ?? "");
+      formData.append("landmark", inputVal?.address?.landmark ?? "");
+      formData.append("place", inputVal?.address?.place ?? "");
+      formData.append("address_type", inputVal?.address?.house_type ?? "");
+      formData.append("avatar", inputVal?.avatarFile ?? "");
+
       updateUser(userJWt, formData)
         .then((res) => {
           console.log(res);
@@ -174,7 +186,6 @@ export default function AccountSettings() {
     const res = await sendLoginOTP(phonedata);
     console.log(res?.res?.data.otp);
     setVerifyOtp(res?.res?.data.otp);
-    console.log(inputVal);
   };
 
   return (
@@ -195,6 +206,7 @@ export default function AccountSettings() {
                 setProfileModal={setProfileModal}
                 logOut={logOut}
                 user={data?.user}
+                inputVal={inputVal}
               />
               <div className={styles.acc_setting_right}>
                 <form id="acc_set_form" onSubmit={submitForm}>
@@ -247,6 +259,7 @@ export default function AccountSettings() {
                     <div className={styles.acc_mob_flex}>
                       <div>
                         <img
+                          loading="lazy"
                           src={userIco}
                           alt="user"
                           className={styles.acc_mob_opt_ico}
@@ -255,7 +268,7 @@ export default function AccountSettings() {
                       <div>Personal Details</div>
                     </div>
                     <div>
-                      <img src={chevronRight} alt="" />
+                      <img loading="lazy" src={chevronRight} alt="" />
                     </div>
                   </div>
                   <div
@@ -265,6 +278,7 @@ export default function AccountSettings() {
                     <div className={styles.acc_mob_flex}>
                       <div>
                         <img
+                          loading="lazy"
                           src={mapPin}
                           alt="address"
                           className={styles.acc_mob_opt_ico}
@@ -273,7 +287,7 @@ export default function AccountSettings() {
                       <div>Manage Addresses</div>
                     </div>
                     <div>
-                      <img src={chevronRight} alt="" />
+                      <img loading="lazy" src={chevronRight} alt="" />
                     </div>
                   </div>
                   <div
@@ -283,6 +297,7 @@ export default function AccountSettings() {
                     <div className={styles.acc_mob_flex}>
                       <div>
                         <img
+                          loading="lazy"
                           src={lock}
                           alt="lock"
                           className={styles.acc_mob_opt_ico}
@@ -291,13 +306,14 @@ export default function AccountSettings() {
                       <div>Change Password</div>
                     </div>
                     <div>
-                      <img src={chevronRight} alt="" />
+                      <img loading="lazy" src={chevronRight} alt="" />
                     </div>
                   </div>
                   <div className={styles.acc_mob_options}>
                     <div className={styles.acc_mob_flex} onClick={logOut}>
                       <div>
                         <img
+                          loading="lazy"
                           src={signOut}
                           alt=""
                           className={styles.acc_mob_opt_ico}

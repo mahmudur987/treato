@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { resetPassword } from "../../../services/auth";
 import { toast } from "react-toastify";
-import img from "../../../assets/icons/Success Circle.png";
+import img from "../../../assets/icons/Success Circle.webp";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -99,7 +99,7 @@ const ResetPassword = () => {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />
-              <img
+              <img loading="lazy"
                 src={eyeline}
                 alt="eyeIcon"
                 className={styles.eyeIcon}
@@ -117,7 +117,7 @@ const ResetPassword = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <img
+              <img loading="lazy"
                 src={eyeline}
                 alt="eyeIcon"
                 className={styles.eyeIcon}
@@ -140,7 +140,7 @@ const ResetPassword = () => {
           <div className={styles.wrapper}>
             <h2>Password reset successful</h2>
             <figure>
-              <img src={img} alt="im" />
+              <img loading="lazy" src={img} alt="im" />
             </figure>
             <p>
               {" "}

@@ -79,7 +79,7 @@ export default function Blogs(props) {
             className={`${styles["AllBlogsPageA"]} ${styles["blogMainPc"]}`}
           >
             <div className={styles["AllBlogsPageAA"]}>
-              <img
+              <img loading="lazy"
                 src={firstBlogData ? firstBlogData?.blog_Img?.public_url : ""}
                 alt=""
               />
@@ -88,12 +88,12 @@ export default function Blogs(props) {
               {firstBlogData ? firstBlogData.blog_title : ""}
             </div>
             <div className={styles["AllBlogsPageAC"]}>
-              <img
+              <img loading="lazy"
                 src={firstBlogData ? firstBlogData?.blog_Img?.public_url : ""}
                 alt=""
               />
               <div>{firstBlogData ? firstBlogData.blog_title : ""}</div>
-              <img src={ellipse} alt="" />
+              <img loading="lazy" src={ellipse} alt="" />
               <div>July 12, 2023</div>
             </div>
           </Link>
@@ -139,7 +139,7 @@ export default function Blogs(props) {
               handlePagination(currentPage === 1 ? 1 : currentPage - 1)
             }
           >
-            <img src={chevronLeft} alt={"left"} /> Prev
+            <img loading="lazy" src={chevronLeft} alt={"left"} /> Prev
           </button>
           <div className={styles.paginationButton}>
             {totalPage.map((v, i) => {
@@ -168,7 +168,7 @@ export default function Blogs(props) {
               )
             }
           >
-            Next <img src={chevronLeft} alt={"right"} />
+            Next <img loading="lazy" src={chevronLeft} alt={"right"} />
           </button>
         </div>
       ) : null}

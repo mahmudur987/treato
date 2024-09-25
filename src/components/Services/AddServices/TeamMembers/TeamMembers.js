@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./TeamMember.module.css";
-import img1 from "../../../../assets/icons/services/a-1.png";
+import img1 from "../../../../assets/icons/services/a-1.webp";
 import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
@@ -118,7 +118,7 @@ const CheckBoxComponent = ({ setTeamMember }) => {
                   />
 
                   <p>
-                    <img src={person.avatar ?? img1} alt="" />
+                    <img loading="lazy" src={person.avatar ?? img1} alt="" />
                     <span>{person.name}</span>
                   </p>
                 </label>

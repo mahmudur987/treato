@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./PendingSalon.module.css";
-import img from "../../../../../assets/images/SalonDetail/slide4.png";
+import img from "../../../../../assets/images/SalonDetail/slide4.webp";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "@react-icons/all-files/fa/FaArrowRight";
 import Slider from "react-slick";
@@ -129,7 +129,7 @@ const PendingSalon = () => {
                 <div className={styles.cardWrapper}>
                   <div className={styles.card}>
                     <figure>
-                      <img src={x.image} alt="" />
+                      <img loading="lazy" src={x.image} alt="" />
                     </figure>
 
                     <div className={styles.cardBottom}>

@@ -8,6 +8,21 @@ import { getAllServices } from "../../../services/Services";
 import { useSingleSalon } from "../../../services/salon";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../services/axios";
+const options = [
+  "#CEB739",
+  "#DE6296",
+  "#801A7F",
+  "#B3B59C",
+  "#111B1F",
+  "#0D3FC0",
+  "#D952DA",
+  "#E5EF4D",
+  "#EDE092",
+  "#6a5acd",
+  "#F12783",
+  "#F12124",
+  "#F18865",
+];
 const AddCategory = ({ showModal, onClose }) => {
   const { refetch } = useSingleSalon();
   const [error, setError] = useState(null);
@@ -15,7 +30,7 @@ const AddCategory = ({ showModal, onClose }) => {
   const [selectedServiceType, setSelectedServiceType] = useState(["Error"]);
   const [selectCategory, setselectCategory] = useState("");
   const [service, setservice] = useState([]);
-  const [colorCode, setColorCode] = useState("");
+  const [colorCode, setColorCode] = useState(options[0]);
   useEffect(() => {
     async function fetchAllServices() {
       try {
@@ -83,7 +98,7 @@ const AddCategory = ({ showModal, onClose }) => {
         newCategory,
         { headers }
       );
-
+      console.log(data);
       toast.success("A New Category Added Successfully", {
         toastId: 1,
       });

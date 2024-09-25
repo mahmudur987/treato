@@ -1,6 +1,6 @@
 import styles from '../SalonMain/SalonMain.module.css'
 import SalonStar from '../SalonStar/SalonStar'
-import pp2 from "../../../assets/images/SalonDetail/profilepic2.png"
+import pp2 from "../../../assets/images/SalonDetail/profilepic2.webp"
 
 export default function SalonReview({ reviewData }) {
     let starData = [1, 2, 3, 4, 5]
@@ -8,7 +8,7 @@ export default function SalonReview({ reviewData }) {
         <div className={styles.salon_reviewsA}>
             <div className={styles.salon_reviewsAA}>
                 <div className={styles.salon_reviewsAAA}>
-                    <img src={pp2} alt="" />
+                    <img loading="lazy" src={pp2} alt="" />
                 </div>
                 <div className={styles.salon_reviewsAAB}>
                     <div>{reviewData.name}</div>

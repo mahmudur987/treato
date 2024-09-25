@@ -111,14 +111,14 @@ const TimeSchedule = () => {
       <div className={sty.container}>
         <div className={sty.TeamSchedule}>
           <div className={sty.TeamScheduleForResponsive}>
-            <img src={arrowLeft} alt="arrowLeft" className={sty.arrowLeft} />
+            <img loading="lazy" src={arrowLeft} alt="arrowLeft" className={sty.arrowLeft} />
             <h1 className={sty.headingTeam}>Team Schedule</h1>
           </div>
 
           <div className={sty.teamCal}>
             <p className={sty.teamCalIcon}>
               <span onClick={decreaseDates}>
-                <img
+                <img loading="lazy"
                   src={chevronLeft}
                   alt="chevronLeft"
                   className={sty.chevronLeft}
@@ -127,14 +127,14 @@ const TimeSchedule = () => {
 
               {data?.data[0]?.time_for_service.length > 0 ? (
                 <span className={sty.cal}>
-                  {sD} - {eD} <img src={calendar_line} alt="calendar_line" />
+                  {sD} - {eD} <img loading="lazy" src={calendar_line} alt="calendar_line" />
                 </span>
               ) : (
                 <span className={sty.cal}>Add A Team Member</span>
               )}
               {/* {isLoading && <LoadSpinner />} */}
               <span onClick={increaseDates}>
-                <img
+                <img loading="lazy"
                   src={chevronRight}
                   alt="chevronRight"
                   className={sty.chevronRight}
@@ -146,7 +146,7 @@ const TimeSchedule = () => {
           <div className={sty.downloadButtonContainer}>
             <button className={sty.dBtn}>
               Download CSV
-              <img
+              <img loading="lazy"
                 src={downLondIcon}
                 alt="downLondIcon"
                 className={sty.dBtnImg}
@@ -171,8 +171,8 @@ const TimeSchedule = () => {
                       gap: "2px",
                     }}
                   >
-                    <img src={topImg} alt="" />
-                    <img src={bottomImg} alt="" />
+                    <img loading="lazy" src={topImg} alt="" />
+                    <img loading="lazy" src={bottomImg} alt="" />
                   </div>
                 </th>
                 {sevenDates &&
@@ -192,7 +192,7 @@ const TimeSchedule = () => {
                     {/* img */}
                     <td>
                       <div className={sty.nameProfile}>
-                        <img
+                        <img loading="lazy"
                           src={item.profile}
                           alt="profile"
                           className={sty.profile}
@@ -318,7 +318,7 @@ const TimeSchedule = () => {
         <div className={sty.downloadButtonContainer2}>
           <button className={sty.dBtn}>
             Download CSV
-            <img
+            <img loading="lazy"
               src={downLondIcon}
               alt="downLondIcon"
               className={sty.dBtnImg}

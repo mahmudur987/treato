@@ -30,7 +30,7 @@ const SalonFilterOptions = ({
           {isMobile ? (
             <div className={styles.header}>
               <h4>Sort by</h4>
-              <img src={Close} alt="close" onClick={handleCloseModal} />
+              <img loading="lazy" src={Close} alt="close" onClick={handleCloseModal} />
             </div>
           ) : (
             <h4>Sort by</h4>
@@ -79,7 +79,7 @@ const SalonFilterOptions = ({
           {isMobile && (
             <div className={styles.header}>
               <h4>Maximum Price</h4>
-              <img src={Close} alt="close" onClick={handleCloseModal} />
+              <img loading="lazy" src={Close} alt="close" onClick={handleCloseModal} />
             </div>
           )}
           <div className={styles.PriceInfo}>
@@ -106,7 +106,7 @@ const SalonFilterOptions = ({
           {isMobile ? (
             <div className={styles.header}>
               <h4>Venue type</h4>
-              <img src={Close} alt="close" onClick={handleCloseModal} />
+              <img loading="lazy" src={Close} alt="close" onClick={handleCloseModal} />
             </div>
           ) : (
             <h4>Venue type</h4>

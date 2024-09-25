@@ -132,13 +132,18 @@ export default function VerifyOtp({
             {otpSuccess ? "Update Successful!" : "Verify OTP"}
           </div>
           <div className={styles.otpBB}>
-            <img src={Grey_Close} alt="" onClick={() => setOtpModal(false)} />
+            <img
+              loading="lazy"
+              src={Grey_Close}
+              alt=""
+              onClick={() => setOtpModal(false)}
+            />
           </div>
         </div>
         {otpSuccess ? (
           <>
             <div className={styles.otpH}>
-              <img src={SuccessCircle} alt="success" />
+              <img loading="lazy" src={SuccessCircle} alt="success" />
             </div>
             <div className={styles.otpI}>
               You have successfully updated your phone number.

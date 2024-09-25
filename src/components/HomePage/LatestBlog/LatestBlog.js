@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./LatestBlog.module.css";
-import chevronLeft from "../../../assets/images/HomeLatestBlogs/chevronLeft.png";
+import chevronLeft from "../../../assets/images/HomeLatestBlogs/chevronLeft.webp";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import BlogCard from "../../Cards/Blog/BlogCard";
@@ -54,7 +54,7 @@ const LatestBlog = () => {
         <div className={styles["header"]}>
           <Title>Latest from our blog</Title>
           <Link to="/blogs" className={styles["headerViewAll"]}>
-            View all <img src={chevronLeft} />
+            View all <img loading="lazy" src={chevronLeft} />
           </Link>
         </div>
         <div className={styles["blogWrapper"]}>

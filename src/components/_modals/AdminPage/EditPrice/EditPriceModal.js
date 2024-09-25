@@ -59,7 +59,7 @@ const EditPriceModal = ({ showModal, onClose, data, salonId }) => {
         <h2 className={styles.modalHeading}>Edit Service Price</h2>
         <div className={styles.top}>
           <figure>
-            <img src={img1} alt="profile image" />
+            <img loading="lazy" src={img1} alt="profile image" />
           </figure>
           <h5>She hair and Beauty</h5>
         </div>

@@ -61,7 +61,7 @@ const ModalManager = () => {
 
           {/* Modal Close Icon */}
           {closable && (
-            <img
+            <img loading="lazy"
               src={cross}
               alt="close"
               className={styles["modal-close-icon"]}

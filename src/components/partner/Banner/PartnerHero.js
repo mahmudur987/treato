@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./PartnerHero.module.css";
 
-import img1 from "../../../assets/images/partner/computer.png";
+import img1 from "../../../assets/images/partner/computer.webp";
 import { Link } from "react-router-dom";
 
 const PartnerHero = () => {
@@ -25,7 +25,7 @@ const PartnerHero = () => {
           </div>
           <div className={styles.imageContainer}>
             <figure className={styles.imageWrapper}>
-              <img src={img1} alt="Hero Image" />
+              <img loading="lazy" src={img1} alt="Hero Image" />
             </figure>
           </div>
         </div>

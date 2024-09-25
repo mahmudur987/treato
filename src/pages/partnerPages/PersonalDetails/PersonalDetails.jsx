@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./PersonalDetails.module.css";
 import { Link } from "react-router-dom";
-import penIcon from "../../../assets/icons/penIcon.png";
+import penIcon from "../../../assets/icons/penIcon.webp";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useGetUser } from "../../../services/user";
@@ -201,7 +201,7 @@ const PersonalDetails = () => {
                   onChange={(e) => setFirstName(e.target.value)}
                 />
 
-                <img
+                <img loading="lazy"
                   src={penIcon}
                   alt=""
                   onClick={() =>
@@ -228,7 +228,7 @@ const PersonalDetails = () => {
                   onChange={(e) => setLastName(e.target.value)}
                 />
 
-                <img
+                <img loading="lazy"
                   src={penIcon}
                   alt=""
                   onClick={() =>
@@ -257,7 +257,7 @@ const PersonalDetails = () => {
                   value={Email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <img
+                <img loading="lazy"
                   src={penIcon}
                   alt=""
                   onClick={() =>
@@ -301,7 +301,7 @@ const PersonalDetails = () => {
                   maxLength={10}
                   max={10}
                 />
-                <img
+                <img loading="lazy"
                   className={styles.icon}
                   src={penIcon}
                   alt=""

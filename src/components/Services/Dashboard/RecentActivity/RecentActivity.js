@@ -79,7 +79,7 @@ const RecentActivity = () => {
                       </span>
                       {item.stylistData.map((x, y) => (
                         <div className={styles.teamMember}>
-                          <img src={x.stylist_Img?.public_url} alt="" />
+                          <img loading="lazy" src={x.stylist_Img?.public_url} alt="" />
                           <span className={styles.appointmentFor}>
                             {x.stylist_name}
                           </span>

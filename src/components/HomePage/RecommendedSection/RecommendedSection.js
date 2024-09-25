@@ -1,61 +1,24 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import styles"./Slider.module.css";
 import styles from "./styles.module.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import {
-  Makeup,
-  fingernail,
-  hair,
-  hairRemoval,
-  massage,
-  skincare,
-  spa,
-} from "../../../assets/images/recommendImages";
+import { fingernail } from "../../../assets/images/recommendImages";
 import Title from "../../Typography/Title/Title";
 import { getAllServices } from "../../../services/Services";
+import { toast } from "react-toastify";
 
 export default function RecommendedSection({ mainData }) {
   const [allServices, setAllServices] = useState([]);
-  const [error, setError] = useState(null);
 
   const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 7,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 7,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 7,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 4,
-    },
+    superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 7 },
+    desktop: { breakpoint: { max: 3000, min: 1024 }, items: 5 },
+    tablet: { breakpoint: { max: 1024, min: 464 }, items: 3 },
+    mobile: { breakpoint: { max: 464, min: 0 }, items: 3 },
   };
-  //  service objects
-  // const services = [
-  //   { icon: hair, title: "Hair" },
-  //   { icon: hairRemoval, title: "Hair removal" },
-  //   { icon: fingernail, title: "Nail care" },
-  //   { icon: skincare, title: "Facial & skincare" },
-  //   { icon: Makeup, title: "Makeup" },
-  //   { icon: massage, title: "massage" },
-  //   { icon: spa, title: "spa" },
-  //   { icon: skincare, title: "Facial & skincare" },
-  //   { icon: hair, title: "Hair" },
-  //   { icon: hairRemoval, title: "Hair removal" },
-  //   { icon: fingernail, title: "Nail care" },
-  //   { icon: skincare, title: "Facial & skincare" },
-  // ];
 
   const CustomDot = ({ onMove, index, onClick, active }) => {
-    // onMove means if dragging or swiping in progress.
-    // active is provided by this lib for checking if the item is active or not.
     return (
       <button
         className={`${styles.carouselDot} ${active ? styles.dotActive : ""}`}
@@ -70,25 +33,19 @@ export default function RecommendedSection({ mainData }) {
     <button className={styles.leftArrow} onClick={onClick}></button>
   );
 
-  //api fetching
   useEffect(() => {
-    // Call the getAllServices function when the component mounts
     async function fetchAllServices() {
       try {
         const { res, err } = await getAllServices();
 
         if (res) {
-          // If the request was successful, update the state with the data
-
           const uniqueDataArray = res?.data?.data.reduce(
             (uniqueArray, currentItem) => {
-              // Check if there's already an object with the same 'name' in uniqueArray
               if (
                 !uniqueArray.some(
                   (item) => item.service_name === currentItem.service_name
                 )
               ) {
-                // If not found, add this object to uniqueArray
                 uniqueArray.push(currentItem);
               }
               return uniqueArray;
@@ -96,14 +53,12 @@ export default function RecommendedSection({ mainData }) {
             []
           );
 
-          setAllServices(uniqueDataArray); // Assuming the response data contains a "data" property
+          setAllServices(uniqueDataArray);
         } else {
-          // If there was an error, handle it and set the error state
-          setError(err);
+          toast.error(err?.message ? err?.message : "Error");
         }
       } catch (error) {
-        // Handle unexpected errors here
-        setError(error);
+        toast.error(error?.message ? error?.message : "Error");
       }
     }
 
@@ -129,7 +84,7 @@ export default function RecommendedSection({ mainData }) {
         >
           {allServices.map((service, index) => (
             <a key={index} className={styles.rmdItem}>
-              <img
+              <img loading="lazy"
                 src={service?.service_img?.public_url ?? fingernail}
                 alt={service.service_name[0]}
               />
@@ -140,7 +95,7 @@ export default function RecommendedSection({ mainData }) {
         {/* <div className={styles.rmdWrapperMobo}>
         {allServices.map((service, index) => (
             <a key={index} className={styles.rmdItem}>
-              <img src={service?.service_img?.public_url} alt={service.service_name[0]} />
+              <img loading="lazy" src={service?.service_img?.public_url} alt={service.service_name[0]} />
               <h4>{service.service_name}</h4>
             </a>
           ))}

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import style from "./chatbot.module.css";
-import chatBotLogo from "../../assets/icons/Chatbot/chatbot.png";
+import chatBotLogo from "../../assets/icons/Chatbot/chatbot.webp";
 import userImage from "../../assets/images/AccountSettings/userImg.png";
 import { GetAnswers } from "../../services/chatBot";
 import { IoMdArrowBack } from "react-icons/io";
@@ -60,6 +60,19 @@ function Chatbot() {
     inputData(quetions[index]);
   };
 
+  useEffect(() => {
+    // Scroll to the bottom of the message container whenever messages change
+    if (messageRef.current) {
+      messageRef.current.scrollTop = messageRef.current.scrollHeight;
+    }
+    const openMessageFn = () => {
+      setMessage(!openMessage);
+    };
+    const handleClick = (index) => {
+      setSelectedQuestion(index);
+      inputData(quetions[index]);
+    };
+  }, []);
   useEffect(() => {
     // Scroll to the bottom of the message container whenever messages change
     if (messageRef.current) {

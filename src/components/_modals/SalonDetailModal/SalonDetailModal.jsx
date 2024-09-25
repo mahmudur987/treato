@@ -58,7 +58,8 @@ export default function SalonDetailModal({ setShowModal }) {
       <div className={styles.ModalMainA}>
         <div className={styles.ModalMainAA}>
           <div>Select Offers</div>
-          <img
+          <img 
+           loading="lazy"
             src={cross}
             alt=""
             onClick={() => (setShowModal ? setShowModal(false) : "")}

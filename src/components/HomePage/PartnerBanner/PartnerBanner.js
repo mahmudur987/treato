@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./partnerBanner.module.css";
-import PartnerBannerImg from "../../../assets/images/PartnerBannerImg/partnerBannerImg.png";
+import PartnerBannerImg from "../../../assets/images/PartnerBannerImg/partnerBannerImg.webp";
 import { Link } from "react-router-dom";
 
 const PartnerBanner = ({ mainData }) => {
@@ -25,7 +25,7 @@ const PartnerBanner = ({ mainData }) => {
           </div>
         </div>
         <div className={styles["bannerImage"]}>
-          <img src={PartnerBannerImg} />
+          <img loading="lazy" src={PartnerBannerImg} />
         </div>
       </div>
     </section>

@@ -37,7 +37,7 @@ const AuthPage = ({ children }) => {
 
       {/* Right side content */}
       <div className={styles.AuthContent}>
-        <img
+        <img loading="lazy"
           src={arrowleft}
           className={styles.arrowLeft}
           onClick={handleBack}

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 // ... (other imports)
 
-export default function SalonServiceMain({ hideTitle, data, setCount }) {
+export default function SalonServiceMain({ hideTitle, data }) {
   let [allServices, setAllServices] = useState(null);
   let [activeOption, updateActiveOption] = useState([
     { selected: true },
@@ -84,7 +84,7 @@ export default function SalonServiceMain({ hideTitle, data, setCount }) {
                       {v?.category_name} ({v?.subCategories.length} items)
                     </div>
                     <div>
-                      <img
+                      <img loading="lazy"
                         src={upIco}
                         alt="up arrow"
                         className={
@@ -110,7 +110,6 @@ export default function SalonServiceMain({ hideTitle, data, setCount }) {
                               key={i}
                               serviceCategory={v?.category_name}
                               salonId={data?._id}
-                              setCount={setCount}
                             />
                           ))
                         : null}

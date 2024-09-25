@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import style from './JobDescription.module.css';
 import { useParams, Link } from 'react-router-dom';
-import image2 from '../../../../src/assets/images/Careers/placeholder.png';
+import image2 from '../../../../src/assets/images/Careers/placeholder.webp';
 import { GetPostDetails } from '../../../services/careers';
 import { FaArrowLeftLong } from "react-icons/fa6";
 

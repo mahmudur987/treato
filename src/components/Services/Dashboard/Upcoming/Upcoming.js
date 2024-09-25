@@ -137,6 +137,7 @@ const Upcoming = () => {
                         <td className={styles.row}>
                           <div className={styles.teamMember}>
                             <img
+                              loading="lazy"
                               style={{
                                 height: "20px",
                                 width: "20px",
@@ -145,14 +146,15 @@ const Upcoming = () => {
                               src={
                                 item?.noPreference
                                   ? "No Preference"
-                                  : item?.stylistData[0].stylist_Img?.public_url
+                                  : item?.stylistData[0]?.stylist_Img
+                                      ?.public_url
                               }
                               alt=""
                             />
                             <span>
                               {item?.noPreference
                                 ? "No Preference"
-                                : item?.stylistData[0].stylist_name}
+                                : item?.stylistData[0]?.stylist_name}
                             </span>
                           </div>
                         </td>

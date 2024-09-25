@@ -77,7 +77,7 @@ const AddLeaveModal = ({ onClose }) => {
             <div className={styles.ModalHeader}>
               <div className={styles.mob_d_none}>
                 <div className={styles.shareB}>
-                  <img src={Grey_Close} alt="close" onClick={onClose} />
+                  <img loading="lazy"  src={Grey_Close} alt="close" onClick={onClose} />
                 </div>
                 <div className={styles.shareC}>Add Leave</div>
               </div>
@@ -89,7 +89,7 @@ const AddLeaveModal = ({ onClose }) => {
                   <select name="" id="" className={styles.Select}>
                     <option value="">{member?.name}</option>
                   </select>
-                  <img
+                  <img loading="lazy"
                     src={member ? member.profile : Profile_Pic}
                     alt="Profile_Pic"
                     className={styles.Profile_Img}

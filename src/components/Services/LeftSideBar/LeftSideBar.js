@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./LeftSideBar.module.css";
-import treao from "../../../assets/logo.png";
+import treao from "../../../assets/logo.webp";
 import { Link, useLocation } from "react-router-dom";
 
 const LeftSideBar = () => {
@@ -192,7 +192,7 @@ const LeftSideBar = () => {
         {/* logo */}
         <div className={styles.imageWrapper}>
           <Link to={"/partner/dashboard"}>
-            <img src={treao} alt="" />
+            <img loading="lazy" src={treao} alt="" />
           </Link>
         </div>
         {/* routes */}

@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import styles from "./Testimonials.module.css";
-import scrollRight from "../../../assets/images/recommendImages/scrollRight.png";
-import star from "../../../assets/images/testimonialsImages/star.png";
-import mask1 from "../../../assets/images/testimonialsImages/mask1.png";
+import scrollRight from "../../../assets/images/recommendImages/scrollRight.webp";
+import star from "../../../assets/images/testimonialsImages/star.webp";
+import mask1 from "../../../assets/images/testimonialsImages/mask1.webp";
 
 const Testimonials = () => {
 
@@ -55,7 +55,7 @@ const Testimonials = () => {
     <section className={styles["container"]}>
       <div className={styles["TestisHeading"]}>
         <h2 className={styles["TestisText"]}>What our users say</h2>
-        <img src={scrollRight}  alt="scrollRight" onClick={handle_testisScrollRight}/>
+        <img loading="lazy" src={scrollRight}  alt="scrollRight" onClick={handle_testisScrollRight}/>
       </div>
       <div className={styles["Testis"]} ref={testisBoxRef}>
     
@@ -65,13 +65,13 @@ const Testimonials = () => {
               {Array(testimonial.star)
                 .fill(null)
                 .map((_, starIndex) => (
-                  <img key={starIndex} src={star} alt="Star" />
+                  <img loading="lazy" key={starIndex} src={star} alt="Star" />
                 ))}
             </div>
             <h4>Spa Bookings Made Easy!</h4>
             <p>{testimonial.content}</p>
             <div className={styles["testisProfile"]}>
-              <img src={mask1} alt="Profile" />
+              <img loading="lazy" src={mask1} alt="Profile" />
               <div className={styles["profileDetails"]}>
                 <h4 className={styles["profileName"]}>{testimonial.name}</h4>
                 <p className={styles["profileLocation"]}>

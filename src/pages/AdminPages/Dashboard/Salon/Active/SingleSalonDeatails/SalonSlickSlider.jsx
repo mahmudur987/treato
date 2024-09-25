@@ -33,7 +33,7 @@ export default function SalonSlickSLider({ SalonData }) {
       >
         {SalonData?.salon_image?.map((v, i) => {
           return (
-            <img
+            <img loading="lazy"
               className={styles.slideImage}
               src={v.public_url}
               alt="salon image"

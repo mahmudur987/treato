@@ -280,7 +280,7 @@ const CreateAccountPage = () => {
               }}
               className=""
             />
-            <img
+            <img loading="lazy"
               src={eyeline}
               className={styles.eyeline}
               onClick={() => setPasswordVisible(!passwordVisible)}
@@ -328,7 +328,7 @@ const CreateAccountPage = () => {
               className={styles.google}
               onClick={googleAuthLogin}
             >
-              <img src={Google_Logo} />
+              <img loading="lazy" src={Google_Logo} />
               Google
             </SecondaryButton>
             <LoginSocialFacebook
@@ -341,7 +341,7 @@ const CreateAccountPage = () => {
               }}
             >
               <SecondaryButton className={styles.facebook}>
-                <img src={Facebook_Logo} />
+                <img loading="lazy" src={Facebook_Logo} />
                 Facebook
               </SecondaryButton>
             </LoginSocialFacebook>

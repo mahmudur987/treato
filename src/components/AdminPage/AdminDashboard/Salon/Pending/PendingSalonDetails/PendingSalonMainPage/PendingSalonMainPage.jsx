@@ -90,27 +90,27 @@ export default function PendingSalonMainPage({ addServices, addedServices }) {
         </h2>
         <div className={styles.members}>
           <div className={styles.member}>
-            <img src={profileImg} alt="" />
+            <img loading="lazy" src={profileImg} alt="" />
             <h4>Nayanica</h4>
             <p>Hair Styling Specialist</p>
           </div>
           <div className={styles.member}>
-            <img src={profileImg} alt="" />
+            <img loading="lazy" src={profileImg} alt="" />
             <h4>Nayanica</h4>
             <p>Hair Styling Specialist</p>
           </div>
           <div className={styles.member}>
-            <img src={profileImg} alt="" />
+            <img loading="lazy" src={profileImg} alt="" />
             <h4>Nayanica</h4>
             <p>Hair Styling Specialist</p>
           </div>
           <div className={styles.member}>
-            <img src={profileImg} alt="" />
+            <img loading="lazy" src={profileImg} alt="" />
             <h4>Nayanica</h4>
             <p>Hair Styling Specialist</p>
           </div>
           <div className={styles.member}>
-            <img src={profileImg} alt="" />
+            <img loading="lazy" src={profileImg} alt="" />
             <h4>Nayanica</h4>
             <p>Hair Styling Specialist</p>
           </div>
