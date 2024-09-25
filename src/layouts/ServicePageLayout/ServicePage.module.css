@@ -1,24 +1,24 @@
 .mainContainer {
   width: 100%;
   margin-bottom: 0px;
+  display: flex;
+  justify-content: center;
 }
 
 .container {
   max-width: 1440px;
   width: 100%;
   min-height: 100vh;
-  margin: 0 auto;
-  position: relative;
-  display: flex;
 }
 .downContainer {
-  flex-grow: 1;
+  padding-left: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .left {
-  max-width: 100px;
-  min-width: 100px;
   width: 100%;
-  position: relative;
+  position: fixed;
   min-height: 100%;
 }
 .Outlet {
@@ -29,5 +29,8 @@
   .left,
   .Navbar {
     display: none;
+  }
+  .downContainer {
+    padding-left: 0;
   }
 }

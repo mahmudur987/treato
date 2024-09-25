@@ -114,7 +114,7 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
                       disable={true}
                     />
                     <span>
-                      <svg
+                      {/* <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
                         height="24"
@@ -128,7 +128,7 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
                           stroke-linecap="round"
                           stroke-linejoin="round"
                         />
-                      </svg>
+                      </svg> */}
                     </span>
                   </div>
                 </div>

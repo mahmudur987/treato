@@ -1,5 +1,5 @@
 .mainContainer {
-  position: absolute;
+  position: fixed;
   max-width: 100px;
   width: 100%;
   min-height: 100%;
@@ -10,8 +10,9 @@
 }
 
 .container {
-  position: sticky;
+  position: fixed;
   top: 0%;
+  left: 0;
   max-width: 100px;
   width: 100%;
   min-height: 100vh;
