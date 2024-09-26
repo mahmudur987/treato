@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import BasicDetailsPartner from "./BasicDetailsPartner";
-import ServiceOffer from "./ServiceOffer";
-import ServiceLocation from "./ServiceLocation";
+import { MemoizedBasicDetailsPartner } from "./BasicDetailsPartner";
+import { MemoizedServiceOffer } from "./ServiceOffer";
+import { MemoizedServiceLocation } from "./ServiceLocation";
 import SalonPictures from "./Gallery/SalonPictures";
 import sty from "./Bussness.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -175,20 +175,20 @@ const Business = () => {
     <>
       <div className={sty.container}>
         <form onSubmit={handleSubmit}>
-          <BasicDetailsPartner
+          <MemoizedBasicDetailsPartner
             salonData={salonData}
             setSalonData={setSalonData}
             handleChange={handleChange}
           />
           <div className={sty.ServiceOfferSmallScreen}>
-            <ServiceOffer
+            <MemoizedServiceOffer
               salonData={salonData}
               setSalonData={setSalonData}
               setWorkingHours={setWorkingHours}
             />
           </div>
           <div className={sty.ServiceLocationSmallScreen}>
-            <ServiceLocation
+            <MemoizedServiceLocation
               salonData={salonData}
               setSalonData={setSalonData}
               position={position}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import styles from "./ServiceLocation.module.css";
 import BasicInputs from "../Input/BasicInputs";
 import map from "../../../assets/images/partner/partnerSetting/Input_Field_Icons.webp";
@@ -139,7 +139,8 @@ const ServiceLocation = ({
             <p>Add and edit salon location details.</p>
           </div>
           <div className={styles.CollaseIconImg1}>
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={CollaseIcon}
               alt="CollapseIcon"
               onClick={toggleCollapse}
@@ -167,7 +168,12 @@ const ServiceLocation = ({
                       styles={`${styles.locationInput}`}
                     />
                   </label>
-                  <img loading="lazy" src={map} alt="map" className={styles.mapLogo} />
+                  <img
+                    loading="lazy"
+                    src={map}
+                    alt="map"
+                    className={styles.mapLogo}
+                  />
                 </div>
                 {show && (
                   <div className={styles.suggestions}>
@@ -266,3 +272,4 @@ const ServiceLocation = ({
 };
 
 export default ServiceLocation;
+export const MemoizedServiceLocation = memo(ServiceLocation);

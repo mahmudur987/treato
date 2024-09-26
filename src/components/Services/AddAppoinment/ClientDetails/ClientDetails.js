@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import styles from "./ClientDetails.module.css";
 import CustomSelect3 from "../../../Select/CustomeSelect3/CustomSelect3";
 import AddNewClient from "../../../_modals/AddNewClient/AddNewClient";
@@ -168,3 +168,4 @@ const ClientsDetails = () => {
 };
 
 export default ClientsDetails;
+export const MemoizedClientsDetails = memo(ClientsDetails);

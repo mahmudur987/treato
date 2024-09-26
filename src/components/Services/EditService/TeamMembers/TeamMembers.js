@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./TeamMember.module.css";
 import img1 from "../../../../assets/icons/services/a-1.webp";
 
@@ -231,3 +231,4 @@ const SchedulingCheckBox = ({ setdays }) => {
 };
 
 export default TeamMembers;
+export const MemoizedTeamMembers = memo(TeamMembers);
