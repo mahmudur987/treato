@@ -86,7 +86,7 @@
   gap: 20px;
   cursor: pointer;
   padding: 10px;
-  border-bottom: 1px solid var(--Grey-Grey-40, #ebedf0);
+  border-bottom:none;
 }
 
 .addNew span {

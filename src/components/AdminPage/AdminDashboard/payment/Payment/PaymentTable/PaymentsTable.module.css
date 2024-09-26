@@ -43,6 +43,13 @@
   align-items: center;
   gap: 5px;
 }
+.headingSpan{
+  margin-left: 30px;
+}
+.imageBox{
+  display: flex;
+  flex-direction: column;
+}
 .checkbox {
   width: 16px;
   height: 16px;
@@ -64,6 +71,9 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
+}
+.tableBorder{
+  border-bottom: 1px solid #ebedf0;
 }
 @media only screen and (max-width: 700px) {
   .mainContainer {

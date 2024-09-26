@@ -60,7 +60,24 @@
   justify-content: center;
   align-items: center;
 }
-
+.headingp{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.imageBox{
+  display: flex;
+  flex-direction: column;
+}
+.tableBorder{
+  border-bottom: 1px solid #ebedf0;
+}
+.tdfont{
+  font-size: 20px;
+  text-align: center;
+}
 .tbody td {
   padding: 10px 0px;
   color: var(--Grey-Black, #08090a);

@@ -64,7 +64,7 @@ const PaymentMethods = () => {
               <input type="radio" name="" id="" />
             </div>
 
-            <div className={styles.addNew} style={{ borderBottom: "none" }}>
+            <div className={styles.addNew} >
               <img loading="lazy" src={plus} alt="" />
               <button>Add New UPI ID</button>
             </div>

@@ -71,7 +71,7 @@ const BottomNav = () => {
           <Link
             key={index}
             to={link.to}
-            // style={{ backgroundColor: `${pathname === link.to ? "blue" : ""}` }}
+            
           >
             <span className={styles.icon}> {link.svg}</span>
             <span className={styles.text}> {link.text}</span>
