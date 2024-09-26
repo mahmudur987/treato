@@ -66,11 +66,12 @@
   gap: 15px;
   color: var(--Primary-000, #08080b);
   cursor: pointer;
+  box-shadow: 0px 4px 24px 0px #0000001f;
 }
 .profileContainer img {
   height: 50px;
   width: 50px;
-  border-radius: 10%;
+  border-radius: 50%;
 }
 .profileContainer h3 {
   font-family: Poppins;

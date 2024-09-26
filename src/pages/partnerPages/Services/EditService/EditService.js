@@ -178,7 +178,7 @@ const EditService = () => {
 
         <div className={styles.buttontContainer}>
           <button
-            onClick={() => navigate("/service")}
+            onClick={() => navigate("/partner/dashboard/service")}
             className={styles.cancel}
           >
             Cancel
