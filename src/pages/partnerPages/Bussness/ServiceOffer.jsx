@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, memo } from "react";
 import sty from "./ServiceOffer.module.css";
 import CollaseIcon from "../../../assets/images/TeamDetails/chevron-down.png";
 import { useGetSlots } from "../../../services/Team";
 import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
 import ManageHolidays from "../../../components/_modals/ManageHolyDays/ManageHolidays";
 
-const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
+const ServiceOffer = ({ salonData, setWorkingHours }) => {
   const allDays = [
     "Monday",
     "Tuesday",
@@ -127,7 +127,8 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
           <p>Manage opening and closing hours.</p>
         </div>
         <div className={sty.CollaseIconImg1}>
-          <img loading="lazy"
+          <img
+            loading="lazy"
             src={CollaseIcon}
             alt="CollapseIcon"
             onClick={toggleCollapse}
@@ -262,3 +263,4 @@ const ServiceOffer = ({ salonData, setSalonData, setWorkingHours }) => {
   );
 };
 export default ServiceOffer;
+export const MemoizedServiceOffer = memo(ServiceOffer);

@@ -42,7 +42,8 @@ const ServicePageNavbar = () => {
               className={styles.account}
               onClick={() => setShowProfile((pre) => !pre)}
             >
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={userData?.user?.avatar?.public_url ?? ""}
                 onError={(e) => (e.target.src = mask)}
                 alt=""
@@ -71,10 +72,12 @@ const ServicePageNavbar = () => {
             onClick={() => setShowProfile((pre) => !pre)}
             className={styles.profileContainer}
           >
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={userData?.user?.avatar?.public_url ?? ""}
               onError={(e) => (e.target.src = mask)}
               alt=""
+              className="profile"
             />
             <h3>{userData?.user?.first_name}</h3>
             {userData.user.role === "partner" && (

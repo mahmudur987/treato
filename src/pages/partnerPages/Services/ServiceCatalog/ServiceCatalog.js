@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ServiceCatalog.module.css";
 
-import ServicesDropDown from "../../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
+import ServicesDropDown, {
+  MemoizedServicesDropDown,
+} from "../../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
 
 import AddCategory from "../../../../components/_modals/Addcategory/AddCategory";
 import { BiMenuAltLeft } from "@react-icons/all-files/bi/BiMenuAltLeft";
@@ -164,7 +166,7 @@ const ServiceCatalog = () => {
         <div className={styles.content}>
           {data &&
             filteredData?.map((data, i) => (
-              <ServicesDropDown key={i} data={data} />
+              <MemoizedServicesDropDown key={i} data={data} />
             ))}
 
           {filteredData.length === 0 && (
