@@ -166,7 +166,7 @@
 .contentBox {
   padding: 8px;
   height: 100%;
-  width: 634px;
+  min-width: 634px;
   border: 1px solid #ced4da;
   border-radius: 5px;
   display: flex;
