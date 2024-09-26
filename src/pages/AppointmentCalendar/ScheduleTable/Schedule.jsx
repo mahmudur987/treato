@@ -302,7 +302,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                 <div className={`${style.appointmentBox4} ${
                                   condition ? style.dBox : style.cBox
                                 }`}>
-                                  <div
+                                  <div 
                                     key={serviceIndex}
                                     className={`${style.appointmentBox} ${
                                       condition ? style.dBox : style.cBox
@@ -310,6 +310,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                     style={{
                                       minHeight: `${totalHeight}px`,
                                       backgroundColor: `${service.color}`,
+                                      
                                     }}
                                   >
                                     <div className={style.clientDetailsBox}>

@@ -12,6 +12,14 @@
   scroll-behavior: smooth;
   background-color: none;
   border: none;
+  
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+Link{
+  text-decoration: none;
 }
 textarea {
   border: none;

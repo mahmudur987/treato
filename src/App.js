@@ -1,83 +1,86 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense, useState } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import PageLayout from "./layouts/PageLayout/PageLayout";
-import Home from "./pages/Home/Home";
-import Blogs from "./pages/Blogs/Blogs";
-import Salons from "./pages/Salons/Salons";
-import BlogDetail from "./pages/BlogDetail/BlogDetail";
-import AccountSettings from "./pages/AccountSettings/AccountSettings";
-import SalonDetail from "./pages/SalonDetail/SalonDetail";
-import BookFlow from "./pages/BookFlow/BookFlow";
-import AuthChoicePage from "./pages/AuthPages/AuthChoicePage/AuthChoicePage";
-import CreateAccountPage from "./pages/AuthPages/CreateAccountPage/CreateAccountPage";
-import LoginPage from "./pages/AuthPages/LoginPage/LoginPage";
-import VerifyOTP from "./pages/AuthPages/VerifyOTP/VarifyOTP";
-import ForgotPassword from "./pages/AuthPages/ForgotPassword/ForgotPassword";
-import MyAppointments from "./pages/MyAppointments/MyAppointments";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateIsLoggedIn, updateUserDetails } from "./redux/slices/user";
 import { fetchSalonsData } from "./utils/utils";
-import Lookbook from "./pages/Lookbook/Lookbook";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ResetPassword from "./pages/AuthPages/ResetPassword/ResetPassword";
 import { getUserProfile } from "./services/auth";
-import LookbookDetails from "./pages/Lookbook/LookbookDetails/LookbookDetails";
-import PrivateFormRoutes from "./layouts/PrivateRoutes";
-import LocationAutocomplete from "./components/locations/LocationAutocomplete";
-import PartnerPage from "./layouts/PartnerPageLayout/PartnerPage";
-import ModalManager from "./components/_modals/ModalManager";
-import Dashboard from "./pages/partnerPages/Dashboard/Dashboard";
-import PartnerAccountSetting from "./pages/partnerPages/SettingP/PartnerAccountSetting";
-import PaymentProfile from "./pages/partnerPages/SettingP/PaymentProfile";
-import Bussness from "./pages/partnerPages/Bussness/Bussness";
-import PicturesGallery from "./pages/partnerPages/Bussness/Gallery/PicturesGallery";
-import ServiceOffer from "./pages/partnerPages/Bussness/ServiceOffer";
-import ServiceLocation from "./pages/partnerPages/Bussness/ServiceLocation";
-import TeamManageMent from "./pages/partnerPages/Team/TeamData/TeamManageMent";
-import AddMemberProfile from "./pages/partnerPages/Team/TeamData/AddTeamMember/AddMemberProfile";
-import EditTeamData from "./pages/partnerPages/Team/TeamData/EditTeamData/EditTeamData";
-import EmployeeSchedule from "./pages/partnerPages/Team/TeamData/EmployeeSchedule/EmployeeSchedule";
-import ServiceCatalog from "./pages/partnerPages/Services/ServiceCatalog/ServiceCatalog";
-import AddServices from "./pages/partnerPages/Services/AddServices/AddServices";
-import EditService from "./pages/partnerPages/Services/EditService/EditService";
-import AddAppoinment from "./pages/partnerPages/Services/AddAppoinment/AddAppoinment";
-import PartnerHome from "./pages/partnerPages/PartnerHome/PartnerHome";
-import AuthChoice from "./pages/partnerPages/Auth/AuthChoice/AuthChoice";
-import CustomerPageLayout from "./layouts/CustomarPageLayout/CustomerPageLayout";
-import AdminPageLayout from "./layouts/Admin/AdminPageLayout";
-import AdminDashboard from "./pages/AdminPages/Dashboard/AdminDashboard";
-import AboutUsPage from "./layouts/AboutUsPageLayout/AboutUsPage";
-import Privacy from "./layouts/PrivacyPolicyLayout/Privacy";
-import SubBar from "./components/PrivacyPolicy/PrivacyBar/SubBar";
-import Termoptions from "./components/PrivacyPolicy/TermOptions/TermMenu";
-import PrivacyService from "./components/PrivacyPolicy/PrivacyPolicy/PrivacyPolicy";
-import FrequentlyAskedQuestionsPage from "./layouts/FrequentlyAskedQuestionsLayout/FrequentlyAskedQuestionsPage";
-import PricingPage from "./layouts/PricingLayout/PricingPage";
-import ContactUsLayout from "./layouts/ContactUsLayout/ContactUsLayout";
-import CareersPage from "./layouts/CareersLayout/CareersPage";
-import CurrentOpenings from "./pages/Careers/CurrentOpenings/CurrentOpenings";
-import JobDescription from "./pages/Careers/JobDescription/JobDescription";
-import JobDetails from "./pages/Careers/Details/Details";
-import AppointmentCalendar from "./pages/AppointmentCalendar/AppointmentCalendar";
-import PaymentPage from "./pages/AdminPages/Dashboard/Payment/PaymentPage";
-import ActiveSalon from "./pages/AdminPages/Dashboard/Salon/Active/ActiveSalon";
-import PendingSalon from "./pages/AdminPages/Dashboard/Salon/Pending/PendingSalon";
-import DeactivatedSalon from "./pages/AdminPages/Dashboard/Salon/Deactivated/DeactivatedSalon";
-import Reports from "./pages/partnerPages/Reports/Reports";
-import PendingSalonDetail from "./pages/AdminPages/Dashboard/Salon/Pending/SingleSalonDeatails/PendingSalonDetails";
-import SingleSalonDetail from "./pages/AdminPages/Dashboard/Salon/Active/SingleSalonDeatails/SingleSalonDetails";
-import ActiveSalonGallery from "./pages/AdminPages/Dashboard/Salon/Active/Gallary/Gallery";
-import PendingSalonGallery from "./pages/AdminPages/Dashboard/Salon/Pending/Gallary/Gallery";
-import LookPage from "./pages/partnerPages/Look/LookPage/LookPage";
-import AddLook from "./pages/partnerPages/Look/AddALook/AddLook";
-import EditLook from "./pages/partnerPages/Look/EditLook/EditLook";
-import Commission from "./pages/AdminPages/Commissions/Commission";
-import PartnerPageLayout from "./layouts/ServicePageLayout/ServicePagelLayout";
-import PersonalDetails from "./pages/partnerPages/PersonalDetails/PersonalDetails";
-import NewSalonSetting from "./pages/partnerPages/NewSalonSetting/NewSalonSetting";
-import NotFound from "./pages/NotFound/NotFound";
+import { toast } from "react-toastify";
+import LoadSpinner from "./components/LoadSpinner/LoadSpinner";
+// Lazy load components
+const PageLayout = React.lazy(() => import("./layouts/PageLayout/PageLayout"));
+const Home = React.lazy(() => import("./pages/Home/Home"));
+const Blogs = React.lazy(() => import("./pages/Blogs/Blogs"));
+const Salons = React.lazy(() => import("./pages/Salons/Salons"));
+const BlogDetail = React.lazy(() => import("./pages/BlogDetail/BlogDetail"));
+const AccountSettings = React.lazy(() => import("./pages/AccountSettings/AccountSettings"));
+const SalonDetail = React.lazy(() => import("./pages/SalonDetail/SalonDetail"));
+const BookFlow = React.lazy(() => import("./pages/BookFlow/BookFlow"));
+const AuthChoicePage = React.lazy(() => import("./pages/AuthPages/AuthChoicePage/AuthChoicePage"));
+const CreateAccountPage = React.lazy(() => import("./pages/AuthPages/CreateAccountPage/CreateAccountPage"));
+const LoginPage = React.lazy(() => import("./pages/AuthPages/LoginPage/LoginPage"));
+const VerifyOTP = React.lazy(() => import("./pages/AuthPages/VerifyOTP/VarifyOTP"));
+const ForgotPassword = React.lazy(() => import("./pages/AuthPages/ForgotPassword/ForgotPassword"));
+const MyAppointments = React.lazy(() => import("./pages/MyAppointments/MyAppointments"));
+const Lookbook = React.lazy(() => import("./pages/Lookbook/Lookbook"));
+const ResetPassword = React.lazy(() => import("./pages/AuthPages/ResetPassword/ResetPassword"));
+const LookbookDetails = React.lazy(() => import("./pages/Lookbook/LookbookDetails/LookbookDetails"));
+const PrivateFormRoutes = React.lazy(() => import("./layouts/PrivateRoutes"));
+const LocationAutocomplete = React.lazy(() => import("./components/locations/LocationAutocomplete"));
+const PartnerPage = React.lazy(() => import("./layouts/PartnerPageLayout/PartnerPage"));
+const ModalManager = React.lazy(() => import("./components/_modals/ModalManager"));
+const Dashboard = React.lazy(() => import("./pages/partnerPages/Dashboard/Dashboard"));
+const PartnerAccountSetting = React.lazy(() => import("./pages/partnerPages/SettingP/PartnerAccountSetting"));
+const PaymentProfile = React.lazy(() => import("./pages/partnerPages/SettingP/PaymentProfile"));
+const Bussness = React.lazy(() => import("./pages/partnerPages/Bussness/Bussness"));
+const PicturesGallery = React.lazy(() => import("./pages/partnerPages/Bussness/Gallery/PicturesGallery"));
+const ServiceOffer = React.lazy(() => import("./pages/partnerPages/Bussness/ServiceOffer"));
+const ServiceLocation = React.lazy(() => import("./pages/partnerPages/Bussness/ServiceLocation"));
+const TeamManageMent = React.lazy(() => import("./pages/partnerPages/Team/TeamData/TeamManageMent"));
+const AddMemberProfile = React.lazy(() => import("./pages/partnerPages/Team/TeamData/AddTeamMember/AddMemberProfile"));
+const EditTeamData = React.lazy(() => import("./pages/partnerPages/Team/TeamData/EditTeamData/EditTeamData"));
+const EmployeeSchedule = React.lazy(() => import("./pages/partnerPages/Team/TeamData/EmployeeSchedule/EmployeeSchedule"));
+const ServiceCatalog = React.lazy(() => import("./pages/partnerPages/Services/ServiceCatalog/ServiceCatalog"));
+const AddServices = React.lazy(() => import("./pages/partnerPages/Services/AddServices/AddServices"));
+const EditService = React.lazy(() => import("./pages/partnerPages/Services/EditService/EditService"));
+const AddAppoinment = React.lazy(() => import("./pages/partnerPages/Services/AddAppoinment/AddAppoinment"));
+const PartnerHome = React.lazy(() => import("./pages/partnerPages/PartnerHome/PartnerHome"));
+const AuthChoice = React.lazy(() => import("./pages/partnerPages/Auth/AuthChoice/AuthChoice"));
+const CustomerPageLayout = React.lazy(() => import("./layouts/CustomarPageLayout/CustomerPageLayout"));
+const AdminPageLayout = React.lazy(() => import("./layouts/Admin/AdminPageLayout"));
+const AdminDashboard = React.lazy(() => import("./pages/AdminPages/Dashboard/AdminDashboard"));
+const AboutUsPage = React.lazy(() => import("./layouts/AboutUsPageLayout/AboutUsPage"));
+const Privacy = React.lazy(() => import("./layouts/PrivacyPolicyLayout/Privacy"));
+const SubBar = React.lazy(() => import("./components/PrivacyPolicy/PrivacyBar/SubBar"));
+const Termoptions = React.lazy(() => import("./components/PrivacyPolicy/TermOptions/TermMenu"));
+const PrivacyService = React.lazy(() => import("./components/PrivacyPolicy/PrivacyPolicy/PrivacyPolicy"));
+const FrequentlyAskedQuestionsPage = React.lazy(() => import("./layouts/FrequentlyAskedQuestionsLayout/FrequentlyAskedQuestionsPage"));
+const PricingPage = React.lazy(() => import("./layouts/PricingLayout/PricingPage"));
+const ContactUsLayout = React.lazy(() => import("./layouts/ContactUsLayout/ContactUsLayout"));
+const CareersPage = React.lazy(() => import("./layouts/CareersLayout/CareersPage"));
+const CurrentOpenings = React.lazy(() => import("./pages/Careers/CurrentOpenings/CurrentOpenings"));
+const JobDescription = React.lazy(() => import("./pages/Careers/JobDescription/JobDescription"));
+const JobDetails = React.lazy(() => import("./pages/Careers/Details/Details"));
+const AppointmentCalendar = React.lazy(() => import("./pages/AppointmentCalendar/AppointmentCalendar"));
+const PaymentPage = React.lazy(() => import("./pages/AdminPages/Dashboard/Payment/PaymentPage"));
+const ActiveSalon = React.lazy(() => import("./pages/AdminPages/Dashboard/Salon/Active/ActiveSalon"));
+const PendingSalon = React.lazy(() => import("./pages/AdminPages/Dashboard/Salon/Pending/PendingSalon"));
+const DeactivatedSalon = React.lazy(() => import("./pages/AdminPages/Dashboard/Salon/Deactivated/DeactivatedSalon"));
+const Reports = React.lazy(() => import("./pages/partnerPages/Reports/Reports"));
+const PendingSalonDetail = React.lazy(() => import("./pages/AdminPages/Dashboard/Salon/Pending/SingleSalonDeatails/PendingSalonDetails"));
+const SingleSalonDetail = React.lazy(() => import("./pages/AdminPages/Dashboard/Salon/Active/SingleSalonDeatails/SingleSalonDetails"));
+const ActiveSalonGallery = React.lazy(() => import("./pages/AdminPages/Dashboard/Salon/Active/Gallary/Gallery"));
+const PendingSalonGallery = React.lazy(() => import("./pages/AdminPages/Dashboard/Salon/Pending/Gallary/Gallery"));
+const LookPage = React.lazy(() => import("./pages/partnerPages/Look/LookPage/LookPage"));
+const AddLook = React.lazy(() => import("./pages/partnerPages/Look/AddALook/AddLook"));
+const EditLook = React.lazy(() => import("./pages/partnerPages/Look/EditLook/EditLook"));
+const Commission = React.lazy(() => import("./pages/AdminPages/Commissions/Commission"));
+const PartnerPageLayout = React.lazy(() => import("./layouts/ServicePageLayout/ServicePagelLayout"));
+const PersonalDetails = React.lazy(() => import("./pages/partnerPages/PersonalDetails/PersonalDetails"));
+const NewSalonSetting = React.lazy(() => import("./pages/partnerPages/NewSalonSetting/NewSalonSetting"));
+const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
+
 
 function App() {
   // Use the location hook to track route changes
@@ -158,6 +161,7 @@ function App() {
 
   return (
     <>
+    <Suspense fallback={<h2>Loading...</h2>}>
       <PageLayout>
         <ToastContainer
           position="top-right"
@@ -172,8 +176,9 @@ function App() {
           theme="light"
         />
         <ModalManager />
-
+        
         <Routes>
+          
           <Route element={<CustomerPageLayout />}>
             {/* <Route  element={<Chatbot/>}/> */}
             <Route path="/" element={<Home />} />
@@ -359,8 +364,11 @@ function App() {
             <Route path="/admin/payment" element={<PaymentPage />} />
             <Route path="/admin/commission" element={<Commission />} />
           </Route>
+          
         </Routes>
+        
       </PageLayout>
+      </Suspense>
     </>
   );
 }
