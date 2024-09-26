@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./AppointmentDetails.module.css";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import SelectServiceModal from "../../../_modals/SelectServiceModal/SelectServiceModal";
@@ -363,3 +363,5 @@ const AppointmentDetails = () => {
 };
 
 export default AppointmentDetails;
+
+export const MemoizedAppointmentDetails = memo(AppointmentDetails);

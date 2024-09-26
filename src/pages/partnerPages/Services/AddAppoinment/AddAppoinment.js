@@ -1,8 +1,12 @@
 import React, { createContext, useEffect, useState } from "react";
 import styles from "./AddAppointment.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import AppointmentDetails from "../../../../components/Services/AddAppoinment/AppointmentDetails/AppointmentDetails";
-import ClientsDetails from "../../../../components/Services/AddAppoinment/ClientDetails/ClientDetails";
+import AppointmentDetails, {
+  MemoizedAppointmentDetails,
+} from "../../../../components/Services/AddAppoinment/AppointmentDetails/AppointmentDetails";
+import ClientsDetails, {
+  MemoizedClientsDetails,
+} from "../../../../components/Services/AddAppoinment/ClientDetails/ClientDetails";
 import { useSingleSalon } from "../../../../services/salon";
 import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
@@ -261,10 +265,10 @@ const AddAppointment = () => {
 
           <div className={styles.content}>
             <div className={styles.leftContent}>
-              <AppointmentDetails />
+              <MemoizedAppointmentDetails />
             </div>
             <div className={styles.rightContent}>
-              <ClientsDetails />
+              <MemoizedClientsDetails />
             </div>
           </div>
 

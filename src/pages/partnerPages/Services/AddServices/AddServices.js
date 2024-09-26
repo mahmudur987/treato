@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddServices.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import BasicDetailsForm from "../../../../components/Services/AddServices/BasicDetailsForm/BasicDetailsForm";
-import TeamMembers from "../../../../components/Services/AddServices/TeamMembers/TeamMembers";
+import BasicDetailsForm, {
+  MemoizedBasicDetailsForm,
+} from "../../../../components/Services/AddServices/BasicDetailsForm/BasicDetailsForm";
+import TeamMembers, {
+  MemoizedTeamMembers,
+} from "../../../../components/Services/AddServices/TeamMembers/TeamMembers";
 import { addNewService, useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
@@ -166,13 +170,13 @@ const AddServices = () => {
 
             <div className={styles.formWrapper}>
               {currentStep === 1 && mobile && (
-                <BasicDetailsForm
+                <MemoizedBasicDetailsForm
                   salon={data.salon}
                   setBasicDetails={setBasicDetails}
                 />
               )}
               {!mobile && (
-                <BasicDetailsForm
+                <MemoizedBasicDetailsForm
                   setBasicDetails={setBasicDetails}
                   salon={data.salon}
                 />
@@ -180,7 +184,7 @@ const AddServices = () => {
             </div>
           </div>
           <div className={styles.rightContent}>
-            <TeamMembers
+            <MemoizedTeamMembers
               setdays={setdays}
               setTeamMember={setTeamMember}
               currentStep={currentStep}
@@ -191,7 +195,7 @@ const AddServices = () => {
 
         <div className={styles.buttontContainer}>
           <button
-            onClick={() => navigate(navigate("/partner/dashboard/service"))}
+            onClick={() => navigate("/partner/dashboard/service")}
             className={styles.cancel}
           >
             Cancel

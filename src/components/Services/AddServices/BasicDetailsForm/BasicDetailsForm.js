@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import styles from "./BasicDetailForm.module.css";
 import CustomSelect from "../../../Select/CustomeSelect";
 import { getAllServices } from "../../../../services/Services";
@@ -333,3 +333,4 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
 };
 
 export default BasicDetailsForm;
+export const MemoizedBasicDetailsForm = memo(BasicDetailsForm);

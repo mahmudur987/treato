@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./ServicesDropDown.module.css";
 import { Link } from "react-router-dom";
 import Menu from "../Menu/Menu";
@@ -293,3 +293,4 @@ const ServicesDropDown = ({ data }) => {
 };
 
 export default ServicesDropDown;
+export const MemoizedServicesDropDown = memo(ServicesDropDown);
