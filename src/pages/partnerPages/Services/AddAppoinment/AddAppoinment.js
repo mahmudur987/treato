@@ -19,6 +19,7 @@ export function formatDate(dateString) {
 }
 
 const AddAppointment = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [servicesDetails, setServiceDetails] = useState({});
   const [customerDetails, setCustomerDetails] = useState({
@@ -179,6 +180,9 @@ const AddAppointment = () => {
   const handleCancel = () => {
     window.location.reload();
   };
+  const backNavigate=()=>{
+    navigate(-1);
+  }
 
   return (
     <AddAppointmentContext.Provider
@@ -200,7 +204,7 @@ const AddAppointment = () => {
       }}
     >
       <main className={styles.mainContainer}>
-        <Link to={"/service"} className={styles.backLink}>
+        <Link onClick={backNavigate} className={styles.backLink}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
