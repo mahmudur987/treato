@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { memo } from "react";
 import inputStyles from "./Input.module.css";
 
 const InputField = (props) => {
-  const { name, value, onChange, type, placeholder, checked, styles, label, disabled } = props;
+  const {
+    name,
+    value,
+    onChange,
+    type,
+    placeholder,
+    checked,
+    styles,
+    label,
+    disabled,
+  } = props;
   return (
     <label className={inputStyles.label}>
-      {type === 'checkbox' ? (
+      {type === "checkbox" ? (
         <>
           <input
             type="checkbox"
@@ -15,7 +25,7 @@ const InputField = (props) => {
             className={""}
           />
         </>
-      ) : type === 'textarea' ? (
+      ) : type === "textarea" ? (
         <>
           {label}
           <textarea
@@ -45,3 +55,5 @@ const InputField = (props) => {
 };
 
 export default InputField;
+
+export const MemoizedInputField = memo(InputField);

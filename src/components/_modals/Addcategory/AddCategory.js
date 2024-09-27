@@ -4,7 +4,6 @@ import styles from "./AddCategory.module.css";
 import CustomSelect from "../../Select/CustomeSelect";
 import ColorSelect from "../../Select/ColorSelect/ColorSelect";
 import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
-import { getAllServices } from "../../../services/Services";
 import { useSingleSalon } from "../../../services/salon";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../services/axios";
@@ -24,7 +23,7 @@ const options = [
   "#F18865",
 ];
 const AddCategory = ({ showModal, onClose }) => {
-  const { data, isLoading, isError, refetch, error } = useSingleSalon();
+  const { data, refetch } = useSingleSalon();
 
   const [serviceType, setserviceType] = useState(null);
   const [selectedServiceType, setSelectedServiceType] = useState(["Error"]);
@@ -42,7 +41,7 @@ const AddCategory = ({ showModal, onClose }) => {
   const serviceId = service?.find(
     (x) => x.service_name === selectedServiceType
   )?._id;
-  console.log(serviceId);
+
   const handleSubmit = async () => {
     if (!selectCategory) {
       toast.error("Please select a category.");

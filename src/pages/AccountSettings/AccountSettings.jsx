@@ -1,7 +1,9 @@
-import ProfileView from "../../components/AccountSettings/ProfieView/ProfileView";
-import SocialSettings from "../../components/AccountSettings/SocialSettings/SocialSettings";
-import UserAddress from "../../components/AccountSettings/UserAddress/UserAddress";
-import UserDetails from "../../components/AccountSettings/UserDetails/UserDetails";
+import { MemoizedProfileView } from "../../components/AccountSettings/ProfieView/ProfileView";
+import { MemoizedSocialSettings } from "../../components/AccountSettings/SocialSettings/SocialSettings";
+import UserAddress, {
+  MemoizedUserAddress,
+} from "../../components/AccountSettings/UserAddress/UserAddress";
+import { MemoizedUserDetails } from "../../components/AccountSettings/UserDetails/UserDetails";
 import styles from "./AccountSettings.module.css";
 import chevronRight from "../../assets/images/AccountSettings/chevron-right.svg";
 import mapPin from "../../assets/images/AccountSettings/map-pin.svg";
@@ -202,7 +204,7 @@ export default function AccountSettings() {
               devices.
             </div>
             <div className={styles.acc_setting_mid}>
-              <ProfileView
+              <MemoizedProfileView
                 setProfileModal={setProfileModal}
                 logOut={logOut}
                 user={data?.user}
@@ -210,7 +212,7 @@ export default function AccountSettings() {
               />
               <div className={styles.acc_setting_right}>
                 <form id="acc_set_form" onSubmit={submitForm}>
-                  <UserDetails
+                  <MemoizedUserDetails
                     setOtpModal={setOtpModal}
                     setShowSave={setShowSave}
                     updateInputState={updateInputState}
@@ -220,14 +222,14 @@ export default function AccountSettings() {
                     activeGender={activeGender}
                     updateGender={updateGender}
                   />
-                  <UserAddress
+                  <MemoizedUserAddress
                     setShowSave={setShowSave}
                     setAddressModal={setAddressModal}
                     address={inputVal.place}
                     updateInputVal={updateInputVal}
                     inputVal={inputVal}
                   />
-                  <SocialSettings user={data} />
+                  <MemoizedSocialSettings user={data} />
 
                   {data?.user.isPass ? (
                     <PasswordChange setPassModal={setPassModal} />
@@ -248,7 +250,7 @@ export default function AccountSettings() {
             <div className={styles.acc_setting_mobile}>
               {mobileOpt === -1 ? (
                 <>
-                  <ProfileView
+                  <MemoizedProfileView
                     mobView="true"
                     setProfileModal={setProfileModal}
                   />
@@ -326,7 +328,7 @@ export default function AccountSettings() {
               ) : mobileOpt === 1 ? (
                 <>
                   <form id="mob_acc_set_form" onSubmit={submitForm}>
-                    <UserDetails
+                    <MemoizedUserDetails
                       mobView="Personal Details"
                       setOtpModal={setOtpModal}
                       setShowSave={setShowSave}
@@ -337,7 +339,7 @@ export default function AccountSettings() {
                       activeGender={activeGender}
                       updateGender={updateGender}
                     />
-                    <SocialSettings />
+                    <MemoizedSocialSettings />
                     <div className={showSave ? null : styles.d_none}>
                       <SaveChanges form={"mob_acc_set_form"} />
                     </div>

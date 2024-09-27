@@ -1,10 +1,20 @@
 import React from "react";
 import styles from "./home.module.css";
-import HeroSection from "../../components/HomePage/Hero/heroSection";
-import RecommendedSection from "../../components/HomePage/RecommendedSection/RecommendedSection";
-import AppDownloadInfo from "../../components/HomePage/AppDownloadInfo/AppDownloadInfo";
-import TopSalons from "../../components/HomePage/TopSalons/TopSalons";
-import PartnerBanner from "../../components/HomePage/PartnerBanner/PartnerBanner";
+import HeroSection, {
+  MemoizedHeroSection,
+} from "../../components/HomePage/Hero/heroSection";
+import RecommendedSection, {
+  MemoizedRecommendedSection,
+} from "../../components/HomePage/RecommendedSection/RecommendedSection";
+import AppDownloadInfo, {
+  MemoizedAppDownloadInfo,
+} from "../../components/HomePage/AppDownloadInfo/AppDownloadInfo";
+import TopSalons, {
+  MemoizedTopSalons,
+} from "../../components/HomePage/TopSalons/TopSalons";
+import PartnerBanner, {
+  MemoizedPartnerBanner,
+} from "../../components/HomePage/PartnerBanner/PartnerBanner";
 import Testimonials from "../../components/HomePage/Testimonials/Testimonials";
 import Contactus from "../../components/HomePage/Contactus/Contactus";
 import LatestBlog from "../../components/HomePage/LatestBlog/LatestBlog";
@@ -31,27 +41,25 @@ export default function Home(props) {
   return (
     <>
       <div className={styles["container"]}>
-        <HeroSection
+        <MemoizedHeroSection
           mainData={homeData.main_heading ? homeData.main_heading : ""}
         />
-        <RecommendedSection
+        <MemoizedRecommendedSection
           mainData={
             homeData.recommended_section ? homeData.recommended_section : ""
           }
         />
-        <TopSalons heading={"Top-rated Hair Salons"} />
+        <MemoizedTopSalons heading={"Top-rated Hair Salons"} />
         <LatestBlog />
-        <AppDownloadInfo
+        <MemoizedAppDownloadInfo
           mainData={
             homeData.downloadApp_section ? homeData.downloadApp_section : ""
           }
         />
-        <TopSalons heading={"Popular near you"} fromPopular={true} />
-        <PartnerBanner
+        <MemoizedTopSalons heading={"Popular near you"} fromPopular={true} />
+        <MemoizedPartnerBanner
           mainData={homeData.partner_section ? homeData.partner_section : ""}
         />
-
-        {/* <ContactUs /> */}
 
         <Testimonials />
       </div>

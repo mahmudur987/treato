@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./Menu.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import UpdateCategoryModal from "../../../_modals/Uptadatecategory/UpdateCategoryModal";
@@ -62,3 +62,5 @@ const Menu = ({ setShowBtnMenu, data, category }) => {
 };
 
 export default Menu;
+
+export const MemoizedMenu = memo(Menu);

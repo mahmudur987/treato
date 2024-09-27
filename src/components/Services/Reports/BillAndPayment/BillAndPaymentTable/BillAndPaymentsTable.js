@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import topImg from "../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./BillAndPaymentsTable.module.css";
@@ -171,3 +171,4 @@ const BillAndPaymentTable = ({ data }) => {
 };
 
 export default BillAndPaymentTable;
+export const MemoizedBillAndPaymentTable = memo(BillAndPaymentTable);

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 import topImg from "../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./ClientsTable.module.css";
@@ -152,3 +152,4 @@ const ClientsTable = ({ data }) => {
 };
 
 export default ClientsTable;
+export const MemoizedClientsTable = memo(ClientsTable);
