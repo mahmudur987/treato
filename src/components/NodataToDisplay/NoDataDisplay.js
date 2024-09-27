@@ -1,6 +1,6 @@
 // NoDataDisplay.js
 
-import React from "react";
+import React, { memo } from "react";
 import styles from "./NoDataDisplay.module.css";
 
 const NoDataDisplay = ({ message }) => {
@@ -12,3 +12,5 @@ const NoDataDisplay = ({ message }) => {
 };
 
 export default NoDataDisplay;
+
+export const MemoizedNoDataDisplay = memo(NoDataDisplay);

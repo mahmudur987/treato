@@ -62,13 +62,9 @@
 
 .peoples {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-  gap: 24px;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(212px, 1fr));
+  row-gap: 15px;
 }
 .people {
   display: flex;

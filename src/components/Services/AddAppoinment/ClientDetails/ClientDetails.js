@@ -53,6 +53,7 @@ const ClientsDetails = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  console.log(clients);
 
   return (
     <section className={styles.mainContainer}>
@@ -61,18 +62,16 @@ const ClientsDetails = () => {
         {/* Select an existing client */}
         <div className={styles.existingClient}>
           <label htmlFor="">Select an existing client</label>
-          {data && data?.data?.length > 0 && !isError && !isLoading ? (
+          {data && !isError && !isLoading && clients.length > 0 && (
             <CustomSelect3
               options={clients}
               value={selectedClient}
               onChange={handleSelectClient}
               setSearchText={setSearchText}
             />
-          ) : (
-            <ErrorComponent message={error?.message} />
           )}
 
-          {data?.data?.length === 0 && (
+          {clients?.length === 0 && (
             <NoDataDisplay message={"You Have No Existing Clients"} />
           )}
         </div>
@@ -162,6 +161,7 @@ const ClientsDetails = () => {
         onClose={closeModal}
         setSelectedClient={setSelectedClient}
         clients={clients}
+        setClients={setClients}
       />
     </section>
   );

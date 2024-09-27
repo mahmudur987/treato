@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { facebook_Login, google_Login } from "../../../services/auth";
 import { LoginSocialFacebook } from "reactjs-social-login";
+import { memo } from "react";
 
 export default function SocialSettings({ user }) {
   const navigate = useNavigate();
@@ -95,7 +96,12 @@ export default function SocialSettings({ user }) {
         </div>
         <div className={styles.social_options}>
           <div className={styles.social_opt_left}>
-            <img loading="lazy" src={facebook} alt="" className={styles.social_opt_logo} />
+            <img
+              loading="lazy"
+              src={facebook}
+              alt=""
+              className={styles.social_opt_logo}
+            />
             Facebook
           </div>
           <div className={styles.social_opt_right}>
@@ -124,7 +130,12 @@ export default function SocialSettings({ user }) {
         </div>
         <div className={styles.social_options}>
           <div className={styles.social_opt_left}>
-            <img loading="lazy" src={instagram} alt="" className={styles.social_opt_logo} />
+            <img
+              loading="lazy"
+              src={instagram}
+              alt=""
+              className={styles.social_opt_logo}
+            />
             Instagram
           </div>
           <div className={styles.social_opt_right}>
@@ -145,3 +156,5 @@ export default function SocialSettings({ user }) {
     </div>
   );
 }
+
+export const MemoizedSocialSettings = memo(SocialSettings);

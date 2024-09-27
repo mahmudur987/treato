@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { memo, useContext, useState } from "react";
 import topImg from "../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./AppointmentsTable.module.css";
@@ -146,3 +146,4 @@ const AppointmentsTable = ({ data }) => {
 };
 
 export default AppointmentsTable;
+export const MemoizedAppointmentsTable = memo(AppointmentsTable);

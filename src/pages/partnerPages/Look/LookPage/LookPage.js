@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./LookPage.module.css";
-import LookCard from "../../../../components/Services/Look/LookCard/LookCard";
+import LookCard, {
+  MemoizedLookCard,
+} from "../../../../components/Services/Look/LookCard/LookCard";
 import { IoMdArrowRoundBack } from "@react-icons/all-files/io/IoMdArrowRoundBack";
 import { FaPlus } from "@react-icons/all-files/fa/FaPlus";
 import { Link, useNavigate } from "react-router-dom";
@@ -54,7 +56,7 @@ const LookPage = () => {
       <div className={styles.contents}>
         {data &&
           data.length > 0 &&
-          data?.map((x, y) => <LookCard key={y} data={x} />)}
+          data?.map((x, y) => <MemoizedLookCard key={y} data={x} />)}
         {looks && data?.length === 0 && <NoDataDisplay />}
       </div>
       <div

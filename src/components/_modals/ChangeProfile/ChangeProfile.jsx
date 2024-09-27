@@ -41,7 +41,7 @@ export default function ChangeProfile({
   };
 
   const handleDelete = () => {
-    const avatar = { public_url: "" };
+    const avatar = { public_url: "nothing" };
     setSelectedImage(null);
     updateInputVal({ ...inputVal, avatar });
   };
@@ -57,6 +57,9 @@ export default function ChangeProfile({
 
   const handleCancel = () => {
     setProfileModal(false);
+    const avatar = { public_url: "" };
+    setSelectedImage(null);
+    updateInputVal({ ...inputVal, avatar });
   };
 
   const handleSave = () => {
@@ -97,7 +100,7 @@ export default function ChangeProfile({
           </div>
         </div>
         <div className={styles.profileC}>
-          <img loading="lazy" src={selectedImage || userImg} alt="" />
+          <img loading="lazy" src={selectedImage} alt="" />
         </div>
         <div className={styles.profileD}>
           <div className={styles.profileDA} htmlFor="uploadImageInput">

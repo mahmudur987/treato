@@ -1,7 +1,7 @@
 import styles from "./ProfileView.module.css";
 import userImg from "../../../assets/images/AccountSettings/userImg.png";
 import pencilIco from "../../../assets/images/AccountSettings/pencilIco.svg";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { convertToMonthYear } from "../../../utils/utils";
 
@@ -48,3 +48,4 @@ export default function ProfileView({ setProfileModal, logOut, inputVal }) {
     </div>
   );
 }
+export const MemoizedProfileView = memo(ProfileView);

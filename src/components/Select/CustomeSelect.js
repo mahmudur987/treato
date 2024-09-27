@@ -45,7 +45,7 @@ const CustomSelect = ({ options, onChange, value, disable }) => {
 
         {isOpen && <div className={styles.backgroundOverlay}></div>}
       </div>
-      {isOpen && (
+      {isOpen && !disable && (
         <div className={styles.optionsContainer}>
           {options.map((option) => (
             <div

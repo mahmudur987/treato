@@ -7,7 +7,13 @@ import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import CountrySelect from "../../Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
 import { AddAppointmentContext } from "../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
-const AddNewClient = ({ showModal, onClose, setSelectedClient, clients }) => {
+const AddNewClient = ({
+  showModal,
+  onClose,
+  setSelectedClient,
+  clients,
+  setClients,
+}) => {
   const { setCustomerDetails } = useContext(AddAppointmentContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -30,7 +36,7 @@ const AddNewClient = ({ showModal, onClose, setSelectedClient, clients }) => {
 
     setCustomerDetails(data);
     setSelectedClient(data);
-    clients.pop(data);
+    setClients([...clients, data]);
     onClose();
   };
 

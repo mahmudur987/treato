@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./LookCard.module.css";
 import { Link } from "react-router-dom";
 
@@ -22,3 +22,4 @@ const LookCard = ({ data }) => {
 };
 
 export default LookCard;
+export const MemoizedLookCard = memo(LookCard);

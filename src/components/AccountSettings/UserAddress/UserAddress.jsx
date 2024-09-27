@@ -1,6 +1,6 @@
 import styles from "./UserAddress.module.css";
 import moreVertical from "../../../assets/images/AccountSettings/more-vertical.svg";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { updateUser } from "../../../services/updateUser";
 import { useSelector } from "react-redux";
 
@@ -49,7 +49,8 @@ export default function UserAddress({
         <div className={styles.addr_main_top}>
           {inputVal.house && inputVal.landmark && inputVal.place ? (
             <div>
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={moreVertical}
                 alt=""
                 className={`${styles.addr_edit_click} `}
@@ -109,3 +110,5 @@ export default function UserAddress({
     </div>
   );
 }
+
+export const MemoizedUserAddress = memo(UserAddress);

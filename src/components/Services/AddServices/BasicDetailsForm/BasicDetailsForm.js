@@ -24,21 +24,16 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
     "2 h ",
     "2 h +",
   ];
-  const categories =
-    salon?.services
-      ?.find((x) => x._id === selectedServiceType?.id)
-      ?.mainCategories?.map((category) => category.category_name) || [];
+  const categories = useMemo(() => {
+    return (
+      salon?.services
+        ?.find((x) => x._id === selectedServiceType?.id)
+        ?.mainCategories?.map((category) => category.category_name) || []
+    );
+  }, [salon?.services, selectedServiceType?.id]);
   const AvailableFor = ["Everyone", "Female only", "Male only"];
   const TaxAndFees = ["included", "excluded"];
 
-  // const x = salon?.services
-  //   ?.filter((x) => x.service_name === selectedServiceType)
-  //   .reduce((acc, service) => {
-  //     if (service.mainCategories && service.mainCategories.length > 0) {
-  //       acc = acc.concat(service.mainCategories);
-  //     }
-  //     return acc;
-  //   }, []);
   const serviceType =
     salon?.services?.map((x) => {
       const data = {
