@@ -82,6 +82,7 @@ const NewSalonSetting = React.lazy(() => import("./pages/partnerPages/NewSalonSe
 const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
 
 
+
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
@@ -161,7 +162,7 @@ function App() {
 
   return (
     <>
-    <Suspense fallback={<h2>Loading...</h2>}>
+    <Suspense fallback={<LoadSpinner/>}>
       <PageLayout>
         <ToastContainer
           position="top-right"
