@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./FilterSection.module.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
 import CustomSelect4 from "../../../../Select/CustomeSelect4/CustomSelect4";
-const PaymentStatus = ["Paid", "Due", "Refunded"];
-const PaymentMode = ["Cash", "Online Payment"];
+import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
+const PaymentStatus = ["Paid", "Due", "Refunded", "All"];
+const PaymentMode = ["Cash", "Online", "All"];
 
 const FilterSection = ({ setBillQuery }) => {
-  const [selectedPaymentStatus, setSelectedPaymentStatus] =
-    useState("Payment Status ");
-  const [selectedPaymentMode, setSelectedPaymentMode] =
-    useState("Payment Mode ");
-  let url =
-    "date=2024-07-16&status=started&mode=online&tranid=6645ec25779765f555b98a4d&name=rahul";
+  const { commonSearch } = useContext(reportContext);
+  const [selectedPaymentStatus, setSelectedPaymentStatus] = useState("");
+  const [selectedPaymentMode, setSelectedPaymentMode] = useState("");
+  const [searchText, setSearchText] = useState("");
+
+  let url = `status=${
+    selectedPaymentStatus === "All" ? "" : selectedPaymentStatus
+  }&mode=${selectedPaymentMode === "All" ? "" : selectedPaymentStatus}&tranid=${
+    commonSearch ? commonSearch : searchText
+  }&name=${commonSearch ? commonSearch : searchText}`;
+
+  useEffect(() => {
+    setBillQuery(url);
+  }, [url, setBillQuery]);
+
   return (
     <div className={styles.mainContainerWrapper}>
       <div className={styles.mainContainer}>
@@ -20,19 +30,25 @@ const FilterSection = ({ setBillQuery }) => {
           <span>
             <IoSearchOutline />
           </span>
-          <input type="text" placeholder="Search by name or transaction ID" />
+          <input
+            type="text"
+            placeholder="Search by name or transaction ID"
+            onChange={(e) => setSearchText(e.target.value)}
+          />
         </div>
 
         <div className={styles.selectsWrapper}>
           <CustomSelect4
             options={PaymentStatus}
             onChange={setSelectedPaymentStatus}
-            value={selectedPaymentStatus}
+            value={
+              selectedPaymentStatus ? selectedPaymentStatus : "Payment Status"
+            }
           />
           <CustomSelect4
             options={PaymentMode}
             onChange={setSelectedPaymentMode}
-            value={selectedPaymentMode}
+            value={selectedPaymentMode ? selectedPaymentMode : "Payment Mode"}
           />
           <div className={styles.btnWrapper}>
             <button>Download</button>

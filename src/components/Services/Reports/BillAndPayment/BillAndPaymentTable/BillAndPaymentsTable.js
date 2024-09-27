@@ -63,8 +63,6 @@ const BillAndPaymentTable = ({ data }) => {
   // State to store selected rows
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
-
-  // Generate table data
   const tableData = data?.map((x) => {
     const y = {
       txnId: x?._id.slice(0, 7) ?? "",
@@ -137,11 +135,8 @@ const BillAndPaymentTable = ({ data }) => {
                 </tr>
               </thead>
               <tbody className={sty.tbody}>
-                {tableData.map((x) => (
-                  <tr
-                    key={x.txnId}
-                    style={{ borderBottom: "1px solid #ebedf0" }}
-                  >
+                {tableData.map((x, i) => (
+                  <tr key={i} style={{ borderBottom: "1px solid #ebedf0" }}>
                     <td>
                       <div className={sty.checkbox}>
                         <input

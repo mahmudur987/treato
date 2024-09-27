@@ -23,7 +23,6 @@ export const reportContext = createContext({});
 const Reports = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [commonSearch, setCommonSearch] = useState("");
-
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedClients, setSelectedClients] = useState([]);
   const [pageDetails, setPageDetails] = useState("Appointments");
@@ -48,8 +47,8 @@ const Reports = () => {
     isLoading: billIsLoading,
     isError: billIsError,
     error: billError,
-  } = useBillingReport();
-
+  } = useBillingReport(billQuery);
+  console.log(billQuery);
   const value = {
     selectedItems,
     setSelectedItems,
