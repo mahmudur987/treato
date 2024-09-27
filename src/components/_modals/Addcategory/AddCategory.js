@@ -36,12 +36,13 @@ const AddCategory = ({ showModal, onClose }) => {
     const x = uniqueDataArray?.map((x) => x.service_name);
     setserviceType(x);
     setSelectedServiceType(x[0] ? x[0] : "");
+    setservice(uniqueDataArray);
   }, [data]);
 
   const serviceId = service?.find(
     (x) => x.service_name === selectedServiceType
   )?._id;
-
+  console.log(serviceId);
   const handleSubmit = async () => {
     if (!selectCategory) {
       toast.error("Please select a category.");
