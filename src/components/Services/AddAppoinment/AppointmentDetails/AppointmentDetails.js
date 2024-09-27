@@ -336,20 +336,6 @@ const AppointmentDetails = () => {
             </p>
           </div>
         </div>
-
-        {/* addition al comments */}
-        {/* <div className={styles.comments}>
-          <label htmlFor="comments">
-            Additional comments <span>(optional)</span>
-          </label>
-          <textarea
-            onChange={(e) => setcomments(e.target.value)}
-            name=""
-            id=""
-            cols="30"
-            rows="10"
-          ></textarea>
-        </div> */}
       </div>
       <SelectServiceModal
         mainCategories={mainCategories}
