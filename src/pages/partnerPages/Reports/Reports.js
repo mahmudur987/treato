@@ -10,6 +10,7 @@ import BillAndPaymentTable from "../../../components/Services/Reports/BillAndPay
 import { IoArrowBack, IoSearchOutline } from "react-icons/io5";
 import {
   useAppointmentsReport,
+  useBillingReport,
   useClientsReport,
 } from "../../../services/Report";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
@@ -28,6 +29,7 @@ const Reports = () => {
   const [pageDetails, setPageDetails] = useState("Appointments");
   const [appointmentQuery, setAppointmentsQuery] = useState("");
   const [clientsQuery, setClientsQuery] = useState("");
+  const [billQuery, setBillQuery] = useState("");
   const {
     data: appointments,
     isLoading: appointmentsIsLoading,
@@ -41,6 +43,12 @@ const Reports = () => {
     isError: clientsIsError,
     error: clientsError,
   } = useClientsReport(clientsQuery);
+  const {
+    data: bill,
+    isLoading: billIsLoading,
+    isError: billIsError,
+    error: billError,
+  } = useBillingReport();
 
   const value = {
     selectedItems,
@@ -112,9 +120,18 @@ const Reports = () => {
 
         {pageDetails === "Billing & Payment" && (
           <section>
-            <FilterSection3 />
+            <FilterSection3 setBillQuery={setBillQuery} />
+            {billIsLoading && <LoadSpinner />}
 
-            <BillAndPaymentTable />
+            {billIsError && (
+              <ErrorComponent
+                message={billError ? billError?.message : "Error"}
+              />
+            )}
+
+            {!billIsError && !billIsLoading && bill?.data?.length > 0 && (
+              <BillAndPaymentTable data={bill?.data} />
+            )}
           </section>
         )}
       </main>

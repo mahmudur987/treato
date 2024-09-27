@@ -6,19 +6,19 @@
 }
 
 .container {
-  max-width: 1440px;
+  max-width: 1540px;
   width: 100%;
   min-height: 100vh;
+  display: flex;
 }
 .downContainer {
-  padding-left: 100px;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 .left {
+  max-width: 100px;
   width: 100%;
-  position: fixed;
   min-height: 100%;
 }
 .Outlet {
@@ -26,6 +26,9 @@
   margin-top: 30px;
 }
 @media only screen and (max-width: 700px) {
+  .mainContainer {
+    flex-direction: column;
+  }
   .left,
   .Navbar {
     display: none;

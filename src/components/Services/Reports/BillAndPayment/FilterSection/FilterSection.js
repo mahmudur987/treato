@@ -6,12 +6,13 @@ import CustomSelect4 from "../../../../Select/CustomeSelect4/CustomSelect4";
 const PaymentStatus = ["Paid", "Due", "Refunded"];
 const PaymentMode = ["Cash", "Online Payment"];
 
-const FilterSection = () => {
+const FilterSection = ({ setBillQuery }) => {
   const [selectedPaymentStatus, setSelectedPaymentStatus] =
     useState("Payment Status ");
   const [selectedPaymentMode, setSelectedPaymentMode] =
     useState("Payment Mode ");
-
+  let url =
+    "date=2024-07-16&status=started&mode=online&tranid=6645ec25779765f555b98a4d&name=rahul";
   return (
     <div className={styles.mainContainerWrapper}>
       <div className={styles.mainContainer}>

@@ -28,7 +28,7 @@ const FilterSection = ({ setClientsQuery }) => {
         ? `gender=${selectedGender.toLowerCase()}`
         : ""
     }`;
-    console.log(querystring);
+
     setClientsQuery(querystring);
   }, [selectedGender, searchText, setClientsQuery, commonSearch]);
 
