@@ -24,55 +24,23 @@ const options = [
   "#F18865",
 ];
 const AddCategory = ({ showModal, onClose }) => {
-  const { refetch } = useSingleSalon();
-  const [error, setError] = useState(null);
+  const { data, isLoading, isError, refetch, error } = useSingleSalon();
+
   const [serviceType, setserviceType] = useState(null);
   const [selectedServiceType, setSelectedServiceType] = useState(["Error"]);
   const [selectCategory, setselectCategory] = useState("");
   const [service, setservice] = useState([]);
   const [colorCode, setColorCode] = useState(options[0]);
   useEffect(() => {
-    async function fetchAllServices() {
-      try {
-        const { res, err } = await getAllServices();
-        if (res) {
-          const uniqueDataArray = res?.data?.data.reduce(
-            (uniqueArray, currentItem) => {
-              // Check if there's already an object with the same 'name' in uniqueArray
-              if (
-                !uniqueArray.some(
-                  (item) => item.service_name === currentItem.service_name
-                )
-              ) {
-                // If not found, add this object to uniqueArray
-                uniqueArray.push(currentItem);
-              }
-              return uniqueArray;
-            },
-            []
-          );
+    const uniqueDataArray = data?.salon?.services;
+    const x = uniqueDataArray?.map((x) => x.service_name);
+    setserviceType(x);
+    setSelectedServiceType(x[0] ? x[0] : "");
+  }, [data]);
 
-          const data = uniqueDataArray?.map((x) => x.service_name);
-
-          setservice(res?.data?.data);
-          setserviceType(data);
-          setSelectedServiceType(data[0]);
-        } else {
-          setError(err);
-        }
-      } catch (error) {
-        setError(error);
-      }
-    }
-    fetchAllServices();
-  }, []);
-  // console.log(serviceType);
-
-  const serviceId = service?.find((x) => {
-    if (x.service_name === selectedServiceType) {
-      return x._id;
-    }
-  })?._id;
+  const serviceId = service?.find(
+    (x) => x.service_name === selectedServiceType
+  )?._id;
 
   const handleSubmit = async () => {
     if (!selectCategory) {
@@ -112,9 +80,6 @@ const AddCategory = ({ showModal, onClose }) => {
     onClose();
   };
 
-  if (error) {
-    toast.error("error happen");
-  }
   return (
     <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
       <div className={styles.modalContent}>

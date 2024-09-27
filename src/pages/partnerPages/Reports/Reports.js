@@ -48,7 +48,7 @@ const Reports = () => {
     isError: billIsError,
     error: billError,
   } = useBillingReport(billQuery);
-  console.log(billQuery);
+  // console.log(billQuery);
   const value = {
     selectedItems,
     setSelectedItems,

@@ -1,11 +1,16 @@
 import React from "react";
 import styles from "./PageHeader.module.css";
-import { useClientsReport } from "../../../../services/Report";
+import {
+  useBillingReport,
+  useClientsReport,
+} from "../../../../services/Report";
 const ReportsPageHeader = ({ pageDetails, setPageDetails }) => {
   const headerData = ["Appointments", "Clients", "Billing & Payment"];
   const { refetch } = useClientsReport();
+  const { refetch: refetch1 } = useBillingReport();
   const handlePrefetch = () => {
     refetch();
+    refetch1();
   };
   return (
     <section className={styles.mainContainer}>

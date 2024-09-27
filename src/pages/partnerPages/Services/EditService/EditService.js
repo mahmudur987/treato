@@ -36,13 +36,7 @@ const findServiceData = (data, service_id, category_id, subcategory_id) => {
 // main page
 
 const EditService = () => {
-  const {
-    data: singleSalon,
-    isLoading,
-    isError,
-    error,
-    refetch,
-  } = useSingleSalon();
+  const { data: singleSalon, isLoading, isError, refetch } = useSingleSalon();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const service_id = queryParams.get("servicetype");
@@ -81,7 +75,7 @@ const EditService = () => {
         time_takenby_service: basicDetails.duration,
       },
     };
-    console.log(newEditService);
+
     const res = await editService(newEditService);
     if (res.res) {
       console.log(res.res);

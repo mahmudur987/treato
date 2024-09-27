@@ -4,57 +4,24 @@ import styles from "./UpdateCategory.module.css";
 import CustomSelect from "../../Select/CustomeSelect";
 import ColorSelect from "../../Select/ColorSelect/ColorSelect";
 import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
-import { getAllServices } from "../../../services/Services";
 import { useSingleSalon } from "../../../services/salon";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../services/axios";
 import { useNavigate } from "react-router-dom";
 const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
   const { refetch } = useSingleSalon();
-
-  const [serviceType, setserviceType] = useState(null);
   const [selectedServiceType, setSelectedServiceType] = useState(
     data?.service_name
   );
   const [selectCategory, setselectCategory] = useState(category.category_name);
   const [colorCode, setColorCode] = useState("");
+
   const navigate = useNavigate();
+  let serviceType = [];
   useEffect(() => {
     setColorCode(category?.color ? category.color : "");
   }, [category]);
-  useEffect(() => {
-    async function fetchAllServices() {
-      try {
-        const { res, err } = await getAllServices();
-        if (res) {
-          const uniqueDataArray = res?.data?.data.reduce(
-            (uniqueArray, currentItem) => {
-              // Check if there's already an object with the same 'name' in uniqueArray
-              if (
-                !uniqueArray.some(
-                  (item) => item.service_name === currentItem.service_name
-                )
-              ) {
-                // If not found, add this object to uniqueArray
-                uniqueArray.push(currentItem);
-              }
-              return uniqueArray;
-            },
-            []
-          );
 
-          const data = uniqueDataArray?.map((x) => x.service_name);
-
-          setserviceType(data);
-        } else {
-          console.log(err);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchAllServices();
-  }, []);
   const serviceId = data?._id;
   const handleSubmit = async () => {
     const newCategory = {
@@ -87,7 +54,7 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
     }
     onClose();
   };
-  console.log(category);
+
   return (
     <>
       {showModal && (
