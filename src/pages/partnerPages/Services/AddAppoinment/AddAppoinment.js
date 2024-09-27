@@ -204,7 +204,7 @@ const AddAppointment = () => {
       }}
     >
       <main className={styles.mainContainer}>
-        <Link to={"/service"} className={styles.backLink}>
+        <Link to={"/partner/dashboard"} className={styles.backLink}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
