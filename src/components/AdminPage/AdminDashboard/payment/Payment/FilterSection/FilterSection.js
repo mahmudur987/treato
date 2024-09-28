@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styles from "./FilterSection.module.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
@@ -54,3 +54,4 @@ const FilterSection = ({ value }) => {
 };
 
 export default FilterSection;
+export const MemoizedFilterSection5 = memo(FilterSection);

@@ -70,7 +70,8 @@ export default function SalonDetail() {
         </div>
         <div className={styles.salon_info}>
           <div className={styles.salon_star}>
-            {SalonData ? SalonData.rating : null} <img loading="lazy" src={star} alt="" />
+            {SalonData ? SalonData.rating : null}{" "}
+            <img loading="lazy" src={star} alt="" />
           </div>
           <div>({SalonData ? SalonData.total_rating : null})</div>
           <img loading="lazy" src={ellipse} alt="" />
@@ -98,7 +99,14 @@ export default function SalonDetail() {
         <div className={styles.salon_images_right}>
           {SalonData?.salon_Img?.slice(0, 4).map((v, i) => {
             if (i >= 1 && i <= SalonData?.salon_Img?.length) {
-              return <img loading="lazy" src={v.public_url} alt="salon image" key={i} />;
+              return (
+                <img
+                  loading="lazy"
+                  src={v.public_url}
+                  alt="salon image"
+                  key={i}
+                />
+              );
             }
           })}
           <div className={styles.salon_imagesA}>
@@ -134,7 +142,7 @@ export default function SalonDetail() {
         </div>
       </div>
       <div className={styles.salon_middle}>
-        <SalonMain
+        <MemoizeSalonMain
           SalonData={SalonData}
           addServices={addServices}
           addedServices={addedServices}

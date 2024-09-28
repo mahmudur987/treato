@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import SalonInDashBoard from "../../../../../layouts/Admin/SalonInDashboard/SalonInDashBoard";
 import FilterSection from "../../../../../components/AdminPage/AdminDashboard/Salon/Pending/FilterSection/FilterSection";
 import styles from "./PendingSalon.module.css";
-import PendingAllSalon from "../../../../../components/AdminPage/AdminDashboard/Salon/Pending/PendingAllSalon/PendingAllSalon";
+import PendingAllSalon, {
+  MemoizedPendingAllSalon,
+} from "../../../../../components/AdminPage/AdminDashboard/Salon/Pending/PendingAllSalon/PendingAllSalon";
 import img from "../../../../../assets/images/SalonDetail/slide4.webp";
 import {
   adminToken,
@@ -103,7 +105,7 @@ const PendingSalon = () => {
         />
         {isLoading && <LoadSpinner />}
         {data && !isError && !isLoading && pendingSalonData.length > 0 && (
-          <PendingAllSalon
+          <MemoizedPendingAllSalon
             selectedSalon={selectedSalon}
             setSelectedSalon={setSelectedSalon}
             pendingSalonData={pendingSalonData}

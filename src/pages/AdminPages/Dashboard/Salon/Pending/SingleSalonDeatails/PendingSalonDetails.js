@@ -2,7 +2,9 @@ import styles from "./PendingSalonDetails.module.css";
 import star from "../../../../../../assets/images/SalonDetail/star_line.svg";
 import ellipse from "../../../../../../assets/images/SalonDetail/Ellipse.svg";
 import leftIco from "../../../../../../assets/images/AccountSettings/arrow-left.svg";
-import SalonSlickSlider from "./SalonSlickSlider.jsx";
+import SalonSlickSlider, {
+  MemoizedSalonSlickSLider3,
+} from "./SalonSlickSlider.jsx";
 import SalonGallery from "../../../../../../components/SalonDetail/SalonGallery/SalonGallery";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -12,7 +14,9 @@ import {
   displayDistance,
 } from "../../../../../../utils/utils.js";
 import { salon } from "../../../../../../services/salon.js";
-import PendingSalonMainPage from "../../../../../../components/AdminPage/AdminDashboard/Salon/Pending/PendingSalonDetails/PendingSalonMainPage/PendingSalonMainPage.jsx";
+import PendingSalonMainPage, {
+  MemoizedPendingSalonMainPage,
+} from "../../../../../../components/AdminPage/AdminDashboard/Salon/Pending/PendingSalonDetails/PendingSalonMainPage/PendingSalonMainPage.jsx";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { updateAdminPage } from "../../../../../../redux/slices/AdminSlice.js";
 import {
@@ -109,7 +113,9 @@ export default function PendingSalonDetail() {
                 {SalonDetails1?.salon_rating > 0
                   ? SalonDetails1?.salon_rating
                   : ""}{" "}
-                {SalonDetails1?.salon_rating > 0 && <img loading="lazy" src={star} alt="" />}
+                {SalonDetails1?.salon_rating > 0 && (
+                  <img loading="lazy" src={star} alt="" />
+                )}
               </div>
               {SalonDetails1?.total_rating && (
                 <div>({SalonDetails1?.total_rating || ""})</div>
@@ -138,13 +144,15 @@ export default function PendingSalonDetail() {
         SalonDetails1?.salon_image.length > 0 && (
           <div className={styles.salon_images}>
             <div className={styles.salon_image_slider}>
-              <SalonSlickSlider
+              <MemoizedSalonSlickSLider3
                 SalonData={SalonDetails1 ? SalonDetails1 : null}
               />
             </div>
             <div className={styles.salon_images_right}>
               {SalonDetails1?.salon_image?.slice(1, 4).map((v, i) => {
-                return <img loading="lazy" src={v.public_url} alt="salon image" key={i} />;
+                return (
+                  <img loading="lazy" src={v.public_url} alt="salon " key={i} />
+                );
               })}
               {SalonDetails1?.salon_image?.length > 3 && (
                 <Link
@@ -157,7 +165,11 @@ export default function PendingSalonDetail() {
                     </div>
                     <div>images</div>
                   </div>
-                  <img loading="lazy" src={firstImage ? firstImage : null} alt="" />
+                  <img
+                    loading="lazy"
+                    src={firstImage ? firstImage : null}
+                    alt=""
+                  />
                 </Link>
               )}
             </div>
@@ -170,7 +182,9 @@ export default function PendingSalonDetail() {
         <div className={styles.salon_info}>
           <div className={styles.salon_star}>
             {SalonDetails1?.salon_rating > 0 ? SalonDetails1?.salon_rating : ""}{" "}
-            {SalonDetails1?.salon_rating > 0 && <img loading="lazy" src={star} alt="" />}{" "}
+            {SalonDetails1?.salon_rating > 0 && (
+              <img loading="lazy" src={star} alt="" />
+            )}{" "}
             {SalonDetails1?.total_rating && (
               <div>({SalonDetails1?.total_rating || ""})</div>
             )}
@@ -203,7 +217,7 @@ export default function PendingSalonDetail() {
       </div>
 
       <div className={styles.salon_middle}>
-        <PendingSalonMainPage
+        <MemoizedPendingSalonMainPage
           addServices={addServices}
           addedServices={addedServices}
         />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./PendingAllSalon.module.css";
 import { FaArrowRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
@@ -185,3 +185,4 @@ const PendingAllSalon = ({
 };
 
 export default PendingAllSalon;
+export const MemoizedPendingAllSalon = memo(PendingAllSalon);

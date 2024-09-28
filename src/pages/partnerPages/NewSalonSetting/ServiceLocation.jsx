@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import mapImg from "../../../assets/images/partner/Screenshot 2023-08-07 at 2.01 1.webp";
 import styles from "./ServiceLocation.module.css";
 import BasicInputs from "../Input/BasicInputs";
@@ -156,7 +156,12 @@ const ServiceLocation = ({
                     styles={`${styles.locationInput}`}
                   />
                 </label>
-                <img loading="lazy" src={map} alt="map" className={styles.mapLogo} />
+                <img
+                  loading="lazy"
+                  src={map}
+                  alt="map"
+                  className={styles.mapLogo}
+                />
               </div>
               {show && (
                 <div className={styles.suggestions}>{renderSuggestions()}</div>
@@ -251,3 +256,4 @@ const ServiceLocation = ({
 };
 
 export default ServiceLocation;
+export const MemoizedServiceLocation = memo(ServiceLocation);

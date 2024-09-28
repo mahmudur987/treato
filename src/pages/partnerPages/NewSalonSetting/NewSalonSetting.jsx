@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import BasicDetailsPartner from "./BasicDetailsPartner";
-import ServiceOffer from "./ServiceOffer";
-import ServiceLocation from "./ServiceLocation";
+import BasicDetailsPartner, {
+  MemoizedBasicDetailsPartner,
+} from "./BasicDetailsPartner";
+import ServiceOffer, { MemoizedServiceOffer } from "./ServiceOffer";
+import ServiceLocation, { MemoizedServiceLocation } from "./ServiceLocation";
 
 import sty from "./NewSalonSetting.module.css";
 import {
@@ -215,7 +217,7 @@ const NewSalonSetting = () => {
         <div className={sty.form}>
           {(PcScreen || (mobileScreen && currentStep === 1)) && (
             <div className={sty.ServiceOfferSmallScreen}>
-              <BasicDetailsPartner
+              <MemoizedBasicDetailsPartner
                 salonData={salonData}
                 setSalonData={setSalonData}
                 handleChange={handleChange}
@@ -224,7 +226,7 @@ const NewSalonSetting = () => {
           )}
 
           <div className={sty.ServiceOfferSmallScreen}>
-            <ServiceOffer
+            <MemoizedServiceOffer
               salonData={salonData}
               setSalonData={setSalonData}
               setWorkingHours={setWorkingHours}
@@ -236,7 +238,7 @@ const NewSalonSetting = () => {
 
           {(PcScreen || (mobileScreen && currentStep === 3)) && (
             <div className={sty.ServiceLocationSmallScreen}>
-              <ServiceLocation
+              <MemoizedServiceLocation
                 salonData={salonData}
                 setSalonData={setSalonData}
                 position={position}
@@ -251,12 +253,7 @@ const NewSalonSetting = () => {
               <h3 className={sty.teamDetailsH}>Team details</h3>
 
               <div className={sty.inputWrapper}>
-                <label
-                  htmlFor="
-  "
-                >
-                  Number of team members
-                </label>
+                <label htmlFor="">Number of team members</label>
 
                 <input
                   type="number"

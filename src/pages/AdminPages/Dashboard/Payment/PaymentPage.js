@@ -3,7 +3,9 @@ import styles from "./PaymentPage.module.css";
 import { IoArrowBack, IoSearchOutline } from "react-icons/io5";
 
 import PaymentPageHeader from "../../../../components/AdminPage/AdminDashboard/payment/PaymentPageHeader/PaymentPageHeader";
-import FilterSection from "../../../../components/AdminPage/AdminDashboard/payment/Payment/FilterSection/FilterSection";
+import FilterSection, {
+  MemoizedFilterSection5,
+} from "../../../../components/AdminPage/AdminDashboard/payment/Payment/FilterSection/FilterSection";
 import PaymentTable from "../../../../components/AdminPage/AdminDashboard/payment/Payment/PaymentTable/PaymentsTable";
 import { Link } from "react-router-dom";
 const PaymentStatus = ["Upcoming", "Pending", "Complete"];
@@ -39,7 +41,7 @@ const PaymentPage = () => {
 
       <PaymentPageHeader />
       <section className={styles.appointments}>
-        <FilterSection value={value} />
+        <MemoizedFilterSection5 value={value} />
         <PaymentTable />
       </section>
     </main>
