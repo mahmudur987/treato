@@ -4,7 +4,6 @@ import { FaArrowRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import axiosInstance from "../../../../../../services/axios";
 import { toast } from "react-toastify";
-import { memo } from "react";
 
 const DeactivatedAllSalon = ({
   selectedSalon,
