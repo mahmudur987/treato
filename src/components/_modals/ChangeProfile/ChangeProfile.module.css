@@ -107,6 +107,9 @@
 .cancelbtn {
   width: 182px;
 }
+.imageUpload{
+  display: none;
+}
 @media only screen and (max-width: 767px) {
   .profileMain {
     align-items: flex-end;

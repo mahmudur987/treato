@@ -120,24 +120,19 @@ const ManageHolidays = ({ showModal, onClose }) => {
               <div className={styles.bottomPart}>
                 <p
                   className={styles.dateWrapper}
-                  style={{ position: "relative" }}
                 >
-                  <span style={{ fontWeight: "600" }}>Date</span>
+                  <span className={styles.dateText}>Date</span>
                   <span
                     onClick={openDatePicker}
-                    style={{
-                      color: "#6D747A",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "5px",
-                    }}
+                    
+                    className={styles.openDate}
                   >
                     {selectedDate} <FaAngleDown />
                   </span>
                   <input
                     ref={dateInputRef}
                     type="date"
-                    style={{ display: "none", position: "absolute" }}
+                    className={styles.dateINbox}
                     onChange={(e) => {
                       const selectedDate = e.target.value;
                       setDate(selectedDate);
@@ -153,7 +148,7 @@ const ManageHolidays = ({ showModal, onClose }) => {
                   />
                 </p>
                 <p className={styles.eventWrapper}>
-                  <span style={{ fontWeight: "600" }}>Event</span>
+                  <span className={styles.dateText}>Event</span>
                   <input
                     onChange={(e) => setEventName(e.target.value)}
                     type="text "
@@ -182,21 +177,21 @@ const ManageHolidays = ({ showModal, onClose }) => {
           )}
           <div className={styles.row1}>
             <span
-              className={styles.col1}
-              style={{ fontSize: "16px", fontWeight: "600" }}
+              className={`${styles.col1} ${styles.colsText} `}
+              
             >
               Day/ Date
             </span>
             <span
-              className={styles.col2}
-              style={{ fontSize: "16px", fontWeight: "600" }}
+              className={`${styles.col2} ${styles.colsText} `}
+              
             >
               {" "}
               Event
             </span>
             <span
-              className={styles.col3}
-              style={{ fontSize: "16px", fontWeight: "600" }}
+              className={`${styles.col3} ${styles.colsText} `}
+              
             >
               {" "}
               Status

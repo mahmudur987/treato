@@ -118,14 +118,14 @@ const Header = () => {
             {/* new user */}
             <div>
               <div
-                style={{
-                  background:
-                    "linear-gradient(180deg, #FFDFA2 0%, #FFCE6E 100%)",
-                }}
+                // style={{ 
+                //   background:
+                //     "linear-gradient(180deg, #FFDFA2 0%, #FFCE6E 100%)",
+                // }}
                 className={styles.card}
               >
                 <div className={styles.cardLeft}>
-                  <FaUsers style={{ color: "#F0A20B" }} />
+                  <FaUsers className={styles.faUsers} />
                   <div className={styles.cardMiddle}>
                     <p>Commission %</p>
                     <h3>
@@ -233,7 +233,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp style={{ color: "#08090A" }} />{" "}
+                  <IoIosArrowUp className={styles.arrowUp} />{" "}
                   {Number(
                     data?.commissionDetails?.appointmentsAfterStartDate
                   ).toFixed(2)}

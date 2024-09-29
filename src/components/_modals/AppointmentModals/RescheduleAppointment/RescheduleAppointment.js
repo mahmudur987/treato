@@ -388,18 +388,16 @@ const RescheduleAppointment = ({ data }) => {
       </div>
 
       <div
-        style={{
-          display: "flex",
-          justifyContent: "end",
-        }}
+        className={styles.buttonBox}
       >
         <p
-          style={{
-            width: "50%",
-            display: "flex",
-            justifyContent: "end",
-            gap: "10px",
-          }}
+        className={styles.pTag}
+          // style={{
+          //   width: "50%",
+          //   display: "flex",
+          //   justifyContent: "end",
+          //   gap: "10px",
+          // }}
         >
           <SecondaryButton
             children={"cancel"}

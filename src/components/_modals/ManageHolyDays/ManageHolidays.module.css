@@ -161,6 +161,22 @@
   text-align: left;
   cursor: pointer;
 }
+.dateWrapper{
+  position: relative;
+}
+.dateText{
+  font-weight: 600;
+}
+.openDate{
+  color: #6D747A;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.dateINbox{
+  display: none;
+  position: absolute;
+}
 
 .addHolidaySave {
   cursor: pointer;
@@ -211,6 +227,10 @@
   font-weight: 400;
   line-height: 21px;
   text-align: left;
+}
+.colsText{
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .buttonContainer {

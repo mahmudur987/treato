@@ -81,10 +81,7 @@ const CommissionHistoryTable = ({ data }) => {
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
                     <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
+                      className={sty.imageBox}
                     >
                       <img loading="lazy" src={item.topImg} alt="" />
                       <img loading="lazy" src={item.bottomImg} alt="" />
@@ -97,7 +94,7 @@ const CommissionHistoryTable = ({ data }) => {
           </thead>
           <tbody className={sty.tbody}>
             {billData.map((x) => (
-              <tr style={{ borderBottom: "1px solid #ebedf0" }}>
+              <tr  className={sty.tableHead} >
                 <td>
                   <p className={sty.bodyRow}>
                     <input type="checkbox" name="" id="" />
@@ -126,8 +123,7 @@ const CommissionHistoryTable = ({ data }) => {
                 </td>
                 <td>
                   <p
-                    className={sty.bodyRow}
-                    style={{ fontSize: "20px", textAlign: "center" }}
+                    className={`${sty.bodyRow} ${sty.fontstyle}`}
                   >
                     <GoDownload />
                   </p>
