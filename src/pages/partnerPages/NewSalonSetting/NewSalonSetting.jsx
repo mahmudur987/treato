@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
-import BasicDetailsPartner, {
-  MemoizedBasicDetailsPartner,
-} from "./BasicDetailsPartner";
-import ServiceOffer, { MemoizedServiceOffer } from "./ServiceOffer";
-import ServiceLocation, { MemoizedServiceLocation } from "./ServiceLocation";
+import { MemoizedBasicDetailsPartner } from "./BasicDetailsPartner";
+import { MemoizedServiceOffer } from "./ServiceOffer";
+import { MemoizedServiceLocation } from "./ServiceLocation";
 
 import sty from "./NewSalonSetting.module.css";
-import {
-  createSalon,
-  UpdateSalon,
-  useSingleSalon,
-} from "../../../services/salon";
+import { createSalon } from "../../../services/salon";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
