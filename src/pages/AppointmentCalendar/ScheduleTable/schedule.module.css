@@ -150,6 +150,7 @@
 }
 
 .durationsBox {
+    margin-left: 50px;
     margin-top: 48px;
     min-width: 62px;
     height: auto;
@@ -266,6 +267,9 @@
     font-family: Lato;
     line-height: 15px;
 
+}
+.minheight{
+    min-height: 134px;
 }
 
 @media screen and (max-width: 700px) {

@@ -236,7 +236,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
 
   return (
     <>
-      <div className={style.durationsBox}>
+      <div  className={style.durationsBox}>
         {durations &&
           durations.map((duration, index) => <p key={index}>{duration}</p>)}
       </div>
@@ -280,10 +280,10 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                 <Link to="/partner/dashboard/addappoinment">
                                   <div
                                     key={serviceIndex}
-                                    className={`${style.appointmentBox3} ${
+                                    className={`${style.appointmentBox3} ${style.minheight} ${
                                       condition ? style.dBox : style.cBox
                                     }`}
-                                    style={{ minHeight: "134px" }}
+                                    
                                   >
                                     <p className={style.addAppointment}>
                                       + Add Appointments

@@ -58,6 +58,16 @@
   line-height: 21px;
   text-align: left;
 }
+.imageBox{
+  display: flex;
+  flex-direction: column;
+}
+.tableBorder{
+  border-bottom: 1px solid #ebedf0 ;
+}
+.textSize{
+  font-size: 18px;
+}
 @media only screen and (max-width: 700px) {
   .mainContainer {
     max-width: 96vw;

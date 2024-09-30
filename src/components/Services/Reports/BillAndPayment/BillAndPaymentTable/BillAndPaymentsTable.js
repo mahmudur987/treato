@@ -118,12 +118,13 @@ const BillAndPaymentTable = ({ data }) => {
                   {tableHeading.map((item, i) => (
                     <td key={i}>
                       <div className={sty.headingRow}>
-                        <span style={{ marginLeft: "30px" }}>
+                        <span  className={sty.marginSpan} >
                           {item.heading}
                         </span>
                         {item.topImg && (
                           <div
-                            style={{ display: "flex", flexDirection: "column" }}
+                          className={sty.imageBox}
+                            
                           >
                             <img loading="lazy" src={item.topImg} alt="" />
                             <img loading="lazy" src={item.bottomImg} alt="" />
@@ -136,7 +137,7 @@ const BillAndPaymentTable = ({ data }) => {
               </thead>
               <tbody className={sty.tbody}>
                 {tableData.map((x, i) => (
-                  <tr key={i} style={{ borderBottom: "1px solid #ebedf0" }}>
+                  <tr key={i} className={sty.tableBorder} >
                     <td>
                       <div className={sty.checkbox}>
                         <input
@@ -156,7 +157,7 @@ const BillAndPaymentTable = ({ data }) => {
                     <td>{x.paidOn}</td>
                     <td>{x.tax}</td>
                     <td>{x.comm}</td>
-                    <td style={{ fontSize: "18px" }}>
+                    <td  className={sty.textSize} >
                       <MdOutlineFileDownload />
                     </td>
                   </tr>

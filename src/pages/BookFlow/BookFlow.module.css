@@ -152,7 +152,7 @@
   gap: 12px;
 }
 
-.worker_compAA > img {
+.worker_compAA>img {
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -168,11 +168,13 @@
   align-items: center;
   color: #6d747a;
 }
+
 .worker_compACA {
   font-weight: 600;
   margin-bottom: 4px;
   color: #08090a;
 }
+
 .worker_compACBA {
   font-weight: 400;
   font-size: 14px;
@@ -182,6 +184,7 @@
   align-items: center;
   color: #6d747a;
 }
+
 .worker_compStar {
   gap: 3px;
 }
@@ -242,7 +245,7 @@
   margin-top: 24px;
 }
 
-.service_timeEA > span {
+.service_timeEA>span {
   color: #0d69d7;
   font-weight: 600;
 }
@@ -273,6 +276,7 @@
   font-weight: 400;
   cursor: pointer;
 }
+
 .timeMain label {
   all: unset;
 }
@@ -308,11 +312,13 @@
   align-items: center;
   justify-content: center;
 }
+
 .service_cardGA img {
   height: 100%;
   width: 100%;
   border-radius: 50%;
 }
+
 .service_dateA {
   width: 64px;
   height: 64px;
@@ -400,7 +406,7 @@
   margin-top: 16px;
 }
 
-.final_billAB > input {
+.final_billAB>input {
   width: 24px;
   height: 24px;
 }
@@ -493,7 +499,7 @@
   font-weight: 400;
 }
 
-.final_billCBC > input {
+.final_billCBC>input {
   width: 24px;
   height: 24px;
 }
@@ -557,7 +563,7 @@
   border-bottom: 1px solid #ebedf0;
 }
 
-.bill_sumB > img {
+.bill_sumB>img {
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -575,66 +581,81 @@
   padding-bottom: 16px;
   border-bottom: 1px dotted #ebedf0;
 }
-.appliedOffer{
-  display: flex;
-  justify-content: space-between;
-width: 100%;
-}
-.offerDetails{
-  display: flex;
-  gap: 4px;
-  flex-direction: column;
-}
-.bill_sumFB{
-  display: flex;
-  flex-direction: row;
-}
-.applyOfferContainer{
-  display: flex;
-  flex-direction: column;
-}
-.applyOffer{
+
+.appliedOffer {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
-.discountAmount{
-  color: var(--Grey-Grey-10, #6D747A);
-font-family: "Lato";
-font-size: 14px;
-font-style: normal;
-font-weight: 500;
-line-height: 150%; /* 21px */
-letter-spacing: 0.14px;
-text-decoration: line-through;
-margin-right: 8px;
+
+.offerDetails {
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
 }
-.firstLine{
+
+.bill_sumFB {
+  display: flex;
+  flex-direction: row;
+}
+
+.applyOfferContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.applyOffer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.discountAmount {
+  color: var(--Grey-Grey-10, #6D747A);
+  font-family: "Lato";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  /* 21px */
+  letter-spacing: 0.14px;
+  text-decoration: line-through;
+  margin-right: 8px;
+}
+
+.firstLine {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.offerName{
+
+.offerName {
   color: var(--Grey-Black, #08090A);
-font-family: "Lato";
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 150%; /* 24px */
-letter-spacing: 0.16px;
+  font-family: "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 24px */
+  letter-spacing: 0.16px;
 }
-.firstLine img,.deleteOption img{
+
+.firstLine img,
+.deleteOption img {
   width: 24px;
-height: 24px;
+  height: 24px;
 }
-.secondLine{
+
+.secondLine {
   color: var(--Green-Text, #009758);
-font-family: "Lato";
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: 150%; /* 21px */
+  font-family: "Lato";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 21px */
 }
+
 .bill_sumCA,
 .bill_sumDA {
   display: flex;
@@ -689,7 +710,7 @@ line-height: 150%; /* 21px */
   padding-top: 24px;
 }
 
-.bill_sumG > button {
+.bill_sumG>button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -717,7 +738,7 @@ line-height: 150%; /* 21px */
   line-height: 24px;
 }
 
-.bill_sumHA > span {
+.bill_sumHA>span {
   color: #0d69d7;
   font-weight: 600;
   cursor: pointer;
@@ -765,22 +786,27 @@ line-height: 150%; /* 21px */
   margin-bottom: 12px;
   line-height: 24px;
 }
+
 .payMainC span:first-child {
   font-weight: 600;
 }
+
 .payMainC span:last-child,
 .payMainD span {
   font-weight: 600;
   color: #0d69d7;
 }
+
 .payMainD {
   line-height: 24px;
 }
+
 .payMainE {
   padding: 24px;
   border: 1px solid #ebedf0;
   margin-top: 36px;
 }
+
 .payMainEA {
   padding-bottom: 24px;
   margin-bottom: 24px;
@@ -788,6 +814,7 @@ line-height: 150%; /* 21px */
   font-size: 20px;
   font-weight: 600;
 }
+
 .addedServiceA {
   padding: 12px 0px;
   border-top: 1px solid #ebedf0;
@@ -796,12 +823,14 @@ line-height: 150%; /* 21px */
   align-items: center;
   font-weight: 400;
 }
+
 .addedServiceB {
   display: flex;
   justify-content: start;
   align-items: center;
   gap: 4px;
 }
+
 .payMainEB {
   display: flex;
   justify-content: start;
@@ -809,6 +838,7 @@ line-height: 150%; /* 21px */
   gap: 12px;
   padding-bottom: 12px;
 }
+
 .payMainEC {
   padding: 12px 0px;
   border-top: 1px solid #ebedf0;
@@ -816,21 +846,25 @@ line-height: 150%; /* 21px */
   justify-content: space-between;
   align-items: center;
 }
+
 .fwBold {
   font-weight: 600;
 }
+
 .payMainECA {
   font-size: 14px;
   font-weight: 400;
   color: #6d747a;
   text-decoration: underline;
 }
+
 .payMainF {
   width: 158px;
   margin: auto;
   margin-top: 36px;
 }
-.phone_inputMain{
+
+.phone_inputMain {
   border: 1px solid #CED4DA;
   border-radius: 4px;
   padding: 0px 16px;
@@ -842,32 +876,35 @@ line-height: 150%; /* 21px */
   box-sizing: border-box;
 }
 
-.phone_input{
+.phone_input {
   border: none;
   width: 70%;
   padding-left: 8px;
   outline: none;
 }
 
-.phone_select{
+.phone_select {
   border: none;
   background-color: unset;
   width: 70px;
   padding: 5px 0px;
 }
 
-.phone_inputBorder{
+.phone_inputBorder {
   width: 1px;
   height: 20px;
   background-color: #08090A;
 }
-.leftarrowIcon{
+
+.leftarrowIcon {
   transform: scaleX(-1);
 }
-.disabled{
- opacity: 0.3;
+
+.disabled {
+  opacity: 0.3;
 }
-.discontAmount{
+
+.discontAmount {
   color: var(--Green-Text, #009758);
   font-family: "Lato";
   font-size: 16px;
@@ -876,16 +913,28 @@ line-height: 150%; /* 21px */
   line-height: 150%;
   letter-spacing: 0.16px;
 }
-.AddCalendar,.myAppointment{
+
+.AddCalendar,
+.myAppointment {
   cursor: pointer;
 }
-.warning{
+
+.warning {
   color: red;
 }
+
+.loaderBox {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media only screen and (max-width: 767px) {
-    .service_timeF{
-        gap:16px;
-    }
+  .service_timeF {
+    gap: 16px;
+  }
+
   .service_timeMonth {
     width: 100%;
   }
@@ -924,7 +973,7 @@ line-height: 150%; /* 21px */
     line-height: 18px;
   }
 
-  .bill_sumH > img {
+  .bill_sumH>img {
     display: none;
   }
 
@@ -1026,7 +1075,7 @@ line-height: 150%; /* 21px */
     line-height: 20px;
   }
 
-  .worker_compACB > img {
+  .worker_compACB>img {
     display: none;
   }
 
@@ -1075,11 +1124,12 @@ line-height: 150%; /* 21px */
     font-size: 12px;
   }
 
-  .service_timeE > img {
+  .service_timeE>img {
     display: none;
   }
 
 }
+
 .d_none {
   display: none !important;
 }
