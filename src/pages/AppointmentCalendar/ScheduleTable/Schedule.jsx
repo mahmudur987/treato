@@ -321,6 +321,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         <p className={style.serviceNames}>
                                           {service.service_name}
                                         </p>
+                                        
                                         <p className={style.clientNames}>
                                           {service.clientName}
                                         </p>
