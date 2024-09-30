@@ -25,7 +25,7 @@ const NewSalonSetting = () => {
   const { newPartner } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const [mobileScreen, setMobileScreen] = useState(false);
   const [PcScreen, setPcScreen] = useState(true);
@@ -77,12 +77,26 @@ const NewSalonSetting = () => {
       setPcScreen(true);
     }
   };
+  useEffect(() => {
+    let isTokenExist = localStorage.getItem("jwtToken");
+    if (isTokenExist) {
+      getUserProfile(isTokenExist).then((res) => {
+        dispatch(updateIsLoggedIn(true));
+        dispatch(updateUserDetails(res?.res?.data));
+        setLoading(false);
+      });
+    } else {
+      setLoading(false);
+    }
+  }, [dispatch]);
 
   useEffect(() => {
-    if (newPartner.isProfileComplete) {
-      navigate("/partner/dashboard");
+    if (!loading) {
+      if (newPartner.isProfileComplete) {
+        navigate("/partner/dashboard");
+      }
     }
-  }, [newPartner, navigate]);
+  }, [newPartner, navigate, loading]);
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
