@@ -85,10 +85,10 @@ function Chatbot() {
       {openGreeting ? (
         ""
       ) : (
-        <div className={style.aiContainer}>
+        <div  className={style.aiContainer}>
           <section className={style.subBox}>
             <img src={chatBotLogo} alt="Chatbot Logo" />
-            <div className={style.greetingBox}>
+            <div  className={style.greetingBox}>
               <div>
                 <p>👋</p>
                 <p onClick={closeGreeting} className={style.closeButton}>
@@ -103,7 +103,7 @@ function Chatbot() {
         </div>
       )}
 
-      <div
+      <div 
         onClick={() => {
           openMessageFn();
           setOpen(true);
@@ -166,7 +166,7 @@ function Chatbot() {
             <div ref={messageRef} className={style.subMsgBox}>
               <section className={style.introBox}>
                 <img src={chatBotLogo} alt="Chatbot Logo" />
-                <div className={style.msgBox}>
+                <div  className={style.msgBox}>
                   <div>
                     <p>
                       Got questions? I’m an AI chatbot here to help you find
