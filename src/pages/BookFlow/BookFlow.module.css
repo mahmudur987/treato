@@ -879,6 +879,9 @@ line-height: 150%; /* 21px */
 .AddCalendar,.myAppointment{
   cursor: pointer;
 }
+.warning{
+  color: red;
+}
 @media only screen and (max-width: 767px) {
     .service_timeF{
         gap:16px;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from './locationAuto.module.css'
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -70,7 +71,7 @@ const LocationAutocomplete = () => {
     lng: 0, // Default to 0
   };
   return (
-    <div ref={ref} style={{ height: "90vh", padding: "10rem" }}>
+    <div ref={ref} className={styles.container}>
       <input
         value={value}
         onChange={handleInput}

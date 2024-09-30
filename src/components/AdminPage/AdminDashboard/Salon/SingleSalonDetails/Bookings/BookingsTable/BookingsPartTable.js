@@ -66,10 +66,7 @@ const BookingsPartTable = ({ data }) => {
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
                     <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
+                      className={sty.imageBox}
                     >
                       <img loading="lazy"  src={item.topImg} alt="" />
                       <img loading="lazy"  src={item.bottomImg} alt="" />
@@ -80,20 +77,12 @@ const BookingsPartTable = ({ data }) => {
               <td>
                 <div className={sty.headingRow}>
                   <p
-                    style={{
-                      justifyContent: "center",
-                      width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "5px",
-                    }}
+                    
+                    className={sty.headP}
                   >
                     <span>Action</span>
                     <span
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
+                      className={sty.imageBox}
                     >
                       <img loading="lazy"  src={topImg} alt="" />
                       <img loading="lazy"  src={bottomImg} alt="" />
@@ -105,7 +94,7 @@ const BookingsPartTable = ({ data }) => {
           </thead>
           <tbody className={sty.tbody}>
             {tableData.map((x) => (
-              <tr style={{ borderBottom: "1px solid #ebedf0" }}>
+              <tr className={sty.tableBorder}>
                 <td>
                   <div className={sty.bodyRow}>
                     <p className={sty.profile}>
@@ -140,8 +129,7 @@ const BookingsPartTable = ({ data }) => {
                 </td>
                 <td>
                   <p
-                    className={sty.bodyRow}
-                    style={{ fontSize: "20px", textAlign: "center" }}
+                    className={`${sty.bodyRow} ${sty.textSize}`}
                   >
                     <BsThreeDots />
                   </p>

@@ -80,6 +80,15 @@
 .UpArrow {
   cursor: pointer;
 }
+.bgcolor{
+  background-color: yellow;
+}
+.bgcolor1{
+  background-color: skyblue;
+}
+.bgcolor2{
+  background-color: pink;
+}
 
 @media only screen and (max-width: 700px) {
   .mainContainer {

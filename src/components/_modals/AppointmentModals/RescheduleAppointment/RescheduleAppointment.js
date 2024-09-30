@@ -392,12 +392,7 @@ const RescheduleAppointment = ({ data }) => {
       >
         <p
         className={styles.pTag}
-          // style={{
-          //   width: "50%",
-          //   display: "flex",
-          //   justifyContent: "end",
-          //   gap: "10px",
-          // }}
+          
         >
           <SecondaryButton
             children={"cancel"}

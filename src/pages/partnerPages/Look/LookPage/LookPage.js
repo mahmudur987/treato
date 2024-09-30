@@ -43,7 +43,7 @@ const LookPage = () => {
         <h1>Looks</h1>
         <Link to={"/partner/dashboard/add-look"}>
           <button className={styles.top}>
-            <span style={{ color: "white" }}>
+            <span  className={styles.iconColor} >
               <FaPlus />
             </span>
             <span>Add New Look</span>
@@ -63,7 +63,7 @@ const LookPage = () => {
         className={styles.bottom}
         onClick={() => navigate("/partner/dashboard/add-look")}
       >
-        <button style={{ color: "white" }}>
+        <button  className={styles.iconColor} >
           <FaPlus />
         </button>
       </div>

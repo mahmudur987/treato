@@ -138,11 +138,8 @@ const Upcoming = () => {
                           <div className={styles.teamMember}>
                             <img
                               loading="lazy"
-                              style={{
-                                height: "20px",
-                                width: "20px",
-                                borderRadius: "50%",
-                              }}
+                              
+                              className={styles.imgSize}
                               src={
                                 item?.noPreference
                                   ? "No Preference"

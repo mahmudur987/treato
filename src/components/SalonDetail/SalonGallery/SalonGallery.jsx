@@ -45,7 +45,7 @@ export default function SalonGallery({ gallery, setShowGallery }) {
             canAutoPlay={false}
             index={lightBox.index}
             images={images}
-            style={{ height: 500, width: 800 }}
+            className={styles.CarouselH}
             isMaximized={true}
             hasSizeButton={false}
             hasMediaButton={false}

@@ -64,7 +64,12 @@
   letter-spacing: 0.01em;
   text-align: left;
 }
-
+.fastars{
+  font-size: 12px;
+}
+.textWeight{
+  font-weight: 600;
+}
 /* Random Animation */
 @keyframes fadein {
   from {

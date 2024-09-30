@@ -15,7 +15,7 @@ const FilterSection = ({ viewBy, setViewBy, selectedSalon, count, value }) => {
           <button>
             Approve
             {selectedSalon.length > 0 ? (
-              <span style={{ marginLeft: "7px" }}>{selectedSalon.length}</span>
+              <span className={styles.marginSpan}>{selectedSalon.length}</span>
             ) : (
               "All"
             )}
@@ -41,7 +41,7 @@ const FilterSection = ({ viewBy, setViewBy, selectedSalon, count, value }) => {
             <button type="button" onClick={handleApprove}>
               Approve
               {selectedSalon.length > 0 ? (
-                <span style={{ marginLeft: "7px" }}>
+                <span className={styles.marginSpan}>
                   {selectedSalon.length}
                 </span>
               ) : (

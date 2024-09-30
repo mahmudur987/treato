@@ -204,7 +204,6 @@ const Business = () => {
           {/* <SalonPictures /> */}
           <div className={sty.saveBtnDiv}>
             <button
-              style={{ cursor: "pointer" }}
               type="submit"
               className={sty.saveBtn}
             >

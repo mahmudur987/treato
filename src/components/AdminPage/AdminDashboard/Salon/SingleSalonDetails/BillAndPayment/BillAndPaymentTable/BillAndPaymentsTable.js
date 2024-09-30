@@ -90,7 +90,7 @@ const BillAndPaymentPartTable = ({ data }) => {
               {tableHeading.map((item, i) => (
                 <td key={i}>
                   <div className={sty.headingRow}>
-                    <span style={{ marginLeft: "30px" }}>{item.heading}</span>
+                    <span className={sty.marginSpan}>{item.heading}</span>
                     <div
                       className={sty.imageBox}
                     >

@@ -319,7 +319,7 @@ const AppointmentDetails = () => {
               />
             )}
             {times?.length === 0 && (
-              <div style={{ height: "48px", color: "red" }}>
+              <div className={styles.warnning} >
                 No slots available
               </div>
             )}

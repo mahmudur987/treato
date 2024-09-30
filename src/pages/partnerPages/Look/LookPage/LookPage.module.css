@@ -60,6 +60,9 @@
   border: none;
   font-size: 25px;
 }
+.iconColor{
+  color: white;
+}
 @media only screen and (max-width: 700px) {
   .mainContainer {
     max-width: 98vw;

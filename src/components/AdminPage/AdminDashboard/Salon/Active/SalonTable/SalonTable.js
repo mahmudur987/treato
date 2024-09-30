@@ -50,10 +50,8 @@ const SalonTable = ({ tableData }) => {
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
                     <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
+                      
+                      className={sty.imageBox}
                     >
                       <img loading="lazy" src={item.topImg} alt="" />
                       <img loading="lazy" src={item.bottomImg} alt="" />
@@ -66,7 +64,7 @@ const SalonTable = ({ tableData }) => {
           </thead>
           <tbody className={sty.tbody}>
             {SalonData?.map((x) => (
-              <tr style={{ borderBottom: "1px solid #ebedf0" }}>
+              <tr className={sty.tableBorder}>
                 <td>{x.salon_name}</td>
                 <td>{x.salon_owner}</td>
                 <td>{x.salon_address}</td>

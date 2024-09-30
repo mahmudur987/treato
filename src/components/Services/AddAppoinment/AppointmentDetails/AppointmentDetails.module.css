@@ -124,3 +124,7 @@
   font-weight: 600;
   font-size: 20px;
 }
+.warnning{
+  height: 48px;
+  color: red;
+}

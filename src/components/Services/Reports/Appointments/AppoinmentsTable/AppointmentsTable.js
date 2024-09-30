@@ -98,10 +98,7 @@ const AppointmentsTable = ({ data }) => {
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
                     <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
+                      className={sty.imageBox}
                     >
                       <img loading="lazy" src={item.topImg} alt="" />
                       <img loading="lazy" src={item.bottomImg} alt="" />
@@ -114,7 +111,7 @@ const AppointmentsTable = ({ data }) => {
           <tbody className={sty.tbody}>
             {tableData.length > 0 &&
               tableData?.map((x) => (
-                <tr style={{ borderBottom: "1px solid #ebedf0" }}>
+                <tr  className={sty.tableBorder}>
                   <td>
                     <div className={sty.checkbox}>
                       <input
@@ -133,7 +130,7 @@ const AppointmentsTable = ({ data }) => {
                   <td>{x.status}</td>
                   <td>{x.amount}</td>
                   <td>{x.type}</td>
-                  <td style={{ fontSize: "18px" }} onClick={handleDownload}>
+                  <td  className={sty.textSize} onClick={handleDownload}>
                     <MdOutlineFileDownload />
                   </td>
                 </tr>

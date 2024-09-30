@@ -156,3 +156,6 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.bordercolor{
+  border-bottom: none;
+}
