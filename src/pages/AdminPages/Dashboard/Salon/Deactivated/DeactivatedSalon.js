@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import SalonInDashBoard from "../../../../../layouts/Admin/SalonInDashboard/SalonInDashBoard";
 import styles from "./DeactivatedSalon.module.css";
 import FilterSection from "../../../../../components/AdminPage/AdminDashboard/Salon/Deactivated/FilterSection/FilterSection";
-import DeactivatedAllSalon from "../../../../../components/AdminPage/AdminDashboard/Salon/Deactivated/DeactivatedAllSalon/DeactivatedAllSalon";
+import DeactivatedAllSalon, {
+  MemoizedDeactivatedAllSalon,
+} from "../../../../../components/AdminPage/AdminDashboard/Salon/Deactivated/DeactivatedAllSalon/DeactivatedAllSalon";
 import img from "../../../../../assets/images/SalonDetail/slide4.webp";
 import {
   getCities,
@@ -10,11 +12,15 @@ import {
 } from "../../../../../services/superAdmin/Dashboard";
 import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
-import NoDataDisplay from "../../../../../components/NodataToDisplay/NoDataDisplay";
+import NoDataDisplay, {
+  MemoizedNoDataDisplay,
+} from "../../../../../components/NodataToDisplay/NoDataDisplay";
 import { formatDate } from "../../AdminDashboard";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Pagination from "../../../../../components/AdminPage/AdminDashboard/Dashboard/BillingHistory/pagination/Pagination";
+import Pagination, {
+  MemoizedPagination,
+} from "../../../../../components/AdminPage/AdminDashboard/Dashboard/BillingHistory/pagination/Pagination";
 
 const DeactivatedSalon = () => {
   const [City, setCity] = useState(["City"]);
@@ -94,7 +100,7 @@ const DeactivatedSalon = () => {
         )}
 
         {data && !isError && !isLoading && data?.data?.length > 0 && (
-          <DeactivatedAllSalon
+          <MemoizedDeactivatedAllSalon
             refetch={refetch}
             selectedSalon={selectedSalon}
             setSelectedSalon={setSelectedSalon}
@@ -103,7 +109,7 @@ const DeactivatedSalon = () => {
           />
         )}
 
-        <Pagination
+        <MemoizedPagination
           pageNumber={pageNumber}
           setPageNumber={setPageNumber}
           count={count}
@@ -112,7 +118,7 @@ const DeactivatedSalon = () => {
         />
 
         {data && !isError && !isLoading && data?.data?.length === 0 && (
-          <NoDataDisplay message={"No Deactivated Salon"} />
+          <MemoizedNoDataDisplay message={"No Deactivated Salon"} />
         )}
       </section>
     </SalonInDashBoard>

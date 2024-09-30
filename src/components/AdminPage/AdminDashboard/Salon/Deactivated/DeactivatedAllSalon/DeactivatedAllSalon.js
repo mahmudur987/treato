@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styles from "./DeactivatedAllSalon.module.css";
 import { FaArrowRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
@@ -206,3 +206,4 @@ const DeactivatedAllSalon = ({
 };
 
 export default DeactivatedAllSalon;
+export const MemoizedDeactivatedAllSalon = memo(DeactivatedAllSalon);

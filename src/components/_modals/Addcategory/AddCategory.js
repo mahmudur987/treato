@@ -7,6 +7,7 @@ import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import { useSingleSalon } from "../../../services/salon";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../services/axios";
+import icon1 from "../../../assets/svgs/icon (1).svg";
 const options = [
   "#CEB739",
   "#DE6296",
@@ -102,21 +103,7 @@ const AddCategory = ({ showModal, onClose }) => {
                 onChange={setSelectedServiceType}
               />
               <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <img src={icon1} alt="" />
               </span>
             </div>
           </div>

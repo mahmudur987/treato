@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, memo } from "react";
 import sty from "./ServiceOffer.module.css";
 
 import selectedCircle from "../../../assets/icons/Success Circle.webp";
@@ -283,8 +283,9 @@ const ServiceOffer = ({
       </div>
 
       <div className={sty.horizontalLine}></div>
-      {/* <ManageHolidays showModal={isModalOpen} onClose={closeModal} /> */}
+      <ManageHolidays showModal={isModalOpen} onClose={closeModal} />
     </div>
   );
 };
 export default ServiceOffer;
+export const MemoizedServiceOffer = memo(ServiceOffer);

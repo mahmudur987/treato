@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./AppointmentCard.module.css";
 import {
   checkCircleFill,
@@ -57,7 +57,8 @@ const AppointmentCard = ({ salon, cardType }) => {
         {salon?.salonData?.map((x, i) => (
           <div key={i} className={styles.salonInfo}>
             <div className={styles.infos}>
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={x.salon_Img?.public_url ?? x.salon_Img[0].public_url}
                 className={styles.frame1}
                 alt="frame1"
@@ -79,13 +80,21 @@ const AppointmentCard = ({ salon, cardType }) => {
                     {!toggleDetails && (
                       <>
                         View details{" "}
-                        <img loading="lazy" src={chevronDownBlue} alt="chevronUpBlue" />
+                        <img
+                          loading="lazy"
+                          src={chevronDownBlue}
+                          alt="chevronUpBlue"
+                        />
                       </>
                     )}
                     {toggleDetails && (
                       <>
                         Hide details{" "}
-                        <img loading="lazy" src={chevronUpBlue} alt="chevronUpBlue" />
+                        <img
+                          loading="lazy"
+                          src={chevronUpBlue}
+                          alt="chevronUpBlue"
+                        />
                       </>
                     )}
                   </button>
@@ -97,7 +106,8 @@ const AppointmentCard = ({ salon, cardType }) => {
                 cardType === "Upcoming" ? styles.moreVertical : styles.d_none
               }`}
             >
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={moreVertical}
                 alt="moreVertical"
                 onClick={() => settoggleoptions(!toggleoptions)}
@@ -135,12 +145,14 @@ const AppointmentCard = ({ salon, cardType }) => {
           >
             {!toggleDetails && (
               <>
-                View details <img loading="lazy" src={chevronDownBlue} alt="chevronUpBlue" />
+                View details{" "}
+                <img loading="lazy" src={chevronDownBlue} alt="chevronUpBlue" />
               </>
             )}
             {toggleDetails && (
               <>
-                Hide details <img loading="lazy" src={chevronUpBlue} alt="chevronUpBlue" />
+                Hide details{" "}
+                <img loading="lazy" src={chevronUpBlue} alt="chevronUpBlue" />
               </>
             )}
           </button>
@@ -174,7 +186,8 @@ const AppointmentCard = ({ salon, cardType }) => {
                           <p className={styles.serviceName}>
                             {item.service_name}
                           </p>
-                          <img loading="lazy"
+                          <img
+                            loading="lazy"
                             src={ellipse}
                             alt="ellipse"
                             className={`${styles.ellipse} ${
@@ -195,7 +208,8 @@ const AppointmentCard = ({ salon, cardType }) => {
                                 : styles.proName
                             }`}
                           >
-                            <img loading="lazy"
+                            <img
+                              loading="lazy"
                               src={pro_Avatar}
                               alt="pro_Avatar"
                               className={styles.pro_Avatar}
@@ -225,7 +239,8 @@ const AppointmentCard = ({ salon, cardType }) => {
                     >
                       <h4 className={styles.title}>Professional</h4>
                       <p className={styles.proName}>
-                        <img loading="lazy"
+                        <img
+                          loading="lazy"
                           src={x?.stylist_Img.public_url}
                           alt="pro_Avatar"
                           className={styles.pro_Avatar}
@@ -274,7 +289,11 @@ const AppointmentCard = ({ salon, cardType }) => {
             {salon.status === "upcoming" && (
               <h4>
                 {salon.payment_mode === "online" && (
-                  <img loading="lazy" src={checkCircleFill} alt="Payment Icon" />
+                  <img
+                    loading="lazy"
+                    src={checkCircleFill}
+                    alt="Payment Icon"
+                  />
                 )}
                 {salon.payment_mode === "online" ? "paid" : "Due"}
                 <span className={styles.amount}>
@@ -337,3 +356,4 @@ const AppointmentCard = ({ salon, cardType }) => {
 };
 
 export default AppointmentCard;
+export const MemoizedAppointmentCard = memo(AppointmentCard);

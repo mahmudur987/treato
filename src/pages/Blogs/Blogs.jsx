@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Title from "../../components/Typography/Title/Title";
 import { AllBlogs } from "../../services/blog";
-import BlogCard from "../../components/Cards/Blog/BlogCard";
+import BlogCard, {
+  MemoizedBlogCard,
+} from "../../components/Cards/Blog/BlogCard";
 import styles from "../BlogDetail/BlogDetail.module.css";
 import NewBlogCard from "../../components/Cards/NewBlogCard/NewBlogCard";
 import { ellipse } from "../../assets/images/icons";
@@ -79,7 +81,8 @@ export default function Blogs(props) {
             className={`${styles["AllBlogsPageA"]} ${styles["blogMainPc"]}`}
           >
             <div className={styles["AllBlogsPageAA"]}>
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={firstBlogData ? firstBlogData?.blog_Img?.public_url : ""}
                 alt=""
               />
@@ -88,7 +91,8 @@ export default function Blogs(props) {
               {firstBlogData ? firstBlogData.blog_title : ""}
             </div>
             <div className={styles["AllBlogsPageAC"]}>
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={firstBlogData ? firstBlogData?.blog_Img?.public_url : ""}
                 alt=""
               />
@@ -101,7 +105,7 @@ export default function Blogs(props) {
             className={`${styles["AllBlogsPageA"]} ${styles["blogMainMob"]}`}
           >
             {firstBlogData ? (
-              <BlogCard blog={firstBlogData} blogPage={true} />
+              <MemoizedBlogCard blog={firstBlogData} blogPage={true} />
             ) : (
               ""
             )}
@@ -122,7 +126,7 @@ export default function Blogs(props) {
         <div className={styles["Allblogs-container"]}>
           {showBlogs.length
             ? showBlogs.map((blog, i) => {
-                return <BlogCard blog={blog} key={i} blogPage={true} />;
+                return <MemoizedBlogCard blog={blog} key={i} blogPage={true} />;
               })
             : ""}
         </div>

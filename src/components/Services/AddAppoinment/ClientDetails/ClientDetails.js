@@ -53,7 +53,6 @@ const ClientsDetails = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  console.log(clients);
 
   return (
     <section className={styles.mainContainer}>
@@ -62,7 +61,7 @@ const ClientsDetails = () => {
         {/* Select an existing client */}
         <div className={styles.existingClient}>
           <label htmlFor="">Select an existing client</label>
-          {data && !isError && !isLoading && clients.length > 0 && (
+          {data && !isError && !isLoading && clients?.length > 0 && (
             <CustomSelect3
               options={clients}
               value={selectedClient}

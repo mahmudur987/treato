@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Completed.module.css";
-import AppointmentCard from "../../Cards/AppointmentCard/AppointmentCard";
+import AppointmentCard, {
+  MemoizedAppointmentCard,
+} from "../../Cards/AppointmentCard/AppointmentCard";
 import { getCompletedAppointments } from "../../../services/Appointments";
 import { toast } from "react-toastify";
 const Completed = () => {
@@ -25,7 +27,11 @@ const Completed = () => {
   return (
     <div className={styles.CompletedWrapper}>
       {data?.map((salon, index) => (
-        <AppointmentCard salon={salon} key={index} cardType="Completed" />
+        <MemoizedAppointmentCard
+          salon={salon}
+          key={index}
+          cardType="Completed"
+        />
       ))}
     </div>
   );

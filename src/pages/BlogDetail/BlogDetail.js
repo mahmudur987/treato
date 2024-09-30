@@ -9,7 +9,9 @@ import CopyLink from "../../assets/icons/social-media/copy-link.svg";
 import image from "../../assets/images/testimonialsImages/mask1.webp";
 import { getFormattedDate } from "../../utils/utils";
 import Title from "../../components/Typography/Title/Title";
-import BlogCard from "../../components/Cards/Blog/BlogCard";
+import BlogCard, {
+  MemoizedBlogCard,
+} from "../../components/Cards/Blog/BlogCard";
 import Carousel from "react-multi-carousel";
 import { AllBlogs } from "../../services/blog";
 import { getAllServices } from "../../services/Services";
@@ -162,7 +164,8 @@ export default function BlogDetail(props) {
 
           <header className={styles["header"]}>
             <div className={styles["header-left"]}>
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={
                   mainBlogData?.length
                     ? mainBlogData[0]?.blog_Img?.public_url
@@ -213,7 +216,8 @@ export default function BlogDetail(props) {
         </div>
         <div className={styles.blogWrapper}>
           <div className={styles.sectionLeft}>
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={
                 mainBlogData?.length
                   ? mainBlogData[0]?.blog_Img?.public_url
@@ -237,7 +241,8 @@ export default function BlogDetail(props) {
             <p className={styles["blog-text"]}>
               {mainBlogData?.length ? mainBlogData[0]?.blog_description : ""}
             </p>
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={
                 mainBlogData?.length
                   ? mainBlogData[0]?.blog_Img?.public_url
@@ -319,7 +324,7 @@ export default function BlogDetail(props) {
               {/* blog={blog} key={i} activeShare={activeShare}  setActiveShare={setActiveShare} setShareModal={setShareModal} shareBlog={shareBlog} setShareBlog={setShareBlog}   setBlogUrl={setBlogUrl} */}
               {blogData.map((blog, i) => {
                 return (
-                  <BlogCard
+                  <MemoizedBlogCard
                     blog={blog}
                     key={i}
                     blogDetail={true}

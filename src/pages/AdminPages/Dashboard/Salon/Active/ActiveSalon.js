@@ -3,8 +3,12 @@ import styles from "./ActiveSalon.module.css";
 import SalonInDashBoard from "../../../../../layouts/Admin/SalonInDashboard/SalonInDashBoard";
 import FilterSection from "../../../../../components/AdminPage/AdminDashboard/Salon/Active/FilterSection/FilterSection";
 import salonImage from "../../../../../assets/images/SalonsPageImages/cardImage.webp";
-import SingleSalon from "../../../../../components/AdminPage/AdminDashboard/Salon/Active/SingleSalon/SingleSalon";
-import SalonTable from "../../../../../components/AdminPage/AdminDashboard/Salon/Active/SalonTable/SalonTable";
+import SingleSalon, {
+  MemoizedSingleSalon,
+} from "../../../../../components/AdminPage/AdminDashboard/Salon/Active/SingleSalon/SingleSalon";
+import SalonTable, {
+  MemoizedSalonTable,
+} from "../../../../../components/AdminPage/AdminDashboard/Salon/Active/SalonTable/SalonTable";
 import {
   getCities,
   useActiveSalons,
@@ -94,11 +98,11 @@ const ActiveSalon = () => {
             {viewBy ? (
               <div className={styles.container}>
                 {sortedSalons.map((x, i) => (
-                  <SingleSalon key={i} salon={x} refetch={refetch} />
+                  <MemoizedSingleSalon key={i} salon={x} refetch={refetch} />
                 ))}
               </div>
             ) : (
-              <SalonTable tableData={sortedSalons} refetch={refetch} />
+              <MemoizedSalonTable tableData={sortedSalons} refetch={refetch} />
             )}
           </>
         )}

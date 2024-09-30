@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CommissionHistory.module.css";
 import FilterSection from "./FilterSection/FilterSection";
-import Pagination from "./pagination/Pagination";
+import Pagination, { MemoizedPagination1 } from "./pagination/Pagination";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import { generatePastMonths } from "../../Salon/SingleSalonDetails/Bookings/BookingsPart";
-import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
-import CommissionHistoryTable from "./CommissionHistoryTable/CommissionHistoryTable";
+import NoDataDisplay, {
+  MemoizedNoDataDisplay,
+} from "../../../../NodataToDisplay/NoDataDisplay";
+import CommissionHistoryTable, {
+  MemoizedCommissionHistoryTable,
+} from "./CommissionHistoryTable/CommissionHistoryTable";
 import { useCommissionHistory } from "../../../../../services/superAdmin/Commission";
 
 const CommissionHistory = () => {
@@ -51,12 +55,12 @@ const CommissionHistory = () => {
       <FilterSection value={value} />
       {isLoading && <LoadSpinner />}
       {filteredData.length > 0 && (
-        <CommissionHistoryTable data={filteredData} />
+        <MemoizedCommissionHistoryTable data={filteredData} />
       )}
       {isError && <ErrorComponent message={error ? error.message : "Error"} />}
 
       {filteredData.length > 0 && (
-        <Pagination
+        <MemoizedPagination1
           pageNumber={pageNumber}
           setPageNumber={setPageNumber}
           count={count}
@@ -65,7 +69,7 @@ const CommissionHistory = () => {
         />
       )}
 
-      {filteredData.length === 0 && <NoDataDisplay />}
+      {filteredData.length === 0 && <MemoizedNoDataDisplay />}
     </section>
   );
 };

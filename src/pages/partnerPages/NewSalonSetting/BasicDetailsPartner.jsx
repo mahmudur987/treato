@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./BasicDetailsPartner.module.css";
 
 import BasicInputs from "../Input/BasicInputs";
@@ -61,3 +61,4 @@ const BasicDetailsPartner = ({ salonData, handleChange }) => {
 };
 
 export default BasicDetailsPartner;
+export const MemoizedBasicDetailsPartner = memo(BasicDetailsPartner);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styles from "./pagination.module.css";
 
 const Pagination = ({
@@ -68,3 +68,4 @@ const Pagination = ({
 };
 
 export default Pagination;
+export const MemoizedPagination = memo(Pagination);
