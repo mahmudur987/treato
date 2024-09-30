@@ -280,7 +280,6 @@ const NewSalonSetting = () => {
           <div className={sty.saveBtnDiv}>
             {PcScreen && (
               <button
-                style={{ cursor: "pointer" }}
                 type="button"
                 onClick={handleSubmit}
                 className={sty.saveBtn}

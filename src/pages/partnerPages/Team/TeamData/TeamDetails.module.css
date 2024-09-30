@@ -125,6 +125,21 @@
 .addBtnWrapper {
   display: none;
 }
+.searchContainer{
+  display: flex;
+}
+.itemName{
+  margin-left: 30px;
+}
+.imageBox{
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+}
+.imageSpan{
+  margin-left: 10px;
+  margin-right: 10px;
+}
 @media only screen and (max-width: 776px) {
   .container {
     padding: 1rem 1rem;

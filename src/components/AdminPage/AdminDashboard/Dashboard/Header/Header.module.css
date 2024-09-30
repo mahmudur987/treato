@@ -88,6 +88,21 @@
 .UpArrow {
   cursor: pointer;
 }
+.backgroundcl{
+  background: linear-gradient(180deg, #FFDFA2 0%, #FFCE6E 100%) ;
+}
+.backgroundcl1{
+  background: linear-gradient(180deg, #BDE7FF 0%, #88C5E8 100%) ;
+}
+.backgroundcl2{
+  background: linear-gradient(180deg, #FFD0F8 0%, #F1A0C2 100%) ;
+}
+.fauser{
+  color:#F0A20B ;
+}
+.arrowColor{
+  color: #08090A;
+}
 
 @media only screen and (max-width: 700px) {
   .contents {

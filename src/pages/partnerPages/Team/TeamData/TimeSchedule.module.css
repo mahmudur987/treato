@@ -168,6 +168,22 @@
 .downloadButtonContainer2 {
   display: none;
 }
+.headingDiv{
+  display: flex;
+  align-items: center;
+}
+.headingName{
+  margin: 10px;
+}
+.imageBox{
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  gap: 2px;
+}
+.timeBorder{
+  border: 1px solid pink !important;
+}
 @media (max-width: 768px) {
   .container {
     max-width: 600px;

@@ -146,7 +146,7 @@ const Header = () => {
                 <div className={styles.cardRight}>
                   <button onClick={() => setIsEditable((pre) => !pre)}>
                     <span>
-                      <FaPen style={{ color: "#08090A" }} />
+                      <FaPen  className={styles.fapen} />
                     </span>
                     {isEditable ? (
                       <span onClick={handleUpdateComm}>Done</span>
@@ -160,11 +160,8 @@ const Header = () => {
             {/* average sale  */}
             <div>
               <div
-                style={{
-                  background:
-                    "linear-gradient(180deg, #BDE7FF 0%, #88C5E8 100%)",
-                }}
-                className={styles.card}
+                
+                className={`${styles.card} ${styles.backgroundcl}`}
               >
                 <div className={styles.cardLeft}>
                   <svg
@@ -192,7 +189,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp style={{ color: "#08090A" }} /> ₹
+                  <IoIosArrowUp className={styles.arrowUp} /> ₹
                   {commissionAfterStartDate}({commissionAfterStartDate})
                 </div>
               </div>
@@ -202,11 +199,8 @@ const Header = () => {
 
             <div>
               <div
-                style={{
-                  background:
-                    "linear-gradient(180deg, #FFD0F8 0%, #F1A0C2 100%)",
-                }}
-                className={styles.card}
+                
+                className={`${styles.card} ${styles.backgroundcl1}`}
               >
                 <div className={styles.cardLeft}>
                   <svg
