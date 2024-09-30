@@ -53,7 +53,6 @@ const ClientsDetails = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  console.log(clients);
 
   return (
     <section className={styles.mainContainer}>
