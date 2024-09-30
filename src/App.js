@@ -141,6 +141,7 @@ function App() {
         .then((res) => {
           dispatch(updateIsLoggedIn(true));
           dispatch(updateUserDetails(res?.res?.data));
+          console.log(res);
         })
         .catch((err) => {
           console.log(err);

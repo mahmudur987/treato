@@ -28,13 +28,14 @@ import FindLocationModal from "../../components/_modals/FindLocationModal/FindLo
 import SetPassword from "../../components/AccountSettings/PasswordChange/SetPassword";
 import PasswordActive from "../../components/_modals/PasswordActive/Passwordactive";
 import { user } from "../../assets/images/icons";
-import { sendLoginOTP } from "../../services/auth";
+import { getUserProfile, sendLoginOTP } from "../../services/auth";
 
 export default function AccountSettings() {
   const data = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [mobileOpt, updateMobileOpt] = useState(-1);
+
   const [passModal, setPassModal] = useState(false);
   const [passActiveModal, setPassActiveModal] = useState(false);
   const [profileModal, setProfileModal] = useState(false);
@@ -133,8 +134,10 @@ export default function AccountSettings() {
       place: inputVal?.address?.place ?? "",
       address_type: inputVal?.address?.house_type ?? "",
     };
+    console.log(e.target.phone.value);
+    console.log(userData.phone.replace("+91", ""));
 
-    if (e.target.phone.value !== userData.phone) {
+    if (e.target.phone.value !== userData.phone.replace("+91", "")) {
       setOtpModal(true);
       localStorage.setItem("tempUserData", JSON.stringify(Data));
     } else {
@@ -158,7 +161,17 @@ export default function AccountSettings() {
         .then((res) => {
           console.log(res);
           setShowSave(false);
-          dispatch(updateUserDetails(res?.res?.data?.data));
+          let isTokenExist = localStorage.getItem("jwtToken");
+          if (isTokenExist) {
+            getUserProfile(isTokenExist)
+              .then((res) => {
+                dispatch(updateUserDetails(res?.res?.data));
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
           const states = {
             first_name: true,
             last_name: true,

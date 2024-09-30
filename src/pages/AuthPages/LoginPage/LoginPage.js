@@ -162,10 +162,7 @@ const LoginPage = () => {
             "requiredLoginData",
             JSON.stringify(res?.res?.data.data)
           );
-          localStorage.setItem(
-            "requiredLoginToken",
-            JSON.stringify(res?.res?.data.token)
-          );
+          localStorage.setItem("requiredLoginToken", res?.res?.data.token);
 
           navigate("/verify-otp");
         } else if (res?.err != null) {
@@ -302,7 +299,8 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   className={`${styles.pass}`}
                 />
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={eyeline}
                   className={styles.eyeline}
                   onClick={() => {
