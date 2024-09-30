@@ -70,10 +70,10 @@ const Header = () => {
             <div>
               <div
                 
-                className={`${styles.card} ${styles.backgroundcl}`}
+                className={`${styles.card} ${styles.bgCard}`}
               >
                 <div className={styles.cardLeft}>
-                  <FaUsers className={styles.fauser} />
+                  <FaUsers className={styles.FaUsers} />
                   <div className={styles.cardMiddle}>
                     <p>New user</p>
 
@@ -82,7 +82,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp  className={styles.arrowColor} />
+                  <IoIosArrowUp  className={styles.arrowUp} />
                   {Number(data?.usersCount).toFixed(2)}(
                   {Number(data?.usersPercentage).toFixed(2)}%)
                 </div>
@@ -91,8 +91,8 @@ const Header = () => {
             {/* average sale  */}
             <div>
               <div
-                
-                className={`${styles.card} ${styles.backgroundcl1}`}
+        
+                className={`${styles.card} ${styles.bgCard1}`}
               >
                 <div className={styles.cardLeft}>
                   <svg
@@ -120,7 +120,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp className={styles.arrowColor} />{" "}
+                  <IoIosArrowUp className={styles.arrowUp} />{" "}
                   {Number(data?.averageSales).toFixed(2)} (
                   {Number(data?.averageSalesPercentage).toFixed(2)}%)
                 </div>
@@ -132,7 +132,7 @@ const Header = () => {
             <div>
               <div
                 
-                className={`${styles.card} ${styles.backgroundcl2}`}
+                className={`${styles.card} ${styles.bgCard2}`}
               >
                 <div className={styles.cardLeft}>
                   <svg
@@ -155,7 +155,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp className={styles.arrowColor} />{" "}
+                  <IoIosArrowUp  className={styles.arrowUp} />{" "}
                   {Number(data?.percentageChange).toFixed(2)} (
                   {Number(data?.appointmentPercentage).toFixed(2)}
                   %)

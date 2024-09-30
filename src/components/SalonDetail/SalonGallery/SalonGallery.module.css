@@ -21,6 +21,10 @@
     font-family: "Poppins", sans-serif;
     margin-bottom: 48px;
 }
+.CarouselSize{
+    height: 500px;
+    width: 800px;
+}
 
 .salon_GalleryA div:first-child{
     display: flex;

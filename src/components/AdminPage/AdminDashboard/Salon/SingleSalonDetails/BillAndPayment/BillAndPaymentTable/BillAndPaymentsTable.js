@@ -90,8 +90,9 @@ const BillAndPaymentPartTable = ({ data }) => {
               {tableHeading.map((item, i) => (
                 <td key={i}>
                   <div className={sty.headingRow}>
-                    <span className={sty.marginSpan}>{item.heading}</span>
+                    <span  className={sty.headingSpan} >{item.heading}</span>
                     <div
+                      
                       className={sty.imageBox}
                     >
                       <img loading="lazy" src={item.topImg} alt="" />
@@ -104,7 +105,7 @@ const BillAndPaymentPartTable = ({ data }) => {
           </thead>
           <tbody className={sty.tbody}>
             {tableData.map((x) => (
-              <tr className={sty.tableHead} key={x.txnId}>
+              <tr className={sty.tableBorder}  key={x.txnId}>
                 <td>
                   <div className={sty.checkbox}>
                     <input type="checkbox" id="" />
@@ -120,7 +121,7 @@ const BillAndPaymentPartTable = ({ data }) => {
                 <td>{x.paidOn}</td>
                 <td>{x.tax}</td>
                 <td>{x.comm}</td>
-                <td  className={sty.fontsize} >
+                <td  className={sty.tdfont}>
                   <MdOutlineFileDownload />
                 </td>
               </tr>

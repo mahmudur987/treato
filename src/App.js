@@ -82,7 +82,6 @@ const NewSalonSetting = React.lazy(() => import("./pages/partnerPages/NewSalonSe
 const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
 
 
-
 function App() {
   // Use the location hook to track route changes
   const location = useLocation();
@@ -177,7 +176,7 @@ function App() {
           theme="light"
         />
         <ModalManager />
-        
+        <Suspense fallback={<LoadSpinner/>}>
         <Routes>
           
           <Route element={<CustomerPageLayout />}>
@@ -366,8 +365,9 @@ function App() {
             <Route path="/admin/commission" element={<Commission />} />
           </Route>
           
+          
         </Routes>
-        
+        </Suspense>
       </PageLayout>
       </Suspense>
     </>

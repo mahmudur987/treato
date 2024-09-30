@@ -110,7 +110,7 @@ export default function VisitorDetail() {
         </div>
         <div className={styles.visitor_detailAC}>
           <div className={styles.visitor_detailACA}>Phone</div>
-          {err && <p className={styles.warning}>{err}</p>}
+          {err && <p  className={styles.showError} >{err}</p>}
           <div
             className={`${styles.visitor_detailACB} ${styles.visitor_detailAC_opt}`}
           >
@@ -156,7 +156,7 @@ export default function VisitorDetail() {
         </div>
         <div className={styles.visitor_detailAC}>
           <div className={styles.visitor_detailACA}>Email</div>
-          {isValidEmail && <p className={styles.warning}>{isValidEmail}</p>}
+          {isValidEmail && <p className={styles.showError}>{isValidEmail}</p>}
 
           <div className={styles.visitor_detailACB}>
             <BasicInput

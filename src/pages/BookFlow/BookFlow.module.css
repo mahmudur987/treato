@@ -23,6 +23,9 @@
   font-weight: 600;
   margin-bottom: 24px;
 }
+.showError{
+  color: red !important;
+}
 
 .book_flowB {
   width: 50%;

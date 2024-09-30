@@ -20,6 +20,9 @@
   text-align: left;
   color: #08090a;
 }
+.selLength{
+  margin-left: 7px;
+}
 .Wrapper {
   max-width: 800px;
   width: 100%;

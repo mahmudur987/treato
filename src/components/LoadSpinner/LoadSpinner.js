@@ -4,7 +4,7 @@ import { LoadSpinnerIcon } from "../../assets/images/icons";
 const LoadSpinner = () => {
   return (
     <div
-      
+    
       className={styles.loaderContainer}
     >
       <img loading="lazy"

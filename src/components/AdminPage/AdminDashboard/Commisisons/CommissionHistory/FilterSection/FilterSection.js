@@ -50,7 +50,7 @@ const FilterSection = ({ value }) => {
           <div className={styles.action}>
             <button>
               <span>Download</span>
-              <GoDownload  className={styles.goButton} />
+              <GoDownload className={styles.goDownload} />
             </button>
           </div>
         </div>

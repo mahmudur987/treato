@@ -118,14 +118,11 @@ const Header = () => {
             {/* new user */}
             <div>
               <div
-                // style={{ 
-                //   background:
-                //     "linear-gradient(180deg, #FFDFA2 0%, #FFCE6E 100%)",
-                // }}
+                
                 className={styles.card}
               >
                 <div className={styles.cardLeft}>
-                  <FaUsers className={styles.faUsers} />
+                  <FaUsers className={styles.faUser} />
                   <div className={styles.cardMiddle}>
                     <p>Commission %</p>
                     <h3>
@@ -146,7 +143,7 @@ const Header = () => {
                 <div className={styles.cardRight}>
                   <button onClick={() => setIsEditable((pre) => !pre)}>
                     <span>
-                      <FaPen  className={styles.fapen} />
+                      <FaPen  className={styles.faPen} />
                     </span>
                     {isEditable ? (
                       <span onClick={handleUpdateComm}>Done</span>
@@ -161,7 +158,7 @@ const Header = () => {
             <div>
               <div
                 
-                className={`${styles.card} ${styles.backgroundcl}`}
+                className={`${styles.card} ${styles.bgCard}`}
               >
                 <div className={styles.cardLeft}>
                   <svg
@@ -189,7 +186,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp className={styles.arrowUp} /> ₹
+                  <IoIosArrowUp  className={styles.arrowUp} /> ₹
                   {commissionAfterStartDate}({commissionAfterStartDate})
                 </div>
               </div>
@@ -200,7 +197,7 @@ const Header = () => {
             <div>
               <div
                 
-                className={`${styles.card} ${styles.backgroundcl1}`}
+                className={`${styles.card} ${styles.bgCard1}`}
               >
                 <div className={styles.cardLeft}>
                   <svg
@@ -227,7 +224,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp className={styles.arrowUp} />{" "}
+                  <IoIosArrowUp  className={styles.arrowUp} />{" "}
                   {Number(
                     data?.commissionDetails?.appointmentsAfterStartDate
                   ).toFixed(2)}

@@ -67,7 +67,8 @@ const BillHistoryTable = ({ data }) => {
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
                     <div
-                      className={sty.imageBox}
+                      
+                      className={sty.xyBox}
                     >
                       <img loading="lazy" src={item.topImg} alt="" />
                       <img loading="lazy" src={item.bottomImg} alt="" />
@@ -80,7 +81,7 @@ const BillHistoryTable = ({ data }) => {
           </thead>
           <tbody className={sty.tbody}>
             {tableData.map((x) => (
-              <tr className={sty.tableHead}>
+              <tr className={sty.borderBottom}>
                 <td>
                   <div className={sty.bodyRow}>
                     <p className={sty.wrapper}>
@@ -116,7 +117,7 @@ const BillHistoryTable = ({ data }) => {
                 </td>
                 <td>
                   <p
-                    className={`${sty.bodyRow} ${sty.fontstyle}`}
+                    className={sty.bodyRow}
                   >
                     <BsThreeDots />
                   </p>

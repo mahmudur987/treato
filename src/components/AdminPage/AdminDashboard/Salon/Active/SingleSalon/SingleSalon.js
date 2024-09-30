@@ -13,8 +13,8 @@ const SingleSalon = ({ salon, refetch }) => {
         <div className={styles.details}>
           <h2 className={styles.name}>{salon.salon_name}</h2>
           <div className={styles.rating}>
-            <span  className={styles.textWeight} >{salon.salon_rating}</span>
-            <FaStar  className={styles.fastars} />
+            <span  className={styles.rating} >{salon.salon_rating}</span>
+            <FaStar  />
             <span>({salon.salon_ratingCount} ratings)</span>
           </div>
           <div className={styles.address}>{salon.salon_address}</div>

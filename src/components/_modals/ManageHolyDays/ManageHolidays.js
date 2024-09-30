@@ -121,18 +121,18 @@ const ManageHolidays = ({ showModal, onClose }) => {
                 <p
                   className={styles.dateWrapper}
                 >
-                  <span className={styles.dateText}>Date</span>
+                  <span  className={styles.dateSpan} >Date</span>
                   <span
                     onClick={openDatePicker}
                     
-                    className={styles.openDate}
+                    className={styles.datePicker}
                   >
                     {selectedDate} <FaAngleDown />
                   </span>
                   <input
                     ref={dateInputRef}
                     type="date"
-                    className={styles.dateINbox}
+                    className={styles.dateInput}
                     onChange={(e) => {
                       const selectedDate = e.target.value;
                       setDate(selectedDate);
@@ -148,7 +148,7 @@ const ManageHolidays = ({ showModal, onClose }) => {
                   />
                 </p>
                 <p className={styles.eventWrapper}>
-                  <span className={styles.dateText}>Event</span>
+                  <span className={styles.eventSpan} >Event</span>
                   <input
                     onChange={(e) => setEventName(e.target.value)}
                     type="text "
@@ -177,21 +177,18 @@ const ManageHolidays = ({ showModal, onClose }) => {
           )}
           <div className={styles.row1}>
             <span
-              className={`${styles.col1} ${styles.colsText} `}
-              
+              className={styles.col1}
             >
               Day/ Date
             </span>
             <span
-              className={`${styles.col2} ${styles.colsText} `}
-              
+              className={styles.col2}
             >
               {" "}
               Event
             </span>
             <span
-              className={`${styles.col3} ${styles.colsText} `}
-              
+              className={styles.col3}
             >
               {" "}
               Status

@@ -148,7 +148,9 @@
   display: flex;
   justify-content: space-between;
 }
-
+.dateWrapper{
+  position: relative;
+}
 .dateWrapper,
 .eventWrapper {
   display: flex;
@@ -161,22 +163,23 @@
   text-align: left;
   cursor: pointer;
 }
-.dateWrapper{
-  position: relative;
-}
-.dateText{
+.dateSpan{
   font-weight: 600;
 }
-.openDate{
+.datePicker{
   color: #6D747A;
   display: flex;
   align-items: center;
   gap: 5px;
 }
-.dateINbox{
+.dateInput{
   display: none;
   position: absolute;
 }
+.eventSpan{
+  font-weight: 600;
+}
+
 
 .addHolidaySave {
   cursor: pointer;
@@ -203,8 +206,8 @@
 .col1 {
   width: 25%;
   font-family: Lato;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 21px;
   text-align: left;
   padding-left: 10px;
@@ -212,8 +215,8 @@
 .col2 {
   width: 60%;
   font-family: Lato;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 21px;
   text-align: left;
 }
@@ -223,8 +226,8 @@
   align-items: center;
   gap: 8px;
   font-family: Lato;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 21px;
   text-align: left;
 }

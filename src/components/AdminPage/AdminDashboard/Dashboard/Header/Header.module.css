@@ -76,7 +76,21 @@
   font-family: Lato;
   line-height: 32px;
 }
-
+.bgCard{
+  background: linear-gradient(180deg, #FFDFA2 0%, #FFCE6E 100%) ;
+}
+.bgCard1{
+  background: linear-gradient(180deg, #BDE7FF 0%, #88C5E8 100%) ;
+}
+.bgCard2{
+  background: linear-gradient(180deg, #FFD0F8 0%, #F1A0C2 100%) ;
+}
+.FaUsers{
+  color: #F0A20B;
+}
+.arrowUp{
+  color: #08090A;
+}
 .cardRight {
   display: flex;
   gap: 2px;

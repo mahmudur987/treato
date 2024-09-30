@@ -43,8 +43,7 @@ export default function SalonServiceMain({ hideTitle, setCount, data }) {
         <div className={styles.salon_sections}>
           <h2 className={styles.salon_section_title_wrapper}>
             <span
-              
-              className={`${styles.salon_section_title} ${styles.textSize}`}
+              className={styles.salon_section_title}
             >
               {data.service_name}
             </span>

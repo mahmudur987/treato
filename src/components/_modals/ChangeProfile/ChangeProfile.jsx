@@ -108,7 +108,7 @@ export default function ChangeProfile({
               type="file"
               accept="image/*"
               onChange={handleImageUpload}
-              className={styles.imageUpload}
+              className={styles.mageUpload}
               id="uploadImageInput"
             />
             <label htmlFor="uploadImageInput" className={styles.uploadLabel}>

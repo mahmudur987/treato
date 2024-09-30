@@ -66,6 +66,7 @@ const BookingsPartTable = ({ data }) => {
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
                     <div
+                      
                       className={sty.imageBox}
                     >
                       <img loading="lazy"  src={item.topImg} alt="" />
@@ -78,7 +79,7 @@ const BookingsPartTable = ({ data }) => {
                 <div className={sty.headingRow}>
                   <p
                     
-                    className={sty.headP}
+                    className={sty.headingp}
                   >
                     <span>Action</span>
                     <span
@@ -129,7 +130,8 @@ const BookingsPartTable = ({ data }) => {
                 </td>
                 <td>
                   <p
-                    className={`${sty.bodyRow} ${sty.textSize}`}
+                    className={`${sty.bodyRow} ${sty.tdfont}`}
+                    
                   >
                     <BsThreeDots />
                   </p>
