@@ -27,16 +27,15 @@ const VerifyOTP = (props) => {
   const userDetails = useSelector((state) => state.user);
   useEffect(() => {
     inputRefs.current[0]?.focus();
-    if (
-      localStorage.getItem("requiredRegisterData") !== undefined ||
-      localStorage.getItem("requiredRegisterData") !== null
-    ) {
-      setRequiredRegisterData(
-        JSON.parse(localStorage.getItem("requiredRegisterData"))
-      );
+    console.log(localStorage.getItem("requiredRegisterData"));
+
+    const storedData = localStorage.getItem("requiredRegisterData");
+
+    if (storedData !== undefined && storedData !== null) {
+      setRequiredRegisterData(JSON.parse(storedData));
       setisRegister(true);
-      console.log(userDetails.OTP);
     } else {
+      console.log(userDetails.OTP, "login");
       setisRegister(false);
     }
   }, []);

@@ -6,9 +6,8 @@
   overflow: hidden;
 }
 .AuthImage,
-.AuthContent,
 .PartnerAuthImage {
-  width: 50%;
+  width: 100%;
   height: 100%;
 }
 .AuthImage {
@@ -22,6 +21,7 @@
   background-repeat: no-repeat;
 }
 .AuthContent {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,12 +35,17 @@
     padding: 1rem;
     box-sizing: border-box;
   }
+  .AuthImage,
+  .PartnerAuthImage {
+    display: none;
+  }
 }
 @media only screen and (max-width: 440px) {
   .AuthContent {
     width: 100%;
   }
-  .AuthImage {
+  .AuthImage,
+  .PartnerAuthImage {
     display: none;
   }
   .arrowLeft {

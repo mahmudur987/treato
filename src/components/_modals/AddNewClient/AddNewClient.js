@@ -86,6 +86,7 @@ const AddNewClient = ({
                 value={lastName}
                 type="text"
                 placeholder="Client last name"
+                required
               />
             </div>
           </div>

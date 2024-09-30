@@ -33,3 +33,12 @@ export const useGetPartnerServices = () => {
     },
   });
 };
+export const useGetServices = () => {
+  return useQuery({
+    queryKey: ["service/getAllServices"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get("service/getAllServices", {});
+      return data;
+    },
+  });
+};
