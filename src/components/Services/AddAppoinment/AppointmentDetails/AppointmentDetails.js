@@ -2,7 +2,6 @@ import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./AppointmentDetails.module.css";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import SelectServiceModal from "../../../_modals/SelectServiceModal/SelectServiceModal";
-import { singleSalon } from "../../../../utils/data";
 import { useTimeSlots } from "../../../../services/Appointments";
 import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
