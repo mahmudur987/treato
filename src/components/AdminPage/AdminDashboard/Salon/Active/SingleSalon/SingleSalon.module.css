@@ -64,12 +64,21 @@
   letter-spacing: 0.01em;
   text-align: left;
 }
+<<<<<<< HEAD
 .rating{
   font-weight: 600;
 }
 .fastar{
   font-size: 12px;
 }
+=======
+.fastars{
+  font-size: 12px;
+}
+.textWeight{
+  font-weight: 600;
+}
+>>>>>>> ce38b711bd760f981f708715a08664c182061538
 /* Random Animation */
 @keyframes fadein {
   from {

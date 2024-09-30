@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, memo } from "react";
 import styles from "./styles.module.css";
-import Salon from "../../Cards/Salon/Salon";
+import Salon, { MemoizedSalon } from "../../Cards/Salon/Salon";
 import { scrollright } from "../../../assets/images/icons";
 import { salon } from "../../../services/salon";
 import Title from "../../Typography/Title/Title";
@@ -97,7 +97,8 @@ const TopSalons = (props) => {
             {winWidthMain <= 768 ? (
               <div className={styles["trMobHeading"]}>
                 <h3>{props.heading}</h3>
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={scrollright}
                   className={styles.mobScrollRight}
                   alt="salon images"
@@ -110,7 +111,8 @@ const TopSalons = (props) => {
 
           <div>
             {showLeftArrow && (
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={scrollright}
                 onClick={scrollLeft}
                 alt="scrollleft"
@@ -120,7 +122,11 @@ const TopSalons = (props) => {
             <div ref={carouselRef} className={styles["trWrapper"]}>
               {topSalonData.length > 0 ? (
                 topSalonData.map((salon, index) => (
-                  <Salon salonData={salon} place={"homePage"} key={index} />
+                  <MemoizedSalon
+                    salonData={salon}
+                    place={"homePage"}
+                    key={index}
+                  />
                 ))
               ) : (
                 <p className={styles.notAvailable}>
@@ -130,7 +136,8 @@ const TopSalons = (props) => {
             </div>
 
             {showRightArrow && (
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={scrollright}
                 onClick={scrollRight}
                 alt="scrollRight"
@@ -145,3 +152,4 @@ const TopSalons = (props) => {
 };
 
 export default TopSalons;
+export const MemoizedTopSalons = memo(TopSalons);

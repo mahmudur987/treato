@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./Menu.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import UpdateCategoryModal from "../../../_modals/Uptadatecategory/UpdateCategoryModal";
@@ -23,20 +23,22 @@ const Menu = ({ setShowBtnMenu, data, category }) => {
     try {
       const { data } = await axiosInstance.delete(url, { headers });
       console.log(data);
-      toast.success("service delete successfully");
+      toast.success("Service Delete successfully");
       navigate("/partner/dashboard/service");
       refetch();
       setShowBtnMenu("");
     } catch (error) {
-      console.log("Erroor deleting data", error);
-      toast.error(error.message);
+      console.log("Error deleting data", error);
+      toast.error("Error");
     }
   };
   return (
     <>
       <div className={styles.menuItems}>
         <p>
-          <Link to={"/partner/dashboard/service/addservice"}>Add a new service</Link>
+          <Link to={"/partner/dashboard/service/addservice"}>
+            Add a new service
+          </Link>
         </p>
         <p
           onClick={() => {
@@ -60,3 +62,5 @@ const Menu = ({ setShowBtnMenu, data, category }) => {
 };
 
 export default Menu;
+
+export const MemoizedMenu = memo(Menu);

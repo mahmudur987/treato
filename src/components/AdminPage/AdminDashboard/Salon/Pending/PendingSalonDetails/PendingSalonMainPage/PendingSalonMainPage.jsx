@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import styles from "./PendingSalonMainPage.module.css";
 import SalonServiceMain from "../SalonService/SalonService";
 import profileImg from "../../../../../../../assets/images/TeamDetails/ProfileImg.png";
@@ -119,3 +119,4 @@ export default function PendingSalonMainPage({ addServices, addedServices }) {
     </div>
   );
 }
+export const MemoizedPendingSalonMainPage = memo(PendingSalonMainPage);

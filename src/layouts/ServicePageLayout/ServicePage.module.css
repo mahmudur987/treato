@@ -1,24 +1,24 @@
 .mainContainer {
   width: 100%;
   margin-bottom: 0px;
+  display: flex;
+  justify-content: center;
 }
 
 .container {
-  max-width: 1440px;
+  max-width: 1540px;
   width: 100%;
   min-height: 100vh;
-  margin: 0 auto;
-  position: relative;
   display: flex;
 }
 .downContainer {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 .left {
   max-width: 100px;
-  min-width: 100px;
   width: 100%;
-  position: relative;
   min-height: 100%;
 }
 .Outlet {
@@ -26,8 +26,14 @@
   margin-top: 30px;
 }
 @media only screen and (max-width: 700px) {
+  .mainContainer {
+    flex-direction: column;
+  }
   .left,
   .Navbar {
     display: none;
+  }
+  .downContainer {
+    padding-left: 0;
   }
 }

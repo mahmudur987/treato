@@ -1,15 +1,28 @@
 import React, { createContext, useState } from "react";
 import styles from "./Reports.module.css";
 import ReportsPageHeader from "../../../components/Services/Reports/PageHeader/PageHeader";
-import FilterSection1 from "../../../components/Services/Reports/Appointments/FilterSection/FilterSection";
-import AppointmentsTable from "../../../components/Services/Reports/Appointments/AppoinmentsTable/AppointmentsTable";
-import FilterSection2 from "../../../components/Services/Reports/Clients/FilterSection/FilterSection";
-import ClientsTable from "../../../components/Services/Reports/Clients/ClientsTable/ClientsTable";
-import FilterSection3 from "../../../components/Services/Reports/BillAndPayment/FilterSection/FilterSection";
-import BillAndPaymentTable from "../../../components/Services/Reports/BillAndPayment/BillAndPaymentTable/BillAndPaymentsTable";
+import FilterSection1, {
+  MemoizedFilterSection1,
+} from "../../../components/Services/Reports/Appointments/FilterSection/FilterSection";
+import AppointmentsTable, {
+  MemoizedAppointmentsTable,
+} from "../../../components/Services/Reports/Appointments/AppoinmentsTable/AppointmentsTable";
+import FilterSection2, {
+  MemoizedFilterSection2,
+} from "../../../components/Services/Reports/Clients/FilterSection/FilterSection";
+import ClientsTable, {
+  MemoizedClientsTable,
+} from "../../../components/Services/Reports/Clients/ClientsTable/ClientsTable";
+import FilterSection3, {
+  MemoizedFilterSection3,
+} from "../../../components/Services/Reports/BillAndPayment/FilterSection/FilterSection";
+import BillAndPaymentTable, {
+  MemoizedBillAndPaymentTable,
+} from "../../../components/Services/Reports/BillAndPayment/BillAndPaymentTable/BillAndPaymentsTable";
 import { IoArrowBack, IoSearchOutline } from "react-icons/io5";
 import {
   useAppointmentsReport,
+  useBillingReport,
   useClientsReport,
 } from "../../../services/Report";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
@@ -22,12 +35,12 @@ export const reportContext = createContext({});
 const Reports = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [commonSearch, setCommonSearch] = useState("");
-
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedClients, setSelectedClients] = useState([]);
   const [pageDetails, setPageDetails] = useState("Appointments");
   const [appointmentQuery, setAppointmentsQuery] = useState("");
   const [clientsQuery, setClientsQuery] = useState("");
+  const [billQuery, setBillQuery] = useState("");
   const {
     data: appointments,
     isLoading: appointmentsIsLoading,
@@ -41,7 +54,13 @@ const Reports = () => {
     isError: clientsIsError,
     error: clientsError,
   } = useClientsReport(clientsQuery);
-
+  const {
+    data: bill,
+    isLoading: billIsLoading,
+    isError: billIsError,
+    error: billError,
+  } = useBillingReport(billQuery);
+  // console.log(billQuery);
   const value = {
     selectedItems,
     setSelectedItems,
@@ -79,12 +98,16 @@ const Reports = () => {
         />
         {pageDetails === "Appointments" && (
           <section>
-            <FilterSection1 setAppointmentsQuery={setAppointmentsQuery} />
+            <MemoizedFilterSection1
+              setAppointmentsQuery={setAppointmentsQuery}
+            />
             {appointmentsIsLoading && <LoadSpinner />}
 
             {appointments?.data?.length > 0 &&
               !appointmentsIsLoading &&
-              !appointmentsIsError && <AppointmentsTable data={appointments} />}
+              !appointmentsIsError && (
+                <MemoizedAppointmentsTable data={appointments} />
+              )}
             {appointments?.data?.length === 0 &&
               !appointmentsIsLoading &&
               !appointmentsIsError && <NoDataDisplay />}
@@ -96,11 +119,11 @@ const Reports = () => {
         )}
         {pageDetails === "Clients" && (
           <section>
-            <FilterSection2 setClientsQuery={setClientsQuery} />
+            <MemoizedFilterSection2 setClientsQuery={setClientsQuery} />
             {clientsIsLoading && <LoadSpinner />}
             {clients?.data?.length > 0 &&
               !clientsIsLoading &&
-              !clientsError && <ClientsTable data={clients} />}
+              !clientsError && <MemoizedClientsTable data={clients} />}
             {clients?.data?.length === 0 &&
               !clientsIsLoading &&
               !clientsError && <NoDataDisplay />}
@@ -112,9 +135,18 @@ const Reports = () => {
 
         {pageDetails === "Billing & Payment" && (
           <section>
-            <FilterSection3 />
+            <MemoizedFilterSection3 setBillQuery={setBillQuery} />
+            {billIsLoading && <LoadSpinner />}
 
-            <BillAndPaymentTable />
+            {billIsError && (
+              <ErrorComponent
+                message={billError ? billError?.message : "Error"}
+              />
+            )}
+
+            {!billIsError && !billIsLoading && bill?.data?.length > 0 && (
+              <MemoizedBillAndPaymentTable data={bill?.data} />
+            )}
           </section>
         )}
       </main>

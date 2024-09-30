@@ -119,7 +119,7 @@ const FilterSection = ({
             <button onClick={handleReActiveSalons}>
               Reactivated
               {selectedSalon.length > 0 ? (
-                <span className={styles.selLength} >
+                <span style={{ marginLeft: "7px" }}>
                   {selectedSalon.length}
                 </span>
               ) : (
@@ -131,7 +131,7 @@ const FilterSection = ({
             <button onClick={handleDeleteAll}>
               Delete
               {selectedSalon.length > 0 ? (
-                <span className={styles.selLength}>
+                <span style={{ marginLeft: "7px" }}>
                   {selectedSalon.length}
                 </span>
               ) : (

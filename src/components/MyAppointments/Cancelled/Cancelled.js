@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Cancelled.module.css";
-import AppointmentCard from "../../Cards/AppointmentCard/AppointmentCard";
+import AppointmentCard, {
+  MemoizedAppointmentCard,
+} from "../../Cards/AppointmentCard/AppointmentCard";
 import { getCancelledAppointments } from "../../../services/Appointments";
 import { toast } from "react-toastify";
 const Cancelled = () => {
@@ -25,7 +27,11 @@ const Cancelled = () => {
   return (
     <div className={styles.CancelledWrapper}>
       {data?.map((salon, index) => (
-        <AppointmentCard salon={salon} key={index} cardType="Cancelled" />
+        <MemoizedAppointmentCard
+          salon={salon}
+          key={index}
+          cardType="Cancelled"
+        />
       ))}
     </div>
   );

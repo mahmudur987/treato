@@ -1,7 +1,7 @@
 import styles from "./SalonSlickSlider.module.css";
 import Slider from "react-slick";
 
-import { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 export default function SalonSlickSLider({ SalonData }) {
   let [activeImg, updateActiveImg] = useState(0);
   let sliderRef = useRef(null);
@@ -33,7 +33,8 @@ export default function SalonSlickSLider({ SalonData }) {
       >
         {SalonData?.salon_image?.map((v, i) => {
           return (
-            <img loading="lazy"
+            <img
+              loading="lazy"
               className={styles.slideImage}
               src={v.public_url}
               alt="salon image"
@@ -50,3 +51,4 @@ export default function SalonSlickSLider({ SalonData }) {
     </div>
   );
 }
+export const MemoizedSalonSlickSLider2 = memo(SalonSlickSLider);

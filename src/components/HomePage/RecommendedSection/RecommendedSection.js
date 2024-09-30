@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 // import styles"./Slider.module.css";
 import styles from "./styles.module.css";
 import Carousel from "react-multi-carousel";
@@ -84,7 +84,8 @@ export default function RecommendedSection({ mainData }) {
         >
           {allServices.map((service, index) => (
             <a key={index} className={styles.rmdItem}>
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={service?.service_img?.public_url ?? fingernail}
                 alt={service.service_name[0]}
               />
@@ -92,15 +93,9 @@ export default function RecommendedSection({ mainData }) {
             </a>
           ))}
         </Carousel>
-        {/* <div className={styles.rmdWrapperMobo}>
-        {allServices.map((service, index) => (
-            <a key={index} className={styles.rmdItem}>
-              <img loading="lazy" src={service?.service_img?.public_url} alt={service.service_name[0]} />
-              <h4>{service.service_name}</h4>
-            </a>
-          ))}
-        </div> */}
       </div>
     </section>
   );
 }
+
+export const MemoizedRecommendedSection = memo(RecommendedSection);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import topImg from "../../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./CommissionHistoryTable.module.css";
@@ -139,3 +139,4 @@ const CommissionHistoryTable = ({ data }) => {
 };
 
 export default CommissionHistoryTable;
+export const MemoizedCommissionHistoryTable = memo(CommissionHistoryTable);

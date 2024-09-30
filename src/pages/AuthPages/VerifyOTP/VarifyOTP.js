@@ -199,7 +199,6 @@ const VerifyOTP = (props) => {
               onChange={(e) => handleInputChange(index, e.target.value)}
               onKeyDown={(e) => handleInputKeyDown(e, index)}
               ref={(inputRef) => (inputRefs.current[index] = inputRef)}
-              style={{ width: "30px", marginRight: "10px" }}
               className={styles.OTPinput}
               inputMode="numeric" // Specify numeric input mode
               pattern="[0-9]*" // Allow only numeric input

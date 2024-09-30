@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import styles from "./SalonMainPage.module.css";
 import SalonServiceMain from "../SalonService/SalonService";
 import BookingsPart from "../Bookings/BookingsPart";
@@ -73,3 +73,5 @@ export default function SalonMainPage({ addServices, addedServices }) {
     </div>
   );
 }
+
+export const MemoizedSalonMainPage1 = memo(SalonMainPage);

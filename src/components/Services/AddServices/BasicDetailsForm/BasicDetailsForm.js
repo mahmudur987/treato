@@ -1,13 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import styles from "./BasicDetailForm.module.css";
 import CustomSelect from "../../../Select/CustomeSelect";
 import { getAllServices } from "../../../../services/Services";
 import { toast } from "react-toastify";
 const BasicDetailsForm = ({ salon, setBasicDetails }) => {
   const [showCategoryOption, setshowCategoryOption] = useState(false);
-  const [error, setError] = useState(null);
-  const [serviceType, setserviceType] = useState(null);
-  const [selectedServiceType, setSelectedServiceType] = useState(["Error"]);
+  const [selectedServiceType, setSelectedServiceType] = useState("");
   const [selectCategory, setselectCategory] = useState(null);
   const [serviceName, setserviceName] = useState("");
   const [duration, setDuration] = useState("15 mins");
@@ -26,51 +24,31 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
     "2 h ",
     "2 h +",
   ];
-  const categories =
-    salon?.services
-      ?.find((x) => x.service_name === selectedServiceType)
-      ?.mainCategories?.map((category) => category.category_name) || [];
+  const categories = useMemo(() => {
+    return (
+      salon?.services
+        ?.find((x) => x._id === selectedServiceType?.id)
+        ?.mainCategories?.map((category) => category.category_name) || []
+    );
+  }, [salon?.services, selectedServiceType?.id]);
   const AvailableFor = ["Everyone", "Female only", "Male only"];
   const TaxAndFees = ["included", "excluded"];
 
-  useEffect(() => {
-    async function fetchAllServices() {
-      try {
-        const { res, err } = await getAllServices();
-        if (res) {
-          const uniqueDataArray = res?.data?.data.reduce(
-            (uniqueArray, currentItem) => {
-              // Check if there's already an object with the same 'name' in uniqueArray
-              if (
-                !uniqueArray.some(
-                  (item) => item.service_name === currentItem.service_name
-                )
-              ) {
-                // If not found, add this object to uniqueArray
-                uniqueArray.push(currentItem);
-              }
-              return uniqueArray;
-            },
-            []
-          );
+  const serviceType =
+    salon?.services?.map((x) => {
+      const data = {
+        name: x.service_name,
+        id: x._id,
+      };
+      return data;
+    }) || null;
 
-          const data = uniqueDataArray?.map((x) => x.service_name);
-          setserviceType(data);
-          setSelectedServiceType(data[0]);
-        } else {
-          setError(err);
-        }
-      } catch (error) {
-        setError(error);
-      }
-    }
-    fetchAllServices();
-  }, []);
   useEffect(() => {
-    if (categories && !selectCategory) {
+    if (categories) {
       setselectCategory(categories[0]);
     }
   }, [categories]);
+  console.log(selectCategory);
 
   const data = useMemo(
     () => ({
@@ -99,17 +77,25 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
     setBasicDetails(data);
   }, [data]);
 
-  if (error) {
-    toast.error("error happen ", { toastId: 1 });
-  }
-
   return (
     <form className={styles.form}>
       {/* service type */}
       <div className={styles.serviceType}>
         <label htmlFor="serviceType">Service Type</label>
-        <div className={styles.selectWrapper}>
-          <CustomSelect
+        <div  className={styles.selectWrapper}>
+          <select  className={styles.selectOption}
+            onChange={(e) =>
+              setSelectedServiceType(serviceType[e.target.value])
+            }
+          >
+            {serviceType.map((x, y) => (
+              <option key={y} value={y}>
+                {x?.name}
+              </option>
+            ))}
+          </select>
+
+          {/* <CustomSelect
             options={serviceType}
             value={selectedServiceType ? selectedServiceType : serviceType[0]}
             onChange={setSelectedServiceType}
@@ -130,7 +116,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
                 stroke-linejoin="round"
               />
             </svg>
-          </span>
+          </span> */}
         </div>
       </div>
       {/* add  service category */}
@@ -197,7 +183,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
               </div>
             </div>
           ) : (
-            <p style={{ color: "red" }}>
+            <p className={styles.warning}>
               please add a category before add a service
             </p>
           )}
@@ -342,3 +328,4 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
 };
 
 export default BasicDetailsForm;
+export const MemoizedBasicDetailsForm = memo(BasicDetailsForm);

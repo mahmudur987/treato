@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import EditAdminModal from "../EditAdminData/EditAdminModal";
 import AddLeaveModal from "../AddLeaveModal/AddLeaveModal";
 import sty from "./TimeScheduleModal.module.css";
@@ -60,3 +60,4 @@ const TimeScheduleModal = ({
 };
 
 export default TimeScheduleModal;
+export const MemoizedTimeScheduleModal = memo(TimeScheduleModal);

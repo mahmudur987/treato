@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import styles from "./FilterSection.module.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
@@ -107,3 +107,5 @@ const FilterSection = ({ setAppointmentsQuery }) => {
 };
 
 export default FilterSection;
+
+export const MemoizedFilterSection1 = memo(FilterSection);

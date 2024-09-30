@@ -45,7 +45,7 @@ const AdminPageLayout = () => {
             <div className={style.navbar}>
               {!isSalonInAdmin && <ServicePageNavbar />}
             </div>
-            <div style={{ marginLeft: "20px", marginTop: "20px" }}>
+            <div className={style.uotletBox} >
               <Outlet />
             </div>
           </div>

@@ -114,6 +114,21 @@
   line-height: 21px;
   text-align: left;
 }
+.faUsers{
+  color: #F0A20B ;
+}
+.arrowUp{
+  color: #08090A;
+}
+.fapen{
+  color: #08090A;
+}
+.backgroundcl{
+  background: linear-gradient(180deg, #BDE7FF 0%, #88C5E8 100%) ;
+}
+.backgroundcl1{
+  background: linear-gradient(180deg, #FFD0F8 0%, #F1A0C2 100%) ;
+}
 
 @media only screen and (max-width: 700px) {
   .contents {

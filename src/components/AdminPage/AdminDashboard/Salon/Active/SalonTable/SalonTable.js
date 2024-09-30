@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import topImg from "../../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./SalonTable.module.css";
@@ -92,3 +92,4 @@ const SalonTable = ({ tableData }) => {
 };
 
 export default SalonTable;
+export const MemoizedSalonTable = memo(SalonTable);

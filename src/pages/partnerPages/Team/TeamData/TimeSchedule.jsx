@@ -9,7 +9,9 @@ import calendar_line from "../../../../assets/images/TeamDetails/calendar_line (
 import bottomImg from "../../../../assets/images/TeamDetails/Vector.png";
 import "react-calendar/dist/Calendar.css";
 import "./../../../../components/AccountSettings/UserDetails/ReactCalendar.css";
-import TimeScheduleModal from "../../../../components/_modals/AdminProfile/TimeScheduleModal/TimeScheduleModal";
+import TimeScheduleModal, {
+  MemoizedTimeScheduleModal,
+} from "../../../../components/_modals/AdminProfile/TimeScheduleModal/TimeScheduleModal";
 import { useNavigate } from "react-router-dom";
 import { useGetAllTeamMemSche } from "../../../../services/Team";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
@@ -27,7 +29,7 @@ const TimeSchedule = () => {
   const [endDate, setEndDate] = useState(
     formatStateDate(new Date(Date.now() + 6 * 24 * 60 * 60 * 1000))
   ); // Adding 7 days
-  const { data, isLoading, isError, error, refetch } = useGetAllTeamMemSche(
+  const { data, isError, error, refetch } = useGetAllTeamMemSche(
     startDate,
     endDate
   );
@@ -100,10 +102,6 @@ const TimeSchedule = () => {
     navigate("/partner/dashboard/EmployeeSchedule");
   };
 
-  // console.log(data?.data?.length);
-  // if (isLoading) {
-  //   return <LoadSpinner />;
-  // }
   return (
     <TimeScheContext.Provider
       value={{ schedule, member, refetch, sethandleShift }}
@@ -111,14 +109,20 @@ const TimeSchedule = () => {
       <div className={sty.container}>
         <div className={sty.TeamSchedule}>
           <div className={sty.TeamScheduleForResponsive}>
-            <img loading="lazy" src={arrowLeft} alt="arrowLeft" className={sty.arrowLeft} />
+            <img
+              loading="lazy"
+              src={arrowLeft}
+              alt="arrowLeft"
+              className={sty.arrowLeft}
+            />
             <h1 className={sty.headingTeam}>Team Schedule</h1>
           </div>
 
           <div className={sty.teamCal}>
             <p className={sty.teamCalIcon}>
               <span onClick={decreaseDates}>
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={chevronLeft}
                   alt="chevronLeft"
                   className={sty.chevronLeft}
@@ -127,14 +131,16 @@ const TimeSchedule = () => {
 
               {data?.data[0]?.time_for_service.length > 0 ? (
                 <span className={sty.cal}>
-                  {sD} - {eD} <img loading="lazy" src={calendar_line} alt="calendar_line" />
+                  {sD} - {eD}{" "}
+                  <img loading="lazy" src={calendar_line} alt="calendar_line" />
                 </span>
               ) : (
                 <span className={sty.cal}>Add A Team Member</span>
               )}
               {/* {isLoading && <LoadSpinner />} */}
               <span onClick={increaseDates}>
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={chevronRight}
                   alt="chevronRight"
                   className={sty.chevronRight}
@@ -146,7 +152,8 @@ const TimeSchedule = () => {
           <div className={sty.downloadButtonContainer}>
             <button className={sty.dBtn}>
               Download CSV
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={downLondIcon}
                 alt="downLondIcon"
                 className={sty.dBtnImg}
@@ -160,16 +167,11 @@ const TimeSchedule = () => {
               <tr>
                 <th
                   className={sty.headingDiv}
-                  style={{ display: "flex", alignItems: "center" }}
                 >
-                  <span style={{ margin: "10px" }}>Name</span>
+                  <span  className={sty.headingName}>Name</span>
                   <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      marginTop: "5px",
-                      gap: "2px",
-                    }}
+                    
+                    className={sty.imageBox}
                   >
                     <img loading="lazy" src={topImg} alt="" />
                     <img loading="lazy" src={bottomImg} alt="" />
@@ -192,7 +194,8 @@ const TimeSchedule = () => {
                     {/* img */}
                     <td>
                       <div className={sty.nameProfile}>
-                        <img loading="lazy"
+                        <img
+                          loading="lazy"
                           src={item.profile}
                           alt="profile"
                           className={sty.profile}
@@ -215,8 +218,7 @@ const TimeSchedule = () => {
                           return (
                             <td key={i} className={sty.times1}>
                               <div
-                                className={sty.times}
-                                style={{ border: "1px solid pink" }}
+                                className={`${sty.times} ${sty.timeBorder}`}
                               >
                                 leave
                               </div>
@@ -281,7 +283,7 @@ const TimeSchedule = () => {
                               handleShift &&
                               item.name === member.name && (
                                 <div className={sty.modalWrapper}>
-                                  <TimeScheduleModal
+                                  <MemoizedTimeScheduleModal
                                     openLeaveModal={openLeaveModal}
                                     closeLeaveModal={closeLeaveModal}
                                     openEditModal={openEditModal}
@@ -318,7 +320,8 @@ const TimeSchedule = () => {
         <div className={sty.downloadButtonContainer2}>
           <button className={sty.dBtn}>
             Download CSV
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={downLondIcon}
               alt="downLondIcon"
               className={sty.dBtnImg}

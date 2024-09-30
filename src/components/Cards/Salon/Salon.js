@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import styles from "./Salon.module.css";
 import { chevronright } from "../../../assets/images/icons";
 import mapBlue from "../../../assets/images/SalonDetail/mapBlue.svg";
@@ -46,7 +46,8 @@ const Salon = ({ salonData, place }) => {
         }`}
       >
         <Link to={salonData ? `/salons/${salonData._id}` : null}>
-          <img loading="lazy"
+          <img
+            loading="lazy"
             src={salonImage ? salonImage.public_url : img1}
             alt="cardImage"
             className={`${styles.cardImage} ${
@@ -68,8 +69,8 @@ const Salon = ({ salonData, place }) => {
             {salonData.salon_name ? salonData.salon_name : "Salon Name"}
           </Link>
           <h4 className={styles.ratings}>
-            {salonData.rating} <img loading="lazy" src={starBlack} alt="star" /> (
-            {salonData.total_rating} ratings)
+            {salonData.rating} <img loading="lazy" src={starBlack} alt="star" />{" "}
+            ({salonData.total_rating} ratings)
           </h4>
           {userDetails?.user.isLocationAllow && (
             <h4 className={styles.location}>
@@ -120,3 +121,4 @@ const Salon = ({ salonData, place }) => {
 };
 
 export default Salon;
+export const MemoizedSalon = memo(Salon);

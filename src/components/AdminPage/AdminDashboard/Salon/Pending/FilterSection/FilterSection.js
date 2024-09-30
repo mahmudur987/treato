@@ -41,7 +41,7 @@ const FilterSection = ({ viewBy, setViewBy, selectedSalon, count, value }) => {
             <button type="button" onClick={handleApprove}>
               Approve
               {selectedSalon.length > 0 ? (
-                <span className={styles.selLength}>
+                <span style={{ marginLeft: "7px" }}>
                   {selectedSalon.length}
                 </span>
               ) : (

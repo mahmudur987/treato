@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./ServiceCatalog.module.css";
 
-import ServicesDropDown from "../../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
+import { MemoizedServicesDropDown } from "../../../../components/Services/ServiceCatalog/ServicesDropDown/ServicesDropDown";
 
 import AddCategory from "../../../../components/_modals/Addcategory/AddCategory";
 import { BiMenuAltLeft } from "@react-icons/all-files/bi/BiMenuAltLeft";
@@ -10,7 +10,7 @@ import { FaPlus } from "@react-icons/all-files/fa/FaPlus";
 import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
-import { getAllServices } from "../../../../services/Services";
+
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
 import CustomSelect2 from "../../../../components/Select/CustomeSelect2/CustomeSelect2";
 import NoDataDisplay from "../../../../components/NodataToDisplay/NoDataDisplay";
@@ -19,38 +19,13 @@ const ServiceCatalog = () => {
   const { data, isLoading, isError, error } = useSingleSalon();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedServiceType, setSelectedServiceType] = useState("All");
-  const [serviceType, setserviceType] = useState([]);
+  const [serviceType, setServiceType] = useState([]);
   useEffect(() => {
-    async function fetchAllServices() {
-      try {
-        const { res, err } = await getAllServices();
-        if (res) {
-          const uniqueDataArray = res?.data?.data.reduce(
-            (uniqueArray, currentItem) => {
-              // Check if there's already an object with the same 'name' in uniqueArray
-              if (
-                !uniqueArray.some(
-                  (item) => item.service_name === currentItem.service_name
-                )
-              ) {
-                // If not found, add this object to uniqueArray
-                uniqueArray.push(currentItem);
-              }
-              return uniqueArray;
-            },
-            []
-          );
-          console.log(res);
-          const data = uniqueDataArray?.map((x) => x.service_name);
-          setserviceType(data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchAllServices();
-  }, []);
-  console.log(data);
+    const uniqueDataArray = data?.salon?.services;
+    const x = uniqueDataArray?.map((x) => x.service_name);
+    setServiceType(x);
+  }, [data]);
+
   const filteredData = data?.salon?.services
     ?.filter((x) => {
       if (selectedServiceType === "All") {
@@ -164,7 +139,7 @@ const ServiceCatalog = () => {
         <div className={styles.content}>
           {data &&
             filteredData?.map((data, i) => (
-              <ServicesDropDown key={i} data={data} />
+              <MemoizedServicesDropDown key={i} data={data} />
             ))}
 
           {filteredData.length === 0 && (

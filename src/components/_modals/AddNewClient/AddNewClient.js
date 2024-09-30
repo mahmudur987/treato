@@ -7,7 +7,14 @@ import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import CountrySelect from "../../Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
 import { AddAppointmentContext } from "../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
-const AddNewClient = ({ showModal, onClose, setSelectedClient, clients }) => {
+import { toast } from "react-toastify";
+const AddNewClient = ({
+  showModal,
+  onClose,
+  setSelectedClient,
+  clients,
+  setClients,
+}) => {
   const { setCustomerDetails } = useContext(AddAppointmentContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -22,15 +29,26 @@ const AddNewClient = ({ showModal, onClose, setSelectedClient, clients }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!firstName) {
+      return toast.error("Write your First Name");
+    }
+    if (!phone) {
+      return toast.error("Write your First Name");
+    }
+    if (!email) {
+      return toast.error("Write your First Name");
+    }
+
     const data = {
       phone: phone.length ? `+${getCountryCallingCode(country)}${phone}` : "",
       name: firstName + " " + lastName,
       email: email,
     };
-
+    console.log(data);
     setCustomerDetails(data);
     setSelectedClient(data);
-    clients.pop(data);
+    setClients([...clients, data]);
     onClose();
   };
 
@@ -78,6 +96,7 @@ const AddNewClient = ({ showModal, onClose, setSelectedClient, clients }) => {
               value={email}
               type="email"
               placeholder="Enter clients email address"
+              required
             />
           </div>
           <div className={styles.formItemsWrapper}>

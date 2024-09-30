@@ -498,6 +498,9 @@ text-align: left;
   line-height: 150%; /* 24px */
   letter-spacing: 0.16px;
 }
+.serviceFont{
+  font-size: 18px;
+}
 
 @media only screen and (max-width: 767px) {
   .salon_main {

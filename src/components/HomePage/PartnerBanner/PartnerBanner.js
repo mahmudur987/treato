@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./partnerBanner.module.css";
 import PartnerBannerImg from "../../../assets/images/PartnerBannerImg/partnerBannerImg.webp";
 import { Link } from "react-router-dom";
@@ -33,3 +33,4 @@ const PartnerBanner = ({ mainData }) => {
 };
 
 export default PartnerBanner;
+export const MemoizedPartnerBanner = memo(PartnerBanner);

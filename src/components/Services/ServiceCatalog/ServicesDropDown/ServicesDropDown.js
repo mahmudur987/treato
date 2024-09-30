@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./ServicesDropDown.module.css";
 import { Link } from "react-router-dom";
-import Menu from "../Menu/Menu";
-import NoDataDisplay from "../../../NodataToDisplay/NoDataDisplay";
+import Menu, { MemoizedMenu } from "../Menu/Menu";
+import NoDataDisplay, {
+  MemoizedNoDataDisplay,
+} from "../../../NodataToDisplay/NoDataDisplay";
 const ServicesDropDown = ({ data }) => {
   const [openCategory, setOpenCategory] = useState(null);
   const [showbtnMenu, setShowBtnMenu] = useState("");
@@ -82,7 +84,7 @@ const ServicesDropDown = ({ data }) => {
                     </svg>
                   </button>
                   {category._id === showbtnMenu && (
-                    <Menu setShowBtnMenu={setShowBtnMenu} />
+                    <MemoizedMenu setShowBtnMenu={setShowBtnMenu} />
                   )}
                 </div>
                 {category._id === showbtnMenu && (
@@ -286,10 +288,11 @@ const ServicesDropDown = ({ data }) => {
         )}
       </div>
       {data?.mainCategories?.length === 0 && (
-        <NoDataDisplay message={"No Category Available"} />
+        <MemoizedNoDataDisplay message={"No Category Available"} />
       )}
     </section>
   );
 };
 
 export default ServicesDropDown;
+export const MemoizedServicesDropDown = memo(ServicesDropDown);

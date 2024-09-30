@@ -161,6 +161,7 @@ function App() {
 
   return (
     <>
+    <Suspense fallback={<LoadSpinner/>}>
       <PageLayout>
         <ToastContainer
           position="top-right"
@@ -364,9 +365,11 @@ function App() {
             <Route path="/admin/commission" element={<Commission />} />
           </Route>
           
+          
         </Routes>
         </Suspense>
       </PageLayout>
+      </Suspense>
     </>
   );
 }

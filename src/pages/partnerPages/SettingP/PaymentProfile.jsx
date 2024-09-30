@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./PaymentProfile.module.css";
-import InputField from "../../../components/Input/Input";
+import InputField, {
+  MemoizedInputField,
+} from "../../../components/Input/Input";
 import arrowLeft from "../../../assets/images/AccountSettings/arrow-left.svg";
 import { Link } from "react-router-dom";
 import { useSingleSalon } from "../../../services/salon";
@@ -91,7 +93,8 @@ const PaymentProfile = () => {
             <div className={styles["heading"]}>
               <Link to={"/partner/dashboard/PartnerAccountSetting"}>
                 <span>
-                  <img loading="lazy"
+                  <img
+                    loading="lazy"
                     src={arrowLeft}
                     alt="arrowLeft"
                     className={styles["arrowLeft"]}
@@ -136,7 +139,9 @@ const PaymentProfile = () => {
                       }
 
                       if (inputValue.length > 16) {
-                        return window.alert("Account number cannot exceed 16 digits.");
+                        return window.alert(
+                          "Account number cannot exceed 16 digits."
+                        );
                       }
 
                       handleChange(e);
@@ -153,7 +158,7 @@ const PaymentProfile = () => {
               <div className={styles["inputField"]}>
                 <label>Name of the Account Holder</label>
                 <div className={styles["editableContainer"]}>
-                  <InputField
+                  <MemoizedInputField
                     type="text"
                     name="account_holder_name"
                     value={formData.account_holder_name || ""}
@@ -170,7 +175,7 @@ const PaymentProfile = () => {
               <div className={styles["inputField"]}>
                 <label>IFSC Code</label>
                 <div className={styles["editableContainer"]}>
-                  <InputField
+                  <MemoizedInputField
                     type="text"
                     name="IFSC_code"
                     value={formData.IFSC_code || ""}

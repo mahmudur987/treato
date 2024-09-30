@@ -68,6 +68,17 @@
   font-weight: 400;
   line-height: 21px;
 }
+.imageBox{
+  display: flex;
+  flex-direction: column;
+}
+.tableHead{
+  border: 1px solid #ebedf0;
+}
+.fontstyle{
+  font-size: 20px;
+  text-align: center;
+}
 @media only screen and (max-width: 700px) {
   .tableContainer {
     width: 96vw;

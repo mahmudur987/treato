@@ -1,8 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./AppointmentDetails.module.css";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import SelectServiceModal from "../../../_modals/SelectServiceModal/SelectServiceModal";
-import { singleSalon } from "../../../../utils/data";
 import { useTimeSlots } from "../../../../services/Appointments";
 import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
@@ -195,15 +194,16 @@ const AppointmentDetails = () => {
   }
   return (
     <section className={styles.mainContainer}>
-      <div className={styles.container}>
-        <h3 className={styles.heding}>Appointment Details</h3>
+      <div  className={styles.container}>
+        <h3 className={styles.heding} >Appointment Details</h3>
         {/* date select */}
-        <div className={styles.dateWrapper} onClick={handleWrapperClick}>
-          <label htmlFor="date">Date</label>
+        <div  className={styles.dateWrapper} onClick={handleWrapperClick}>
+          <label  htmlFor="date">Date</label>
           <p>
-            <span>{date}</span>
+            <span >{date}</span>
 
             <input
+            
               ref={dateInputRef}
               onChange={(e) => {
                 const selectedDate = new Date(e.target.value);
@@ -228,7 +228,7 @@ const AppointmentDetails = () => {
         <div className={styles.serviceCategory}>
           <label htmlFor="">Service Category</label>
 
-          <CustomSelect2
+          <CustomSelect2 
             options={serviceType}
             value={selectedServiceType}
             onChange={setSelectedServiceType}
@@ -318,7 +318,7 @@ const AppointmentDetails = () => {
               />
             )}
             {times?.length === 0 && (
-              <div style={{ height: "48px", color: "red" }}>
+              <div className={styles.warnning} >
                 No slots available
               </div>
             )}
@@ -336,20 +336,6 @@ const AppointmentDetails = () => {
             </p>
           </div>
         </div>
-
-        {/* addition al comments */}
-        {/* <div className={styles.comments}>
-          <label htmlFor="comments">
-            Additional comments <span>(optional)</span>
-          </label>
-          <textarea
-            onChange={(e) => setcomments(e.target.value)}
-            name=""
-            id=""
-            cols="30"
-            rows="10"
-          ></textarea>
-        </div> */}
       </div>
       <SelectServiceModal
         mainCategories={mainCategories}
@@ -363,3 +349,5 @@ const AppointmentDetails = () => {
 };
 
 export default AppointmentDetails;
+
+export const MemoizedAppointmentDetails = memo(AppointmentDetails);

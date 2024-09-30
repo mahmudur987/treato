@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EditService.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import BasicDetailsForm from "../../../../components/Services/EditService/BasicDetailsForm/BasicDetailsForm";
-import TeamMembers from "../../../../components/Services/EditService/TeamMembers/TeamMembers";
+import BasicDetailsForm, {
+  MemoizedBasicDetailsForm,
+} from "../../../../components/Services/EditService/BasicDetailsForm/BasicDetailsForm";
+import TeamMembers, {
+  MemoizedTeamMembers,
+} from "../../../../components/Services/EditService/TeamMembers/TeamMembers";
 import { editService, useSingleSalon } from "../../../../services/salon";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../../services/axios";
@@ -32,13 +36,7 @@ const findServiceData = (data, service_id, category_id, subcategory_id) => {
 // main page
 
 const EditService = () => {
-  const {
-    data: singleSalon,
-    isLoading,
-    isError,
-    error,
-    refetch,
-  } = useSingleSalon();
+  const { data: singleSalon, isLoading, isError, refetch } = useSingleSalon();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const service_id = queryParams.get("servicetype");
@@ -77,7 +75,7 @@ const EditService = () => {
         time_takenby_service: basicDetails.duration,
       },
     };
-    console.log(newEditService);
+
     const res = await editService(newEditService);
     if (res.res) {
       console.log(res.res);
@@ -154,7 +152,7 @@ const EditService = () => {
             <div className={styles.leftContent}>
               <h2>Basic Details </h2>
               <div className={styles.formWrapper}>
-                <BasicDetailsForm
+                <MemoizedBasicDetailsForm
                   salon={singleSalon.salon}
                   service={service}
                   setBasicDetails={setBasicDetails}
@@ -164,14 +162,17 @@ const EditService = () => {
               </div>
             </div>
             <div className={styles.rightContent}>
-              <TeamMembers setTeamMember={setTeamMember} setdays={setdays} />
+              <MemoizedTeamMembers
+                setTeamMember={setTeamMember}
+                setdays={setdays}
+              />
             </div>
           </div>
         )}
 
         <div className={styles.buttontContainer}>
           <button
-            onClick={() => navigate("/service")}
+            onClick={() => navigate("/partner/dashboard/service")}
             className={styles.cancel}
           >
             Cancel

@@ -41,7 +41,7 @@
     align-items: center;
     justify-content: space-between;
     width: 204px;
-    height: 100%;
+    max-height: 100%;
     display: flex;
     gap: 8px;
     cursor: pointer;
@@ -68,7 +68,7 @@ svg{
     top: 60px;
     left: 941;
     width: 204px;
-    height: auto;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     border: 1px solid #EBEDF0;
@@ -76,8 +76,8 @@ svg{
 }
 .nameContainer div{
     cursor: pointer;
-    width: 100%;
-    height: 48px;
+    max-width: 100%;
+    height: 28px;
     background-color: #FFFFFF;
     padding: 13px 16px 13px 16px;
 }
@@ -113,7 +113,7 @@ svg{
     margin-top: 24px;
     margin-left: 86px;
 }
-.scheduleBox{
+.scheduleBox {
     position: absolute;
     width: 1348px;
     height: 880px;
@@ -122,18 +122,52 @@ svg{
     overflow-y: scroll;
     overflow-x: hidden;
     gap: 0;
+}
+
+/* Scrollbar track */
+.scheduleBox::-webkit-scrollbar {
+    width: 6px; /* Width for vertical scrollbar */
+    height: 6px; /* Height for horizontal scrollbar */
+    background-color: #E9EDF2; /* Scrollbar background color */
+}
+
+/* Scrollbar thumb (the draggable part) */
+ .scheduleBox {
+        position: absolute;
+        width: 1348px;
+        height: 880px;
+        margin-top: 24px;
+        display: flex;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        gap: 0;
+    }
     
-}
-.scheduleBox::-webkit-scrollbar{
-    min-width: 6px;
-    min-height: 6px;
-    background-color: #E9EDF2;
-}
-.scheduleBox::-webkit-scrollbar-button{
-    min-width: 6px;
+   
+    .scheduleBox::-webkit-scrollbar {
+        width: 6px; 
+        height: 6px; 
+        background-color: #E9EDF2; 
+    }
+    
+    
+    .scheduleBox::-webkit-scrollbar-thumb {
+        background-color: #A1A9B6; 
+        border-radius: 20px; 
+    }
+    
+  
+    .scheduleBox::-webkit-scrollbar-button {
+        background-color: #A1A9B6; 
+        border-radius: 20px;
+    }
+
+
+.scheduleBox::-webkit-scrollbar-button {
+    background-color: #A1A9B6; 
     border-radius: 20px;
-    background-color: #A1A9B6;
 }
+
 
 
 .calendarpopup{

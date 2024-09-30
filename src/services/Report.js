@@ -34,3 +34,21 @@ export const useClientsReport = (query) => {
     },
   });
 };
+export const useBillingReport = (query) => {
+  // let url = `reports/clientsReport?${query}`;
+  let url = `/reports/salonbillinghistory?${query}`;
+  // console.log(url);
+  const jwtToken = localStorage.getItem("jwtToken");
+  const headers = {
+    token: jwtToken,
+  };
+
+  return useQuery({
+    queryKey: [query, "reports/salonbillinghistory"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(url, { headers });
+
+      return data;
+    },
+  });
+};

@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddServices.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import BasicDetailsForm from "../../../../components/Services/AddServices/BasicDetailsForm/BasicDetailsForm";
-import TeamMembers from "../../../../components/Services/AddServices/TeamMembers/TeamMembers";
+import BasicDetailsForm, {
+  MemoizedBasicDetailsForm,
+} from "../../../../components/Services/AddServices/BasicDetailsForm/BasicDetailsForm";
+import TeamMembers, {
+  MemoizedTeamMembers,
+} from "../../../../components/Services/AddServices/TeamMembers/TeamMembers";
 import { addNewService, useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
@@ -19,7 +23,7 @@ const AddServices = () => {
   const { data, isLoading, isError, error } = useSingleSalon();
 
   const service = data?.salon.services.find(
-    (x) => x.service_name === basicDetails.selectedServiceType
+    (x) => x._id === basicDetails.selectedServiceType?.id
   );
   const mainCategory = service?.mainCategories.find(
     (x) => x.category_name === basicDetails.selectCategory
@@ -41,7 +45,7 @@ const AddServices = () => {
         },
       ],
     };
-
+    console.log(newService);
     const res = await addNewService(newService);
     if (res.res) {
       toast.success("A New Service Add Successfully");
@@ -53,7 +57,7 @@ const AddServices = () => {
       toast.error("Error");
     }
   };
-  console.log(basicDetails.duration);
+
   // for the ui
   const handleNextStep = () => {
     setCurrentStep((prevStep) => (prevStep < 3 ? prevStep + 1 : prevStep));
@@ -166,13 +170,13 @@ const AddServices = () => {
 
             <div className={styles.formWrapper}>
               {currentStep === 1 && mobile && (
-                <BasicDetailsForm
+                <MemoizedBasicDetailsForm
                   salon={data.salon}
                   setBasicDetails={setBasicDetails}
                 />
               )}
               {!mobile && (
-                <BasicDetailsForm
+                <MemoizedBasicDetailsForm
                   setBasicDetails={setBasicDetails}
                   salon={data.salon}
                 />
@@ -180,7 +184,7 @@ const AddServices = () => {
             </div>
           </div>
           <div className={styles.rightContent}>
-            <TeamMembers
+            <MemoizedTeamMembers
               setdays={setdays}
               setTeamMember={setTeamMember}
               currentStep={currentStep}
@@ -191,7 +195,7 @@ const AddServices = () => {
 
         <div className={styles.buttontContainer}>
           <button
-            onClick={() => navigate("/service")}
+            onClick={() => navigate("/partner/dashboard/service")}
             className={styles.cancel}
           >
             Cancel

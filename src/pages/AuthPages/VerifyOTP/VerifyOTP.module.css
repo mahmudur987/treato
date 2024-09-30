@@ -34,6 +34,8 @@
 }
 .OTPinput {
   height: 50px;
+  width: 30px;
+  margin-right: 10px;
   font-size: 28px;
   border: none;
   text-align: center;

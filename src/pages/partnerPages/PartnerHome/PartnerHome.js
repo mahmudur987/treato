@@ -4,7 +4,9 @@ import PartnerHero from "../../../components/partner/Banner/PartnerHero";
 import FeaturesDetails from "../../../components/partner/Features_Details/FeaturesDetails";
 import WhyTreato from "../../../components/partner/WhyTreato/WhyTreato";
 import NoSubscription from "../../../components/partner/NoSubscription/NoSubscription";
-import AppDownloadInfo from "../../../components/HomePage/AppDownloadInfo/AppDownloadInfo";
+import AppDownloadInfo, {
+  MemoizedAppDownloadInfo,
+} from "../../../components/HomePage/AppDownloadInfo/AppDownloadInfo";
 import { HomePage } from "../../../services/HomePage";
 import { Link } from "react-router-dom";
 const PartnerHome = () => {
@@ -35,7 +37,7 @@ const PartnerHome = () => {
         </div>
       </section>
       <WhyTreato />
-      <AppDownloadInfo
+      <MemoizedAppDownloadInfo
         mainData={
           homeData.downloadApp_section ? homeData.downloadApp_section : ""
         }

@@ -151,7 +151,7 @@ const PicturesGallery = () => {
             <input
               type="file"
               ref={fileInputRef}
-              style={{ display: "none" }}
+              className={sty.displayNone}
               onChange={handleFileChange}
               multiple
             />
@@ -204,7 +204,7 @@ const PicturesGallery = () => {
                             <input
                               type="file"
                               ref={replaceInputRef}
-                              style={{ display: "none" }}
+                              className={sty.displayNone}
                               onChange={handleReplaceImg}
                             />
                             <button

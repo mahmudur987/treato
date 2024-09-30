@@ -4,10 +4,10 @@ import styles from "./AddCategory.module.css";
 import CustomSelect from "../../Select/CustomeSelect";
 import ColorSelect from "../../Select/ColorSelect/ColorSelect";
 import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
-import { getAllServices } from "../../../services/Services";
 import { useSingleSalon } from "../../../services/salon";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../services/axios";
+import icon1 from "../../../assets/svgs/icon (1).svg";
 const options = [
   "#CEB739",
   "#DE6296",
@@ -24,55 +24,24 @@ const options = [
   "#F18865",
 ];
 const AddCategory = ({ showModal, onClose }) => {
-  const { refetch } = useSingleSalon();
-  const [error, setError] = useState(null);
+  const { data, refetch } = useSingleSalon();
+
   const [serviceType, setserviceType] = useState(null);
   const [selectedServiceType, setSelectedServiceType] = useState(["Error"]);
   const [selectCategory, setselectCategory] = useState("");
   const [service, setservice] = useState([]);
   const [colorCode, setColorCode] = useState(options[0]);
   useEffect(() => {
-    async function fetchAllServices() {
-      try {
-        const { res, err } = await getAllServices();
-        if (res) {
-          const uniqueDataArray = res?.data?.data.reduce(
-            (uniqueArray, currentItem) => {
-              // Check if there's already an object with the same 'name' in uniqueArray
-              if (
-                !uniqueArray.some(
-                  (item) => item.service_name === currentItem.service_name
-                )
-              ) {
-                // If not found, add this object to uniqueArray
-                uniqueArray.push(currentItem);
-              }
-              return uniqueArray;
-            },
-            []
-          );
+    const uniqueDataArray = data?.salon?.services;
+    const x = uniqueDataArray?.map((x) => x.service_name);
+    setserviceType(x);
+    setSelectedServiceType(x[0] ? x[0] : "");
+    setservice(uniqueDataArray);
+  }, [data]);
 
-          const data = uniqueDataArray?.map((x) => x.service_name);
-
-          setservice(res?.data?.data);
-          setserviceType(data);
-          setSelectedServiceType(data[0]);
-        } else {
-          setError(err);
-        }
-      } catch (error) {
-        setError(error);
-      }
-    }
-    fetchAllServices();
-  }, []);
-  // console.log(serviceType);
-
-  const serviceId = service?.find((x) => {
-    if (x.service_name === selectedServiceType) {
-      return x._id;
-    }
-  })?._id;
+  const serviceId = service?.find(
+    (x) => x.service_name === selectedServiceType
+  )?._id;
 
   const handleSubmit = async () => {
     if (!selectCategory) {
@@ -112,9 +81,6 @@ const AddCategory = ({ showModal, onClose }) => {
     onClose();
   };
 
-  if (error) {
-    toast.error("error happen");
-  }
   return (
     <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
       <div className={styles.modalContent}>
@@ -137,21 +103,7 @@ const AddCategory = ({ showModal, onClose }) => {
                 onChange={setSelectedServiceType}
               />
               <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <img src={icon1} alt="" />
               </span>
             </div>
           </div>

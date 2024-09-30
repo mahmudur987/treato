@@ -21,6 +21,9 @@
 .SalonPicturesSmallScreen .ServiceOfferSmallScreen .ServiceLocationSmallScreen {
   display: none;
 }
+.submitBtn{
+  cursor: pointer;
+}
 
 @media screen and (max-width: 768px) {
   .container {

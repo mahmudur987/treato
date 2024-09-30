@@ -177,7 +177,6 @@ const AddMemberProfile = () => {
                     <img loading="lazy"
                       src={picture ? URL.createObjectURL(picture) : profileImg}
                       alt="profileImg"
-                      style={{ maxWidth: "100%" }}
                       className={styles.Rounded}
                     />
 
@@ -185,7 +184,7 @@ const AddMemberProfile = () => {
                       type="file"
                       ref={fileInputRef}
                       onChange={handleFileChange}
-                      style={{ display: "none" }}
+                      className={styles.inputBox}
                     />
                     <img loading="lazy"
                       src={Profile_Pic}

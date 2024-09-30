@@ -185,7 +185,7 @@ function ContactUs() {
       <ContactUsModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-      ></ContactUsModal>
+      />
     </>
   );
 }

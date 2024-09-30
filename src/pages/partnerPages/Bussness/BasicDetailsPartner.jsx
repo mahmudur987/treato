@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import styles from "./BasicDetailsPartner.module.css";
 import editImg from "../../../assets/images/AccountSettings/edit.svg";
 import arrowLeft from "../../../assets/images/AccountSettings/arrow-left.svg";
 import { Link } from "react-router-dom";
 import BasicInputs from "../Input/BasicInputs";
 
-const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
+const BasicDetailsPartner = ({ salonData, handleChange }) => {
   const [name, setName] = useState(true);
   const [about, setAbout] = useState(true);
   const [web, setWeb] = useState(true);
@@ -42,7 +42,8 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
                 />
               </label>
 
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={editImg}
                 alt=""
                 className={styles.usr_detail_edit}
@@ -65,7 +66,8 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
                 />
               </label>
 
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={editImg}
                 alt="editImg"
                 className={styles.usr_detail_edit}
@@ -87,7 +89,8 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
               DISABLED={about}
             />
 
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={editImg}
               alt="editImg"
               className={styles.usr_detail_edit_text}
@@ -102,3 +105,4 @@ const BasicDetailsPartner = ({ setSalonData, salonData, handleChange }) => {
 };
 
 export default BasicDetailsPartner;
+export const MemoizedBasicDetailsPartner = memo(BasicDetailsPartner);

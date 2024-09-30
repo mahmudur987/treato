@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Upcoming.module.css";
-import AppointmentCard from "../../Cards/AppointmentCard/AppointmentCard";
+import AppointmentCard, {
+  MemoizedAppointmentCard,
+} from "../../Cards/AppointmentCard/AppointmentCard";
 import {
   getUpcomingAppointments,
   useUpcomingApponments,
@@ -25,7 +27,11 @@ const Upcoming = () => {
       {data && (
         <div className={styles.UpcomingWrapper}>
           {data?.res?.data?.data?.map((salon, index) => (
-            <AppointmentCard salon={salon} key={index} cardType="Upcoming" />
+            <MemoizedAppointmentCard
+              salon={salon}
+              key={index}
+              cardType="Upcoming"
+            />
           ))}
         </div>
       )}

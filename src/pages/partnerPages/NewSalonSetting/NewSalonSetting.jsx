@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import BasicDetailsPartner from "./BasicDetailsPartner";
-import ServiceOffer from "./ServiceOffer";
-import ServiceLocation from "./ServiceLocation";
+import { MemoizedBasicDetailsPartner } from "./BasicDetailsPartner";
+import { MemoizedServiceOffer } from "./ServiceOffer";
+import { MemoizedServiceLocation } from "./ServiceLocation";
 
 import sty from "./NewSalonSetting.module.css";
-import {
-  createSalon,
-  UpdateSalon,
-  useSingleSalon,
-} from "../../../services/salon";
+import { createSalon } from "../../../services/salon";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +19,7 @@ const NewSalonSetting = () => {
   const { newPartner } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
   const [mobileScreen, setMobileScreen] = useState(false);
   const [PcScreen, setPcScreen] = useState(true);
@@ -75,12 +71,26 @@ const NewSalonSetting = () => {
       setPcScreen(true);
     }
   };
+  useEffect(() => {
+    let isTokenExist = localStorage.getItem("jwtToken");
+    if (isTokenExist) {
+      getUserProfile(isTokenExist).then((res) => {
+        dispatch(updateIsLoggedIn(true));
+        dispatch(updateUserDetails(res?.res?.data));
+        setLoading(false);
+      });
+    } else {
+      setLoading(false);
+    }
+  }, [dispatch]);
 
   useEffect(() => {
-    if (newPartner.isProfileComplete) {
-      navigate("/partner/dashboard");
+    if (!loading) {
+      if (newPartner.isProfileComplete) {
+        navigate("/partner/dashboard");
+      }
     }
-  }, [newPartner, navigate]);
+  }, [newPartner, navigate, loading]);
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
@@ -215,7 +225,7 @@ const NewSalonSetting = () => {
         <div className={sty.form}>
           {(PcScreen || (mobileScreen && currentStep === 1)) && (
             <div className={sty.ServiceOfferSmallScreen}>
-              <BasicDetailsPartner
+              <MemoizedBasicDetailsPartner
                 salonData={salonData}
                 setSalonData={setSalonData}
                 handleChange={handleChange}
@@ -224,7 +234,7 @@ const NewSalonSetting = () => {
           )}
 
           <div className={sty.ServiceOfferSmallScreen}>
-            <ServiceOffer
+            <MemoizedServiceOffer
               salonData={salonData}
               setSalonData={setSalonData}
               setWorkingHours={setWorkingHours}
@@ -236,7 +246,7 @@ const NewSalonSetting = () => {
 
           {(PcScreen || (mobileScreen && currentStep === 3)) && (
             <div className={sty.ServiceLocationSmallScreen}>
-              <ServiceLocation
+              <MemoizedServiceLocation
                 salonData={salonData}
                 setSalonData={setSalonData}
                 position={position}
@@ -251,12 +261,7 @@ const NewSalonSetting = () => {
               <h3 className={sty.teamDetailsH}>Team details</h3>
 
               <div className={sty.inputWrapper}>
-                <label
-                  htmlFor="
-  "
-                >
-                  Number of team members
-                </label>
+                <label htmlFor="">Number of team members</label>
 
                 <input
                   type="number"
@@ -280,7 +285,6 @@ const NewSalonSetting = () => {
           <div className={sty.saveBtnDiv}>
             {PcScreen && (
               <button
-                style={{ cursor: "pointer" }}
                 type="button"
                 onClick={handleSubmit}
                 className={sty.saveBtn}
