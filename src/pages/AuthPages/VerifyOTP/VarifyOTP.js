@@ -12,7 +12,7 @@ import {
 } from "../../../redux/slices/user";
 import { toast } from "react-toastify";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
-import { createSalon } from "../../../services/salon";
+
 const VerifyOTP = (props) => {
   const [otp, setOTP] = useState(["", "", "", ""]);
   const [OTPerror, setOTPerror] = useState(false);
