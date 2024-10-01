@@ -60,6 +60,7 @@ export default function AccountSettings() {
     email: true,
     phone: true,
     dob: true,
+    profilePicture: true,
   });
 
   const userData = data.user;
@@ -170,7 +171,10 @@ export default function AccountSettings() {
       formData.append("landmark", inputVal?.address?.landmark ?? "");
       formData.append("place", inputVal?.address?.place ?? "");
       formData.append("address_type", inputVal?.address?.house_type ?? "");
-      formData.append("avatar", inputVal?.avatarFile ?? "");
+      formData.append(
+        "avatar",
+        inputVal?.avatarFile ? inputVal?.avatarFile : ""
+      );
 
       updateUser(userJWt, formData)
         .then((res) => {
