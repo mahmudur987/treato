@@ -43,8 +43,10 @@ export default function PartnerLocationMap({
         ...salonData,
         location: data?.results[0]?.formatted_address,
       });
-      console.log(data?.results[0]?.formatted_address);
-      console.log({ lat, lng });
+      // console.log(data?.results[0]?.formatted_address);
+      // console.log({ lat, lng });
+      setPosition({ lat, lng });
+      return data?.results[0]?.formatted_address;
     } catch (error) {
       console.error("Error fetching address:", error.message);
       return `Address for ${lat}, ${lng}`;

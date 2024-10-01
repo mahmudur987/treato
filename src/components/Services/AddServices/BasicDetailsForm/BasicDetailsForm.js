@@ -44,11 +44,15 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
     }) || null;
 
   useEffect(() => {
+    if (serviceType.length > 0) {
+      setSelectedServiceType(serviceType ? serviceType[0] : "");
+    }
+
     if (categories) {
       setselectCategory(categories[0]);
     }
-  }, [categories]);
-  console.log(selectCategory);
+  }, [categories, serviceType]);
+  console.log(selectedServiceType);
 
   const data = useMemo(
     () => ({
@@ -76,14 +80,15 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
   useEffect(() => {
     setBasicDetails(data);
   }, [data]);
-
+  console.log(categories);
   return (
     <form className={styles.form}>
       {/* service type */}
       <div className={styles.serviceType}>
         <label htmlFor="serviceType">Service Type</label>
-        <div  className={styles.selectWrapper}>
-          <select  className={styles.selectOption}
+        <div className={styles.selectWrapper}>
+          <select
+            className={styles.selectOption}
             onChange={(e) =>
               setSelectedServiceType(serviceType[e.target.value])
             }

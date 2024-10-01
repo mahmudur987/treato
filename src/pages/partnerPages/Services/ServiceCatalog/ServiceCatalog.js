@@ -70,11 +70,13 @@ const ServiceCatalog = () => {
             <div className={styles.serviceType}>
               <p>Service Type</p>
               <div className={styles.selectWrapper}>
-                <CustomSelect2
-                  options={["All", ...serviceType]}
-                  value={selectedServiceType}
-                  onChange={setSelectedServiceType}
-                />
+                {serviceType.length > 0 && (
+                  <CustomSelect2
+                    options={["All", ...serviceType]}
+                    value={selectedServiceType}
+                    onChange={setSelectedServiceType}
+                  />
+                )}
               </div>
             </div>
             <div className={styles.headerAction}>
