@@ -1,7 +1,7 @@
 .mainContainer {
   position: fixed;
   max-width: 100px;
-  width: 100%;
+  max-width: 100%;
   min-height: 100%;
   display: flex;
   z-index: 999999999;
@@ -13,7 +13,7 @@
   position: fixed;
   top: 0%;
   left: 0;
-  max-width: 100px;
+  max-width: 70px;
   width: 100%;
   min-height: 100vh;
   display: flex;
