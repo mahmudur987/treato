@@ -118,14 +118,11 @@ const Header = () => {
             {/* new user */}
             <div>
               <div
-                style={{
-                  background:
-                    "linear-gradient(180deg, #FFDFA2 0%, #FFCE6E 100%)",
-                }}
+                
                 className={styles.card}
               >
                 <div className={styles.cardLeft}>
-                  <FaUsers style={{ color: "#F0A20B" }} />
+                  <FaUsers className={styles.faUser} />
                   <div className={styles.cardMiddle}>
                     <p>Commission %</p>
                     <h3>
@@ -146,7 +143,7 @@ const Header = () => {
                 <div className={styles.cardRight}>
                   <button onClick={() => setIsEditable((pre) => !pre)}>
                     <span>
-                      <FaPen style={{ color: "#08090A" }} />
+                      <FaPen  className={styles.faPen} />
                     </span>
                     {isEditable ? (
                       <span onClick={handleUpdateComm}>Done</span>
@@ -160,11 +157,8 @@ const Header = () => {
             {/* average sale  */}
             <div>
               <div
-                style={{
-                  background:
-                    "linear-gradient(180deg, #BDE7FF 0%, #88C5E8 100%)",
-                }}
-                className={styles.card}
+                
+                className={`${styles.card} ${styles.bgCard}`}
               >
                 <div className={styles.cardLeft}>
                   <svg
@@ -192,7 +186,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp style={{ color: "#08090A" }} /> ₹
+                  <IoIosArrowUp  className={styles.arrowUp} /> ₹
                   {commissionAfterStartDate}({commissionAfterStartDate})
                 </div>
               </div>
@@ -202,11 +196,8 @@ const Header = () => {
 
             <div>
               <div
-                style={{
-                  background:
-                    "linear-gradient(180deg, #FFD0F8 0%, #F1A0C2 100%)",
-                }}
-                className={styles.card}
+                
+                className={`${styles.card} ${styles.bgCard1}`}
               >
                 <div className={styles.cardLeft}>
                   <svg
@@ -233,7 +224,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp style={{ color: "#08090A" }} />{" "}
+                  <IoIosArrowUp  className={styles.arrowUp} />{" "}
                   {Number(
                     data?.commissionDetails?.appointmentsAfterStartDate
                   ).toFixed(2)}

@@ -221,7 +221,7 @@ const EditTeamData = () => {
                       type="file"
                       ref={fileInputRef}
                       onChange={handleFileChange}
-                      style={{ display: "none" }}
+                      className={styles.inputBox}
                     />
                     <img loading="lazy"
                       src={img2}

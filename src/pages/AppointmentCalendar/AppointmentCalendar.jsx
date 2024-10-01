@@ -121,7 +121,7 @@ function AppointmentCalendar() {
 
                     </div>
                     <div className={style.rightBox} >
-                        <div className={style.filter} onClick={() => setDropdown(!dropdownopen)}>
+                        <div  className={style.filter} onClick={() => setDropdown(!dropdownopen)}>
                             <p className={style.textdesign} >{stylistTitle}</p>
                             {dropdownopen ? <><svg 
                             class="w-6 h-6 text-gray-800 dark:text-white" 

@@ -21,6 +21,13 @@
   background-color: #6d747a;
   color: white;
 }
+.xyBox{
+  display: flex;
+  flex-direction: column;
+}
+.borderBottom{
+  border-bottom: 1px solid #ebedf0;
+}
 .wrapper {
   display: flex;
   gap: 8px;
@@ -46,6 +53,8 @@
 .bodyRow {
   text-align: left;
   padding-left: 10px;
+  font-size: 24px;
+  text-align: center;
 }
 .headingRow {
   width: 100%;
@@ -70,6 +79,17 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
+}
+.imageBox{
+  display: flex;
+  flex-direction: column;
+}
+.tableHead{
+  border: 1px solid #ebedf0;
+}
+.fontstyle{
+  font-size: 20px;
+  text-align: center;
 }
 @media only screen and (max-width: 700px) {
   .tableContainer {

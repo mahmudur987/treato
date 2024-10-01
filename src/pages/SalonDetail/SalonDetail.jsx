@@ -41,12 +41,8 @@ export default function SalonDetail() {
   if (isLoading) {
     return (
       <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        
+        className={styles.loaderBox}
       >
         <LoadSpinner />
       </div>

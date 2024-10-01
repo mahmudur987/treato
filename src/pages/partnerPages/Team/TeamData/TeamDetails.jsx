@@ -106,7 +106,7 @@ const TeamDetails = () => {
           />
           <h1 className={sty.headingTeam}>Manage your team</h1>
         </div>
-        <div style={{ display: "flex" }}>
+        <div  className={sty.searchContainer} >
           <span className={sty.searchBox}>
             <img
               loading="lazy"
@@ -154,13 +154,10 @@ const TeamDetails = () => {
             {tableHeading?.map((item, i) => (
               <td key={i}>
                 <div className={sty.headingRow}>
-                  <span style={{ marginLeft: "30px" }}>{item.heading}</span>
+                  <span className={sty.itemName} >{item.heading}</span>
                   <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      marginTop: "5px",
-                    }}
+                    
+                    className={sty.imageBox}
                   >
                     <img loading="lazy" src={item.topImg} alt="" />
                     <img loading="lazy" src={item.bottomImg} alt="" />
@@ -241,7 +238,7 @@ const TeamDetails = () => {
                   <div className={sty.serviceDiv}>
                     <p>{item.serviceProfile} </p>
 
-                    <span style={{ marginLeft: " 10px", marginRight: "10px" }}>
+                    <span className={sty.imageSpan} >
                       <img loading="lazy" src={dot} alt="" />
                     </span>
                     <span>{item.bookingToday} </span>

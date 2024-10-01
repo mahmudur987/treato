@@ -59,7 +59,7 @@ const Header = () => {
       {data && !isLoading && !isError && (
         <div className={styles.contents}>
           {/* new user */}
-          <div style={{ backgroundColor: "yellow" }} className={styles.card}>
+          <div  className={`${styles.card} ${styles.bgcolor}`}>
             <div className={styles.cardLeft}>
               <FaUsers />
               <div className={styles.cardMiddle}>
@@ -77,7 +77,7 @@ const Header = () => {
             </div>
           </div>
           {/* average sale  */}
-          <div style={{ backgroundColor: "skyblue" }} className={styles.card}>
+          <div  className={`${styles.card} ${styles.bgcolor1}`}>
             <div className={styles.cardLeft}>
               <BsClipboardCheck />
               <div className={styles.cardMiddle}>
@@ -95,7 +95,7 @@ const Header = () => {
 
           {/* total appointments */}
 
-          <div style={{ backgroundColor: "pink" }} className={styles.card}>
+          <div  className={`${styles.card} ${styles.bgcolor2}`}>
             <div className={styles.cardLeft}>
               <BsClipboard2Check />
               <div className={styles.cardMiddle}>

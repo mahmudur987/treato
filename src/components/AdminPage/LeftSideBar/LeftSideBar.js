@@ -94,7 +94,7 @@ const LeftSideBar = () => {
             >
               <img loading="lazy" src={salonIcon} alt="" />
 
-              <span style={{ fontWeight: "600" }}>Salons</span>
+              <span className={styles.xName} >Salons</span>
               <span className={styles.downIcon}>
                 {salonMenu ? <FaAngleUp /> : <FaAngleDown />}
               </span>

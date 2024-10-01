@@ -11,6 +11,7 @@ import { useSingleSalon } from "../../../../services/salon";
 import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
 import Loader from "../../../../components/LoadSpinner/Loader";
+// import { useNavigate } from "react-router-dom";
 
 export const AddAppointmentContext = createContext();
 
@@ -23,6 +24,7 @@ export function formatDate(dateString) {
 }
 
 const AddAppointment = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [servicesDetails, setServiceDetails] = useState({});
   const [customerDetails, setCustomerDetails] = useState({
@@ -183,6 +185,9 @@ const AddAppointment = () => {
   const handleCancel = () => {
     window.location.reload();
   };
+  const backNavigate=()=>{
+    navigate(-1);
+  }
 
   return (
     <AddAppointmentContext.Provider
@@ -204,7 +209,7 @@ const AddAppointment = () => {
       }}
     >
       <main className={styles.mainContainer}>
-        <Link to={"/partner/dashboard"} className={styles.backLink}>
+        <Link onClick={backNavigate} className={styles.backLink}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

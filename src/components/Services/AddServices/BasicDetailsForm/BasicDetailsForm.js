@@ -82,8 +82,8 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
       {/* service type */}
       <div className={styles.serviceType}>
         <label htmlFor="serviceType">Service Type</label>
-        <div className={styles.selectWrapper}>
-          <select
+        <div  className={styles.selectWrapper}>
+          <select  className={styles.selectOption}
             onChange={(e) =>
               setSelectedServiceType(serviceType[e.target.value])
             }
@@ -183,7 +183,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
               </div>
             </div>
           ) : (
-            <p style={{ color: "red" }}>
+            <p className={styles.warning}>
               please add a category before add a service
             </p>
           )}

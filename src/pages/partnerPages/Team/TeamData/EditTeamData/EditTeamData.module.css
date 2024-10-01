@@ -218,6 +218,9 @@
   letter-spacing: -0.01em;
   text-align: center;
 }
+.inputBox{
+  display: none;
+}
 
 @media only screen and (max-width: 600px) {
   .container {

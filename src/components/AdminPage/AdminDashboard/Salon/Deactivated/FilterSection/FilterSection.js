@@ -93,7 +93,7 @@ const FilterSection = ({
           <button>
             Approve
             {selectedSalon.length > 0 ? (
-              <span style={{ marginLeft: "7px" }}>{selectedSalon.length}</span>
+              <span  className={styles.selLength} >{selectedSalon.length}</span>
             ) : (
               "All"
             )}

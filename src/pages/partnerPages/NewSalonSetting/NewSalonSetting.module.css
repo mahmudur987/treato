@@ -30,6 +30,7 @@
   color: #2e3032;
 }
 .saveBtn {
+  cursor: pointer;
   background-color: black;
   color: white;
   max-width: 110px;

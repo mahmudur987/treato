@@ -21,12 +21,12 @@ export default function HeroSection({ mainData }) {
       <MainSearchBar place={"heroPage"} />
 
       <div className={styles["storeLinks"]}>
-        <a>
+        <p>
           <img loading="lazy" src={AppStore_black} alt="AppStoreImg" />
-        </a>
-        <a>
+        </p>
+        <p>
           <img loading="lazy" src={PlayStore_black} alt="PlayStoreImg" />
-        </a>
+        </p>
       </div>
     </div>
   );

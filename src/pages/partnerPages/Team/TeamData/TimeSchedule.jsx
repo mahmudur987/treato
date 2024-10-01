@@ -167,16 +167,11 @@ const TimeSchedule = () => {
               <tr>
                 <th
                   className={sty.headingDiv}
-                  style={{ display: "flex", alignItems: "center" }}
                 >
-                  <span style={{ margin: "10px" }}>Name</span>
+                  <span  className={sty.headingName}>Name</span>
                   <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      marginTop: "5px",
-                      gap: "2px",
-                    }}
+                    
+                    className={sty.imageBox}
                   >
                     <img loading="lazy" src={topImg} alt="" />
                     <img loading="lazy" src={bottomImg} alt="" />
@@ -223,8 +218,7 @@ const TimeSchedule = () => {
                           return (
                             <td key={i} className={sty.times1}>
                               <div
-                                className={sty.times}
-                                style={{ border: "1px solid pink" }}
+                                className={`${sty.times} ${sty.timeBorder}`}
                               >
                                 leave
                               </div>

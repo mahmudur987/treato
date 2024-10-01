@@ -194,15 +194,16 @@ const AppointmentDetails = () => {
   }
   return (
     <section className={styles.mainContainer}>
-      <div className={styles.container}>
-        <h3 className={styles.heding}>Appointment Details</h3>
+      <div  className={styles.container}>
+        <h3 className={styles.heding} >Appointment Details</h3>
         {/* date select */}
-        <div className={styles.dateWrapper} onClick={handleWrapperClick}>
-          <label htmlFor="date">Date</label>
+        <div  className={styles.dateWrapper} onClick={handleWrapperClick}>
+          <label  htmlFor="date">Date</label>
           <p>
-            <span>{date}</span>
+            <span >{date}</span>
 
             <input
+            
               ref={dateInputRef}
               onChange={(e) => {
                 const selectedDate = new Date(e.target.value);
@@ -227,7 +228,7 @@ const AppointmentDetails = () => {
         <div className={styles.serviceCategory}>
           <label htmlFor="">Service Category</label>
 
-          <CustomSelect2
+          <CustomSelect2 
             options={serviceType}
             value={selectedServiceType}
             onChange={setSelectedServiceType}
@@ -317,7 +318,7 @@ const AppointmentDetails = () => {
               />
             )}
             {times?.length === 0 && (
-              <div style={{ height: "48px", color: "red" }}>
+              <div className={styles.warnning} >
                 No slots available
               </div>
             )}

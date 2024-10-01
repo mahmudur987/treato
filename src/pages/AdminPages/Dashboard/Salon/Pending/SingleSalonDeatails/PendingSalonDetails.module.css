@@ -192,7 +192,9 @@
   letter-spacing: 0.01em;
   text-align: left;
 }
-
+.viewBtn{
+  color: #0d69d7;
+}
 @media only screen and (max-width: 767px) {
   .ownerDetails {
     display: none;

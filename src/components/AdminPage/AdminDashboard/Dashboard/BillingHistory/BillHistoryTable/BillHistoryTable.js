@@ -67,10 +67,8 @@ const BillHistoryTable = ({ data }) => {
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
                     <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
+                      
+                      className={sty.xyBox}
                     >
                       <img loading="lazy" src={item.topImg} alt="" />
                       <img loading="lazy" src={item.bottomImg} alt="" />
@@ -83,7 +81,7 @@ const BillHistoryTable = ({ data }) => {
           </thead>
           <tbody className={sty.tbody}>
             {tableData.map((x) => (
-              <tr style={{ borderBottom: "1px solid #ebedf0" }}>
+              <tr className={sty.borderBottom}>
                 <td>
                   <div className={sty.bodyRow}>
                     <p className={sty.wrapper}>
@@ -120,7 +118,6 @@ const BillHistoryTable = ({ data }) => {
                 <td>
                   <p
                     className={sty.bodyRow}
-                    style={{ fontSize: "24px", textAlign: "right" }}
                   >
                     <BsThreeDots />
                   </p>

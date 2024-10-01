@@ -66,7 +66,7 @@ const PaymentTable = () => {
               {tableHeading.map((item, i) => (
                 <td key={i}>
                   <div className={sty.headingRow}>
-                    <span style={{ marginLeft: "30px" }}>{item.heading}</span>
+                    <span className={sty.headingSpan} >{item.heading}</span>
                     <div
                       style={{
                         display: "flex",

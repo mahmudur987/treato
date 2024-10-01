@@ -5,24 +5,29 @@
   gap: 20px;
   font-family: "Lato", sans-serif;
 }
+
 .modalTitle {
   text-align: center;
   font-size: 20px;
   font-weight: 700;
 }
+
 .salonInfo {
   display: flex;
   align-items: center;
   gap: 12px;
 }
+
 .salonProfileImg {
   height: 48px;
   width: 48px;
   border-radius: 50%;
 }
+
 .salonName {
   font-size: var(--font-medium);
 }
+
 .salonLocation {
   color: var(--Grey-10);
   font-weight: 400;
@@ -42,16 +47,19 @@
   font-size: var(--font-small);
   font-weight: 400;
 }
+
 .startTime,
 .dateContainer {
   gap: 14px;
 }
+
 .calendarWrapper {
   height: 54px;
   width: 100%;
   overflow: hidden;
   margin: auto;
 }
+
 .timeSlotsWrapper {
   display: flex;
   justify-content: space-between;
@@ -63,6 +71,7 @@
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
 .availableDate,
 .timeSlot {
   display: flex !important;
@@ -77,18 +86,22 @@
 }
 
 .availableDate:first-child {
-  margin-left: 0; /* Remove left margin for the first child */
+  margin-left: 0;
+  /* Remove left margin for the first child */
 }
 
 .availableDate:last-child {
-  margin-right: 0; /* Remove right margin for the last child */
+  margin-right: 0;
+  /* Remove right margin for the last child */
 }
+
 .line {
   height: 1px;
   background: var(--Grey-40);
   margin: 1.5rem 0;
   border: none;
 }
+
 .availableDate {
   width: 64px !important;
   padding: 6px 0px;
@@ -96,15 +109,18 @@
   gap: 4px;
   height: 64px;
 }
+
 .date {
   font-weight: 700;
 }
+
 .timeSlot {
   width: 116px;
   padding: 10px 24px;
   gap: 10px;
   flex-shrink: 0;
 }
+
 .selected {
   border: 1px solid var(--primary-color);
   background: rgba(13, 105, 215, 0.1);
@@ -117,9 +133,11 @@
   background: rgba(13, 105, 215, 0.1);
   color: var(--primary-color);
 }
+
 .blurredArrow {
   filter: blur(4px);
 }
+
 /* Carousel css */
 
 .calendarWrapper button,
@@ -132,12 +150,13 @@
   color: var(--black-color);
 }
 
-.calendarWrapper > div {
+.calendarWrapper>div {
   justify-content: left;
   width: 85%;
   margin: auto;
   overflow: visible;
 }
+
 .service_timeMonth {
   display: flex;
   justify-content: center;
@@ -145,40 +164,62 @@
   gap: 1rem;
 }
 
-.slidersWrapper > div:last-child::before {
-  content: ""; /* Ensure content is set to an empty string */
-  background-size: cover; /* Adjust as needed */
+.slidersWrapper>div:last-child::before {
+  content: "";
+  /* Ensure content is set to an empty string */
+  background-size: cover;
+  /* Adjust as needed */
   width: 8px;
   height: 14px;
-  display: inline-block; /* This is to make it display inline with the content */
+  display: inline-block;
+  /* This is to make it display inline with the content */
   background-image: url("../../../../assets/images/icons/chevronright.svg");
 }
 
-.slidersWrapper > div:first-child::before {
-  content: ""; /* Ensure content is set to an empty string */
+.slidersWrapper>div:first-child::before {
+  content: "";
+  /* Ensure content is set to an empty string */
   background-size: cover;
   height: 20px;
   width: 20px;
-  display: block; /* This is to make it display inline with the content */
+  display: block;
+  /* This is to make it display inline with the content */
   background-image: url("../../../../assets/images/icons/chevronLeft.svg");
 }
+
 .leftarrowIcon {
   transform: scaleX(-1);
 }
+
 .disabled {
   opacity: 0.3;
 }
+
+.buttonBox {
+  display: flex;
+  justify-content: end;
+}
+.buttonBox p{
+  width: 50%;
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
+
 @media only screen and (max-width: 600px) {
   .RescheduleModal {
     width: 100%;
   }
+
   .line {
     margin: 1rem 0;
   }
+
   .dateContainer,
   .timeSlotsWrapper {
     gap: 16px;
   }
+
   .timeSlot {
     width: 100px;
     flex-direction: row;

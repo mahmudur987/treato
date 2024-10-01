@@ -45,7 +45,7 @@ export default function SalonServiceMain({ hideTitle, data }) {
         ) : (
           <h2 className={styles.salon_section_title}>
             Services{" "}
-            <small style={{ fontSize: "18px" }}>({data?.service_name})</small>
+            <small  className={styles.serviceFont} >({data?.service_name})</small>
           </h2>
         )}
         <div

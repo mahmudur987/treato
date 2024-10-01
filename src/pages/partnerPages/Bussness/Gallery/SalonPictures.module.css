@@ -200,6 +200,9 @@
 .byDefaultScreen {
   display: none;
 }
+.displayNone{
+  display: none;
+}
 
 @media only screen and (max-width: 768px) {
   /* .mainDiv {

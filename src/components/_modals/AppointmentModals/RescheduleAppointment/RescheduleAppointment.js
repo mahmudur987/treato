@@ -387,11 +387,8 @@ const RescheduleAppointment = ({ data }) => {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "end",
-        }}
+      <div 
+        className={styles.buttonBox}
       >
         <p
           style={{

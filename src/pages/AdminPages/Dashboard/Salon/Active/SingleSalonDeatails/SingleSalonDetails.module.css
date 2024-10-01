@@ -149,6 +149,9 @@
 .salon_imagesA img {
   width: 100%;
 }
+.viewBtn{
+  color: #0d69d7;
+}
 
 @media only screen and (max-width: 767px) {
   .salon_page {

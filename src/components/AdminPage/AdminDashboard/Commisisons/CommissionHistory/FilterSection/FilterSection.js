@@ -50,7 +50,7 @@ const FilterSection = ({ value }) => {
           <div className={styles.action}>
             <button>
               <span>Download</span>
-              <GoDownload style={{ fontSize: "20px" }} />
+              <GoDownload className={styles.goDownload} />
             </button>
           </div>
         </div>

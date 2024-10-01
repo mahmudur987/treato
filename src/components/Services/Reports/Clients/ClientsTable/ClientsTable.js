@@ -106,10 +106,7 @@ const ClientsTable = ({ data }) => {
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
                     <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
+                      className={sty.imageBox}
                     >
                       <img loading="lazy" src={item.topImg} alt="" />
                       <img loading="lazy" src={item.bottomImg} alt="" />
@@ -121,7 +118,7 @@ const ClientsTable = ({ data }) => {
           </thead>
           <tbody className={sty.tbody}>
             {tableData?.map((x, i) => (
-              <tr style={{ borderBottom: "1px solid #ebedf0" }} key={i}>
+              <tr className={sty.tableBorder} key={i}>
                 <td>
                   <div className={sty.checkbox}>
                     <input
@@ -139,7 +136,7 @@ const ClientsTable = ({ data }) => {
                 <td>{x.lastVisit}</td>
                 <td>{x.topService}</td>
                 <td>{x.spend}</td>
-                <td style={{ fontSize: "18px" }} onClick={handleDownload}>
+                <td className={sty.textSize} onClick={handleDownload}>
                   <MdOutlineFileDownload />
                 </td>
               </tr>

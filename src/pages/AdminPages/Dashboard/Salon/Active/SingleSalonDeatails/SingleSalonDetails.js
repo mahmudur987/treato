@@ -166,7 +166,7 @@ export default function SingleSalonDetail() {
           </div>
           <div className={styles.salon_infoA}>
             <p>{SalonDetails1 ? SalonDetails1.salon_address : null}</p>{" "}
-            <p style={{ color: "#0d69d7" }}>View map</p>
+            <p  className={styles.viewBtn} >View map</p>
           </div>
         </div>
       </div>

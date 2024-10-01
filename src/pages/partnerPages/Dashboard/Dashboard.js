@@ -15,7 +15,7 @@ const Dashboard = () => {
   const initPayment = (order, id) => {
     const options = {
       key: id,
-      amount: `${"amountToPay"}`,
+      amount: `amountToPay`,
       currency: "INR",
       name: "Treato",
       description: "test ",

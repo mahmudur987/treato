@@ -102,8 +102,8 @@ function AboutUsDetails() {
         <div className={style.OurTeamBox}>
           <div className={style.ourTeamHeader}>
             <h3>Our Team</h3>
-            <div className={style.btns}>
-              <div className={style.Arrowbtn} onClick={prevProfile}>
+            <div  className={style.btns}>
+              <div  className={style.Arrowbtn} onClick={prevProfile}>
                 <svg
                   className={style.arrows}
                   aria-hidden="true"
@@ -139,8 +139,8 @@ function AboutUsDetails() {
               </div>
             </div>
           </div>
-          <div className={style.outTeamContent} id="header">
-            <div className={style.contentBox}>
+          <div  className={style.outTeamContent} id="header">
+            <div  className={style.contentBox}>
               <img
                 loading="lazy"
                 src={image1}
