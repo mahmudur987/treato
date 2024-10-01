@@ -1,12 +1,9 @@
 import React from "react";
 import styles from "./PartnerLocationmap.module.css";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+
 import { GoogleMap, Marker } from "@react-google-maps/api";
 export default function PartnerLocationMap({
   defaultProps,
-  updateDefaultProps,
   position,
   setPosition,
   setSalonData,

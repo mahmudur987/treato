@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const BasicDetailsForm = ({ salon, setBasicDetails }) => {
   const [showCategoryOption, setshowCategoryOption] = useState(false);
   const [selectedServiceType, setSelectedServiceType] = useState("");
-  const [selectCategory, setselectCategory] = useState(null);
+  const [selectCategory, setSelectCategory] = useState(null);
   const [serviceName, setserviceName] = useState("");
   const [duration, setDuration] = useState("15 mins");
   const [availableFor, setAvailableFor] = useState("Everyone");
@@ -34,25 +34,16 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
   const AvailableFor = ["Everyone", "Female only", "Male only"];
   const TaxAndFees = ["included", "excluded"];
 
-  const serviceType =
-    salon?.services?.map((x) => {
-      const data = {
-        name: x.service_name,
-        id: x._id,
-      };
-      return data;
-    }) || null;
-
-  useEffect(() => {
-    if (serviceType.length > 0) {
-      setSelectedServiceType(serviceType ? serviceType[0] : "");
-    }
-
-    if (categories) {
-      setselectCategory(categories[0]);
-    }
-  }, [categories, serviceType]);
-  console.log(selectedServiceType);
+  const serviceType = useMemo(() => {
+    return (
+      salon?.services?.map((x) => {
+        return {
+          name: x.service_name,
+          id: x._id,
+        };
+      }) || []
+    );
+  }, [salon?.services]);
 
   const data = useMemo(
     () => ({
@@ -76,11 +67,22 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
       tax,
     ]
   );
-
   useEffect(() => {
     setBasicDetails(data);
-  }, [data]);
-  console.log(categories);
+  }, [data, setBasicDetails]);
+
+  useEffect(() => {
+    if (serviceType.length > 0) {
+      setSelectedServiceType(serviceType[0]);
+    }
+  }, [serviceType]);
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      setSelectCategory(categories[0]);
+    }
+  }, [categories]);
+
   return (
     <form className={styles.form}>
       {/* service type */}
@@ -166,7 +168,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
                 <CustomSelect
                   options={categories}
                   value={selectCategory ? selectCategory : categories[0]}
-                  onChange={setselectCategory}
+                  onChange={setSelectCategory}
                 />
                 <span>
                   <svg
