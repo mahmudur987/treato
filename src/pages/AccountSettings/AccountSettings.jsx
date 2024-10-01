@@ -28,7 +28,12 @@ import FindLocationModal from "../../components/_modals/FindLocationModal/FindLo
 import SetPassword from "../../components/AccountSettings/PasswordChange/SetPassword";
 import PasswordActive from "../../components/_modals/PasswordActive/Passwordactive";
 import { user } from "../../assets/images/icons";
-import { getUserProfile, sendLoginOTP } from "../../services/auth";
+import {
+  getUserProfile,
+  sendLoginOTP,
+  sendNumberChangeOTP,
+} from "../../services/auth";
+import { toast } from "react-toastify";
 
 export default function AccountSettings() {
   const data = useSelector((state) => state.user);
@@ -71,7 +76,18 @@ export default function AccountSettings() {
   const [activeGender, updateGender] = useState(
     userData.gender ? userData.gender : ""
   );
-
+  useEffect(() => {
+    let isTokenExist = localStorage.getItem("jwtToken");
+    if (isTokenExist) {
+      getUserProfile(isTokenExist)
+        .then((res) => {
+          dispatch(updateUserDetails(res?.res?.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
   useEffect(() => {
     const data = {
       first_name: userData.first_name ? userData.first_name : "",
@@ -116,14 +132,14 @@ export default function AccountSettings() {
     setShowSave(false);
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     const userJWt = localStorage.getItem("jwtToken");
     const Data = {
       first_name: e.target.first_name.value,
       last_name: e.target.last_name.value,
       email: e.target.email.value,
-      phone: e.target.phone.value,
+      phone: inputVal?.phone,
       dob: e.target.dob.value,
       gender: activeGender,
       google: "",
@@ -134,18 +150,17 @@ export default function AccountSettings() {
       place: inputVal?.address?.place ?? "",
       address_type: inputVal?.address?.house_type ?? "",
     };
-    console.log(e.target.phone.value);
-    console.log(userData.phone.replace("+91", ""));
-
-    if (e.target.phone.value !== userData.phone.replace("+91", "")) {
-      setOtpModal(true);
+    console.log(Data);
+    console.log(userData.phone);
+    if (inputVal?.phone !== userData.phone) {
       localStorage.setItem("tempUserData", JSON.stringify(Data));
+      await verifyOtp();
     } else {
       const formData = new FormData();
       formData.append("first_name", e.target.first_name.value);
       formData.append("last_name", e.target.last_name.value);
       formData.append("email", e.target.email.value);
-      formData.append("phone", e.target.phone.value);
+      formData.append("phone", inputVal?.phone);
       formData.append("dob", e.target.dob.value);
       formData.append("gender", activeGender);
       formData.append("google", "");
@@ -159,14 +174,12 @@ export default function AccountSettings() {
 
       updateUser(userJWt, formData)
         .then((res) => {
-          console.log(res);
           setShowSave(false);
           let isTokenExist = localStorage.getItem("jwtToken");
           if (isTokenExist) {
             getUserProfile(isTokenExist)
               .then((res) => {
                 dispatch(updateUserDetails(res?.res?.data));
-                console.log(res);
               })
               .catch((err) => {
                 console.log(err);
@@ -186,21 +199,29 @@ export default function AccountSettings() {
         });
     }
   };
+  const verifyOtp = async () => {
+    const phonedata = {
+      phoneNumber: inputVal.phone,
+    };
+    console.log(phonedata);
+    const res = await sendNumberChangeOTP(phonedata);
 
+    if (res.res) {
+      console.log(res?.res?.data?.otp);
+      setOtpModal(true);
+
+      setVerifyOtp(res?.res?.data.otp);
+    } else if (res.err) {
+      console.log(res.err);
+      toast.error("The Phone number is Not Valid");
+    }
+  };
   const logOut = () => {
     localStorage.removeItem("userData");
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("userPhoneNumber");
     navigate("/");
     window.location.reload();
-  };
-  const verifyOtp = async () => {
-    const phonedata = {
-      phoneNumber: inputVal.phone,
-    };
-    const res = await sendLoginOTP(phonedata);
-    console.log(res?.res?.data.otp);
-    setVerifyOtp(res?.res?.data.otp);
   };
 
   return (

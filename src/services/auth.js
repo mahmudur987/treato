@@ -27,6 +27,14 @@ export const sendLoginOTP = async (data) => {
     return { err: error, res: null };
   }
 };
+export const sendNumberChangeOTP = async (data) => {
+  try {
+    const res = await axiosInstance.post(`/user/otpsignin`, data);
+    return { res: res, err: null };
+  } catch (error) {
+    return { err: error, res: null };
+  }
+};
 export const otpsignin = async (data) => {
   try {
     const res = await axiosInstance.post(`/user/otpsignin`, data);
