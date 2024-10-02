@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import TeamDetails from "./TeamDetails";
 import TimeSchedule from "./TimeSchedule";
 // import sty from "./TeamManageMent.module.css";
