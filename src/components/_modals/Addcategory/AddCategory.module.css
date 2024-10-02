@@ -71,9 +71,8 @@
 }
 .selectWrapper input {
   max-width: 424px;
-  width: 100%;
+  width: 98%;
   height: 100%;
-
   border: none;
   background: #fff;
   position: relative;
@@ -84,7 +83,7 @@
   height: 100%;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 20px;
   width: 35px;
   display: flex;
   justify-content: center;
