@@ -43,6 +43,7 @@ const PersonalDetails = () => {
     email: true,
     phone: true,
     gender: true,
+    DOB: true
   });
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const PersonalDetails = () => {
         setDate(formattedDate);
         setBirthDate(user.dob);
       }
+      console.log(user);
     }
   }, [user]);
 
@@ -104,6 +106,7 @@ const PersonalDetails = () => {
     formData.append("dob", birthDate);
 
     try {
+      console.log(formData);
       const token = localStorage.getItem("jwtToken");
       const headers = { token };
 
@@ -122,6 +125,7 @@ const PersonalDetails = () => {
           email: true,
           phone: true,
           gender: true,
+          DOB: true,
         });
       }
     } catch (error) {
@@ -349,6 +353,12 @@ const PersonalDetails = () => {
                       options
                     );
                     setDate(formattedDate);
+                    setActive((pre) => {
+                      return {
+                        ...pre,
+                        DOB: !pre.DOB,
+                      };
+                    })
                   }}
                   type="date"
                   name="appointment date"
@@ -425,13 +435,14 @@ const PersonalDetails = () => {
                   active.lastName &&
                   active.email &&
                   active.phone &&
-                  active.gender
+                  active.gender &&
+                  active.DOB 
                     ? "gray"
                     : ""
                 }`,
               }}
               disabled={
-                active.lastName && active.email && active.phone && active.gender
+                active.firstName && active.lastName && active.email && active.phone && active.gender && active.DOB
                   ? true
                   : false
               }
