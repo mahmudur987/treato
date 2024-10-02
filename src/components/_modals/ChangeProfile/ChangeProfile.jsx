@@ -73,7 +73,7 @@ export default function ChangeProfile({
   };
 
   return (
-    <div className={`${styles.profileMain} `}>
+    <div  className={`${styles.profileMain} `}>
       {isCameraOpen && (
         <div className={styles.webcamContainer}>
           <Webcam
@@ -108,7 +108,7 @@ export default function ChangeProfile({
               type="file"
               accept="image/*"
               onChange={handleImageUpload}
-              className={styles.mageUpload}
+              className={styles.imageUpload}
               id="uploadImageInput"
             />
             <label htmlFor="uploadImageInput" className={styles.uploadLabel}>

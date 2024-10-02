@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useGetUser } from "../../../services/user";
 import axiosInstance from "../../../services/axios";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+
 function validatePhoneNumber(phoneNumber) {
   const isNumeric = /^\d+$/.test(phoneNumber);
 
@@ -24,9 +26,9 @@ const formatDate = (date) => {
 };
 const PersonalDetails = () => {
   const { data, refetch } = useGetUser();
-  const { data: user } = data;
+  const user = data?.data; 
   const dateInputRef = useRef(null);
-  const [date, setDate] = useState("Oct 8 ,2022");
+  const [date, setDate] = useState("Oct 8, 2022");
   const [firstName, setFirstName] = useState("First Name");
   const [LastName, setLastName] = useState("Last Name");
   const [Email, setEmail] = useState("Email");
@@ -44,14 +46,30 @@ const PersonalDetails = () => {
   });
 
   useEffect(() => {
-    setFirstName(user.first_name);
-    setLastName(user.last_name);
-    setEmail(user.email);
+    if (user) {
+      setFirstName(user.first_name || "First Name");
+      setLastName(user.last_name || "Last Name");
+      setEmail(user.email || "Email");
+      setPhone(user.phone || "Mobile Number");
+      setActiveGender(user.gender || "male");
+
+      if (user?.dob) {
+        const userBirthDate = new Date(user.dob);
+        const formattedDate = userBirthDate.toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
+        setDate(formattedDate);
+        setBirthDate(user.dob);
+      }
+    }
   }, [user]);
 
   const updateGender = (value) => {
     setActiveGender(value);
   };
+
   const handleWrapperClick = () => {
     dateInputRef.current.showPicker();
   };
@@ -62,19 +80,19 @@ const PersonalDetails = () => {
     const isValid = validatePhoneNumber(Phone);
 
     if (firstName === "First Name") {
-      return toast.error("write your First name");
+      return toast.error("Please enter your First name");
     }
-    if (firstName === "Last Name") {
-      return toast.error("write your Last name");
+    if (LastName === "Last Name") {
+      return toast.error("Please enter your Last name");
     }
-    if (firstName === "Email") {
-      return toast.error("write your Email");
+    if (Email === "Email") {
+      return toast.error("Please enter your Email");
     }
     if (!birthDate) {
       return toast.error("Select your Date of Birth");
     }
     if (Phone === "Mobile Number" || PhoneNumber.length !== 13 || !isValid) {
-      return toast.error("write your valid contact number");
+      return toast.error("Please enter a valid contact number");
     }
 
     const formData = new FormData();
@@ -84,14 +102,6 @@ const PersonalDetails = () => {
     formData.append("email", Email);
     formData.append("gender", activeGender);
     formData.append("dob", birthDate);
-    console.log({
-      firstName,
-      LastName,
-      PhoneNumber,
-      Email,
-      activeGender,
-      birthDate,
-    });
 
     try {
       const token = localStorage.getItem("jwtToken");
@@ -102,8 +112,6 @@ const PersonalDetails = () => {
         { data: formData },
         { headers }
       );
-
-      console.log(res.data);
 
       if (res?.data.status) {
         toast.success(res?.data?.message);
@@ -117,11 +125,15 @@ const PersonalDetails = () => {
         });
       }
     } catch (error) {
-      console.log("updateProfileError", error);
-
-      toast.error("Error ");
+      toast.error("Error updating profile");
     }
   };
+
+  if (!data) {
+    return <>
+    <LoadSpinner/>
+    </>; 
+  }
 
   return (
     <main className={styles.mainContainer}>
