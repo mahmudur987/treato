@@ -2,6 +2,7 @@
   max-width: 1300px;
   width: 100%;
   font-family: "Lato", sans-serif;
+  cursor: pointer;
 }
 .TeamSchedule {
   width: 100%;
@@ -168,20 +169,20 @@
 .downloadButtonContainer2 {
   display: none;
 }
-.headingDiv{
+.headingDiv {
   display: flex;
   align-items: center;
 }
-.headingName{
+.headingName {
   margin: 10px;
 }
-.imageBox{
+.imageBox {
   display: flex;
   flex-direction: column;
   margin-top: 5px;
   gap: 2px;
 }
-.timeBorder{
+.timeBorder {
   border: 1px solid pink !important;
 }
 @media (max-width: 768px) {
