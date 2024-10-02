@@ -26,7 +26,7 @@ const formatDate = (date) => {
 };
 const PersonalDetails = () => {
   const { data, refetch } = useGetUser();
-  const user = data?.data; 
+  const user = data?.data;
   const dateInputRef = useRef(null);
   const [date, setDate] = useState("Oct 8, 2022");
   const [firstName, setFirstName] = useState("First Name");
@@ -43,6 +43,7 @@ const PersonalDetails = () => {
     email: true,
     phone: true,
     gender: true,
+    DOB: true,
   });
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const PersonalDetails = () => {
       setFirstName(user.first_name || "First Name");
       setLastName(user.last_name || "Last Name");
       setEmail(user.email || "Email");
-      setPhone(user.phone || "Mobile Number");
+      setPhone(user.phone.replace("+91", "") || "Mobile Number");
       setActiveGender(user.gender || "male");
 
       if (user?.dob) {
@@ -109,9 +110,10 @@ const PersonalDetails = () => {
 
       const res = await axiosInstance.patch(
         "profile/update",
-        { data: formData },
+        formData, // Directly pass formData without wrapping in { data: formData }
         { headers }
       );
+      console.log(res);
 
       if (res?.data.status) {
         toast.success(res?.data?.message);
@@ -122,6 +124,7 @@ const PersonalDetails = () => {
           email: true,
           phone: true,
           gender: true,
+          DOB: true,
         });
       }
     } catch (error) {
@@ -130,9 +133,11 @@ const PersonalDetails = () => {
   };
 
   if (!data) {
-    return <>
-    <LoadSpinner/>
-    </>; 
+    return (
+      <>
+        <LoadSpinner />
+      </>
+    );
   }
 
   return (
@@ -213,7 +218,8 @@ const PersonalDetails = () => {
                   onChange={(e) => setFirstName(e.target.value)}
                 />
 
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={penIcon}
                   alt=""
                   onClick={() =>
@@ -240,7 +246,8 @@ const PersonalDetails = () => {
                   onChange={(e) => setLastName(e.target.value)}
                 />
 
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={penIcon}
                   alt=""
                   onClick={() =>
@@ -269,7 +276,8 @@ const PersonalDetails = () => {
                   value={Email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={penIcon}
                   alt=""
                   onClick={() =>
@@ -313,7 +321,8 @@ const PersonalDetails = () => {
                   maxLength={10}
                   max={10}
                 />
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   className={styles.icon}
                   src={penIcon}
                   alt=""
@@ -349,6 +358,12 @@ const PersonalDetails = () => {
                       options
                     );
                     setDate(formattedDate);
+                    setActive((pre) => {
+                      return {
+                        ...pre,
+                        DOB: !pre.DOB,
+                      };
+                    });
                   }}
                   type="date"
                   name="appointment date"
@@ -420,18 +435,34 @@ const PersonalDetails = () => {
               type="submit"
               className={styles.save}
               style={{
+                cursor: `${
+                  active.firstName &&
+                  active.lastName &&
+                  active.email &&
+                  active.phone &&
+                  active.gender &&
+                  active.DOB
+                    ? ""
+                    : "pointer"
+                }`,
                 backgroundColor: `${
                   active.firstName &&
                   active.lastName &&
                   active.email &&
                   active.phone &&
-                  active.gender
+                  active.gender &&
+                  active.DOB
                     ? "gray"
                     : ""
                 }`,
               }}
               disabled={
-                active.lastName && active.email && active.phone && active.gender
+                active.firstName &&
+                active.lastName &&
+                active.email &&
+                active.phone &&
+                active.gender &&
+                active.DOB
                   ? true
                   : false
               }
