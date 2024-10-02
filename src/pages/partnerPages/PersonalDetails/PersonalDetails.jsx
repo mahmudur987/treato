@@ -430,6 +430,16 @@ const PersonalDetails = () => {
               type="submit"
               className={styles.save}
               style={{
+                cursor:`${
+                  active.firstName &&
+                  active.lastName &&
+                  active.email &&
+                  active.phone &&
+                  active.gender &&
+                  active.DOB 
+                    ? ""
+                    : "pointer"
+                }`,
                 backgroundColor: `${
                   active.firstName &&
                   active.lastName &&
