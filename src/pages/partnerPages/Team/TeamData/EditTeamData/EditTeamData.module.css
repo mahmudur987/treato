@@ -1,4 +1,5 @@
 .container {
+  box-sizing: border-box;
   padding: 3rem 3rem;
   font-family: "Lato", sans-serif;
 }

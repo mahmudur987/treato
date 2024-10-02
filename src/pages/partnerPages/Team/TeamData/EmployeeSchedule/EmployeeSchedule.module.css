@@ -1,4 +1,6 @@
 .container {
+  box-sizing: border-box;
+
   padding: 3rem 3rem;
   font-family: "Lato", sans-serif;
 }
@@ -78,6 +80,8 @@
 }
 /* ////////////////map content////////////////////////// */
 .headingShift1 {
+
+  box-sizing: border-box;
   display: flex;
   gap: 140px;
   width: 612px;
@@ -88,6 +92,7 @@
   margin-top: 20px;
 }
 .headingShift {
+
   color: #08090a;
   font-family: "Lato";
   font-size: 20px;
@@ -98,9 +103,12 @@
   margin-top: 20px;
 }
 .mainMapDiv1 {
+  box-sizing: border-box;
+
   width: 612px !important;
 }
 .mainMapDiv {
+
   display: flex;
   gap: 40px;
   width: 612px !important;
@@ -126,18 +134,29 @@
 }
 
 .EplyShiptSelect {
+
   display: flex;
   gap: 8px;
   margin-bottom: 10px;
 }
 .EplyShiptSelectBox {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 400;
+  color: #08090A;
+  border: 1px solid #CED4DA;
+  background-color: #FDFDFD;
+  border-radius: 4px;
   width: 160px;
+  height: 48px;
 }
 .closeBtn {
+  
   display: flex;
   gap: 8px;
 }
 .closeB {
+  
   border: 1px solid #ced4da;
   background-color: white;
   width: 160px;

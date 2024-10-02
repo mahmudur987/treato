@@ -5,7 +5,8 @@ import { useGetSlots } from "../../../services/Team";
 import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
 import ManageHolidays from "../../../components/_modals/ManageHolyDays/ManageHolidays";
 
-const ServiceOffer = ({ salonData, setWorkingHours }) => {
+const ServiceOffer = ({ salonData,workingHours, setWorkingHours }) => {
+  useEffect(()=>console.log(workingHours))
   const allDays = [
     "Monday",
     "Tuesday",
@@ -17,8 +18,8 @@ const ServiceOffer = ({ salonData, setWorkingHours }) => {
   ];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDays, setSelectedDays] = useState([]);
-  const [startTime, setStartTime] = useState("09:00");
-  const [endTime, setEndTime] = useState("09:00");
+  const [startTime, setStartTime] = useState(workingHours?.[0]?.opening_time || "09:00");
+const [endTime, setEndTime] = useState(workingHours?.[0]?.closing_time || "09:00");
   const [serviceNames, setServiceNames] = useState([]);
 
   const generateScheduleData = useMemo(() => {
@@ -198,7 +199,7 @@ const ServiceOffer = ({ salonData, setWorkingHours }) => {
               <div className={sty.horizontalLineSelete}></div>
               <div className={sty.selectsContainer}>
                 <div className={sty.content}>
-                  <h3>Available from (optional)</h3>
+                  <h3>Available from </h3>
                   <h4>Open from</h4>
                   <div className={sty.selectWrapper}>
                     {data && !isError ? (
@@ -206,7 +207,7 @@ const ServiceOffer = ({ salonData, setWorkingHours }) => {
                         onChange={(e) => setStartTime(e.target.value)}
                         className={sty.selectWrapperOption}
                       >
-                        <option value="">please select</option>
+                        <option value={startTime}>{startTime}</option>
                         {slots.map((x, i) => (
                           <option value={x}>{x}</option>
                         ))}
@@ -219,7 +220,7 @@ const ServiceOffer = ({ salonData, setWorkingHours }) => {
                   </div>
                 </div>
                 <div className={sty.content}>
-                  <h3>Till (optional)</h3>
+                  <h3>Till </h3>
                   <h4>Till</h4>
                   <div className={sty.selectWrapper}>
                     {data && !isError ? (
@@ -227,7 +228,7 @@ const ServiceOffer = ({ salonData, setWorkingHours }) => {
                         onChange={(e) => setEndTime(e.target.value)}
                         className={sty.selectWrapperOption}
                       >
-                        <option value="">please select</option>
+                        <option value={endTime}>{endTime}</option>
                         {slots.map((x, i) => (
                           <option value={x}>{x}</option>
                         ))}

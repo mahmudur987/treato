@@ -203,7 +203,7 @@ const EmployeeSchedule = () => {
       <div className={styles.usr_detail_head}>
         <Link to={"/partner/dashboard/TeamManageMent"}>
           <span>
-            <img loading="lazy" src={arrowLeft} alt="arrowLeft" className={styles.Pictures} />
+            <img src={arrowLeft} alt="arrowLeft" className={styles.Pictures} />
           </span>
         </Link>
         Edit Employee Schedule
@@ -341,9 +341,9 @@ const EmployeeSchedule = () => {
                       className={styles.plusImgDiv}
                       onClick={() => toggleShiftTimes(index)}
                     >
-                      <img loading="lazy" src={plus} alt="" />
+                      <img src={plus} alt="" />
                       <p>Add Shift</p>
-                      <img loading="lazy"
+                      <img
                         src={copy}
                         alt="copyImg"
                         className={styles.copyImgRespons}
@@ -351,7 +351,7 @@ const EmployeeSchedule = () => {
                     </div>
                   </div>
                   <div className={styles.copyImgR}>
-                    <img loading="lazy" src={copy} alt="copyImg" />
+                    <img src={copy} alt="copyImg" />
                   </div>
                 </div>
               </div>
