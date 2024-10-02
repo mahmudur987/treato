@@ -3,7 +3,6 @@ import styles from "./PersonalDetails.module.css";
 import { Link } from "react-router-dom";
 import penIcon from "../../../assets/icons/penIcon.webp";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
 import { useGetUser } from "../../../services/user";
 import axiosInstance from "../../../services/axios";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
@@ -25,7 +24,7 @@ const formatDate = (date) => {
   return `${month}-${day}-${year}`;
 };
 const PersonalDetails = () => {
-  const { data,isLoading refetch } = useGetUser();
+  const { data, isLoading, refetch } = useGetUser();
   const user = data?.data;
   const dateInputRef = useRef(null);
   const [date, setDate] = useState("Oct 8, 2022");
