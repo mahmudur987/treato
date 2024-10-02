@@ -50,7 +50,7 @@ const PersonalDetails = () => {
       setFirstName(user?.first_name || "First Name");
       setLastName(user?.last_name || "Last Name");
       setEmail(user?.email || "Email");
-      setPhone(user?.phone.replace("+91", "") || "Mobile Number");
+      setPhone(user?.phone?.replace("+91", "") || "Mobile Number");
       setActiveGender(user?.gender || "male");
 
       if (user?.dob) {
