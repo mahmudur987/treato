@@ -96,8 +96,6 @@ const EditTeamData = () => {
 
   const lastDate = formatDate(serviceEndDate);
 
-  console.log(member);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const phoneAsNumber = Number(phone);

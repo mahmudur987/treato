@@ -25,7 +25,7 @@ const formatDate = (date) => {
   return `${month}-${day}-${year}`;
 };
 const PersonalDetails = () => {
-  const { data, refetch } = useGetUser();
+  const { data,isLoading refetch } = useGetUser();
   const user = data?.data;
   const dateInputRef = useRef(null);
   const [date, setDate] = useState("Oct 8, 2022");
@@ -48,21 +48,21 @@ const PersonalDetails = () => {
 
   useEffect(() => {
     if (user) {
-      setFirstName(user.first_name || "First Name");
-      setLastName(user.last_name || "Last Name");
-      setEmail(user.email || "Email");
-      setPhone(user.phone.replace("+91", "") || "Mobile Number");
-      setActiveGender(user.gender || "male");
+      setFirstName(user?.first_name || "First Name");
+      setLastName(user?.last_name || "Last Name");
+      setEmail(user?.email || "Email");
+      setPhone(user?.phone.replace("+91", "") || "Mobile Number");
+      setActiveGender(user?.gender || "male");
 
       if (user?.dob) {
-        const userBirthDate = new Date(user.dob);
-        const formattedDate = userBirthDate.toLocaleDateString("en-US", {
+        const userBirthDate = new Date(user?.dob);
+        const formattedDate = userBirthDate?.toLocaleDateString("en-US", {
           month: "long",
           day: "numeric",
           year: "numeric",
         });
         setDate(formattedDate);
-        setBirthDate(user.dob);
+        setBirthDate(user?.dob);
       }
     }
   }, [user]);
@@ -132,7 +132,7 @@ const PersonalDetails = () => {
     }
   };
 
-  if (!data) {
+  if (isLoading) {
     return (
       <>
         <LoadSpinner />
