@@ -110,9 +110,6 @@ const Business = () => {
       [name]: value,
     }));
   };
-
-  console.log(position);
-
   useEffect(() => {
     if (data && !position) {
       const salon = data?.salon;
@@ -166,7 +163,10 @@ const Business = () => {
       };
       updateDefaultProps(defaultProps);
     }
+
+    setWorkingHours(data?.salon?.working_hours);
   }, [data]);
+  console.log(workingHours);
 
   if (isLoading || loading) {
     return <LoadSpinner />;
