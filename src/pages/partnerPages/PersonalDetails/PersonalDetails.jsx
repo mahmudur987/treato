@@ -26,8 +26,8 @@ const formatDate = (date) => {
 };
 const PersonalDetails = () => {
   const { data, refetch } = useGetUser();
-  const user = data?.user; // Use optional chaining to avoid errors when data is undefined
-
+  const user = data?.data; // Use optional chaining to avoid errors when data is undefined
+// useEffect(()=>console.log(user))
   const dateInputRef = useRef(null);
   const [date, setDate] = useState("Oct 8, 2022");
   const [firstName, setFirstName] = useState("First Name");
@@ -48,10 +48,24 @@ const PersonalDetails = () => {
 
   useEffect(() => {
     if (user) {
-      // Check if user data is available before setting states
+      // Prefill the fields with user data
       setFirstName(user.first_name || "First Name");
       setLastName(user.last_name || "Last Name");
       setEmail(user.email || "Email");
+      setPhone(user.phone || "Mobile Number");
+      setActiveGender(user.gender || "male");
+
+      // Set birth date if available
+      if (user?.dob) {
+        const userBirthDate = new Date(user.dob);
+        const formattedDate = userBirthDate.toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
+        setDate(formattedDate);
+        setBirthDate(user.dob);
+      }
     }
   }, [user]);
 
