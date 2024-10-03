@@ -35,6 +35,7 @@ const PersonalDetails = () => {
   const [Phone, setPhone] = useState("Mobile Number");
   const [birthDate, setBirthDate] = useState(null);
   const [activeGender, setActiveGender] = useState("male");
+  
 
   const [active, setActive] = useState({
     firstName: true,
@@ -360,7 +361,7 @@ const PersonalDetails = () => {
                     setActive((pre) => {
                       return {
                         ...pre,
-                        DOB: !pre.DOB,
+                        DOB: false,
                       };
                     });
                   }}
