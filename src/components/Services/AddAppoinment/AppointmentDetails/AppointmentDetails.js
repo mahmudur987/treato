@@ -196,7 +196,7 @@ const AppointmentDetails = () => {
   const handleSelectTeamMember = (value) => {
     setSelectedTeamMember(value);
   };
-  console.log(formattedTime);
+  console.log(SelectedTeamMember);
 
   const generateFinalData = useMemo(() => {
     return {
