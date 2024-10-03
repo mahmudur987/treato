@@ -380,7 +380,7 @@ const PersonalDetails = () => {
                     setActive((pre) => {
                       return {
                         ...pre,
-                        DOB: !pre.DOB,
+                        DOB: false,
                       };
                     });
                   }}
