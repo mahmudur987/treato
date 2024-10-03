@@ -23,6 +23,16 @@ import { useGetSingleMember } from "../../../../../services/Team";
 import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
 import img1 from "../../../../../assets/images/TeamDetails/ProfileImg.png";
 import img2 from "../../../../../assets/images/TeamDetails/ProfileEditPencil.png";
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed, so add 1
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
 const EditTeamData = () => {
   const location = useLocation();
 
@@ -84,6 +94,8 @@ const EditTeamData = () => {
     setSelectedServices(member?.data.services);
   }, [member]);
 
+  const lastDate = formatDate(serviceEndDate);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const phoneAsNumber = Number(phone);
@@ -101,6 +113,7 @@ const EditTeamData = () => {
     formData.append("rating", "4.5");
     formData.append("stylist_number", phoneAsNumber);
     formData.append("stylist_address", address);
+    formData.append("last_date", lastDate);
     time_for_service.forEach((time) => {
       formData.append("time_for_service[]", time);
     });
@@ -178,7 +191,8 @@ const EditTeamData = () => {
             <div className={styles.usr_detail_head}>
               <Link to={"/partner/dashboard/TeamManageMent"}>
                 <span>
-                  <img loading="lazy"
+                  <img
+                    loading="lazy"
                     src={arrowLeft}
                     alt="arrowLeft"
                     className={styles.Pictures}
@@ -205,7 +219,8 @@ const EditTeamData = () => {
                     className={styles.profileRounded}
                     onClick={handleButtonClick}
                   >
-                    <img loading="lazy"
+                    <img
+                      loading="lazy"
                       className={styles.profileRounded}
                       src={
                         picture
@@ -223,7 +238,8 @@ const EditTeamData = () => {
                       onChange={handleFileChange}
                       className={styles.inputBox}
                     />
-                    <img loading="lazy"
+                    <img
+                      loading="lazy"
                       src={img2}
                       alt="Profile_Pic"
                       className={styles.profileAdd}
@@ -321,7 +337,10 @@ const EditTeamData = () => {
                   <div className={styles.dateInput}>
                     <label htmlFor="">
                       <div className={styles.labelText}>Service End Date</div>
-                      <Pick ondateChange={(date) => setServiceEndDate(date)} />
+                      <Pick
+                        ondateChange={(date) => setServiceEndDate(date)}
+                        date={member?.data?.last_date ?? ""}
+                      />
                     </label>
                   </div>
                 </div>

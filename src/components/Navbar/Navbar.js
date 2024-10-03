@@ -22,8 +22,13 @@ import {
 import PrimaryButton from "../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton/SecondaryButton";
 import { useDispatch, useSelector } from "react-redux";
-import { resetUserDetails, updateIsLoggedIn } from "../../redux/slices/user";
+import {
+  resetUserDetails,
+  updateIsLoggedIn,
+  updateUserDetails,
+} from "../../redux/slices/user";
 import { useUpcomingApponments } from "../../services/Appointments";
+import { getUserProfile } from "../../services/auth";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -78,7 +83,18 @@ export default function Navbar() {
     setuserInfo("");
     // window.open("https://backend.treato.in/api/v1/auth/logout","_self")
   };
-
+  useEffect(() => {
+    let isTokenExist = localStorage.getItem("jwtToken");
+    if (isTokenExist) {
+      getUserProfile(isTokenExist)
+        .then((res) => {
+          dispatch(updateUserDetails(res?.res?.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
   useEffect(() => {
     if (location.pathname === "/salons") {
       setisMainSearchBar(true);

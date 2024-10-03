@@ -71,7 +71,8 @@ const Navbar = () => {
                 onClick={() => setShowProfile((pre) => !pre)}
                 className={style.account}
               >
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={userData?.user?.avatar?.public_url ?? ""}
                   alt=""
                   onError={(e) => (e.target.src = mask)}
@@ -111,7 +112,8 @@ const Navbar = () => {
             onClick={() => setShowProfile((pre) => !pre)}
             className={style.profileContainer}
           >
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={userData?.user?.avatar?.public_url ?? ""}
               alt=""
               onError={(e) => (e.target.src = mask)}
@@ -127,7 +129,12 @@ const Navbar = () => {
 
         <div className={style.mobilemenu}>
           <Link to={"/"} className={style.siteName}>
-            <img loading="lazy" src={TreatoLogo2} />
+            <img
+              loading="lazy"
+              src={TreatoLogo2}
+              className={style.TreatoLogo2}
+              alt="TreatoLogo2"
+            />
           </Link>
           <button onClick={() => setshow((pre) => !pre)}>
             <img loading="lazy" className={style.humburger} src={menu} />
@@ -146,7 +153,8 @@ const Navbar = () => {
               <div className={style.mobileMenuItms}>
                 <div className={style.mobileMenuItem}>
                   <Link to={"/partner/authchoice"}>
-                    <img loading="lazy" src={signin} /> <span>Sign up / Sign-in</span>
+                    <img loading="lazy" src={signin} />{" "}
+                    <span>Sign up / Sign-in</span>
                   </Link>
                   <button onClick={() => setshow((pre) => !pre)}>
                     <img loading="lazy" src={right} />
@@ -171,7 +179,8 @@ const Navbar = () => {
                 </div>
                 <div className={style.mobileMenuItem}>
                   <Link to={"/"}>
-                    <img loading="lazy" src={download} /> <span>Download app</span>
+                    <img loading="lazy" src={download} />{" "}
+                    <span>Download app</span>
                   </Link>
                   <button onClick={() => setshow((pre) => !pre)}>
                     <img loading="lazy" src={right} />

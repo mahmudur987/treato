@@ -1,21 +1,27 @@
 .container {
+  
+  box-sizing: border-box;
   max-width: 1300px;
   width: 100%;
   font-family: "Lato", sans-serif;
 }
 .TeamSchedule {
-  width: 100%;
+  
+  box-sizing: border-box;
+  max-width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
 }
 .downloadButtonContainer {
+
   max-width: 220px;
   width: 100%;
   display: flex;
 }
 .dBtn {
+  
   width: 200px;
   height: 48px;
   font-size: 20px;
@@ -43,13 +49,15 @@
 }
 
 .teamCal {
-  width: 289px;
-  height: 60px;
+  box-sizing: border-box;
+  max-width: 289px;
+  max-height: 60px;
   padding: 0px, 16px, 0px, 16px;
   border: 1px solid #ced4da;
   border-radius: 40px;
 }
 .teamCalIcon {
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,6 +68,8 @@
 }
 
 .cal {
+  
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;

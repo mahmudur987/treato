@@ -66,6 +66,7 @@
 }
 .formItems input,
 .phone {
+  box-sizing: border-box;
   width: 100%;
   border: 1px solid var(--Grey-30);
   height: 48px;

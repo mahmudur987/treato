@@ -114,7 +114,6 @@ const ServiceLocation = ({
           zoom: 10,
         };
         updateDefaultProps(defaultProps);
-
         setPosition({ lat, lng });
       })
       .catch((err) => console.log("geocode Error", err));

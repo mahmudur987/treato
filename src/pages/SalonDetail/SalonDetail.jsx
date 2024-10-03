@@ -28,7 +28,7 @@ export default function SalonDetail() {
   let [firstImage, setFirstImage] = useState(null);
   const userDetails = useSelector((state) => state?.user?.user);
   const { data, isLoading, isError, error } = useGetSalonByID(id);
-
+  console.log(data);
   useEffect(() => {
     let v = data?.salon;
     setSalonData(v);
@@ -138,7 +138,7 @@ export default function SalonDetail() {
         </div>
       </div>
       <div className={styles.salon_middle}>
-        <MemoizeSalonMain
+        <SalonMain
           SalonData={SalonData}
           addServices={addServices}
           addedServices={addedServices}

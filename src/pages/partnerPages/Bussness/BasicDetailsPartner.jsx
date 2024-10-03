@@ -14,13 +14,13 @@ const BasicDetailsPartner = ({ salonData, handleChange }) => {
     <>
       <div>
         <div className={styles.usr_detail_head}>
-          <Link
-            to={"/partner/dashboard/PartnerAccountSetting"}
-            className={styles.Pictures}
-          >
-            <span>
-              <img loading="lazy" src={arrowLeft} alt="arrowLeft" />
-            </span>
+          <Link to={"/partner/dashboard/PartnerAccountSetting"}>
+            <img
+              loading="lazy"
+              className={styles.Pictures}
+              src={arrowLeft}
+              alt="arrowLeft"
+            />
           </Link>
           <p>Business Profile</p>
         </div>

@@ -70,14 +70,20 @@ const StyleDetails = () => {
           <label htmlFor="">Service Category</label>
 
           {data && !isLoading && !isError && categories?.length > 0 && (
-            <select name="" id="" onChange={(e) => setCategory(e.target.value)}>
-              {categories?.map((x, i) => (
-                <option key={i} value={x.service_id}>
-                  {" "}
-                  {x.service_name}{" "}
-                </option>
-              ))}
-            </select>
+            <div className={styles.selectWrapper}>
+              <select
+                name=""
+                id=""
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                {categories?.map((x, i) => (
+                  <option key={i} value={x.service_id}>
+                    {" "}
+                    {x.service_name}{" "}
+                  </option>
+                ))}
+              </select>
+            </div>
           )}
           {categories?.length === 0 && (
             <NoDataDisplay message={"Please Add A Service"} />
@@ -90,14 +96,16 @@ const StyleDetails = () => {
           <div className={styles.formGroup}>
             <label htmlFor="">Select Service </label>
 
-            <select onChange={(e) => setSelectedServices(e.target.value)}>
-              {service?.map((x, i) => (
-                <option key={i} value={x.subCategory_id}>
-                  {" "}
-                  {x.subCategory_name}
-                </option>
-              ))}
-            </select>
+            <div className={styles.selectWrapper}>
+              <select onChange={(e) => setSelectedServices(e.target.value)}>
+                {service?.map((x, i) => (
+                  <option key={i} value={x.subCategory_id}>
+                    {" "}
+                    {x.subCategory_name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         ) : (
           <p className={styles.noservice}>

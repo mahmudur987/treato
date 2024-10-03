@@ -1,12 +1,9 @@
 import React from "react";
 import styles from "./PartnerLocationmap.module.css";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+
 import { GoogleMap, Marker } from "@react-google-maps/api";
 export default function PartnerLocationMap({
   defaultProps,
-  updateDefaultProps,
   position,
   setPosition,
   setSalonData,
@@ -43,8 +40,10 @@ export default function PartnerLocationMap({
         ...salonData,
         location: data?.results[0]?.formatted_address,
       });
-      console.log(data?.results[0]?.formatted_address);
-      console.log({ lat, lng });
+      // console.log(data?.results[0]?.formatted_address);
+      // console.log({ lat, lng });
+      setPosition({ lat, lng });
+      return data?.results[0]?.formatted_address;
     } catch (error) {
       console.error("Error fetching address:", error.message);
       return `Address for ${lat}, ${lng}`;

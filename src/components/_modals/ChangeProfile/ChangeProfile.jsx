@@ -44,6 +44,7 @@ export default function ChangeProfile({
     const avatar = { public_url: "nothing" };
     setSelectedImage(null);
     updateInputVal({ ...inputVal, avatar });
+    setShowSave(true);
   };
 
   const capture = React.useCallback(() => {
@@ -105,6 +106,7 @@ export default function ChangeProfile({
         <div className={styles.profileD}>
           <div className={styles.profileDA} htmlFor="uploadImageInput">
             <input
+              style={{ display: "none" }}
               type="file"
               accept="image/*"
               onChange={handleImageUpload}

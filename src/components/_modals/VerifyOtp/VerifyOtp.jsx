@@ -95,7 +95,10 @@ export default function VerifyOtp({
     console.log(userOTP, givenOTP);
     const userJWt = localStorage.getItem("jwtToken");
     if (userOTP === givenOTP) {
-      updateUser(userJWt, inputVal)
+      const formData = new FormData();
+      console.log(inputVal?.phone);
+      formData.append("phone", inputVal?.phone);
+      updateUser(userJWt, formData)
         .then((res) => {
           setShowSave(false);
           let states = {

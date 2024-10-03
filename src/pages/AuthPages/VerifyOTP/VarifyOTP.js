@@ -12,7 +12,7 @@ import {
 } from "../../../redux/slices/user";
 import { toast } from "react-toastify";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
-import { createSalon } from "../../../services/salon";
+
 const VerifyOTP = (props) => {
   const [otp, setOTP] = useState(["", "", "", ""]);
   const [OTPerror, setOTPerror] = useState(false);
@@ -27,16 +27,15 @@ const VerifyOTP = (props) => {
   const userDetails = useSelector((state) => state.user);
   useEffect(() => {
     inputRefs.current[0]?.focus();
-    if (
-      localStorage.getItem("requiredRegisterData") !== undefined ||
-      localStorage.getItem("requiredRegisterData") !== null
-    ) {
-      setRequiredRegisterData(
-        JSON.parse(localStorage.getItem("requiredRegisterData"))
-      );
+    console.log(localStorage.getItem("requiredRegisterData"));
+
+    const storedData = localStorage.getItem("requiredRegisterData");
+
+    if (storedData !== undefined && storedData !== null) {
+      setRequiredRegisterData(JSON.parse(storedData));
       setisRegister(true);
-      console.log(userDetails.OTP);
     } else {
+      console.log(userDetails.OTP, "login");
       setisRegister(false);
     }
   }, []);
@@ -94,6 +93,8 @@ const VerifyOTP = (props) => {
           userDetails?.tempLoginInfo || JSON.parse(requiredLoginData);
         if (typeof localStorage !== "undefined") {
           // Use localStorage
+
+          console.log(jwtToken);
           localStorage.setItem("jwtToken", jwtToken);
           dispatch(updateIsLoggedIn(true));
           dispatch(updateUserDetails(userData));
