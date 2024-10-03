@@ -37,6 +37,7 @@ export default function BillSummary({
   paySelected,
   setCompletedPay,
   stepTwoDetails,
+  offerCount,
 }) {
   const [orderResponse, setOrderResponse] = useState(null);
   const [salon, setSalon] = useState(null);
@@ -235,7 +236,8 @@ export default function BillSummary({
         <div className={styles.bill_sumA}>Bill Summary</div>
         <div className={styles.bill_sumI}>
           <div className={styles.bill_sumB}>
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={salon?.salon_image ? salon?.salon_image?.public_url : slide1}
               alt="salonImage"
             />
@@ -290,7 +292,7 @@ export default function BillSummary({
                 className={styles.bill_sumFD}
                 onClick={() => (setShowModal ? setShowModal(true) : "")}
               >
-                <div>4 offers</div>
+                <div>{offerCount ? offerCount : 0} offers</div>
                 <img loading="lazy" src={rightBlue} alt="" />
               </div>
             </div>
@@ -319,17 +321,10 @@ export default function BillSummary({
             setCompletedPay={setCompletedPay}
             handleOfflinePayment={handleOfflinePayment}
             salonId={id}
-            // handlePayment={handlePayment}
           />
         ) : (
           <div className={styles.bill_sumG}>
             <button onClick={handlePayment}>Pay ₹{amountToPay}</button>
-
-            {/* <CartPayment
-              paymentotal={amountToPay}
-              selectedaddress={userDetails?.email ?? "India"}
-              amountToPay={amountToPay}
-            /> */}
           </div>
         )}
         <div

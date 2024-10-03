@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { useGetUser } from "../../../services/user";
 import axiosInstance from "../../../services/axios";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import VerifyOtp from "../../../components/_modals/VerifyOtp/VerifyOtp";
+import { sendNumberChangeOTP } from "../../../services/auth";
 
 function validatePhoneNumber(phoneNumber) {
   const isNumeric = /^\d+$/.test(phoneNumber);
@@ -35,7 +37,6 @@ const PersonalDetails = () => {
   const [Phone, setPhone] = useState("Mobile Number");
   const [birthDate, setBirthDate] = useState(null);
   const [activeGender, setActiveGender] = useState("male");
-
   const [active, setActive] = useState({
     firstName: true,
     lastName: true,
@@ -44,7 +45,10 @@ const PersonalDetails = () => {
     gender: true,
     DOB: true,
   });
-
+  const [otpModal, setOtpModal] = useState(false);
+  const [showSave, setShowSave] = useState(false);
+  const [otpVerify, setVerifyOtp] = useState(0);
+  const [otpSuccess, setOtpSuccess] = useState(false);
   useEffect(() => {
     if (user) {
       setFirstName(user?.first_name || "First Name");
@@ -73,7 +77,23 @@ const PersonalDetails = () => {
   const handleWrapperClick = () => {
     dateInputRef.current.showPicker();
   };
+  const verifyOtp = async () => {
+    const phonedata = {
+      phoneNumber: "",
+    };
+    console.log(phonedata);
+    const res = await sendNumberChangeOTP(phonedata);
 
+    if (res.res) {
+      console.log(res?.res?.data?.otp);
+      setOtpModal(true);
+
+      setVerifyOtp(res?.res?.data.otp);
+    } else if (res.err) {
+      console.log(res.err);
+      toast.error("The Phone number is Not Valid");
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     let PhoneNumber = countryCode + Phone;
@@ -471,6 +491,18 @@ const PersonalDetails = () => {
           </div>
         </form>
       </section>
+
+      {otpModal && (
+        <VerifyOtp
+          setOtpModal={setOtpModal}
+          setOtpSuccess={setOtpSuccess}
+          otpSuccess={otpSuccess}
+          setShowSave={setShowSave}
+          // updateInputState={}
+          // inputVal={inputVal}
+          // userOTP={otpVerify}
+        />
+      )}
     </main>
   );
 };

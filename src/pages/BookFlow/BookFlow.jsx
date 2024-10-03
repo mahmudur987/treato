@@ -65,9 +65,7 @@ export default function BookFlow() {
   const { contact } = useSelector((state) => state?.VisitorDetails);
   const userDetails = useSelector((state) => state?.user?.user);
   const serviceDetails = useSelector((state) => state?.salonServices);
-  useEffect(() => {
-    // console.log(activeBookFlowBA);
-  }, [activeBookFlowBA]);
+  const [offerCount, setOfferCount] = useState(0);
 
   useEffect(() => {
     let IDs = serviceDetails?.salonContent?.map((e) => {
@@ -216,13 +214,6 @@ export default function BookFlow() {
         serviceDetails: serviceDetails?.salonContent,
       };
       console.log(billInfo);
-
-      // bookSalonAppointment(billInfo).then((res) => {
-      //   let response = res?.res?.data;
-      //   if (response?.success) {
-      //     initPayment(response?.order);
-      //   }
-      // });
     } catch (error) {
       console.log(error);
     }
@@ -252,7 +243,7 @@ export default function BookFlow() {
       payment_mode: "offline",
       serviceDetails: serviceDetails?.salonContent,
     };
-    console.log(billInfo);
+
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
       if (response?.success) {
@@ -263,10 +254,7 @@ export default function BookFlow() {
 
   if (isLoading) {
     return (
-      <div
-        
-        className={styles.loaderBox}
-      >
+      <div className={styles.loaderBox}>
         <LoadSpinner />
       </div>
     );
@@ -288,7 +276,14 @@ export default function BookFlow() {
             }
             activeBookFlowBA={activeBookFlowBA}
           />
-          {showModal ? <SalonDetailModal setShowModal={setShowModal} /> : ""}
+          {showModal ? (
+            <SalonDetailModal
+              setShowModal={setShowModal}
+              setOfferCount={setOfferCount}
+            />
+          ) : (
+            ""
+          )}
           <div className={styles.book_flowMainA}>
             <div className={styles.book_flowA}>
               {activeBookFlowBA === 1
@@ -335,7 +330,10 @@ export default function BookFlow() {
               ></div>
             </div>
             {activeBookFlowBA === 4 && winWidthMain < 768 ? (
-              <BillSummary setShowModal={setShowModal} />
+              <BillSummary
+                setShowModal={setShowModal}
+                offerCount={offerCount}
+              />
             ) : (
               ""
             )}
@@ -388,6 +386,7 @@ export default function BookFlow() {
                 paySelected={paySelected}
                 setCompletedPay={setCompletedPay}
                 stepTwoDetails={stepTwoDetails}
+                offerCount={offerCount}
               />
             ) : (
               <SelectedServiceCard
