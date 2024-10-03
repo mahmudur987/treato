@@ -15,6 +15,7 @@ import { getReadableAddress } from "../../../utils/getReadAbleAddress";
 
 const Business = () => {
   const { data, isLoading, isError, error, refetch } = useSingleSalon();
+  useEffect(()=>console.log(data))
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.adminBasicData.loading);
   const updateError = useSelector((state) => state.adminBasicData.error);
@@ -231,7 +232,7 @@ const Business = () => {
               salonData={salonData}
               setSalonData={setSalonData}
               setWorkingHours={setWorkingHours}
-              workingHours={workingHours}
+              workingHours={data?.salon?.working_hours}
             />
           </div>
           <div className={sty.ServiceLocationSmallScreen}>

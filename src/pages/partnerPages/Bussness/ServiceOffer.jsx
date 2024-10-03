@@ -21,6 +21,13 @@ const ServiceOffer = ({ salonData,workingHours, setWorkingHours }) => {
   const [startTime, setStartTime] = useState(workingHours?.[0]?.opening_time || "09:00");
 const [endTime, setEndTime] = useState(workingHours?.[0]?.closing_time || "09:00");
   const [serviceNames, setServiceNames] = useState([]);
+  useEffect(()=>{
+    if(workingHours?.length>0){
+      setSelectedDays(workingHours?.map(wh => wh.day))
+      console.log(selectedDays)
+    }
+
+  },[])
 
   const generateScheduleData = useMemo(() => {
     return selectedDays.map((day) => {
@@ -34,9 +41,9 @@ const [endTime, setEndTime] = useState(workingHours?.[0]?.closing_time || "09:00
 
   const handleDayChange = (day) => {
     if (selectedDays.includes(day)) {
-      setSelectedDays(selectedDays.filter((item) => item !== day)); // Deselect day if already selected
+      setSelectedDays(selectedDays.filter((item) => item !== day)); 
     } else {
-      setSelectedDays([...selectedDays, day]); // Select day if not selected
+      setSelectedDays([...selectedDays, day]); 
     }
   };
   const { data, isError, error } = useGetSlots();
