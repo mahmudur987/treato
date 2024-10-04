@@ -6,6 +6,9 @@ import { toast } from "react-toastify";
 import { useGetUser } from "../../../services/user";
 import axiosInstance from "../../../services/axios";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import VerifyOtp from "../../../components/_modals/VerifyOtp/VerifyOtp";
+import { sendNumberChangeOTP } from "../../../services/auth";
+import VerifyOtpOfPartner from "../../../components/_modals/Partner/VerifyOtp/VerifyOtp";
 
 function validatePhoneNumber(phoneNumber) {
   const isNumeric = /^\d+$/.test(phoneNumber);
@@ -35,8 +38,6 @@ const PersonalDetails = () => {
   const [Phone, setPhone] = useState("Mobile Number");
   const [birthDate, setBirthDate] = useState(null);
   const [activeGender, setActiveGender] = useState("male");
-  
-
   const [active, setActive] = useState({
     firstName: true,
     lastName: true,
@@ -45,7 +46,10 @@ const PersonalDetails = () => {
     gender: true,
     DOB: true,
   });
-
+  const [otpModal, setOtpModal] = useState(false);
+  const [showSave, setShowSave] = useState(false);
+  const [otpVerify, setVerifyOtp] = useState(0);
+  const [otpSuccess, setOtpSuccess] = useState(false);
   useEffect(() => {
     if (user) {
       setFirstName(user?.first_name || "First Name");
@@ -75,6 +79,23 @@ const PersonalDetails = () => {
     dateInputRef.current.showPicker();
   };
 
+  const verifyOtp = async () => {
+    let PhoneNumber = countryCode + Phone;
+    const phonedata = {
+      phoneNumber: PhoneNumber,
+    };
+    console.log(phonedata);
+    const res = await sendNumberChangeOTP(phonedata);
+
+    if (res.res) {
+      console.log(res?.res?.data?.otp);
+      setOtpModal(true);
+      setVerifyOtp(res?.res?.data.otp);
+    } else if (res.err) {
+      console.log(res.err);
+      toast.error("The Phone number is Not Valid");
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     let PhoneNumber = countryCode + Phone;
@@ -96,39 +117,41 @@ const PersonalDetails = () => {
       return toast.error("Please enter a valid contact number");
     }
 
-    const formData = new FormData();
-    formData.append("first_name", firstName);
-    formData.append("last_name", LastName);
-    formData.append("phone", PhoneNumber);
-    formData.append("email", Email);
-    formData.append("gender", activeGender);
-    formData.append("dob", birthDate);
+    if (PhoneNumber !== user?.phone) {
+      await verifyOtp();
+    } else {
+      const formData = new FormData();
+      formData.append("first_name", firstName);
+      formData.append("last_name", LastName);
+      formData.append("phone", PhoneNumber);
+      formData.append("email", Email);
+      formData.append("gender", activeGender);
+      formData.append("dob", birthDate);
 
-    try {
-      const token = localStorage.getItem("jwtToken");
-      const headers = { token };
+      try {
+        const token = localStorage.getItem("jwtToken");
+        const headers = { token };
 
-      const res = await axiosInstance.patch(
-        "profile/update",
-        formData, // Directly pass formData without wrapping in { data: formData }
-        { headers }
-      );
-      console.log(res);
-
-      if (res?.data.status) {
-        toast.success(res?.data?.message);
-        refetch();
-        setActive({
-          firstName: true,
-          lastName: true,
-          email: true,
-          phone: true,
-          gender: true,
-          DOB: true,
+        const res = await axiosInstance.patch("profile/update", formData, {
+          headers,
         });
+        console.log(res);
+
+        if (res?.data.status) {
+          toast.success(res?.data?.message);
+          refetch();
+          setActive({
+            firstName: true,
+            lastName: true,
+            email: true,
+            phone: true,
+            gender: true,
+            DOB: true,
+          });
+        }
+      } catch (error) {
+        toast.error("Error updating profile");
       }
-    } catch (error) {
-      toast.error("Error updating profile");
     }
   };
 
@@ -472,6 +495,17 @@ const PersonalDetails = () => {
           </div>
         </form>
       </section>
+
+      {otpModal && (
+        <VerifyOtpOfPartner
+          setOtpModal={setOtpModal}
+          setOtpSuccess={setOtpSuccess}
+          otpSuccess={otpSuccess}
+          setShowSave={setShowSave}
+          inputVal={countryCode + Phone}
+          userOTP={otpVerify}
+        />
+      )}
     </main>
   );
 };

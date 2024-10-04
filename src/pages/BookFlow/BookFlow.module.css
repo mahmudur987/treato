@@ -23,7 +23,7 @@
   font-weight: 600;
   margin-bottom: 24px;
 }
-.showError{
+.showError {
   color: red !important;
 }
 
@@ -155,7 +155,7 @@
   gap: 12px;
 }
 
-.worker_compAA>img {
+.worker_compAA > img {
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -248,7 +248,7 @@
   margin-top: 24px;
 }
 
-.service_timeEA>span {
+.service_timeEA > span {
   color: #0d69d7;
   font-weight: 600;
 }
@@ -409,7 +409,7 @@
   margin-top: 16px;
 }
 
-.final_billAB>input {
+.final_billAB > input {
   width: 24px;
   height: 24px;
 }
@@ -502,7 +502,7 @@
   font-weight: 400;
 }
 
-.final_billCBC>input {
+.final_billCBC > input {
   width: 24px;
   height: 24px;
 }
@@ -566,7 +566,7 @@
   border-bottom: 1px solid #ebedf0;
 }
 
-.bill_sumB>img {
+.bill_sumB > img {
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -614,7 +614,7 @@
 }
 
 .discountAmount {
-  color: var(--Grey-Grey-10, #6D747A);
+  color: var(--Grey-Grey-10, #6d747a);
   font-family: "Lato";
   font-size: 14px;
   font-style: normal;
@@ -633,7 +633,7 @@
 }
 
 .offerName {
-  color: var(--Grey-Black, #08090A);
+  color: var(--Grey-Black, #08090a);
   font-family: "Lato";
   font-size: 16px;
   font-style: normal;
@@ -702,6 +702,7 @@
   align-items: center;
   gap: 8px;
   font-weight: 400;
+  cursor: pointer;
 }
 
 .bill_sumFD {
@@ -713,7 +714,7 @@
   padding-top: 24px;
 }
 
-.bill_sumG>button {
+.bill_sumG > button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -741,7 +742,7 @@
   line-height: 24px;
 }
 
-.bill_sumHA>span {
+.bill_sumHA > span {
   color: #0d69d7;
   font-weight: 600;
   cursor: pointer;
@@ -868,7 +869,7 @@
 }
 
 .phone_inputMain {
-  border: 1px solid #CED4DA;
+  border: 1px solid #ced4da;
   border-radius: 4px;
   padding: 0px 16px;
   width: 100%;
@@ -896,7 +897,7 @@
 .phone_inputBorder {
   width: 1px;
   height: 20px;
-  background-color: #08090A;
+  background-color: #08090a;
 }
 
 .leftarrowIcon {
@@ -976,7 +977,7 @@
     line-height: 18px;
   }
 
-  .bill_sumH>img {
+  .bill_sumH > img {
     display: none;
   }
 
@@ -1078,7 +1079,7 @@
     line-height: 20px;
   }
 
-  .worker_compACB>img {
+  .worker_compACB > img {
     display: none;
   }
 
@@ -1127,10 +1128,9 @@
     font-size: 12px;
   }
 
-  .service_timeE>img {
+  .service_timeE > img {
     display: none;
   }
-
 }
 
 .d_none {
