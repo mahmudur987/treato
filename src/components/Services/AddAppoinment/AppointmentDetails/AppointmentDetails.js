@@ -3,7 +3,7 @@ import styles from "./AppointmentDetails.module.css";
 import CustomSelect2 from "../../../Select/CustomeSelect2/CustomeSelect2";
 import SelectServiceModal from "../../../_modals/SelectServiceModal/SelectServiceModal";
 import { useTimeSlots } from "../../../../services/Appointments";
-import { useSingleSalon } from "../../../../services/salon";
+import { salon, useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../ErrorComponent/ErrorComponent";
 import { useContext } from "react";
@@ -155,14 +155,37 @@ const AppointmentDetails = () => {
       selectedServices?.includes(service._id)
     )
   );
-  const extractMinutes = (timeString) => {
-    return parseInt(timeString.split(" ")[0], 10);
+
+  const convertToMinutes = (timeStr) => {
+    const timeParts = timeStr.toLowerCase().split(" ");
+    let totalMinutes = 0;
+
+    // Handle hours
+    const hourIndex = timeParts.findIndex((part) =>
+      ["hour", "hours", "h"].includes(part)
+    );
+    if (hourIndex > 0) {
+      const hours = parseInt(timeParts[hourIndex - 1]);
+      totalMinutes += hours * 60;
+    }
+
+    // Handle minutes
+    const minuteIndex = timeParts.findIndex((part) =>
+      ["min", "mins"].includes(part)
+    );
+    if (minuteIndex > 0) {
+      const minutes = parseInt(timeParts[minuteIndex - 1]);
+      totalMinutes += minutes;
+    }
+
+    return totalMinutes;
   };
 
   // Sum the time_takenby_service values
   const totalMinutes = allSelectedServices?.reduce((total, item) => {
-    return total + extractMinutes(item.time_takenby_service);
+    return total + convertToMinutes(item.time_takenby_service);
   }, 0);
+
   allSelectedServices.shift();
 
   // Optionally, convert totalMinutes to hours and minutes
@@ -173,6 +196,8 @@ const AppointmentDetails = () => {
   const handleSelectTeamMember = (value) => {
     setSelectedTeamMember(value);
   };
+  console.log(SelectedTeamMember);
+
   const generateFinalData = useMemo(() => {
     return {
       service_id: selectedServices,
@@ -194,16 +219,15 @@ const AppointmentDetails = () => {
   }
   return (
     <section className={styles.mainContainer}>
-      <div  className={styles.container}>
-        <h3 className={styles.heding} >Appointment Details</h3>
+      <div className={styles.container}>
+        <h3 className={styles.heding}>Appointment Details</h3>
         {/* date select */}
-        <div  className={styles.dateWrapper} onClick={handleWrapperClick}>
-          <label  htmlFor="date">Date</label>
+        <div className={styles.dateWrapper} onClick={handleWrapperClick}>
+          <label htmlFor="date">Date</label>
           <p>
-            <span >{date}</span>
+            <span>{date}</span>
 
             <input
-            
               ref={dateInputRef}
               onChange={(e) => {
                 const selectedDate = new Date(e.target.value);
@@ -228,7 +252,7 @@ const AppointmentDetails = () => {
         <div className={styles.serviceCategory}>
           <label htmlFor="">Service Category</label>
 
-          <CustomSelect2 
+          <CustomSelect2
             options={serviceType}
             value={selectedServiceType}
             onChange={setSelectedServiceType}
@@ -318,9 +342,7 @@ const AppointmentDetails = () => {
               />
             )}
             {times?.length === 0 && (
-              <div className={styles.warnning} >
-                No slots available
-              </div>
+              <div className={styles.warnning}>No slots available</div>
             )}
           </div>{" "}
           <div className={styles.selectService}>

@@ -25,7 +25,7 @@ const FilterSection = ({ setBillQuery }) => {
 
   return (
     <div className={styles.mainContainerWrapper}>
-      <div className={styles.mainContainer}>
+      <div  className={styles.mainContainer}>
         <div className={styles.searchWrapper}>
           <span>
             <IoSearchOutline />
@@ -37,7 +37,7 @@ const FilterSection = ({ setBillQuery }) => {
           />
         </div>
 
-        <div className={styles.selectsWrapper}>
+        <div  className={styles.selectsWrapper}>
           <CustomSelect4
             options={PaymentStatus}
             onChange={setSelectedPaymentStatus}

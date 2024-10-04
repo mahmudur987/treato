@@ -25,8 +25,6 @@ const EditAdminModal = ({ onClose }) => {
     setTimeFieldsCount((prevCount) => prevCount + 1);
   };
 
-  const { data, isLoading, isError, error } = useGetSlots();
-  // const { slots } = data?.slotsPerDay[0] || {};
   const slots = [
     "08:00",
     "08:30",
@@ -132,7 +130,12 @@ const EditAdminModal = ({ onClose }) => {
               {date}
             </div>
             <div className={styles.shareB}>
-              <img loading="lazy" src={Grey_Close} alt="close" onClick={onClose} />
+              <img
+                loading="lazy"
+                src={Grey_Close}
+                alt="close"
+                onClick={onClose}
+              />
             </div>
           </div>
           <form className={styles.CheckBoxForm}>
@@ -141,14 +144,15 @@ const EditAdminModal = ({ onClose }) => {
                 <div className={styles.SubHeading}>Employee</div>
 
                 <div className={styles.selectContainer}>
-                  <select name="" id="" className={styles.Select}>
-                    <option value="">{member?.name}</option>
-                  </select>
-                  <img loading="lazy"
+                  <img
+                    loading="lazy"
                     src={member ? member.profile : Profile_Pic}
                     alt="Profile_Pic"
                     className={styles.Profile_Img}
                   />
+                  <select name="" id="" className={styles.Select}>
+                    <option value="">{member?.name}</option>
+                  </select>
                 </div>
               </div>
 
@@ -164,16 +168,14 @@ const EditAdminModal = ({ onClose }) => {
                     >
                       <option value="">please select</option>
 
-                      {slots && !isLoading && !isError ? (
+                      {slots ? (
                         slots.map((x, i) => (
                           <option key={i} value={x?.slot}>
                             {x}
                           </option>
                         ))
                       ) : (
-                        <ErrorComponent
-                          message={error ? error.message : "slots error"}
-                        />
+                        <ErrorComponent />
                       )}
                     </select>
                   </div>
@@ -187,17 +189,12 @@ const EditAdminModal = ({ onClose }) => {
                     >
                       <option value="">please select</option>
 
-                      {slots && !isLoading && !isError ? (
+                      {slots &&
                         slots.map((x, i) => (
                           <option key={i} value={x?.slot}>
                             {x}
                           </option>
-                        ))
-                      ) : (
-                        <ErrorComponent
-                          message={error ? error.message : "slots error"}
-                        />
-                      )}
+                        ))}
                     </select>
                   </div>
                 </div>
@@ -243,7 +240,12 @@ const EditAdminModal = ({ onClose }) => {
             </div>
             {timeFieldsCount === 2 ? null : (
               <div onClick={handleAddTimeFields} className={styles.plusDiv}>
-                <img loading="lazy" src={plus} alt="plus" className={styles.plus} />
+                <img
+                  loading="lazy"
+                  src={plus}
+                  alt="plus"
+                  className={styles.plus}
+                />
                 <span>Add another shift for this day</span>
               </div>
             )}

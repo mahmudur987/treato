@@ -1,252 +1,264 @@
 .shareMain {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0%;
-    left: 0%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #08090A;
-    font-family: 'Lato', sans-serif;
-    z-index: 999;
-    
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #08090a;
+  font-family: "Lato", sans-serif;
+  z-index: 999;
 }
-
 
 .shareA {
-    padding: 36px;
-    max-height: calc(100vh - 20px); 
-    overflow: auto; 
-    background-color: #fff;
-    width: 528px;
-    box-sizing: border-box;
-    border-radius: 4px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  padding: 36px;
+  max-height: calc(100vh - 20px);
+  overflow: auto;
+  background-color: #fff;
+  width: 528px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-
 .shareA::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+  width: 5px;
+  height: 5px;
 }
 
 .shareA::-webkit-scrollbar-thumb {
-    background-color: #888; 
-    border-radius: 5px; 
+  background-color: #888;
+  border-radius: 5px;
 }
 
 .shareA::-webkit-scrollbar-track {
-    background-color: #ddd; 
-    border-radius: 5px; 
+  background-color: #ddd;
+  border-radius: 5px;
 }
 .shareB {
-    text-align: center ;
+  text-align: center;
 }
 
 .shareC {
-padding-left: 170px;
-    font-family: 'Poppins', 'Sans-Serif';
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
+  padding-left: 170px;
+  font-family: "Poppins", "Sans-Serif";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
 }
-.noteInfo{
-    margin-top: 30px;
-    line-height: normal;
+.noteInfo {
+  margin-top: 30px;
+  line-height: normal;
 }
 
-.StartTime{
-    color: #08090A;
-font-family: Lato;
-font-size: 16px;
-font-weight: 600;
-line-height: 24px;
-letter-spacing: 0.01em;
-text-align: left;
-margin-bottom: 5px;
-
+.StartTime {
+  color: #08090a;
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  margin-bottom: 5px;
 }
 /* ///////////////////////////////////////////////// */
-.SubHeading{
-    color: #08090A;
-font-family: Lato;
-font-size: 16px;
-font-weight: 600;
-letter-spacing: 0.01em;
-margin-bottom: 5px;
-
+.SubHeading {
+  color: #08090a;
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 5px;
 }
 .selectContainer {
-    position: relative;
+  width: 100%;
+  height: 48px;
+  border: 1px solid var(--Grey-Grey-30, #ced4da);
+  border-radius: 4px;
+  padding: 0px 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
-.Select{padding-left: 30px;}
-.Profile_Img{
-    position: absolute;
-    left: 1px;
-    width: 24px;
-    height: 24px;
-    margin-top: 10px;
-    padding: 3px;
-    border-radius: 50px;}
-    .selectPro{
-        width:444px;
-    height:48px;
-    padding: 0px, 12px, 0px, 12px;
-    border-radius: 4px;
-    border: 1px;
-    margin-bottom: 90px;
-    
-    }
+.Select {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+}
+.Profile_Img {
+  width: 24px;
+  height: 24px;
 
+  border-radius: 50px;
+}
+.selectPro {
+  width: 444px;
+  height: 48px;
+  padding: 0px, 12px, 0px, 12px;
+  border-radius: 4px;
+  border: 1px;
+  margin-bottom: 90px;
+}
 
 /* ///////////////////////////////////////////////// */
-.MainPik{
-
-    margin-top: 15px;
+.MainPik {
+  margin-top: 15px;
 }
 
 .Profile_Time1,
-  .Profile_Time {
-      display:flex ;
-      gap: 24px;
-      margin-top: 15px;
-    }
-    .inputField{
-      width: 210px;
-   }
-
-
-.plus{
-    width: 20px;
-    height:20px;
-    margin-bottom: 5px;
-
+.Profile_Time {
+  display: flex;
+  gap: 24px;
+  margin-top: 15px;
 }
-.plusDiv{
+.inputField {
+  width: 210px;
+}
+
+.plus {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 5px;
+}
+.plusDiv {
+  display: flex;
+  color: #0d69d7;
+  margin-top: 15px;
+}
+.plusDiv span {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+.Schedule {
+  color: #0d69d7;
+}
+.option {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  color: #08090a;
+  width: 100%;
+  height: 48px;
+  border: 1px solid var(--Grey-Grey-30, #ced4da);
+  border-radius: 4px;
+  padding: 0px 10px;
+}
+
+.topLabel {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  color: #08090a;
+}
+
+.SubmitBtn {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  margin-top: 65px;
+  margin-bottom: 10px;
+}
+.CancelBtn {
+  width: 88px;
+  height: 48px;
+  padding: 16px, 24px, 16px, 24px;
+  border-radius: 4px;
+  gap: 10px;
+  color: #08080b;
+  background-color: white;
+  border: 1px solid #08080b;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+.SaveBtn {
+  width: 88px;
+  height: 48px;
+  padding: 16px, 24px, 16px, 24px;
+  border-radius: 4px;
+  gap: 10px;
+  color: white;
+  background-color: #08080b;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+.mob_d_none {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+@media only screen and (max-width: 768px) {
+  .shareMain {
+    align-items: flex-end;
+    margin-left: 0% !important;
+  }
+  .SubHeading {
     display: flex;
-    color: #0D69D7;
-margin-top: 15px;
-}
-.plusDiv span{
-    font-family: Lato;
-    font-size: 16px;
+    justify-content: flex-start;
+  }
+  .labelText {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .Profile_Time1 {
+    display: flex;
+    gap: 5px;
+  }
+  .shareA {
+    width: 100%;
+    height: 600px;
+    top: 470px;
+    padding: 24px;
+    border-radius: 8px;
+    gap: 36px;
+  }
+  .shareC {
+    padding-left: 0px;
     font-weight: 600;
-    line-height: 24px;
-    letter-spacing: 0.01em;
-    text-align: left;
-    }
-    .Schedule{ color: #0D69D7;}
-    .option{
-font-family: Lato;
-font-size: 16px;
-font-weight: 400;
-line-height: 24px;
-letter-spacing: 0.01em;
-text-align: left;
-color: #08090A;
-
-    }
-
-
-        .topLabel{
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            color: #08090A;
-        }
-          
-        .SubmitBtn{
-            display: flex;
-            justify-content: end;
-            gap: 10px;
-            margin-top: 65px;
-            margin-bottom: 10px;
-        }
-          .CancelBtn{
-            width:  88px;
-            height:  48px;
-            padding: 16px, 24px, 16px, 24px;
-            border-radius: 4px;
-            gap: 10px;
-            color: #08080B;
-            background-color:white;
-            border: 1px solid #08080B ;
-            font-family: Poppins;
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 16px;
-            letter-spacing: -0.01em;
-            text-align: center;
-          }
-          .SaveBtn{
-            width:  88px;
-            height:  48px;
-            padding: 16px, 24px, 16px, 24px;
-            border-radius: 4px;
-            gap: 10px;
-            color: white;
-            background-color: #08080B;
-            font-family: Poppins;
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 16px;
-            letter-spacing: -0.01em;
-            text-align: center;
-        
-        
-          }
-          .mob_d_none{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-direction: row-reverse;
-        }
-        
-
-      
-        @media only screen and (max-width: 768px) {
-            .shareMain {
-               
-                 align-items: flex-end;
-                 margin-left: 0% !important; 
-                
-            }
-            .SubHeading{display: flex; justify-content: flex-start;}
-            .labelText{display: flex; justify-content: flex-start;}
-            .Profile_Time1{display: flex; gap: 5px;}
-            .shareA {
-               width: 100%;
-                height:600px;
-                top: 470px;
-                padding: 24px;
-                border-radius: 8px;
-                gap: 36px
-            }
-            .shareC{padding-left: 0px; font-weight: 600;}  
-            .shareB{padding-right: 10px;} 
-            .note{width: 342px;}
-            .noteInfo{width: 342px;}
-            .selectPro{width: 342px;}
-            .ModalHeader{
-
-                width: 342px;
-            }
-            .SubmitBtn{
-                width: 342px;
-            }
-            .SaveBtn,
-            .CancelBtn{
-                width: 163px;
-            }
-            
-        }
-       
-        
-      
-        
-
+  }
+  .shareB {
+    padding-right: 10px;
+  }
+  .note {
+    width: 342px;
+  }
+  .noteInfo {
+    width: 342px;
+  }
+  .selectPro {
+    width: 342px;
+  }
+  .ModalHeader {
+    width: 342px;
+  }
+  .SubmitBtn {
+    width: 342px;
+  }
+  .SaveBtn,
+  .CancelBtn {
+    width: 163px;
+  }
+}

@@ -77,6 +77,10 @@ const AppointmentsTable = ({ data }) => {
   if (data?.data?.length === 0) {
     return <NoDataDisplay />;
   }
+  const exactAmount=(totalAmount, discounted)=>{
+
+    return parseFloat(totalAmount) - parseFloat(discounted || 0);
+  }
   return (
     <div className={sty.mainContainer}>
       <div className={sty.tableContainer}>
@@ -110,7 +114,10 @@ const AppointmentsTable = ({ data }) => {
           </thead>
           <tbody className={sty.tbody}>
             {tableData.length > 0 &&
-              tableData?.map((x) => (
+              tableData?.map((x) => {
+                const finalPrice = exactAmount(x.amount,x.offerDiscount);
+                return (
+                
                 <tr  className={sty.tableBorder}>
                   <td>
                     <div className={sty.checkbox}>
@@ -128,13 +135,13 @@ const AppointmentsTable = ({ data }) => {
                   <td>{x.services}</td>
                   <td>{x.Employee}</td>
                   <td>{x.status}</td>
-                  <td>{x.amount}</td>
+                  <td>{finalPrice}</td>
                   <td>{x.type}</td>
                   <td  className={sty.textSize} onClick={handleDownload}>
                     <MdOutlineFileDownload />
                   </td>
                 </tr>
-              ))}
+              )})}
           </tbody>
         </table>
       </div>
