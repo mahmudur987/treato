@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import style from "./schedule.module.css";
 import { toast, Bounce } from "react-toastify";
 import { Link } from "react-router-dom";
+import { HiDotsVertical } from "react-icons/hi";
 import {
   cancelAppointment,
   completeAppointment,
@@ -12,9 +13,11 @@ import {
 
 const ScheduleTable = ({ profiles, getdata }) => {
   const [openMenus, setOpenMenus] = useState({});
+  const [openMenuId, setOpenMenuId] = useState(null);
   const [otp, setOtp] = useState(null);
   const [durations, setDurations] = useState([]);
   const [condition, setCondition] = useState(false);
+  useEffect(()=>console.log(profiles))
 
   const toastSetting = {
     position: "top-right",
@@ -64,10 +67,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
   };
 
   const toggleMenu = (id) => {
-    setOpenMenus((prevOpenMenus) => ({
-      ...prevOpenMenus,
-      [id]: !prevOpenMenus[id],
-    }));
+    setOpenMenuId((prevId) => (prevId === id ? null : id));
   };
 
   const nextProfile = () => {
@@ -112,7 +112,10 @@ const ScheduleTable = ({ profiles, getdata }) => {
   };
 
   const handleOtpChange = (e) => {
-    setOtp(parseInt(e.target.value));
+    const inputValue = e.target.value;
+    if (inputValue.length <= 6) {
+      setOtp(inputValue); 
+    }
   };
 
   const handleEnter = async (e, appointmentId) => {
@@ -128,17 +131,23 @@ const ScheduleTable = ({ profiles, getdata }) => {
     }
   };
 
-  const cancelation = async (id) => {
-    const { res, err } = await cancelAppointment(id);
+  const cancelation = async (id, checkOTP) => {
+    if(otp===checkOTP){
+      const { res, err } = await cancelAppointment(id);
     if (res) {
       toast.success("Appointment Cancelled", toastSetting);
       getdata();
     } else {
       toast.error("Something went wrong!", toastSetting);
     }
+    }
+    else{
+      toast.error("Enter correct OTP!", toastSetting);
+    }
   };
 
-  const completeApp = async (id) => {
+  const completeApp = async (id, checkOTP) => {
+    if(otp===checkOTP){
     const { res, err } = await completeAppointment(id);
     if (res) {
       toast.success("Appointment Completed", toastSetting);
@@ -146,9 +155,14 @@ const ScheduleTable = ({ profiles, getdata }) => {
     } else {
       toast.error("Something went wrong!", toastSetting);
     }
+  }
+  else{
+    toast.error("Enter correct OTP!", toastSetting);
+  }
   };
 
-  const noShowAppointment = async (id) => {
+  const noShowAppointment = async (id, checkOTP) => {
+    if(otp===checkOTP){
     const { res, err } = await noShow(id);
     if (res) {
       toast.success("Status changed successfully", toastSetting);
@@ -156,9 +170,14 @@ const ScheduleTable = ({ profiles, getdata }) => {
     } else {
       toast.error("Something went wrong!", toastSetting);
     }
+  }
+  else{
+    toast.error("Enter correct OTP!", toastSetting);
+  }
   };
 
-  const startAppointment = async (id) => {
+  const startAppointment = async (id, checkOTP) => {
+    if(otp===checkOTP){
     const { res, err } = await startedAppointment(id);
     if (res) {
       toast.success("Status changed successfully", toastSetting);
@@ -166,6 +185,10 @@ const ScheduleTable = ({ profiles, getdata }) => {
     } else {
       toast.error("Something went wrong!", toastSetting);
     }
+  }
+  else{
+    toast.error("Enter correct OTP!", toastSetting);
+  }
   };
 
   const parseTimeStringToDate = (timeString) => {
@@ -331,7 +354,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         onClick={() =>
                                           toggleMenu(service.unique_id)
                                         }
-                                        className="w-6 h-6 text-gray-800 dark:text-white"
+                                        className={`${style.threeDot} w-6 h-6`}
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"
@@ -357,7 +380,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                       {service.status}
                                     </button>
                                   </div>
-                                  {openMenus[service.unique_id] && (
+                                  {openMenuId === service.unique_id && (
                                     <div
                                       className={`${style.dropdowncontent} ${
                                         condition
@@ -373,42 +396,43 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                           placeholder="OTP"
                                           value={otp}
                                           onChange={handleOtpChange}
-                                          onKeyDown={(e) =>
-                                            handleEnter(e, service.unique_id)
-                                          }
+                                          
+                                          // onKeyDown={(e) =>
+                                          //   handleEnter(e, service.unique_id)
+                                          // }
                                         />
                                       </div>
                                       {/*<div className={style.editButton}>
                                         Edit Details
                                       </div>*/}
                                       <div
-                                        className={style.started}
+                                        className={`${style.started} ${otp ? '' :style.disable } `}
                                         onClick={() =>
-                                          startAppointment(service.appid)
+                                          startAppointment(service?.appid, profile?.appointments?.otp)
                                         }
                                       >
                                         Started
                                       </div>
                                       <div
-                                        className={style.started}
+                                        className={`${style.started} ${otp ? '' :style.disable } `}
                                         onClick={() =>
-                                          noShowAppointment(service.appid)
+                                          noShowAppointment(service?.appid, profile?.appointments?.otp)
                                         }
                                       >
                                         No-Show
                                       </div>
                                       <div
-                                        className={style.started}
+                                        className={`${style.started} ${otp ? '' :style.disable } `}
                                         onClick={() =>
-                                          completeApp(service.appid)
+                                          completeApp(service?.appid, profile?.appointments?.otp)
                                         }
                                       >
                                         Completed
                                       </div>
                                       <div
-                                        className={style.started}
+                                        className={`${style.started} ${otp ? '' :style.disable } `}
                                         onClick={() =>
-                                          cancelation(service.appid)
+                                          cancelation(service?.appid, profile?.appointments?.otp)
                                         }
                                       >
                                         Cancel Appointment
