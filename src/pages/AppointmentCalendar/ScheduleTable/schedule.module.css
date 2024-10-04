@@ -194,12 +194,20 @@
     line-height: 14px;
     text-align: center;
 }
+.threeDot{
+    color: black;
+    font-weight: bolder;
+    width: 18px;
+    height: 16px;
+}
 .dropdowncontent {
+
+    box-sizing: border-box;
     position: absolute;
     z-index: 999;
     margin-left: 20px;
     margin-top: 20px;
-    min-height: 296px;
+    max-height: auto;
     border-radius: 4px;
     min-width: 204px;
     background-color: #FFFFFF;
@@ -208,32 +216,27 @@
     gap: 0;
 }
 
-
-
 .appointmentBox {
     position:absolute;
     z-index: 5;
 }
-
 .clientDetailsBox svg {
     cursor: pointer;
     font-weight: 600;
 }
-
-
-
 .dropBox {
     margin-left: 70%;
 }
 
 .inputContainer {
-    min-width: 100%;
+    max-width: 100%;
     min-height: 48px;
     padding: 13px 12px 13px 12px;
 }
 
 .otpBox {
-    min-width: 180px;
+
+    max-width: 100%;
     min-height: 30px;
     border-radius: 4px;
     padding: 8px;
@@ -243,8 +246,8 @@
 .started,
 .editButton {
     cursor: pointer;
-    min-width: 100%;
-    min-height: 48px;
+    max-width: 100%;
+    max-height: 48px;
     padding: 13px 16px 13px 16px;
     background-color: #FFFFFF;
     font-size: 16px;
@@ -252,6 +255,12 @@
     font-weight: 400;
     line-height: 24px;
 }
+.disable{
+    background-color: #EBEDF0;
+    color: #CED4DA;
+    cursor:not-allowed;
+}
+
 
 .dropdowncontent :hover {
     background-color: #EBEDF0;
