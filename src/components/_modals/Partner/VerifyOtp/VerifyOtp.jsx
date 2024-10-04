@@ -1,25 +1,24 @@
 import React from "react";
 import styles from "./VerifyOtp.module.css";
-import Grey_Close from "../../../assets/images/icons/Grey_Close.svg";
-import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
-import SuccessCircle from "../../../assets/images/icons/SuccessCircle.svg";
+import Grey_Close from "../../../../assets/images/icons/Grey_Close.svg";
+import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
+import SuccessCircle from "../../../../assets/images/icons/SuccessCircle.svg";
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { updateUser } from "../../../services/updateUser";
-import { sendLoginOTP } from "../../../services/auth";
+import { updateUser } from "../../../../services/updateUser";
 import { toast } from "react-toastify";
-
-export default function VerifyOtp({
+import axiosInstance from "../../../../services/axios";
+export default function VerifyOtpOfPartner({
   setOtpModal,
   setOtpSuccess,
   otpSuccess,
   setShowSave,
   updateInputState,
-  updateInputVal,
   inputVal,
   userOTP,
-  setuserOTP,
+  refetch,
+  setActive,
 }) {
   let [timer, setTimer] = useState({
     min: 5,
@@ -88,31 +87,37 @@ export default function VerifyOtp({
     }
   }, 1000);
 
-  let submitPass = () => {
+  let submitPass = async () => {
     let givenOTP = parseInt(
       otpData.inp1 + otpData.inp2 + otpData.inp3 + otpData.inp4
     );
-    console.log(userOTP, givenOTP);
-    const userJWt = localStorage.getItem("jwtToken");
     if (userOTP === givenOTP) {
       const formData = new FormData();
-      formData.append("phone", inputVal?.phone);
-      updateUser(userJWt, formData)
-        .then((res) => {
+      formData.append("phone", inputVal);
+      try {
+        const token = localStorage.getItem("jwtToken");
+        const headers = { token };
+
+        const res = await axiosInstance.patch("profile/update", formData, {
+          headers,
+        });
+
+        if (res?.data.status) {
+          toast.success(res?.data?.message);
           setShowSave(false);
-          let states = {
-            first_name: true,
-            last_name: true,
+          refetch();
+          setActive({
+            firstName: true,
+            lastName: true,
             email: true,
             phone: true,
-            dob: true,
-          };
-          updateInputState(states);
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+            gender: true,
+            DOB: true,
+          });
+        }
+      } catch (error) {
+        toast.error("Error updating Phone Number");
+      }
       setOtpSuccess(otpSuccess ? setOtpModal(false) : true);
     } else {
       console.log("Invalid OTP");
