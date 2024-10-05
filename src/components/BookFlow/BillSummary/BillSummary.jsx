@@ -212,7 +212,7 @@ export default function BillSummary({
       dateforService: serviceDetails?.serviceDate,
 
       userData: visitorDetails?.contact,
-      payment_mode: "on-site",
+      payment_mode: "offline",
       // serviceDetails: selectedServices,
       noPreference: stepTwoDetails?.isNoPreference ?? false,
     };

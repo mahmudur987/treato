@@ -1,77 +1,79 @@
-.ModalMain{
-    background-color: rgba(0,0,0,0.6);
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    display: flex;
+.ModalMain {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0%;
+  left: 0%;
+  z-index: 9999;
+}
+.OfferError {
+  margin-top: 1rem;
+  text-align: center;
+  color: red;
+}
+.ModalMainA {
+  width: 424px;
+  height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  background-color: var(--White);
+  border-radius: 4px;
+}
+
+.ModalMainAA {
+  text-align: center;
+  color: var(--black-color);
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ModalMainAA img {
+  display: none;
+}
+
+.ModalMainB {
+  margin: 72px 0px;
+}
+
+.ModalMainC {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.bgWhite {
+  background-color: var(--White);
+  color: var(--black-color);
+  margin-right: 16px;
+  border: 1px solid var(--black-color);
+}
+
+@media only screen and (max-width: 767px) {
+  .ModalMain {
+    align-items: flex-end;
+  }
+  .ModalMainB {
+    margin: 36px 0px;
+  }
+
+  .ModalMainAA {
+    justify-content: space-between;
+  }
+
+  .ModalMainAA img {
+    display: block;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  .ModalMainC {
     justify-content: center;
-    align-items: center;
-    top: 0%;
-    left: 0%;
-    z-index: 9999;
-}
-.OfferError{
-    margin-top: 1rem;
-    text-align: center;
-    color: red;
-}
-.ModalMainA{
-    width: 424px;
-    padding: 24px;
-    background-color: var(--White);
-    border-radius: 4px;
-}
-
-.ModalMainAA{
-    text-align: center;
-    color: var(--black-color);
-    font-size: 20px;
-    font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.ModalMainAA img{
-    display: none;
-}
-
-.ModalMainB{
-    margin: 72px 0px;
-}
-
-.ModalMainC{
-    display: flex;
-    justify-content: right;
-    align-items: center;
-}
-
-.bgWhite{
-    background-color: var(--White);
-    color: var(--black-color);
-    margin-right: 16px;
-    border: 1px solid var(--black-color);
-}
-
-@media only screen and (max-width:767px){
-    .ModalMain{
-        align-items: flex-end;
-    }
-    .ModalMainB{
-        margin: 36px 0px;
-    }
-
-    .ModalMainAA{
-        justify-content: space-between;
-    }
-
-    .ModalMainAA img{
-        display: block;
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
-    }
-    .ModalMainC{
-        justify-content: center;
-    }
+  }
 }

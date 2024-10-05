@@ -159,6 +159,7 @@ const AddAppointment = () => {
         phone,
       },
       additionalComments,
+      discount: Number(discount),
     };
 
     setLoading(true);
