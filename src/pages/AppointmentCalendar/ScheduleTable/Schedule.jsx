@@ -83,18 +83,20 @@ const ScheduleTable = ({ profiles, getdata }) => {
   const convertTime = (timeString) => {
     const timeParts = timeString.split(" ");
     let totalMinutes = 0;
-
+  
     for (let i = 0; i < timeParts.length; i += 2) {
-      if (timeParts[i + 1] === "hr") {
-        totalMinutes += parseInt(timeParts[i], 10) * 60;
-      } else if (timeParts[i + 1] === "mins") {
-        totalMinutes += parseInt(timeParts[i], 10);
+      const value = parseInt(timeParts[i], 10);
+      const unit = timeParts[i + 1].toLowerCase(); 
+      if (unit === "h" || unit === "hour" || unit === "hours" || unit === "hr") {
+        totalMinutes += value * 60; 
+      } else if (unit === "mins" || unit === "minutes" || unit === "min") {
+        totalMinutes += value; 
       }
     }
-
-    const totalHeight = (totalMinutes / 30) * 134; // 134px per 30-minute slot
+    const totalHeight = (totalMinutes / 30) * 134; 
     return { totalMinutes, totalHeight };
   };
+  
 
   const changeStatus = (status) => {
     switch (status) {
@@ -113,7 +115,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
 
   const handleOtpChange = (e) => {
     const inputValue = e.target.value;
-    if (inputValue.length <= 6) {
+    if (inputValue.length <= 4) {
       setOtp(inputValue); 
     }
   };
@@ -131,8 +133,8 @@ const ScheduleTable = ({ profiles, getdata }) => {
     }
   };
 
-  const cancelation = async (id, checkOTP) => {
-    if(otp===checkOTP){
+  const cancelation = async (id) => {
+    
       const { res, err } = await cancelAppointment(id);
     if (res) {
       toast.success("Appointment Cancelled", toastSetting);
@@ -140,14 +142,13 @@ const ScheduleTable = ({ profiles, getdata }) => {
     } else {
       toast.error("Something went wrong!", toastSetting);
     }
-    }
-    else{
-      toast.error("Enter correct OTP!", toastSetting);
-    }
+    setOtp('');
+    
   };
 
   const completeApp = async (id, checkOTP) => {
-    if(otp===checkOTP){
+    console.log(otp, checkOTP)
+    if(parseInt(otp)===parseInt(checkOTP)){
     const { res, err } = await completeAppointment(id);
     if (res) {
       toast.success("Appointment Completed", toastSetting);
@@ -155,14 +156,15 @@ const ScheduleTable = ({ profiles, getdata }) => {
     } else {
       toast.error("Something went wrong!", toastSetting);
     }
+    setOtp('');
   }
   else{
     toast.error("Enter correct OTP!", toastSetting);
   }
   };
 
-  const noShowAppointment = async (id, checkOTP) => {
-    if(otp===checkOTP){
+  const noShowAppointment = async (id) => {
+    
     const { res, err } = await noShow(id);
     if (res) {
       toast.success("Status changed successfully", toastSetting);
@@ -170,14 +172,12 @@ const ScheduleTable = ({ profiles, getdata }) => {
     } else {
       toast.error("Something went wrong!", toastSetting);
     }
-  }
-  else{
-    toast.error("Enter correct OTP!", toastSetting);
-  }
+    setOtp('');
+  
   };
 
-  const startAppointment = async (id, checkOTP) => {
-    if(otp===checkOTP){
+  const startAppointment = async (id) => {
+    
     const { res, err } = await startedAppointment(id);
     if (res) {
       toast.success("Status changed successfully", toastSetting);
@@ -185,10 +185,9 @@ const ScheduleTable = ({ profiles, getdata }) => {
     } else {
       toast.error("Something went wrong!", toastSetting);
     }
-  }
-  else{
-    toast.error("Enter correct OTP!", toastSetting);
-  }
+    setOtp('');
+  
+  
   };
 
   const parseTimeStringToDate = (timeString) => {
@@ -318,13 +317,13 @@ const ScheduleTable = ({ profiles, getdata }) => {
                               const { textcolor, background } = changeStatus(
                                 service.status
                               );
-                              const { totalHeight } = convertTime(
+                              const { totalHeight, totalMinutes } = convertTime(
                                 service.time_takenby_service
                               );
                               return (
-                                <div className={`${style.appointmentBox4} ${
-                                  condition ? style.dBox : style.cBox
-                                }`}>
+                                <div className={`${style.appointmentBox4} ${condition ? style.dBox : style.cBox}`}
+                                style={totalMinutes < 30 ? { minHeight: totalHeight } : {}}
+                                >
                                   <div 
                                     key={serviceIndex}
                                     className={`${style.appointmentBox} ${
@@ -375,6 +374,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                       style={{
                                         color: `${textcolor}`,
                                         background: `${background}`,
+                                        display:`${totalMinutes<20? "none":""}`
                                       }}
                                     >
                                       {service.status}
@@ -406,33 +406,46 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         Edit Details
                                       </div>*/}
                                       <div
-                                        className={`${style.started} ${otp ? '' :style.disable } `}
+                                        className={`${style.started}  `}
                                         onClick={() =>
-                                          startAppointment(service?.appid, profile?.appointments?.otp)
+                                          startAppointment(service?.appid)
                                         }
                                       >
                                         Started
                                       </div>
                                       <div
-                                        className={`${style.started} ${otp ? '' :style.disable } `}
+                                        className={`${style.started} ${profile?.appointments[0]?.payment_mode==="online" ? '' :style .noShow} `}
                                         onClick={() =>
-                                          noShowAppointment(service?.appid, profile?.appointments?.otp)
+                                          noShowAppointment(service?.appid)
                                         }
                                       >
                                         No-Show
                                       </div>
-                                      <div
-                                        className={`${style.started} ${otp ? '' :style.disable } `}
+                                      {otp?.length>3 ? <><div
+                                        className={`${style.started}  `}
                                         onClick={() =>
-                                          completeApp(service?.appid, profile?.appointments?.otp)
+                                          completeApp(service?.appid, profile?.appointments[0]?.otp)
                                         }
                                       >
                                         Completed
-                                      </div>
-                                      <div
+                                      </div></>:<><div
+                                        className={`${style.started} ${otp ? '' :style.disable } `}
+                                        
+                                      >
+                                        Completed
+                                      </div></>}
+                                      {/* <div
                                         className={`${style.started} ${otp ? '' :style.disable } `}
                                         onClick={() =>
-                                          cancelation(service?.appid, profile?.appointments?.otp)
+                                          completeApp(service?.appid, profile?.appointments[0]?.otp)
+                                        }
+                                      >
+                                        Completed
+                                      </div> */}
+                                      <div
+                                        className={`${style.started}`}
+                                        onClick={() =>
+                                          cancelation(service?.appid)
                                         }
                                       >
                                         Cancel Appointment
