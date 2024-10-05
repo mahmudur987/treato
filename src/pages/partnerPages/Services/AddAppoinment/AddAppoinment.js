@@ -119,31 +119,33 @@ const AddAppointment = () => {
       }
     }
   }, [givenDateString]);
-  console.log(customerDetails);
+
   const handleSubmit = async () => {
     if (!dateforService) {
-      return toast.error("select date ");
+      return toast.error("Please select a date for the service.");
     }
     if (!service_id || service_id.length === 0) {
-      return toast.error("select services ");
+      return toast.error("Please select at least one service.");
     }
     if (!time) {
-      return toast.error("select a time ");
+      return toast.error("Please select a time slot.");
     }
     if (isToday && isPast) {
-      return toast.error("the slot already past");
+      return toast.error("The selected time slot has already passed.");
     }
     if (!name) {
-      return toast.error("customer name not available");
+      return toast.error("Customer name is missing.");
     }
     if (!email) {
-      return toast.error("customer email not available");
+      return toast.error("Customer email is missing.");
     }
     if (!phone) {
-      return toast.error("customer phone not available in Database");
+      return toast.error(
+        "Customer phone number is not available in the database."
+      );
     }
     if (!price) {
-      return toast.error("select price ");
+      return toast.error("Please select a price.");
     }
 
     const newdata = {

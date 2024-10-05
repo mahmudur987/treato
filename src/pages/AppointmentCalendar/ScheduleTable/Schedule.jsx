@@ -16,6 +16,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
   const [openMenuId, setOpenMenuId] = useState(null);
   const [otp, setOtp] = useState(null);
   const [durations, setDurations] = useState([]);
+  const [slotdurations, setSlotDurations] = useState([]);
   const [condition, setCondition] = useState(false);
   useEffect(()=>console.log(profiles))
 
@@ -33,6 +34,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
 
   useEffect(() => {
     generateTimeArray();
+    generateSlotTimeArray()
   }, []);
 
   useEffect(() => {
@@ -64,6 +66,28 @@ const ScheduleTable = ({ profiles, getdata }) => {
     }
 
     setDurations(timeArray);
+  };
+  const generateSlotTimeArray = () => {
+    const startTime = new Date();
+    startTime.setHours(7, 0, 0, 0); // 7:00 AM
+    const endTime = new Date();
+    endTime.setHours(22, 0, 0, 0); // 10:00 PM
+
+    const timeArray = [];
+    let currentTime = new Date(startTime);
+
+    while (currentTime <= endTime) {
+      timeArray.push(
+        currentTime.toLocaleTimeString([], {
+          hour12: false,
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      );
+      currentTime.setMinutes(currentTime.getMinutes() + 15);
+    }
+
+    setSlotDurations(timeArray);
   };
 
   const toggleMenu = (id) => {
@@ -221,11 +245,11 @@ const ScheduleTable = ({ profiles, getdata }) => {
     start.setHours(7, 0, 0, 0);
     const time = parseTimeStringToDate(timeString);
     const diff = (time - start) / (1000 * 60);
-    return Math.floor(diff / 30);
+    return Math.floor(diff / 15);
   };
 
   const createSlotsForProfile = (profile) => {
-    const slots = Array(durations.length)
+    const slots = Array(slotdurations.length)
       .fill(null)
       .map(() => []);
     profile.appointments.forEach((appointment) => {
@@ -414,7 +438,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         Started
                                       </div>
                                       <div
-                                        className={`${style.started} ${profile?.appointments[0]?.payment_mode==="online" ? '' :style .noShow} `}
+                                        className={`${style.started} ${profile?.appointments[0]?.payment_mode?.toLowerCase()==="online" ? '' :style .noShow} `}
                                         onClick={() =>
                                           noShowAppointment(service?.appid)
                                         }
