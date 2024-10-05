@@ -10,6 +10,7 @@ import {
   startedAppointment,
   otpVerification,
 } from "../../../services/calender";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 
 const ScheduleTable = ({ profiles, getdata }) => {
   const [openMenus, setOpenMenus] = useState({});
@@ -128,10 +129,12 @@ const ScheduleTable = ({ profiles, getdata }) => {
         return { textcolor: "#FFFFFF", background: "#DE2929" };
       case "completed":
         return { textcolor: "#FFFFFF", background: "#3AAB7C" };
-      case "cancel":
+      case "cancelled":
         return { textcolor: "#FFFFFF", background: "#DE2929" };
-      case "not-show":
+      case "no-show":
         return { textcolor: "#FFFFFF", background: "#3AAB7C" };
+      case "started":
+        return { textcolor: "#0D69D7", background: "#FFFFFF" };
       default:
         return { textcolor: "#FFFFFF", background: "#3AAB7C" };
     }
@@ -304,6 +307,9 @@ const ScheduleTable = ({ profiles, getdata }) => {
           &#10094;
         </button>
         <div className={style.carousel} id="header">
+          {!profiles &&
+          <LoadSpinner/>
+          }
           {profiles &&
             profiles.map((profile, index) => {
               const slots = createSlotsForProfile(profile);
@@ -317,8 +323,11 @@ const ScheduleTable = ({ profiles, getdata }) => {
                     <p>{profile.stylistName}</p>
                   </div>
                   <div className={style.slides}>
+                    {!slots &&
+                    <LoadSpinner/>
+                    }
                     {slots &&
-                      slots.map((slot, slotIndex) => (
+                      slots?.map((slot, slotIndex) => (
                         <div key={slotIndex} className={style.slot}>
                           {slot.map((service, serviceIndex) => {
                             if (service.isEmpty) {
@@ -362,20 +371,20 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                     <div className={style.clientDetailsBox}>
                                       <div>
                                         <p className={style.timeDurations}>
-                                          {service.time_takenby_service} (
-                                          {service.exactTime})
+                                          {service?.time_takenby_service} (
+                                          {service?.exactTime})
                                         </p>
                                         <p className={style.serviceNames}>
                                           {service.service_name}
                                         </p>
                                         
                                         <p className={style.clientNames}>
-                                          {service.clientName}
+                                          {service?.clientName}
                                         </p>
                                       </div>
                                       <svg
                                         onClick={() =>
-                                          toggleMenu(service.unique_id)
+                                          toggleMenu(service?.unique_id)
                                         }
                                         className={`${style.threeDot} w-6 h-6`}
                                         aria-hidden="true"
@@ -401,7 +410,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         display:`${totalMinutes<20? "none":""}`
                                       }}
                                     >
-                                      {service.status}
+                                      {service?.status}
                                     </button>
                                   </div>
                                   {openMenuId === service.unique_id && (
@@ -411,7 +420,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                           ? style.dropBox
                                           : style.cropBox
                                       }`}
-                                      key={service.unique_id}
+                                      key={service?.unique_id}
                                     >
                                       <div className={style.inputContainer}>
                                         <input
