@@ -31,6 +31,7 @@ const PersonalDetails = () => {
   const user = data?.data;
   const dateInputRef = useRef(null);
   const [date, setDate] = useState("Oct 8, 2022");
+  const [prevDate, setPrevDate] = useState(null);
   const [firstName, setFirstName] = useState("First Name");
   const [LastName, setLastName] = useState("Last Name");
   const [Email, setEmail] = useState("Email");
@@ -153,6 +154,32 @@ const PersonalDetails = () => {
         toast.error("Error updating profile");
       }
     }
+  };
+  const handleDateChange = (e) => {
+    const newDate = new Date(e.target.value);
+
+    // Check if previous date exists and compare days
+    if (prevDate && prevDate.getDate() === newDate.getDate()) {
+      return; // Only trigger if the day is changed
+    }
+
+    setBirthDate(e.target.value);
+
+    // Formatting the date
+    const options = {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    };
+    const formattedDate = newDate.toLocaleDateString("en-US", options);
+    setDate(formattedDate);
+
+    // Update active state and previous date
+    setActive((pre) => ({
+      ...pre,
+      DOB: false,
+    }));
+    setPrevDate(newDate);
   };
 
   if (isLoading) {
@@ -368,26 +395,7 @@ const PersonalDetails = () => {
 
                 <input
                   ref={dateInputRef}
-                  onChange={(e) => {
-                    setBirthDate(e.target.value);
-                    const selectedDate = new Date(e.target.value);
-                    const options = {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    };
-                    const formattedDate = selectedDate.toLocaleDateString(
-                      "en-US",
-                      options
-                    );
-                    setDate(formattedDate);
-                    setActive((pre) => {
-                      return {
-                        ...pre,
-                        DOB: false,
-                      };
-                    });
-                  }}
+                  onChange={handleDateChange}
                   type="date"
                   name="appointment date"
                 />
