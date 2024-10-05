@@ -29,8 +29,9 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
     };
     getAvailableOffers(getOfferData).then((res) => {
       setuserOffers(res?.res?.data?.data);
-
-      setOfferCount(res?.res?.data?.data ? res?.res?.data?.data : 0);
+      setOfferCount(
+        res?.res?.data?.data?.length ? res?.res?.data?.data?.length : 0
+      );
     });
     if (id && userDetails?._id && serviceDetails?.Amount) {
     }
@@ -47,7 +48,6 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
       setisError(true);
     }
   };
-  console.log(userOffers);
   return (
     <div className={styles.ModalMain}>
       <div className={styles.ModalMainA}>
@@ -66,13 +66,14 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
           </h3>
         )}
         <div className={styles.ModalMainB}>
-          {userOffers ? (
+          {userOffers && userOffers.length > 0 ? (
             userOffers?.map((e, i) => (
               <SalonOffers
                 isFromModal={true}
                 offerData={e}
                 key={i}
                 handleOfferClick={handleOfferClick}
+                selectedOffer={selectedOffer}
               />
             ))
           ) : (

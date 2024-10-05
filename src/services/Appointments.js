@@ -209,7 +209,7 @@ export const getAvailableOffers = async (data) => {
   const jwtToken = localStorage.getItem("jwtToken");
 
   try {
-    const res = await axiosInstance.post(`appointment/salon/offers`, data, {
+    const res = await axiosInstance.get(`/offers/all`, data, {
       headers: {
         token: jwtToken,
       },

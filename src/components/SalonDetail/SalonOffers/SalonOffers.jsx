@@ -5,7 +5,9 @@ export default function SalonOffers({
   isFromModal,
   offerData,
   handleOfferClick,
+  selectedOffer,
 }) {
+  console.log(offerData);
   return (
     <>
       {isFromModal ? (
@@ -26,7 +28,12 @@ export default function SalonOffers({
             </div>
           </div>
           <div className={styles.salon_offersModalB}>
-            <input type="radio" name="offers" id="" />
+            <input
+              type="radio"
+              name="offers"
+              id=""
+              checked={selectedOffer?._id === offerData?._id}
+            />
           </div>
         </div>
       ) : (
