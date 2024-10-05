@@ -82,8 +82,8 @@
 }
 .appointmentBox4{
     padding-bottom: 2px;
-    max-height: 134px;
-    min-height: 134px;
+    max-height: 67px;
+    min-height: 67px;
 }
 .appointmentBox3 {
     min-height: 134px;
@@ -221,6 +221,7 @@
 .appointmentBox {
     position:absolute;
     z-index: 5;
+    padding: 4px;
 }
 .clientDetailsBox svg {
     cursor: pointer;
@@ -280,7 +281,7 @@
 
 }
 .minheight{
-    min-height: 134px;
+    min-height: 67px;
 }
 .noShow{
     display: none;
