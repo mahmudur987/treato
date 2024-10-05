@@ -81,6 +81,7 @@
     min-height: 134px;
 }
 .appointmentBox4{
+    padding-bottom: 2px;
     max-height: 134px;
     min-height: 134px;
 }
@@ -147,6 +148,7 @@
 .serviceNames,
 .clientNames {
     color: #6D747A;
+    width: max-content;
 }
 
 .durationsBox {
@@ -280,6 +282,9 @@
 .minheight{
     min-height: 134px;
 }
+.noShow{
+    display: none;
+}
 
 @media screen and (max-width: 700px) {
     .header {
@@ -323,3 +328,5 @@
         min-width: 308px;
     }
 }
+
+
