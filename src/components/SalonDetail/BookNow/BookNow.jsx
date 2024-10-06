@@ -42,43 +42,32 @@ export default function BookNow({
   }, [salonServices]);
   let proceedPayment = () => {
     console.log("proceedPayment");
-
-    const isValidEmail = /\S+@\S+\.\S+/.test(contact.email);
-    const isValidPhone = contact.phone.length === 13;
+    const isValid = /\S+@\S+\.\S+/.test(contact.email);
 
     if (Disabled) {
       if (activeBookFlowBA === 1) {
-        toast.error("Please select your required services.");
+        toast.error("Please select your required services ");
       } else if (activeBookFlowBA === 2) {
         toast.error("Please select a stylist, date, and time slot to proceed.");
       } else {
-        toast.error("Please fill in all required details correctly.");
+        toast.error("Please fill all required details perfectly!");
       }
       console.log(guest);
-    } else if (activeBookFlowBA === 3) {
-      if (!isValidPhone) {
-        toast.error("Your phone number is incorrect.");
-      } else if (!isValidEmail) {
-        toast.error("Please enter a valid email address.");
-      } else {
-        // All details are correct, proceed to the next flow or payment
-        if (updateActiveBookFlowBA) {
-          updateActiveBookFlowBA(
-            activeBookFlowBA !== 4 ? activeBookFlowBA + 1 : 4
-          );
-        }
-
-        if (innerText === "Confirm Booking") {
-          handleOfflinePayment();
-          console.log("handleOfflinePayment");
-        } else if (innerText === "Pay ₹") {
-          handlePayment();
-        }
-
-        if (setCompletedPay) {
-          // Uncomment this line when you want to handle the completed payment state
-          // setCompletedPay(true);
-        }
+    } else if (activeBookFlowBA === 3 && contact.phone.length !== 13) {
+      toast.error("Your phone number is wrong");
+    } else if (!isValid && activeBookFlowBA === 3) {
+      toast.error("Write a perfect Email");
+    } else {
+      if (updateActiveBookFlowBA) {
+        updateActiveBookFlowBA(
+          activeBookFlowBA !== 4 ? activeBookFlowBA + 1 : 4
+        );
+      }
+      if (innerText === "Confirm Booking") {
+        handleOfflinePayment();
+        console.log("handleOfflinePayment");
+      } else if (innerText === "Pay ₹") {
+        handlePayment();
       }
     }
   };

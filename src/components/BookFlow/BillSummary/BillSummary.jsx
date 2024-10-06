@@ -219,12 +219,12 @@ export default function BillSummary({
     // console.log(billInfo);
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
-
       if (response?.success) {
         setOrderResponse(response?.order);
         toast.success("Appointment Booked successfully");
         setCompletedPay(true);
       } else if (res.err) {
+        console.error("error");
         toast.error(res?.err?.response?.data?.error ?? "Error");
       }
     });
