@@ -30,22 +30,24 @@ const DeleteReviewModal = ({ showModal, onClose, data }) => {
         reviewid: data?.id,
       },
     };
+
     try {
       const res = await axiosInstance.delete(url, requestData);
 
       console.log(res);
 
       if (res?.data) {
-        toast.success(res?.data?.message ?? "Review Delete Successfully");
+        toast.success(res?.data?.message ?? "Review deleted successfully.");
       }
 
       refetch();
       onClose();
     } catch (error) {
       console.error(error);
-      toast.error("Error");
+      toast.error("An error occurred while deleting the review.");
     }
   };
+
   return (
     <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
       <div className={styles.modalContent}>

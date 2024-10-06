@@ -161,11 +161,11 @@ const RescheduleAppointment = ({ data }) => {
     console.log("Selected Date:", date);
 
     if (!selectedDate || !selectedMonthYear || !selectedTimeSlot) {
-      return toast.error("please select your Time slot", { toastId: 1 });
+      return toast.error("Please select a time slot.", { toastId: 1 });
     }
+
     const reschedule = {
       date,
-
       time: selectedTimeSlot,
     };
     console.log(reschedule);
@@ -175,10 +175,13 @@ const RescheduleAppointment = ({ data }) => {
     if (res.res) {
       dispatch(closeModal());
       refetch();
-      return toast.success("The appointments Reschedule confirmed");
+      return toast.success(
+        "The appointment has been rescheduled successfully."
+      );
     }
+
     if (res.err) {
-      return toast.error("Not confirm please try again");
+      return toast.error("Rescheduling failed. Please try again.");
     }
   };
 
@@ -296,7 +299,8 @@ const RescheduleAppointment = ({ data }) => {
       <div className={styles.modalContent}>
         {data?.salonData.map((x, i) => (
           <div key={i} className={styles.salonInfo}>
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={x.salon_Img?.public_url}
               alt="frame1"
               className={styles.salonProfileImg}
@@ -315,7 +319,8 @@ const RescheduleAppointment = ({ data }) => {
             </h2>
             <h4>Date</h4>
             <div className={styles.service_timeMonth}>
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={rightIco}
                 alt="leftIcon"
                 onClick={handleDecrement}
@@ -326,7 +331,8 @@ const RescheduleAppointment = ({ data }) => {
                 }`}
               />
               <div>{`${months[showMonth]} ${showYear}`}</div>
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={rightIco}
                 alt="rightIcon"
                 onClick={handleIncrement}
@@ -387,9 +393,7 @@ const RescheduleAppointment = ({ data }) => {
         </div>
       </div>
 
-      <div 
-        className={styles.buttonBox}
-      >
+      <div className={styles.buttonBox}>
         <p
           style={{
             width: "50%",

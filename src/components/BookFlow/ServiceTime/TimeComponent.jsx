@@ -97,7 +97,9 @@ export default function TimeComponent({
       }
       onClick={(e) => {
         if (isPast && isToday) {
-          return toast.error("The slot is past", { toastId: 1 });
+          return toast.error("The selected time slot is in the past.", {
+            toastId: 1,
+          });
         }
 
         updateActiveTime(index);

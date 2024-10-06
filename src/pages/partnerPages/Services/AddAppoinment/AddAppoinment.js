@@ -121,34 +121,36 @@ const AddAppointment = () => {
   }, [givenDateString]);
 
   const handleSubmit = async () => {
-    if (!dateforService) {
-      return toast.error("Please select a date for the service.");
-    }
-    if (!service_id || service_id.length === 0) {
-      return toast.error("Please select at least one service.");
-    }
-    if (!time) {
-      return toast.error("Please select a time slot.");
-    }
-    if (isToday && isPast) {
-      return toast.error("The selected time slot has already passed.");
-    }
-    if (!name) {
-      return toast.error("Customer name is missing.");
-    }
-    if (!email) {
-      return toast.error("Customer email is missing.");
-    }
-    if (!phone) {
-      return toast.error(
-        "Customer phone number is not available in the database."
-      );
-    }
-    if (!price) {
-      return toast.error("Please select a price.");
+    const validations = [
+      {
+        condition: !dateforService,
+        message: "Please select a date for the service.",
+      },
+      {
+        condition: !service_id || service_id.length === 0,
+        message: "Please select at least one service.",
+      },
+      { condition: !time, message: "Please select a time slot." },
+      {
+        condition: isToday && isPast,
+        message: "The selected time slot has already passed.",
+      },
+      { condition: !name, message: "Customer name is missing." },
+      { condition: !email, message: "Customer email is missing." },
+      {
+        condition: !phone,
+        message: "Customer phone number is not available in the database.",
+      },
+      { condition: !price, message: "Please select a price." },
+    ];
+
+    for (const validation of validations) {
+      if (validation.condition) {
+        return toast.error(validation.message);
+      }
     }
 
-    const newdata = {
+    const appointmentData = {
       service_id,
       final_amount: Number(price),
       time,
@@ -164,7 +166,7 @@ const AddAppointment = () => {
       discount: Number(discount),
     };
 
-    setLoading(true);
+    setLoading(true); // Start loading
 
     try {
       const headers = {
@@ -172,18 +174,21 @@ const AddAppointment = () => {
       };
       const { data } = await axiosInstance.post(
         "/appointment/walkinAppointment",
-        newdata,
-        {
-          headers,
-        }
+        appointmentData,
+        { headers }
       );
+
       toast.success(
-        data ? data.message : "A New Appointment Has Been Added Successfully "
+        data?.message || "A new appointment has been added successfully."
       );
     } catch (error) {
-      toast.error(error ? error.message : "Failed");
+      console.error("Error while submitting appointment:", error);
+      toast.error(
+        error?.response?.data?.message || "Failed to add appointment."
+      );
+    } finally {
+      setLoading(false); // Reset loading state
     }
-    setLoading(false);
   };
 
   const handleCancel = () => {

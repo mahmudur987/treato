@@ -31,13 +31,13 @@ const AddNewClient = ({
     e.preventDefault();
 
     if (!firstName) {
-      return toast.error("Write your First Name");
+      return toast.error("Please enter your first name.");
     }
     if (!phone) {
-      return toast.error("Write your First Name");
+      return toast.error("Please enter your phone number.");
     }
     if (!email) {
-      return toast.error("Write your First Name");
+      return toast.error("Please enter your email address.");
     }
 
     const data = {

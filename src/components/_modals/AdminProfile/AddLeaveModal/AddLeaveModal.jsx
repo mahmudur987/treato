@@ -38,11 +38,11 @@ const AddLeaveModal = ({ onClose }) => {
       token: localStorage.getItem("jwtToken"),
     };
     if (!startDate || !endDate) {
-      return toast.error("select start/end date");
+      return toast.error("Please select both start and end dates.");
     }
 
     if ((!isFullDayLeave && !startTime) || (!isFullDayLeave && !endTime)) {
-      return toast.error("select start/end Time");
+      return toast.error("Please select both start and end times.");
     }
 
     const leaveData = {
@@ -60,15 +60,20 @@ const AddLeaveModal = ({ onClose }) => {
     try {
       const { data } = await axiosInstance.patch(url, leaveData, { headers });
       console.log(data);
-      toast.success(data.message);
+      toast.success(data.message ?? "Leave added successfully.");
       onClose();
       sethandleShift(false);
       refetch();
     } catch (error) {
-      toast.error(error.message);
+      toast.error(
+        error.message
+          ? `An error occurred: ${error.message}`
+          : "An unknown error occurred."
+      );
       console.log(error);
     }
   };
+
   return (
     <div className={styles.shareMain}>
       <div className={styles.shareA}>

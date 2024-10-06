@@ -47,12 +47,14 @@ const DeactivatedAllSalon = ({
       );
 
       if (data) {
-        toast.success("Salon activated successfully!");
+        toast.success("Salon reactivated successfully!");
         refetch();
       }
     } catch (error) {
       console.error(error);
-      toast.error(error ? error?.message : "Error");
+      toast.error(
+        error?.message || "An error occurred while reactivating the salon."
+      );
     }
   };
 
@@ -61,16 +63,26 @@ const DeactivatedAllSalon = ({
       const deleteData = {
         salonId: [id],
       };
-      const headers = {};
+      const headers = {
+        token: localStorage.getItem("jwtToken"), // Include token in headers if needed
+      };
 
-      const { data } = await axiosInstance.post("", headers, deleteData);
+      // Ensure you provide the correct endpoint for deletion
+      const { data } = await axiosInstance.post(
+        "/super/salon/delete",
+        deleteData,
+        { headers }
+      );
 
       if (data) {
         toast.success("Salon deleted successfully!");
+        refetch(); // Assuming you want to refresh the data after deletion
       }
     } catch (error) {
       console.error(error);
-      toast.error(error ? error?.message : "Error");
+      toast.error(
+        error?.message || "An error occurred while deleting the salon."
+      );
     }
   };
 

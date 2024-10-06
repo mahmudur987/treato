@@ -35,19 +35,31 @@ const CancelAppointment = ({ data }) => {
     const cancelReason = {
       reason: selectedOption ? selectedOption : textareaValue,
     };
+
     if (selectedOption || textareaValue) {
       const res = await cancelleUpcomingdAppointment(data?._id, cancelReason);
       console.log(res);
+
       if (res.res) {
         dispatch(closeModal());
-        return toast.success("The appointment is cancellled successfully ", {
-          toastId: 1,
+        return toast.success(
+          "The appointment has been canceled successfully.",
+          {
+            toastId: 1,
+          }
+        );
+      }
+
+      if (res.err) {
+        return toast.error("Cancellation not confirmed. Please try again.", {
+          toastId: 2,
         });
       }
-      if (res.err) {
-        return toast.error("Not confirm please try again", { toastId: 2 });
-      }
-    } else toast.error("please select a option", { toastId: 3 });
+    } else {
+      toast.error("Please select an option or provide a reason.", {
+        toastId: 3,
+      });
+    }
   };
 
   return (
@@ -55,7 +67,12 @@ const CancelAppointment = ({ data }) => {
       <h1 className={styles.modalTitle}>Cancel Appointment</h1>
       <div className={styles.modalContent}>
         <div className={styles.salonInfo}>
-          <img loading="lazy" src={frame1} alr="frame1" className={styles.salonProfileImg} />
+          <img
+            loading="lazy"
+            src={frame1}
+            alr="frame1"
+            className={styles.salonProfileImg}
+          />
           <div className={styles.details}>
             <h4 className={styles.salonName}>She Hair & Beauty</h4>
             <p className={styles.appointmentDate}>

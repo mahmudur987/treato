@@ -45,28 +45,29 @@ export default function SingleSalonDetail() {
   }, [data]);
 
   const handleDeactivate = async () => {
-    try {
-      const headers = {
-        token: localStorage.getItem("jwtToken"),
-      };
+    const headers = {
+      token: localStorage.getItem("jwtToken"),
+    };
 
+    try {
       const { data } = await axiosInstance.patch(
         "super/salondeactivate",
-
         {
           ids: [id],
         },
-
         { headers }
       );
 
       if (data) {
-        toast.success("Salon Deactivated successfully");
+        toast.success("Salon deactivated successfully");
         navigate("/admin/salon/active");
       }
     } catch (error) {
-      console.error("error", error);
-      toast.error(error ? error.message : "Error");
+      console.error("Error deactivating salon:", error);
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while deactivating the salon. Please try again."
+      );
     }
   };
 
@@ -166,7 +167,7 @@ export default function SingleSalonDetail() {
           </div>
           <div className={styles.salon_infoA}>
             <p>{SalonDetails1 ? SalonDetails1.salon_address : null}</p>{" "}
-            <p  className={styles.viewBtn} >View map</p>
+            <p className={styles.viewBtn}>View map</p>
           </div>
         </div>
       </div>

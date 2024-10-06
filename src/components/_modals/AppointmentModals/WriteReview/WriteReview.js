@@ -39,25 +39,34 @@ const WriteReview = ({ data }) => {
     setTextareaError(""); // Clear textarea error when the user types
   };
   const handleSubmit = async () => {
-    // Validate input fields
+    // Initialize validity flag
     let isValid = true;
 
+    // Validate title
     if (titleValue.trim() === "") {
-      setTitleError("Title is required");
+      setTitleError("Please enter a title for your review.");
       isValid = false;
     }
 
+    // Validate review text
     if (textareaValue.trim() === "") {
-      setTextareaError("Review is required");
+      setTextareaError("Please provide the content of your review.");
       isValid = false;
     }
+
+    // Validate service rating
     if (rating === 0) {
-      setRatingError("Rating is required");
+      setRatingError("Please select a rating for the service.");
       isValid = false;
     }
+
+    // Validate stylist rating
     if (stylistRating === 0) {
-      setStylistRatingError("Rating is required");
+      setStylistRatingError("Please select a rating for the stylist.");
+      isValid = false;
     }
+
+    // If all inputs are valid, proceed to submit the review
     if (isValid) {
       const review = {
         serviceRate: rating,
@@ -65,18 +74,27 @@ const WriteReview = ({ data }) => {
         review: titleValue,
         description: textareaValue,
       };
-      const res = await addReview(data._id, review);
-      console.log(res);
 
-      if (res.res) {
-        dispatch(closeModal());
-        toast.success("your review is successfully posted");
-      }
-      if (res.err) {
-        toast.error("Some Error");
+      try {
+        const res = await addReview(data._id, review);
+        console.log(res);
+
+        if (res.res) {
+          dispatch(closeModal());
+          toast.success("Your review has been posted successfully.");
+        } else {
+          toast.error(
+            "An error occurred while posting your review. Please try again."
+          );
+        }
+      } catch (error) {
+        toast.error(
+          "A network error occurred. Please check your connection and try again."
+        );
       }
     }
   };
+
   function handleClose() {
     dispatch(closeModal());
   }
@@ -85,7 +103,12 @@ const WriteReview = ({ data }) => {
       <h1 className={styles.modalTitle}>Write a review</h1>
       <div className={styles.modalContent}>
         <div className={styles.salonInfo}>
-          <img loading="lazy" src={frame1} alr="frame1" className={styles.salonProfileImg} />
+          <img
+            loading="lazy"
+            src={frame1}
+            alr="frame1"
+            className={styles.salonProfileImg}
+          />
           <div className={styles.details}>
             <h4 className={styles.salonName}>She Hair & Beauty</h4>
             <p className={styles.appointmentDate}>

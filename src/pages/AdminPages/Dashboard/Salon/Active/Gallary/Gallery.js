@@ -24,30 +24,33 @@ const ActiveSalonGallery = () => {
     setImages(data?.data);
   }, [data]);
 
-  const handleDelete = async (x) => {
+  const handleDelete = async (imageId) => {
     const deleteData = {
       salon_id: id,
-      image_id: x,
+      image_id: imageId,
     };
     console.log(deleteData);
+
+    const headers = {
+      token: adminToken,
+    };
+
     try {
-      const headers = {
-        token: adminToken,
-      };
+      const { data } = await axiosInstance.delete("super/salonimagedelete", {
+        headers,
+        data: deleteData, // Pass deleteData in the request body
+      });
 
-      const { data } = await axiosInstance.delete(
-        "super/salonimagedelete",
-        { headers },
-        deleteData
-      );
       if (data) {
-        toast.success("Image Delete Successfully");
+        toast.success("Image deleted successfully");
+        refetch();
       }
-
-      refetch();
     } catch (error) {
-      console.error("error", error);
-      toast.error(error ? error.message : "Error");
+      console.error("Error deleting image:", error);
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while deleting the image. Please try again."
+      );
     }
   };
 
