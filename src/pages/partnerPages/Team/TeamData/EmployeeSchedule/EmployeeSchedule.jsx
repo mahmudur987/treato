@@ -50,11 +50,8 @@ const EmployeeSchedule = () => {
   const [endDate, setEndDate] = useState(null);
   const { data, isLoading, isError, error, refetch } = useGetAllTeamMemSche();
   const toggleShiftTimes = (index) => {
-    return toast.error("Shifting systems are not available right now");
-
-    // const newShiftTimesVisible = [...shiftTimesVisible];
-    // newShiftTimesVisible[index] = !newShiftTimesVisible[index];
-    // setShiftTimesVisible(newShiftTimesVisible);
+    // Show error message if shifting systems are not available
+    toast.error("Shifting systems are not available right now");
   };
   const teamMembers = data?.data.map((x) => {
     return {
@@ -153,21 +150,25 @@ const EmployeeSchedule = () => {
   };
 
   const handleSubmit = async () => {
+    // Validate inputs
     if (!startDate) {
-      return toast.error("select start date");
+      return toast.error("Please select a start date.");
     }
     if (!endDate) {
-      return toast.error("select end date");
+      return toast.error("Please select an end date.");
     }
     if (!selectedMember) {
-      return toast.error("select member");
+      return toast.error("Please select a member.");
     }
     if (selectedSlots.length === 0) {
-      return toast.error("select slots");
+      return toast.error("Please select at least one slot.");
     }
 
+    // Format dates
     const scheduleStart = formatStateDate(startDate);
     const scheduleEnd = formatStateDate(endDate);
+
+    // Prepare submit data
     const submitData = {
       scheduleStart,
       scheduleEnd,
@@ -175,23 +176,37 @@ const EmployeeSchedule = () => {
       dayWiseShift: selectedSlots,
     };
 
-    console.log(submitData);
+    console.log("Submitting Data:", submitData);
 
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };
+
     try {
+      // Start loading indicator
+
+      // Make the API request
       const { data } = await axiosInstance.patch(
         "stylist/editEmployeeSchedule",
         submitData,
         { headers }
       );
-      console.log(data);
-      toast.success(data?.message || "");
+
+      // Show success message
+      toast.success(data?.message || "Schedule updated successfully!");
+
+      // Optionally refetch or perform other actions here
     } catch (error) {
-      console.log(error);
+      // Handle error
+      console.error("Error updating schedule:", error);
+      const errorMessage =
+        error.response?.data?.message || "An error occurred. Please try again.";
+      toast.error(errorMessage);
+    } finally {
+      // Stop loading indicator
     }
   };
+
   if (isLoading) {
     return <LoadSpinner />;
   }

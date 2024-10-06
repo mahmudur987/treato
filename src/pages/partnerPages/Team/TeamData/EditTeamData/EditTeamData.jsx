@@ -95,52 +95,71 @@ const EditTeamData = () => {
   }, [member]);
 
   const lastDate = formatDate(serviceEndDate);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const phoneAsNumber = Number(phone);
-    if (isNaN(phoneAsNumber)) {
-      return toast.error("Phone number is not valid");
+
+    // Validate inputs
+    if (!firstName && !member?.data.stylist_name) {
+      return toast.error("Please provide a stylist name.");
+    }
+    if (!serviceTitle) {
+      return toast.error("Please write your service title.");
+    }
+    if (!picture) {
+      return toast.error("Please select a picture.");
+    }
+    if (!address) {
+      return toast.error("Please write your address.");
     }
 
+    const phoneAsNumber = Number(phone);
+    if (isNaN(phoneAsNumber)) {
+      return toast.error("Phone number is not valid.");
+    }
+
+    // Prepare form data
     const formData = new FormData();
-    formData.append(
-      "stylist_name",
-      `${firstName ? firstName : member?.data.stylist_name} ${lastName}`
-    );
+    const fullName = `${firstName || member?.data.stylist_name} ${
+      lastName || ""
+    }`.trim();
+
+    formData.append("stylist_name", fullName);
     formData.append("stylist_service", serviceTitle);
     formData.append("stylist_Img", picture); // Assuming 'picture' is the file object
     formData.append("rating", "4.5");
     formData.append("stylist_number", phoneAsNumber);
     formData.append("stylist_address", address);
     formData.append("last_date", lastDate);
+
     time_for_service.forEach((time) => {
       formData.append("time_for_service[]", time);
     });
+
     selectedServices.forEach((service) => {
       formData.append("services[]", service); // Appending services as array
     });
+
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };
+
     setLoading(true);
     try {
       const { data } = await axiosInstance.patch(
         `stylist/updateStylist/${id}`,
         formData,
-        {
-          headers,
-        }
+        { headers }
       );
       console.log(data);
-      toast.success(data.message);
-      setLoading(false);
-      refetch();
+      toast.success(data.message || "Stylist updated successfully.");
+      refetch(); // Re-fetch data if needed
     } catch (error) {
-      console.log("error", error);
-      setLoading(false);
-
-      toast.error(error.message);
+      console.log("Error:", error);
+      toast.error(
+        error.response?.data?.message || "An error occurred. Please try again."
+      );
+    } finally {
+      setLoading(false); // Ensure loading state is reset
     }
   };
 

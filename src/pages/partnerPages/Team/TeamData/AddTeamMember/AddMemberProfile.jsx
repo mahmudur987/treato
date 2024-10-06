@@ -71,60 +71,65 @@ const AddMemberProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!firstName) {
-      return toast.error("write your first name");
+
+    // Input validations
+    if (!firstName) return toast.error("Please write your first name.");
+    if (!serviceTitle) return toast.error("Please write your service title.");
+    if (!picture) return toast.error("Please select a picture.");
+
+    if (!phone || phone.length < 10) {
+      return toast.error("The phone number should be at least 10 digits long.");
     }
-    if (!serviceTitle) {
-      return toast.error("write your Service Title");
-    }
-    if (!picture) {
-      return toast.error("Select a picture");
-    }
-    if (!phone || phone.length < 13) {
-      return toast.error("The phone number should be up to 10 digits long.");
-    }
-    if (!address) {
-      return toast.error("write your address ");
-    }
+
     const phoneAsNumber = Number(phone);
-    if (isNaN(phoneAsNumber)) {
-      return toast.error("Phone number is not valid");
+    if (isNaN(phoneAsNumber) || phoneAsNumber.toString().length !== 10) {
+      return toast.error("Phone number is not valid.");
     }
+
+    if (!address) return toast.error("Please write your address.");
+
+    // Prepare form data
     const formData = new FormData();
     formData.append("stylist_name", `${firstName} ${lastName}`);
     formData.append("stylist_service", serviceTitle);
-    formData.append("stylist_Img", picture); // Assuming 'picture' is the file object
+    formData.append("stylist_Img", picture);
     formData.append("rating", "4.5");
     formData.append("stylist_number", phoneAsNumber);
     formData.append("stylist_address", address);
+
+    // Append time and services
     time_for_service.forEach((time) => {
       formData.append("time_for_service[]", time);
     });
     selectedServices.forEach((service) => {
       formData.append("services[]", service);
     });
+
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };
+
     setLoading(true);
     try {
       const { data } = await axiosInstance.post("stylist/new", formData, {
         headers,
       });
       console.log(data);
-
       toast.success("Team member added successfully");
+
+      // Reset form fields
       setPhone("");
       setFirstName("");
       setAddress("");
-      setAddress("");
       setServiceTitle("");
       setPicture(null);
-      setLoading(false);
     } catch (error) {
-      console.log("error", error);
-      setLoading(false);
-      toast.error(error.message);
+      console.log("Error:", error);
+      toast.error(
+        error.response?.data?.message || "An error occurred. Please try again."
+      );
+    } finally {
+      setLoading(false); // Ensure loading state is reset
     }
   };
 
@@ -152,7 +157,8 @@ const AddMemberProfile = () => {
           <div className={styles.usr_detail_head}>
             <Link to={"/partner/dashboard/TeamManageMent"}>
               <span>
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={arrowLeft}
                   alt="arrowLeft"
                   className={styles.Pictures}
@@ -174,7 +180,8 @@ const AddMemberProfile = () => {
                     className={styles.profileRounded}
                     onClick={handleButtonClick}
                   >
-                    <img loading="lazy"
+                    <img
+                      loading="lazy"
                       src={picture ? URL.createObjectURL(picture) : profileImg}
                       alt="profileImg"
                       className={styles.Rounded}
@@ -186,7 +193,8 @@ const AddMemberProfile = () => {
                       onChange={handleFileChange}
                       className={styles.inputBox}
                     />
-                    <img loading="lazy"
+                    <img
+                      loading="lazy"
                       src={Profile_Pic}
                       alt="Profile_Pic"
                       className={styles.profileAdd}
