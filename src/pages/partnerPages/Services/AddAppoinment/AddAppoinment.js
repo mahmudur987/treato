@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useMemo, useState } from "react";
 import styles from "./AddAppointment.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import AppointmentDetails, {
@@ -33,19 +33,19 @@ const AddAppointment = () => {
     email: "",
   });
   const [comments, setComments] = useState("");
-  const { name, email, phone } = customerDetails;
+
   const { service_id, time, dateforService, additionalComments } =
     servicesDetails || {};
   const { data, isLoading, isError, error } = useSingleSalon();
-
-  const teamMembers =
-    data?.salon?.stylists?.map((x) => {
-      return {
+  const teamMembers = useMemo(() => {
+    return (
+      data?.salon?.stylists?.map((x) => ({
         name: x.stylist_name,
         imageUrl: x.stylist_Img.public_url,
         id: x._id,
-      };
-    }) || [];
+      })) || []
+    );
+  }, [data?.salon?.stylists]);
 
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
@@ -55,12 +55,13 @@ const AddAppointment = () => {
     if (teamMembers.length > 0) {
       setSelectedTeamMember(teamMembers.length > 0 ? teamMembers[0] : {});
     }
-  }, [data]);
+  }, [teamMembers]);
 
   const [isPast, setIsPast] = useState(false);
   const [isToday, setIsToday] = useState(false);
   const givenDateString = dateforService || null;
   const givenTimeString = time;
+  const { name, email, phone } = customerDetails;
   useEffect(() => {
     if (givenTimeString) {
       const currentTime = new Date();
@@ -118,7 +119,7 @@ const AddAppointment = () => {
       }
     }
   }, [givenDateString]);
-
+  console.log(customerDetails);
   const handleSubmit = async () => {
     if (!dateforService) {
       return toast.error("select date ");
@@ -185,9 +186,9 @@ const AddAppointment = () => {
   const handleCancel = () => {
     window.location.reload();
   };
-  const backNavigate=()=>{
+  const backNavigate = () => {
     navigate(-1);
-  }
+  };
 
   return (
     <AddAppointmentContext.Provider

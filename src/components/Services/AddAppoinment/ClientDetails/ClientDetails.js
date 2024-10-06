@@ -20,7 +20,7 @@ const ClientsDetails = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const { data, isLoading, isError, error } = useGetClients();
+  const { data, isLoading, isError } = useGetClients();
 
   const [selectedClient, setSelectedClient] = useState({
     name: "No Clients ",
@@ -36,6 +36,9 @@ const ClientsDetails = () => {
     );
     setClients(searchResult);
     setSelectedClient(
+      searchResult?.length > 0 && !searchText ? searchResult[0] : ""
+    );
+    setCustomerDetails(
       searchResult?.length > 0 && !searchText ? searchResult[0] : ""
     );
   }, [data, searchText]);

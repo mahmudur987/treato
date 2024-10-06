@@ -81,8 +81,9 @@
     min-height: 134px;
 }
 .appointmentBox4{
-    max-height: 134px;
-    min-height: 134px;
+    padding-bottom: 2px;
+    max-height: 67px;
+    min-height: 67px;
 }
 .appointmentBox3 {
     min-height: 134px;
@@ -147,6 +148,7 @@
 .serviceNames,
 .clientNames {
     color: #6D747A;
+    width: max-content;
 }
 
 .durationsBox {
@@ -219,6 +221,7 @@
 .appointmentBox {
     position:absolute;
     z-index: 5;
+    padding: 4px;
 }
 .clientDetailsBox svg {
     cursor: pointer;
@@ -278,7 +281,10 @@
 
 }
 .minheight{
-    min-height: 134px;
+    min-height: 67px;
+}
+.noShow{
+    display: none;
 }
 
 @media screen and (max-width: 700px) {
@@ -323,3 +329,5 @@
         min-width: 308px;
     }
 }
+
+
