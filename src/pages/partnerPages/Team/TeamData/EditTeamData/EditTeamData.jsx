@@ -99,23 +99,23 @@ const EditTeamData = () => {
     e.preventDefault();
 
     // Validate inputs
-    if (!firstName && !member?.data.stylist_name) {
-      return toast.error("Please provide a stylist name.");
-    }
-    if (!serviceTitle) {
-      return toast.error("Please write your service title.");
-    }
-    if (!picture) {
-      return toast.error("Please select a picture.");
-    }
-    if (!address) {
-      return toast.error("Please write your address.");
-    }
+    // if (!firstName && !member?.data.stylist_name) {
+    //   return toast.error("Please provide a stylist name.");
+    // }
+    // if (!serviceTitle) {
+    //   return toast.error("Please write your service title.");
+    // }
+    // if (!picture) {
+    //   return toast.error("Please select a picture.");
+    // }
+    // if (!address) {
+    //   return toast.error("Please write your address.");
+    // }
 
     const phoneAsNumber = Number(phone);
-    if (isNaN(phoneAsNumber)) {
-      return toast.error("Phone number is not valid.");
-    }
+    // if (isNaN(phoneAsNumber)) {
+    //   return toast.error("Phone number is not valid.");
+    // }
 
     // Prepare form data
     const formData = new FormData();
