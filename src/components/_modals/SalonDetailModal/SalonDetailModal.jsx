@@ -10,6 +10,7 @@ import { getAvailableOffers } from "../../../services/Appointments";
 import {
   updateAmount,
   updateAppliedOffer,
+  updateOfferAmount,
 } from "../../../redux/slices/salonServices";
 import { toast } from "react-toastify";
 export default function SalonDetailModal({ setShowModal, setOfferCount }) {
@@ -20,6 +21,9 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [userOffers, setuserOffers] = useState(null);
+  const selectedServices = useSelector(
+    (state) => state?.salonServices?.salonContent
+  );
 
   useEffect(() => {
     let getOfferData = {
@@ -38,11 +42,23 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
   }, [serviceDetails, userDetails]);
 
   const handleOfferClick = (Data) => {
-    dispatch(updateAppliedOffer(Data));
-    setselectedOffer(Data);
+    let prices = selectedServices.map((v, i) => {
+      return v.service_price;
+    });
+    let totalPrice = prices.reduce((a, b) => a + b, 0);
+    if (totalPrice > Data?.least_amount_for_discount) {
+      dispatch(updateAppliedOffer(Data));
+      setselectedOffer(Data);
+
+      const saveAmount = (totalPrice * Data.discount_percentage) / 100;
+
+      dispatch(updateOfferAmount(saveAmount));
+    } else {
+      return toast.error("You are not eligible for this offer");
+    }
   };
   const handleApplyOffer = () => {
-    if (selectedOffer !== null && selectedOffer.amount_for_discount) {
+    if (selectedOffer !== null) {
       setShowModal(false);
     } else {
       setisError(true);

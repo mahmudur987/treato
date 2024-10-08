@@ -57,6 +57,7 @@ export default function BillSummary({
   );
   const userDetails = useSelector((state) => state?.user?.user);
   const serviceDetails = useSelector((state) => state?.salonServices);
+  const saveAmount = useSelector((state) => state?.salonServices?.offerAmount);
   const visitorDetails = useSelector((state) => state?.VisitorDetails);
 
   useEffect(() => {
@@ -97,14 +98,12 @@ export default function BillSummary({
       dispatch(updateServiceTaxPrice(taxAmount));
       setTotalServicesPrice(totalPrice.toLocaleString());
       setTaxPrice(taxAmount.toLocaleString());
-      if (selectedOffer?.amount_for_discount) {
-        setamountToPay(
-          (
-            totalPrice +
-            taxAmount -
-            selectedOffer?.amount_for_discount
-          ).toLocaleString()
-        );
+      const Amount = totalPrice + taxAmount;
+
+      if (selectedOffer) {
+        const payAbleAmount =
+          Amount - (Amount * selectedOffer?.discount_percentage) / 100;
+        setamountToPay(payAbleAmount.toLocaleString());
       } else {
         setamountToPay((totalPrice + taxAmount).toLocaleString());
         dispatch(updateAmount(totalPrice + taxAmount));
@@ -306,7 +305,7 @@ export default function BillSummary({
                   </span>
                 </div>
                 <div className={styles.secondLine}>
-                  ₹{selectedOffer?.amount_for_discount} savings on this order
+                  ₹{saveAmount} savings on this order
                 </div>
               </div>
               <div className={styles.deleteOption} onClick={handleDeleteOffer}>

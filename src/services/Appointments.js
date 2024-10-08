@@ -219,7 +219,21 @@ export const getAvailableOffers = async (data) => {
     return { err: error, res: null };
   }
 };
+export const useGetAllSalonOffer = () => {
+  return useQuery({
+    queryKey: [],
+    queryFn: async () => {
+      const jwtToken = localStorage.getItem("jwtToken");
+      const { data } = await axiosInstance.get(`/offers/all`, {
+        headers: {
+          token: jwtToken,
+        },
+      });
 
+      return data;
+    },
+  });
+};
 export const bookSalonAppointment = async (data) => {
   const jwtToken = localStorage.getItem("jwtToken");
   console.log(data);

@@ -7,54 +7,55 @@ import SalonMap from "../SalonMap/SalonMap";
 import BookNow from "../BookNow/BookNow";
 import { memo, useState } from "react";
 import { useEffect } from "react";
+import { useGetAllSalonOffer } from "../../../services/Appointments";
 
 export default function SalonCard({ SalonData, salonId }) {
   let storeSchedule = SalonData?.working_hours;
-
   const [checkSalonOpen, setCheckSalonOpen] = useState(false);
-
+  const { data: offer, isError, isLoading } = useGetAllSalonOffer();
   useEffect(() => {
-    const checkIfOpen = () => {
-      const now = new Date();
-      const currentDay = now.toLocaleString("en-US", { weekday: "long" });
-      const currentTime = now.getHours() * 60 + now.getMinutes(); // Current time in minutes
+    if (storeSchedule) {
+      const checkIfOpen = () => {
+        const now = new Date();
+        const currentDay = now.toLocaleString("en-US", { weekday: "long" });
+        const currentTime = now.getHours() * 60 + now.getMinutes(); // Current time in minutes
 
-      const todaySchedule = storeSchedule.find((day) => day.day === currentDay);
+        const todaySchedule = storeSchedule.find(
+          (day) => day.day === currentDay
+        );
 
-      if (todaySchedule) {
-        const openingTime = convertTimeToMinutes(todaySchedule.opening_time);
-        const closingTime = convertTimeToMinutes(todaySchedule.closing_time);
+        if (todaySchedule) {
+          const openingTime = convertTimeToMinutes(todaySchedule.opening_time);
+          const closingTime = convertTimeToMinutes(todaySchedule.closing_time);
 
-        // Check if current time is within opening and closing times
-        if (currentTime >= openingTime && currentTime <= closingTime) {
-          setCheckSalonOpen(true);
-        } else {
-          setCheckSalonOpen(false);
+          // Check if current time is within opening and closing times
+          if (currentTime >= openingTime && currentTime <= closingTime) {
+            setCheckSalonOpen(true);
+          } else {
+            setCheckSalonOpen(false);
+          }
         }
-      }
-    };
+      };
 
-    // Convert time in "hh:mm AM/PM" to minutes
-    const convertTimeToMinutes = (timeString) => {
-      const [time, modifier] = timeString.split(" ");
-      let [hours, minutes] = time.split(":").map(Number);
+      // Convert time in "hh:mm AM/PM" to minutes
+      const convertTimeToMinutes = (timeString) => {
+        const [time, modifier] = timeString.split(" ");
+        let [hours, minutes] = time.split(":").map(Number);
 
-      if (modifier === "PM" && hours !== 12) hours += 12;
-      if (modifier === "AM" && hours === 12) hours = 0;
+        if (modifier === "PM" && hours !== 12) hours += 12;
+        if (modifier === "AM" && hours === 12) hours = 0;
 
-      return hours * 60 + minutes;
-    };
+        return hours * 60 + minutes;
+      };
 
-    checkIfOpen();
+      checkIfOpen();
 
-    // Optionally, you can set an interval to check every minute
-    const intervalId = setInterval(checkIfOpen, 60000);
+      const intervalId = setInterval(checkIfOpen, 60000);
 
-    return () => clearInterval(intervalId); // Clear interval when component unmounts
+      return () => clearInterval(intervalId);
+    }
   }, [storeSchedule]);
-
-  console.log(SalonData?.working_hours);
-
+  console.log(offer);
   return (
     <div className={styles.salon_card}>
       <div className={styles.salon_cardA}>
@@ -74,13 +75,12 @@ export default function SalonCard({ SalonData, salonId }) {
       <div className={styles.salon_cardC}>
         <BookNow salonId={salonId ? salonId : null} />
       </div>
-      <div className={styles.salon_cardD}>
-        <img loading="lazy" src={discount} alt="" />
-        <div>
-          Use code <span>BEAUTY100</span> during checkout and get 15% off up to
-          ₹99. <span>T&C apply</span>
+      {offer && !isLoading && !isError && (
+        <div className={styles.salon_cardD}>
+          <img loading="lazy" src={discount} alt="" />
+          <div>{offer?.data[0]?.description}</div>
         </div>
-      </div>
+      )}
       <div className={styles.salon_cardD}>
         <img loading="lazy" src={clock} alt="" />
         <div>
