@@ -7,7 +7,6 @@ export default function SalonOffers({
   handleOfferClick,
   selectedOffer,
 }) {
-  console.log(offerData);
   return (
     <>
       {isFromModal ? (

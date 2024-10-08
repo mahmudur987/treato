@@ -82,7 +82,7 @@ const AddMemberProfile = () => {
     }
 
     const phoneAsNumber = Number(phone);
-    if (isNaN(phoneAsNumber) || phoneAsNumber.toString().length !== 10) {
+    if (isNaN(phoneAsNumber)) {
       return toast.error("Phone number is not valid.");
     }
 
