@@ -1,0 +1,87 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .modal {
+    background-color: white;
+    padding: 20px;
+    width: 450px;
+    height: auto;
+    border-radius: 8px;
+    position: relative;
+  }
+  
+  .modalHeader {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .modalHeader h2 {
+    margin: 0;
+  }
+  
+  .closeBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .modalBody {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: auto;
+    width: 100%;
+  }
+  .TableHeader, .DataTableHeader{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .timeSlots, .DatatimeSlots{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .timeSlots h3{
+    min-width: fit-content;
+  }
+.DataTableHeader{
+    font-size: 14px;
+    font-weight: 400;
+    color: #6D747A;
+}
+.DatatimeSlots{
+    justify-content: space-around;
+}
+
+
+  
+  .openModalBtn {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  

@@ -7,8 +7,10 @@ import SalonMap from "../SalonMap/SalonMap";
 import BookNow from "../BookNow/BookNow";
 import { memo, useState } from "react";
 import { useEffect } from "react";
+import SalonTimingModal from "../../_modals/SalonTimingModal/SalonTiming";
 
 export default function SalonCard({ SalonData, salonId }) {
+  const [showTiming, setShowTiming] = useState(false)
   const currentTime = new Date().toLocaleTimeString();
   let [checkSalonOpen, setCheckSalonOpen] = useState(false);
   useEffect(() => {
@@ -19,6 +21,10 @@ export default function SalonCard({ SalonData, salonId }) {
       }
     }
   }, [SalonData]);
+
+  const seeTiming =()=>{
+    setShowTiming(true);
+  }
   return (
     <div className={styles.salon_card}>
       <div className={styles.salon_cardA}>
@@ -54,10 +60,14 @@ export default function SalonCard({ SalonData, salonId }) {
               {SalonData?.working_hours[0]?.day}
             </div>
           </div>
-          <div className={styles.salon_cardDB}>See timings</div>
+          <div className={styles.salon_cardDB} onClick={seeTiming} >See timings</div>
         </div>
       </div>
       <SalonMap SalonData={SalonData ? SalonData : null} />
+      {showTiming &&
+      <SalonTimingModal setShowTiming={setShowTiming} SalonData={SalonData} />
+      }
+      
     </div>
   );
 }
