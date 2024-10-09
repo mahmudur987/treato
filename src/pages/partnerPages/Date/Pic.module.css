@@ -4,21 +4,22 @@
 
 .dateInp {
   width: 174px;
-  height: 38px;
+  min-height: 48px;
   padding: 8px, 10px, 8px, 10px;
   border-radius: 4px;
   border: 1px solid #ced4da;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 /* .place{
     margin-bottom: 30%;
 } */
 .calIcon {
+  cursor: pointer;
   height: 20px;
   width: 20px;
   position: absolute;
   right: 0px;
-  bottom: 3%;
+  bottom: 11%;
 }
 
 @media only screen and (max-width: 768px) {

@@ -357,7 +357,7 @@ const EmployeeSchedule = () => {
                       onClick={() => toggleShiftTimes(index)}
                     >
                       <img src={plus} alt="" />
-                      <p>Add Shift</p>
+                      <p className={styles.addShift} >Add Shift</p>
                       <img
                         src={copy}
                         alt="copyImg"

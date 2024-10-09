@@ -8,8 +8,10 @@ import BookNow from "../BookNow/BookNow";
 import { memo, useState } from "react";
 import { useEffect } from "react";
 import { useGetAllSalonOffer } from "../../../services/Appointments";
+import SalonTimingModal from "../../_modals/SalonTimingModal/SalonTiming";
 
 export default function SalonCard({ SalonData, salonId }) {
+  const [showTiming, setShowTiming] = useState(false);
   let storeSchedule = SalonData?.working_hours;
   const [checkSalonOpen, setCheckSalonOpen] = useState(false);
   const { data: offer, isError, isLoading } = useGetAllSalonOffer();
@@ -56,6 +58,10 @@ export default function SalonCard({ SalonData, salonId }) {
     }
   }, [storeSchedule]);
   console.log(offer);
+
+  const seeTiming = () => {
+    setShowTiming(true);
+  };
   return (
     <div className={styles.salon_card}>
       <div className={styles.salon_cardA}>
@@ -92,10 +98,15 @@ export default function SalonCard({ SalonData, salonId }) {
               {SalonData?.working_hours[0]?.day}
             </div>
           </div>
-          <div className={styles.salon_cardDB}>See timings</div>
+          <div className={styles.salon_cardDB} onClick={seeTiming}>
+            See timings
+          </div>
         </div>
       </div>
       <SalonMap SalonData={SalonData ? SalonData : null} />
+      {showTiming && (
+        <SalonTimingModal setShowTiming={setShowTiming} SalonData={SalonData} />
+      )}
     </div>
   );
 }
