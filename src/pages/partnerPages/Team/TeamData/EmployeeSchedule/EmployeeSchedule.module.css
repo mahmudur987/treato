@@ -167,8 +167,7 @@
 }
 .plusImgDiv {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: baseline;
   margin-right: 160px;
 }
 
@@ -221,6 +220,10 @@
 .horizontalLine {
   width: 1208px;
   border: 1px solid #ebedf0;
+}
+.addShift{
+  text-align:left;
+  margin-left: 0;
 }
 
 @media only screen and (max-width: 768px) {
