@@ -35,25 +35,27 @@ const PasswordActive = ({ setPassActiveModal, updateMobileOpt }) => {
     e.preventDefault();
 
     if (e.target.newPass.value !== e.target.rePass.value) {
-      return toast.error("password not match", { toastId: 5 });
+      return toast.error("Passwords do not match.", { toastId: 5 });
     }
 
-    const userJWt = localStorage.getItem("jwtToken");
+    const userJWT = localStorage.getItem("jwtToken");
     if (e.target.newPass.value !== "" && e.target.rePass.value !== "") {
       let formData = {
         password: e.target.newPass.value,
         confirmPassword: e.target.rePass.value,
       };
 
-      console.log(userJWt, formData);
-      setPass(userJWt, formData)
+      console.log(userJWT, formData);
+      setPass(userJWT, formData)
         .then((res) => {
           console.log(res);
           if (res.res) {
             setPassActiveModal(false);
-            toast.success("successfully set your password", { toastId: 6 });
+            toast.success("Your password has been successfully updated.", {
+              toastId: 6,
+            });
           } else {
-            toast.error("Error");
+            toast.error("An error occurred while updating the password.");
           }
         })
         .catch((err) => {
@@ -64,14 +66,15 @@ const PasswordActive = ({ setPassActiveModal, updateMobileOpt }) => {
       showError(true);
     }
   };
+
   return (
     <div className={styles.passMain}>
       <div className={styles.passA}>
         <div className={styles.passB}>
           <div className={styles.passBA}>Set Password</div>
           <div className={styles.passBB}>
-            <img 
-            loading="lazy"
+            <img
+              loading="lazy"
               src={Grey_Close}
               alt=""
               onClick={() => setPassActiveModal(false)}

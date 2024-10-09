@@ -69,11 +69,9 @@ export default function BookNow({
       } else if (innerText === "Pay ₹") {
         handlePayment();
       }
-      if (setCompletedPay) {
-        // setCompletedPay(true);
-      }
     }
   };
+
   return (
     <div className={styles.book_nowA}>
       <div className={styles.book_nowB}>

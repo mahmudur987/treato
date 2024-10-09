@@ -58,7 +58,7 @@ export default function Time({
       }
       onClick={(e) => {
         if (isPast && isToday) {
-          toast.error("The slot is past", { toastId: 1 });
+          toast.error("This time slot has already passed.", { toastId: 1 });
           return;
         }
         updateActiveTime(timeData);

@@ -16,22 +16,36 @@ const Menu = ({ setShowBtnMenu, data, category }) => {
     setShowBtnMenu(null);
   };
   const handleDelete = async () => {
-    let url = `service/deleteCategory/${service_id}/${category_id}`;
+    const deleteCategoryUrl = `service/deleteCategory/${service_id}/${category_id}`;
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };
+
+    // Optional: Confirm deletion with the user
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this service category?"
+    );
+    if (!confirmDelete) return; // Exit if the user cancels
+
     try {
-      const { data } = await axiosInstance.delete(url, { headers });
+      const { data } = await axiosInstance.delete(deleteCategoryUrl, {
+        headers,
+      });
       console.log(data);
-      toast.success("Service Delete successfully");
+      toast.success("Service deleted successfully");
+
       navigate("/partner/dashboard/service");
       refetch();
       setShowBtnMenu("");
     } catch (error) {
-      console.log("Error deleting data", error);
-      toast.error("Error");
+      console.error("Error deleting data", error);
+      toast.error(
+        error.response?.data?.message ||
+          "An error occurred while deleting the service. Please try again."
+      );
     }
   };
+
   return (
     <>
       <div className={styles.menuItems}>

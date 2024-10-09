@@ -133,7 +133,7 @@ export default function SalonServices({
                   {sameTimingDays[0].closing_time}
                 </div>
               )}
-              {difTimingDays?.length &&
+              {difTimingDays?.length > 0 &&
                 difTimingDays.map((v, i) => (
                   <div
                     className={`${styles.salon_aboutBC} ${styles.salonTimings}`}

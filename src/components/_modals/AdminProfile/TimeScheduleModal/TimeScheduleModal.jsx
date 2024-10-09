@@ -21,13 +21,17 @@ const TimeScheduleModal = ({
       const headers = {
         token: localStorage.getItem("jwtToken"),
       };
-      let url = `stylist/deleteShift?stylistId=${member.id}&date=${schedule?.date}&shiftId=${schedule?.shifts[0]._id}`;
+      const url = `stylist/deleteShift?stylistId=${member.id}&date=${schedule?.date}&shiftId=${schedule?.shifts[0]._id}`;
 
       const { data } = await axiosInstance.patch(url, {}, { headers });
       refetch();
-      toast.success(data ? data.message : "delete shift ");
+      toast.success(data?.message ?? "Shift deleted successfully.");
     } catch (error) {
-      toast.error(error ? error.message : "Error");
+      toast.error(
+        error?.message
+          ? `An error occurred: ${error.message}`
+          : "An unknown error occurred while deleting the shift."
+      );
     }
   };
 

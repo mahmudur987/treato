@@ -46,6 +46,9 @@ export default function BillSummary({
   const [taxPrice, setTaxPrice] = useState(0);
   const [amountToPay, setamountToPay] = useState(0);
   const [selectedServiceSlot, setselectedServiceSlot] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+
   const selectedServices = useSelector(
     (state) => state?.salonServices?.salonContent
   );
@@ -57,6 +60,7 @@ export default function BillSummary({
   );
   const userDetails = useSelector((state) => state?.user?.user);
   const serviceDetails = useSelector((state) => state?.salonServices);
+  const saveAmount = useSelector((state) => state?.salonServices?.offerAmount);
   const visitorDetails = useSelector((state) => state?.VisitorDetails);
 
   useEffect(() => {
@@ -97,14 +101,12 @@ export default function BillSummary({
       dispatch(updateServiceTaxPrice(taxAmount));
       setTotalServicesPrice(totalPrice.toLocaleString());
       setTaxPrice(taxAmount.toLocaleString());
-      if (selectedOffer?.amount_for_discount) {
-        setamountToPay(
-          (
-            totalPrice +
-            taxAmount -
-            selectedOffer?.amount_for_discount
-          ).toLocaleString()
-        );
+      const Amount = totalPrice + taxAmount;
+
+      if (selectedOffer) {
+        const payAbleAmount =
+          Amount - (Amount * selectedOffer?.discount_percentage) / 100;
+        setamountToPay(payAbleAmount.toLocaleString());
       } else {
         setamountToPay((totalPrice + taxAmount).toLocaleString());
         dispatch(updateAmount(totalPrice + taxAmount));
@@ -153,6 +155,8 @@ export default function BillSummary({
   };
 
   const handlePayment = async () => {
+    setLoading(true);
+
     try {
       let billInfo = {
         user_id: userDetails?._id,
@@ -182,19 +186,24 @@ export default function BillSummary({
         // console.log(res);
         if (response?.success) {
           setOrderResponse(response?.order);
+          setLoading(false);
+
           initPayment(response?.order, response?.razorpayid);
         } else if (res.err) {
           toast.error(res?.err?.response?.data?.error ?? "Error");
+          setLoading(false);
         }
       });
     } catch (error) {
       console.log(error);
       toast.error(error?.message ?? "Error");
+      setLoading(false);
     }
   };
 
   // -------------------
   const handleOfflinePayment = () => {
+    setLoading(true);
     let billInfo = {
       user_id: userDetails?._id,
       salons_id: id,
@@ -212,20 +221,22 @@ export default function BillSummary({
       dateforService: serviceDetails?.serviceDate,
 
       userData: visitorDetails?.contact,
-      payment_mode: "on-site",
+      payment_mode: "offline",
       // serviceDetails: selectedServices,
       noPreference: stepTwoDetails?.isNoPreference ?? false,
     };
     // console.log(billInfo);
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
-
       if (response?.success) {
         setOrderResponse(response?.order);
         toast.success("Appointment Booked successfully");
         setCompletedPay(true);
+        setLoading(false);
       } else if (res.err) {
+        console.error("error");
         toast.error(res?.err?.response?.data?.error ?? "Error");
+        setLoading(false);
       }
     });
   };
@@ -306,7 +317,7 @@ export default function BillSummary({
                   </span>
                 </div>
                 <div className={styles.secondLine}>
-                  ₹{selectedOffer?.amount_for_discount} savings on this order
+                  ₹{saveAmount} savings on this order
                 </div>
               </div>
               <div className={styles.deleteOption} onClick={handleDeleteOffer}>
@@ -317,14 +328,18 @@ export default function BillSummary({
         </div>
         {!showPay || paySelected ? (
           <BookNow
-            innerText={"Confirm Booking"}
+            innerText={loading ? "Loading ..." : "Confirm Booking"}
             setCompletedPay={setCompletedPay}
             handleOfflinePayment={handleOfflinePayment}
             salonId={id}
           />
         ) : (
           <div className={styles.bill_sumG}>
-            <button onClick={handlePayment}>Pay ₹{amountToPay}</button>
+            {loading ? (
+              <button>Loading ...</button>
+            ) : (
+              <button onClick={handlePayment}>Pay ₹{amountToPay}</button>
+            )}
           </div>
         )}
         <div

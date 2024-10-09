@@ -51,22 +51,33 @@ const Dashboard = () => {
     rzp1.open();
   };
   const handlePayment = async () => {
-    console.log("payment start");
+    console.log("Payment process started");
+
+    const headers = {
+      token: localStorage.getItem("jwtToken"),
+    };
 
     try {
-      const headers = {
-        token: localStorage.getItem("jwtToken"),
-      };
-
-      let { data } = await axiosInstance.post(
+      const { data } = await axiosInstance.post(
         "salon/createorderpending",
         {},
         { headers }
       );
 
-      initPayment(data?.order, data?.razorpaykey);
+      // Check if the necessary data is available before proceeding
+      if (data && data.order && data.razorpaykey) {
+        initPayment(data.order, data.razorpaykey);
+        toast.success("Payment initiated successfully");
+      } else {
+        toast.error(
+          "Failed to initiate payment. Missing order or payment key."
+        );
+      }
     } catch (error) {
-      console.error("outstanding payment Error", error);
+      console.error("Payment Error: ", error.message || error);
+      toast.error(
+        "An error occurred while processing your payment. Please try again."
+      );
     }
   };
 

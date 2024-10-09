@@ -10,6 +10,7 @@ import { getAvailableOffers } from "../../../services/Appointments";
 import {
   updateAmount,
   updateAppliedOffer,
+  updateOfferAmount,
 } from "../../../redux/slices/salonServices";
 import { toast } from "react-toastify";
 export default function SalonDetailModal({ setShowModal, setOfferCount }) {
@@ -20,6 +21,9 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [userOffers, setuserOffers] = useState(null);
+  const selectedServices = useSelector(
+    (state) => state?.salonServices?.salonContent
+  );
 
   useEffect(() => {
     let getOfferData = {
@@ -29,25 +33,37 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
     };
     getAvailableOffers(getOfferData).then((res) => {
       setuserOffers(res?.res?.data?.data);
-
-      setOfferCount(res?.res?.data?.data ? res?.res?.data?.data : 0);
+      setOfferCount(
+        res?.res?.data?.data?.length ? res?.res?.data?.data?.length : 0
+      );
     });
     if (id && userDetails?._id && serviceDetails?.Amount) {
     }
   }, [serviceDetails, userDetails]);
 
   const handleOfferClick = (Data) => {
-    dispatch(updateAppliedOffer(Data));
-    setselectedOffer(Data);
+    let prices = selectedServices.map((v, i) => {
+      return v.service_price;
+    });
+    let totalPrice = prices.reduce((a, b) => a + b, 0);
+    if (totalPrice > Data?.least_amount_for_discount) {
+      dispatch(updateAppliedOffer(Data));
+      setselectedOffer(Data);
+
+      const saveAmount = (totalPrice * Data.discount_percentage) / 100;
+
+      dispatch(updateOfferAmount(saveAmount));
+    } else {
+      return toast.error("You are not eligible for this offer");
+    }
   };
   const handleApplyOffer = () => {
-    if (selectedOffer !== null && selectedOffer.amount_for_discount) {
+    if (selectedOffer !== null) {
       setShowModal(false);
     } else {
       setisError(true);
     }
   };
-  console.log(userOffers);
   return (
     <div className={styles.ModalMain}>
       <div className={styles.ModalMainA}>
@@ -66,13 +82,14 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
           </h3>
         )}
         <div className={styles.ModalMainB}>
-          {userOffers ? (
+          {userOffers && userOffers.length > 0 ? (
             userOffers?.map((e, i) => (
               <SalonOffers
                 isFromModal={true}
                 offerData={e}
                 key={i}
                 handleOfferClick={handleOfferClick}
+                selectedOffer={selectedOffer}
               />
             ))
           ) : (

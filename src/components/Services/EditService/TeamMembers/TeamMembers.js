@@ -84,10 +84,6 @@ const CheckBoxComponent = ({ setTeamMember }) => {
     return <LoadSpinner />;
   }
 
-  if (isError) {
-    return toast.error(error.message, { toastId: 1 });
-  }
-
   return (
     <div className={styles.checkboxContainer}>
       <div className={styles.sectionHeading}>

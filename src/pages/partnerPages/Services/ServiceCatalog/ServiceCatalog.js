@@ -48,7 +48,6 @@ const ServiceCatalog = () => {
   }
 
   if (isError) {
-    toast.error(error.message, { toastId: 1 });
     return (
       <ErrorComponent message={error ? error.message : "No data available"} />
     );

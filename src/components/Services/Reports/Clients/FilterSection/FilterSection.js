@@ -33,8 +33,11 @@ const FilterSection = ({ setClientsQuery }) => {
   }, [selectedGender, searchText, setClientsQuery, commonSearch]);
 
   const handleDownload = () => {
-    console.log(selectedClients);
-    toast.error("This features is under maintenance");
+    // Log the event if necessary for tracking purposes
+    console.log("Download feature is currently under maintenance.");
+
+    // Inform the user
+    toast.info("This feature is under maintenance. Please check back later.");
   };
 
   return (

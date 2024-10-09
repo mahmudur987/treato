@@ -32,100 +32,109 @@ const PicturesGallery = () => {
   const handleFileUpload = () => {
     fileInputRef.current.click();
   };
+  const setHeaders = () => ({
+    token: localStorage.getItem("jwtToken"),
+  });
+
   const handleFileChange = async (event) => {
     const formData = new FormData();
     Array.from(event.target.files).forEach((image) => {
-      formData.append(`salon_Img`, image);
+      formData.append("salon_Img", image);
     });
 
-    let url = "salon/uploadImages ";
-    setLoading(true);
-    const headers = {
-      token: localStorage.getItem("jwtToken"),
-    };
+    const url = "salon/uploadImages";
+    setLoading(true); // Start loading
 
     try {
-      const { data } = await axiosInstance.post(url, formData, { headers });
+      const { data } = await axiosInstance.post(url, formData, {
+        headers: setHeaders(),
+      });
       console.log(data);
       refetch();
-      toast.success("Images upload successfully");
+      toast.success("Images uploaded successfully");
     } catch (error) {
-      toast.error(error ? error.message : "Error happen");
+      console.error("Upload error:", error);
+      toast.error(
+        error?.message || "Failed to upload images. Please try again."
+      );
+    } finally {
+      setLoading(false); // Reset loading state
     }
-
-    setLoading(false);
   };
 
   const handleReplaceImg = async (e) => {
     const replaceImage = e.target.files[0];
     if (!replaceImage) {
-      return toast.error("please select a image");
-    } else {
-      setLoading(true);
-      const headers = {
-        token: localStorage.getItem("jwtToken"),
-      };
-      const formData = new FormData();
-      formData.append("salon_Img", replaceImage);
-      try {
-        const { data } = await axiosInstance.put(
-          `salon/updateSalonImg?key=${key}`,
-          formData,
-          { headers }
-        );
-        console.log(data);
-        refetch();
-        setIsOpen(0);
-
-        toast.success("Image replace successfully");
-      } catch (error) {
-        toast.error(error ? error.message : "Error happen");
-      }
-
-      setLoading(false);
+      return toast.error("Please select an image to replace.");
     }
-  };
-  const handleDelete = async () => {
-    setLoading(true);
-    const headers = {
-      token: localStorage.getItem("jwtToken"),
-    };
-    try {
-      const { data } = await axiosInstance.delete(
-        `salon/deleteSalonImg?key=${key}`,
 
-        { headers }
+    setLoading(true); // Start loading
+    const formData = new FormData();
+    formData.append("salon_Img", replaceImage);
+
+    try {
+      const { data } = await axiosInstance.put(
+        `salon/updateSalonImg?key=${key}`,
+        formData,
+        { headers: setHeaders() }
       );
       console.log(data);
       refetch();
       setIsOpen(0);
-
-      toast.success("image delete successfully");
+      toast.success("Image replaced successfully");
     } catch (error) {
-      toast.error(error ? error.message : "Error happen");
+      console.error("Replace image error:", error);
+      toast.error(
+        error?.message || "Failed to replace image. Please try again."
+      );
+    } finally {
+      setLoading(false); // Reset loading state
     }
-    setLoading(false);
   };
+
+  const handleDelete = async () => {
+    setLoading(true); // Start loading
+
+    try {
+      const { data } = await axiosInstance.delete(
+        `salon/deleteSalonImg?key=${key}`,
+        { headers: setHeaders() }
+      );
+      console.log(data);
+      refetch();
+      setIsOpen(0);
+      toast.success("Image deleted successfully");
+    } catch (error) {
+      console.error("Delete image error:", error);
+      toast.error(
+        error?.message || "Failed to delete image. Please try again."
+      );
+    } finally {
+      setLoading(false); // Reset loading state
+    }
+  };
+
   const handleMakePrimary = async () => {
-    setLoading(true);
-    const headers = {
-      token: localStorage.getItem("jwtToken"),
-    };
+    setLoading(true); // Start loading
 
     try {
       const { data } = await axiosInstance.patch(
         `salon/markImagePrimary?key=${key}`,
         {},
-        { headers }
+        { headers: setHeaders() }
       );
       console.log(data);
       refetch();
       setIsOpen(0);
-      toast.success("make this image primary successfully");
+      toast.success("Image marked as primary successfully");
     } catch (error) {
-      toast.error(error ? error.message : "Error happen");
+      console.error("Mark image primary error:", error);
+      toast.error(
+        error?.message || "Failed to mark image as primary. Please try again."
+      );
+    } finally {
+      setLoading(false); // Reset loading state
     }
-    setLoading(false);
   };
 
   if (isLoading || loading) {
@@ -141,7 +150,12 @@ const PicturesGallery = () => {
       <div className={sty.container}>
         <div className={sty.imgarrowLeft}>
           <Link to={"/partner/dashboard/serviceBussness"}>
-            <img loading="lazy" src={arrowLeft} alt="arrowLeft" className={sty.Pictures} />
+            <img
+              loading="lazy"
+              src={arrowLeft}
+              alt="arrowLeft"
+              className={sty.Pictures}
+            />
           </Link>
           Pictures
         </div>
@@ -155,7 +169,12 @@ const PicturesGallery = () => {
               onChange={handleFileChange}
               multiple
             />
-            <img loading="lazy" src={slide1} alt="slide1" className={sty.UploadInp} />
+            <img
+              loading="lazy"
+              src={slide1}
+              alt="slide1"
+              className={sty.UploadInp}
+            />
           </div>
           {data &&
             !isError &&
@@ -171,7 +190,8 @@ const PicturesGallery = () => {
                   className={sty.mapPic}
                   onMouseLeave={closeDropdown}
                 >
-                  <img loading="lazy"
+                  <img
+                    loading="lazy"
                     src={item.public_url}
                     alt="img"
                     className={sty.mapPic}
@@ -186,7 +206,8 @@ const PicturesGallery = () => {
                             setIsOpen((pre) => (pre === i ? 0 : i))
                           }
                         >
-                          <img loading="lazy"
+                          <img
+                            loading="lazy"
                             src={moreVertical}
                             alt="moreVertical"
                             className={sty.modalLeft}

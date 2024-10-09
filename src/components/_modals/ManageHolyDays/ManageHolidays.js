@@ -27,10 +27,10 @@ const ManageHolidays = ({ showModal, onClose }) => {
 
   const handleAddHoliday = async () => {
     if (!date) {
-      return toast.error("Please select a date");
+      return toast.error("Please select a date.");
     }
     if (!eventName) {
-      return toast.error("Please write the event name");
+      return toast.error("Please provide the event name.");
     }
 
     setLoading(true);
@@ -51,16 +51,19 @@ const ManageHolidays = ({ showModal, onClose }) => {
       const { data } = await axiosInstance.post(url, updateData, { headers });
       console.log(data);
       refetch();
-      toast.success("Holidays added successfully");
+      toast.success("Holiday added successfully.");
 
       setLoading(false);
       setShow(!show);
     } catch (error) {
-      toast.error(error ? error.message : "Error");
+      toast.error(
+        error?.message || "An error occurred while adding the holiday."
+      );
       console.log(error);
       setLoading(false);
     }
   };
+
   const handleToggle = async (data) => {
     setUpdateId(data._id);
     setLoading(true);
@@ -118,15 +121,9 @@ const ManageHolidays = ({ showModal, onClose }) => {
                 </p>
               </div>
               <div className={styles.bottomPart}>
-                <p
-                  className={styles.dateWrapper}
-                >
-                  <span  className={styles.dateSpan} >Date</span>
-                  <span
-                    onClick={openDatePicker}
-                    
-                    className={styles.datePicker}
-                  >
+                <p className={styles.dateWrapper}>
+                  <span className={styles.dateSpan}>Date</span>
+                  <span onClick={openDatePicker} className={styles.datePicker}>
                     {selectedDate} <FaAngleDown />
                   </span>
                   <input
@@ -148,7 +145,7 @@ const ManageHolidays = ({ showModal, onClose }) => {
                   />
                 </p>
                 <p className={styles.eventWrapper}>
-                  <span className={styles.eventSpan} >Event</span>
+                  <span className={styles.eventSpan}>Event</span>
                   <input
                     onChange={(e) => setEventName(e.target.value)}
                     type="text "
@@ -176,23 +173,9 @@ const ManageHolidays = ({ showModal, onClose }) => {
             </button>
           )}
           <div className={styles.row1}>
-            <span
-              className={styles.col1}
-            >
-              Day/ Date
-            </span>
-            <span
-              className={styles.col2}
-            >
-              {" "}
-              Event
-            </span>
-            <span
-              className={styles.col3}
-            >
-              {" "}
-              Status
-            </span>
+            <span className={styles.col1}>Day/ Date</span>
+            <span className={styles.col2}> Event</span>
+            <span className={styles.col3}> Status</span>
           </div>
         </div>
         <div className={styles.content}>

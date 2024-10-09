@@ -43,11 +43,16 @@ export default function CustomerPageLayout() {
   useEffect(() => {
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
-      getUserProfile(isTokenExist).then((res) => {
-        dispatch(updateIsLoggedIn(true));
-        dispatch(updateUserDetails(res?.res?.data));
-        setIsLoading(false); // Set loading to false once user data is fetched
-      });
+      getUserProfile(isTokenExist)
+        .then((res) => {
+          dispatch(updateIsLoggedIn(true));
+          dispatch(updateUserDetails(res?.res?.data));
+          setIsLoading(false); // Set loading to false once user data is fetched
+        })
+        .catch((err) => {
+          console.log(err);
+          localStorage.removeItem("jwtToken");
+        });
     } else {
       setIsLoading(false); // Set loading to false if no token is found
     }

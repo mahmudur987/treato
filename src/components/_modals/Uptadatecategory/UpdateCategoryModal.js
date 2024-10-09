@@ -42,15 +42,15 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
       );
 
       console.log(data);
-      toast.success(data ? data.message : "A New Category Added Successfully", {
+      toast.success(data?.message ?? "The category was successfully updated.", {
         toastId: 1,
       });
       refetch();
       navigate("/partner/dashboard/service");
       setselectCategory("");
     } catch (error) {
-      console.error("eror", error);
-      toast.error(`Error happn ${error.message}`, { toastId: 2 });
+      console.error("error", error);
+      toast.error(`An error occurred: ${error.message}`, { toastId: 2 });
     }
     onClose();
   };

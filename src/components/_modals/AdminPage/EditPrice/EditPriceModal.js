@@ -18,15 +18,15 @@ const EditPriceModal = ({ showModal, onClose, data, salonId }) => {
   const { refetch } = useSalonDetailsServices(id);
   const handleEditPrice = async () => {
     if (!price) {
-      return toast.error("Add Price");
+      return toast.error("Please enter a price.");
     }
 
-    const deleteData = {
+    const editData = {
       mainId: salonId,
       subId: data._id,
       price,
     };
-    console.log(deleteData);
+    console.log(editData);
     try {
       const headers = {
         token: adminToken,
@@ -34,19 +34,24 @@ const EditPriceModal = ({ showModal, onClose, data, salonId }) => {
 
       const { data } = await axiosInstance.patch(
         "super/editserviceprice",
-        deleteData,
+        editData,
         { headers }
       );
       if (data) {
-        toast.success("Edit Price successfully");
+        toast.success("Price updated successfully.");
         onClose();
         refetch();
       }
     } catch (error) {
       console.error("error", error);
-      toast.error(error ? error.message : "Error");
+      toast.error(
+        error
+          ? `An error occurred: ${error.message}`
+          : "An unknown error occurred."
+      );
     }
   };
+
   return (
     <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
       <div className={styles.modalContent}>

@@ -45,7 +45,7 @@ const AddCategory = ({ showModal, onClose }) => {
 
   const handleSubmit = async () => {
     if (!selectCategory) {
-      toast.error("Please select a category.");
+      toast.error("Please select a category before submitting.");
       return;
     }
 
@@ -68,15 +68,19 @@ const AddCategory = ({ showModal, onClose }) => {
         { headers }
       );
       console.log(data);
-      toast.success("A New Category Added Successfully", {
+      toast.success("New category added successfully!", {
         toastId: 1,
       });
       refetch();
-
       setselectCategory("");
     } catch (error) {
       console.error("error", error);
-      toast.error(`An error occurred: ${error.message}`, { toastId: 2 });
+      toast.error(
+        `An error occurred while adding the category: ${error.message}`,
+        {
+          toastId: 2,
+        }
+      );
     }
     onClose();
   };

@@ -30,9 +30,13 @@ const AddServices = () => {
   );
 
   const handleSubmit = async () => {
+    // Input validations
     if (!basicDetails.serviceName || teamMember.length <= 0) {
-      return toast.error("please write a service name and add a team member");
+      return toast.error(
+        "Please provide a service name and add at least one team member."
+      );
     }
+
     const newService = {
       serviceId: service._id,
       mainCategoryId: mainCategory._id,
@@ -45,16 +49,27 @@ const AddServices = () => {
         },
       ],
     };
+
     console.log(newService);
-    const res = await addNewService(newService);
-    if (res.res) {
-      toast.success("A New Service Add Successfully");
-      setBasicDetails({});
-      setTeamMember([]);
-      navigate("/partner/dashboard/service");
-    } else {
-      console.log(res.err);
-      toast.error("Error");
+
+    try {
+      const res = await addNewService(newService);
+
+      // Check response
+      if (res.res) {
+        toast.success("New service added successfully!");
+        // Reset state only if service was added successfully
+        setBasicDetails({ serviceName: "", price: "", duration: "" }); // Reset to empty string or default values
+        setTeamMember([]); // Clear team member selection
+        navigate("/partner/dashboard/service");
+      } else {
+        throw new Error(res.err || "Failed to add new service.");
+      }
+    } catch (error) {
+      console.error("Error while adding new service:", error);
+      toast.error(
+        error.message || "An error occurred while adding the service."
+      );
     }
   };
 

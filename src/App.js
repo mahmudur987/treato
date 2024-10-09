@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, useState } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateIsLoggedIn, updateUserDetails } from "./redux/slices/user";
 import { fetchSalonsData } from "./utils/utils";
@@ -215,7 +215,7 @@ function App() {
   const userDetails = useSelector((state) => state.user);
   const [isLocationBlocked, setisLocationBlocked] = useState(false);
   const [userGeolocationAvailable, setUserGeolocationAvailable] =
-    useState(true); // State to track geolocation availability
+    useState(true);
   const [userLoc, setuserLoc] = useState({});
 
   //Ask For Location Permission
@@ -272,6 +272,7 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          localStorage.removeItem("jwtToken");
         });
     }
   }, []);

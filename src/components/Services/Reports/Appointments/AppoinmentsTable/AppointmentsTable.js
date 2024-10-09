@@ -72,8 +72,13 @@ const AppointmentsTable = ({ data }) => {
     }
   };
   const handleDownload = () => {
-    toast.error("This features is under maintenance");
+    // Log the event if necessary for tracking purposes
+    console.log("Download feature is currently under maintenance.");
+
+    // Inform the user
+    toast.info("This feature is under maintenance. Please check back later.");
   };
+
   if (data?.data?.length === 0) {
     return <NoDataDisplay />;
   }
@@ -97,9 +102,7 @@ const AppointmentsTable = ({ data }) => {
                 <td key={i}>
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
-                    <div
-                      className={sty.imageBox}
-                    >
+                    <div className={sty.imageBox}>
                       <img loading="lazy" src={item.topImg} alt="" />
                       <img loading="lazy" src={item.bottomImg} alt="" />
                     </div>
@@ -111,7 +114,7 @@ const AppointmentsTable = ({ data }) => {
           <tbody className={sty.tbody}>
             {tableData.length > 0 &&
               tableData?.map((x) => (
-                <tr  className={sty.tableBorder}>
+                <tr className={sty.tableBorder}>
                   <td>
                     <div className={sty.checkbox}>
                       <input
@@ -130,7 +133,7 @@ const AppointmentsTable = ({ data }) => {
                   <td>{x.status}</td>
                   <td>{x.amount}</td>
                   <td>{x.type}</td>
-                  <td  className={sty.textSize} onClick={handleDownload}>
+                  <td className={sty.textSize} onClick={handleDownload}>
                     <MdOutlineFileDownload />
                   </td>
                 </tr>

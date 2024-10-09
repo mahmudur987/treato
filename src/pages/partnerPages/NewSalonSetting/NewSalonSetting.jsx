@@ -98,39 +98,41 @@ const NewSalonSetting = () => {
     };
   }, []);
   const handleSubmit = async () => {
-    if (mobileScreen) {
-      if (currentStep < 4) {
-        return setCurrentStep((pre) => pre + 1);
+    setLoading(true); // Start loading state
+
+    // Validate inputs
+    const validations = [
+      { condition: !salonData.salon_name, message: "Write your salon name" },
+      {
+        condition: !salonData.salons_description,
+        message: "Write something about your salon",
+      },
+      {
+        condition: salonData.services_provided?.length < 1,
+        message: "Select your provided service",
+      },
+      {
+        condition: workingHours.length < 1,
+        message: "Select your salon schedule",
+      },
+      { condition: !salonData.location, message: "Choose your location" },
+      {
+        condition: !salonData.building_number,
+        message: "Write your building number",
+      },
+      { condition: !salonData.city, message: "Write your city" },
+      { condition: !salonData.postal_code, message: "Write your postal code" },
+    ];
+
+    for (const { condition, message } of validations) {
+      if (condition) {
+        toast.error(message);
+        setLoading(false); // Ensure loading is reset
+        return;
       }
     }
 
-    if (!salonData.salon_name) {
-      return toast.error("write your salon name");
-    }
-
-    if (!salonData.salons_description) {
-      return toast.error("write something about  your salon");
-    }
-    if (salonData?.services_provided?.length < 1) {
-      return toast.error("select your provided service");
-    }
-    if (workingHours.length < 1) {
-      return toast.error("select your salon schedule");
-    }
-    if (!salonData.location) {
-      return toast.error("choose your location");
-    }
-    if (!salonData.building_number) {
-      return toast.error("write your building number");
-    }
-
-    if (!salonData.city) {
-      return toast.error("write your City");
-    }
-    if (!salonData.postal_code) {
-      return toast.error("write your post code");
-    }
-    // setLoading(true);
+    // Prepare data for submission
     const submitData = {
       salon_name: salonData.salon_name,
       salons_description: salonData.salons_description,
@@ -148,33 +150,33 @@ const NewSalonSetting = () => {
         type: "Point",
         coordinates: [position.lng, position.lat],
       },
-      teamMemberCount: Number(salonData?.teamMemberCount),
+      teamMemberCount: Number(salonData.teamMemberCount),
     };
+
     console.log(submitData);
 
-    const { res, err } = await createSalon(submitData);
-    if (res) {
-      console.log("create salon", res);
-      let isTokenExist = localStorage.getItem("jwtToken");
-      if (isTokenExist) {
-        getUserProfile(isTokenExist)
-          .then((res) => {
-            dispatch(updateIsLoggedIn(true));
-            dispatch(updateUserDetails(res?.res?.data));
-            toast.success("salon created successfully");
-            navigate("/partner/dashboard");
-            setLoading(false);
-          })
-          .catch((err) => {
-            setLoading(false);
-            toast.error("Error");
-          });
+    // Submit data
+    try {
+      const { res, err } = await createSalon(submitData);
+      if (res) {
+        console.log("create salon", res);
+        const token = localStorage.getItem("jwtToken");
+        if (token) {
+          const userProfile = await getUserProfile(token);
+          dispatch(updateIsLoggedIn(true));
+          dispatch(updateUserDetails(userProfile?.res?.data));
+          toast.success("Salon created successfully");
+          navigate("/partner/dashboard");
+        }
+      } else if (err) {
+        console.log(err);
+        toast.error(err?.response?.data?.error || "Error");
       }
-    }
-    if (err) {
-      console.log(err);
-      setLoading(false);
-      toast.error(err?.response?.data?.error || "Error");
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An unexpected error occurred.");
+    } finally {
+      setLoading(false); // Reset loading state
     }
   };
 
