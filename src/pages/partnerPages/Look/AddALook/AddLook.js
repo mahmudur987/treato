@@ -26,26 +26,37 @@ const AddLook = () => {
   const [service, setService] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
   const handleSubmit = async () => {
+    setIsLoading(true); // Set loading state at the beginning
+
+    // Validation checks
     if (!category || !selectedServices) {
-      return toast.error("select service");
+      toast.error("Select a service.");
+      setIsLoading(false);
+      return;
     }
 
     if (!image) {
-      return toast.error("Select Image");
+      toast.error("Select an image.");
+      setIsLoading(false);
+      return;
     }
-    if (formData.name === "") {
-      return toast.error("Add Name");
+
+    const requiredFields = [
+      { value: formData.name, message: "Add a name." },
+      { value: formData.description, message: "Add a description." },
+      { value: formData.price, message: "Add a price." },
+      { value: formData.rating, message: "Add a rating." },
+    ];
+
+    for (const { value, message } of requiredFields) {
+      if (value === "") {
+        toast.error(message);
+        setIsLoading(false);
+        return;
+      }
     }
-    if (formData.description === "") {
-      return toast.error("Add Description");
-    }
-    if (formData.price === "") {
-      return toast.error("Add Price");
-    }
-    if (formData.rating === "") {
-      return toast.error("Add Rating");
-    }
-    setIsLoading(true);
+
+    // Construct FormData
     const data = new FormData();
     data.append("file", image);
     data.append("name", formData.name);
@@ -59,6 +70,7 @@ const AddLook = () => {
     selectedPeople.forEach((id) => {
       data.append("stylishListIds[]", id);
     });
+
     console.log({
       name: formData.name,
       description: formData.description,
@@ -68,14 +80,17 @@ const AddLook = () => {
       serviceSubCategoryId: selectedServices,
       stylishListIds: selectedPeople,
     });
+
     try {
       const headers = {
         token: localStorage.getItem("jwtToken"),
       };
       const res = await axiosInstance.post("look-book/new", data, { headers });
       console.log(res.data);
+
       if (res.data) {
-        toast.success("A New Looks Added Successfully");
+        toast.success("A new look added successfully!");
+        // Reset form fields
         setImage(null);
         setRenderImage(null);
         setFormData({
@@ -88,11 +103,12 @@ const AddLook = () => {
       }
     } catch (error) {
       console.error("Network error:", error?.response?.data);
-      toast.error("Error");
+      toast.error(error?.response?.data?.message || "An error occurred.");
+    } finally {
+      setIsLoading(false); // Ensure loading state is reset in both success and error cases
     }
-
-    setIsLoading(false);
   };
+
   const value = {
     image,
     setImage,

@@ -3,7 +3,7 @@
   width: 100%;
   font-family: "Lato", sans-serif;
   height: auto;
-  margin: 3rem auto;
+  /* margin: 3rem auto; */
 }
 .manageTeam {
   display: flex;
@@ -125,18 +125,18 @@
 .addBtnWrapper {
   display: none;
 }
-.searchContainer{
+.searchContainer {
   display: flex;
 }
-.itemName{
+.itemName {
   margin-left: 30px;
 }
-.imageBox{
+.imageBox {
   display: flex;
   flex-direction: column;
   margin-top: 5px;
 }
-.imageSpan{
+.imageSpan {
   margin-left: 10px;
   margin-right: 10px;
 }

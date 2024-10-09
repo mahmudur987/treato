@@ -22,11 +22,16 @@ const PartnerPageLayout = () => {
   useEffect(() => {
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
-      getUserProfile(isTokenExist).then((res) => {
-        dispatch(updateIsLoggedIn(true));
-        dispatch(updateUserDetails(res?.res?.data));
-        setIsLoading(false);
-      });
+      getUserProfile(isTokenExist)
+        .then((res) => {
+          dispatch(updateIsLoggedIn(true));
+          dispatch(updateUserDetails(res?.res?.data));
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          localStorage.removeItem("jwtToken");
+        });
     } else {
       setIsLoading(false);
     }

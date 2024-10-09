@@ -32,7 +32,7 @@ const AddNewReview = () => {
     };
 
     try {
-      setIsLoading(true);
+      setIsLoading(true); // Start loading state
       const headers = {
         token: localStorage.getItem("jwtToken"),
       };
@@ -40,20 +40,25 @@ const AddNewReview = () => {
       const { data } = await axiosInstance.post(
         "super/createsalonreview",
         review,
-        { headers }
+        {
+          headers,
+        }
       );
-      if (data) {
-        toast.success("review added successfully");
-      }
 
-      refetch();
-      setRating(null);
-      setComment("");
+      if (data) {
+        toast.success("Review added successfully");
+        setRating(null); // Reset rating after success
+        setComment(""); // Clear comment after success
+        refetch(); // Refresh the review data if needed
+      }
     } catch (error) {
       console.error("error", error);
-      toast.error(error ? error.message : "Error");
+      toast.error(
+        error?.message || "An error occurred while submitting the review."
+      );
+    } finally {
+      setIsLoading(false); // End loading state
     }
-    setIsLoading(false);
   };
 
   return (

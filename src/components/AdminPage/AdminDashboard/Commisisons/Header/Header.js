@@ -83,13 +83,14 @@ const Header = () => {
       console.log(res);
 
       if (res?.data) {
-        toast.success("Commission Update Successfully");
-
+        toast.success("Commission updated successfully.");
         refetch();
       }
     } catch (error) {
       console.error(error);
-      toast.error(error ? error.message : "Error");
+      toast.error(
+        error?.message || "An error occurred while updating the commission."
+      );
     }
   };
 
@@ -117,10 +118,7 @@ const Header = () => {
           <Slider {...settings}>
             {/* new user */}
             <div>
-              <div
-                
-                className={styles.card}
-              >
+              <div className={styles.card}>
                 <div className={styles.cardLeft}>
                   <FaUsers className={styles.faUser} />
                   <div className={styles.cardMiddle}>
@@ -143,7 +141,7 @@ const Header = () => {
                 <div className={styles.cardRight}>
                   <button onClick={() => setIsEditable((pre) => !pre)}>
                     <span>
-                      <FaPen  className={styles.faPen} />
+                      <FaPen className={styles.faPen} />
                     </span>
                     {isEditable ? (
                       <span onClick={handleUpdateComm}>Done</span>
@@ -156,10 +154,7 @@ const Header = () => {
             </div>
             {/* average sale  */}
             <div>
-              <div
-                
-                className={`${styles.card} ${styles.bgCard}`}
-              >
+              <div className={`${styles.card} ${styles.bgCard}`}>
                 <div className={styles.cardLeft}>
                   <svg
                     width="36"
@@ -186,7 +181,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp  className={styles.arrowUp} /> ₹
+                  <IoIosArrowUp className={styles.arrowUp} /> ₹
                   {commissionAfterStartDate}({commissionAfterStartDate})
                 </div>
               </div>
@@ -195,10 +190,7 @@ const Header = () => {
             {/* total appointments */}
 
             <div>
-              <div
-                
-                className={`${styles.card} ${styles.bgCard1}`}
-              >
+              <div className={`${styles.card} ${styles.bgCard1}`}>
                 <div className={styles.cardLeft}>
                   <svg
                     width="36"
@@ -224,7 +216,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <IoIosArrowUp  className={styles.arrowUp} />{" "}
+                  <IoIosArrowUp className={styles.arrowUp} />{" "}
                   {Number(
                     data?.commissionDetails?.appointmentsAfterStartDate
                   ).toFixed(2)}

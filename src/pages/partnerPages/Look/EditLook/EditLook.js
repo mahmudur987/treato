@@ -48,12 +48,44 @@ const EditLook = () => {
   }, [data]);
   const handleSubmit = async () => {
     setLoading(true);
-    const data = new FormData();
 
+    // Validation checks
+    if (!formData.name) {
+      toast.error("Name is required.");
+      setLoading(false);
+      return;
+    }
+    if (!formData.description) {
+      toast.error("Description is required.");
+      setLoading(false);
+      return;
+    }
+    if (!formData.price) {
+      toast.error("Price is required.");
+      setLoading(false);
+      return;
+    }
+    if (!formData.rating) {
+      toast.error("Rating is required.");
+      setLoading(false);
+      return;
+    }
+    if (!category) {
+      toast.error("Service category is required.");
+      setLoading(false);
+      return;
+    }
+    if (!selectedServices) {
+      toast.error("Service sub-category is required.");
+      setLoading(false);
+      return;
+    }
+
+    // Create FormData
+    const data = new FormData();
     if (image) {
       data.append("file", image);
     }
-
     data.append("name", formData.name);
     data.append("description", formData.description);
     data.append("price", formData.price);
@@ -64,6 +96,7 @@ const EditLook = () => {
     selectedPeople.forEach((id) => {
       data.append("stylishListIds[]", id);
     });
+
     console.log({
       name: formData.name,
       description: formData.description,
@@ -73,6 +106,7 @@ const EditLook = () => {
       serviceSubCategoryId: selectedServices,
       stylishListIds: selectedPeople,
     });
+
     try {
       const headers = {
         token: localStorage.getItem("jwtToken"),
@@ -81,18 +115,21 @@ const EditLook = () => {
       const res = await axiosInstance.patch(`look-book/edit/${id}`, data, {
         headers,
       });
-      // console.log(res.data);
+
       if (res.data) {
-        toast.success("Looks Edit Successfully");
+        toast.success("Looks edited successfully!");
         refetch();
       }
     } catch (error) {
       console.error("Network error:", error?.response?.data);
-      toast.error("Error");
+      toast.error(
+        error?.response?.data?.message || "An error occurred while editing."
+      );
+    } finally {
+      setLoading(false); // Ensure loading state is reset in all scenarios
     }
-    setLoading(false);
   };
-  console.log(data?.data);
+
   const value = {
     image,
     setImage,

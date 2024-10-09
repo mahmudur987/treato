@@ -59,67 +59,55 @@ const EditAdminModal = ({ onClose }) => {
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };
+
     if (!startTime || !endTime) {
-      return toast.error("select Start/End Time");
+      return toast.error("Please select both start and end times.");
     } else {
-      if (startTime2 && endTime2) {
-        const newdata = {
-          stylistId: member?.id,
-          date: schedule?.date,
-          newShifts: [
-            {
-              start_time: startTime,
-              end_time: endTime,
-            },
-            {
-              start_time: startTime2,
-              end_time: endTime2,
-            },
-          ],
-        };
-        try {
-          const { data } = await axiosInstance.patch(
-            "/stylist/editShift",
-            newdata,
-            { headers }
-          );
-          refetch();
-          toast.success("shift edit successfully");
-          onClose();
-          sethandleShift(false);
-        } catch (error) {
-          toast.error(error.message);
-          console.log(error);
-        }
-      } else {
-        const newdata = {
-          stylistId: member?.id,
-          date: schedule?.date,
-          newShifts: [
-            {
-              start_time: startTime,
-              end_time: endTime,
-            },
-          ],
-        };
-        try {
-          const { data } = await axiosInstance.patch(
-            "/stylist/editShift",
-            newdata,
-            { headers }
-          );
-          console.log(data);
-          toast.success("shift edit successfully");
-          onClose();
-          refetch();
-          sethandleShift(false);
-        } catch (error) {
-          toast.error(error.message);
-          console.log(error);
-        }
+      const newdata = {
+        stylistId: member?.id,
+        date: schedule?.date,
+        newShifts:
+          startTime2 && endTime2
+            ? [
+                {
+                  start_time: startTime,
+                  end_time: endTime,
+                },
+                {
+                  start_time: startTime2,
+                  end_time: endTime2,
+                },
+              ]
+            : [
+                {
+                  start_time: startTime,
+                  end_time: endTime,
+                },
+              ],
+      };
+
+      try {
+        const { data } = await axiosInstance.patch(
+          "/stylist/editShift",
+          newdata,
+          { headers }
+        );
+        console.log(data);
+        toast.success("Shift updated successfully.");
+        onClose();
+        refetch();
+        sethandleShift(false);
+      } catch (error) {
+        toast.error(
+          error.message
+            ? `An error occurred: ${error.message}`
+            : "An unknown error occurred."
+        );
+        console.log(error);
       }
     }
   };
+
   return (
     <div className={styles.shareMain}>
       <div className={styles.shareA}>

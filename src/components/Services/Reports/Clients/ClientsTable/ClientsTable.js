@@ -62,8 +62,13 @@ const ClientsTable = ({ data }) => {
     return data;
   });
   const handleDownload = () => {
-    toast.error("This features is under maintenance");
+    // Log the event if necessary for tracking purposes
+    console.log("Download feature is currently under maintenance.");
+
+    // Inform the user
+    toast.info("This feature is under maintenance. Please check back later.");
   };
+
   const toggleSelection = (itemId) => {
     if (selectedClients.includes(itemId)) {
       setSelectedClients(selectedClients.filter((id) => id !== itemId));
@@ -105,9 +110,7 @@ const ClientsTable = ({ data }) => {
                 <td key={i}>
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
-                    <div
-                      className={sty.imageBox}
-                    >
+                    <div className={sty.imageBox}>
                       <img loading="lazy" src={item.topImg} alt="" />
                       <img loading="lazy" src={item.bottomImg} alt="" />
                     </div>

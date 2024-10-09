@@ -21,9 +21,13 @@ const FilterSection = ({
   const handleReActiveSalons = async () => {
     console.log(selectedSalon);
 
+    if (selectedSalon.length === 0) {
+      return toast.error("Please select at least one salon to reactivate.");
+    }
+
     try {
       const Data = {
-        salon_ids: [selectedSalon],
+        salon_ids: selectedSalon, // Assuming you're reactivating multiple salons
       };
       const headers = {
         token: localStorage.getItem("jwtToken"),
@@ -36,52 +40,50 @@ const FilterSection = ({
           headers,
         }
       );
-      console.log(data);
+
       if (data) {
-        toast.success("Salons are activated successfully!");
-        setSelectedSalon([]);
-        refetch();
+        toast.success("Salons reactivated successfully!");
+        setSelectedSalon([]); // Clear the selection
+        refetch(); // Refresh data
       }
     } catch (error) {
       console.error(error);
-      toast.error(error ? error?.message : "Error");
+      toast.error(
+        error?.message || "An error occurred while reactivating salons."
+      );
     }
   };
-  const handleDeleteAll = async (id) => {
+  const handleDeleteAll = async () => {
     console.log(selectedSalon);
-    if (selectedSalon.length > 0) {
-      try {
-        const deleteData = {
-          salonId: [id],
-        };
-        const headers = {};
 
-        const { data } = await axiosInstance.delete("", headers, deleteData);
-
-        if (data) {
-          toast.success("Salons deleted successfully!");
-        }
-      } catch (error) {
-        console.error(error);
-        toast.error(error ? error?.message : "Error");
-      }
-    }
     if (selectedSalon.length === 0) {
-      try {
-        const deleteData = {
-          salonId: [id],
-        };
-        const headers = {};
+      return toast.error("Please select at least one salon to delete.");
+    }
 
-        const { data } = await axiosInstance.post("", headers, deleteData);
+    try {
+      const deleteData = {
+        salonId: selectedSalon, // Assuming you're deleting multiple salons
+      };
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
 
-        if (data) {
-          toast.success("Salons deleted successfully!");
+      const { data } = await axiosInstance.post(
+        "/super/salon/delete",
+        deleteData,
+        {
+          headers,
         }
-      } catch (error) {
-        console.error(error);
-        toast.error(error ? error?.message : "Error");
+      );
+
+      if (data) {
+        toast.success("Salons deleted successfully!");
+        setSelectedSalon([]); // Clear the selection after deletion
+        refetch(); // Refresh data
       }
+    } catch (error) {
+      console.error(error);
+      toast.error(error?.message || "An error occurred while deleting salons.");
     }
   };
 
@@ -93,7 +95,7 @@ const FilterSection = ({
           <button>
             Approve
             {selectedSalon.length > 0 ? (
-              <span  className={styles.selLength} >{selectedSalon.length}</span>
+              <span className={styles.selLength}>{selectedSalon.length}</span>
             ) : (
               "All"
             )}

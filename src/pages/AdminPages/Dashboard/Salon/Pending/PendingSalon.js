@@ -60,30 +60,31 @@ const PendingSalon = () => {
   }, []);
 
   const handleApprove = async (id) => {
-    try {
-      const Data = {
-        salon_ids: [id],
-      };
-      const headers = {
-        token: localStorage.getItem("jwtToken"),
-      };
+    const headers = {
+      token: localStorage.getItem("jwtToken"),
+    };
 
+    const salonData = {
+      salon_ids: [id],
+    };
+
+    try {
       const { data } = await axiosInstance.patch(
         "super/salonapproveaction",
-        Data,
-        {
-          headers,
-        }
+        salonData,
+        { headers }
       );
-      console.log(data);
-      if (data) {
-        toast.success("Salon Approved successfully!");
 
-        refetch();
+      if (data) {
+        toast.success("Salon approved successfully!");
+        refetch(); // Refetch the data after approval
       }
     } catch (error) {
-      console.error(error);
-      toast.error(error ? error?.message : "Error");
+      console.error("Error approving salon:", error);
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while approving the salon. Please try again."
+      );
     }
   };
 

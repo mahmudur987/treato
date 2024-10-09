@@ -45,53 +45,60 @@ export default function PendingSalonDetail() {
   }, [data]);
 
   const handleApprove = async () => {
-    try {
-      const Data = {
-        salon_ids: [id],
-      };
-      const headers = {
-        token: localStorage.getItem("jwtToken"),
-      };
+    const headers = {
+      token: localStorage.getItem("jwtToken"),
+    };
 
+    const approvalData = {
+      salon_ids: [id],
+    };
+
+    try {
       const { data } = await axiosInstance.patch(
         "super/salonapproveaction",
-        Data,
-        {
-          headers,
-        }
+        approvalData,
+        { headers }
       );
-      console.log(data);
-      if (data) {
-        toast.success("Salon Approved successfully!");
 
+      if (data) {
+        toast.success("Salon approved successfully!");
         navigate("/admin/salon/pending");
       }
     } catch (error) {
-      console.error(error);
-      toast.error(error ? error?.message : "Error");
+      console.error("Error approving salon:", error);
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while approving the salon. Please try again."
+      );
     }
   };
 
   const handleReject = async () => {
-    try {
-      const Data = {
-        salon_ids: [id],
-      };
-      const headers = {
-        token: localStorage.getItem("jwtToken"),
-      };
+    const headers = {
+      token: localStorage.getItem("jwtToken"),
+    };
 
-      const { data } = await axiosInstance.patch("", Data, {
-        headers,
-      });
-      console.log(data);
+    const rejectionData = {
+      salon_ids: [id],
+    };
+
+    try {
+      const { data } = await axiosInstance.patch(
+        "super/salonrejectaction", // Ensure the correct URL for rejecting salons
+        rejectionData,
+        { headers }
+      );
+
       if (data) {
-        toast.success("Salon Rejected successfully!");
+        toast.success("Salon rejected successfully!");
         navigate("/admin/salon/pending");
       }
     } catch (error) {
-      console.error(error);
-      toast.error(error ? error?.message : "Error");
+      console.error("Error rejecting salon:", error);
+      toast.error(
+        error?.response?.data?.message ||
+          "An error occurred while rejecting the salon. Please try again."
+      );
     }
   };
 
@@ -191,7 +198,7 @@ export default function PendingSalonDetail() {
           </div>
           <div className={styles.salon_infoA}>
             <p>{SalonDetails1 ? SalonDetails1.salon_address : null}</p>{" "}
-            <p  className={styles.viewBtn} >View map</p>
+            <p className={styles.viewBtn}>View map</p>
           </div>
         </div>
         <div className={styles.btnWrapper2}>

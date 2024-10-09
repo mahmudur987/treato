@@ -76,30 +76,41 @@ const EditService = () => {
       },
     };
 
-    const res = await editService(newEditService);
-    if (res.res) {
-      console.log(res.res);
-      toast.success("Service Updated successfully. ");
-      refetch();
-    } else {
-      console.log(res.err);
-      toast.error("Error");
+    try {
+      const res = await editService(newEditService);
+
+      // Check response and provide feedback
+      if (res.res) {
+        console.log("Service updated:", res.res);
+        toast.success("Service updated successfully.");
+        refetch(); // Refresh the data after a successful update
+      } else {
+        throw new Error(res.err || "Failed to update service.");
+      }
+    } catch (error) {
+      console.error("Error updating service:", error);
+      toast.error(
+        error.message || "An error occurred while updating the service."
+      );
     }
   };
+
   const handleDeleteService = async () => {
-    let url = `service/deleteSubCategory/${service_id}/${category_id}/${subcategory_id}`;
+    const url = `service/deleteSubCategory/${service_id}/${category_id}/${subcategory_id}`;
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };
 
     try {
       const { data } = await axiosInstance.delete(url, { headers });
-      console.log(data);
-      toast.success("service delete successfully");
-      navigate("/partner/dashboard/service");
+      console.log("Service deleted:", data);
+      toast.success("Service deleted successfully.");
+      navigate("/partner/dashboard/service"); // Redirect after deletion
     } catch (error) {
-      console.log("Error", error);
-      toast.error("Error");
+      console.error("Error deleting service:", error);
+      toast.error(
+        error.message || "An error occurred while deleting the service."
+      );
     }
   };
 

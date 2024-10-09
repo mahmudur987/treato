@@ -22,6 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 import styles from "./BookFlow.module.css";
 import {
   bookSalonAppointment,
+  getAvailableOffers,
   getAvailableSlots,
 } from "../../services/Appointments";
 import {
@@ -100,7 +101,20 @@ export default function BookFlow() {
       );
     }
   }, [activeBookFlowBA, dispatch]);
-
+  useEffect(() => {
+    let getOfferData = {
+      user_id: userDetails?._id,
+      salons_id: id,
+      totalAmount: parseFloat(serviceDetails?.Amount),
+    };
+    getAvailableOffers(getOfferData).then((res) => {
+      setOfferCount(
+        res?.res?.data?.data?.length ? res?.res?.data?.data?.length : 0
+      );
+    });
+    if (id && userDetails?._id && serviceDetails?.Amount) {
+    }
+  }, [serviceDetails, userDetails]);
   const convertDate = (inputDate, Year) => {
     const dateObject = new Date(inputDate);
     const month = (dateObject.getMonth() + 1).toString().padStart(2, "0");

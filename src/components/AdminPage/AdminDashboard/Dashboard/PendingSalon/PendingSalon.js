@@ -41,14 +41,17 @@ const PendingSalon = () => {
       );
       console.log(data);
       if (data) {
-        toast.success("Salon Approved successfully!");
+        toast.success("Salon approved successfully!");
         refetch();
       }
     } catch (error) {
       console.error(error);
-      toast.error(error ? error?.message : "Error");
+      toast.error(
+        error?.message || "An error occurred while approving the salon."
+      );
     }
   };
+
   const handleReject = async (id) => {
     try {
       const Data = {
@@ -67,14 +70,17 @@ const PendingSalon = () => {
       );
       console.log(data);
       if (data) {
-        toast.success("Salon Approved successfully!");
+        toast.success("Salon rejected successfully!");
         refetch();
       }
     } catch (error) {
       console.error(error);
-      toast.error(error ? error?.message : "Error");
+      toast.error(
+        error?.message || "An error occurred while rejecting the salon."
+      );
     }
   };
+
   const settings = {
     dots: false,
     infinite: true,
