@@ -27,6 +27,31 @@ const AddNewClient = ({
   const handleSelectChange = (value) => {
     setSelectedOption(value);
   };
+
+
+  const handleFirstNameChange = (e) => {
+    const value = e.target.value;
+    const regex = /^[A-Za-z\s]*$/;
+    if (regex.test(value)) {
+      setFirstName(value);
+    }
+  };
+
+  const handleLastNameChange = (e) => {
+    const value = e.target.value;
+    const regex = /^[A-Za-z\s]*$/;
+    if (regex.test(value)) {
+      setLastName(value);
+    }
+  };
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    const regex = /^[0-9\b]*$/; 
+    if (regex.test(value) && value.length <= 10) {
+      setPhone(value);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -72,7 +97,7 @@ const AddNewClient = ({
             <div className={styles.formItems}>
               <label htmlFor="serviceType">First Name</label>
               <input
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={handleFirstNameChange}
                 value={firstName}
                 type="text"
                 placeholder="Client first name"
@@ -82,7 +107,7 @@ const AddNewClient = ({
             <div className={styles.formItems}>
               <label htmlFor="serviceType">Last Name</label>
               <input
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={handleLastNameChange}
                 value={lastName}
                 type="text"
                 placeholder="Client last name"
@@ -111,7 +136,8 @@ const AddNewClient = ({
                   phone={phone}
                 />
                 <input
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={handlePhoneChange}
+                  value={phone}
                   type="number"
                   placeholder="phone number"
                   maxLength={10}

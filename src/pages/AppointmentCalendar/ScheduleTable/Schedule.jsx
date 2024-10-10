@@ -255,7 +255,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
     const slots = Array(slotdurations.length)
       .fill(null)
       .map(() => []);
-    profile.appointments.forEach((appointment) => {
+    profile.appointments.forEach((appointment, appointmentIndex) => {
       let initialTime = appointment.time;
       let previousDuration = 0;
 
@@ -270,7 +270,10 @@ const ScheduleTable = ({ profiles, getdata }) => {
             appid: appointment._id,
             clientName: appointment.ClientName,
             status: appointment.status,
+            otps: appointment.otp,
+            paymentMode:appointment.payment_mode,
             exactTime,
+
           });
         }
 
@@ -285,9 +288,9 @@ const ScheduleTable = ({ profiles, getdata }) => {
 
   return (
     <>
-      <div  className={style.durationsBox}>
+      <div className={style.durationsBox}>
         {durations &&
-          durations.map((duration, index) => <p key={index}>{duration}</p>)}
+          durations.map((duration, index) => <p  key={index}>{duration}</p>)}
       </div>
       <div className={style.grids}>
         {durations &&
@@ -375,7 +378,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                           {service?.exactTime})
                                         </p>
                                         <p className={style.serviceNames}>
-                                          {service.service_name}
+                                          {service.service_name}{service.otps}
                                         </p>
                                         
                                         <p className={style.clientNames}>
@@ -447,17 +450,17 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         Started
                                       </div>
                                       <div
-                                        className={`${style.started} ${profile?.appointments[0]?.payment_mode?.toLowerCase()==="online" ? '' :style .noShow} `}
+                                        className={`${style.started} ${service?.paymentMode.toLowerCase()==="online" ? '' :style .noShow} `}
                                         onClick={() =>
                                           noShowAppointment(service?.appid)
                                         }
                                       >
-                                        No-Show
+                                        No-Show 
                                       </div>
                                       {otp?.length>3 ? <><div
                                         className={`${style.started}  `}
                                         onClick={() =>
-                                          completeApp(service?.appid, profile?.appointments[0]?.otp)
+                                          completeApp(service?.appid, service?.otps)
                                         }
                                       >
                                         Completed

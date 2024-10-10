@@ -57,7 +57,7 @@ const ClientsTable = ({ data }) => {
       age: x?.clientDetails?.dob ?? "N/A",
       lastVisit: x?.lastVisit ?? "N/A",
       topService: x?.topService ?? "NID",
-      spend: x?.totalAmount ?? "N/A",
+      spend: x?.totalAmount.toFixed(2) ?? "N/A",
     };
     return data;
   });
