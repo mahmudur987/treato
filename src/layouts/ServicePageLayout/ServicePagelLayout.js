@@ -20,6 +20,7 @@ const PartnerPageLayout = () => {
     location.pathname === "/partner/dashboard/newSalonSetting";
 
   useEffect(() => {
+    setIsLoading(true);
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
       getUserProfile(isTokenExist)

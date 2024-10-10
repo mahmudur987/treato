@@ -181,6 +181,12 @@ const AddAppointment = () => {
       toast.success(
         data?.message || "A new appointment has been added successfully."
       );
+
+      setComments("");
+      setCustomerDetails({});
+      setDiscount("");
+      setPrice("");
+      setSelectedTeamMember({});
     } catch (error) {
       console.error("Error while submitting appointment:", error);
       toast.error(
@@ -215,6 +221,7 @@ const AddAppointment = () => {
         error,
         comments,
         setComments,
+        loading,
       }}
     >
       <main className={styles.mainContainer}>
@@ -287,13 +294,25 @@ const AddAppointment = () => {
           </div>
 
           <div className={styles.buttonContainer}>
-            <button className={styles.cancel} onClick={handleCancel}>
+            <button
+              className={styles.cancel}
+              onClick={handleCancel}
+              disabled={loading}
+            >
               Cancel
             </button>
-            <button className={styles.submit} onClick={handleSubmit}>
+            <button
+              className={styles.submit}
+              onClick={handleSubmit}
+              disabled={loading}
+            >
               {loading ? <Loader /> : "Submit"}
             </button>
-            <button onClick={handleSubmit} className={styles.save}>
+            <button
+              onClick={handleSubmit}
+              className={styles.save}
+              disabled={loading}
+            >
               {loading ? <Loader /> : "Submit"}
             </button>
           </div>
