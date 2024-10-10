@@ -11,7 +11,7 @@ const BasicDetailsForm = ({
 }) => {
   const [serviceType, setServiceType] = useState([]);
   const [selectedServiceType, setSelectedServiceType] = useState(
-    service.service_name
+    service?.service_name
   );
   const [selectCategory, setSelectCategory] = useState(category?.category_name);
   const [serviceName, setServiceName] = useState(subcategory?.service_name);

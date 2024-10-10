@@ -1,9 +1,8 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
 import styles from "./BasicDetailForm.module.css";
 import CustomSelect from "../../../Select/CustomeSelect";
-import { getAllServices } from "../../../../services/Services";
-import { toast } from "react-toastify";
-const BasicDetailsForm = ({ salon, setBasicDetails }) => {
+
+const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
   const [showCategoryOption, setshowCategoryOption] = useState(false);
   const [selectedServiceType, setSelectedServiceType] = useState("");
   const [selectCategory, setSelectCategory] = useState(null);
@@ -82,6 +81,14 @@ const BasicDetailsForm = ({ salon, setBasicDetails }) => {
       setSelectCategory(categories[0]);
     }
   }, [categories]);
+  useEffect(() => {
+    if (submit) {
+      setshowCategoryOption(false);
+      setSelectCategory("");
+      setserviceName("");
+      setPrice("");
+    }
+  }, [submit]);
 
   return (
     <form className={styles.form}>

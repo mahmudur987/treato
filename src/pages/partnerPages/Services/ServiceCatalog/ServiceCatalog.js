@@ -69,7 +69,7 @@ const ServiceCatalog = () => {
             <div className={styles.serviceType}>
               <p>Service Type</p>
               <div className={styles.selectWrapper}>
-                {serviceType.length > 0 && (
+                {serviceType?.length > 0 && (
                   <CustomSelect2
                     options={["All", ...serviceType]}
                     value={selectedServiceType}
