@@ -285,9 +285,9 @@ const ScheduleTable = ({ profiles, getdata }) => {
 
   return (
     <>
-      <div  className={style.durationsBox}>
+      <div className={style.durationsBox}>
         {durations &&
-          durations.map((duration, index) => <p key={index}>{duration}</p>)}
+          durations.map((duration, index) => <p  key={index}>{duration}</p>)}
       </div>
       <div className={style.grids}>
         {durations &&

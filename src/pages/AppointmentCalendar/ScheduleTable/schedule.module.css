@@ -158,7 +158,11 @@
     height: auto;
     display: flex;
     flex-direction: column;
-    gap: 120px;
+    /* gap: 120px; */
+    background-color: #FFFFFF;
+}
+.durationsBox p{
+    min-height: 134px;
     background-color: #FFFFFF;
 }
 

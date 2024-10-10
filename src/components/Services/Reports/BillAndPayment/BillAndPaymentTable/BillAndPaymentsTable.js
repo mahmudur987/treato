@@ -58,7 +58,7 @@ const tableHeading = [
     heading: "Invoice",
   },
 ];
-
+const formatNumber = (num) => (!num || isNaN(num) ? "N/A" : parseFloat(num).toFixed(2));
 const BillAndPaymentTable = ({ data }) => {
   // State to store selected rows
   const [selectedRows, setSelectedRows] = useState([]);
@@ -69,7 +69,7 @@ const BillAndPaymentTable = ({ data }) => {
       date: x?.appointmentDate ?? "N/A",
       clientName: x?.clientName ?? "",
       services: x?.serviceData[0] ? x?.serviceData[0]?.service_name : "",
-      amount: x?.amount ?? "",
+      amount: formatNumber(x?.amount),
       status: x?.status ?? "",
       Mode: x?.paymentMode ?? "",
       paidOn: x?.paidon ?? "",
