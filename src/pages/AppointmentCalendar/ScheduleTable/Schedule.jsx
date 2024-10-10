@@ -382,7 +382,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         </p>
                                         
                                         <p className={style.clientNames}>
-                                          {service?.clientName}{service.otp}
+                                          {service?.clientName}
                                         </p>
                                       </div>
                                       <svg
@@ -447,7 +447,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                           startAppointment(service?.appid)
                                         }
                                       >
-                                        Started{slotIndex}{serviceIndex}
+                                        Started
                                       </div>
                                       <div
                                         className={`${style.started} ${service?.paymentMode.toLowerCase()==="online" ? '' :style .noShow} `}
