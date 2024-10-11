@@ -378,7 +378,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                           {service?.exactTime})
                                         </p>
                                         <p className={style.serviceNames}>
-                                          {service.service_name}{service.otps}
+                                          {service.service_name}
                                         </p>
                                         
                                         <p className={style.clientNames}>
@@ -470,14 +470,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                       >
                                         Completed
                                       </div></>}
-                                      {/* <div
-                                        className={`${style.started} ${otp ? '' :style.disable } `}
-                                        onClick={() =>
-                                          completeApp(service?.appid, profile?.appointments[0]?.otp)
-                                        }
-                                      >
-                                        Completed
-                                      </div> */}
+                                     
                                       <div
                                         className={`${style.started}`}
                                         onClick={() =>
