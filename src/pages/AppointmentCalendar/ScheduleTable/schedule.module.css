@@ -269,7 +269,7 @@
 }
 
 
-.dropdowncontent :hover {
+.dropdowncontent .started:hover {
     background-color: #EBEDF0;
 }
 
