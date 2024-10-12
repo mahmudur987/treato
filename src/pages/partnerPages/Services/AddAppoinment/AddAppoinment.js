@@ -182,11 +182,8 @@ const AddAppointment = () => {
         data?.message || "A new appointment has been added successfully."
       );
 
-      setComments("");
-      setCustomerDetails({});
       setDiscount("");
       setPrice("");
-      setSelectedTeamMember({});
     } catch (error) {
       console.error("Error while submitting appointment:", error);
       toast.error(

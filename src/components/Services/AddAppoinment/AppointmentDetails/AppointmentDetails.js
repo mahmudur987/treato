@@ -114,11 +114,7 @@ const AppointmentDetails = () => {
   useEffect(() => {
     setTime(times.length > 0 ? times[0] : "09:00");
   }, [times]);
-  useEffect(() => {
-    if (loading) {
-      setCategory(null);
-    }
-  }, [loading]);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
