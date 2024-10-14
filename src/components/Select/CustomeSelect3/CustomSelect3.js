@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import styles from "./CusomeSelect3.module.css";
 import { CiSearch } from "react-icons/ci";
+import { downArrow } from "../ColorSelect/ColorSelect";
 const CustomSelect3 = ({ options, onChange, value, setSearchText }) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef(null);
@@ -70,21 +71,7 @@ const CustomSelect3 = ({ options, onChange, value, setSearchText }) => {
         )}
       </div>
       <span className={styles.icon}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M6 9L12 15L18 9"
-            stroke="black"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <img src={downArrow} alt="" />
       </span>
     </div>
   );

@@ -3,12 +3,12 @@ import styles from "./Navbar.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import mask2 from "../../assets/images/NavbarImages/Mask2.webp";
 import mask from "../../assets/images/NavbarImages/Mask.webp";
-import MainSearchBar from "../Input/mainSearchBar/MainSearchBar";
+import icon1 from "../../assets/svgs/icon (12).svg";
+import icon2 from "../../assets/svgs/icon (13).svg";
 import {
   TreatoLogo,
   accountSetting,
   briefcase,
-  chevrondown,
   chevronright,
   download,
   history,
@@ -222,37 +222,17 @@ export default function Navbar() {
                 />
                 {userInfo?.first_name}
                 {isDesktopMenuOpen ? (
-                  <svg
+                  <img
+                    src={icon1}
+                    alt=""
                     className={`${styles.chevrondown} w-6 h-6 text-gray-800 dark:text-white`}
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m5 15 7-7 7 7"
-                    />
-                  </svg>
+                  />
                 ) : (
-                  <svg
+                  <img
+                    src={icon2}
+                    alt=""
                     className={`${styles.chevrondown} w-6 h-6 text-gray-800 dark:text-white`}
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m19 9-7 7-7-7"
-                    />
-                  </svg>
+                  />
                 )}
               </SecondaryButton>
             )}

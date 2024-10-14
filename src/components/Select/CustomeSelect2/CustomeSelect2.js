@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import styles from "./CustomeSelect2.module.css";
 import { useLocation } from "react-router-dom";
+import { downArrow } from "../ColorSelect/ColorSelect";
 
 const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -101,21 +102,7 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
         {isOpen && <div className={styles.backgroundOverlay}></div>}
       </div>
       <span className={styles.icon} onClick={handleToggle}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M6 9L12 15L18 9"
-            stroke="black"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <img src={downArrow} alt="" />
       </span>
     </div>
   );

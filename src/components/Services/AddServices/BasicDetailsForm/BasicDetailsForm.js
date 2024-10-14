@@ -1,7 +1,8 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
 import styles from "./BasicDetailForm.module.css";
 import CustomSelect from "../../../Select/CustomeSelect";
-
+import { downArrow } from "../../../Select/ColorSelect/ColorSelect";
+import plus from "../../../../assets/svgs/icon (16).svg";
 const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
   const [showCategoryOption, setshowCategoryOption] = useState(false);
   const [selectedServiceType, setSelectedServiceType] = useState("");
@@ -108,29 +109,6 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
               </option>
             ))}
           </select>
-
-          {/* <CustomSelect
-            options={serviceType}
-            value={selectedServiceType ? selectedServiceType : serviceType[0]}
-            onChange={setSelectedServiceType}
-          />
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M6 9L12 15L18 9"
-                stroke="black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span> */}
         </div>
       </div>
       {/* add  service category */}
@@ -139,28 +117,8 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
           onClick={() => setshowCategoryOption(true)}
           className={styles.subCategory}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-          >
-            <path
-              d="M10 4.16602V15.8327"
-              stroke="#0D69D7"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M4.16797 10H15.8346"
-              stroke="#0D69D7"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          <img src={plus} alt="" />
+
           <h5>Add service category</h5>
         </div>
       )}
@@ -178,21 +136,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
                   onChange={setSelectCategory}
                 />
                 <span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M6 9L12 15L18 9"
-                      stroke="black"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
+                  <img src={downArrow} alt="" />
                 </span>
               </div>
             </div>
@@ -231,21 +175,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
               onChange={setDuration}
             />
             <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M6 9L12 15L18 9"
-                  stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <img src={downArrow} alt="" />
             </span>
           </div>
         </div>
@@ -259,21 +189,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
               onChange={setAvailableFor}
             />
             <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M6 9L12 15L18 9"
-                  stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <img src={downArrow} alt="" />
             </span>
           </div>
         </div>
@@ -317,21 +233,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
                 onChange={setTax}
               />
               <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <img src={downArrow} alt="" />
               </span>
             </div>
           </div>

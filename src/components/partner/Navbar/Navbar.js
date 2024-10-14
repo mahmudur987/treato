@@ -14,7 +14,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
 import mask from "../../../assets/images/NavbarImages/Mask.webp";
-
+import icon from "../../../assets/svgs/icon (14).svg";
 const Navbar = () => {
   const navigate = useNavigate();
   const [show, setshow] = useState(false);
@@ -78,21 +78,7 @@ const Navbar = () => {
                   onError={(e) => (e.target.src = mask)}
                 />
                 <h3>{userData?.user?.first_name}</h3>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <img src={icon} alt="" />
               </div>
             ) : (
               <p className={style.action}>
