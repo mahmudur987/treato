@@ -43,9 +43,7 @@ const BillHistoryTable = ({ data }) => {
     const data = {
       id: x._id,
       customerName: x.customer_name ?? "N/A",
-      profileImage:
-        x?.userProfile?.public_url ??
-        "https://media.istockphoto.com/id/1439326389/photo/3d-print-image-icon-with-landscape-and-sun-picture-in-frame-gallery-sign-no-image-social.webp?b=1&s=170667a&w=0&k=20&c=QuMKkOcu2TVk3Suml3ZwIMvb4iemJi5mfKMC1a7eohg=",
+      profileImage: x?.userProfile?.public_url ?? process.env.REACT_APP_Image,
       salonName: x.salon_name ?? "N/A",
       invoiceId: x.invoice ?? "N/A",
       date: formatDate(x.date) ?? x.data,
@@ -66,10 +64,7 @@ const BillHistoryTable = ({ data }) => {
                 <td key={i}>
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
-                    <div
-                      
-                      className={sty.xyBox}
-                    >
+                    <div className={sty.xyBox}>
                       <img loading="lazy" src={item.topImg} alt="" />
                       <img loading="lazy" src={item.bottomImg} alt="" />
                     </div>
@@ -86,12 +81,12 @@ const BillHistoryTable = ({ data }) => {
                   <div className={sty.bodyRow}>
                     <p className={sty.wrapper}>
                       <figure className={sty.profile}>
-                        <img loading="lazy"
+                        <img
+                          loading="lazy"
                           src={x?.profileImage}
-                          alt="profile image"
+                          alt="profile "
                           onError={(e) =>
-                            e.target.src ===
-                            "https://media.istockphoto.com/id/1439326389/photo/3d-print-image-icon-with-landscape-and-sun-picture-in-frame-gallery-sign-no-image-social.webp?b=1&s=170667a&w=0&k=20&c=QuMKkOcu2TVk3Suml3ZwIMvb4iemJi5mfKMC1a7eohg="
+                            e.target.src === process.env.REACT_APP_Image
                           }
                         />
                       </figure>
@@ -116,9 +111,7 @@ const BillHistoryTable = ({ data }) => {
                   <p className={sty.bodyRow}>{x.amount}</p>
                 </td>
                 <td>
-                  <p
-                    className={sty.bodyRow}
-                  >
+                  <p className={sty.bodyRow}>
                     <BsThreeDots />
                   </p>
                 </td>

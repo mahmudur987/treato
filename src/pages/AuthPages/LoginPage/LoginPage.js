@@ -212,7 +212,7 @@ const LoginPage = () => {
       }
     },
   });
-  const redirectUri = "https://treato.netlify.app/";
+  const redirectUri = process.env.REACT_APP_Redirect_Uri;
   const myFbLogin = async () => {
     try {
       let token = await openFbDialog();

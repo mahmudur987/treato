@@ -13,9 +13,7 @@ const TeamMembers = () => {
     const data = {
       id: x._id,
       name: x?.stylist_name ?? "N/A",
-      image:
-        x.stylist_Img?.public_url ??
-        "https://images.unsplash.com/photo-1559629819-638a8f0a4303?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: x.stylist_Img?.public_url ?? process.env.REACT_APP_Image,
     };
     return data;
   });
@@ -72,7 +70,8 @@ const TeamMembers = () => {
                   htmlFor={`person-${person?.id}`}
                   className={styles.label}
                 >
-                  <img loading="lazy"
+                  <img
+                    loading="lazy"
                     src={person?.image}
                     alt={person?.name}
                     className={styles.image}

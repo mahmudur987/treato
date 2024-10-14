@@ -81,7 +81,6 @@ export default function Navbar() {
     navigate("/");
     setIsLoggedIn(false);
     setuserInfo("");
-    // window.open("https://backend.treato.in/api/v1/auth/logout","_self")
   };
   useEffect(() => {
     let isTokenExist = localStorage.getItem("jwtToken");
