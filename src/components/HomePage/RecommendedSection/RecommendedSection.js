@@ -21,7 +21,7 @@ export default function RecommendedSection() {
     return (
       <button
         className={`${styles.carouselDot} ${active ? styles.dotActive : ""}`}
-        onClick={() => onClick()}
+        onClick={onClick}
       ></button>
     );
   };
