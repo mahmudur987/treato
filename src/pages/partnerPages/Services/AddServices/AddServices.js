@@ -10,6 +10,7 @@ import TeamMembers, {
 import { addNewService, useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
+import { backTick } from "../../PersonalDetails/PersonalDetails";
 
 const AddServices = () => {
   const navigate = useNavigate();
@@ -112,55 +113,13 @@ const AddServices = () => {
   return (
     <main className={styles.mainContainer}>
       <Link to={"/partner/dashboard/service"} className={styles.backLink}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M19 12H5"
-            stroke="#08090A"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M12 19L5 12L12 5"
-            stroke="#08090A"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <img src={backTick} alt="" />
       </Link>
 
       <section className={styles.container}>
         <header className={styles.header}>
           <Link to={"/partner/dashboard/service"} className={styles.backLink}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M19 12H5"
-                stroke="#08090A"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M12 19L5 12L12 5"
-                stroke="#08090A"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            <img src={backTick} alt="" />
           </Link>
           <h1>
             <span> Add a Service</span>

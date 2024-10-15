@@ -9,6 +9,9 @@ import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import VerifyOtp from "../../../components/_modals/VerifyOtp/VerifyOtp";
 import { sendNumberChangeOTP } from "../../../services/auth";
 import VerifyOtpOfPartner from "../../../components/_modals/Partner/VerifyOtp/VerifyOtp";
+import i from "../../../assets/svgs/icon (32).svg";
+
+export const backTick = i;
 
 function validatePhoneNumber(phoneNumber) {
   const isNumeric = /^\d+$/.test(phoneNumber);
@@ -196,55 +199,13 @@ const PersonalDetails = () => {
         to={"/partner/dashboard/PartnerAccountSetting"}
         className={styles.backLink}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M19 12H5"
-            stroke="#08090A"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M12 19L5 12L12 5"
-            stroke="#08090A"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <img src={backTick} alt="" />
       </Link>
 
       <section className={styles.container}>
         <header className={styles.header}>
           <Link to={"/partner/dashboard/service"} className={styles.backLink}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M19 12H5"
-                stroke="#08090A"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M12 19L5 12L12 5"
-                stroke="#08090A"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            <img src={backTick} alt="" />
           </Link>
           <h1>Personal Details</h1>
         </header>

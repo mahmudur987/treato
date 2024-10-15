@@ -6,7 +6,7 @@ import image2 from "../../../../src/assets/images/Careers/placeholder.webp";
 import { GetPostDetails } from "../../../services/careers";
 import { FaArrowRight } from "react-icons/fa6";
 import { useGetCarer } from "../../../services/static";
-
+import icon from "../../../assets/svgs/icon (29).svg";
 function CurrentOpenings() {
   const [postdata, setPostData] = useState();
   const currentOpeningRef = useRef(null);
@@ -93,28 +93,12 @@ function CurrentOpenings() {
                       <h4>{ele.job_title}</h4>
                       <div className={style.jobDetails}>
                         <div className={style.location}>
-                          <svg
+                          <img
+                            src={icon}
+                            alt=""
                             className={`${style.locationIcons} w-6 h-6 text-gray-800 dark:text-white`}
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                            />
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"
-                            />
-                          </svg>
+                          />
+
                           <p>{ele.job_location}</p>
                         </div>
                         <div className={style.postDetails}>
