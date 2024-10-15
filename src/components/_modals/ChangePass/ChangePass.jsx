@@ -65,6 +65,10 @@ export default function ChangePass({ setPassModal, updateMobileOpt }) {
       showError(true);
     }
   };
+
+  const closeModal=()=>{
+    setPassModal(false)
+  }
   return (
     <>
       {/* <pre>{JSON.stringify(password + "HELLO", null, 2)}</pre> */}
@@ -76,7 +80,7 @@ export default function ChangePass({ setPassModal, updateMobileOpt }) {
               <img loading="lazy"
                 src={Grey_Close}
                 alt=""
-                onClick={() => setPassModal(false)}
+                onClick={closeModal}
               />
             </div>
           </div>

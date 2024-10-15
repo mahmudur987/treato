@@ -13,22 +13,32 @@ export default function PendingSalonMainPage({ addServices, addedServices }) {
   let { id } = useParams();
   const { data, isLoading, isError, error } = useSalonDetailsServices(id);
 
+const serviceOption = ()=>{
+  updateActiveSalon(1)
+}
+const aboutOption = ()=>{
+  updateActiveSalon(2)
+}
+const teamOption = ()=>{
+  updateActiveSalon(3)
+}
+
   return (
     <div className={styles.salon_main}>
       <div className={styles.salon_options}>
         <ul>
-          <a onClick={() => updateActiveSalon(1)}>
+          <a onClick={serviceOption}>
             <li className={activeSalon === 1 ? styles.active_salon_option : ""}>
               Services
             </li>
           </a>
-          <a onClick={() => updateActiveSalon(2)}>
+          <a onClick={aboutOption}>
             <li className={activeSalon === 2 ? styles.active_salon_option : ""}>
               About
             </li>
           </a>
 
-          <a onClick={() => updateActiveSalon(3)}>
+          <a onClick={teamOption}>
             <li className={activeSalon === 3 ? styles.active_salon_option : ""}>
               Team
             </li>

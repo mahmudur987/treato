@@ -9,7 +9,9 @@ export default function SalonServiceCard({
   salonId,
 }) {
   const [showModal, setShowModal] = useState(false);
-
+const closeModal =()=>{
+  setShowModal(false)
+}
   return (
     <>
       <>
@@ -31,7 +33,7 @@ export default function SalonServiceCard({
       </>
       <EditPriceModal
         showModal={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={closeModal}
       />
     </>
   );

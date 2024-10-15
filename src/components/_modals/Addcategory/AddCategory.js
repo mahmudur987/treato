@@ -136,7 +136,7 @@ const AddCategory = ({ showModal, onClose }) => {
             <button
               className={styles.cancel}
               type="button"
-              onClick={() => onClose()}
+              onClick={onClose}
             >
               Cancel
             </button>

@@ -39,17 +39,13 @@ const TimeScheduleModal = ({
     <>
       <div className={sty.editContent}>
         <p
-          onClick={() => {
-            openEditModal();
-          }}
+          onClick={openEditModal}
         >
           Edit this shift
         </p>
         <p onClick={employeeSchedule}>Edit Employee Schedule</p>
         <p
-          onClick={() => {
-            openLeaveModal();
-          }}
+          onClick={openLeaveModal}
         >
           Add Leave
         </p>

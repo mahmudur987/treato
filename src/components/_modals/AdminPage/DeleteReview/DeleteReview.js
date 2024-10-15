@@ -70,7 +70,7 @@ const DeleteReviewModal = ({ showModal, onClose, data }) => {
           <button
             className={styles.cancel}
             type="button"
-            onClick={() => onClose()}
+            onClick={onClose}
           >
             Cancel
           </button>
