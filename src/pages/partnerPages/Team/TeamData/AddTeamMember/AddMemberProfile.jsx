@@ -146,7 +146,9 @@ const AddMemberProfile = () => {
     const file = e.target.files[0];
     setPicture(file);
   };
-
+const theModalOpen =()=>{
+  setIsModalOpen((pre) => !pre)
+}
   if (loading) {
     return <LoadSpinner />;
   }
@@ -315,7 +317,7 @@ const AddMemberProfile = () => {
                       </h4>
                     )}
 
-                    <div onClick={() => setIsModalOpen((pre) => !pre)}>
+                    <div onClick={theModalOpen}>
                       <p className={styles.editImgEdit}>
                         Edit
                         <img loading="lazy" src={editImg} alt="editImg" />

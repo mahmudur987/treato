@@ -8,6 +8,14 @@ import instagram_black from "../../../assets/images/icons/instagram_black.svg";
 import { toast } from "react-toastify";
 
 export default function ShareBlog({ setShareModal, BlogUrl }) {
+
+const shareModal=()=>{
+  setShareModal(false)
+}
+const navigateBlog =()=>{
+  navigator.clipboard.writeText(BlogUrl ? BlogUrl : "");
+              toast.success("Copied URL");
+}
   return (
     <div className={styles.shareMain}>
       <div className={styles.shareA}>
@@ -17,7 +25,7 @@ export default function ShareBlog({ setShareModal, BlogUrl }) {
               loading="lazy"
               src={Grey_Close}
               alt="close"
-              onClick={() => setShareModal(false)}
+              onClick={shareModal}
             />
           </div>
           <div className={styles.shareC}>Share blog via</div>
@@ -28,7 +36,7 @@ export default function ShareBlog({ setShareModal, BlogUrl }) {
               loading="lazy"
               src={Grey_Close}
               alt="close"
-              onClick={() => setShareModal(false)}
+              onClick={shareModal}
             />
           </div>
           <div className={styles.shareC}>Share blog via</div>
@@ -85,10 +93,7 @@ export default function ShareBlog({ setShareModal, BlogUrl }) {
           <div className={styles.shareEA}>{BlogUrl ? BlogUrl : ""}</div>
           <div
             className={styles.shareEB}
-            onClick={() => {
-              navigator.clipboard.writeText(BlogUrl ? BlogUrl : "");
-              toast.success("Copied URL");
-            }}
+            onClick={navigateBlog}
           >
             Copy link
           </div>

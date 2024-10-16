@@ -66,7 +66,9 @@ const PasswordActive = ({ setPassActiveModal, updateMobileOpt }) => {
       showError(true);
     }
   };
-
+const passActive = () =>{
+  setPassActiveModal(false)
+}
   return (
     <div className={styles.passMain}>
       <div className={styles.passA}>
@@ -77,7 +79,7 @@ const PasswordActive = ({ setPassActiveModal, updateMobileOpt }) => {
               loading="lazy"
               src={Grey_Close}
               alt=""
-              onClick={() => setPassActiveModal(false)}
+              onClick={passActive}
             />
           </div>
         </div>

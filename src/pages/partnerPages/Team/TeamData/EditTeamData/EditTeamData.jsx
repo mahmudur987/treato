@@ -201,7 +201,9 @@ const EditTeamData = () => {
   if (memIsError) {
     <ErrorComponent message={memError.message} />;
   }
-
+const theModalOpen =()=>{
+  setIsModalOpen((pre) => !pre)
+}
   return (
     <>
       <div className={styles.container}>
@@ -373,7 +375,7 @@ const EditTeamData = () => {
                     <h4 className={styles.AllServicesText}>
                       All services (32)
                     </h4>
-                    <div onClick={() => setIsModalOpen((pre) => !pre)}>
+                    <div onClick={theModalOpen}>
                       <p className={styles.editImgEdit}>
                         Edit
                         <img loading="lazy" src={editImg} alt="editImg" />
