@@ -13,13 +13,16 @@ const FilterSection = ({ viewBy, setViewBy, count, value }) => {
     selectedSortBy,
     setSelectedSortBy,
   } = value;
+  const viewBys = ()=>{
+    setViewBy((pre) => !pre)
+  }
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>
         <h3>All Salons ({count})</h3>
       </div>
       <div className={styles.Wrapper}>
-        <div onClick={() => setViewBy((pre) => !pre)} className={styles.viewBy}>
+        <div onClick={viewBys} className={styles.viewBy}>
           <button className={viewBy ? styles.active : styles.notActive}>
             <MdOutlineGridView />
           </button>

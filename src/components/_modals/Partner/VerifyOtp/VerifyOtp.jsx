@@ -130,6 +130,9 @@ export default function VerifyOtpOfPartner({
       });
     }
   };
+  const closeOTPModal= ()=>{
+    setOtpModal(false);
+  }
 
   return (
     <div className={styles.otpMain}>
@@ -143,7 +146,7 @@ export default function VerifyOtpOfPartner({
               loading="lazy"
               src={Grey_Close}
               alt=""
-              onClick={() => setOtpModal(false)}
+              onClick={closeOTPModal}
             />
           </div>
         </div>

@@ -50,7 +50,9 @@ export default function SalonSlickSLider({
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
-
+const showgallery = () =>{
+  setShowGallery(true)
+}
   return (
     <>
       {SalonData ? (
@@ -74,7 +76,7 @@ export default function SalonSlickSLider({
       )}
       <div
         className={styles.salon_slider_index}
-        onClick={() => setShowGallery(true)}
+        onClick={showgallery}
       >
         {activeImg + 1}/{SalonData?.salon_Img?.length}
       </div>

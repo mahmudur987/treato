@@ -48,6 +48,10 @@ export default function SalonDetail() {
   if (isError) {
     return <ErrorComponent message={error ? error.message : ""} />;
   }
+
+  const showTheGallery =()=>{
+    setShowGallery(true);
+  }
   return (
     <div
       className={
@@ -103,7 +107,7 @@ export default function SalonDetail() {
             }
           })}
           <div className={styles.salon_imagesA}>
-            <div onClick={() => setShowGallery(true)}>
+            <div onClick={showTheGallery}>
               <div>
                 View <span>{SalonData?.salon_Img?.length}</span>
               </div>

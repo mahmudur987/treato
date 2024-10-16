@@ -160,6 +160,18 @@ const Salons = React.memo(() => {
     setFilteredServiceData(allServices);
     setisServiceDropdownOpen(true);
   };
+  const sortBymodal =()=>{
+    handleOpenModal("sortBy")
+  }
+  const pricemodal =()=>{
+    handleOpenModal("price")
+  }
+  const venuemodal =()=>{
+    handleOpenModal("venue")
+  }
+  const allmodal =()=>{
+    handleOpenModal("all")
+  }
 
   return (
     <>
@@ -199,19 +211,19 @@ const Salons = React.memo(() => {
 
           <button
             className={styles.filter}
-            onClick={() => handleOpenModal("sortBy")}
+            onClick={sortBymodal}
           >
             Sort <img loading="lazy" src={chevronDown} alt="chevronDown" />
           </button>
           <button
             className={styles.filter}
-            onClick={() => handleOpenModal("price")}
+            onClick={pricemodal}
           >
             Price <img loading="lazy" src={chevronDown} alt="chevronDown" />
           </button>
           <button
             className={styles.filter}
-            onClick={() => handleOpenModal("venue")}
+            onClick={venuemodal}
           >
             Venue Type <img loading="lazy" src={chevronDown} alt="chevronDown" />
           </button>
@@ -225,7 +237,7 @@ const Salons = React.memo(() => {
           </h4>
           <button
             className={styles.filterDesk}
-            onClick={() => handleOpenModal("all")}
+            onClick={ allmodal }
           >
             <img loading="lazy"
               src={filterDeskIcon}

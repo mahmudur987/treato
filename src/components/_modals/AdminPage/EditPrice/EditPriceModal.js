@@ -100,7 +100,7 @@ const EditPriceModal = ({ showModal, onClose, data, salonId }) => {
           <button
             className={styles.cancel}
             type="button"
-            onClick={() => onClose()}
+            onClick={onClose}
           >
             Cancel
           </button>

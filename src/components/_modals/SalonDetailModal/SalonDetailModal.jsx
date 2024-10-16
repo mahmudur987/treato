@@ -64,6 +64,13 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
       setisError(true);
     }
   };
+
+  const primaryShowModal =()=>{
+    if (setShowModal) {
+      setShowModal(false);
+      dispatch(updateAppliedOffer(null));
+    }
+  }
   return (
     <div className={styles.ModalMain}>
       <div className={styles.ModalMainA}>
@@ -100,12 +107,7 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
           <PrimaryButton
             children={"Cancel"}
             className={styles.bgWhite}
-            onClick={() => {
-              if (setShowModal) {
-                setShowModal(false);
-                dispatch(updateAppliedOffer(null));
-              }
-            }}
+            onClick={primaryShowModal}
           />
           <PrimaryButton children={"Apply"} onClick={handleApplyOffer} />
         </div>

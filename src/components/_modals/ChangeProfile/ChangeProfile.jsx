@@ -73,6 +73,10 @@ export default function ChangeProfile({
     facingMode: "user",
   };
 
+  const cameraOpen =()=>{
+    setIsCameraOpen(true);
+  }
+
   return (
     <div  className={`${styles.profileMain} `}>
       {isCameraOpen && (
@@ -122,7 +126,7 @@ export default function ChangeProfile({
           </div>
           <div
             className={styles.profileDA}
-            onClick={() => setIsCameraOpen(true)}
+            onClick={cameraOpen}
           >
             <div className={styles.profileDAA}>
               <img loading="lazy" src={camera} alt="camera" />

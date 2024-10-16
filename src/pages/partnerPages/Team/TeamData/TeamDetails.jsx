@@ -94,6 +94,13 @@ const TeamDetails = () => {
     navigate("/partner/dashboard/EditMemberProfile");
   };
 
+  const theViewAll=()=>{
+    setIsViewAll(true)
+  }
+  const theViewClose=()=>{
+    setIsViewAll(false);
+  }
+
   return (
     <div className={sty.container}>
       <div className={sty.manageTeam}>
@@ -134,7 +141,7 @@ const TeamDetails = () => {
                   loading="lazy"
                   src={rightIcon}
                   alt="rightIcon"
-                  onClick={() => EditTeamMemberData}
+                  onClick={ EditTeamMemberData}
                 />
               </div>
             </div>
@@ -271,7 +278,7 @@ const TeamDetails = () => {
           <span className={sty.viewAllBtn1}>
             {isViewAll ? (
               <button
-                onClick={() => setIsViewAll(false)}
+                onClick={theViewClose}
                 className={sty.viewAllBtn}
               >
                 View less{" "}
@@ -284,7 +291,7 @@ const TeamDetails = () => {
               </button>
             ) : (
               <button
-                onClick={() => setIsViewAll(true)}
+                onClick={theViewAll}
                 className={sty.viewAllBtn}
               >
                 View all{" "}
