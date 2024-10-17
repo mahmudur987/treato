@@ -9,14 +9,15 @@
 .PartnerAuthImage {
   width: 100%;
   height: 100%;
+  background-color: aqua;
 }
 .AuthImage {
-  background-size: cover;
+  background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
 .PartnerAuthImage {
-  background-size: contain;
+  background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
