@@ -156,7 +156,27 @@ export default function AddressModal({
       return `Address for ${lat}, ${lng}`;
     }
   };
-  console.log(addressModal);
+  const handleInlineFunctions = (e) => {
+    setAddressModal({ active: false, data: null });
+  };
+  const handleInlineFunctions1 = (e) => {
+    setLocType(1);
+  };
+  const handleInlineFunctions2 = (e) => {
+    setUpdateSave(true);
+  };
+  const handleInlineFunctions3 = (e) => {
+    setAddressModal({ active: false, data: null });
+  };
+  const handleInlineFunctions4 = (e) => {
+    setUpdateSave(true);
+  };
+  const handleInlineFunctions5 = (e) => {
+    setAddressModal({ active: false, data: null });
+  };
+  const handleInlineFunctions6 = (e) => {
+    setLocType(2);
+  };
   return (
     <>
       {addressModal?.data ? (
@@ -165,10 +185,11 @@ export default function AddressModal({
             <div className={styles.addressBack}>
               <div className={styles.addressA}>
                 <div className={styles.addressAA}>Edit address</div>
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={DarkCross}
                   alt="close"
-                  onClick={() => setAddressModal({ active: false, data: null })}
+                  onClick={handleInlineFunctions}
                 />
               </div>
               <div className={styles.addressB}>
@@ -244,8 +265,8 @@ export default function AddressModal({
                   <div className={styles.addressEB}>
                     <label
                       htmlFor="home"
-                      onChange={() => setUpdateSave(true)}
-                      onClick={() => setLocType(1)}
+                      onChange={handleInlineFunctions2}
+                      onClick={handleInlineFunctions1}
                     >
                       <BasicInput
                         Type={"radio"}
@@ -267,7 +288,7 @@ export default function AddressModal({
                     <label
                       htmlFor="other"
                       onChange={() => setUpdateSave(true)}
-                      onClick={() => setLocType(2)}
+                      onClick={handleInlineFunctions6}
                     >
                       <BasicInput
                         Type={"radio"}
@@ -306,10 +327,11 @@ export default function AddressModal({
             <div className={styles.addressBack}>
               <div className={styles.addressA}>
                 <div className={styles.addressAA}>Add new address</div>
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={DarkCross}
                   alt="close"
-                  onClick={() => setAddressModal({ active: false, data: null })}
+                  onClick={handleInlineFunctions3}
                 />
               </div>
               <div className={styles.addressB}>
@@ -375,7 +397,7 @@ export default function AddressModal({
                   <div className={styles.addressEB}>
                     <label
                       htmlFor="home"
-                      onChange={() => setUpdateSave(true)}
+                      onChange={handleInlineFunctions4}
                       onClick={() => setLocType(1)}
                     >
                       <BasicInput
