@@ -82,6 +82,11 @@ function Chatbot() {
     }
   }, [userQuetion]);
 
+  const msgOpening = () => {
+    openMessageFn();
+    setOpen(true);
+  }
+
   return (
     <>
       {openGreeting ? (
@@ -106,10 +111,7 @@ function Chatbot() {
       )}
 
       <div
-        onClick={() => {
-          openMessageFn();
-          setOpen(true);
-        }}
+        onClick={msgOpening}
         className={style.messageLogo}
       >
         {openMessage ? (
@@ -125,10 +127,7 @@ function Chatbot() {
         <>
           <div className={style.messageContainer}>
             <IoMdArrowBack
-              onClick={() => {
-                openMessageFn();
-                setOpen(true);
-              }}
+              onClick={msgOpening}
               className={style.backArrow}
             />
             <nav className={style.chatNav}>
@@ -160,9 +159,8 @@ function Chatbot() {
                       <>
                         <div
                           key={index}
-                          className={`${style.quetions} ${
-                            index === selectedQuestion ? style.selected : ""
-                          }`}
+                          className={`${style.quetions} ${index === selectedQuestion ? style.selected : ""
+                            }`}
                           onClick={() => handleClick(index)}
                         >
                           {ele}
