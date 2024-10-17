@@ -84,6 +84,15 @@ const PaymentProfile = () => {
   if (isError) {
     return <ErrorComponent message={error ? error : "Error"} />;
   }
+  const editData=()=>{
+    handleEditClick("account_number")
+  }
+  const editDataAccount=()=>{
+    handleEditClick("account_holder_name")
+  }
+  const editDataIFSC=()=>{
+    handleEditClick("IFSC_code")
+  }
 
   return (
     <>
@@ -151,7 +160,7 @@ const PaymentProfile = () => {
                   />
                   <MdEdit
                     className={styles["editIcon"]}
-                    onClick={() => handleEditClick("account_number")}
+                    onClick={editData}
                   />
                 </div>
               </div>
@@ -168,7 +177,7 @@ const PaymentProfile = () => {
                   />
                   <MdEdit
                     className={styles["editIcon"]}
-                    onClick={() => handleEditClick("account_holder_name")}
+                    onClick={editDataAccount}
                   />
                 </div>
               </div>
@@ -185,7 +194,7 @@ const PaymentProfile = () => {
                   />
                   <MdEdit
                     className={styles["editIcon"]}
-                    onClick={() => handleEditClick("IFSC_code")}
+                    onClick={editDataIFSC}
                   />
                 </div>
               </div>

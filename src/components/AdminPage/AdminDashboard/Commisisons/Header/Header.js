@@ -95,6 +95,10 @@ const Header = () => {
     }
   };
 
+  const editTableModal =()=>{
+    setIsEditable((pre) => !pre)
+  }
+
   return (
     <section className={styles.mainContainer}>
       <div className={styles.wrapper}>
@@ -140,7 +144,7 @@ const Header = () => {
                 </div>
 
                 <div className={styles.cardRight}>
-                  <button onClick={() => setIsEditable((pre) => !pre)}>
+                  <button onClick={editTableModal}>
                     <span>
                       <FaPen className={styles.faPen} />
                     </span>

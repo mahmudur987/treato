@@ -13,6 +13,10 @@ export default function ProfileView({ setProfileModal, logOut, inputVal }) {
     setSelectedImage(userDetails?.avatar?.public_url);
   }, [userDetails]);
 
+  const openProfileModal =()=>{
+    setProfileModal(true);
+  }
+
   return (
     <div className={styles.user_profile}>
       <div className={styles.user_img_main}>
@@ -30,7 +34,7 @@ export default function ProfileView({ setProfileModal, logOut, inputVal }) {
         </div>
         <div
           className={styles.user_img_edit}
-          onClick={() => setProfileModal(true)}
+          onClick={openProfileModal}
         >
           <img loading="lazy" src={pencilIco} alt="editIcon" />
         </div>

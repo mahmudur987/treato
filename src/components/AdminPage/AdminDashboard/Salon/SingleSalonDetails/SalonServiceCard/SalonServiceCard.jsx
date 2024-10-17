@@ -10,6 +10,13 @@ export default function SalonServiceCard({
 }) {
   const [showModal, setShowModal] = useState(false);
 
+ const openShowModal =()=>{
+  setShowModal(true);
+ }
+ const closeShowModal =()=>{
+  setShowModal(false);
+ }
+
   return (
     <>
       <>
@@ -26,9 +33,7 @@ export default function SalonServiceCard({
                 <span>₹{salonServiceData?.price}</span>
 
                 <button
-                  onClick={() => {
-                    setShowModal(true);
-                  }}
+                  onClick={openShowModal}
                 >
                   <FaPen />
                 </button>
@@ -42,7 +47,7 @@ export default function SalonServiceCard({
       </>
       <EditPriceModal
         showModal={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={closeShowModal}
         data={salonServiceData}
         salonId={salonId}
       />

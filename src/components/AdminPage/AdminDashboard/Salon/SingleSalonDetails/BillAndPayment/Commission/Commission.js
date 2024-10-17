@@ -4,6 +4,10 @@ import { FaPen } from "react-icons/fa";
 const Commission = () => {
   const [commission, setCommission] = useState("");
   const [enable, setEnable] = useState(true);
+
+  const enableFunction =()=>{
+    setEnable((pre) => !pre);
+  }
   return (
     <div className={styles.mainContainer}>
       <div className={styles.left}>
@@ -27,7 +31,7 @@ const Commission = () => {
             onChange={(e) => setCommission(e.target.value)}
           />
           <label htmlFor="comm">
-            <span onClick={() => setEnable((pre) => !pre)}>
+            <span onClick={enableFunction}>
               <FaPen />
             </span>
           </label>

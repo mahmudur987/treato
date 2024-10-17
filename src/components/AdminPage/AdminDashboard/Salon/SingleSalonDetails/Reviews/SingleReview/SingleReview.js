@@ -9,6 +9,13 @@ const SingleReview = ({ data }) => {
   const [count, setCount] = useState(120);
   const [showModal, setShowModal] = useState(false);
 
+  const enableShowModal =()=>{
+    setShowModal(true);
+  }
+  const closeShowModal =()=>{
+    setShowModal(false)
+  }
+
   return (
     <>
       <div className={styles.mainContainer}>
@@ -21,7 +28,7 @@ const SingleReview = ({ data }) => {
             <h5>{data.name}</h5>
             <span>{data?.date}</span>
           </div>
-          <button onClick={() => setShowModal(true)} className={styles.delete}>
+          <button onClick={enableShowModal} className={styles.delete}>
             Delete Review
           </button>
         </div>
@@ -47,7 +54,7 @@ const SingleReview = ({ data }) => {
 
       <DeleteReviewModal
         showModal={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={closeShowModal}
         data={data}
       />
     </>

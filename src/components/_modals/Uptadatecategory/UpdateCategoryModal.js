@@ -120,8 +120,7 @@ const UpdateCategoryModal = ({ showModal, onClose, data, category }) => {
                   <button
                     className={styles.cancel}
                     type="button"
-                    onCl
-                    onClick={handleInlineFunctions}
+                    onClick={onClose}
                   >
                     Cancel
                   </button>

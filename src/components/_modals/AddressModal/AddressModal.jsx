@@ -6,9 +6,9 @@ import BasicInput from "../../Input/BasicInput/BasicInput";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import { useState } from "react";
 import { useEffect } from "react";
-import GoogleMapReact from "google-map-react";
+
 import { useSelector } from "react-redux";
-import { updateUser } from "../../../services/updateUser";
+
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -185,6 +185,10 @@ export default function AddressModal({
     setUpdateSave(true);
   };
 
+  console.log(addressModal);
+  const theupdateSave = () => {
+    setUpdateSave(true);
+  };
   return (
     <>
       {addressModal?.data ? (
@@ -237,10 +241,7 @@ export default function AddressModal({
                 </GoogleMap>
               </div>
               <form id="addressForm" onSubmit={editAddress}>
-                <div
-                  className={styles.addressD}
-                  onChange={() => setUpdateSave(true)}
-                >
+                <div className={styles.addressD} onChange={theupdateSave}>
                   <label htmlFor="house">
                     <div className={styles.addressDA}>House/Flat Number*</div>
                     <BasicInput
@@ -254,10 +255,7 @@ export default function AddressModal({
                   </label>
                 </div>
                 <div className={styles.addressD}>
-                  <label
-                    htmlFor="landmark"
-                    onChange={() => setUpdateSave(true)}
-                  >
+                  <label htmlFor="landmark" onChange={theupdateSave}>
                     <div className={styles.addressDA}>Landmark (optional)</div>
                     <BasicInput
                       PlaceHolder={"e.g. opp. AXN Center"}
@@ -373,10 +371,7 @@ export default function AddressModal({
                 </GoogleMap>
               </div>
               <form id="addressForm" onSubmit={updateAddress}>
-                <div
-                  className={styles.addressD}
-                  onChange={() => setUpdateSave(true)}
-                >
+                <div className={styles.addressD} onChange={theupdateSave}>
                   <label htmlFor="house">
                     <div className={styles.addressDA}>House/Flat Number*</div>
                     <BasicInput
@@ -388,10 +383,7 @@ export default function AddressModal({
                   </label>
                 </div>
                 <div className={styles.addressD}>
-                  <label
-                    htmlFor="landmark"
-                    onChange={() => setUpdateSave(true)}
-                  >
+                  <label htmlFor="landmark" onChange={theupdateSave}>
                     <div className={styles.addressDA}>Landmark (optional)</div>
                     <BasicInput
                       PlaceHolder={"e.g. opp. AXN Center"}

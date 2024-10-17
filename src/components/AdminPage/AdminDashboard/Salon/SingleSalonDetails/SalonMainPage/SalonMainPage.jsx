@@ -15,26 +15,39 @@ export default function SalonMainPage({ addServices, addedServices }) {
   let { id } = useParams();
   const { data, isLoading, isError, error } = useSalonDetailsServices(id);
 
+  const updateActiveOption1 =()=>{
+    updateActiveSalon(1);
+  }
+  const updateActiveOption2 =()=>{
+    updateActiveSalon(2);
+  }
+  const updateActiveOption3 =()=>{
+    updateActiveSalon(3);
+  }
+  const updateActiveOption4 =()=>{
+    updateActiveSalon(4);
+  }
+
   return (
     <div className={styles.salon_main}>
       <div className={styles.salon_options}>
         <ul>
-          <a href="#" onClick={() => updateActiveSalon(1)}>
+          <a href="#" onClick={updateActiveOption1}>
             <li className={activeSalon === 1 ? styles.active_salon_option : ""}>
               Services
             </li>
           </a>
-          <a href="#" onClick={() => updateActiveSalon(2)}>
+          <a href="#" onClick={updateActiveOption2}>
             <li className={activeSalon === 2 ? styles.active_salon_option : ""}>
               Bookings
             </li>
           </a>
-          <a href="#" onClick={() => updateActiveSalon(3)}>
+          <a href="#" onClick={updateActiveOption3}>
             <li className={activeSalon === 3 ? styles.active_salon_option : ""}>
               Billing and payment
             </li>
           </a>
-          <a href="#" onClick={() => updateActiveSalon(4)}>
+          <a href="#" onClick={updateActiveOption4}>
             <li className={activeSalon === 4 ? styles.active_salon_option : ""}>
               Reviews
             </li>

@@ -126,6 +126,10 @@ export default function VerifyOtp({
     }
   };
 
+  const closeOtpModal=()=>{
+    setOtpModal(false)
+  }
+
   return (
     <div className={styles.otpMain}>
       <div className={styles.otpA}>
@@ -138,7 +142,7 @@ export default function VerifyOtp({
               loading="lazy"
               src={Grey_Close}
               alt=""
-              onClick={() => setOtpModal(false)}
+              onClick={closeOtpModal}
             />
           </div>
         </div>

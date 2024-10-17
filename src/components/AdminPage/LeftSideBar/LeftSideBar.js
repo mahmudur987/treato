@@ -15,6 +15,10 @@ const LeftSideBar = () => {
   const [pageHeight, setPageHeight] = useState(0);
   const { updatePage } = useSelector((state) => state.admin);
 
+const toggleSalonMenu =()=>{
+  setSalonMenu((pre) => !pre)
+}
+
   useEffect(() => {
     function handleResize() {
       const height = Math.max(
@@ -73,7 +77,7 @@ const LeftSideBar = () => {
             </Link>
 
             <p
-              onClick={() => setSalonMenu((pre) => !pre)}
+              onClick={toggleSalonMenu}
               style={{
                 backgroundColor: `${
                   pathname === "/admin/salon" ? "#0D69D7" : ""
