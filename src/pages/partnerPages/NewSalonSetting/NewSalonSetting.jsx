@@ -187,6 +187,9 @@ const NewSalonSetting = () => {
       [name]: value,
     }));
   };
+  const handleStepChange = (step) => {
+    setCurrentStep(step);
+  };
 
   if (loading) {
     return <LoadSpinner />;
@@ -203,24 +206,24 @@ const NewSalonSetting = () => {
 
           <div className={sty.steps}>
             <span
-              onClick={() => setCurrentStep(1)}
+              onClick={() => handleStepChange(1)}
               className={sty.step}
-              style={{ background: `${currentStep === 1 ? "#0D69D7" : ""}` }}
+              style={{ background: currentStep === 1 ? "#0D69D7" : "" }}
             ></span>
             <span
+              onClick={() => handleStepChange(2)}
               className={sty.step}
-              onClick={() => setCurrentStep(2)}
-              style={{ background: `${currentStep === 2 ? "#0D69D7" : ""}` }}
+              style={{ background: currentStep === 2 ? "#0D69D7" : "" }}
             ></span>
             <span
+              onClick={() => handleStepChange(3)}
               className={sty.step}
-              onClick={() => setCurrentStep(3)}
-              style={{ background: `${currentStep === 3 ? "#0D69D7" : ""}` }}
+              style={{ background: currentStep === 3 ? "#0D69D7" : "" }}
             ></span>
             <span
+              onClick={() => handleStepChange(4)}
               className={sty.step}
-              onClick={() => setCurrentStep(4)}
-              style={{ background: `${currentStep === 4 ? "#0D69D7" : ""}` }}
+              style={{ background: currentStep === 4 ? "#0D69D7" : "" }}
             ></span>
           </div>
         </div>

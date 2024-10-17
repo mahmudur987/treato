@@ -130,6 +130,9 @@ export default function VerifyOtpOfCustomer({
       });
     }
   };
+  const handleCloseOtpModal = () => {
+    setOtpModal(false);
+  };
 
   return (
     <div className={styles.otpMain}>
@@ -143,7 +146,7 @@ export default function VerifyOtpOfCustomer({
               loading="lazy"
               src={Grey_Close}
               alt=""
-              onClick={() => setOtpModal(false)}
+              onClick={handleCloseOtpModal}
             />
           </div>
         </div>

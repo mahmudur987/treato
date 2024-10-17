@@ -125,7 +125,9 @@ const RescheduleAppointment = ({ data }) => {
     setallowMonths(allowedMonths);
     return allowedMonths;
   };
-
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   const handleIncrement = () => {
     const allowedMonths = generateAllowedMonths();
 
@@ -402,10 +404,7 @@ const RescheduleAppointment = ({ data }) => {
             gap: "10px",
           }}
         >
-          <SecondaryButton
-            children={"cancel"}
-            onClick={() => dispatch(closeModal())}
-          />
+          <SecondaryButton children={"cancel"} onClick={handleCloseModal} />
 
           <PrimaryButton
             children={"Save"}

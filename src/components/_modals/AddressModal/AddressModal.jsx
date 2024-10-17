@@ -177,6 +177,14 @@ export default function AddressModal({
   const handleInlineFunctions6 = (e) => {
     setLocType(2);
   };
+  const handleLocTypeChange = (type) => {
+    setLocType(type);
+  };
+
+  const handleSaveUpdate = () => {
+    setUpdateSave(true);
+  };
+
   return (
     <>
       {addressModal?.data ? (
@@ -398,7 +406,7 @@ export default function AddressModal({
                     <label
                       htmlFor="home"
                       onChange={handleInlineFunctions4}
-                      onClick={() => setLocType(1)}
+                      onClick={() => handleLocTypeChange(1)}
                     >
                       <BasicInput
                         Type={"radio"}
@@ -418,10 +426,11 @@ export default function AddressModal({
                         Home
                       </div>
                     </label>
+
                     <label
                       htmlFor="other"
-                      onChange={() => setUpdateSave(true)}
-                      onClick={() => setLocType(2)}
+                      onChange={handleSaveUpdate}
+                      onClick={() => handleLocTypeChange(2)}
                     >
                       <BasicInput
                         Type={"radio"}
