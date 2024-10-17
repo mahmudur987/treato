@@ -30,6 +30,12 @@ const BlogCard = ({
     setShareBlog(blog._id);
     setBlogUrl(`${location}blogs/${blog._id}`);
   };
+
+  const handleToggle = () => {
+    setShareModal(true);
+    setShareBlog(null);
+  };
+
   return (
     <div
       className={
@@ -75,10 +81,7 @@ const BlogCard = ({
               }
               onMouseOver={() => setActiveShare(true)}
               onMouseOut={() => setActiveShare(false)}
-              onClick={() => {
-                setShareModal(true);
-                setShareBlog(null);
-              }}
+              onClick={handleToggle}
             >
               <img
                 loading="lazy"

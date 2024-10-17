@@ -22,7 +22,9 @@ const SalonInDashboardNavbar = () => {
     localStorage.removeItem("jwtToken");
     navigate("/partner");
   };
-
+  const handleChange = () => {
+    setShowProfile((pre) => !pre);
+  };
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container}>
@@ -43,10 +45,7 @@ const SalonInDashboardNavbar = () => {
 
         <p className={styles.actionWrapper}>
           {userData?.isLoggedIn && (
-            <div
-              className={styles.account}
-              onClick={() => setShowProfile((pre) => !pre)}
-            >
+            <div className={styles.account} onClick={handleChange}>
               <img
                 loading="lazy"
                 src={userData?.user?.avatar?.public_url ?? ""}
@@ -59,10 +58,7 @@ const SalonInDashboardNavbar = () => {
           )}
         </p>
         {showProfile && (
-          <div
-            onClick={() => setShowProfile((pre) => !pre)}
-            className={styles.profileContainer}
-          >
+          <div onClick={handleChange} className={styles.profileContainer}>
             <img
               loading="lazy"
               src={userData?.user?.avatar?.public_url ?? ""}

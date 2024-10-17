@@ -66,6 +66,9 @@ export default function SocialSettings({ user }) {
       }
     });
   };
+  const handleGoogleAuthLogin = () => {
+    googleAuthLogin();
+  };
   return (
     <div className={styles.user_social}>
       <div className={styles.usr_social_head}>Social</div>
@@ -86,9 +89,7 @@ export default function SocialSettings({ user }) {
                   ? styles.social_opt_connect
                   : styles.social_opt_disconnect
               }
-              onClick={() => {
-                googleAuthLogin();
-              }}
+              onClick={handleGoogleAuthLogin}
             >
               {user?.user?.google === "disconnect" ? "Connect" : "Disconnect"}
             </div>

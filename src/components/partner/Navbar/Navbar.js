@@ -1,58 +1,93 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import style from "./Navbar.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { TreatoLogo } from "../../../assets/images/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
+import TreatoLogo from "../../../assets/images/icons/TreatoLogo.svg";
 import TreatoLogo2 from "../../../assets/images/partner/Treato2.webp";
 import menu from "../../../assets/icons/menu.webp";
 import signin from "../../../assets/icons/partner/signin.webp";
 import cross from "../../../assets/icons/partner/cross.webp";
 import right from "../../../assets/icons/partner/chevron-right.webp";
-import user from "../../../assets/icons/partner/user.webp";
+import userIcon from "../../../assets/icons/partner/user.webp";
 import pricing from "../../../assets/icons/partner/price.webp";
 import download from "../../../assets/icons/partner/download.webp";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { resetUserDetails, updateIsLoggedIn } from "../../../redux/slices/user";
 import mask from "../../../assets/images/NavbarImages/Mask.webp";
 import icon from "../../../assets/svgs/icon (14).svg";
+
 const Navbar = () => {
   const navigate = useNavigate();
-  const [show, setshow] = useState(false);
-  const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user);
+
+  const [show, setShow] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const handleLogout = () => {
+
+  const handleLogout = useCallback(() => {
     dispatch(updateIsLoggedIn(false));
     dispatch(resetUserDetails({}));
     localStorage.removeItem("userData");
     localStorage.removeItem("jwtToken");
     navigate("/partner");
-  };
-  const scrollToSection = (navigate, sectionId) => {
-    navigate("/partner"); // Navigate to the home page
-    setTimeout(() => {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        window.scrollTo({
-          top: section.offsetTop - 50,
-          behavior: "smooth",
-        });
-      }
-    }, 450);
-  };
+  }, [dispatch, navigate]);
+
+  const scrollToSection = useCallback(
+    (navigate, sectionId) => {
+      navigate("/partner");
+      setTimeout(() => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          window.scrollTo({
+            top: section.offsetTop - 50,
+            behavior: "smooth",
+          });
+        }
+      }, 450);
+    },
+    [navigate]
+  );
+
+  const renderMobileMenu = () => (
+    <div className={style.mobileMenuContainer}>
+      <div className={style.mobileMenuHeader}>
+        <Link to={"/"} className={style.siteName}>
+          <img loading="lazy" src={TreatoLogo} alt="Treato" />
+        </Link>
+        <button onClick={() => setShow((prev) => !prev)}>
+          <img loading="lazy" src={cross} alt="Close" />
+        </button>
+      </div>
+      <div className={style.mobileMenuItems}>
+        <MenuItem
+          linkTo="/partner/authchoice"
+          icon={signin}
+          label="Sign up / Sign-in"
+        />
+        <MenuItem linkTo="/" icon={userIcon} label="For Customers" />
+        <MenuItem linkTo="#" icon={pricing} label="Pricing" />
+        <MenuItem linkTo="/" icon={download} label="Download App" />
+        {userData.user.role === "partner" && (
+          <MenuItem
+            linkTo="/partner/dashboard"
+            icon={userIcon}
+            label="Dashboard"
+          />
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <section className={style.mainContainer}>
       <header className={style.container}>
-        <nav className={style.siteNamewrapper}>
+        <nav className={style.siteNameWrapper}>
           <Link to={"/"} className={style.siteName}>
-            <img loading="lazy" src={TreatoLogo} />
+            <img loading="lazy" src={TreatoLogo} alt="Treato" />
           </Link>
         </nav>
-
         <nav className={style.navMenu}>
           <p className={style.navItems}>
-            {" "}
-            <Link to={"/"} className={style.navItem}>
+            <Link to="/" className={style.navItem}>
               For customers
             </Link>
             <Link
@@ -61,137 +96,92 @@ const Navbar = () => {
             >
               Download App
             </Link>
-            <Link to={"/"} className={style.navItem}>
+            <Link to="/" className={style.navItem}>
               Pricing
             </Link>
           </p>
           <p className={style.actionWrapper}>
             {userData?.isLoggedIn ? (
               <div
-                onClick={() => setShowProfile((pre) => !pre)}
+                onClick={() => setShowProfile((prev) => !prev)}
                 className={style.account}
               >
                 <img
                   loading="lazy"
                   src={userData?.user?.avatar?.public_url ?? ""}
-                  alt=""
+                  alt="User Avatar"
                   onError={(e) => (e.target.src = mask)}
                 />
                 <h3>{userData?.user?.first_name}</h3>
-                <img src={icon} alt="" />
+                <img src={icon} alt="Dropdown" />
               </div>
             ) : (
-              <p className={style.action}>
-                {" "}
-                <Link to={"/partner/login"}>
+              <div className={style.action}>
+                <Link to="/partner/login">
                   <button className={style.login}>Login</button>
                 </Link>
-                <Link to={"/partner/authchoice"}>
+                <Link to="/partner/authchoice">
                   <button className={style.signup}>Sign up for free</button>
                 </Link>
-              </p>
+              </div>
             )}
           </p>
         </nav>
+
         {showProfile && (
           <div
-            onClick={() => setShowProfile((pre) => !pre)}
+            onClick={() => setShowProfile((prev) => !prev)}
             className={style.profileContainer}
           >
             <img
               loading="lazy"
               src={userData?.user?.avatar?.public_url ?? ""}
-              alt=""
+              alt="User Avatar"
               onError={(e) => (e.target.src = mask)}
             />
             <h3>{userData?.user?.first_name}</h3>
             {userData.user.role === "partner" && (
-              <Link to={"/partner/dashboard"}>Dashboard</Link>
+              <Link to="/partner/dashboard">Dashboard</Link>
             )}
             <Link onClick={handleLogout}>LogOut</Link>
           </div>
         )}
-        {/* mobile menu */}
 
-        <div className={style.mobilemenu}>
-          <Link to={"/"} className={style.siteName}>
+        {/* Mobile Menu */}
+        <div className={style.mobileMenu}>
+          <Link to="/" className={style.siteName}>
             <img
               loading="lazy"
               src={TreatoLogo2}
               className={style.TreatoLogo2}
-              alt="TreatoLogo2"
+              alt="Treato"
             />
           </Link>
-          <button onClick={() => setshow((pre) => !pre)}>
-            <img loading="lazy" className={style.humburger} src={menu} />
+          <button onClick={() => setShow((prev) => !prev)}>
+            <img
+              loading="lazy"
+              className={style.hamburger}
+              src={menu}
+              alt="Menu"
+            />
           </button>
-
-          {show && (
-            <div className={style.mobileMenuContainer}>
-              <div className={style.mobileMenhHEading}>
-                <Link to={"/"} className={style.siteName}>
-                  <img loading="lazy" src={TreatoLogo} />
-                </Link>
-                <button onClick={() => setshow((pre) => !pre)}>
-                  <img loading="lazy" src={cross} />
-                </button>
-              </div>
-              <div className={style.mobileMenuItms}>
-                <div className={style.mobileMenuItem}>
-                  <Link to={"/partner/authchoice"}>
-                    <img loading="lazy" src={signin} />{" "}
-                    <span>Sign up / Sign-in</span>
-                  </Link>
-                  <button onClick={() => setshow((pre) => !pre)}>
-                    <img loading="lazy" src={right} />
-                  </button>
-                </div>
-
-                <div className={style.mobileMenuItem}>
-                  <Link to={"/"}>
-                    <img loading="lazy" src={user} /> <span>For Customers</span>
-                  </Link>
-                  <button onClick={() => setshow((pre) => !pre)}>
-                    <img loading="lazy" src={right} />
-                  </button>
-                </div>
-                <div className={style.mobileMenuItem}>
-                  <Link to={"#"}>
-                    <img loading="lazy" src={pricing} /> <span>Pricing</span>
-                  </Link>
-                  <button onClick={() => setshow((pre) => !pre)}>
-                    <img loading="lazy" src={right} />
-                  </button>
-                </div>
-                <div className={style.mobileMenuItem}>
-                  <Link to={"/"}>
-                    <img loading="lazy" src={download} />{" "}
-                    <span>Download app</span>
-                  </Link>
-                  <button onClick={() => setshow((pre) => !pre)}>
-                    <img loading="lazy" src={right} />
-                  </button>
-                </div>
-                {userData.user.role === "partner" && (
-                  <div className={style.mobileMenuItem}>
-                    {userData.user.role === "partner" && (
-                      <Link to={"/partner/dashboard"}>
-                        <img loading="lazy" src={user} />
-                        <span> Dashboard</span>
-                      </Link>
-                    )}
-                    <button onClick={() => setshow((pre) => !pre)}>
-                      <img loading="lazy" src={right} />
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
+          {show && renderMobileMenu()}
         </div>
       </header>
     </section>
   );
 };
+
+// Extracted Mobile Menu Item component for reusability
+const MenuItem = ({ linkTo, icon, label }) => (
+  <div className={style.mobileMenuItem}>
+    <Link to={linkTo}>
+      <img loading="lazy" src={icon} alt={label} /> <span>{label}</span>
+    </Link>
+    <button>
+      <img loading="lazy" src={right} alt="Next" />
+    </button>
+  </div>
+);
 
 export default Navbar;

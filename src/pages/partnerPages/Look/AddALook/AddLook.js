@@ -139,7 +139,9 @@ const AddLook = () => {
   if (isLoading) {
     return <LoadSpinner />;
   }
-
+  const handleNavigate = () => {
+    navigate("/partner/dashboard/look");
+  };
   return (
     <addLookContext.Provider value={value}>
       <main className={styles.mainContainer}>
@@ -165,7 +167,7 @@ const AddLook = () => {
           <button
             className={styles.cancel}
             type="button"
-            onClick={() => navigate("/partner/dashboard/look")}
+            onClick={handleNavigate}
           >
             Cancel
           </button>

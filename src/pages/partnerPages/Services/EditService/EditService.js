@@ -114,7 +114,9 @@ const EditService = () => {
       );
     }
   };
-
+  const handleNavigate = () => {
+    navigate("/partner/dashboard/service");
+  };
   return (
     <main className={styles.mainContainer}>
       <Link to={"/partner/dashboard/service"} className={styles.backLink}>
@@ -162,10 +164,7 @@ const EditService = () => {
         )}
 
         <div className={styles.buttontContainer}>
-          <button
-            onClick={() => navigate("/partner/dashboard/service")}
-            className={styles.cancel}
-          >
+          <button onClick={handleNavigate} className={styles.cancel}>
             Cancel
           </button>
           <button

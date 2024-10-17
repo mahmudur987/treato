@@ -268,6 +268,10 @@ export default function BillSummary({
     });
   };
 
+  const handleShowModal = () => {
+    if (setShowModal) setShowModal(false);
+  };
+
   return (
     <>
       <div className={styles.service_cardMain}>
@@ -326,10 +330,7 @@ export default function BillSummary({
                 <img loading="lazy" src={discountIco} alt="" />
                 <div>Offers & Benefits</div>
               </div>
-              <div
-                className={styles.bill_sumFD}
-                onClick={() => (setShowModal ? setShowModal(true) : "")}
-              >
+              <div className={styles.bill_sumFD} onClick={handleShowModal}>
                 <div>{offerCount ? offerCount : 0} offers</div>
                 <img loading="lazy" src={rightBlue} alt="" />
               </div>

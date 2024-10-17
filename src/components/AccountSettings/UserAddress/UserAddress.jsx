@@ -11,35 +11,45 @@ export default function UserAddress({
   inputVal,
   setShowSave,
 }) {
-  let [editStatus, updateEditStatus] = useState(-1);
-  let [SaveDelete, setSaveDelete] = useState();
-
+  const [editStatus, setEditStatus] = useState(-1);
+  const [saveDeleteStatus, setSaveDeleteStatus] = useState(null);
   const { user } = useSelector((state) => state.user);
-  let deleteAddress = (data) => {
+
+  const handleDeleteAddress = () => {
     const userJWt = localStorage.getItem("jwtToken");
 
-    updateInputVal({
+    const updatedInputVal = {
       ...inputVal,
       landmark: "",
       house: "",
       house_type: "",
       place: "",
-    });
-    updateEditStatus(-1);
-    updateUser(userJWt, {
-      ...inputVal,
-      landmark: "",
-      house: "",
-      address_type: "",
-      place: "",
-    })
+    };
+
+    updateInputVal(updatedInputVal);
+    setEditStatus(-1);
+
+    updateUser(userJWt, updatedInputVal)
       .then((res) => {
         console.log(res, "userAddress");
-        setSaveDelete(res);
+        setSaveDeleteStatus(res);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
+  };
+
+  const handleEditAddress = () => {
+    setAddressModal({ active: true, data: inputVal });
+    setEditStatus(-1);
+  };
+
+  const handleToggleEdit = () => {
+    setEditStatus(editStatus === 1 ? -1 : 1);
+  };
+
+  const handleAddOrUpdateAddress = () => {
+    setAddressModal({ active: true, data: null });
   };
 
   return (
@@ -47,18 +57,16 @@ export default function UserAddress({
       <div className={styles.addr_head}>My Addresses</div>
       <div className={styles.addr_main}>
         <div className={styles.addr_main_top}>
-          {inputVal.house && inputVal.landmark && inputVal.place ? (
+          {inputVal.house && inputVal.landmark && inputVal.place && (
             <div>
               <img
                 loading="lazy"
                 src={moreVertical}
-                alt=""
-                className={`${styles.addr_edit_click} `}
-                onClick={() => updateEditStatus(editStatus === 1 ? -1 : 1)}
+                alt="edit options"
+                className={`${styles.addr_edit_click}`}
+                onClick={handleToggleEdit}
               />
             </div>
-          ) : (
-            ""
           )}
 
           <div
@@ -68,18 +76,8 @@ export default function UserAddress({
                 : styles.addr_edit_opt
             }
           >
-            <div
-              onClick={() => {
-                setAddressModal({ active: true, data: inputVal });
-                updateEditStatus(-1);
-              }}
-            >
-              Edit
-            </div>
-            <div
-              className={styles.addr_edit_del}
-              onClick={() => deleteAddress(user?.location)}
-            >
+            <div onClick={handleEditAddress}>Edit</div>
+            <div className={styles.addr_edit_del} onClick={handleDeleteAddress}>
               Delete
             </div>
           </div>
@@ -95,16 +93,13 @@ export default function UserAddress({
       <div
         className={
           inputVal.house && inputVal.landmark && inputVal.place
-            ? `${styles.add_data}`
+            ? styles.add_data
             : null
         }
       >
-        <div
-          className={styles.new_addr_add}
-          onClick={() => setAddressModal({ active: true, data: null })}
-        >
+        <div className={styles.new_addr_add} onClick={handleAddOrUpdateAddress}>
           <div>{inputVal.place ? "" : "+"}</div>
-          <div>{inputVal.place ? "update" : "Add"} address</div>
+          <div>{inputVal.place ? "Update" : "Add"} address</div>
         </div>
       </div>
     </div>

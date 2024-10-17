@@ -109,7 +109,9 @@ const AddServices = () => {
   if (isError) {
     toast.error(error.message, { toastId: 1 });
   }
-
+  const handleNavigate = () => {
+    navigate("/partner/dashboard/service");
+  };
   return (
     <main className={styles.mainContainer}>
       <Link to={"/partner/dashboard/service"} className={styles.backLink}>
@@ -181,7 +183,7 @@ const AddServices = () => {
 
         <div className={styles.buttontContainer}>
           <button
-            onClick={() => navigate("/partner/dashboard/service")}
+            onClick={handleNavigate}
             className={styles.cancel}
             disabled={loading}
           >

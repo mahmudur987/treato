@@ -57,6 +57,10 @@ const ServiceCatalog = () => {
     return <ErrorComponent message={"No data available"} />;
   }
 
+  const handleAddMenuChange = () => {
+    setshowAddmenu((pre) => !pre);
+  };
+
   return (
     <main className={styles.mainContainer}>
       <section className={styles.container}>
@@ -79,10 +83,7 @@ const ServiceCatalog = () => {
               </div>
             </div>
             <div className={styles.headerAction}>
-              <button
-                onClick={() => setshowAddmenu((pre) => !pre)}
-                className={styles.submit}
-              >
+              <button onClick={handleAddMenuChange} className={styles.submit}>
                 <img src={i} alt="" />
 
                 <span>Add Service</span>
@@ -90,10 +91,7 @@ const ServiceCatalog = () => {
             </div>
 
             {showAddMenu && (
-              <div
-                className={styles.addMenu}
-                onClick={() => setshowAddmenu((pre) => !pre)}
-              >
+              <div className={styles.addMenu} onClick={handleAddMenuChange}>
                 <Link to={"/partner/dashboard/service/addservice"}>
                   Add a new Service
                 </Link>
@@ -130,10 +128,7 @@ const ServiceCatalog = () => {
       </section>
       <AddCategory showModal={isModalOpen} onClose={closeModal} />
 
-      <div
-        onClick={() => setshowAddmenu((pre) => !pre)}
-        className={styles.plusButtonWrapper}
-      >
+      <div onClick={handleAddMenuChange} className={styles.plusButtonWrapper}>
         <button>
           <FaPlus />
         </button>
