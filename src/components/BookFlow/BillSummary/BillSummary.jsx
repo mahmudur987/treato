@@ -269,7 +269,7 @@ export default function BillSummary({
   };
 
   const handleShowModal = () => {
-    if (setShowModal) setShowModal(false);
+    if (setShowModal) setShowModal(true);
   };
 
   return (

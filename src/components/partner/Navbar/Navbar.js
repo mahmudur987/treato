@@ -69,7 +69,7 @@ const Navbar = () => {
             >
               Download App
             </Link>
-            <Link to={"/"} className={style.navItem}>
+            <Link to={"/Pricing"} className={style.navItem}>
               Pricing
             </Link>
           </p>
