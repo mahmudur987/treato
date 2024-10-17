@@ -157,6 +157,9 @@ export default function AddressModal({
     }
   };
   console.log(addressModal);
+  const theupdateSave =()=>{
+    setUpdateSave(true)
+  }
   return (
     <>
       {addressModal?.data ? (
@@ -210,7 +213,7 @@ export default function AddressModal({
               <form id="addressForm" onSubmit={editAddress}>
                 <div
                   className={styles.addressD}
-                  onChange={() => setUpdateSave(true)}
+                  onChange={theupdateSave}
                 >
                   <label htmlFor="house">
                     <div className={styles.addressDA}>House/Flat Number*</div>
@@ -227,7 +230,7 @@ export default function AddressModal({
                 <div className={styles.addressD}>
                   <label
                     htmlFor="landmark"
-                    onChange={() => setUpdateSave(true)}
+                    onChange={theupdateSave}
                   >
                     <div className={styles.addressDA}>Landmark (optional)</div>
                     <BasicInput
@@ -244,7 +247,7 @@ export default function AddressModal({
                   <div className={styles.addressEB}>
                     <label
                       htmlFor="home"
-                      onChange={() => setUpdateSave(true)}
+                      onChange={theupdateSave}
                       onClick={() => setLocType(1)}
                     >
                       <BasicInput
@@ -266,7 +269,7 @@ export default function AddressModal({
                     </label>
                     <label
                       htmlFor="other"
-                      onChange={() => setUpdateSave(true)}
+                      onChange={theupdateSave}
                       onClick={() => setLocType(2)}
                     >
                       <BasicInput
@@ -345,7 +348,7 @@ export default function AddressModal({
               <form id="addressForm" onSubmit={updateAddress}>
                 <div
                   className={styles.addressD}
-                  onChange={() => setUpdateSave(true)}
+                  onChange={theupdateSave}
                 >
                   <label htmlFor="house">
                     <div className={styles.addressDA}>House/Flat Number*</div>
@@ -360,7 +363,7 @@ export default function AddressModal({
                 <div className={styles.addressD}>
                   <label
                     htmlFor="landmark"
-                    onChange={() => setUpdateSave(true)}
+                    onChange={theupdateSave}
                   >
                     <div className={styles.addressDA}>Landmark (optional)</div>
                     <BasicInput
@@ -375,7 +378,7 @@ export default function AddressModal({
                   <div className={styles.addressEB}>
                     <label
                       htmlFor="home"
-                      onChange={() => setUpdateSave(true)}
+                      onChange={theupdateSave}
                       onClick={() => setLocType(1)}
                     >
                       <BasicInput
@@ -398,7 +401,7 @@ export default function AddressModal({
                     </label>
                     <label
                       htmlFor="other"
-                      onChange={() => setUpdateSave(true)}
+                      onChange={theupdateSave}
                       onClick={() => setLocType(2)}
                     >
                       <BasicInput
