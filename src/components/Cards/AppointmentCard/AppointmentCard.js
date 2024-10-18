@@ -15,6 +15,7 @@ import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import { openModal } from "../../../redux/slices/modal";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const options = { weekday: "short", month: "short", day: "numeric" };
@@ -40,6 +41,16 @@ const AppointmentCard = ({ salon, cardType }) => {
     dispatch(openModal({ type: `${buttonType}`, closable: true, data: salon }));
   };
   // console.log(salon);
+
+  const toggleDeatils = () => {
+    settoggleDetails(!toggleDetails);
+  };
+  const clickWriteReview = () => {
+    handleModal("WriteReview");
+  };
+  const handleChange = () => {
+    settoggleoptions(!toggleoptions);
+  };
 
   return (
     <div className={styles.cardWrapper}>
@@ -74,7 +85,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                     <span> {salon.bookingTime}</span>
                   </p>
                   <button
-                    onClick={() => settoggleDetails(!toggleDetails)}
+                    onClick={toggleDeatils}
                     className={styles.toggledetails}
                   >
                     {!toggleDetails && (
@@ -110,7 +121,7 @@ const AppointmentCard = ({ salon, cardType }) => {
                 loading="lazy"
                 src={moreVertical}
                 alt="moreVertical"
-                onClick={() => settoggleoptions(!toggleoptions)}
+                onClick={handleChange}
               />
               {toggleoptions && (
                 <div className={styles.options}>
@@ -124,7 +135,7 @@ const AppointmentCard = ({ salon, cardType }) => {
               className={`${
                 cardType === "Completed" ? styles.writeReview : styles.d_none
               }`}
-              onClick={() => handleModal("WriteReview")}
+              onClick={clickWriteReview}
             >
               Write a review
             </div>

@@ -65,28 +65,20 @@ const BookingsPartTable = ({ data }) => {
                 <td key={i}>
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
-                    <div
-                      
-                      className={sty.imageBox}
-                    >
-                      <img loading="lazy"  src={item.topImg} alt="" />
-                      <img loading="lazy"  src={item.bottomImg} alt="" />
+                    <div className={sty.imageBox}>
+                      <img loading="lazy" src={item.topImg} alt="" />
+                      <img loading="lazy" src={item.bottomImg} alt="" />
                     </div>
                   </div>
                 </td>
               ))}
               <td>
                 <div className={sty.headingRow}>
-                  <p
-                    
-                    className={sty.headingp}
-                  >
+                  <p className={sty.headingp}>
                     <span>Action</span>
-                    <span
-                      className={sty.imageBox}
-                    >
-                      <img loading="lazy"  src={topImg} alt="" />
-                      <img loading="lazy"  src={bottomImg} alt="" />
+                    <span className={sty.imageBox}>
+                      <img loading="lazy" src={topImg} alt="" />
+                      <img loading="lazy" src={bottomImg} alt="" />
                     </span>
                   </p>
                 </div>
@@ -99,12 +91,13 @@ const BookingsPartTable = ({ data }) => {
                 <td>
                   <div className={sty.bodyRow}>
                     <p className={sty.profile}>
-                      <img loading="lazy" 
+                      <img
+                        loading="lazy"
                         className={sty.customerImage}
                         src={
                           x.customerImage
                             ? x.customerImage
-                            : "https://lh3.googleusercontent.com/a/ACg8ocIfcL_LmzEgIGIfv9TfajznWdZAOu3OJf1FKMQ4d7jM=s96-c"
+                            : process.env.REACT_APP_Image
                         }
                         alt=""
                       />
@@ -129,10 +122,7 @@ const BookingsPartTable = ({ data }) => {
                   <p className={sty.bodyRow}>{x.status}</p>
                 </td>
                 <td>
-                  <p
-                    className={`${sty.bodyRow} ${sty.tdfont}`}
-                    
-                  >
+                  <p className={`${sty.bodyRow} ${sty.tdfont}`}>
                     <BsThreeDots />
                   </p>
                 </td>

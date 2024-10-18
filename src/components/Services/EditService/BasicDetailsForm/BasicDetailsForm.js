@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
 import styles from "./BasicDetailForm.module.css";
 import CustomSelect from "../../../Select/CustomeSelect";
+import { downArrow } from "../../../Select/ColorSelect/ColorSelect";
 
 const BasicDetailsForm = ({
   salon,
@@ -11,7 +12,7 @@ const BasicDetailsForm = ({
 }) => {
   const [serviceType, setServiceType] = useState([]);
   const [selectedServiceType, setSelectedServiceType] = useState(
-    service.service_name
+    service?.service_name
   );
   const [selectCategory, setSelectCategory] = useState(category?.category_name);
   const [serviceName, setServiceName] = useState(subcategory?.service_name);
@@ -81,21 +82,7 @@ const BasicDetailsForm = ({
             disable={true}
           />
           <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M6 9L12 15L18 9"
-                stroke="black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            <img src={downArrow} alt="" />
           </span>
         </div>
       </div>
@@ -111,21 +98,7 @@ const BasicDetailsForm = ({
             disable={true}
           />
           <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M6 9L12 15L18 9"
-                stroke="black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            <img src={downArrow} alt="" />
           </span>
         </div>
       </div>
@@ -159,21 +132,7 @@ const BasicDetailsForm = ({
               onChange={setDuration}
             />
             <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M6 9L12 15L18 9"
-                  stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <img src={downArrow} alt="" />
             </span>
           </div>
         </div>
@@ -187,21 +146,7 @@ const BasicDetailsForm = ({
               onChange={setAvailableFor}
             />
             <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M6 9L12 15L18 9"
-                  stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <img src={downArrow} alt="" />
             </span>
           </div>
         </div>
@@ -246,21 +191,7 @@ const BasicDetailsForm = ({
                 onChange={setTax}
               />
               <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M6 9L12 15L18 9"
-                    stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <img src={downArrow} alt="" />
               </span>
             </div>
           </div>

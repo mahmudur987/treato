@@ -33,6 +33,7 @@ const AppointmentDetails = () => {
     comments,
     isError: teamIsError,
     error: teamError,
+    loading,
   } = useContext(AddAppointmentContext);
   const [serviceType, setServiceType] = useState([]);
   const [selectedServiceType, setSelectedServiceType] = useState("");

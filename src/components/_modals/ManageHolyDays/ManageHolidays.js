@@ -97,6 +97,13 @@ const ManageHolidays = ({ showModal, onClose }) => {
   const openDatePicker = () => {
     dateInputRef.current.showPicker();
   };
+  const handleShow = ()=>{
+    setShow(!show);
+  }
+  const handleClose = ()=>{
+    onClose();
+  }
+
   return (
     <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
       <div className={styles.modalContent}>
@@ -163,7 +170,7 @@ const ManageHolidays = ({ showModal, onClose }) => {
             </form>
           ) : (
             <button
-              onClick={() => setShow(!show)}
+              onClick={handleShow}
               className={styles.addNewButton}
             >
               <span>
@@ -217,7 +224,7 @@ const ManageHolidays = ({ showModal, onClose }) => {
           <button
             className={styles.cancel}
             type="button"
-            onClick={() => onClose()}
+            onClick={handleClose}
           >
             Cancel
           </button>

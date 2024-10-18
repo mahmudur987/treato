@@ -6,6 +6,11 @@ import { useState } from 'react'
 
 export default function PoliciesModal({ setOpenModal, mainIcon, desc, title }) {
     let [closeModal, setCloseModal] = useState(false)
+
+    const handlePrimaryButton =()=>{
+        setCloseModal(true); 
+        setOpenModal({ taxModal: false, cancelModal: false });
+    }
     return (
         <>
             {
@@ -26,7 +31,7 @@ export default function PoliciesModal({ setOpenModal, mainIcon, desc, title }) {
                                         desc ? desc : null
                                     }
                                 </div>
-                                <PrimaryButton children={'Got it'} onClick={() => { setCloseModal(true); setOpenModal({ taxModal: false, cancelModal: false }) }} />
+                                <PrimaryButton children={'Got it'} onClick={handlePrimaryButton} />
                             </div>
                         </div>
                         <div className={styles.taxesMob}>
@@ -37,7 +42,7 @@ export default function PoliciesModal({ setOpenModal, mainIcon, desc, title }) {
                                             title ? title : null
                                         }
                                     </div>
-                                    <img loading="lazy" src={DarkCross} alt="cross" onClick={() => { setCloseModal(true); setOpenModal({ taxModal: false, cancelModal: false }) }} />
+                                    <img loading="lazy" src={DarkCross} alt="cross" onClick={handlePrimaryButton} />
                                 </div>
                                 <img loading="lazy" src={mainIcon ? mainIcon : null} alt="tax_icon" className={styles.taxesIco} />
                                 <div className={styles.taxesC}>
@@ -45,7 +50,7 @@ export default function PoliciesModal({ setOpenModal, mainIcon, desc, title }) {
                                         desc ? desc : null
                                     }
                                 </div>
-                                <PrimaryButton children={'Got it'} onClick={() => { setCloseModal(true); setOpenModal({ taxModal: false, cancelModal: false }) }} />
+                                <PrimaryButton children={'Got it'} onClick={handlePrimaryButton} />
                             </div>
                         </div>
                     </div>

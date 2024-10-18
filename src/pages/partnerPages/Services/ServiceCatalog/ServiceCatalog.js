@@ -9,7 +9,7 @@ import { BiMenuAltLeft } from "@react-icons/all-files/bi/BiMenuAltLeft";
 import { FaPlus } from "@react-icons/all-files/fa/FaPlus";
 import { useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
-import { toast } from "react-toastify";
+import i from "../../../../assets/svgs/icon (33).svg";
 
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
 import CustomSelect2 from "../../../../components/Select/CustomeSelect2/CustomeSelect2";
@@ -57,6 +57,10 @@ const ServiceCatalog = () => {
     return <ErrorComponent message={"No data available"} />;
   }
 
+  const handleAddMenuChange = () => {
+    setshowAddmenu((pre) => !pre);
+  };
+
   return (
     <main className={styles.mainContainer}>
       <section className={styles.container}>
@@ -69,7 +73,7 @@ const ServiceCatalog = () => {
             <div className={styles.serviceType}>
               <p>Service Type</p>
               <div className={styles.selectWrapper}>
-                {serviceType.length > 0 && (
+                {serviceType?.length > 0 && (
                   <CustomSelect2
                     options={["All", ...serviceType]}
                     value={selectedServiceType}
@@ -79,41 +83,15 @@ const ServiceCatalog = () => {
               </div>
             </div>
             <div className={styles.headerAction}>
-              <button
-                onClick={() => setshowAddmenu((pre) => !pre)}
-                className={styles.submit}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M12 5V19"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M5 12H19"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+              <button onClick={handleAddMenuChange} className={styles.submit}>
+                <img src={i} alt="" />
+
                 <span>Add Service</span>
               </button>
             </div>
 
             {showAddMenu && (
-              <div
-                className={styles.addMenu}
-                onClick={() => setshowAddmenu((pre) => !pre)}
-              >
+              <div className={styles.addMenu} onClick={handleAddMenuChange}>
                 <Link to={"/partner/dashboard/service/addservice"}>
                   Add a new Service
                 </Link>
@@ -150,10 +128,7 @@ const ServiceCatalog = () => {
       </section>
       <AddCategory showModal={isModalOpen} onClose={closeModal} />
 
-      <div
-        onClick={() => setshowAddmenu((pre) => !pre)}
-        className={styles.plusButtonWrapper}
-      >
+      <div onClick={handleAddMenuChange} className={styles.plusButtonWrapper}>
         <button>
           <FaPlus />
         </button>

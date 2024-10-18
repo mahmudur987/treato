@@ -120,7 +120,9 @@ export default function FindLocationModal({
     lat: 0, // Default to 0
     lng: 0, // Default to 0
   };
-
+const setLocation = () =>{
+  setLocationValue(" ")
+}
   return (
     <div className={styles.locationMain}>
       <div className={styles.locationBack}>
@@ -135,7 +137,7 @@ export default function FindLocationModal({
           <img loading="lazy"
             src={smallCross}
             alt="smallCross"
-            onClick={() => setLocationValue(" ")}
+            onClick={setLocation}
           />
         </div>
         {userDetails.isLocationAllow && (

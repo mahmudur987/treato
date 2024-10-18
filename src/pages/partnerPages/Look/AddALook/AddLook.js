@@ -25,6 +25,9 @@ const AddLook = () => {
   const [category, setCategory] = useState(null);
   const [service, setService] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
+
+  console.log(selectedPeople);
+
   const handleSubmit = async () => {
     setIsLoading(true); // Set loading state at the beginning
 
@@ -40,7 +43,11 @@ const AddLook = () => {
       setIsLoading(false);
       return;
     }
-
+    if (selectedPeople.length === 0) {
+      toast.error("Select a Stylist.");
+      setIsLoading(false);
+      return;
+    }
     const requiredFields = [
       { value: formData.name, message: "Add a name." },
       { value: formData.description, message: "Add a description." },
@@ -93,6 +100,7 @@ const AddLook = () => {
         // Reset form fields
         setImage(null);
         setRenderImage(null);
+        setSelectedPeople([]);
         setFormData({
           name: "",
           description: "",
@@ -131,7 +139,9 @@ const AddLook = () => {
   if (isLoading) {
     return <LoadSpinner />;
   }
-
+  const handleNavigate = () => {
+    navigate("/partner/dashboard/look");
+  };
   return (
     <addLookContext.Provider value={value}>
       <main className={styles.mainContainer}>
@@ -157,7 +167,7 @@ const AddLook = () => {
           <button
             className={styles.cancel}
             type="button"
-            onClick={() => navigate("/partner/dashboard/look")}
+            onClick={handleNavigate}
           >
             Cancel
           </button>

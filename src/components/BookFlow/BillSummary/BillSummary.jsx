@@ -28,6 +28,8 @@ import {
 import { toast } from "react-toastify";
 import CartPayment from "../../../payment/Payment";
 import WorkerDetail from "../WorkerDetail/WorkerDetail";
+import VerifyOtpOfCustomer from "../../_modals/Customar/VerifyOtp/VerifyOtp";
+import { sendNumberChangeOTP } from "../../../services/auth";
 
 export default function BillSummary({
   setShowModal,
@@ -46,7 +48,11 @@ export default function BillSummary({
   const [taxPrice, setTaxPrice] = useState(0);
   const [amountToPay, setamountToPay] = useState(0);
   const [selectedServiceSlot, setselectedServiceSlot] = useState(null);
-
+  const [verifiedPhone, setVerifiedPhone] = useState(false);
+  const [otpModal, setOtpModal] = useState(false);
+  const [showSave, setShowSave] = useState(false);
+  const [otpVerify, setVerifyOtp] = useState(0);
+  const [otpSuccess, setOtpSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const selectedServices = useSelector(
@@ -116,6 +122,26 @@ export default function BillSummary({
 
   const handleDeleteOffer = () => {
     dispatch(updateAppliedOffer(null));
+  };
+  // otp verification
+  console.log(visitorDetails);
+  const verifyOtp = async () => {
+    setOtpModal(true);
+
+    let PhoneNumber = "";
+    const phonedata = {
+      phoneNumber: PhoneNumber,
+    };
+    console.log(phonedata);
+    const res = await sendNumberChangeOTP(phonedata);
+
+    if (res.res) {
+      console.log(res?.res?.data?.otp);
+      setVerifyOtp(res?.res?.data.otp);
+    } else if (res.err) {
+      console.log(res.err);
+      toast.error("The Phone number is Not Valid");
+    }
   };
 
   // razorpay gateway
@@ -233,12 +259,17 @@ export default function BillSummary({
         toast.success("Appointment Booked successfully");
         setCompletedPay(true);
         setLoading(false);
+        // verifyOtp();
       } else if (res.err) {
         console.error("error");
         toast.error(res?.err?.response?.data?.error ?? "Error");
         setLoading(false);
       }
     });
+  };
+
+  const handleShowModal = () => {
+    if (setShowModal) setShowModal(false);
   };
 
   return (
@@ -299,10 +330,7 @@ export default function BillSummary({
                 <img loading="lazy" src={discountIco} alt="" />
                 <div>Offers & Benefits</div>
               </div>
-              <div
-                className={styles.bill_sumFD}
-                onClick={() => (setShowModal ? setShowModal(true) : "")}
-              >
+              <div className={styles.bill_sumFD} onClick={handleShowModal}>
                 <div>{offerCount ? offerCount : 0} offers</div>
                 <img loading="lazy" src={rightBlue} alt="" />
               </div>
@@ -388,6 +416,17 @@ export default function BillSummary({
           title={"Cancellation Policy"}
         />
       ) : null}
+
+      {otpModal && (
+        <VerifyOtpOfCustomer
+          setOtpModal={setOtpModal}
+          setOtpSuccess={setOtpSuccess}
+          otpSuccess={otpSuccess}
+          setShowSave={setShowSave}
+          inputVal={"01671706882"}
+          userOTP={otpVerify}
+        />
+      )}
     </>
   );
 }

@@ -23,9 +23,7 @@ const LookPage = () => {
         id: x._id,
         title: x?.name ?? "N/A",
         rating: x.rating ?? "N/A",
-        image:
-          x?.photo?.public_url ??
-          "https://images.unsplash.com/photo-1554519934-e32b1629d9ee?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        image: x?.photo?.public_url ?? process.env.REACT_APP_Image,
       };
       return data;
     });
@@ -43,7 +41,7 @@ const LookPage = () => {
         <h1>Looks</h1>
         <Link to={"/partner/dashboard/add-look"}>
           <button className={styles.top}>
-            <span  className={styles.iconColor} >
+            <span className={styles.iconColor}>
               <FaPlus />
             </span>
             <span>Add New Look</span>
@@ -63,7 +61,7 @@ const LookPage = () => {
         className={styles.bottom}
         onClick={() => navigate("/partner/dashboard/add-look")}
       >
-        <button  className={styles.iconColor} >
+        <button className={styles.iconColor}>
           <FaPlus />
         </button>
       </div>

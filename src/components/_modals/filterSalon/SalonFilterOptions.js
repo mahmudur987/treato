@@ -22,6 +22,26 @@ const SalonFilterOptions = ({
   const modal = useSelector((state) => state.salonModal);
   const userDetails = useSelector((state) => state.user);
 
+const RecommendedOption =()=>{
+  setSelectedSortOption("Recommended")
+}
+const NearestOption =()=>{
+  setSelectedSortOption("Nearest to me")
+}
+const ratingOption =()=>{
+  setSelectedSortOption("Ratings")
+}
+
+const vanueMaleType = ()=>{
+  setSelectedVenueType("male")
+}
+const vanuefemaleType = ()=>{
+  setSelectedVenueType("female")
+}
+const vanueType = ()=>{
+  setSelectedVenueType("everyone")
+}
+
   return (
     <div className={styles.filterOptions}>
       {(modal.modalContent === "sortBy" && isMobile) ||
@@ -42,7 +62,7 @@ const SalonFilterOptions = ({
               name="sortOption"
               value="Recommended"
               checked={selectedSortOption === "Recommended"}
-              onChange={() => setSelectedSortOption("Recommended")}
+              onChange={RecommendedOption}
             />
             Recommended
           </label>
@@ -53,7 +73,7 @@ const SalonFilterOptions = ({
                 name="sortOption"
                 value="Nearest to me"
                 checked={selectedSortOption === "Nearest to me"}
-                onChange={() => setSelectedSortOption("Nearest to me")}
+                onChange={NearestOption}
               />
               Nearest to me
             </label>
@@ -64,7 +84,7 @@ const SalonFilterOptions = ({
               name="sortOption"
               value="Ratings"
               checked={selectedSortOption === "Ratings"}
-              onChange={() => setSelectedSortOption("Ratings")}
+              onChange={ratingOption}
             />
             Ratings (High to Low)
           </label>
@@ -126,7 +146,7 @@ const SalonFilterOptions = ({
                     name="venueType"
                     value="everyone"
                     checked={selectedVenueType === "everyone"}
-                    onChange={() => setSelectedVenueType("everyone")}
+                    onChange={vanueType}
                   />
                   Everyone
                 </label>
@@ -140,7 +160,7 @@ const SalonFilterOptions = ({
                     name="venueType"
                     value="female"
                     checked={selectedVenueType === "female"}
-                    onChange={() => setSelectedVenueType("female")}
+                    onChange={vanuefemaleType}
                   />
                   Female only
                 </label>
@@ -154,7 +174,7 @@ const SalonFilterOptions = ({
                     name="venueType"
                     value="male"
                     checked={selectedVenueType === "male"}
-                    onChange={() => setSelectedVenueType("male")}
+                    onChange={vanueMaleType}
                   />
                   Male only
                 </label>
@@ -165,7 +185,7 @@ const SalonFilterOptions = ({
                   className={`${styles.everyone} ${
                     selectedVenueType === "everyone" ? styles.active : ""
                   }`}
-                  onClick={() => setSelectedVenueType("everyone")}
+                  onClick={vanueType}
                 >
                   Everyone
                 </button>
@@ -173,7 +193,7 @@ const SalonFilterOptions = ({
                   className={`${styles.female} ${
                     selectedVenueType === "female" ? styles.active : ""
                   }`}
-                  onClick={() => setSelectedVenueType("female")}
+                  onClick={vanuefemaleType}
                 >
                   Female only
                 </button>
@@ -181,7 +201,7 @@ const SalonFilterOptions = ({
                   className={`${styles.male} ${
                     selectedVenueType === "male" ? styles.active : ""
                   }`}
-                  onClick={() => setSelectedVenueType("male")}
+                  onClick={vanueMaleType}
                 >
                   Male only
                 </button>

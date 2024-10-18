@@ -47,7 +47,7 @@ const AppointmentsTable = ({ data }) => {
       services: x?.services?.length > 0 ? x?.services[0] : "N/A",
       Employee: x?.stylist,
       status: x?.status ?? "N/A",
-      amount: x?.final_amount ?? "N/A",
+      amount: x?.final_amount.toFixed(2) ?? "N/A",
       type: x?.payment_mode ?? "N/A",
     };
     return data;

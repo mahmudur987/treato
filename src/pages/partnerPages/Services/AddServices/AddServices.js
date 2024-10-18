@@ -10,6 +10,7 @@ import TeamMembers, {
 import { addNewService, useSingleSalon } from "../../../../services/salon";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
+import { backTick } from "../../PersonalDetails/PersonalDetails";
 
 const AddServices = () => {
   const navigate = useNavigate();
@@ -18,7 +19,8 @@ const AddServices = () => {
   const [basicDetails, setBasicDetails] = useState({});
   const [teamMember, setTeamMember] = useState([]);
   const [days, setdays] = useState([]);
-
+  const [submit, setSubmit] = useState(false);
+  const [loading, setLoading] = useState(false);
   //api fetching
   const { data, isLoading, isError, error } = useSingleSalon();
 
@@ -30,6 +32,10 @@ const AddServices = () => {
   );
 
   const handleSubmit = async () => {
+    if (loading) {
+      return;
+    }
+    setLoading(true);
     // Input validations
     if (!basicDetails.serviceName || teamMember.length <= 0) {
       return toast.error(
@@ -50,8 +56,6 @@ const AddServices = () => {
       ],
     };
 
-    console.log(newService);
-
     try {
       const res = await addNewService(newService);
 
@@ -62,11 +66,17 @@ const AddServices = () => {
         setBasicDetails({ serviceName: "", price: "", duration: "" }); // Reset to empty string or default values
         setTeamMember([]); // Clear team member selection
         navigate("/partner/dashboard/service");
+        setSubmit(true);
+        setLoading(false);
       } else {
+        setLoading(false);
+
         throw new Error(res.err || "Failed to add new service.");
       }
     } catch (error) {
       console.error("Error while adding new service:", error);
+      setLoading(false);
+
       toast.error(
         error.message || "An error occurred while adding the service."
       );
@@ -99,59 +109,19 @@ const AddServices = () => {
   if (isError) {
     toast.error(error.message, { toastId: 1 });
   }
-
+  const handleNavigate = () => {
+    navigate("/partner/dashboard/service");
+  };
   return (
     <main className={styles.mainContainer}>
       <Link to={"/partner/dashboard/service"} className={styles.backLink}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M19 12H5"
-            stroke="#08090A"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M12 19L5 12L12 5"
-            stroke="#08090A"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <img src={backTick} alt="" />
       </Link>
 
       <section className={styles.container}>
         <header className={styles.header}>
           <Link to={"/partner/dashboard/service"} className={styles.backLink}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M19 12H5"
-                stroke="#08090A"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M12 19L5 12L12 5"
-                stroke="#08090A"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            <img src={backTick} alt="" />
           </Link>
           <h1>
             <span> Add a Service</span>
@@ -188,12 +158,14 @@ const AddServices = () => {
                 <MemoizedBasicDetailsForm
                   salon={data.salon}
                   setBasicDetails={setBasicDetails}
+                  submit={submit}
                 />
               )}
               {!mobile && (
                 <MemoizedBasicDetailsForm
                   setBasicDetails={setBasicDetails}
                   salon={data.salon}
+                  submit={submit}
                 />
               )}
             </div>
@@ -204,21 +176,31 @@ const AddServices = () => {
               setTeamMember={setTeamMember}
               currentStep={currentStep}
               mobile={mobile}
+              submit={submit}
             />
           </div>
         </div>
 
         <div className={styles.buttontContainer}>
           <button
-            onClick={() => navigate("/partner/dashboard/service")}
+            onClick={handleNavigate}
             className={styles.cancel}
+            disabled={loading}
           >
             Cancel
           </button>
-          <button onClick={handleSubmit} className={styles.submit}>
-            Submit
+          <button
+            onClick={handleSubmit}
+            className={styles.submit}
+            disabled={loading}
+          >
+            {loading ? "loading" : "Submit"}
           </button>
-          <button onClick={handleNextStep} className={styles.save}>
+          <button
+            onClick={handleNextStep}
+            className={styles.save}
+            disabled={loading}
+          >
             Save and Continue
           </button>
         </div>

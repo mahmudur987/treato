@@ -7,6 +7,10 @@ import { IoMenu } from "react-icons/io5";
 const FilterSection = ({ viewBy, setViewBy, selectedSalon, count, value }) => {
   const { City, selectedCity, setSelectedCity, handleApprove } = value;
 
+
+  const theViewModal =()=>{
+    setViewBy((pre) => !pre)
+  }
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>
@@ -23,7 +27,7 @@ const FilterSection = ({ viewBy, setViewBy, selectedSalon, count, value }) => {
         </div>
       </div>
       <div className={styles.Wrapper}>
-        <div onClick={() => setViewBy((pre) => !pre)} className={styles.viewBy}>
+        <div onClick={theViewModal} className={styles.viewBy}>
           <button className={viewBy ? styles.active : styles.notActive}>
             <MdOutlineGridView />
           </button>

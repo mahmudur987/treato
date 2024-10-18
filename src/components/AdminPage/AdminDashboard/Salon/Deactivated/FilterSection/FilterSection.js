@@ -87,6 +87,10 @@ const FilterSection = ({
     }
   };
 
+  const theview =()=>{
+    setViewBy((pre) => !pre)
+  }
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.searchWrapper}>
@@ -103,7 +107,7 @@ const FilterSection = ({
         </div>
       </div>
       <div className={styles.Wrapper}>
-        <div onClick={() => setViewBy((pre) => !pre)} className={styles.viewBy}>
+        <div onClick={theview} className={styles.viewBy}>
           <button className={viewBy ? styles.active : styles.notActive}>
             <MdOutlineGridView />
           </button>

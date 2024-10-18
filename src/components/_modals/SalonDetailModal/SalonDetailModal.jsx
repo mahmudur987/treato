@@ -4,7 +4,6 @@ import SalonOffers from "../../SalonDetail/SalonOffers/SalonOffers";
 import styles from "./SalonDetailModal.module.css";
 import { cross } from "../../../assets/images/icons";
 import { useParams } from "react-router-dom";
-import { getSingleSalonData } from "../../../services/salon";
 import { useDispatch, useSelector } from "react-redux";
 import { getAvailableOffers } from "../../../services/Appointments";
 import {
@@ -64,17 +63,25 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
       setisError(true);
     }
   };
+
+  const primaryShowModal = () => {
+    if (setShowModal) {
+      setShowModal(false);
+      dispatch(updateAppliedOffer(null));
+    }
+  };
+  const handleInline = () => {
+    if (setShowModal) {
+      setShowModal(false);
+    }
+  };
+
   return (
     <div className={styles.ModalMain}>
       <div className={styles.ModalMainA}>
         <div className={styles.ModalMainAA}>
           <div>Select Offers</div>
-          <img
-            loading="lazy"
-            src={cross}
-            alt=""
-            onClick={() => (setShowModal ? setShowModal(false) : "")}
-          />
+          <img loading="lazy" src={cross} alt="" onClick={handleInline} />
         </div>
         {isError && (
           <h3 className={styles.OfferError}>
@@ -100,12 +107,7 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
           <PrimaryButton
             children={"Cancel"}
             className={styles.bgWhite}
-            onClick={() => {
-              if (setShowModal) {
-                setShowModal(false);
-                dispatch(updateAppliedOffer(null));
-              }
-            }}
+            onClick={primaryShowModal}
           />
           <PrimaryButton children={"Apply"} onClick={handleApplyOffer} />
         </div>

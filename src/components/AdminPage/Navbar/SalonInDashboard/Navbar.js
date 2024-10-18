@@ -9,6 +9,7 @@ import {
 import mask from "../../../../assets/images/NavbarImages/Mask.webp";
 import { CiSearch } from "react-icons/ci";
 import { updateSearchText } from "../../../../redux/slices/AdminSlice";
+import img1 from "../../../../assets/svgs/icon (10).svg";
 const SalonInDashboardNavbar = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
@@ -21,7 +22,9 @@ const SalonInDashboardNavbar = () => {
     localStorage.removeItem("jwtToken");
     navigate("/partner");
   };
-
+  const handleChange = () => {
+    setShowProfile((pre) => !pre);
+  };
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container}>
@@ -42,40 +45,22 @@ const SalonInDashboardNavbar = () => {
 
         <p className={styles.actionWrapper}>
           {userData?.isLoggedIn && (
-            <div
-              className={styles.account}
-              onClick={() => setShowProfile((pre) => !pre)}
-            >
-              <img loading="lazy"
+            <div className={styles.account} onClick={handleChange}>
+              <img
+                loading="lazy"
                 src={userData?.user?.avatar?.public_url ?? ""}
                 onError={(e) => (e.target.src = mask)}
                 alt=""
               />
               <h3>{userData?.user?.first_name}</h3>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M6 9L12 15L18 9"
-                  stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <img src={img1} alt="" />
             </div>
           )}
         </p>
         {showProfile && (
-          <div
-            onClick={() => setShowProfile((pre) => !pre)}
-            className={styles.profileContainer}
-          >
-            <img loading="lazy"
+          <div onClick={handleChange} className={styles.profileContainer}>
+            <img
+              loading="lazy"
               src={userData?.user?.avatar?.public_url ?? ""}
               onError={(e) => (e.target.src = mask)}
               alt=""

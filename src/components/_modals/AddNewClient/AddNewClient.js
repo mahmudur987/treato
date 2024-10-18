@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import styles from "./AddNewClient.module.css";
 import CustomSelect from "../../Select/CustomeSelect";
 import en from "react-phone-number-input/locale/en";
+import downArrow from "../../../assets/svgs/icon (2).svg";
 import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 import CountrySelect from "../../Countrycode/CountrySelect";
 import { getCountryCallingCode } from "react-phone-number-input";
@@ -27,6 +28,30 @@ const AddNewClient = ({
   const handleSelectChange = (value) => {
     setSelectedOption(value);
   };
+
+  const handleFirstNameChange = (e) => {
+    const value = e.target.value;
+    const regex = /^[A-Za-z\s]*$/;
+    if (regex.test(value)) {
+      setFirstName(value);
+    }
+  };
+
+  const handleLastNameChange = (e) => {
+    const value = e.target.value;
+    const regex = /^[A-Za-z\s]*$/;
+    if (regex.test(value)) {
+      setLastName(value);
+    }
+  };
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    const regex = /^[0-9\b]*$/;
+    if (regex.test(value) && value.length <= 10) {
+      setPhone(value);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -72,7 +97,7 @@ const AddNewClient = ({
             <div className={styles.formItems}>
               <label htmlFor="serviceType">First Name</label>
               <input
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={handleFirstNameChange}
                 value={firstName}
                 type="text"
                 placeholder="Client first name"
@@ -82,7 +107,7 @@ const AddNewClient = ({
             <div className={styles.formItems}>
               <label htmlFor="serviceType">Last Name</label>
               <input
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={handleLastNameChange}
                 value={lastName}
                 type="text"
                 placeholder="Client last name"
@@ -111,7 +136,8 @@ const AddNewClient = ({
                   phone={phone}
                 />
                 <input
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={handlePhoneChange}
+                  value={phone}
                   type="number"
                   placeholder="phone number"
                   maxLength={10}
@@ -128,21 +154,7 @@ const AddNewClient = ({
                   onChange={handleSelectChange}
                 />
                 <span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M6 9L12 15L18 9"
-                      stroke="black"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
+                  <img src={downArrow} alt="down arrow" />
                 </span>
               </div>
             </div>

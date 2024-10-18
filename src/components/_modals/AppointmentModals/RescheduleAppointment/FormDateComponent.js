@@ -1,30 +1,33 @@
 import styles from "../../../../pages/BookFlow/BookFlow.module.css";
 
-
 export default function FormDateComponent({
   index,
   updateActiveCard,
-  actveCard,
+  activeCard, // corrected typo
   allCalendar,
   setSelectedDate,
 }) {
+  const { allDates, allDays } = allCalendar[0]; // destructure the first item
+
+  const handleClick = () => {
+    updateActiveCard(activeCard === index ? 0 : index);
+    setSelectedDate({
+      date: allDates[index],
+      day: allDays[index],
+    });
+  };
+
   return (
     <div
       className={
-        actveCard === index
+        activeCard === index
           ? `${styles.service_dateA} ${styles.activeTimeMain}`
           : styles.service_dateA
       }
-      onClick={() => {
-        updateActiveCard(actveCard === index ? 0 : index);
-        setSelectedDate({
-          date: allCalendar[0].allDates[index],
-          day: allCalendar[0].allDays[index],
-        });
-      }}
+      onClick={handleClick} // use the extracted function
     >
-      <div>{allCalendar[0].allDates[index]}</div>
-      <div>{allCalendar[0].allDays[index]}</div>
+      <div>{allDates[index]}</div>
+      <div>{allDays[index]}</div>
     </div>
   );
 }

@@ -44,9 +44,12 @@ const ModalManager = () => {
       handleClose();
     }
   };
+  const closeHandle =()=>{
+    handleClose(true)
+  }
 
   return (
-    <Modal open={Boolean(activeModal)} onClose={() => handleClose(true)}>
+    <Modal open={Boolean(activeModal)} onClose={closeHandle}>
       <div className={`${styles["modal-wrapper"]} `}>
         <main>
           {activeModal === "filter" && <Filter />}

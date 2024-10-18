@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { updateUser } from "../../../../services/updateUser";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../../services/axios";
-export default function VerifyOtpOfPartner({
+export default function VerifyOtpOfCustomer({
   setOtpModal,
   setOtpSuccess,
   otpSuccess,
@@ -130,9 +130,9 @@ export default function VerifyOtpOfPartner({
       });
     }
   };
-  const closeOTPModal= ()=>{
+  const handleCloseOtpModal = () => {
     setOtpModal(false);
-  }
+  };
 
   return (
     <div className={styles.otpMain}>
@@ -146,7 +146,7 @@ export default function VerifyOtpOfPartner({
               loading="lazy"
               src={Grey_Close}
               alt=""
-              onClick={closeOTPModal}
+              onClick={handleCloseOtpModal}
             />
           </div>
         </div>

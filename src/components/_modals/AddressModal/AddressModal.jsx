@@ -6,9 +6,9 @@ import BasicInput from "../../Input/BasicInput/BasicInput";
 import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import { useState } from "react";
 import { useEffect } from "react";
-import GoogleMapReact from "google-map-react";
+
 import { useSelector } from "react-redux";
-import { updateUser } from "../../../services/updateUser";
+
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -156,7 +156,39 @@ export default function AddressModal({
       return `Address for ${lat}, ${lng}`;
     }
   };
+  const handleInlineFunctions = (e) => {
+    setAddressModal({ active: false, data: null });
+  };
+  const handleInlineFunctions1 = (e) => {
+    setLocType(1);
+  };
+  const handleInlineFunctions2 = (e) => {
+    setUpdateSave(true);
+  };
+  const handleInlineFunctions3 = (e) => {
+    setAddressModal({ active: false, data: null });
+  };
+  const handleInlineFunctions4 = (e) => {
+    setUpdateSave(true);
+  };
+  const handleInlineFunctions5 = (e) => {
+    setAddressModal({ active: false, data: null });
+  };
+  const handleInlineFunctions6 = (e) => {
+    setLocType(2);
+  };
+  const handleLocTypeChange = (type) => {
+    setLocType(type);
+  };
+
+  const handleSaveUpdate = () => {
+    setUpdateSave(true);
+  };
+
   console.log(addressModal);
+  const theupdateSave = () => {
+    setUpdateSave(true);
+  };
   return (
     <>
       {addressModal?.data ? (
@@ -165,10 +197,11 @@ export default function AddressModal({
             <div className={styles.addressBack}>
               <div className={styles.addressA}>
                 <div className={styles.addressAA}>Edit address</div>
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={DarkCross}
                   alt="close"
-                  onClick={() => setAddressModal({ active: false, data: null })}
+                  onClick={handleInlineFunctions}
                 />
               </div>
               <div className={styles.addressB}>
@@ -208,10 +241,7 @@ export default function AddressModal({
                 </GoogleMap>
               </div>
               <form id="addressForm" onSubmit={editAddress}>
-                <div
-                  className={styles.addressD}
-                  onChange={() => setUpdateSave(true)}
-                >
+                <div className={styles.addressD} onChange={theupdateSave}>
                   <label htmlFor="house">
                     <div className={styles.addressDA}>House/Flat Number*</div>
                     <BasicInput
@@ -225,10 +255,7 @@ export default function AddressModal({
                   </label>
                 </div>
                 <div className={styles.addressD}>
-                  <label
-                    htmlFor="landmark"
-                    onChange={() => setUpdateSave(true)}
-                  >
+                  <label htmlFor="landmark" onChange={theupdateSave}>
                     <div className={styles.addressDA}>Landmark (optional)</div>
                     <BasicInput
                       PlaceHolder={"e.g. opp. AXN Center"}
@@ -244,8 +271,8 @@ export default function AddressModal({
                   <div className={styles.addressEB}>
                     <label
                       htmlFor="home"
-                      onChange={() => setUpdateSave(true)}
-                      onClick={() => setLocType(1)}
+                      onChange={handleInlineFunctions2}
+                      onClick={handleInlineFunctions1}
                     >
                       <BasicInput
                         Type={"radio"}
@@ -267,7 +294,7 @@ export default function AddressModal({
                     <label
                       htmlFor="other"
                       onChange={() => setUpdateSave(true)}
-                      onClick={() => setLocType(2)}
+                      onClick={handleInlineFunctions6}
                     >
                       <BasicInput
                         Type={"radio"}
@@ -306,10 +333,11 @@ export default function AddressModal({
             <div className={styles.addressBack}>
               <div className={styles.addressA}>
                 <div className={styles.addressAA}>Add new address</div>
-                <img loading="lazy"
+                <img
+                  loading="lazy"
                   src={DarkCross}
                   alt="close"
-                  onClick={() => setAddressModal({ active: false, data: null })}
+                  onClick={handleInlineFunctions3}
                 />
               </div>
               <div className={styles.addressB}>
@@ -343,10 +371,7 @@ export default function AddressModal({
                 </GoogleMap>
               </div>
               <form id="addressForm" onSubmit={updateAddress}>
-                <div
-                  className={styles.addressD}
-                  onChange={() => setUpdateSave(true)}
-                >
+                <div className={styles.addressD} onChange={theupdateSave}>
                   <label htmlFor="house">
                     <div className={styles.addressDA}>House/Flat Number*</div>
                     <BasicInput
@@ -358,10 +383,7 @@ export default function AddressModal({
                   </label>
                 </div>
                 <div className={styles.addressD}>
-                  <label
-                    htmlFor="landmark"
-                    onChange={() => setUpdateSave(true)}
-                  >
+                  <label htmlFor="landmark" onChange={theupdateSave}>
                     <div className={styles.addressDA}>Landmark (optional)</div>
                     <BasicInput
                       PlaceHolder={"e.g. opp. AXN Center"}
@@ -375,8 +397,8 @@ export default function AddressModal({
                   <div className={styles.addressEB}>
                     <label
                       htmlFor="home"
-                      onChange={() => setUpdateSave(true)}
-                      onClick={() => setLocType(1)}
+                      onChange={handleInlineFunctions4}
+                      onClick={() => handleLocTypeChange(1)}
                     >
                       <BasicInput
                         Type={"radio"}
@@ -396,10 +418,11 @@ export default function AddressModal({
                         Home
                       </div>
                     </label>
+
                     <label
                       htmlFor="other"
-                      onChange={() => setUpdateSave(true)}
-                      onClick={() => setLocType(2)}
+                      onChange={handleSaveUpdate}
+                      onClick={() => handleLocTypeChange(2)}
                     >
                       <BasicInput
                         Type={"radio"}

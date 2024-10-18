@@ -4,6 +4,8 @@ import aboutusImage from "../../../assets/images/AboutUs/aboutus.webp";
 import image1 from "../../../assets/icons/Aboutus/image1.webp";
 import image2 from "../../../assets/icons/Aboutus/image2.webp";
 import image3 from "../../../assets/icons/Aboutus/image3.webp";
+import image4 from "../../../assets/svgs/icon (26).svg";
+import image5 from "../../../assets/svgs/icon (27).svg";
 import {
   useGetAllStatus,
   useGetAllTeam,
@@ -102,45 +104,17 @@ function AboutUsDetails() {
         <div className={style.OurTeamBox}>
           <div className={style.ourTeamHeader}>
             <h3>Our Team</h3>
-            <div  className={style.btns}>
-              <div  className={style.Arrowbtn} onClick={prevProfile}>
-                <svg
-                  className={style.arrows}
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 12h14M5 12l4-4m-4 4 4 4"
-                  />
-                </svg>
+            <div className={style.btns}>
+              <div className={style.Arrowbtn} onClick={prevProfile}>
+                <img src={image4} alt="" />
               </div>
               <div className={style.Arrowbtn} onClick={nextProfile}>
-                <svg
-                  className={style.arrows}
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 12H5m14 0-4 4m4-4-4-4"
-                  />
-                </svg>
+                <img src={image5} alt="" />
               </div>
             </div>
           </div>
-          <div  className={style.outTeamContent} id="header">
-            <div  className={style.contentBox}>
+          <div className={style.outTeamContent} id="header">
+            <div className={style.contentBox}>
               <img
                 loading="lazy"
                 src={image1}

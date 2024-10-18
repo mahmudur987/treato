@@ -265,15 +265,15 @@ function App() {
   useEffect(() => {
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
-      getUserProfile(isTokenExist)
-        .then((res) => {
+      getUserProfile(isTokenExist).then((res) => {
+        console.log(res);
+        if (res.res) {
           dispatch(updateIsLoggedIn(true));
           dispatch(updateUserDetails(res?.res?.data));
-        })
-        .catch((err) => {
-          console.log(err);
+        } else if (res.err) {
           localStorage.removeItem("jwtToken");
-        });
+        }
+      });
     }
   }, []);
 

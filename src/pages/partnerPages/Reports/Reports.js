@@ -68,7 +68,9 @@ const Reports = () => {
     setSelectedClients,
     commonSearch,
   };
-
+  const handler = () => {
+    setIsSearch((pre) => !pre);
+  };
   return (
     <reportContext.Provider value={value}>
       <main className={styles.mainContainer}>
@@ -87,7 +89,7 @@ const Reports = () => {
             />
           )}
 
-          <p onClick={() => setIsSearch((pre) => !pre)}>
+          <p onClick={handler}>
             <IoSearchOutline />
           </p>
         </div>
