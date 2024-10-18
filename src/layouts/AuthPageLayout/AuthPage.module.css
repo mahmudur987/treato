@@ -11,12 +11,12 @@
   height: 100%;
 }
 .AuthImage {
-  background-size: cover;
+  background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
 .PartnerAuthImage {
-  background-size: contain;
+  background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
