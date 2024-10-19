@@ -11,6 +11,7 @@ import {
   startedAppointment,
   otpVerification,
 } from "../../../services/calender";
+// import { HiDotsVertical } from "react-icons/hi";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 
 const ScheduleTable = ({ profiles, getdata }) => {
@@ -395,14 +396,12 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                           {service?.clientName}
                                         </p>
                                       </div>
-                                      <img
-                                        src={icon}
-                                        alt=""
-                                        onClick={() =>
-                                          toggleMenu(service?.unique_id)
-                                        }
-                                        className={`${style.threeDot} w-6 h-6`}
-                                      />
+                                      <HiDotsVertical 
+                                      onClick={() =>
+                                        toggleMenu(service?.unique_id)
+                                      }
+                                      className={`${style.threeDot}`} />
+                                      
                                     </div>
                                     <button
                                       className={style.statusButton}
