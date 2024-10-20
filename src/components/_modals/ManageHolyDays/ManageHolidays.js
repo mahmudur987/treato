@@ -104,6 +104,10 @@ const ManageHolidays = ({ showModal, onClose }) => {
     onClose();
   };
 
+  const handleToggleNewHoliday = () => {
+    toast("The salon will close during the holiday");
+  };
+
   return (
     <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
       <div className={styles.modalContent}>
@@ -124,7 +128,11 @@ const ManageHolidays = ({ showModal, onClose }) => {
               <div className={styles.topPart}>
                 <h4>Add a new holiday</h4>
                 <p className={styles.ToggleButtonWrapper}>
-                  <ToggleButton isOn={false} /> <span>close</span>
+                  <ToggleButton
+                    isOn={false}
+                    handleToggle={handleToggleNewHoliday}
+                  />{" "}
+                  <span>close</span>
                 </p>
               </div>
               <div className={styles.bottomPart}>
