@@ -110,8 +110,7 @@ export default function BillSummary({
       const Amount = totalPrice + taxAmount;
 
       if (selectedOffer) {
-        const payAbleAmount =
-          Amount - (Amount * selectedOffer?.discount_percentage) / 100;
+        const payAbleAmount = Amount - saveAmount;
         setamountToPay(payAbleAmount.toLocaleString());
       } else {
         setamountToPay((totalPrice + taxAmount).toLocaleString());
@@ -124,7 +123,7 @@ export default function BillSummary({
     dispatch(updateAppliedOffer(null));
   };
   // otp verification
-  console.log(visitorDetails);
+
   const verifyOtp = async () => {
     setOtpModal(true);
 
@@ -209,7 +208,7 @@ export default function BillSummary({
       bookSalonAppointment(billInfo).then((res) => {
         let response = res?.res?.data;
 
-        // console.log(res);
+        console.log(res);
         if (response?.success) {
           setOrderResponse(response?.order);
           setLoading(false);

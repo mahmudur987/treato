@@ -48,10 +48,15 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
     if (totalPrice > Data?.least_amount_for_discount) {
       dispatch(updateAppliedOffer(Data));
       setselectedOffer(Data);
-
       const saveAmount = (totalPrice * Data.discount_percentage) / 100;
 
-      dispatch(updateOfferAmount(saveAmount));
+      dispatch(
+        updateOfferAmount(
+          saveAmount < (Data?.max_discount ?? Infinity)
+            ? saveAmount
+            : saveAmount
+        )
+      );
     } else {
       return toast.error("You are not eligible for this offer");
     }
