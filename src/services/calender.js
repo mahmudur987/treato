@@ -7,7 +7,7 @@ export const GetStylistName = async () => {
         const headers = {
           token: localStorage.getItem("jwtToken"),
         };
-        const res = await axiosInstance.get(`/reports/calenderReport`, { headers });
+        const res = await axiosInstance.get(`/salon/getOneSalon`, { headers });
     
         return { res: res.data, err: null };
       } catch (error) {
