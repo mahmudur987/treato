@@ -13,7 +13,7 @@ const DaysOptions = [
   "Last 3 months",
   "All Time",
 ];
-const StatusOptions = ["Upcoming", "Completed", "Cancelled", "No Show "];
+const StatusOptions = ["Upcoming", "Completed", "Cancelled", "no-show"];
 const BookingTypeOptions = ["Online ", "On-site"];
 const FilterSection = ({ setAppointmentsQuery }) => {
   const { commonSearch } = useContext(reportContext);
