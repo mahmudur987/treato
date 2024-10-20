@@ -49,12 +49,13 @@ export default function SalonDetailModal({ setShowModal, setOfferCount }) {
       dispatch(updateAppliedOffer(Data));
       setselectedOffer(Data);
       const saveAmount = (totalPrice * Data.discount_percentage) / 100;
-
+      console.log(saveAmount);
+      console.log(Data?.max_discount);
       dispatch(
         updateOfferAmount(
           saveAmount < (Data?.max_discount ?? Infinity)
             ? saveAmount
-            : saveAmount
+            : Data?.max_discount
         )
       );
     } else {

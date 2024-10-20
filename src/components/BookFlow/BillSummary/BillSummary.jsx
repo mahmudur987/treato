@@ -16,7 +16,7 @@ import {
 } from "../../../assets/images/icons";
 import { getSingleSalonData } from "../../../services/salon";
 import { useDispatch, useSelector } from "react-redux";
-import salonServices, {
+import {
   updateAmount,
   updateAppliedOffer,
   updateServiceTaxPrice,
@@ -26,8 +26,7 @@ import {
   bookSalonAppointment,
 } from "../../../services/Appointments";
 import { toast } from "react-toastify";
-import CartPayment from "../../../payment/Payment";
-import WorkerDetail from "../WorkerDetail/WorkerDetail";
+
 import VerifyOtpOfCustomer from "../../_modals/Customar/VerifyOtp/VerifyOtp";
 import { sendNumberChangeOTP } from "../../../services/auth";
 
@@ -112,6 +111,7 @@ export default function BillSummary({
       if (selectedOffer) {
         const payAbleAmount = Amount - saveAmount;
         setamountToPay(payAbleAmount.toLocaleString());
+        dispatch(updateAmount(payAbleAmount));
       } else {
         setamountToPay((totalPrice + taxAmount).toLocaleString());
         dispatch(updateAmount(totalPrice + taxAmount));

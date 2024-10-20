@@ -97,12 +97,12 @@ const ManageHolidays = ({ showModal, onClose }) => {
   const openDatePicker = () => {
     dateInputRef.current.showPicker();
   };
-  const handleShow = ()=>{
+  const handleShow = () => {
     setShow(!show);
-  }
-  const handleClose = ()=>{
+  };
+  const handleClose = () => {
     onClose();
-  }
+  };
 
   return (
     <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
@@ -169,10 +169,7 @@ const ManageHolidays = ({ showModal, onClose }) => {
               </div>
             </form>
           ) : (
-            <button
-              onClick={handleShow}
-              className={styles.addNewButton}
-            >
+            <button onClick={handleShow} className={styles.addNewButton}>
               <span>
                 <FaPlus />
               </span>
@@ -215,17 +212,13 @@ const ManageHolidays = ({ showModal, onClose }) => {
                 </span>
               </div>
             ))}
-          {isError && !isLoading && error && (
+          {isError && !isLoading && (
             <ErrorComponent message={error ? error.message : "Error "} />
           )}
         </div>
 
         <div className={styles.buttonContainer}>
-          <button
-            className={styles.cancel}
-            type="button"
-            onClick={handleClose}
-          >
+          <button className={styles.cancel} type="button" onClick={handleClose}>
             Cancel
           </button>
         </div>
