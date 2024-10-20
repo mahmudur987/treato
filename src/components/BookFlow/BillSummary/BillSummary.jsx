@@ -111,6 +111,8 @@ export default function BillSummary({
       if (selectedOffer) {
         const payAbleAmount = Amount - saveAmount;
         setamountToPay(payAbleAmount.toLocaleString());
+        console.log(payAbleAmount);
+
         dispatch(updateAmount(payAbleAmount));
       } else {
         setamountToPay((totalPrice + taxAmount).toLocaleString());

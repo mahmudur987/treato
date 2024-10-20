@@ -9,6 +9,9 @@ import { updateVisitorContent } from "../../../redux/slices/VisitorDetails";
 
 export default function VisitorDetail() {
   const dispatch = useDispatch();
+  const { guest: Guest } = useSelector((state) => state.VisitorDetails);
+  const { user } = useSelector((state) => state.user);
+
   const [guest, setGuest] = useState(false);
   const [visitorPhone, setvisitorPhone] = useState("");
   const [countryCode, setcountryCode] = useState("+91");
@@ -21,7 +24,36 @@ export default function VisitorDetail() {
     // Click the label when the component mounts
     isFirstRender.current.click();
   }, []);
-  // console.log(userDetails);
+  useEffect(() => {
+    if (!guest) {
+      dispatch(
+        updateVisitorContent({
+          guest,
+          contact: {
+            ...contact,
+            name: user.first_name + "  " + user?.last_name,
+            email: user.email,
+            phone: user?.phone,
+          },
+        })
+      );
+    }
+    if (guest) {
+      dispatch(
+        updateVisitorContent({
+          guest,
+          contact: {
+            ...contact,
+            name: "",
+            email: "",
+            phone: "",
+          },
+        })
+      );
+    }
+  }, [guest]);
+  console.log(contact);
+
   const handleRadioChange = (value) => {
     setGuest(value);
     dispatch(
@@ -110,7 +142,7 @@ export default function VisitorDetail() {
         </div>
         <div className={styles.visitor_detailAC}>
           <div className={styles.visitor_detailACA}>Phone</div>
-          {err && <p  className={styles.showError} >{err}</p>}
+          {err && <p className={styles.showError}>{err}</p>}
           <div
             className={`${styles.visitor_detailACB} ${styles.visitor_detailAC_opt}`}
           >
