@@ -54,7 +54,7 @@ const AppointmentCard = ({ salon, cardType }) => {
 
   return (
     <div className={styles.cardWrapper}>
-      {salon.payment_mode === "on-site" && cardType === "Upcoming" && (
+      {salon?.otp && (
         <div className={styles.shareOTPWrapper}>
           <h3>{salon?.otp}</h3>
           <p>
@@ -178,8 +178,6 @@ const AppointmentCard = ({ salon, cardType }) => {
                 <h4 className={styles.title}>Service Details</h4>
                 <div className={styles.sDetailWrapper}>
                   {salon?.serviceData.map((item, index) => {
-                    console.log(item);
-
                     return (
                       <div
                         key={index}
