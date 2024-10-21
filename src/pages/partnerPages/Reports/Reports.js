@@ -1,24 +1,12 @@
 import React, { createContext, useState } from "react";
 import styles from "./Reports.module.css";
 import ReportsPageHeader from "../../../components/Services/Reports/PageHeader/PageHeader";
-import FilterSection1, {
-  MemoizedFilterSection1,
-} from "../../../components/Services/Reports/Appointments/FilterSection/FilterSection";
-import AppointmentsTable, {
-  MemoizedAppointmentsTable,
-} from "../../../components/Services/Reports/Appointments/AppoinmentsTable/AppointmentsTable";
-import FilterSection2, {
-  MemoizedFilterSection2,
-} from "../../../components/Services/Reports/Clients/FilterSection/FilterSection";
-import ClientsTable, {
-  MemoizedClientsTable,
-} from "../../../components/Services/Reports/Clients/ClientsTable/ClientsTable";
-import FilterSection3, {
-  MemoizedFilterSection3,
-} from "../../../components/Services/Reports/BillAndPayment/FilterSection/FilterSection";
-import BillAndPaymentTable, {
-  MemoizedBillAndPaymentTable,
-} from "../../../components/Services/Reports/BillAndPayment/BillAndPaymentTable/BillAndPaymentsTable";
+import { MemoizedFilterSection1 } from "../../../components/Services/Reports/Appointments/FilterSection/FilterSection";
+import { MemoizedAppointmentsTable } from "../../../components/Services/Reports/Appointments/AppoinmentsTable/AppointmentsTable";
+import { MemoizedFilterSection2 } from "../../../components/Services/Reports/Clients/FilterSection/FilterSection";
+import { MemoizedClientsTable } from "../../../components/Services/Reports/Clients/ClientsTable/ClientsTable";
+import { MemoizedFilterSection3 } from "../../../components/Services/Reports/BillAndPayment/FilterSection/FilterSection";
+import { MemoizedBillAndPaymentTable } from "../../../components/Services/Reports/BillAndPayment/BillAndPaymentTable/BillAndPaymentsTable";
 import { IoArrowBack, IoSearchOutline } from "react-icons/io5";
 import {
   useAppointmentsReport,
@@ -47,7 +35,7 @@ const Reports = () => {
     isError: appointmentsIsError,
     error: appointmentsError,
   } = useAppointmentsReport(appointmentQuery);
-
+  console.log(appointments);
   const {
     data: clients,
     isLoading: clientsIsLoading,

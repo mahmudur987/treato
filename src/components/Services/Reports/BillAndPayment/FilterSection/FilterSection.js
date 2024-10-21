@@ -4,28 +4,38 @@ import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
 import CustomSelect4 from "../../../../Select/CustomeSelect4/CustomSelect4";
 import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
-const PaymentStatus = ["Paid", "Due", "Refunded", "All"];
-const PaymentMode = ["Cash", "Online", "All"];
+const PaymentStatus = ["Upcoming", "Cancelled", "Refunded", "All"];
+const PaymentMode = ["offline", "Online", "on-site", "All"];
 
 const FilterSection = ({ setBillQuery }) => {
   const { commonSearch } = useContext(reportContext);
-  const [selectedPaymentStatus, setSelectedPaymentStatus] = useState("");
-  const [selectedPaymentMode, setSelectedPaymentMode] = useState("");
+  const [selectedPaymentStatus, setSelectedPaymentStatus] =
+    useState("Payment Status");
+  const [selectedPaymentMode, setSelectedPaymentMode] =
+    useState("Payment Mode");
   const [searchText, setSearchText] = useState("");
 
-  let url = `status=${
-    selectedPaymentStatus === "All" ? "" : selectedPaymentStatus
-  }&mode=${selectedPaymentMode === "All" ? "" : selectedPaymentStatus}&tranid=${
-    commonSearch ? commonSearch : searchText
-  }&name=${commonSearch ? commonSearch : searchText}`;
+  let url = `${
+    selectedPaymentStatus !== "All" &&
+    selectedPaymentStatus !== "Payment Status"
+      ? `status=${selectedPaymentStatus.toLocaleLowerCase()}`
+      : ""
+  }${
+    selectedPaymentMode !== "All" && selectedPaymentMode !== "Payment Mode"
+      ? `&mode=${selectedPaymentMode.toLocaleLowerCase()}`
+      : ""
+  }${
+    commonSearch || searchText ? `&tranid=${commonSearch || searchText}` : ""
+  }${commonSearch || searchText ? `&name=${commonSearch || searchText}` : ""}`;
 
+  console.log(url);
   useEffect(() => {
     setBillQuery(url);
   }, [url, setBillQuery]);
 
   return (
     <div className={styles.mainContainerWrapper}>
-      <div  className={styles.mainContainer}>
+      <div className={styles.mainContainer}>
         <div className={styles.searchWrapper}>
           <span>
             <IoSearchOutline />
@@ -37,7 +47,7 @@ const FilterSection = ({ setBillQuery }) => {
           />
         </div>
 
-        <div  className={styles.selectsWrapper}>
+        <div className={styles.selectsWrapper}>
           <CustomSelect4
             options={PaymentStatus}
             onChange={setSelectedPaymentStatus}

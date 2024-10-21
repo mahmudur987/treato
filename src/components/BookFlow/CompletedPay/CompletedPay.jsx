@@ -13,6 +13,7 @@ import { getSingleSalonData } from "../../../services/salon";
 
 export default function CompletedPay() {
   const bookingDetails = useSelector((state) => state?.salonServices);
+  const amount = useSelector((state) => state?.salonServices?.Amount);
   const { id } = useParams();
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,7 +27,8 @@ export default function CompletedPay() {
 
     return formattedDate;
   };
-
+  console.log(amount);
+  console.log(itemtotal);
   useEffect(() => {
     let prices = bookingDetails?.salonContent?.map((v, i) => {
       return v.service_price;
@@ -169,15 +171,7 @@ export default function CompletedPay() {
           </div>
           <div className={`${styles.payMainEC} ${styles.fwBold}`}>
             <div>Amount paid</div>
-            <div>
-              ₹
-              {bookingDetails?.appliedOffer?.amount_for_discount
-                ? (
-                    bookingDetails?.Amount -
-                    bookingDetails?.appliedOffer?.amount_for_discount
-                  ).toLocaleString()
-                : bookingDetails?.Amount?.toLocaleString()}
-            </div>
+            <div>₹{amount}</div>
           </div>
         </div>
         <div className={styles.payMainF}>

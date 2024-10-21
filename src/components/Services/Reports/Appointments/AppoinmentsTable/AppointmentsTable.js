@@ -26,7 +26,7 @@ const tableHeading = [
     heading: "Status ",
   },
   {
-    heading: "Amount ",
+    heading: "Service Amount ",
   },
 
   {
@@ -39,19 +39,23 @@ const tableHeading = [
 ];
 const AppointmentsTable = ({ data }) => {
   const { selectedItems, setSelectedItems } = useContext(reportContext);
-  const tableData = data?.data?.map((x) => {
-    const data = {
-      txnId: x?.transactionId ?? "N/A",
-      date: x?.dateforService ?? "N/A",
-      clientName: x?.clientName ?? "N/A",
-      services: x?.services?.length > 0 ? x?.services[0] : "N/A",
-      Employee: x?.stylist,
-      status: x?.status ?? "N/A",
-      amount: x?.final_amount.toFixed(2) ?? "N/A",
-      type: x?.payment_mode ?? "N/A",
-    };
-    return data;
-  });
+  const tableData = data?.data
+    ?.sort((a, b) => {
+      return new Date(a.dateforService) - new Date(b.dateforService);
+    })
+    ?.map((x) => {
+      const data = {
+        txnId: x?.transactionId ?? "N/A",
+        date: x?.dateforService ?? "N/A",
+        clientName: x?.clientName ?? "N/A",
+        services: x?.services?.length > 0 ? x?.services.join(", ") : "N/A",
+        Employee: x?.stylist,
+        status: x?.status ?? "N/A",
+        amount: x?.final_amount.toFixed(2) ?? "N/A",
+        type: x?.payment_mode ?? "N/A",
+      };
+      return data;
+    });
 
   // Function to toggle selection of a single item
   const toggleSelection = (itemId) => {
@@ -128,7 +132,12 @@ const AppointmentsTable = ({ data }) => {
                   <td>{x.txnId}</td>
                   <td>{x.date}</td>
                   <td>{x.clientName}</td>
-                  <td>{x.services}</td>
+                  <td title={x?.services?.length > 20 && x.services}>
+                    {" "}
+                    {x.services.length > 20
+                      ? `${x.services.slice(0, 20)} ....`
+                      : x.services.slice(0, 20)}
+                  </td>
                   <td>{x.Employee}</td>
                   <td>{x.status}</td>
                   <td>{x.amount}</td>
