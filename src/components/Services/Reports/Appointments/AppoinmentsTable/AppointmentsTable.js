@@ -41,7 +41,7 @@ const AppointmentsTable = ({ data }) => {
   const { selectedItems, setSelectedItems } = useContext(reportContext);
   const tableData = data?.data
     ?.sort((a, b) => {
-      return new Date(a.dateforService) - new Date(b.dateforService);
+      return new Date(b.dateforService) - new Date(a.dateforService);
     })
     ?.map((x) => {
       const data = {

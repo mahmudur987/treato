@@ -66,7 +66,7 @@ const BillAndPaymentTable = ({ data }) => {
   const [selectAll, setSelectAll] = useState(false);
   const tableData = data
     ?.sort((a, b) => {
-      return new Date(a.appointmentDate) - new Date(b.appointmentDate);
+      return new Date(b.appointmentDate) - new Date(a.appointmentDate);
     })
     ?.map((x) => {
       const y = {
