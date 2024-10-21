@@ -118,12 +118,6 @@ const ServiceOffer = ({
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   useEffect(() => {
     async function fetchAllServices() {
@@ -274,16 +268,15 @@ const ServiceOffer = ({
               </div>
             </div>
             <div>
-              <div onClick={openModal} className={sty.HolidaysDiv}>
+              {/* <div onClick={openModal} className={sty.HolidaysDiv}>
                 Manage Holidays
-              </div>
+              </div> */}
             </div>
           </div>
         )}
       </div>
 
       <div className={sty.horizontalLine}></div>
-      <ManageHolidays showModal={isModalOpen} onClose={closeModal} />
     </div>
   );
 };
