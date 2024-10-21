@@ -23,7 +23,7 @@ const tableHeading = [
     heading: "Service(s)",
   },
   {
-    heading: "Amount",
+    heading: "Order Amount",
     topImg: topImg,
     bottomImg: bottomImg,
   },

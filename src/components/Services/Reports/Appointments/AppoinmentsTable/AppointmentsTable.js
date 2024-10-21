@@ -38,8 +38,6 @@ const tableHeading = [
   },
 ];
 const AppointmentsTable = ({ data }) => {
-  console.log(data);
-
   const { selectedItems, setSelectedItems } = useContext(reportContext);
   const tableData = data?.data
     ?.sort((a, b) => {
