@@ -70,7 +70,7 @@ const AppointmentCard = ({ salon, cardType }) => {
             <div className={styles.infos}>
               <img
                 loading="lazy"
-                src={x.salon_Img?.public_url ?? x.salon_Img[0].public_url}
+                src={x?.salon_Img?.public_url ?? x.salon_Img[0]?.public_url}
                 className={styles.frame1}
                 alt="frame1"
               />
