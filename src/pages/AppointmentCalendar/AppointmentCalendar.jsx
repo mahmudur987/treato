@@ -31,7 +31,8 @@ function AppointmentCalendar() {
     async function getNames() {
         const { res, err } = await GetStylistName()
         if (res) {
-            setNames(res.data);
+            setNames(res.salon.stylists);
+            console.log(res.salon.stylists)
         }
         else {
             console.log(err);
@@ -145,7 +146,7 @@ function AppointmentCalendar() {
 
                         </div>
                         {dropdownopen ? <> <div className={style.nameContainer}>
-                            <div
+                            <div 
                                 className={style.textdesign}
 
                                 onClick={(() => {
@@ -159,10 +160,10 @@ function AppointmentCalendar() {
                                         className={style.textdesign}
                                         key={index}
                                         onClick={((e) => {
-                                            filteredFn(item.stylistName)
-                                            setTitle(item.stylistName);
+                                            filteredFn(item.stylist_name)
+                                            setTitle(item.stylist_name);
                                         })}
-                                    >{item.stylistName}</div>
+                                    >{item.stylist_name}</div>
                                 ))}
                         </div></> : <></>}
 

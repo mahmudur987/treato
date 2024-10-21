@@ -76,6 +76,7 @@ const Upcoming = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   return (
     <>
       {innerWidth < 600 ? (
@@ -138,7 +139,6 @@ const Upcoming = () => {
                           <div className={styles.teamMember}>
                             <img
                               loading="lazy"
-                              
                               className={styles.imgSize}
                               src={
                                 item?.noPreference

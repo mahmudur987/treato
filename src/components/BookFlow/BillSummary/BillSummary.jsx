@@ -16,7 +16,7 @@ import {
 } from "../../../assets/images/icons";
 import { getSingleSalonData } from "../../../services/salon";
 import { useDispatch, useSelector } from "react-redux";
-import salonServices, {
+import {
   updateAmount,
   updateAppliedOffer,
   updateServiceTaxPrice,
@@ -26,8 +26,7 @@ import {
   bookSalonAppointment,
 } from "../../../services/Appointments";
 import { toast } from "react-toastify";
-import CartPayment from "../../../payment/Payment";
-import WorkerDetail from "../WorkerDetail/WorkerDetail";
+
 import VerifyOtpOfCustomer from "../../_modals/Customar/VerifyOtp/VerifyOtp";
 import { sendNumberChangeOTP } from "../../../services/auth";
 
@@ -110,9 +109,11 @@ export default function BillSummary({
       const Amount = totalPrice + taxAmount;
 
       if (selectedOffer) {
-        const payAbleAmount =
-          Amount - (Amount * selectedOffer?.discount_percentage) / 100;
+        const payAbleAmount = Amount - saveAmount;
         setamountToPay(payAbleAmount.toLocaleString());
+        console.log(payAbleAmount);
+
+        dispatch(updateAmount(payAbleAmount));
       } else {
         setamountToPay((totalPrice + taxAmount).toLocaleString());
         dispatch(updateAmount(totalPrice + taxAmount));
@@ -124,7 +125,7 @@ export default function BillSummary({
     dispatch(updateAppliedOffer(null));
   };
   // otp verification
-  console.log(visitorDetails);
+
   const verifyOtp = async () => {
     setOtpModal(true);
 
@@ -209,7 +210,7 @@ export default function BillSummary({
       bookSalonAppointment(billInfo).then((res) => {
         let response = res?.res?.data;
 
-        // console.log(res);
+        console.log(res);
         if (response?.success) {
           setOrderResponse(response?.order);
           setLoading(false);

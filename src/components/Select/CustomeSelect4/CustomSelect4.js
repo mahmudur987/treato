@@ -38,7 +38,7 @@ const CustomSelect4 = ({ options, onChange, value, teamMembers }) => {
     >
       <div className={styles.customSelect}>
         <div className={styles.selectHeader}>
-          {options && <p className={styles.wrapper}>{value}</p>}
+          {options && <p className={styles.wrapper}>{value === "no-show" ? "No-Show" : value}</p>}
           {teamMembers && (
             <p className={styles.wrapper}>
               <img loading="lazy" src={value?.imageUrl} alt="" />
@@ -56,7 +56,7 @@ const CustomSelect4 = ({ options, onChange, value, teamMembers }) => {
                 })}
                 onClick={() => handleSelect(option)}
               >
-                {option}
+                {option === "no-show" ? "No-Show" : option}
               </div>
             ))}
             {teamMembers?.map((option) => (

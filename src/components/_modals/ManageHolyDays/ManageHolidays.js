@@ -97,12 +97,16 @@ const ManageHolidays = ({ showModal, onClose }) => {
   const openDatePicker = () => {
     dateInputRef.current.showPicker();
   };
-  const handleShow = ()=>{
+  const handleShow = () => {
     setShow(!show);
-  }
-  const handleClose = ()=>{
+  };
+  const handleClose = () => {
     onClose();
-  }
+  };
+
+  const handleToggleNewHoliday = () => {
+    toast("The salon will close during the holiday");
+  };
 
   return (
     <div className={`${styles.modal} ${showModal ? styles.show : ""}`}>
@@ -124,7 +128,11 @@ const ManageHolidays = ({ showModal, onClose }) => {
               <div className={styles.topPart}>
                 <h4>Add a new holiday</h4>
                 <p className={styles.ToggleButtonWrapper}>
-                  <ToggleButton isOn={false} /> <span>close</span>
+                  <ToggleButton
+                    isOn={false}
+                    handleToggle={handleToggleNewHoliday}
+                  />{" "}
+                  <span>close</span>
                 </p>
               </div>
               <div className={styles.bottomPart}>
@@ -169,10 +177,7 @@ const ManageHolidays = ({ showModal, onClose }) => {
               </div>
             </form>
           ) : (
-            <button
-              onClick={handleShow}
-              className={styles.addNewButton}
-            >
+            <button onClick={handleShow} className={styles.addNewButton}>
               <span>
                 <FaPlus />
               </span>
@@ -215,17 +220,13 @@ const ManageHolidays = ({ showModal, onClose }) => {
                 </span>
               </div>
             ))}
-          {isError && !isLoading && error && (
+          {isError && !isLoading && (
             <ErrorComponent message={error ? error.message : "Error "} />
           )}
         </div>
 
         <div className={styles.buttonContainer}>
-          <button
-            className={styles.cancel}
-            type="button"
-            onClick={handleClose}
-          >
+          <button className={styles.cancel} type="button" onClick={handleClose}>
             Cancel
           </button>
         </div>

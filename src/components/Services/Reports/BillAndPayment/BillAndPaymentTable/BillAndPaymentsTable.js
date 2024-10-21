@@ -23,7 +23,7 @@ const tableHeading = [
     heading: "Service(s)",
   },
   {
-    heading: "Amount",
+    heading: "Order Amount",
     topImg: topImg,
     bottomImg: bottomImg,
   },
@@ -58,26 +58,31 @@ const tableHeading = [
     heading: "Invoice",
   },
 ];
-const formatNumber = (num) => (!num || isNaN(num) ? "N/A" : parseFloat(num).toFixed(2));
+const formatNumber = (num) =>
+  !num || isNaN(num) ? "N/A" : parseFloat(num).toFixed(2);
 const BillAndPaymentTable = ({ data }) => {
   // State to store selected rows
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
-  const tableData = data?.map((x) => {
-    const y = {
-      txnId: x?._id.slice(0, 7) ?? "",
-      date: x?.appointmentDate ?? "N/A",
-      clientName: x?.clientName ?? "",
-      services: x?.serviceData[0] ? x?.serviceData[0]?.service_name : "",
-      amount: formatNumber(x?.amount),
-      status: x?.status ?? "",
-      Mode: x?.paymentMode ?? "",
-      paidOn: x?.paidon ?? "",
-      tax: x?.tax ?? "",
-      comm: x?.comm ?? "",
-    };
-    return y;
-  });
+  const tableData = data
+    ?.sort((a, b) => {
+      return new Date(a.appointmentDate) - new Date(b.appointmentDate);
+    })
+    ?.map((x) => {
+      const y = {
+        txnId: x?._id.slice(0, 7) ?? "",
+        date: x?.appointmentDate ?? "N/A",
+        clientName: x?.clientName ?? "",
+        services: x?.serviceData[0] ? x?.serviceData[0]?.service_name : "",
+        amount: formatNumber(x?.amount),
+        status: x?.status ?? "",
+        Mode: x?.paymentMode ?? "",
+        paidOn: x?.paidOn ?? "",
+        tax: x?.tax ?? "",
+        comm: x?.comm ?? "",
+      };
+      return y;
+    });
 
   // Handle selecting/deselecting all rows
   const handleSelectAll = () => {
@@ -118,14 +123,9 @@ const BillAndPaymentTable = ({ data }) => {
                   {tableHeading.map((item, i) => (
                     <td key={i}>
                       <div className={sty.headingRow}>
-                        <span  className={sty.marginSpan} >
-                          {item.heading}
-                        </span>
+                        <span className={sty.marginSpan}>{item.heading}</span>
                         {item.topImg && (
-                          <div
-                          className={sty.imageBox}
-                            
-                          >
+                          <div className={sty.imageBox}>
                             <img loading="lazy" src={item.topImg} alt="" />
                             <img loading="lazy" src={item.bottomImg} alt="" />
                           </div>
@@ -137,7 +137,7 @@ const BillAndPaymentTable = ({ data }) => {
               </thead>
               <tbody className={sty.tbody}>
                 {tableData.map((x, i) => (
-                  <tr key={i} className={sty.tableBorder} >
+                  <tr key={i} className={sty.tableBorder}>
                     <td>
                       <div className={sty.checkbox}>
                         <input
@@ -157,7 +157,7 @@ const BillAndPaymentTable = ({ data }) => {
                     <td>{x.paidOn}</td>
                     <td>{x.tax}</td>
                     <td>{x.comm}</td>
-                    <td  className={sty.textSize} >
+                    <td className={sty.textSize}>
                       <MdOutlineFileDownload />
                     </td>
                   </tr>
