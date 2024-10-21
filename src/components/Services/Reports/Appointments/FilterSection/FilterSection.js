@@ -13,8 +13,8 @@ const DaysOptions = [
   "Last 3 months",
   "All Time",
 ];
-const StatusOptions = ["Upcoming", "Completed", "Cancelled", "No Show "];
-const BookingTypeOptions = ["Online ", "On-site"];
+const StatusOptions = ["Upcoming", "Completed", "Cancelled", "No Show ", "All"];
+const BookingTypeOptions = ["Online ", "On-site", "offline", "All"];
 const FilterSection = ({ setAppointmentsQuery }) => {
   const { commonSearch } = useContext(reportContext);
 
@@ -40,17 +40,18 @@ const FilterSection = ({ setAppointmentsQuery }) => {
   }, [selectedDays]);
 
   useEffect(() => {
-    setAppointmentsQuery(
-      `days=${day}&status=${
-        selectedStatus === "Status" ? "upcoming" : selectedStatus.toLowerCase()
-      }&bookingType=${
-        selectedBookingType === "Booking Type"
-          ? "on-site"
-          : selectedBookingType.toLowerCase()
-      }${searchText ? `&search=${searchText}` : ""}${
-        commonSearch ? `&search=${commonSearch}` : ""
-      }`
-    );
+    let x =
+      (day !== "All Time" ? `days=${day}` : "") +
+      (selectedStatus !== "Status" && selectedStatus !== "All"
+        ? `&status=${selectedStatus.toLowerCase()}`
+        : "") +
+      (selectedBookingType !== "Booking Type" && selectedBookingType !== "All"
+        ? `&bookingType=${selectedBookingType.toLowerCase()}`
+        : "") +
+      (searchText ? `&search=${searchText}` : "") +
+      (commonSearch ? `&search=${commonSearch}` : "");
+
+    setAppointmentsQuery(x);
   }, [
     day,
     selectedBookingType,

@@ -54,7 +54,7 @@ const AppointmentCard = ({ salon, cardType }) => {
 
   return (
     <div className={styles.cardWrapper}>
-      {salon?.otp && (
+      {salon?.otp && cardType === "Upcoming" && (
         <div className={styles.shareOTPWrapper}>
           <h3>{salon?.otp}</h3>
           <p>

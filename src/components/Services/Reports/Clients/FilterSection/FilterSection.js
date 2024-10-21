@@ -6,21 +6,19 @@ import CustomSelect4 from "../../../../Select/CustomeSelect4/CustomSelect4";
 import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
 import { toast } from "react-toastify";
 
-const Options = ["Male", "Female", "All"];
+const Options = ["Male", "Female", "All", "Non-binary", "Other"];
 const FilterSection = ({ setClientsQuery }) => {
-  const { selectedClients, commonSearch } = useContext(reportContext);
+  const { commonSearch } = useContext(reportContext);
   const [selectedGender, setSelectedGender] = useState("Gender");
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
-    let querystring = `${searchText && `search=${searchText}`}${
-      commonSearch && `search=${commonSearch}`
+    let querystring = `${searchText ? `search=${searchText}` : ""}${
+      commonSearch ? `search=${commonSearch}` : ""
     }${
-      searchText && selectedGender !== "Gender" && selectedGender !== "All"
-        ? "&"
-        : ""
-    }${
-      commonSearch && selectedGender !== "Gender" && selectedGender !== "All"
+      (searchText || commonSearch) &&
+      selectedGender !== "Gender" &&
+      selectedGender !== "All"
         ? "&"
         : ""
     }${
