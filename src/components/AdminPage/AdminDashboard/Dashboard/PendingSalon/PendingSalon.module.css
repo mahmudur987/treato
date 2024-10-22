@@ -110,6 +110,7 @@
 }
 
 .approve {
+  cursor: pointer;
   max-width: 104px;
   width: 100%;
   height: 48px;
@@ -126,6 +127,7 @@
 }
 
 .reject {
+  cursor: pointer;
   max-width: 104px;
   width: 100%;
   height: 48px;

@@ -70,7 +70,7 @@ const PendingAllSalon = ({
                   className={styles.info}
                 >
                   <h3>{salon.name}</h3>
-                  <p className={styles.address}>{salon.address}</p>
+                  <p className={styles.address}>{salon.address.length>70 ? salon.address.substring(0, 70): salon.address}</p>
                   <p className={styles.date}>Applied on {salon.date}</p>
                 </Link>
                 <div className={styles.cardAction}>

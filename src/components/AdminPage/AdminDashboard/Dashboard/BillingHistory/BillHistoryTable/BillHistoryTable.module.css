@@ -51,9 +51,17 @@
   letter-spacing: 0em;
 }
 .bodyRow {
+min-width: max-content;
   text-align: left;
   padding-left: 10px;
-  font-size: 24px;
+  font-size: 16px;
+  text-align: center;
+}
+.location{
+max-width: max-content;
+  text-align: left;
+  padding-left: 10px;
+  font-size: 16px;
   text-align: center;
 }
 .headingRow {
@@ -63,6 +71,7 @@
   align-items: center;
   gap: 5px;
   padding-left: 10px;
+  justify-content: center;
 }
 .checkbox {
   max-width: 30px;

@@ -64,7 +64,7 @@ const BillHistoryTable = ({ data }) => {
                 <td key={i}>
                   <div className={sty.headingRow}>
                     <span>{item.heading}</span>
-                    <div className={sty.xyBox}>
+                    <div className={sty.xyBox}s>
                       <img loading="lazy" src={item.topImg} alt="" />
                       <img loading="lazy" src={item.bottomImg} alt="" />
                     </div>
@@ -105,7 +105,7 @@ const BillHistoryTable = ({ data }) => {
                   <p className={sty.bodyRow}>{x.date}</p>
                 </td>
                 <td>
-                  <p className={sty.bodyRow}>{x.location}</p>
+                  <p className={sty.location}>{x.location}</p>
                 </td>
                 <td>
                   <p className={sty.bodyRow}>{x.amount}</p>
