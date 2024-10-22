@@ -9,23 +9,39 @@ const Pagination = ({
   setItemPerPage,
 }) => {
   const totalPages = Math.ceil(count / itemPerPage) || 0;
+  const [pageWindow, setPageWindow] = useState({ start: 1, end: 5 }); // Control the visible page range
 
   const previous = () => {
     if (pageNumber > 1) {
       setPageNumber((pre) => pre - 1);
+      if (pageNumber <= pageWindow.start) {
+        // Shift window backward
+        setPageWindow({
+          start: Math.max(pageWindow.start - 5, 1),
+          end: Math.max(pageWindow.end - 5, 5),
+        });
+      }
     }
   };
 
   const next = () => {
     if (pageNumber < totalPages) {
       setPageNumber((pre) => pre + 1);
+      if (pageNumber >= pageWindow.end) {
+        // Shift window forward
+        setPageWindow({
+          start: Math.min(pageWindow.start + 5, totalPages - 4),
+          end: Math.min(pageWindow.end + 5, totalPages),
+        });
+      }
     }
   };
-  const handleItemPerPageChange = (e) => {
-    console.log(e.target.value);
 
+  const handleItemPerPageChange = (e) => {
     setItemPerPage(Number(e.target.value));
+    setPageWindow({ start: 1, end: 5 }); // Reset page window if items per page change
   };
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.left}>
@@ -48,19 +64,25 @@ const Pagination = ({
 
       <div className={styles.right}>
         <button onClick={previous}>Previous</button>
-        {[...Array(totalPages)].map((_, index) => (
-          <span
-            key={index}
-            style={{
-              backgroundColor: `${
-                index + 1 === pageNumber ? "rgba(0, 0, 0, 0.2)" : ""
-              }`,
-            }}
-            onClick={() => setPageNumber(index + 1)}
-          >
-            {index < 9 && "0"} {index + 1}
-          </span>
-        ))}
+        {[...Array(totalPages)]
+          .slice(pageWindow.start - 1, pageWindow.end) // Slice the page array based on window
+          .map((_, index) => {
+            const pageIndex = index + pageWindow.start;
+            return (
+              <span
+                key={pageIndex}
+                style={{
+                  backgroundColor: `${
+                    pageIndex === pageNumber ? "rgba(0, 0, 0, 0.2)" : ""
+                  }`,
+                }}
+                onClick={() => setPageNumber(pageIndex)}
+              >
+                {pageIndex < 10 ? "0" : ""}
+                {pageIndex}
+              </span>
+            );
+          })}
         <button onClick={next}>Next</button>
       </div>
     </div>
