@@ -88,7 +88,7 @@ const BillAndPaymentTable = ({ data }) => {
         clientName: x?.clientName ?? "",
         services:
           x?.serviceData.length > 0
-            ? x?.serviceData.map((x) => x.service_name).join(", ")
+            ? x?.serviceData?.map((x) => x.service_name)?.join(", ")
             : "",
         amount: formatNumber(x?.amount),
         status: x?.status ?? "",
