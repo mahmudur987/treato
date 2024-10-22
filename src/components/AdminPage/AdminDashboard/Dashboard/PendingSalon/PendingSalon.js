@@ -142,7 +142,7 @@ const PendingSalon = () => {
                       <Link to={`/admin/salon/pending/${x.id}`}>
                         <div className={styles.info}>
                           <h3>{x.name}</h3>
-                          <p className={styles.address}>{x.address}</p>
+                          <p className={styles.address}>{x.address.length > 80 ? `${x.address.substring(0, 90)}...` : x.address}</p>
                           <p className={styles.date}>Applied on {x.date}</p>
                         </div>
                       </Link>
