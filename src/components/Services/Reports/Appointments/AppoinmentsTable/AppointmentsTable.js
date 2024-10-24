@@ -39,11 +39,20 @@ const tableHeading = [
 ];
 const AppointmentsTable = ({ data }) => {
   const { selectedItems, setSelectedItems } = useContext(reportContext);
+
+  // console.log(data);
+
   const tableData = data?.data
     ?.sort((a, b) => {
       return new Date(b.dateforService) - new Date(a.dateforService);
     })
     ?.map((x) => {
+      let prices = x?.services.map((v, i) => {
+        return v.service_price;
+      });
+      let totalPrice = prices.reduce((a, b) => a + b, 0);
+
+      // console.log(totalPrice);
       const data = {
         txnId: x?.transactionId ?? "N/A",
         date: x?.dateforService ?? "N/A",
@@ -97,7 +106,7 @@ const AppointmentsTable = ({ data }) => {
                   <input
                     type="checkbox"
                     id=""
-                    onClick={() => selectAll()}
+                    onChange={(e) => selectAll(e.target.checked)}
                     checked={selectedItems.length === tableData.length}
                   />
                 </div>
@@ -122,7 +131,9 @@ const AppointmentsTable = ({ data }) => {
                   <td>
                     <div className={sty.checkbox}>
                       <input
-                        onClick={() => toggleSelection(x.txnId)}
+                        onChange={(e) =>
+                          toggleSelection(x.txnId, e.target.checked)
+                        }
                         type="checkbox"
                         id=""
                         checked={selectedItems.includes(x.txnId)}

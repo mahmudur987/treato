@@ -49,9 +49,9 @@ export default function SalonDetail() {
     return <ErrorComponent message={error ? error.message : ""} />;
   }
 
-  const showTheGallery =()=>{
+  const showTheGallery = () => {
     setShowGallery(true);
-  }
+  };
   return (
     <div
       className={
@@ -67,10 +67,10 @@ export default function SalonDetail() {
         </div>
         <div className={styles.salon_info}>
           <div className={styles.salon_star}>
-            {SalonData ? SalonData.rating : null}{" "}
+            {SalonData ? SalonData.rating : 0}{" "}
             <img loading="lazy" src={star} alt="" />
           </div>
-          <div>({SalonData ? SalonData.total_rating : null})</div>
+          <div>({SalonData.total_rating ? SalonData.total_rating : 0})</div>
           <img loading="lazy" src={ellipse} alt="" />
           <div>
             {SalonData ? SalonData.locationText : null} (

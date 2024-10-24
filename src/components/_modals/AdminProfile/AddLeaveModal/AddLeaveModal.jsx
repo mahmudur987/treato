@@ -29,6 +29,9 @@ const AddLeaveModal = ({ onClose }) => {
   const [endTime, setEndTime] = useState("");
   const [endDate, setEndDate] = useState("");
   const convertedDate = convertDate(startDate ? startDate : null);
+
+  const [loading, setLoading] = useState(false);
+
   const handleFullDayLeaveChange = () => {
     setIsFullDayLeave(!isFullDayLeave);
   };
@@ -37,11 +40,8 @@ const AddLeaveModal = ({ onClose }) => {
     const headers = {
       token: localStorage.getItem("jwtToken"),
     };
-    if (!startDate || !endDate) {
-      return toast.error("Please select both start and end dates.");
-    }
 
-    if ((!isFullDayLeave && !startTime) || (!isFullDayLeave && !endTime)) {
+    if (!startDate || !endDate) {
       return toast.error("Please select both start and end times.");
     }
 
@@ -49,21 +49,19 @@ const AddLeaveModal = ({ onClose }) => {
       stylistId: member?.id,
       startDate: convertDate(startDate ? startDate : null),
       endDate: convertDate(endDate ? endDate : null),
-      fullDay: isFullDayLeave,
-      start_time: isFullDayLeave ? "" : startTime,
-      end_time: isFullDayLeave ? "" : endTime,
+      fullDay: true,
     };
 
-    console.log(leaveData);
-
-    let url = `stylist/addLeave`;
     try {
+      setLoading(true);
+      let url = `stylist/addLeave`;
       const { data } = await axiosInstance.patch(url, leaveData, { headers });
       console.log(data);
-      toast.success(data.message ?? "Leave added successfully.");
+      toast.success("Leave added successfully.");
       onClose();
       sethandleShift(false);
       refetch();
+      setLoading(false);
     } catch (error) {
       toast.error(
         error.message
@@ -71,6 +69,9 @@ const AddLeaveModal = ({ onClose }) => {
           : "An unknown error occurred."
       );
       console.log(error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -138,15 +139,15 @@ const AddLeaveModal = ({ onClose }) => {
                   </label>
                 </div>
               </div>
-              <label className={styles.topLabel}>
+              {/* <label className={styles.topLabel}>
                 <input
                   type="checkbox"
                   onChange={handleFullDayLeaveChange}
                   checked={isFullDayLeave}
                 />
                 <span>Full-day leave</span>
-              </label>
-              <div className={styles.Profile_Time}>
+              </label> */}
+              {/* <div className={styles.Profile_Time}>
                 <div className={styles["inputField"]}>
                   <div className={styles.StartTime}>Start Time</div>
                   <select
@@ -183,7 +184,7 @@ const AddLeaveModal = ({ onClose }) => {
                     ))}
                   </select>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <p className={styles.noteInfo}>
@@ -200,8 +201,9 @@ const AddLeaveModal = ({ onClose }) => {
                 type="button"
                 onClick={handleAddLeave}
                 className={styles.SaveBtn}
+                disabled={loading}
               >
-                Save
+                {loading ? "Loading" : "Save"}
               </button>
             </div>
           </form>
