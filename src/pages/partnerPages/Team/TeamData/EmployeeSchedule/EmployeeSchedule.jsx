@@ -293,7 +293,7 @@ const EmployeeSchedule = () => {
                       teamMembers={teamMembers}
                     />
                   ) : (
-                    <LoadSpinner />
+                    <p>...........</p>
                   )}
                 </div>
               </div>
