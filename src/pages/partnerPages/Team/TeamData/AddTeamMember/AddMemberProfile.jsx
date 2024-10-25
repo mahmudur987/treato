@@ -87,8 +87,10 @@ const AddMemberProfile = () => {
     }
 
     if (!address) return toast.error("Please write your address.");
+    if (!serviceStartDate)
+      return toast.error("Please select Service Start Date.");
+    if (!serviceEndDate) return toast.error("Please Select Service End Date.");
 
-    // Prepare form data
     const formData = new FormData();
     formData.append("stylist_name", `${firstName} ${lastName}`);
     formData.append("stylist_service", serviceTitle);
@@ -96,6 +98,11 @@ const AddMemberProfile = () => {
     formData.append("rating", "4.5");
     formData.append("stylist_number", phoneAsNumber);
     formData.append("stylist_address", address);
+    formData.append(
+      "Service_Start_Date",
+      new Date(serviceStartDate).toISOString()
+    );
+    formData.append("Service_End_Date", new Date(serviceEndDate).toISOString());
 
     // Append time and services
     time_for_service.forEach((time) => {
@@ -146,9 +153,9 @@ const AddMemberProfile = () => {
     const file = e.target.files[0];
     setPicture(file);
   };
-const theModalOpen =()=>{
-  setIsModalOpen((pre) => !pre)
-}
+  const theModalOpen = () => {
+    setIsModalOpen((pre) => !pre);
+  };
   if (loading) {
     return <LoadSpinner />;
   }

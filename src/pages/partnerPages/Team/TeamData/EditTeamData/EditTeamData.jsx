@@ -130,6 +130,11 @@ const EditTeamData = () => {
     formData.append("stylist_number", phoneAsNumber);
     formData.append("stylist_address", address);
     formData.append("last_date", lastDate);
+    formData.append(
+      "Service_Start_Date",
+      new Date(serviceStartDate).toISOString()
+    );
+    formData.append("Service_End_Date", new Date(serviceEndDate).toISOString());
 
     time_for_service.forEach((time) => {
       formData.append("time_for_service[]", time);
@@ -201,9 +206,9 @@ const EditTeamData = () => {
   if (memIsError) {
     <ErrorComponent message={memError.message} />;
   }
-const theModalOpen =()=>{
-  setIsModalOpen((pre) => !pre)
-}
+  const theModalOpen = () => {
+    setIsModalOpen((pre) => !pre);
+  };
   return (
     <>
       <div className={styles.container}>
