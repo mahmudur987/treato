@@ -13,8 +13,7 @@ import { useCallback, useMemo } from "react";
 
 import { formatStateDate } from "../utils";
 import CustomSelect2 from "../../../../../components/Select/CustomeSelect2/CustomeSelect2";
-import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
-import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
+
 import axiosInstance from "../../../../../services/axios";
 import { toast } from "react-toastify";
 
@@ -249,6 +248,10 @@ const EmployeeSchedule = () => {
           headers: { token: localStorage.getItem("jwtToken") },
         }
       );
+
+      setStartDate(null);
+
+      setEndDate(null);
       toast.success(data?.message || "Schedule updated successfully!");
     } catch (error) {
       const errorMessage =
@@ -293,7 +296,7 @@ const EmployeeSchedule = () => {
                       teamMembers={teamMembers}
                     />
                   ) : (
-                    <p>Loading....</p>
+                    <p>Loading.... </p>
                   )}
                 </div>
               </div>

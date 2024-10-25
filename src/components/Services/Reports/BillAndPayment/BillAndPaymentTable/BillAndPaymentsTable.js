@@ -65,25 +65,15 @@ const BillAndPaymentTable = ({ data }) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
 
-  const filteredArray = (array) => {
-    const seenIds = new Set();
-    return array.filter((item) => {
-      if (seenIds.has(item._id)) {
-        return false; // If the id is already in the set, skip it
-      } else {
-        seenIds.add(item._id); // If it's a new id, add it to the set
-        return true; // Include the item in the filtered array
-      }
-    });
-  };
-  const uniqueObjects = filteredArray(data);
   const tableData = data
     ?.sort((a, b) => {
       return new Date(b.appointmentDate) - new Date(a.appointmentDate);
     })
     ?.map((x) => {
+      console.log(x);
+
       const y = {
-        txnId: x?._id ?? "",
+        txnId: x?.transactionId ?? "No Transaction ID",
         date: x?.appointmentDate ?? "N/A",
         clientName: x?.clientName ?? "",
         services:
