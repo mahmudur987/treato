@@ -30,7 +30,7 @@ const StyleDetails = () => {
     setService,
     setSelectedServices,
   } = useContext(addLookContext);
-  const { data, isLoading, isError, error } = useGetPartnerServices();
+  const { data, isLoading, isError } = useGetPartnerServices();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -152,7 +152,7 @@ const StyleDetails = () => {
               placeholder="e.g. ₹699.00"
             />
           </div>
-          <div className={styles.formGroup}>
+          {/* <div className={styles.formGroup}>
             <label htmlFor="rating">Customer Rating</label>
             <input
               required
@@ -164,7 +164,7 @@ const StyleDetails = () => {
               className={styles.input}
               placeholder="4.0"
             />
-          </div>
+          </div> */}
         </div>
       </form>
     </div>

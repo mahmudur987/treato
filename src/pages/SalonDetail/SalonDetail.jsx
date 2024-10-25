@@ -70,7 +70,7 @@ export default function SalonDetail() {
             {SalonData ? SalonData.rating : 0}{" "}
             <img loading="lazy" src={star} alt="" />
           </div>
-          <div>({SalonData.total_rating ? SalonData.total_rating : 0})</div>
+          <div>({SalonData?.total_rating ? SalonData?.total_rating : 0})</div>
           <img loading="lazy" src={ellipse} alt="" />
           <div>
             {SalonData ? SalonData.locationText : null} (
