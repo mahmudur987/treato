@@ -40,7 +40,7 @@ const tableHeading = [
 const AppointmentsTable = ({ data }) => {
   const { selectedItems, setSelectedItems } = useContext(reportContext);
 
-  // console.log(data);
+  console.log(data);
 
   const tableData = data?.data
     ?.sort((a, b) => {
@@ -52,7 +52,7 @@ const AppointmentsTable = ({ data }) => {
       });
       let totalPrice = prices.reduce((a, b) => a + b, 0);
 
-      // console.log(totalPrice);
+      console.log(totalPrice);
       const data = {
         txnId: x?.transactionId ?? "N/A",
         date: x?.dateforService ?? "N/A",

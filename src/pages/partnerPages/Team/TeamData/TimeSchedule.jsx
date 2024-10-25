@@ -33,6 +33,7 @@ const TimeSchedule = () => {
     startDate,
     endDate
   );
+
   const [handleShift, sethandleShift] = useState(false);
   const [schedule, setschedule] = useState(null);
   const [member, setMember] = useState(null);
@@ -165,14 +166,9 @@ const TimeSchedule = () => {
           <table className={sty.styledTable}>
             <thead>
               <tr>
-                <th
-                  className={sty.headingDiv}
-                >
-                  <span  className={sty.headingName}>Name</span>
-                  <div
-                    
-                    className={sty.imageBox}
-                  >
+                <th className={sty.headingDiv}>
+                  <span className={sty.headingName}>Name</span>
+                  <div className={sty.imageBox}>
                     <img loading="lazy" src={topImg} alt="" />
                     <img loading="lazy" src={bottomImg} alt="" />
                   </div>
@@ -217,9 +213,7 @@ const TimeSchedule = () => {
                         if (y.isOnLeave) {
                           return (
                             <td key={i} className={sty.times1}>
-                              <div
-                                className={`${sty.times} ${sty.timeBorder}`}
-                              >
+                              <div className={`${sty.times} ${sty.timeBorder}`}>
                                 leave
                               </div>
                             </td>
