@@ -110,11 +110,15 @@
 
 .writeReview,
 .writeReview_mobo {
+  max-width: 150px;
+  width: 100%;
+
   font-family: "Poppins";
   font-size: var(--font-medium);
   font-weight: 600;
   text-decoration-line: underline;
   cursor: pointer;
+  text-align: end;
 }
 
 .writeReview_mobo {
