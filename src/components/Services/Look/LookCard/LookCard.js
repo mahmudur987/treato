@@ -8,10 +8,10 @@ const LookCard = ({ data }) => {
   return (
     <Link to={`/partner/dashboard/edit-look/${id}`}>
       <div className={styles.card} style={{ backgroundImage: `url(${image})` }}>
-        <p className={styles.rating}>
+        {/* <p className={styles.rating}>
           <span>{rating}</span>
           <span className={styles.icon}>★</span>
-        </p>
+        </p> */}
 
         <div className={styles.text}>
           <p>{title}</p>
