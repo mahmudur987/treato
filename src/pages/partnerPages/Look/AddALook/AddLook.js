@@ -66,7 +66,7 @@ const AddLook = () => {
     data.append("name", formData.name);
     data.append("description", formData.description);
     data.append("price", formData.price);
-    data.append("rating", formData.rating);
+    data.append("rating", 1);
     data.append("serviceCategories", category);
     data.append("serviceSubCategoryId", selectedServices);
 
@@ -75,15 +75,15 @@ const AddLook = () => {
       data.append("stylishListIds[]", id);
     });
 
-    // console.log({
-    //   name: formData.name,
-    //   description: formData.description,
-    //   price: formData.price,
-    //   rating: formData.rating,
-    //   serviceCategoryID: category,
-    //   serviceSubCategoryId: selectedServices,
-    //   stylishListIds: selectedPeople,
-    // });
+    console.log({
+      name: formData.name,
+      description: formData.description,
+      price: formData.price,
+      rating: formData.rating,
+      serviceCategoryID: category,
+      serviceSubCategoryId: selectedServices,
+      stylishListIds: selectedPeople,
+    });
 
     try {
       const headers = {
