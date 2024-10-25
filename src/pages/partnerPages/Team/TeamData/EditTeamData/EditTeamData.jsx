@@ -83,6 +83,9 @@ const EditTeamData = () => {
     },
     []
   );
+  const allServices = allMainCategories?.reduce((accumulator, service) => {
+    return accumulator.concat(service.subCategories);
+  }, []);
   useEffect(() => {
     setSelectedServices(member?.data?.services);
     setFirstName(member?.data.stylist_name.split(" ")[0]);
@@ -92,32 +95,17 @@ const EditTeamData = () => {
     setServiceTitle(member?.data?.stylist_service);
     setServiceStartDate(member?.data?.created);
     setSelectedServices(member?.data.services);
+    setServiceStartDate(member?.data?.created);
+    setServiceEndDate(member?.data?.last_date);
   }, [member]);
 
   const lastDate = formatDate(serviceEndDate);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate inputs
-    // if (!firstName && !member?.data.stylist_name) {
-    //   return toast.error("Please provide a stylist name.");
-    // }
-    // if (!serviceTitle) {
-    //   return toast.error("Please write your service title.");
-    // }
-    // if (!picture) {
-    //   return toast.error("Please select a picture.");
-    // }
-    // if (!address) {
-    //   return toast.error("Please write your address.");
-    // }
-
     const phoneAsNumber = Number(phone);
-    // if (isNaN(phoneAsNumber)) {
-    //   return toast.error("Phone number is not valid.");
-    // }
 
-    // Prepare form data
     const formData = new FormData();
     const fullName = `${firstName || member?.data.stylist_name} ${
       lastName || ""
@@ -132,9 +120,12 @@ const EditTeamData = () => {
     formData.append("last_date", lastDate);
     formData.append(
       "Service_Start_Date",
-      new Date(serviceStartDate).toISOString()
+      new Date(serviceStartDate)?.toISOString()
     );
-    formData.append("Service_End_Date", new Date(serviceEndDate).toISOString());
+    formData.append(
+      "Service_End_Date",
+      new Date(serviceEndDate)?.toISOString()
+    );
 
     time_for_service.forEach((time) => {
       formData.append("time_for_service[]", time);
@@ -378,7 +369,7 @@ const EditTeamData = () => {
                 {data && allMainCategories?.length > 0 ? (
                   <div className={styles.AllServices}>
                     <h4 className={styles.AllServicesText}>
-                      All services (32)
+                      All services ({allServices?.length})
                     </h4>
                     <div onClick={theModalOpen}>
                       <p className={styles.editImgEdit}>
