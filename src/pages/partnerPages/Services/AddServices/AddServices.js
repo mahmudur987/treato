@@ -35,7 +35,7 @@ const AddServices = () => {
     if (loading) {
       return;
     }
-    setLoading(true);
+
     // Input validations
     if (!basicDetails.serviceName || teamMember.length <= 0) {
       return toast.error(
@@ -57,6 +57,7 @@ const AddServices = () => {
     };
 
     try {
+      setLoading(true);
       const res = await addNewService(newService);
 
       // Check response
@@ -80,6 +81,8 @@ const AddServices = () => {
       toast.error(
         error.message || "An error occurred while adding the service."
       );
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -64,6 +64,11 @@ const TeamDetails = () => {
   const { data, isLoading, isError, error } = useGetAllTeamMembers();
 
   const filteredData = data?.data?.map((x) => {
+    const y = x?.services[0]?.subCategories
+      .map((x) => x.service_name)
+      .join(", ");
+    console.log(y);
+
     return {
       id: x?._id,
       profile: x?.stylist_Img?.public_url || Mask1,
@@ -73,8 +78,7 @@ const TeamDetails = () => {
       phone: x?.stylist_number || "N/A",
       // rating: x?.rating || "N/A",
       address: x?.stylist_address || "N/A",
-      service:
-        (x?.stylist_service?.length > 0 && x?.stylist_service?.length) || 0,
+      service: y ?? "No service",
       bookingToday: x?.appointments,
       editPencil: editImg,
     };
@@ -197,7 +201,11 @@ const TeamDetails = () => {
                   <td>{item.tenure}</td>
                   <td>{item.phone}</td>
                   {/* <td>{item.rating}</td> */}
-                  <td>{item.address}</td>
+                  <td title={item.address.length > 20 && item.address}>
+                    {item.address.length > 20
+                      ? item.address.slice(0, 20)
+                      : item.address}
+                  </td>
                   <td>{item.service}</td>
                   <td>{item.bookingToday}</td>
                   <td>
