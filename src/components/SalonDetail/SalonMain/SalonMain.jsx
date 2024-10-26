@@ -5,15 +5,28 @@ import SalonTeam from "../SalonTeam/SalonTeam";
 import SalonOffers from "../SalonOffers/SalonOffers";
 import SalonMap from "../SalonMap/SalonMap";
 import SalonServiceMain from "../SalonServiceMain/SalonServiceMain";
-import { useGetAllSalonOffer } from "../../../services/Appointments";
+import {
+  useGetAllSalonOffer,
+  useGetAllSalonReview,
+} from "../../../services/Appointments";
+import { useParams } from "react-router-dom";
+import NoDataDisplay from "../../NodataToDisplay/NoDataDisplay";
 
 export default function SalonServices({
   SalonData,
   addServices,
   addedServices,
 }) {
+  let { id } = useParams();
   const { data, isLoading, isError } = useGetAllSalonOffer();
 
+  const {
+    data: reviews,
+    isLoading: reviewsIsLoading,
+    isError: reviewsIswError,
+  } = useGetAllSalonReview(id);
+
+  console.log(reviews?.data.slice(0, 5));
   const [activeSalon, updateActiveSalon] = useState(1);
   const [sameTimingDays, setSameTimingDays] = useState(null);
   const [difTimingDays, setDifTimingDays] = useState(null);
@@ -193,9 +206,20 @@ export default function SalonServices({
         <div>
           <span className={styles.salon_section_title}>Reviews</span>
           <div className={styles.salon_section_main}>
-            {SalonData?.reviews?.map((v, i) => (
-              <SalonReview reviewData={v} key={i} />
-            ))}
+            {reviews &&
+              !reviewsIsLoading &&
+              !reviewsIswError &&
+              reviews?.data?.length > 0 &&
+              reviews?.data
+                ?.sort((a, b) => new Date(b.created) - new Date(a.created))
+                ?.map((v, i) => <SalonReview reviewData={v} key={i} />)}
+
+            {reviews &&
+              !reviewsIsLoading &&
+              reviewsIswError &&
+              reviews?.data?.length === 0 && (
+                <NoDataDisplay message={"No Review"} />
+              )}
           </div>
         </div>
       </div>

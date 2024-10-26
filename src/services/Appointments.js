@@ -221,7 +221,7 @@ export const getAvailableOffers = async (data) => {
 };
 export const useGetAllSalonOffer = () => {
   return useQuery({
-    queryKey: [],
+    queryKey: [`/offers/all`],
     queryFn: async () => {
       const jwtToken = localStorage.getItem("jwtToken");
       const { data } = await axiosInstance.get(`/offers/all`, {
@@ -234,6 +234,26 @@ export const useGetAllSalonOffer = () => {
     },
   });
 };
+export const useGetAllSalonReview = (id) => {
+  return useQuery({
+    queryKey: [id, "/feedback/salonreview"],
+    queryFn: async () => {
+      try {
+        const { data } = await axiosInstance.get(
+          `/feedback/salonreview?salonId=${id}`
+        );
+        return data;
+      } catch (error) {
+        throw new Error("Failed to fetch salon reviews.");
+      }
+    },
+    enabled: !!id, // Only fetch if id is truthy
+    onError: (error) => {
+      console.error(error.message);
+    },
+  });
+};
+
 export const bookSalonAppointment = async (data) => {
   const jwtToken = localStorage.getItem("jwtToken");
   console.log(data);
