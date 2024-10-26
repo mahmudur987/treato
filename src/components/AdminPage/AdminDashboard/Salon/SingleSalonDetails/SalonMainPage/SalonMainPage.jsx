@@ -47,11 +47,11 @@ export default function SalonMainPage({ addServices, addedServices }) {
               Billing and payment
             </li>
           </a>
-          <a href="#" onClick={updateActiveOption4}>
+          {/* <a href="#" onClick={updateActiveOption4}>
             <li className={activeSalon === 4 ? styles.active_salon_option : ""}>
               Reviews
             </li>
-          </a>
+          </a> */}
         </ul>
       </div>
       {activeSalon === 1 && (
@@ -82,7 +82,7 @@ export default function SalonMainPage({ addServices, addedServices }) {
       )}
       {activeSalon === 2 && <BookingsPart />}
       {activeSalon === 3 && <BillAndPaymentPart />}
-      {activeSalon === 4 && <ReviewsPart />}
+      {/* {activeSalon === 4 && <ReviewsPart />} */}
     </div>
   );
 }
