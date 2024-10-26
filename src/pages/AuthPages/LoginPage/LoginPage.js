@@ -26,11 +26,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { LoginSocialFacebook } from "reactjs-social-login";
-import {
-  GoogleOAuthProvider,
-  GoogleLogin,
-  useGoogleLogin,
-} from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../../components/Buttons/SecondaryButton/SecondaryButton";
@@ -175,6 +171,8 @@ const LoginPage = () => {
   const googleAuthLogin = useGoogleLogin({
     cookiePolicy: "single_host_origin",
     onSuccess: async (response) => {
+      console.log(response);
+
       try {
         const { access_token } = response;
         const role = userChoice.role.role;

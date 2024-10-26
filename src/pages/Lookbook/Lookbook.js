@@ -58,9 +58,9 @@ const Lookbook = () => {
       >
         View details
       </Link>
-      <span className={styles.imageRating}>
+      {/* <span className={styles.imageRating}>
         <img loading="lazy" src={starBlack} alt="starIcon" /> {rating}
-      </span>
+      </span> */}
       <p className={styles.imageText}>{description}</p>
     </div>
   );

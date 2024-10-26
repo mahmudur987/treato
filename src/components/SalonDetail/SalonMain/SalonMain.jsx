@@ -5,12 +5,15 @@ import SalonTeam from "../SalonTeam/SalonTeam";
 import SalonOffers from "../SalonOffers/SalonOffers";
 import SalonMap from "../SalonMap/SalonMap";
 import SalonServiceMain from "../SalonServiceMain/SalonServiceMain";
+import { useGetAllSalonOffer } from "../../../services/Appointments";
 
 export default function SalonServices({
   SalonData,
   addServices,
   addedServices,
 }) {
+  const { data, isLoading, isError } = useGetAllSalonOffer();
+
   const [activeSalon, updateActiveSalon] = useState(1);
   const [sameTimingDays, setSameTimingDays] = useState(null);
   const [difTimingDays, setDifTimingDays] = useState(null);
@@ -155,18 +158,25 @@ export default function SalonServices({
           </div>
         </div>
       </div>
-      <div id="offers" ref={offersRef} className={styles.salon_sections}>
-        <div>
-          <span className={styles.salon_section_title}>Offers & Benefits</span>
-          <div className={styles.salon_section_main}>
-            <div className={styles.salon_offersA}>
-              {SalonData?.salon_offers?.map((v, i) => (
-                <SalonOffers offerData={v} key={i} />
-              ))}
+      {data && !isLoading && !isError && data?.data?.length > 0 && (
+        <div id="offers" ref={offersRef} className={styles.salon_sections}>
+          <div>
+            <span className={styles.salon_section_title}>
+              Offers & Benefits
+            </span>
+            <div className={styles.salon_section_main}>
+              <div className={styles.salon_offersA}>
+                {data &&
+                  !isLoading &&
+                  !isError &&
+                  data?.data?.map((v, i) => (
+                    <SalonOffers offerData={v} key={i} />
+                  ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       <div id="team" ref={teamRef} className={styles.salon_sections}>
         <div>
           <span className={styles.salon_section_title}>Meet the team</span>

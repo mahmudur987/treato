@@ -57,7 +57,6 @@ export default function SalonCard({ SalonData, salonId }) {
       return () => clearInterval(intervalId);
     }
   }, [storeSchedule]);
-  console.log(offer);
 
   const seeTiming = () => {
     setShowTiming(true);

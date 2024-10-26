@@ -39,19 +39,31 @@ const tableHeading = [
 ];
 const AppointmentsTable = ({ data }) => {
   const { selectedItems, setSelectedItems } = useContext(reportContext);
+
+  console.log(data);
+
   const tableData = data?.data
     ?.sort((a, b) => {
-      return new Date(a.dateforService) - new Date(b.dateforService);
+      return new Date(b.dateforService) - new Date(a.dateforService);
     })
     ?.map((x) => {
+      let prices = x?.services.map((v, i) => {
+        return v.price;
+      });
+      let totalPrice = prices.reduce((a, b) => a + b, 0);
+
+      console.log(x?.services);
       const data = {
         txnId: x?.transactionId ?? "N/A",
         date: x?.dateforService ?? "N/A",
         clientName: x?.clientName ?? "N/A",
-        services: x?.services?.length > 0 ? x?.services.join(", ") : "N/A",
+        services:
+          x?.services?.length > 0
+            ? x?.services.map((x) => x.service_name).join(", ")
+            : "N/A",
         Employee: x?.stylist,
         status: x?.status ?? "N/A",
-        amount: x?.final_amount.toFixed(2) ?? "N/A",
+        amount: totalPrice.toFixed(2) ?? "N/A",
         type: x?.payment_mode ?? "N/A",
       };
       return data;
@@ -97,7 +109,7 @@ const AppointmentsTable = ({ data }) => {
                   <input
                     type="checkbox"
                     id=""
-                    onClick={() => selectAll()}
+                    onChange={(e) => selectAll(e.target.checked)}
                     checked={selectedItems.length === tableData.length}
                   />
                 </div>
@@ -122,7 +134,9 @@ const AppointmentsTable = ({ data }) => {
                   <td>
                     <div className={sty.checkbox}>
                       <input
-                        onClick={() => toggleSelection(x.txnId)}
+                        onChange={(e) =>
+                          toggleSelection(x.txnId, e.target.checked)
+                        }
                         type="checkbox"
                         id=""
                         checked={selectedItems.includes(x.txnId)}
@@ -136,7 +150,7 @@ const AppointmentsTable = ({ data }) => {
                     {" "}
                     {x.services.length > 20
                       ? `${x.services.slice(0, 20)} ....`
-                      : x.services.slice(0, 20)}
+                      : x.services}
                   </td>
                   <td>{x.Employee}</td>
                   <td>{x.status}</td>

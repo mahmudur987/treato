@@ -26,8 +26,6 @@ const AddLook = () => {
   const [service, setService] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
 
-  console.log(selectedPeople);
-
   const handleSubmit = async () => {
     setIsLoading(true); // Set loading state at the beginning
 
@@ -52,7 +50,6 @@ const AddLook = () => {
       { value: formData.name, message: "Add a name." },
       { value: formData.description, message: "Add a description." },
       { value: formData.price, message: "Add a price." },
-      { value: formData.rating, message: "Add a rating." },
     ];
 
     for (const { value, message } of requiredFields) {
@@ -69,7 +66,7 @@ const AddLook = () => {
     data.append("name", formData.name);
     data.append("description", formData.description);
     data.append("price", formData.price);
-    data.append("rating", formData.rating);
+    data.append("rating", 1);
     data.append("serviceCategories", category);
     data.append("serviceSubCategoryId", selectedServices);
 
@@ -93,7 +90,7 @@ const AddLook = () => {
         token: localStorage.getItem("jwtToken"),
       };
       const res = await axiosInstance.post("look-book/new", data, { headers });
-      console.log(res.data);
+      console.log(res);
 
       if (res.data) {
         toast.success("A new look added successfully!");
@@ -110,7 +107,7 @@ const AddLook = () => {
         setSelectedPeople([]);
       }
     } catch (error) {
-      console.error("Network error:", error?.response?.data);
+      console.error("Network error:", error);
       toast.error(error?.response?.data?.message || "An error occurred.");
     } finally {
       setIsLoading(false); // Ensure loading state is reset in both success and error cases

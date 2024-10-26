@@ -72,11 +72,12 @@ const LookbookDetails = () => {
         <>
           <div className={styles.imageSection}>
             <h3>{lookData?.name}</h3>
-            <div className={styles.rating}>
+            {/* <div className={styles.rating}>
               {lookData?.rating} <img loading="lazy" src={greyStar} alt="starIcon" />
-            </div>
+            </div> */}
             <p>{lookData?.description}</p>
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={lookData?.photo?.public_url}
               alt="look"
               className={styles.lookbookImage}
@@ -109,7 +110,8 @@ const LookbookDetails = () => {
               <div className={styles.stylistInfo}>
                 {lookData?.stylist?.map((v, i) => {
                   return (
-                    <img loading="lazy"
+                    <img
+                      loading="lazy"
                       src={mask}
                       alt="stylistImage"
                       className={styles.stylistImage}

@@ -35,7 +35,7 @@ const Reports = () => {
     isError: appointmentsIsError,
     error: appointmentsError,
   } = useAppointmentsReport(appointmentQuery);
-  console.log(appointments);
+
   const {
     data: clients,
     isLoading: clientsIsLoading,

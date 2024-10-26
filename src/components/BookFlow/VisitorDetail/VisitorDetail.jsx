@@ -175,7 +175,7 @@ export default function VisitorDetail() {
               <div className={styles.phone_inputBorder}></div>
 
               <input
-                value={contact?.phone?.slice(3, 14)}
+                value={contact?.phone?.replace("+91", "")}
                 type="tel"
                 placeholder={"Enter your phone number"}
                 maxLength={11}

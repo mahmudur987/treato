@@ -69,8 +69,9 @@ const Salon = ({ salonData, place }) => {
             {salonData.salon_name ? salonData.salon_name : "Salon Name"}
           </Link>
           <h4 className={styles.ratings}>
-            {salonData.rating} <img loading="lazy" src={starBlack} alt="star" />{" "}
-            ({salonData.total_rating} ratings)
+            {salonData.rating ? salonData.rating : 0}{" "}
+            <img loading="lazy" src={starBlack} alt="star" /> (
+            {salonData.total_rating ? salonData.total_rating : 0} ratings)
           </h4>
           {userDetails?.user.isLocationAllow && (
             <h4 className={styles.location}>

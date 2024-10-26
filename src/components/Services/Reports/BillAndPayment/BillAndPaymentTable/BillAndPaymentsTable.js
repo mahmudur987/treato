@@ -64,16 +64,22 @@ const BillAndPaymentTable = ({ data }) => {
   // State to store selected rows
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+
   const tableData = data
     ?.sort((a, b) => {
-      return new Date(a.appointmentDate) - new Date(b.appointmentDate);
+      return new Date(b.appointmentDate) - new Date(a.appointmentDate);
     })
     ?.map((x) => {
+      console.log(x);
+
       const y = {
-        txnId: x?._id.slice(0, 7) ?? "",
+        txnId: x?.transactionId ?? "No Transaction ID",
         date: x?.appointmentDate ?? "N/A",
         clientName: x?.clientName ?? "",
-        services: x?.serviceData[0] ? x?.serviceData[0]?.service_name : "",
+        services:
+          x?.serviceData.length > 0 && typeof x.serviceData === "object"
+            ? x?.serviceData.map((x) => x.service_name).join(", ")
+            : "No Name",
         amount: formatNumber(x?.amount),
         status: x?.status ?? "",
         Mode: x?.paymentMode ?? "",
@@ -150,7 +156,12 @@ const BillAndPaymentTable = ({ data }) => {
                     <td>{x.txnId}</td>
                     <td>{x.date}</td>
                     <td>{x.clientName}</td>
-                    <td>{x.services}</td>
+                    <td title={x?.services?.length > 20 && x.services}>
+                      {" "}
+                      {x.services.length > 20
+                        ? `${x.services.slice(0, 20)} ....`
+                        : x.services.slice(0, 20)}
+                    </td>
                     <td>{x.amount}</td>
                     <td>{x.status}</td>
                     <td>{x.Mode}</td>

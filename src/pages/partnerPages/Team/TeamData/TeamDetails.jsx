@@ -36,11 +36,11 @@ const tableHeading = [
   {
     heading: "Phone",
   },
-  {
-    heading: "Ratings",
-    topImg: topImg,
-    bottomImg: bottomImg,
-  },
+  // {
+  //   heading: "Ratings",
+  //   topImg: topImg,
+  //   bottomImg: bottomImg,
+  // },
   {
     heading: "Address",
   },
@@ -71,7 +71,7 @@ const TeamDetails = () => {
       serviceProfile: x?.stylist_service || "N/A",
       tenure: x?.tenure || "N/A",
       phone: x?.stylist_number || "N/A",
-      rating: x?.rating || "N/A",
+      // rating: x?.rating || "N/A",
       address: x?.stylist_address || "N/A",
       service:
         (x?.stylist_service?.length > 0 && x?.stylist_service?.length) || 0,
@@ -94,12 +94,12 @@ const TeamDetails = () => {
     navigate("/partner/dashboard/EditMemberProfile");
   };
 
-  const theViewAll=()=>{
-    setIsViewAll(true)
-  }
-  const theViewClose=()=>{
+  const theViewAll = () => {
+    setIsViewAll(true);
+  };
+  const theViewClose = () => {
     setIsViewAll(false);
-  }
+  };
 
   return (
     <div className={sty.container}>
@@ -113,7 +113,7 @@ const TeamDetails = () => {
           />
           <h1 className={sty.headingTeam}>Manage your team</h1>
         </div>
-        <div  className={sty.searchContainer} >
+        <div className={sty.searchContainer}>
           <span className={sty.searchBox}>
             <img
               loading="lazy"
@@ -141,7 +141,7 @@ const TeamDetails = () => {
                   loading="lazy"
                   src={rightIcon}
                   alt="rightIcon"
-                  onClick={ EditTeamMemberData}
+                  onClick={EditTeamMemberData}
                 />
               </div>
             </div>
@@ -161,11 +161,8 @@ const TeamDetails = () => {
             {tableHeading?.map((item, i) => (
               <td key={i}>
                 <div className={sty.headingRow}>
-                  <span className={sty.itemName} >{item.heading}</span>
-                  <div
-                    
-                    className={sty.imageBox}
-                  >
+                  <span className={sty.itemName}>{item.heading}</span>
+                  <div className={sty.imageBox}>
                     <img loading="lazy" src={item.topImg} alt="" />
                     <img loading="lazy" src={item.bottomImg} alt="" />
                   </div>
@@ -199,7 +196,7 @@ const TeamDetails = () => {
                   <td>{item.serviceProfile} </td>
                   <td>{item.tenure}</td>
                   <td>{item.phone}</td>
-                  <td>{item.rating}</td>
+                  {/* <td>{item.rating}</td> */}
                   <td>{item.address}</td>
                   <td>{item.service}</td>
                   <td>{item.bookingToday}</td>
@@ -245,7 +242,7 @@ const TeamDetails = () => {
                   <div className={sty.serviceDiv}>
                     <p>{item.serviceProfile} </p>
 
-                    <span className={sty.imageSpan} >
+                    <span className={sty.imageSpan}>
                       <img loading="lazy" src={dot} alt="" />
                     </span>
                     <span>{item.bookingToday} </span>
@@ -277,10 +274,7 @@ const TeamDetails = () => {
         <div className={sty.viewAllBtnDiv}>
           <span className={sty.viewAllBtn1}>
             {isViewAll ? (
-              <button
-                onClick={theViewClose}
-                className={sty.viewAllBtn}
-              >
+              <button onClick={theViewClose} className={sty.viewAllBtn}>
                 View less{" "}
                 <img
                   loading="lazy"
@@ -290,10 +284,7 @@ const TeamDetails = () => {
                 />
               </button>
             ) : (
-              <button
-                onClick={theViewAll}
-                className={sty.viewAllBtn}
-              >
+              <button onClick={theViewAll} className={sty.viewAllBtn}>
                 View all{" "}
                 <img
                   loading="lazy"

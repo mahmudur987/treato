@@ -525,7 +525,8 @@ export default App;
 
 // {
 //   "email":"treatoadminsuper0707@gmail.com"fhgfgh,
-//   "password":"TreatoSuperAdmin@070809"
+//  Super admin email id - treatoadminsuper0707@gmail.com
+// pass- Test@123456
 // }
 // devleor Email:mahmudur.banao@gmail.com
 // password :Test@123456
