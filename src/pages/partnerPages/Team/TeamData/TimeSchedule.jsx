@@ -23,6 +23,31 @@ import {
   formatStateDate,
 } from "./utils";
 export const TimeScheContext = createContext();
+
+function getDateRange(startDate, endDate) {
+  const dateArray = [];
+  let currentDate = new Date(startDate);
+  let lastDate = new Date(endDate);
+  while (currentDate <= lastDate) {
+    const day = currentDate.toLocaleString("en-US", { weekday: "short" });
+    const month = currentDate.toLocaleString("en-US", { month: "short" });
+    const date = currentDate.getDate().toString();
+
+    dateArray.push({
+      day: `${day},`,
+      month: month,
+      date: date,
+    });
+
+    // Move to the next day
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return dateArray;
+}
+
+// Usage
+
 const TimeSchedule = () => {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(formatStateDate(new Date()));
@@ -45,17 +70,15 @@ const TimeSchedule = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [isLeave, setIsLeave] = useState(false);
   const tableContainerRef = useRef(null);
-  const team = data?.data[0]?.time_for_service;
-  // startdate to enddate function
-  const SD = data?.data[0]?.time_for_service[0]?.date ?? "N/A";
-  const Ed = data?.data[0]?.time_for_service[team.length - 1]?.date ?? "N/A";
-  const { startDate: sD, endDate: eD } = formatDateRange(SD, Ed);
 
-  // table top 7 dates with days
-  const sevenDates = data?.data[0]?.time_for_service?.map((x) => {
-    const date = formatCustomDate(x?.date);
-    return date;
-  });
+  const sevenDates = getDateRange(startDate, endDate);
+
+  const sD = sevenDates[0].month + " " + sevenDates[0].date;
+  const eD =
+    sevenDates[sevenDates.length - 1].month +
+    " " +
+    sevenDates[sevenDates.length - 1].date;
+
   // team data as schedule
   const TeamDetailsData = data?.data?.map((x) => {
     const data = {
@@ -130,13 +153,13 @@ const TimeSchedule = () => {
                 />
               </span>
 
-              {data?.data[0]?.time_for_service.length > 0 ? (
+              {data ? (
                 <span className={sty.cal}>
                   {sD} - {eD}{" "}
                   <img loading="lazy" src={calendar_line} alt="calendar_line" />
                 </span>
               ) : (
-                <span className={sty.cal}>Add A Team Member</span>
+                <span className={sty.cal}>Loading</span>
               )}
               {/* {isLoading && <LoadSpinner />} */}
               <span onClick={increaseDates}>
