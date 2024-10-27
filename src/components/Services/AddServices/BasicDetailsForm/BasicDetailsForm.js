@@ -17,11 +17,11 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
     "15 mins",
     "30 mins",
     "45 mins",
-    "1 h",
-    "1 h 15 mins",
-    "1 h 30 mins",
-    "1 h 45 mins",
-    "2 h ",
+    "1 hr",
+    "1 hr 15 mins",
+    "1 hr 30 mins",
+    "1 hr 45 mins",
+    "2 hr",
   ];
   const categories = useMemo(() => {
     return (
