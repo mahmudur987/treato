@@ -103,7 +103,8 @@ const PicturesGallery = () => {
     try {
       await requestFunc();
     } catch (error) {
-      toast.error(error?.message || errorMessage);
+      toast.error("The uploaded image exceeds the maximum allowed size.");
+
     } finally {
       setLoading(false);
     }
