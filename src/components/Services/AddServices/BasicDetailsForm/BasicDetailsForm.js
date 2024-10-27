@@ -22,7 +22,6 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
     "1 h 30 mins",
     "1 h 45 mins",
     "2 h ",
-    "2 h +",
   ];
   const categories = useMemo(() => {
     return (

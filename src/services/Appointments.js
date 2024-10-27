@@ -148,7 +148,7 @@ export const addReview = async (id, data) => {
     };
 
     // Make the GET request with headers
-    const res = await axiosInstance.patch(`feedback/create?id=${id}`, data, {
+    const res = await axiosInstance.post(`feedback/create?id=${id}`, data, {
       headers,
     });
 

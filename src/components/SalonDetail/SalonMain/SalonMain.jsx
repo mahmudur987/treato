@@ -26,7 +26,6 @@ export default function SalonServices({
     isError: reviewsIswError,
   } = useGetAllSalonReview(id);
 
-  console.log(reviews?.data.slice(0, 5));
   const [activeSalon, updateActiveSalon] = useState(1);
   const [sameTimingDays, setSameTimingDays] = useState(null);
   const [difTimingDays, setDifTimingDays] = useState(null);
