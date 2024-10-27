@@ -67,7 +67,6 @@ const TeamDetails = () => {
     const y = x?.services[0]?.subCategories
       .map((x) => x.service_name)
       .join(", ");
-    console.log(y);
 
     return {
       id: x?._id,
