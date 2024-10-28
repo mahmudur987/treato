@@ -34,6 +34,7 @@ const AppointmentDetails = () => {
     isError: teamIsError,
     error: teamError,
     loading,
+    setPrice,
   } = useContext(AddAppointmentContext);
   const [serviceType, setServiceType] = useState([]);
   const [selectedServiceType, setSelectedServiceType] = useState("");
@@ -156,6 +157,20 @@ const AppointmentDetails = () => {
       selectedServices?.includes(service._id)
     )
   );
+  const allSelectedServicesPrice = useMemo(() => {
+    return mainCategories
+      .flatMap((category) =>
+        category?.subCategories?.filter((service) =>
+          selectedServices?.includes(service._id)
+        )
+      )
+      ?.map((x) => x.price)
+      ?.reduce((a, b) => a + b, 0);
+  }, [mainCategories, selectedServices]);
+
+  useEffect(() => {
+    setPrice(allSelectedServicesPrice);
+  }, [allSelectedServicesPrice, setPrice]);
 
   const convertToMinutes = (timeStr) => {
     const timeParts = timeStr.toLowerCase().split(" ");

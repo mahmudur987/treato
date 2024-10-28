@@ -19,7 +19,7 @@ const WriteReview = ({ data }) => {
   const [ratingError, setRatingError] = useState("");
   const [stylistratingError, setStylistRatingError] = useState("");
   const dispatch = useDispatch();
-
+  console.log(data);
   const handleStarClick = (value) => {
     setRating(value);
     setRatingError(""); // Clear rating error when the user selects a rating
@@ -60,17 +60,11 @@ const WriteReview = ({ data }) => {
       isValid = false;
     }
 
-    // Validate stylist rating
-    if (stylistRating === 0) {
-      setStylistRatingError("Please select a rating for the stylist.");
-      isValid = false;
-    }
-
     // If all inputs are valid, proceed to submit the review
     if (isValid) {
       const review = {
         serviceRate: rating,
-        stylistRate: stylistRating,
+        stylistRate: 1,
         review: titleValue,
         description: textareaValue,
       };
@@ -106,14 +100,19 @@ const WriteReview = ({ data }) => {
           <img
             loading="lazy"
             src={frame1}
-            alr="frame1"
+            alt="frame1"
             className={styles.salonProfileImg}
           />
           <div className={styles.details}>
-            <h4 className={styles.salonName}>She Hair & Beauty</h4>
+            <h4 className={styles.salonName}>
+              {data ? data?.salonData[0]?.salon_name : ""}
+            </h4>
             <p className={styles.appointmentDate}>
-              Fri, Apr 21 <img loading="lazy" src={ellipse} alt="ellipse" />
-              <span className={styles.services}>2 services</span>
+              {data?.dateforService ?? ""}
+              <img loading="lazy" src={ellipse} alt="ellipse" />
+              <span className={styles.services}>
+                {data?.serviceData?.length} services
+              </span>
             </p>
           </div>
         </div>
@@ -140,7 +139,7 @@ const WriteReview = ({ data }) => {
               )}
             </label>
           </div>
-          <div className={styles.Rating}>
+          {/* <div className={styles.Rating}>
             <label>
               How would you rate the stylist?
               <div class={styles.rating}>
@@ -160,7 +159,7 @@ const WriteReview = ({ data }) => {
                 <div className={styles.errorText}>{stylistratingError}</div>
               )}
             </label>
-          </div>
+          </div> */}
           <div className={styles.ReviewTitle}>
             <label>
               A title for your review

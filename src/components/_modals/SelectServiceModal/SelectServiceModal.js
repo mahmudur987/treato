@@ -135,7 +135,7 @@ const SelectServiceModal = ({
                             </p>
                             <p>
                               <span>{service.time_takenby_service}</span>.
-                              <span>$ {service.price}</span>
+                              <span>₹ {service.price}</span>
                             </p>
                           </div>
                         ))}

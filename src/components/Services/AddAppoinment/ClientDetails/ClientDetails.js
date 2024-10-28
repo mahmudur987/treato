@@ -94,11 +94,12 @@ const ClientsDetails = () => {
                   value={price}
                   type="number"
                   placeholder="₹ 1.199.00"
+                  readOnly
                 />
 
-                <label htmlFor="price">
+                {/* <label htmlFor="price">
                   <img src={icon} alt="" />
-                </label>
+                </label> */}
               </p>
             </div>{" "}
             <div className={styles.price}>
