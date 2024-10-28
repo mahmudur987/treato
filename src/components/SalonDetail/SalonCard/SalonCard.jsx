@@ -90,7 +90,13 @@ export default function SalonCard({ SalonData, salonId }) {
         <img loading="lazy" src={clock} alt="" />
         <div>
           <div className={styles.salon_cardDA}>
-            <div>{checkSalonOpen ? "Open" : "Closed"}</div>
+            <div>
+              {checkSalonOpen ? (
+                <span className={styles.green}>Open</span>
+              ) : (
+                <span>Closed</span>
+              )}
+            </div>
             <img loading="lazy" src={ellipse} alt="" />
             <div>
               Opens {SalonData?.working_hours[0]?.opening_time}{" "}
