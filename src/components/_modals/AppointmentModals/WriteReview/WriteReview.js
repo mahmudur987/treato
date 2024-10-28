@@ -60,17 +60,11 @@ const WriteReview = ({ data }) => {
       isValid = false;
     }
 
-    // Validate stylist rating
-    if (stylistRating === 0) {
-      setStylistRatingError("Please select a rating for the stylist.");
-      isValid = false;
-    }
-
     // If all inputs are valid, proceed to submit the review
     if (isValid) {
       const review = {
         serviceRate: rating,
-        stylistRate: stylistRating,
+        stylistRate: 1,
         review: titleValue,
         description: textareaValue,
       };
@@ -145,7 +139,7 @@ const WriteReview = ({ data }) => {
               )}
             </label>
           </div>
-          <div className={styles.Rating}>
+          {/* <div className={styles.Rating}>
             <label>
               How would you rate the stylist?
               <div class={styles.rating}>
@@ -165,7 +159,7 @@ const WriteReview = ({ data }) => {
                 <div className={styles.errorText}>{stylistratingError}</div>
               )}
             </label>
-          </div>
+          </div> */}
           <div className={styles.ReviewTitle}>
             <label>
               A title for your review
