@@ -86,6 +86,7 @@ const EditTeamData = () => {
   const allServices = allMainCategories?.reduce((accumulator, service) => {
     return accumulator.concat(service.subCategories);
   }, []);
+
   useEffect(() => {
     setSelectedServices(member?.data?.services);
     setFirstName(member?.data.stylist_name.split(" ")[0]);
@@ -95,8 +96,8 @@ const EditTeamData = () => {
     setServiceTitle(member?.data?.stylist_service);
     setServiceStartDate(member?.data?.created);
     setSelectedServices(member?.data.services);
-    setServiceStartDate(member?.data?.created);
-    setServiceEndDate(member?.data?.last_date);
+    setServiceStartDate(member?.data?.Service_Start_Date);
+    setServiceEndDate(member?.data?.Service_End_Date);
   }, [member]);
 
   const lastDate = formatDate(serviceEndDate);

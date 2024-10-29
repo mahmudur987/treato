@@ -62,7 +62,7 @@ const TeamDetails = () => {
   const [searchText, setSearchText] = useState("");
 
   const { data, isLoading, isError, error } = useGetAllTeamMembers();
-
+  console.log(data);
   const filteredData = data?.data?.map((x) => {
     const y = x?.services[0]?.subCategories
       .map((x) => x.service_name)
