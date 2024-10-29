@@ -4,7 +4,7 @@ import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 
 const WeekNavigator = ({ setStartDate, setEndDate }) => {
   const initialStartDate = new Date();
-  initialStartDate.setDate(initialStartDate.getDate() - 7);
+  initialStartDate.setDate(initialStartDate.getDate() - 6);
 
   const [startDate, setStartDateState] = useState(initialStartDate);
   const [endDate, setEndDateState] = useState(new Date());

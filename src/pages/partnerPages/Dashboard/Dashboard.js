@@ -83,7 +83,7 @@ const Dashboard = () => {
 
   return (
     <main className={styles.mainContainer}>
-      {status && !isError && !isLoading && (
+      {status && !isError && !isLoading && Number(status?.data) > 0 && (
         <div className={styles.top}>
           <p>You have outstanding commissions of ₹ {status?.data}. Pay now?</p>
           <button onClick={handlePayment}>Pay</button>

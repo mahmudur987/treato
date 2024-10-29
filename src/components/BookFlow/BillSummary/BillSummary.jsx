@@ -126,26 +126,6 @@ export default function BillSummary({
   const handleDeleteOffer = () => {
     dispatch(updateAppliedOffer(null));
   };
-  // otp verification
-
-  const verifyOtp = async () => {
-    setOtpModal(true);
-
-    let PhoneNumber = "";
-    const phonedata = {
-      phoneNumber: PhoneNumber,
-    };
-    console.log(phonedata);
-    const res = await sendNumberChangeOTP(phonedata);
-
-    if (res.res) {
-      console.log(res?.res?.data?.otp);
-      setVerifyOtp(res?.res?.data.otp);
-    } else if (res.err) {
-      console.log(res.err);
-      toast.error("The Phone number is Not Valid");
-    }
-  };
 
   // razorpay gateway
 
@@ -191,11 +171,8 @@ export default function BillSummary({
         user_id: userDetails?._id,
         salons_id: id,
         service_id: serviceIDs,
-        final_amount: `${
-          selectedOffer?.amount_for_discount
-            ? TotalServiceAmount - selectedOffer?.amount_for_discount
-            : TotalServiceAmount
-        }`,
+        final_amount: totalServicesPrice,
+        offer_id: selectedOffer?._id,
         time: selectedServiceSlot,
         servicetimetaken: selectedServices?.map((x) => x.service_time),
         selectedStylistId: stepTwoDetails?.workerData[0]?._id
@@ -229,7 +206,7 @@ export default function BillSummary({
       setLoading(false);
     }
   };
-
+  // console.log(selectedOffer?._id);
   // -------------------
   const handleOfflinePayment = () => {
     setLoading(true);
@@ -237,11 +214,8 @@ export default function BillSummary({
       user_id: userDetails?._id,
       salons_id: id,
       service_id: serviceIDs,
-      final_amount: `${
-        selectedOffer?.amount_for_discount
-          ? TotalServiceAmount - selectedOffer?.amount_for_discount
-          : TotalServiceAmount
-      }`,
+      final_amount: totalServicesPrice,
+      offer_id: selectedOffer?._id,
       time: selectedServiceSlot,
       servicetimetaken: selectedServices?.map((x) => x.service_time),
       selectedStylistId: stepTwoDetails?.workerData[0]?._id
