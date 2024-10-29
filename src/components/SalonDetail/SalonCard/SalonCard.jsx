@@ -15,6 +15,9 @@ export default function SalonCard({ SalonData, salonId }) {
   let storeSchedule = SalonData?.working_hours;
   const [checkSalonOpen, setCheckSalonOpen] = useState(false);
   const { data: offer, isError, isLoading } = useGetAllSalonOffer();
+
+  console.log(SalonData?.isClosed?.status);
+
   useEffect(() => {
     if (storeSchedule) {
       const checkIfOpen = () => {
