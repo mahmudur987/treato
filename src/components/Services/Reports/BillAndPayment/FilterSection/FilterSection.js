@@ -4,7 +4,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
 import CustomSelect4 from "../../../../Select/CustomeSelect4/CustomSelect4";
 import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
-const PaymentStatus = ["Upcoming", "Cancelled", "Refunded", "All"];
+const PaymentStatus = ["Upcoming", "Cancelled", "Completed", "Refunded", "All"];
 const PaymentMode = ["offline", "Online", "on-site", "All"];
 
 const FilterSection = ({ setBillQuery }) => {
