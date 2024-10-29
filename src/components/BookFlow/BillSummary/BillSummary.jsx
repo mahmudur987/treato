@@ -172,7 +172,7 @@ export default function BillSummary({
         salons_id: id,
         service_id: serviceIDs,
         final_amount: totalServicesPrice,
-        offer_id: selectedOffer?._id,
+        choosenOfferId: selectedOffer?._id,
         time: selectedServiceSlot,
         servicetimetaken: selectedServices?.map((x) => x.service_time),
         selectedStylistId: stepTwoDetails?.workerData[0]?._id
@@ -215,7 +215,7 @@ export default function BillSummary({
       salons_id: id,
       service_id: serviceIDs,
       final_amount: totalServicesPrice,
-      offer_id: selectedOffer?._id,
+      choosenOfferId: selectedOffer?._id,
       time: selectedServiceSlot,
       servicetimetaken: selectedServices?.map((x) => x.service_time),
       selectedStylistId: stepTwoDetails?.workerData[0]?._id

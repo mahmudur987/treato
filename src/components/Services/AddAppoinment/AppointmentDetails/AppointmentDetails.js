@@ -12,6 +12,7 @@ import {
   formatDate,
 } from "../../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
 import NoDataDisplay from "../../../NodataToDisplay/NoDataDisplay";
+import { toast } from "react-toastify";
 
 const AppointmentDetails = () => {
   const {
@@ -22,7 +23,7 @@ const AppointmentDetails = () => {
   } = useSingleSalon();
   const dateInputRef = useRef(null);
 
-  const [date, setDate] = useState("Oct 8 ,2022");
+  const [date, setDate] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
@@ -79,15 +80,17 @@ const AppointmentDetails = () => {
     ?.subCategories.map((x) => x.service_name);
 
   useEffect(() => {
-    const selectedDate = new Date(Date.now());
-    const options = {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    };
-    const formattedDate = selectedDate.toLocaleDateString("en-US", options);
-    setDate(formattedDate);
-  }, []);
+    if (!date) {
+      const selectedDate = new Date(Date.now());
+      const options = {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      };
+      const formattedDate = selectedDate.toLocaleDateString("en-US", options);
+      setDate(formattedDate);
+    }
+  }, [date]);
 
   const generateSlotsData = useMemo(() => {
     if (SelectedTeamMember.name === "No preference") {
@@ -111,10 +114,13 @@ const AppointmentDetails = () => {
   const { data: slots, isLoading, error } = useTimeSlots(generateSlotsData);
   const times = slots?.res?.data || ["09:00"];
   // console.log(slots);
-
+  console.log(slots);
   useEffect(() => {
-    setTime(times.length > 0 ? times[0] : "09:00");
-  }, [times]);
+    setTime(times.length > 0 ? times[0] : "");
+    if (slots?.res?.message === "Salon Closed") {
+      toast.info("Salon Closed");
+    }
+  }, [times, slots]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -356,6 +362,7 @@ const AppointmentDetails = () => {
                 onChange={setTime}
               />
             )}
+            {isLoading && <p>Loading ....</p>}
             {times?.length === 0 && (
               <div className={styles.warnning}>No slots available</div>
             )}
