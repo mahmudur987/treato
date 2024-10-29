@@ -457,9 +457,12 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                           "online"
                                             ? ""
                                             : style.noShow
-                                        } `}
-                                        onClick={() =>
+                                        } ${service?.status === "no-show" ? style.disable : style.started}`}
+                                        onClick={() =>{
+                                          if (service?.status !== "no-show") {
                                           noShowAppointment(service?.appid)
+                                          }
+                                        }
                                         }
                                       >
                                         No-Show
@@ -509,10 +512,12 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                       )}
 
                                       <div
-                                        className={`${style.started}`}
-                                        onClick={() =>
+                                        className={`${service?.status === "cancelled" ? style.disable : style.started}`}
+                                        onClick={() =>{
+                                          if (service?.status !== "cancelled") {
                                           cancelation(service?.appid)
-                                        }
+                                          }
+                                        }}
                                       >
                                         Cancel Appointment
                                       </div>
