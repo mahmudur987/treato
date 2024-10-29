@@ -90,3 +90,11 @@
   line-height: 100%; /* 16px */
   letter-spacing: -0.16px;
 }
+.userImage{
+  width: 30px;
+  height: 30px;
+}
+.userImages{
+  width: 36px;
+  height: 36px;
+}
