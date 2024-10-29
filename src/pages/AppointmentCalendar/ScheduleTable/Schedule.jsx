@@ -442,10 +442,12 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         Edit Details
                                       </div>*/}
                                       <div
-                                        className={`${style.started}  `}
-                                        onClick={() =>
-                                          startAppointment(service?.appid)
-                                        }
+                                        className={`${service?.status === "started" ? style.disable : style.started}`}
+                                        onClick={() => {
+                                          if (service?.status !== "started") {
+                                            startAppointment(service?.appid);
+                                          }
+                                        }}
                                       >
                                         Started
                                       </div>
