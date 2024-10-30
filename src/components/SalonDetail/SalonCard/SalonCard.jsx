@@ -7,16 +7,19 @@ import SalonMap from "../SalonMap/SalonMap";
 import BookNow from "../BookNow/BookNow";
 import { memo, useState } from "react";
 import { useEffect } from "react";
-import { useGetAllSalonOffer } from "../../../services/Appointments";
+import {
+  useGetAllSalonOffer,
+  useGetSalonOpen,
+} from "../../../services/Appointments";
 import SalonTimingModal from "../../_modals/SalonTimingModal/SalonTiming";
 
 export default function SalonCard({ SalonData, salonId }) {
   const [showTiming, setShowTiming] = useState(false);
+  const today = new Date().toISOString().split("T")[0];
   let storeSchedule = SalonData?.working_hours;
   const [checkSalonOpen, setCheckSalonOpen] = useState(false);
   const { data: offer, isError, isLoading } = useGetAllSalonOffer();
-
-  console.log(SalonData?.isClosed?.status);
+  const { data: open } = useGetSalonOpen(salonId, today);
 
   useEffect(() => {
     if (storeSchedule) {
@@ -32,7 +35,7 @@ export default function SalonCard({ SalonData, salonId }) {
         if (todaySchedule) {
           const openingTime = convertTimeToMinutes(todaySchedule.opening_time);
           const closingTime = convertTimeToMinutes(todaySchedule.closing_time);
-
+          console.log(closingTime);
           // Check if current time is within opening and closing times
           if (currentTime >= openingTime && currentTime <= closingTime) {
             setCheckSalonOpen(true);
@@ -94,7 +97,7 @@ export default function SalonCard({ SalonData, salonId }) {
         <div>
           <div className={styles.salon_cardDA}>
             <div>
-              {checkSalonOpen ? (
+              {checkSalonOpen && !open?.isHoliday ? (
                 <span className={styles.green}>Open</span>
               ) : (
                 <span>Closed</span>

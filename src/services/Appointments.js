@@ -253,6 +253,25 @@ export const useGetAllSalonReview = (id) => {
     },
   });
 };
+export const useGetSalonOpen = (id, date) => {
+  return useQuery({
+    queryKey: [id, date],
+    queryFn: async () => {
+      try {
+        let url = `salon/salonholiday?salons_id=${id}&dateforService=${date}`;
+
+        const { data } = await axiosInstance.get(url);
+        return data;
+      } catch (error) {
+        throw new Error("Failed to fetch salon reviews.");
+      }
+    },
+    enabled: !!id, // Only fetch if id is truthy
+    onError: (error) => {
+      console.error(error.message);
+    },
+  });
+};
 
 export const bookSalonAppointment = async (data) => {
   const jwtToken = localStorage.getItem("jwtToken");
