@@ -102,21 +102,21 @@ export default function BillSummary({
       });
       let totalPrice = prices.reduce((a, b) => a + b, 0);
       // Calculate 18% of the total price
-      let taxAmount = (totalPrice * 18) / 100;
-      const Amount = totalPrice + taxAmount;
-      dispatch(updateServiceTaxPrice(taxAmount));
-      setTotalServicesPrice(totalPrice.toLocaleString());
-      setTaxPrice(taxAmount.toLocaleString());
-
       if (selectedOffer) {
         const x = totalPrice - saveAmount;
         let y = (x * 18) / 100;
         const payAbleAmount = x + y;
         setamountToPay(payAbleAmount.toLocaleString());
-        console.log(payAbleAmount);
-
+        dispatch(updateServiceTaxPrice(y));
+        setTotalServicesPrice(totalPrice.toLocaleString());
+        setTaxPrice(y);
         dispatch(updateAmount(payAbleAmount));
       } else {
+        let taxAmount = (totalPrice * 18) / 100;
+        const Amount = totalPrice + taxAmount;
+        dispatch(updateServiceTaxPrice(taxAmount));
+        setTotalServicesPrice(totalPrice.toLocaleString());
+        setTaxPrice(taxAmount.toLocaleString());
         setamountToPay(Amount.toLocaleString());
         dispatch(updateAmount(Amount));
       }
