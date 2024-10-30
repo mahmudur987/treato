@@ -96,7 +96,7 @@ const RescheduleAppointment = ({ data }) => {
     isError,
     error,
   } = useTimeSlots(genarateSlotsData);
-
+ useEffect(()=>{console.log(data)})
   const handleTimeSlotClick = (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
   };
@@ -303,7 +303,7 @@ const RescheduleAppointment = ({ data }) => {
           <div key={i} className={styles.salonInfo}>
             <img
               loading="lazy"
-              src={x.salon_Img?.public_url}
+              src={x.salon_Img[0]?.public_url}
               alt="frame1"
               className={styles.salonProfileImg}
             />
@@ -317,7 +317,7 @@ const RescheduleAppointment = ({ data }) => {
         <div className={styles.slotInfoWrapper}>
           <div className={styles.dateContainer}>
             <h2>
-              Showing slots as per the salon and professional availability.
+            Available slots are shown based on salon and professional availability.
             </h2>
             <h4>Date</h4>
             <div className={styles.service_timeMonth}>

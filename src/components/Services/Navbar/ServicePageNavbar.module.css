@@ -10,6 +10,7 @@
   max-width: 1440px;
   width: 100%;
   min-height: 72px;
+  padding-right: 15px;
   margin: 0 auto;
   display: flex;
   justify-content: end;
@@ -88,4 +89,12 @@
   font-weight: 600;
   line-height: 100%; /* 16px */
   letter-spacing: -0.16px;
+}
+.userImage{
+  width: 30px;
+  height: 30px;
+}
+.userImages{
+  width: 36px;
+  height: 36px;
 }

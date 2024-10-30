@@ -8,6 +8,7 @@ import user, {
 } from "../../../redux/slices/user";
 import mask from "../../../assets/images/NavbarImages/Mask.webp";
 import icon from "../../../assets/svgs/icon (1).svg";
+import { FaUserCircle } from "react-icons/fa";
 
 export const downArrow = icon;
 const ServicePageNavbar = () => {
@@ -44,12 +45,13 @@ const ServicePageNavbar = () => {
               className={styles.account}
               onClick={() => setShowProfile((pre) => !pre)}
             >
-              <img
+              {/* <img
                 loading="lazy"
                 src={userData?.user?.avatar?.public_url ?? ""}
                 onError={(e) => (e.target.src = mask)}
                 alt=""
-              />
+              /> */}
+              <FaUserCircle className={styles.userImage}/>
               <h3>{userData?.user?.first_name}</h3>
               <img src={downArrow} alt="" />
             </div>
@@ -60,13 +62,7 @@ const ServicePageNavbar = () => {
             onClick={() => setShowProfile((pre) => !pre)}
             className={styles.profileContainer}
           >
-            <img
-              loading="lazy"
-              src={userData?.user?.avatar?.public_url ?? ""}
-              onError={(e) => (e.target.src = mask)}
-              alt=""
-              className="profile"
-            />
+            <FaUserCircle className={styles.userImages}/>
             <h3>{userData?.user?.first_name}</h3>
             {userData.user.role === "partner" && (
               <Link to={"/partner/dashboard"}>Dashboard</Link>
