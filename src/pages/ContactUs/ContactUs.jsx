@@ -91,7 +91,7 @@ function ContactUs() {
         />
         <div className={style.formContainer}>
           <div className={style.formHeader}>
-            <h2>{data?.data?.Title}</h2>
+            <h2>Contact us</h2>
             <p>Need help? Have feedback for us? Get in touch now!</p>
             <h6>Reach out and we’ll get in touch within 24 hours</h6>
           </div>

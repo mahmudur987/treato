@@ -442,10 +442,12 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         Edit Details
                                       </div>*/}
                                       <div
-                                        className={`${style.started}  `}
-                                        onClick={() =>
-                                          startAppointment(service?.appid)
-                                        }
+                                        className={`${service?.status === "started" ? style.disable : style.started}`}
+                                        onClick={() => {
+                                          if (service?.status !== "started") {
+                                            startAppointment(service?.appid);
+                                          }
+                                        }}
                                       >
                                         Started
                                       </div>
@@ -455,9 +457,12 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                           "online"
                                             ? ""
                                             : style.noShow
-                                        } `}
-                                        onClick={() =>
+                                        } ${service?.status === "no-show" ? style.disable : style.started}`}
+                                        onClick={() =>{
+                                          if (service?.status !== "no-show") {
                                           noShowAppointment(service?.appid)
+                                          }
+                                        }
                                         }
                                       >
                                         No-Show
@@ -507,10 +512,12 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                       )}
 
                                       <div
-                                        className={`${style.started}`}
-                                        onClick={() =>
+                                        className={`${service?.status === "cancelled" ? style.disable : style.started}`}
+                                        onClick={() =>{
+                                          if (service?.status !== "cancelled") {
                                           cancelation(service?.appid)
-                                        }
+                                          }
+                                        }}
                                       >
                                         Cancel Appointment
                                       </div>
