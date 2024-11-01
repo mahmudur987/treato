@@ -29,7 +29,9 @@ import { toast } from "react-toastify";
 
 import VerifyOtpOfCustomer from "../../_modals/Customar/VerifyOtp/VerifyOtp";
 import { sendNumberChangeOTP } from "../../../services/auth";
-
+function formatNumber(number) {
+  return number % 1 === 0 ? number : parseFloat(number.toFixed(2));
+}
 export default function BillSummary({
   setShowModal,
   updateActiveBookFlowBA,
@@ -103,17 +105,17 @@ export default function BillSummary({
       let totalPrice = prices.reduce((a, b) => a + b, 0);
       // Calculate 18% of the total price
       if (selectedOffer) {
-        const x = totalPrice - saveAmount;
-        let y = (x * 18) / 100;
-        const payAbleAmount = x + y;
+        const x = formatNumber(totalPrice - saveAmount);
+        let y = formatNumber((x * 18) / 100);
+        const payAbleAmount = formatNumber(x + y);
         setamountToPay(payAbleAmount.toLocaleString());
         dispatch(updateServiceTaxPrice(y));
         setTotalServicesPrice(totalPrice.toLocaleString());
         setTaxPrice(y);
         dispatch(updateAmount(payAbleAmount));
       } else {
-        let taxAmount = (totalPrice * 18) / 100;
-        const Amount = totalPrice + taxAmount;
+        let taxAmount = formatNumber((totalPrice * 18) / 100);
+        const Amount = formatNumber(totalPrice + taxAmount);
         dispatch(updateServiceTaxPrice(taxAmount));
         setTotalServicesPrice(totalPrice.toLocaleString());
         setTaxPrice(taxAmount.toLocaleString());
