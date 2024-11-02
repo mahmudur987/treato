@@ -8,12 +8,34 @@ const PaymentStatus = ["Upcoming", "Cancelled", "Completed", "Refunded", "All"];
 const PaymentMode = ["offline", "Online", "on-site", "All"];
 
 const FilterSection = ({ setBillQuery }) => {
-  const { commonSearch } = useContext(reportContext);
+  const { commonSearch, setTransactionId } = useContext(reportContext);
   const [selectedPaymentStatus, setSelectedPaymentStatus] =
     useState("Payment Status");
   const [selectedPaymentMode, setSelectedPaymentMode] =
     useState("Payment Mode");
   const [searchText, setSearchText] = useState("");
+
+  const [name, setName] = useState("");
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchText(value);
+
+    // Regular expression to match a transaction ID pattern (adjust as needed)
+    const transactionIdPattern = /\b\w{24}\b/; // Example: 16 alphanumeric characters
+
+    // Extract transaction ID
+    const transactionIdMatch = value.match(transactionIdPattern);
+    if (transactionIdMatch) {
+      setTransactionId(transactionIdMatch[0]);
+
+      // Extract name by removing the transaction ID from input
+      setName(value.replace(transactionIdMatch[0], "").trim());
+    } else {
+      setTransactionId("");
+      setName(value.trim());
+    }
+  };
 
   let url = `${
     selectedPaymentStatus !== "All" &&
@@ -24,11 +46,8 @@ const FilterSection = ({ setBillQuery }) => {
     selectedPaymentMode !== "All" && selectedPaymentMode !== "Payment Mode"
       ? `&mode=${selectedPaymentMode.toLocaleLowerCase()}`
       : ""
-  }${
-    commonSearch || searchText ? `&tranid=${commonSearch || searchText}` : ""
-  }${commonSearch || searchText ? `&name=${commonSearch || searchText}` : ""}`;
+  }${commonSearch || name ? `&name=${commonSearch || name}` : ""}`;
 
-  console.log(url);
   useEffect(() => {
     setBillQuery(url);
   }, [url, setBillQuery]);
@@ -43,7 +62,7 @@ const FilterSection = ({ setBillQuery }) => {
           <input
             type="text"
             placeholder="Search by name or transaction ID"
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={handleInputChange}
           />
         </div>
 

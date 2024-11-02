@@ -16,7 +16,7 @@ const DaysOptions = [
 const StatusOptions = ["Upcoming", "Completed", "Cancelled", "no-show", "All"];
 const BookingTypeOptions = ["Online ", "On-site", "offline", "All"];
 const FilterSection = ({ setAppointmentsQuery }) => {
-  const { commonSearch } = useContext(reportContext);
+  const { commonSearch, setATransactionId } = useContext(reportContext);
 
   const [searchText, setSearchText] = useState(null);
   const [selectedDays, setSelectedDays] = useState("Last 1 Year");
@@ -24,6 +24,28 @@ const FilterSection = ({ setAppointmentsQuery }) => {
   const [selectedStatus, setSelectedStatus] = useState("Status");
   const [selectedBookingType, setSelectedBookingType] =
     useState("Booking Type");
+  const [name, setName] = useState("");
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchText(value);
+
+    // Regular expression to match a transaction ID pattern (adjust as needed)
+    const transactionIdPattern = /\b\w{24}\b/; // Example: 16 alphanumeric characters
+
+    // Extract transaction ID
+    const transactionIdMatch = value.match(transactionIdPattern);
+    if (transactionIdMatch) {
+      setATransactionId(transactionIdMatch[0]);
+
+      // Extract name by removing the transaction ID from input
+      setName(value.replace(transactionIdMatch[0], "").trim());
+    } else {
+      setATransactionId("");
+      setName(value.trim());
+    }
+  };
+
   useEffect(() => {
     if (selectedDays === "Last 7 days") {
       setDay(7);
@@ -48,7 +70,7 @@ const FilterSection = ({ setAppointmentsQuery }) => {
       (selectedBookingType !== "Booking Type" && selectedBookingType !== "All"
         ? `&bookingType=${selectedBookingType.toLowerCase()}`
         : "") +
-      (searchText ? `&search=${searchText}` : "") +
+      (name ? `&search=${name}` : "") +
       (commonSearch ? `&search=${commonSearch}` : "");
 
     setAppointmentsQuery(x);
@@ -73,7 +95,7 @@ const FilterSection = ({ setAppointmentsQuery }) => {
           <input
             type="text"
             placeholder="Search by name or transaction ID"
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={handleInputChange}
           />
         </div>
 

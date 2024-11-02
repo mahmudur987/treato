@@ -1,8 +1,9 @@
-import React, { memo, useState } from "react";
+import React, { memo, useContext, useState } from "react";
 import topImg from "../../../../../assets/images/TeamDetails/Vector (1).png";
 import bottomImg from "../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./BillAndPaymentsTable.module.css";
 import { MdOutlineFileDownload } from "react-icons/md";
+import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
 const tableHeading = [
   {
     heading: "Txn ID.",
@@ -61,17 +62,23 @@ const tableHeading = [
 const formatNumber = (num) =>
   !num || isNaN(num) ? "N/A" : parseFloat(num).toFixed(2);
 const BillAndPaymentTable = ({ data }) => {
-  // State to store selected rows
+  const { transactionId } = useContext(reportContext);
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
 
   const tableData = data
+    .filter((x) => {
+      if (transactionId) {
+        return x?.transactionId === transactionId;
+      }
+
+      return x;
+    })
     ?.sort((a, b) => {
       return new Date(b.appointmentDate) - new Date(a.appointmentDate);
     })
     ?.map((x) => {
       console.log(x);
-
       const y = {
         txnId: x?.transactionId ?? "No Transaction ID",
         date: x?.appointmentDate ?? "N/A",
@@ -108,7 +115,7 @@ const BillAndPaymentTable = ({ data }) => {
       setSelectedRows([...selectedRows, txnId]);
     }
   };
-
+  console.log(tableData);
   return (
     <>
       {data && (
