@@ -221,8 +221,8 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
               />
             </div>
           </div>
-
-          <div className={styles.content}>
+          {/* no need  */}
+          {/* <div className={styles.content}>
             <h3>Taxes & Fees</h3>
 
             <div className={styles.selectWrapper}>
@@ -235,7 +235,7 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
                 <img src={downArrow} alt="" />
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </form>

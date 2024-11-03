@@ -17,7 +17,7 @@ import SalonServiceMain from "../../components/SalonDetail/SalonServiceMain/Salo
 import SalonDetailModal from "../../components/_modals/SalonDetailModal/SalonDetailModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetSalonByID } from "../../services/salon";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./BookFlow.module.css";
 import {
@@ -163,7 +163,7 @@ export default function BookFlow() {
         // console.log("from selected Stylist", requiredData);
         getAvailableSlots(requiredData).then((res) => {
           setavailableSlots(res?.res?.data?.data);
-          // console.log("from selected Stylist", res?.res?.data?.data);
+          console.log("available slotsssssss", res?.res?.data?.data);
           dispatch(updateServiceDate(requiredData?.dateforService));
         });
       }
@@ -196,6 +196,9 @@ export default function BookFlow() {
         }
         getAvailableSlots(requiredData).then((res) => {
           setavailableSlots(res?.res?.data?.data);
+          console.log("available slotsssssss", res?.res?.data?.message);
+          if (res?.res?.data?.message === "Salon Closed")
+            toast.info("Salon Closed");
           dispatch(updateServiceDate(requiredData?.dateforService));
         });
       }

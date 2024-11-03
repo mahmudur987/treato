@@ -121,6 +121,8 @@ const AddAppointment = () => {
     }
   }, [givenDateString]);
 
+  // console.log(customerDetails);
+
   const handleSubmit = async () => {
     const validations = [
       {

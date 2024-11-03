@@ -21,6 +21,8 @@ import { Link } from "react-router-dom";
 export const reportContext = createContext({});
 
 const Reports = () => {
+  const [transactionId, setTransactionId] = useState("");
+  const [AtransactionId, setATransactionId] = useState("");
   const [isSearch, setIsSearch] = useState(false);
   const [commonSearch, setCommonSearch] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
@@ -48,13 +50,17 @@ const Reports = () => {
     isError: billIsError,
     error: billError,
   } = useBillingReport(billQuery);
-  // console.log(billQuery);
+
   const value = {
     selectedItems,
     setSelectedItems,
     selectedClients,
     setSelectedClients,
     commonSearch,
+    setTransactionId,
+    transactionId,
+    AtransactionId,
+    setATransactionId,
   };
   const handler = () => {
     setIsSearch((pre) => !pre);

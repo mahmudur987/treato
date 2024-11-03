@@ -29,7 +29,9 @@ import { toast } from "react-toastify";
 
 import VerifyOtpOfCustomer from "../../_modals/Customar/VerifyOtp/VerifyOtp";
 import { sendNumberChangeOTP } from "../../../services/auth";
-
+function formatNumber(number) {
+  return number % 1 === 0 ? number : parseFloat(number.toFixed(2));
+}
 export default function BillSummary({
   setShowModal,
   updateActiveBookFlowBA,
@@ -102,47 +104,29 @@ export default function BillSummary({
       });
       let totalPrice = prices.reduce((a, b) => a + b, 0);
       // Calculate 18% of the total price
-      let taxAmount = (totalPrice * 18) / 100;
-      dispatch(updateServiceTaxPrice(taxAmount));
-      setTotalServicesPrice(totalPrice.toLocaleString());
-      setTaxPrice(taxAmount.toLocaleString());
-      const Amount = totalPrice + taxAmount;
-
       if (selectedOffer) {
-        const payAbleAmount = Amount - saveAmount;
+        const x = formatNumber(totalPrice - saveAmount);
+        let y = formatNumber((x * 18) / 100);
+        const payAbleAmount = formatNumber(x + y);
         setamountToPay(payAbleAmount.toLocaleString());
-        console.log(payAbleAmount);
-
+        dispatch(updateServiceTaxPrice(y));
+        setTotalServicesPrice(totalPrice.toLocaleString());
+        setTaxPrice(y);
         dispatch(updateAmount(payAbleAmount));
       } else {
-        setamountToPay((totalPrice + taxAmount).toLocaleString());
-        dispatch(updateAmount(totalPrice + taxAmount));
+        let taxAmount = formatNumber((totalPrice * 18) / 100);
+        const Amount = formatNumber(totalPrice + taxAmount);
+        dispatch(updateServiceTaxPrice(taxAmount));
+        setTotalServicesPrice(totalPrice.toLocaleString());
+        setTaxPrice(taxAmount.toLocaleString());
+        setamountToPay(Amount.toLocaleString());
+        dispatch(updateAmount(Amount));
       }
     }
   }, [selectedServices, selectedOffer]);
 
   const handleDeleteOffer = () => {
     dispatch(updateAppliedOffer(null));
-  };
-  // otp verification
-
-  const verifyOtp = async () => {
-    setOtpModal(true);
-
-    let PhoneNumber = "";
-    const phonedata = {
-      phoneNumber: PhoneNumber,
-    };
-    console.log(phonedata);
-    const res = await sendNumberChangeOTP(phonedata);
-
-    if (res.res) {
-      console.log(res?.res?.data?.otp);
-      setVerifyOtp(res?.res?.data.otp);
-    } else if (res.err) {
-      console.log(res.err);
-      toast.error("The Phone number is Not Valid");
-    }
   };
 
   // razorpay gateway
@@ -189,11 +173,8 @@ export default function BillSummary({
         user_id: userDetails?._id,
         salons_id: id,
         service_id: serviceIDs,
-        final_amount: `${
-          selectedOffer?.amount_for_discount
-            ? TotalServiceAmount - selectedOffer?.amount_for_discount
-            : TotalServiceAmount
-        }`,
+        final_amount: totalServicesPrice,
+        choosenOfferId: selectedOffer?._id,
         time: selectedServiceSlot,
         servicetimetaken: selectedServices?.map((x) => x.service_time),
         selectedStylistId: stepTwoDetails?.workerData[0]?._id
@@ -227,7 +208,7 @@ export default function BillSummary({
       setLoading(false);
     }
   };
-
+  // console.log(selectedOffer?._id);
   // -------------------
   const handleOfflinePayment = () => {
     setLoading(true);
@@ -235,11 +216,8 @@ export default function BillSummary({
       user_id: userDetails?._id,
       salons_id: id,
       service_id: serviceIDs,
-      final_amount: `${
-        selectedOffer?.amount_for_discount
-          ? TotalServiceAmount - selectedOffer?.amount_for_discount
-          : TotalServiceAmount
-      }`,
+      final_amount: totalServicesPrice,
+      choosenOfferId: selectedOffer?._id,
       time: selectedServiceSlot,
       servicetimetaken: selectedServices?.map((x) => x.service_time),
       selectedStylistId: stepTwoDetails?.workerData[0]?._id

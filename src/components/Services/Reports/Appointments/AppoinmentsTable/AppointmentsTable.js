@@ -38,11 +38,16 @@ const tableHeading = [
   },
 ];
 const AppointmentsTable = ({ data }) => {
-  const { selectedItems, setSelectedItems } = useContext(reportContext);
-
-  console.log(data);
+  const { selectedItems, setSelectedItems, AtransactionId } =
+    useContext(reportContext);
 
   const tableData = data?.data
+    ?.filter((x) => {
+      if (AtransactionId) {
+        return x.transactionId === AtransactionId;
+      }
+      return x;
+    })
     ?.sort((a, b) => {
       return new Date(b.dateforService) - new Date(a.dateforService);
     })
@@ -51,8 +56,6 @@ const AppointmentsTable = ({ data }) => {
         return v.price;
       });
       let totalPrice = prices.reduce((a, b) => a + b, 0);
-
-      console.log(x?.services);
       const data = {
         txnId: x?.transactionId ?? "N/A",
         date: x?.dateforService ?? "N/A",

@@ -68,14 +68,13 @@ const AddMemberProfile = () => {
   const selectedServiceDetails = allServices?.filter((x) =>
     selectedServices.includes(x._id)
   );
-
+  console.log(selectedServices);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Input validations
-    if (!firstName) return toast.error("Please write your first name.");
-    if (!serviceTitle) return toast.error("Please write your service title.");
+    // Trim whitespace and validate required fields
     if (!picture) return toast.error("Please select a picture.");
+    if (!firstName.trim()) return toast.error("Please write your first name.");
 
     if (!phone || phone.length < 10) {
       return toast.error("The phone number should be at least 10 digits long.");
@@ -86,25 +85,27 @@ const AddMemberProfile = () => {
       return toast.error("Phone number is not valid.");
     }
 
-    if (!address) return toast.error("Please write your address.");
+    if (!address.trim()) return toast.error("Please write your address.");
+    if (!serviceTitle.trim())
+      return toast.error("Please write your service title.");
     if (!serviceStartDate)
       return toast.error("Please select Service Start Date.");
     if (!serviceEndDate) return toast.error("Please Select Service End Date.");
 
     const formData = new FormData();
-    formData.append("stylist_name", `${firstName} ${lastName}`);
-    formData.append("stylist_service", serviceTitle);
+    formData.append("stylist_name", `${firstName.trim()} ${lastName.trim()}`);
+    formData.append("stylist_service", serviceTitle.trim());
     formData.append("stylist_Img", picture);
     formData.append("rating", "4.5");
     formData.append("stylist_number", phoneAsNumber);
-    formData.append("stylist_address", address);
+    formData.append("stylist_address", address.trim());
     formData.append(
       "Service_Start_Date",
       new Date(serviceStartDate).toISOString()
     );
     formData.append("Service_End_Date", new Date(serviceEndDate).toISOString());
 
-    // Append time and services
+    // Append time and services arrays
     time_for_service.forEach((time) => {
       formData.append("time_for_service[]", time);
     });
@@ -124,12 +125,17 @@ const AddMemberProfile = () => {
       console.log(data);
       toast.success("Team member added successfully");
 
-      // Reset form fields
-      setPhone("");
+      // Reset form fields after successful submission
       setFirstName("");
-      setAddress("");
+      setLastName("");
       setServiceTitle("");
+      setPhone("");
+      setAddress("");
+      setServiceStartDate("");
+      setServiceEndDate("");
       setPicture(null);
+      setTimeForService([]);
+      setSelectedServices([]);
     } catch (error) {
       console.log("Error:", error);
       toast.error(

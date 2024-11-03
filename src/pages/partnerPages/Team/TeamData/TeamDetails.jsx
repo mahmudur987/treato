@@ -64,10 +64,9 @@ const TeamDetails = () => {
   const { data, isLoading, isError, error } = useGetAllTeamMembers();
 
   const filteredData = data?.data?.map((x) => {
-    const y = x?.services[0]?.subCategories
-      .map((x) => x.service_name)
-      .join(", ");
+    const y = x?.services?.map((y) => y[0].service_name).join(", ");
 
+    console.log(y);
     return {
       id: x?._id,
       profile: x?.stylist_Img?.public_url || Mask1,
@@ -205,7 +204,9 @@ const TeamDetails = () => {
                       ? item.address.slice(0, 20)
                       : item.address}
                   </td>
-                  <td>{item.service}</td>
+                  <td title={item?.service?.length > 20 && item.service}>
+                    {item.service.slice(0, 20)}
+                  </td>
                   <td>{item.bookingToday}</td>
                   <td>
                     <Link
