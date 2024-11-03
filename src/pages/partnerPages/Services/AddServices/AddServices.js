@@ -37,10 +37,36 @@ const AddServices = () => {
     }
 
     // Input validations
-    if (!basicDetails.serviceName || teamMember.length <= 0) {
-      return toast.error(
-        "Please provide a service name and add at least one team member."
-      );
+    let isValid = true;
+
+    if (!service._id) {
+      toast.error("Please Select A Service Type");
+      return (isValid = false);
+    }
+    if (!mainCategory._id) {
+      toast.error("Please Select A Category");
+      return (isValid = false);
+    }
+    if (!basicDetails.serviceName) {
+      toast.error("Please provide a service name.");
+      return (isValid = false);
+    }
+
+    if (!basicDetails?.price || Number(basicDetails?.price) < 1) {
+      toast.error("Add a valid price.");
+      return (isValid = false);
+    }
+
+    if (!basicDetails?.duration) {
+      toast.error("Please provide the duration.");
+      return (isValid = false);
+    }
+    if (teamMember.length <= 0) {
+      toast.error("Please add at least one team member.");
+      return (isValid = false);
+    }
+    if (!isValid) {
+      return; // Exit early if any validation fails
     }
 
     const newService = {
@@ -64,20 +90,15 @@ const AddServices = () => {
       if (res.res) {
         toast.success("New service added successfully!");
         // Reset state only if service was added successfully
-        setBasicDetails({ serviceName: "", price: "", duration: "" }); // Reset to empty string or default values
-        setTeamMember([]); // Clear team member selection
+        setBasicDetails({ serviceName: "", price: "", duration: "" });
+        setTeamMember([]);
         navigate("/partner/dashboard/service");
         setSubmit(true);
-        setLoading(false);
       } else {
-        setLoading(false);
-
         throw new Error(res.err || "Failed to add new service.");
       }
     } catch (error) {
       console.error("Error while adding new service:", error);
-      setLoading(false);
-
       toast.error(
         error.message || "An error occurred while adding the service."
       );
@@ -197,7 +218,7 @@ const AddServices = () => {
             className={styles.submit}
             disabled={loading}
           >
-            {loading ? "loading" : "Submit"}
+            {loading ? "loading .." : "Submit"}
           </button>
           <button
             onClick={handleNextStep}

@@ -106,7 +106,7 @@ const ServiceCatalog = () => {
             </button>
             <div className={styles.selectWrapper}>
               <CustomSelect2
-                options={["All", ...serviceType]}
+                options={serviceType ? ["All", ...serviceType] : []}
                 value={selectedServiceType}
                 onChange={setSelectedServiceType}
               />
