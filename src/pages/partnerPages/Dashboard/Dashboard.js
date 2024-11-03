@@ -67,7 +67,6 @@ const Dashboard = () => {
       // Check if the necessary data is available before proceeding
       if (data && data.order && data.razorpaykey) {
         initPayment(data.order, data.razorpaykey);
-        toast.success("Payment initiated successfully");
       } else {
         toast.error(
           "Failed to initiate payment. Missing order or payment key."
