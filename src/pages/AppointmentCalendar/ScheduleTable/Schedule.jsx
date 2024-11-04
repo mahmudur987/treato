@@ -13,8 +13,9 @@ import {
 } from "../../../services/calender";
 // import { HiDotsVertical } from "react-icons/hi";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
+import { useRef } from "react";
 
-const ScheduleTable = ({ profiles, getdata }) => {
+const ScheduleTable = ({ profiles, getdata, selectedFilter }) => {
   const [openMenus, setOpenMenus] = useState({});
   const [openMenuId, setOpenMenuId] = useState(null);
   const [otp, setOtp] = useState(null);
@@ -22,6 +23,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
   const [slotdurations, setSlotDurations] = useState([]);
   const [condition, setCondition] = useState(false);
   useEffect(() => console.log(profiles));
+  const headerRef = useRef()
 
   const toastSetting = {
     position: "top-right",
@@ -98,13 +100,15 @@ const ScheduleTable = ({ profiles, getdata }) => {
   };
 
   const nextProfile = () => {
-    const box = document.querySelector("#header");
-    box.scrollLeft = box.scrollLeft + 170;
+    if (headerRef.current) {
+      headerRef.current.scrollLeft -= 170;
+    }
   };
 
   const prevProfile = () => {
-    const box = document.querySelector("#header");
-    box.scrollLeft = box.scrollLeft - 170;
+    if (headerRef.current) {
+      headerRef.current.scrollLeft += 170;
+    }
   };
 
   const convertTime = (timeString) => {
@@ -314,10 +318,13 @@ const ScheduleTable = ({ profiles, getdata }) => {
             </React.Fragment>
           ))}
       </div>
-      <div className={style.header}>
+      <div className={style.header} ref={headerRef}>
+        {
+          selectedFilter === 'Everyone' &&
         <button className={style.prev} onClick={nextProfile}>
           &#10094;
         </button>
+        }
         <div className={style.carousel} id="header">
           {!profiles && <LoadSpinner />}
           {profiles &&
@@ -376,7 +383,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                     key={serviceIndex}
                                     className={`${style.appointmentBox} ${
                                       condition ? style.dBox : style.cBox
-                                    }`}
+                                    } ${totalMinutes < 20 ? style.appointmentBoxSmall : ''}`}
                                     style={{
                                       minHeight: `${totalHeight}px`,
                                       backgroundColor: `${service.color}`,
@@ -409,7 +416,7 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                         color: `${textcolor}`,
                                         background: `${background}`,
                                         display: `${
-                                          totalMinutes < 20 ? "none" : ""
+                                          totalMinutes < 20 ? "" : ""
                                         }`,
                                       }}
                                     >
@@ -534,9 +541,12 @@ const ScheduleTable = ({ profiles, getdata }) => {
               );
             })}
         </div>
-        <button className={style.next} onClick={prevProfile}>
-          &#10095;
-        </button>
+        {
+          selectedFilter === 'Everyone' &&
+          <button className={style.next} onClick={prevProfile}>
+            &#10095;
+          </button>
+        }
       </div>
     </>
   );
