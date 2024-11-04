@@ -127,7 +127,9 @@
     display: flex;
     justify-content: space-between;
 }
-
+.appointmentBoxSmall .clientDetailsBox {
+    height: auto;
+}
 .clientDetailsBox div {
     width: 107px;
     height: 58px;
@@ -135,7 +137,9 @@
     flex-direction: column;
     gap: 2px;
 }
-
+.appointmentBoxSmall .clientDetailsBox div {
+    height: auto;
+}
 .timeDurations,
 .serviceNames,
 .clientNames {
@@ -143,6 +147,15 @@
     font-family: Lato;
     font-weight: 400;
     line-height: 18px;
+}
+
+.appointmentBoxSmall .timeDurations,
+.appointmentBoxSmall .serviceNames,
+.appointmentBoxSmall .clientNames {
+    font-size: 10px;
+    font-family: Lato;
+    font-weight: 400;
+    line-height: 12px;
 }
 
 .serviceNames,
@@ -298,7 +311,9 @@
 .noShow{
     display: none;
 }
-
+.appointmentBox4.appointmentBoxSmall{
+    background-color: black;
+}
 @media screen and (max-width: 700px) {
     .header {
         width: 100%;

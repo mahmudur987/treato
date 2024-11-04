@@ -383,7 +383,7 @@ const ScheduleTable = ({ profiles, getdata, selectedFilter }) => {
                                     key={serviceIndex}
                                     className={`${style.appointmentBox} ${
                                       condition ? style.dBox : style.cBox
-                                    }`}
+                                    } ${totalMinutes < 20 ? style.appointmentBoxSmall : ''}`}
                                     style={{
                                       minHeight: `${totalHeight}px`,
                                       backgroundColor: `${service.color}`,
