@@ -68,6 +68,9 @@
 .green {
   color: green;
 }
+.reviews {
+  width: 100px;
+}
 @media only screen and (max-width: 767px) {
   .salon_card {
     display: none;

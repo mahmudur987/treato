@@ -12,6 +12,7 @@ import {
   useGetSalonOpen,
 } from "../../../services/Appointments";
 import SalonTimingModal from "../../_modals/SalonTimingModal/SalonTiming";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SalonCard({ SalonData, salonId }) {
   const [showTiming, setShowTiming] = useState(false);
@@ -20,6 +21,21 @@ export default function SalonCard({ SalonData, salonId }) {
   const [checkSalonOpen, setCheckSalonOpen] = useState(false);
   const { data: offer, isError, isLoading } = useGetAllSalonOffer();
   const { data: open } = useGetSalonOpen(salonId, today);
+  const navigate = useNavigate();
+
+  const handleClick = (event) => {
+    event.preventDefault();
+
+    navigate(`/salons/${salonId}`);
+
+    // Smoothly scroll to the review section
+    setTimeout(() => {
+      const reviewSection = document.getElementById("review");
+      if (reviewSection) {
+        reviewSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100); // Timeout to ensure navigation completes
+  };
 
   useEffect(() => {
     if (storeSchedule) {
@@ -81,7 +97,10 @@ export default function SalonCard({ SalonData, salonId }) {
           ratings)
         </div>
         <img loading="lazy" src={ellipse} alt="" />
-        <div>See reviews</div>
+
+        <a href={`/salons/${salonId}/#review`} onClick={handleClick}>
+          <div className={styles.reviews}>See reviews</div>
+        </a>
       </div>
       <div className={styles.salon_cardC}>
         <BookNow salonId={salonId ? salonId : null} />

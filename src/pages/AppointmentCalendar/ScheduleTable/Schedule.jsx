@@ -355,8 +355,6 @@ const ScheduleTable = ({ profiles, getdata }) => {
                                 </Link>
                               );
                             } else {
-                              console.log(service);
-
                               const { textcolor, background } = changeStatus(
                                 service.status
                               );
