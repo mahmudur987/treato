@@ -15,7 +15,7 @@ function AppointmentCalendar() {
     const [stylistTitle, setTitle] = useState('Everyone')
     const [getEmployeeName, setNames] = useState();
     const [dropdownopen, setDropdown] = useState(false);
-
+    const [selectedFilter, setSelectedFilter] = useState('Everyone')
     async function getdata() {
         const { res, err } = await GetCalenderdata(date)
         if (res) {
@@ -51,6 +51,7 @@ function AppointmentCalendar() {
 
     const filteredFn = (names) => {
         setDropdown(false);
+        setSelectedFilter(names)
         if (names === "Everyone") {
             setEmployee(filteredData)
         }
@@ -99,12 +100,14 @@ function AppointmentCalendar() {
                 </div>
                 <div className={style.header}  >
                     <div className={style.calenderBox}>
-                        <p className="btn decrease-date" onClick={decreaseDate}><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <p className="btn decrease-date" onClick={decreaseDate}>
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
                         </svg>
                         </p>
                         <div className={style.date}>{date?.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</div>
-                        <p className="btn increase-date" onClick={increaseDate}><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <p className="btn increase-date" onClick={increaseDate}>
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
                         </svg>
                         </p>
@@ -174,7 +177,7 @@ function AppointmentCalendar() {
                 <div className={style.lineBar}></div>
 
                 <div className={style.scheduleBox} >
-                    {profiles ? <><ScheduleTable profiles={profiles} getdata={getdata} /></>:<><h1 className={style.errors} >Don't have Appointments</h1></>}
+                    {profiles ? <><ScheduleTable profiles={profiles} getdata={getdata} selectedFilter={selectedFilter} /></>:<><h1 className={style.errors} >Don't have Appointments</h1></>}
                     
                 </div>
 
