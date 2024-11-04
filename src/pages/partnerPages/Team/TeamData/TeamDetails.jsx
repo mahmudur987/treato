@@ -15,7 +15,6 @@ import { useGetAllTeamMembers } from "../../../../services/Team";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
 import NoDataDisplay from "../../../../components/NodataToDisplay/NoDataDisplay";
-import { MdKeyboardArrowUp } from "react-icons/md";
 
 const tableHeading = [
   {
@@ -65,8 +64,6 @@ const TeamDetails = () => {
 
   const filteredData = data?.data?.map((x) => {
     const y = x?.services?.map((y) => y[0].service_name).join(", ");
-
-    console.log(y);
     return {
       id: x?._id,
       profile: x?.stylist_Img?.public_url || Mask1,

@@ -12,11 +12,25 @@ import { toast } from "react-toastify";
 import axiosInstance from "../../../../services/axios";
 const convertDate = (inputDate) => {
   const date = new Date(inputDate);
-  date.setDate(date.getDate() + 31);
+
+  // Get current year, month (0-indexed), and day
   const year = date.getFullYear();
-  const month = String(date.getMonth()).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
+  const month = date.getMonth() + 1; // Add 1 to convert from 0-indexed
+  const day = date.getDate();
+
+  // Add 31 to the month
+  let newMonth = month + 31;
+
+  // Handle overflow of month and adjust year accordingly
+  const yearsToAdd = Math.floor((newMonth - 1) / 12);
+  newMonth = ((newMonth - 1) % 12) + 1; // Ensure it's 1-indexed
+  const newYear = year + yearsToAdd;
+
+  // Format the output
+  const formattedMonth = String(newMonth).padStart(2, "0");
+  const formattedDay = String(day).padStart(2, "0");
+
+  return `${newYear}-${formattedMonth}-${formattedDay}`;
 };
 const AddLeaveModal = ({ onClose }) => {
   const { schedule, member, sethandleShift, refetch } =
@@ -35,6 +49,9 @@ const AddLeaveModal = ({ onClose }) => {
   const handleFullDayLeaveChange = () => {
     setIsFullDayLeave(!isFullDayLeave);
   };
+  console.log(startDate);
+
+  console.log(convertDate(startDate));
 
   const handleAddLeave = async () => {
     const headers = {
@@ -44,14 +61,17 @@ const AddLeaveModal = ({ onClose }) => {
     if (!startDate || !endDate) {
       return toast.error("Please select both start and end times.");
     }
-
+    if (new Date(startDate) > new Date(endDate)) {
+      toast.error("Start date must be before end date!");
+      return;
+    }
     const leaveData = {
       stylistId: member?.id,
       startDate: convertDate(startDate ? startDate : null),
       endDate: convertDate(endDate ? endDate : null),
       fullDay: true,
     };
-
+    console.log(leaveData);
     try {
       setLoading(true);
       let url = `stylist/addLeave`;

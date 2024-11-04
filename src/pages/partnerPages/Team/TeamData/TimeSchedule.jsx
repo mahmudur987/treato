@@ -225,6 +225,7 @@ const TimeSchedule = () => {
 
                     {item?.schedule && item?.schedule.length > 0 ? (
                       item?.schedule.map((y, i) => {
+                        // console.log(y);
                         if (y.isClosed) {
                           return (
                             <td>
