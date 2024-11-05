@@ -67,11 +67,11 @@ const convertTo24Hour = (time12h) => {
     hours = parseInt(hours, 10) + 12;
   }
 
-  return `${hours}:${minutes}`;
+  return `${hours.length === 1 ? `0${hours}` : hours}:${minutes}`;
 };
 
 const EmployeeSchedule = () => {
-  const { data: salon, isLoading: salonIsLoading } = useSingleSalon();
+  const { data: salon, isLoading: salonIsLoading, refetch } = useSingleSalon();
 
   // State declarations
   const [shiftTimesVisible, setShiftTimesVisible] = useState(false);
@@ -86,7 +86,12 @@ const EmployeeSchedule = () => {
   const y = useMemo(() => formatStateDate(endDate), [endDate]);
 
   // Data fetching
-  const { data, isLoading, isError } = useGetAllTeamMemSche(x, y);
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch: refetch1,
+  } = useGetAllTeamMemSche(x, y);
 
   const salonOpeningData = salon?.salon?.working_hours || [];
   const xx = useMemo(
@@ -120,7 +125,7 @@ const EmployeeSchedule = () => {
         } else {
           return {
             date: x.date,
-            shifts: x.shifts,
+            shifts: [],
             isClosed: x.isClosed,
             isOnLeave: x?.isOnLeave,
           };
@@ -147,6 +152,7 @@ const EmployeeSchedule = () => {
     );
     return dayInfo ? convertTo24Hour(dayInfo.closing_time) : "Closed";
   };
+
   const filterWeekData = useCallback(
     (startDateStr) => {
       if (!shiftTime) return [];
@@ -179,14 +185,13 @@ const EmployeeSchedule = () => {
   useEffect(() => {
     if (x) {
       const weekData = filterWeekData(x);
-
       setSelectedSlots((prevSlots) =>
         JSON.stringify(prevSlots) !== JSON.stringify(weekData)
           ? weekData
           : prevSlots
       );
     }
-  }, [x, filterWeekData]);
+  }, [x, filterWeekData, selectedMember]);
 
   // Map team members if data is available
   const teamMembers = useMemo(
@@ -240,6 +245,11 @@ const EmployeeSchedule = () => {
         }
       } else {
         if (index !== -1) {
+          if (!updatedSelectedSlots[index].slots[0]) {
+            // Initialize the first slot if it does not exist
+            updatedSelectedSlots[index].slots[0] = {};
+          }
+
           if (name === "startTime") {
             updatedSelectedSlots[index].slots[0].start_time = value ?? "09:00";
             updatedSelectedSlots[index].isOnLeave = false;
@@ -248,6 +258,8 @@ const EmployeeSchedule = () => {
             updatedSelectedSlots[index].isOnLeave = false;
           }
         } else {
+          console.log(55);
+
           updatedSelectedSlots.push({
             day: selectedDay.day,
             isOnLeave: false,
@@ -265,11 +277,13 @@ const EmployeeSchedule = () => {
           });
         }
       }
+
+      console.log(updatedSelectedSlots);
+
       setSelectedSlots(updatedSelectedSlots);
     },
     [selectedSlots]
   );
-
   // Handle form submission
   const handleSubmit = useCallback(async () => {
     if (!startDate) return toast.error("Please select a start date.");
@@ -280,12 +294,12 @@ const EmployeeSchedule = () => {
 
     const scheduleStart = formatStateDate(startDate);
     const scheduleEnd = formatStateDate(endDate);
-
+    const updatedData = selectedSlots.map(({ salonIsOpen, ...rest }) => rest);
     const submitData = {
       scheduleStart,
       scheduleEnd,
       stylistId: selectedMember.id,
-      dayWiseShift: selectedSlots,
+      dayWiseShift: updatedData,
     };
 
     try {
@@ -308,6 +322,8 @@ const EmployeeSchedule = () => {
       toast.error(errorMessage);
     } finally {
       setLoading(false);
+      refetch();
+      refetch1();
     }
   }, [startDate, endDate, selectedMember, selectedSlots]);
   // Show error message if shift times are unavailable
@@ -430,6 +446,12 @@ const EmployeeSchedule = () => {
                                     c?.salonIsOpen &&
                                     c.isClosed &&
                                     "Closed"}
+                                  {c &&
+                                    c?.slots.length === 0 &&
+                                    c?.salonIsOpen &&
+                                    !c.isClosed &&
+                                    !c.isOnLeave &&
+                                    "00:00"}
 
                                   {!c &&
                                     salonDaysOpen.has(item.day) &&
@@ -462,12 +484,23 @@ const EmployeeSchedule = () => {
                                     c?.slots.length > 0 &&
                                     c?.salonIsOpen &&
                                     c?.slots[0]?.end_time}
+                                  {c &&
+                                    c?.slots.length > 0 &&
+                                    c?.salonIsOpen &&
+                                    !c?.slots[0]?.end_time &&
+                                    "00:00"}
                                   {c && !c?.salonIsOpen && "Closed"}
                                   {c &&
                                     c?.slots.length === 0 &&
                                     c?.salonIsOpen &&
                                     c.isOnLeave &&
                                     "Leave"}
+                                  {c &&
+                                    c?.slots.length === 0 &&
+                                    c?.salonIsOpen &&
+                                    !c.isClosed &&
+                                    !c.isOnLeave &&
+                                    "00:00"}
                                   {c &&
                                     c?.slots.length === 0 &&
                                     c?.salonIsOpen &&
