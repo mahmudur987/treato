@@ -16,8 +16,8 @@ const TeamMembers = ({ mobile, currentStep, setTeamMember, setdays }) => {
       )}
       {!mobile && <CheckBoxComponent setTeamMember={setTeamMember} />}
 
-      {currentStep === 3 && mobile && <SchedulingCheckBox setdays={setdays} />}
-      {!mobile && <SchedulingCheckBox setdays={setdays} />}
+      {/* {currentStep === 3 && mobile && <SchedulingCheckBox setdays={setdays} />}
+      {!mobile && <SchedulingCheckBox setdays={setdays} />} */}
     </section>
   );
 };

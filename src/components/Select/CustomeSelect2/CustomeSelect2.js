@@ -5,7 +5,13 @@ import styles from "./CustomeSelect2.module.css";
 import { useLocation } from "react-router-dom";
 import { downArrow } from "../ColorSelect/ColorSelect";
 
-const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
+const CustomSelect2 = ({
+  options,
+  onChange,
+  value,
+  teamMembers,
+  setSelectedMemberIndex,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const { pathname } = useLocation();
   const selectRef = useRef(null);
@@ -26,7 +32,11 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
     setIsOpen(!isOpen);
   };
 
-  const handleSelect = (selectedValue) => {
+  const handleSelect = (selectedValue, i) => {
+    if (i && setSelectedMemberIndex) {
+      setSelectedMemberIndex(i);
+    }
+
     onChange(selectedValue);
     setIsOpen(false);
   };
@@ -83,13 +93,13 @@ const CustomSelect2 = ({ options, onChange, value, teamMembers }) => {
                 {option}
               </div>
             ))}
-            {teamMembers?.map((option) => (
+            {teamMembers?.map((option, i) => (
               <div
                 key={option}
                 className={classNames(styles.option, {
                   [styles.selected]: option === value,
                 })}
-                onClick={() => handleSelect(option)}
+                onClick={() => handleSelect(option, i)}
               >
                 <p className={styles.wrapper}>
                   <img loading="lazy" src={option?.imageUrl} alt="" />

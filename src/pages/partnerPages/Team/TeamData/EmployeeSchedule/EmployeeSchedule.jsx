@@ -16,6 +16,8 @@ import CustomSelect2 from "../../../../../components/Select/CustomeSelect2/Custo
 
 import axiosInstance from "../../../../../services/axios";
 import { toast } from "react-toastify";
+import { useSingleSalon } from "../../../../../services/salon";
+import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
 
 const Days = [
   {
@@ -55,9 +57,12 @@ function convertDateToDay(dateString) {
 }
 
 const EmployeeSchedule = () => {
+  const { data: salon, isLoading: salonIsLoading } = useSingleSalon();
+
   // State declarations
   const [shiftTimesVisible, setShiftTimesVisible] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
+  const [selectedMemberIndex, setSelectedMemberIndex] = useState(0);
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -69,6 +74,7 @@ const EmployeeSchedule = () => {
   // Data fetching
   const { data, isLoading, isError } = useGetAllTeamMemSche(x, y);
 
+  const salonOpeningData = salon?.salon?.working_hours || [];
   const shiftTime = useMemo(
     () =>
       selectedMember?.timeForServices?.map((x) => ({
@@ -80,6 +86,37 @@ const EmployeeSchedule = () => {
     [selectedMember]
   );
   // Filter function for 7-day range
+  const salonDaysOpen = new Set(salonOpeningData.map((entry) => entry.day));
+  const convertTo24Hour = (time12h) => {
+    const [time, modifier] = time12h.split(" ");
+    let [hours, minutes] = time.split(":");
+
+    if (hours === "12") {
+      hours = "00";
+    }
+
+    if (modifier === "PM") {
+      hours = parseInt(hours, 10) + 12;
+    }
+
+    return `${hours}:${minutes}`;
+  };
+
+  // Function to get opening time in 24-hour format
+  const getOpeningTime = (day) => {
+    const dayInfo = salonOpeningData.find(
+      (d) => d.day.toLowerCase() === day.toLowerCase()
+    );
+    return dayInfo ? convertTo24Hour(dayInfo.opening_time) : "Closed";
+  };
+
+  // Function to get closing time in 24-hour format
+  const getClosingTime = (day) => {
+    const dayInfo = salonOpeningData.find(
+      (d) => d.day.toLowerCase() === day.toLowerCase()
+    );
+    return dayInfo ? convertTo24Hour(dayInfo.closing_time) : "Closed";
+  };
   const filterWeekData = useCallback(
     (startDateStr) => {
       if (!shiftTime) return [];
@@ -93,13 +130,18 @@ const EmployeeSchedule = () => {
           const itemDate = new Date(item.date);
           return itemDate >= startDate && itemDate <= endDate;
         })
-        .map((item) => ({
-          day: convertDateToDay(item.date),
-          date: item.date,
-          slots: item.shifts,
-          isClosed: item.isClosed,
-          isOnLeave: item?.isOnLeave,
-        }));
+        .map((item) => {
+          const dayName = convertDateToDay(item.date); // Convert date to day name
+
+          return {
+            day: dayName,
+            date: item.date,
+            slots: item.shifts,
+            isClosed: item.isClosed,
+            isOnLeave: item?.isOnLeave,
+            salonIsOpen: salonDaysOpen.has(dayName), // Check if salon is open on this day
+          };
+        });
     },
     [shiftTime]
   );
@@ -128,49 +170,19 @@ const EmployeeSchedule = () => {
     [data]
   );
   // Set default member on data fetch
+  // Set default or existing selected member on data fetch/update
   useEffect(() => {
-    setSelectedMember(teamMembers.length > 0 ? teamMembers[0] : null);
-  }, [teamMembers]);
+    if (teamMembers.length > 0) {
+      // Keep the selected member at the same index if possible
+      const indexToSelect =
+        selectedMemberIndex < teamMembers.length ? selectedMemberIndex : 0;
+      setSelectedMember(teamMembers[indexToSelect]);
+    } else {
+      setSelectedMember(null); // No members available
+    }
+  }, [teamMembers, selectedMemberIndex]);
 
-  const { data: Slots } = useGetSlots();
-
-  // Set default slots if no slots data
-  const slots = useMemo(
-    () =>
-      Slots?.slotsPerDay[0]?.slots?.length > 0
-        ? Slots?.slotsPerDay[0]?.slots
-        : [
-            "08:00",
-            "08:30",
-            "09:00",
-            "09:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00",
-            "19:30",
-            "20:00",
-            "20:30",
-            "21:00",
-            "21:30",
-          ],
-    [Slots]
-  );
+  const { data: Slots, isLoading: SlotsIsLoading } = useGetSlots();
 
   // Handle day select
   const handleDaySelect = useCallback(
@@ -192,6 +204,7 @@ const EmployeeSchedule = () => {
             day: selectedDay.day,
             isOnLeave: true,
             slots: [],
+            salonIsOpen: salonDaysOpen.has(selectedDay.day),
           });
         }
       } else {
@@ -207,10 +220,15 @@ const EmployeeSchedule = () => {
           updatedSelectedSlots.push({
             day: selectedDay.day,
             isOnLeave: false,
+            salonIsOpen: salonDaysOpen.has(selectedDay.day),
             slots: [
               {
-                start_time: name === "startTime" ? value : "09:00",
-                end_time: name === "endTime" ? value : "20:00",
+                start_time:
+                  name === "startTime"
+                    ? value
+                    : getOpeningTime(selectedDay.day),
+                end_time:
+                  name === "endTime" ? value : getClosingTime(selectedDay.day),
               },
             ],
           });
@@ -265,6 +283,7 @@ const EmployeeSchedule = () => {
   const toggleShiftTimes = useCallback((index) => {
     toast.error("Shifting systems are not available right now");
   }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.usr_detail_head}>
@@ -279,199 +298,232 @@ const EmployeeSchedule = () => {
           the schedule start date
         </p>
       </div>
+      {salonIsLoading ? <LoadSpinner /> : ""}
+      {salon && !salonIsLoading && (
+        <div>
+          <form>
+            <div className={styles.mainDiv}>
+              <div className={styles.Profile_Pic_Main}>
+                <div className={styles.selectPro}>
+                  <div className={styles.SubHeading}>Employee</div>
 
-      <div>
-        <form>
-          <div className={styles.mainDiv}>
-            <div className={styles.Profile_Pic_Main}>
-              <div className={styles.selectPro}>
-                <div className={styles.SubHeading}>Employee</div>
-
-                <div className={styles.selectContainer}>
-                  {data && !isLoading && !isError && teamMembers ? (
-                    <CustomSelect2
-                      options={null}
-                      value={selectedMember}
-                      onChange={setSelectedMember}
-                      teamMembers={teamMembers}
-                    />
-                  ) : (
-                    <p>Loading.... </p>
-                  )}
-                </div>
-              </div>
-
-              <div className={styles.dateInput}>
-                <label htmlFor="">
-                  <div className={styles.labelText}>Schedule Start </div>
-                  <Pick
-                    ondateChange={(data) => setStartDate(data)}
-                    className={styles.customPickWidth}
-                  />
-                </label>
-              </div>
-              <div className={styles.dateInput}>
-                <label htmlFor="">
-                  <div className={styles.labelText}>Schedule End </div>
-                  <Pick
-                    ondateChange={(data) => setEndDate(data)}
-                    className={styles.customPickWidth}
-                  />
-                </label>
-              </div>
-            </div>
-            <div className={styles.horizontalLine}></div>
-            <div className={styles.headingShift}>Day-wise Shifts</div>
-            <div className={styles.headingShift1}>
-              <p>Day</p>
-              <p>start Time</p>
-              <p>End Time</p>
-            </div>
-
-            {Days.map((item, index) => {
-              const c = selectedSlots.find((x) => x.day === item.day);
-              // console.log(c);
-              return (
-                <div className={styles.mainMapDiv1} key={index}>
-                  <div className={styles.mainMapDiv}>
-                    <div className={styles.EplyShiptcheck}>
-                      <input
-                        checked={
-                          selectedSlots.find((x) => x.day === item.day) ?? false
-                        }
-                        type="checkbox"
-                        onChange={(e) => handleDaySelect(e, item)}
+                  <div className={styles.selectContainer}>
+                    {data && !isLoading && !isError && teamMembers ? (
+                      <CustomSelect2
+                        options={null}
+                        value={selectedMember}
+                        onChange={setSelectedMember}
+                        teamMembers={teamMembers}
+                        setSelectedMemberIndex={setSelectedMemberIndex}
                       />
-                      <p>{item.day}</p>
-                    </div>
-                    <div>
-                      <div className={styles.EplyShiptSelect}>
-                        <div>
-                          <select
-                            name="startTime"
-                            className={styles.EplyShiptSelectBox}
-                            onChange={(e) => handleDaySelect(e, item)}
-                          >
-                            <option value="">
-                              {c &&
-                                c?.slots.length > 0 &&
-                                c?.slots[0]?.start_time}
-                              {c &&
-                                c?.slots.length === 0 &&
-                                c.isOnLeave &&
-                                "Leave"}
-                              {c &&
-                                c?.slots.length === 0 &&
-                                c.isClosed &&
-                                "Closed"}
-
-                              {!c && "please select"}
-                            </option>
-
-                            {slots?.length > 0 &&
-                              slots?.map((x, i) => (
-                                <option key={i} value={x.slot}>
-                                  {x}{" "}
-                                </option>
-                              ))}
-                            <option value="Close">Leave</option>
-                          </select>
-                        </div>
-                        <div>
-                          <select
-                            name="endTime"
-                            className={styles.EplyShiptSelectBox}
-                            onChange={(e) => handleDaySelect(e, item)}
-                          >
-                            <option value="">
-                              {c &&
-                                c?.slots.length > 0 &&
-                                c?.slots[0]?.end_time}
-                              {c &&
-                                c?.slots.length === 0 &&
-                                c.isOnLeave &&
-                                "Leave"}
-                              {c &&
-                                c?.slots.length === 0 &&
-                                c.isClosed &&
-                                "Closed"}
-
-                              {!c && "please select"}
-                            </option>
-
-                            {slots.length > 0 &&
-                              slots?.map((x, i) => (
-                                <option key={i} value={x.slot}>
-                                  {x}{" "}
-                                </option>
-                              ))}
-                            <option value="Close">Leave</option>
-                          </select>
-                        </div>
-                      </div>
-                      {shiftTimesVisible[index] && (
-                        <div className={styles.EplyShiptSelect}>
-                          <div>
-                            <select className={styles.EplyShiptSelectBox}>
-                              <option value="">please select</option>
-
-                              {slots.map((x, i) => (
-                                <option key={i} value="">
-                                  {x}{" "}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                          <div>
-                            <select className={styles.EplyShiptSelectBox}>
-                              <option value="">please select</option>
-
-                              {slots.map((x, i) => (
-                                <option key={i} value="">
-                                  {x}{" "}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
-                      )}
-                      <div
-                        className={styles.plusImgDiv}
-                        onClick={() => toggleShiftTimes(index)}
-                      >
-                        <img src={plus} alt="" />
-                        <p className={styles.addShift}>Add Shift</p>
-                        <img
-                          src={copy}
-                          alt="copyImg"
-                          className={styles.copyImgRespons}
-                        />
-                      </div>
-                    </div>
-                    <div className={styles.copyImgR}>
-                      <img src={copy} alt="copyImg" />
-                    </div>
+                    ) : (
+                      <p>Loading.... </p>
+                    )}
                   </div>
                 </div>
-              );
-            })}
-          </div>
-          <div className={styles.SubmitBtn}>
-            <Link to={"/partner/dashboard/TeamManageMent"}>
-              <button className={styles.CancelBtn}>Cancel</button>
-            </Link>
 
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className={styles.SaveBtn}
-              disabled={loading}
-            >
-              {loading ? "Loading" : "save"}
-            </button>
-          </div>
-        </form>
-      </div>
+                <div className={styles.dateInput}>
+                  <label htmlFor="">
+                    <div className={styles.labelText}>Schedule Start </div>
+                    <Pick
+                      date={x ? x : "DD/MM/YYYY"}
+                      ondateChange={(data) => setStartDate(data)}
+                      className={styles.customPickWidth}
+                    />
+                  </label>
+                </div>
+                <div className={styles.dateInput}>
+                  <label htmlFor="">
+                    <div className={styles.labelText}>Schedule End </div>
+                    <Pick
+                      date={y ? y : "DD/MM/YYYY"}
+                      ondateChange={(data) => setEndDate(data)}
+                      className={styles.customPickWidth}
+                    />
+                  </label>
+                </div>
+              </div>
+              <div className={styles.horizontalLine}></div>
+              <div className={styles.headingShift}>Day-wise Shifts</div>
+              <div className={styles.headingShift1}>
+                <p>Day</p>
+                <p>start Time</p>
+                <p>End Time</p>
+              </div>
+              {isLoading && <LoadSpinner />}
+              {data &&
+                !isLoading &&
+                Days.map((item, index) => {
+                  const c = selectedSlots.find((x) => x.day === item.day);
+                  const slots =
+                    Slots?.slotsPerDay.find((x) => x.day === item.day)?.slots ||
+                    [];
+
+                  return (
+                    <div className={styles.mainMapDiv1} key={index}>
+                      <div className={styles.mainMapDiv}>
+                        <div className={styles.EplyShiptcheck}>
+                          <input
+                            checked={
+                              selectedSlots.find((x) => x.day === item.day) ??
+                              false
+                            }
+                            type="checkbox"
+                            onChange={(e) => handleDaySelect(e, item)}
+                          />
+                          <p>{item.day}</p>
+                        </div>
+                        <div>
+                          <div className={styles.EplyShiptSelect}>
+                            <div>
+                              <select
+                                disabled={!salonDaysOpen.has(item.day)}
+                                name="startTime"
+                                className={styles.EplyShiptSelectBox}
+                                onChange={(e) => handleDaySelect(e, item)}
+                              >
+                                <option value="">
+                                  {c &&
+                                    c?.slots.length > 0 &&
+                                    c?.salonIsOpen &&
+                                    c?.slots[0]?.start_time}
+                                  {c && c?.salonIsOpen === false && "Closed"}
+                                  {c &&
+                                    c?.slots.length === 0 &&
+                                    c?.salonIsOpen &&
+                                    c.isOnLeave &&
+                                    "Leave"}
+                                  {c &&
+                                    c?.slots.length === 0 &&
+                                    c?.salonIsOpen &&
+                                    c.isClosed &&
+                                    "Closed"}
+
+                                  {!c &&
+                                    salonDaysOpen.has(item.day) &&
+                                    "please select"}
+                                  {!c &&
+                                    !salonDaysOpen.has(item.day) &&
+                                    "Closed"}
+                                </option>
+
+                                {!SlotsIsLoading &&
+                                  slots?.length > 0 &&
+                                  slots?.map((x, i) => (
+                                    <option key={i} value={x.slot}>
+                                      {x}{" "}
+                                    </option>
+                                  ))}
+                                {SlotsIsLoading && <option>Loading</option>}
+                                <option value="Close">Leave</option>
+                              </select>
+                            </div>
+                            <div>
+                              <select
+                                disabled={!salonDaysOpen.has(item.day)}
+                                name="endTime"
+                                className={styles.EplyShiptSelectBox}
+                                onChange={(e) => handleDaySelect(e, item)}
+                              >
+                                <option value="">
+                                  {c &&
+                                    c?.slots.length > 0 &&
+                                    c?.salonIsOpen &&
+                                    c?.slots[0]?.end_time}
+                                  {c && !c?.salonIsOpen && "Closed"}
+                                  {c &&
+                                    c?.slots.length === 0 &&
+                                    c?.salonIsOpen &&
+                                    c.isOnLeave &&
+                                    "Leave"}
+                                  {c &&
+                                    c?.slots.length === 0 &&
+                                    c?.salonIsOpen &&
+                                    c.isClosed &&
+                                    "Closed"}
+
+                                  {!c &&
+                                    salonDaysOpen.has(item.day) &&
+                                    "please select"}
+                                  {!c &&
+                                    !salonDaysOpen.has(item.day) &&
+                                    "Closed"}
+                                </option>
+
+                                {slots.length > 0 &&
+                                  slots?.map((x, i) => (
+                                    <option key={i} value={x.slot}>
+                                      {x}{" "}
+                                    </option>
+                                  ))}
+                                <option value="Close">Leave</option>
+                              </select>
+                            </div>
+                          </div>
+                          {/* {shiftTimesVisible[index] && (
+                            <div className={styles.EplyShiptSelect}>
+                              <div>
+                                <select className={styles.EplyShiptSelectBox}>
+                                  <option value="">please select</option>
+
+                                  {slots.map((x, i) => (
+                                    <option key={i} value="">
+                                      {x}{" "}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                              <div>
+                                <select className={styles.EplyShiptSelectBox}>
+                                  <option value="">please select</option>
+
+                                  {slots.map((x, i) => (
+                                    <option key={i} value="">
+                                      {x}{" "}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+                          )}
+                          <div
+                            className={styles.plusImgDiv}
+                            onClick={() => toggleShiftTimes(index)}
+                          >
+                            <img src={plus} alt="" />
+                            <p className={styles.addShift}>Add Shift</p>
+                            <img
+                              src={copy}
+                              alt="copyImg"
+                              className={styles.copyImgRespons}
+                            />
+                          </div> */}
+                        </div>
+                        <div className={styles.copyImgR}>
+                          <img src={copy} alt="copyImg" />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+            <div className={styles.SubmitBtn}>
+              <Link to={"/partner/dashboard/TeamManageMent"}>
+                <button className={styles.CancelBtn}>Cancel</button>
+              </Link>
+
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className={styles.SaveBtn}
+                disabled={loading}
+              >
+                {loading ? "Loading" : "save"}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

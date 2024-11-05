@@ -180,7 +180,7 @@ const BasicDetailsForm = ({
               />
             </div>
           </div>
-
+          {/* 
           <div className={styles.content}>
             <h3>Taxes & Fees</h3>
 
@@ -194,7 +194,7 @@ const BasicDetailsForm = ({
                 <img src={downArrow} alt="" />
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </form>

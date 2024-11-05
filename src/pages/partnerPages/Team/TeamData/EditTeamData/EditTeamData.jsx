@@ -102,6 +102,12 @@ const EditTeamData = () => {
 
   const lastDate = formatDate(serviceEndDate);
 
+  const allUsedService = allServices.filter((x) => {
+    if (selectedServices.includes(x._id)) {
+      return x;
+    }
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -370,7 +376,7 @@ const EditTeamData = () => {
                 {data && allMainCategories?.length > 0 ? (
                   <div className={styles.AllServices}>
                     <h4 className={styles.AllServicesText}>
-                      All services ({allServices?.length})
+                      All services ({allUsedService?.length})
                     </h4>
                     <div onClick={theModalOpen}>
                       <p className={styles.editImgEdit}>

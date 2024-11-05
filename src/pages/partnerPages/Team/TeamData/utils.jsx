@@ -51,12 +51,13 @@ function getDateObject(dateString, startTime, endTime) {
 export function DateAndTime(date, timeSlots) {
   const firstSlot = timeSlots[0];
   const lastSlot = timeSlots[timeSlots.length - 1];
-
+  // console.log(timeSlots, "fffffffffffff");
   const dateObject = getDateObject(date, firstSlot?.slot, lastSlot?.slot);
 
   return dateObject;
 }
 export function formatStateDate(date) {
+  if (!date) return null;
   const d = new Date(date);
   const year = d.getFullYear();
   let month = `${d.getMonth() + 1}`;

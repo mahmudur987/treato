@@ -39,6 +39,9 @@ const findServiceData = (data, service_id, category_id, subcategory_id) => {
 const EditService = () => {
   const { data: singleSalon, isLoading, isError, refetch } = useSingleSalon();
   const location = useLocation();
+
+  const [loading, setLoading] = useState(false);
+
   const queryParams = new URLSearchParams(location.search);
   const service_id = queryParams.get("servicetype");
   const category_id = queryParams.get("category");
@@ -78,6 +81,7 @@ const EditService = () => {
     };
 
     try {
+      setLoading(true);
       const res = await editService(newEditService);
 
       // Check response and provide feedback
@@ -93,6 +97,8 @@ const EditService = () => {
       toast.error(
         error.message || "An error occurred while updating the service."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -168,7 +174,7 @@ const EditService = () => {
             Cancel
           </button>
           <button
-            disabled={disabled}
+            disabled={loading}
             onClick={handleSubmit}
             className={styles.submit}
             style={{
@@ -176,7 +182,18 @@ const EditService = () => {
               color: `${disabled ? "#939CA3" : ""}`,
             }}
           >
-            Save Change
+            {loading ? "Loading ..." : "Save Change"}
+          </button>
+          <button
+            disabled={disabled}
+            onClick={handleSubmit}
+            className={styles.save}
+            style={{
+              backgroundColor: `${disabled ? "#EBEDF0" : ""}`,
+              color: `${disabled ? "#939CA3" : ""}`,
+            }}
+          >
+            {loading ? "Loading ..." : "Save"}
           </button>
         </div>
       </section>

@@ -10,38 +10,28 @@ import { TimeScheContext } from "../../../../pages/partnerPages/Team/TeamData/Ti
 import { formatCustomDate } from "../../../../pages/partnerPages/Team/TeamData/utils";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../../services/axios";
-const convertDate = (inputDate) => {
-  const date = new Date(inputDate);
+const convertDate = (dateString) => {
+  const date = new Date(dateString);
 
-  // Get current year, month (0-indexed), and day
+  // Get the year, month, and day in local timezone
   const year = date.getFullYear();
-  const month = date.getMonth() + 1; // Add 1 to convert from 0-indexed
-  const day = date.getDate();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const day = String(date.getDate()).padStart(2, "0");
 
-  // Add 31 to the month
-  let newMonth = month + 31;
-
-  // Handle overflow of month and adjust year accordingly
-  const yearsToAdd = Math.floor((newMonth - 1) / 12);
-  newMonth = ((newMonth - 1) % 12) + 1; // Ensure it's 1-indexed
-  const newYear = year + yearsToAdd;
-
-  // Format the output
-  const formattedMonth = String(newMonth).padStart(2, "0");
-  const formattedDay = String(day).padStart(2, "0");
-
-  return `${newYear}-${formattedMonth}-${formattedDay}`;
+  return `${year}-${month}-${day}`;
 };
 const AddLeaveModal = ({ onClose }) => {
   const { schedule, member, sethandleShift, refetch } =
     useContext(TimeScheContext);
-  const [timeFieldsCount, setTimeFieldsCount] = useState(1);
   const [isFullDayLeave, setIsFullDayLeave] = useState(false);
-  const { day, month, date } = formatCustomDate(schedule?.date);
+  const [endDate, setEndDate] = useState("");
   const [startDate, setStartDate] = useState("");
+
+  const [timeFieldsCount, setTimeFieldsCount] = useState(1);
+
+  const { day, month, date } = formatCustomDate(schedule?.date);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [endDate, setEndDate] = useState("");
   const convertedDate = convertDate(startDate ? startDate : null);
 
   const [loading, setLoading] = useState(false);
