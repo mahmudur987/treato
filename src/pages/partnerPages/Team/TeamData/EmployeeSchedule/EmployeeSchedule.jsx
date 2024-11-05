@@ -565,7 +565,7 @@ const EmployeeSchedule = () => {
                           </div> */}
                         </div>
                         <div className={styles.copyImgR}>
-                          <img src={copy} alt="copyImg" />
+                          {/* <img src={copy} alt="copyImg" /> */}
                         </div>
                       </div>
                     </div>
