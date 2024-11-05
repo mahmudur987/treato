@@ -102,8 +102,8 @@ const EditTeamData = () => {
 
   const lastDate = formatDate(serviceEndDate);
 
-  const allUsedService = allServices.filter((x) => {
-    if (selectedServices.includes(x._id)) {
+  const allUsedService = allServices?.filter((x) => {
+    if (selectedServices?.includes(x._id)) {
       return x;
     }
   });

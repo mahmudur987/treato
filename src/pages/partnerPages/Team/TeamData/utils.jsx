@@ -28,7 +28,7 @@ function formatTime(time) {
   const [hours, minutes] = time?.split(":");
   const suffix = hours >= 12 ? "pm" : "am";
   const formattedHours = hours % 12 || 12;
-  return `${formattedHours}:${minutes}${suffix}`;
+  return `${formattedHours}:${minutes} ${suffix}`;
 }
 
 function getDateObject(dateString, startTime, endTime) {

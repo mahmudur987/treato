@@ -11,7 +11,7 @@ import {
 } from "../../../../../services/Team";
 import { useCallback, useMemo } from "react";
 
-import { formatStateDate } from "../utils";
+import { DateAndTime, formatStateDate } from "../utils";
 import CustomSelect2 from "../../../../../components/Select/CustomeSelect2/CustomeSelect2";
 
 import axiosInstance from "../../../../../services/axios";
@@ -55,6 +55,20 @@ function convertDateToDay(dateString) {
   ];
   return daysOfWeek[date.getDay()];
 }
+const convertTo24Hour = (time12h) => {
+  const [time, modifier] = time12h.split(" ");
+  let [hours, minutes] = time.split(":");
+
+  if (hours === "12") {
+    hours = "00";
+  }
+
+  if (modifier?.toUpperCase() === "PM") {
+    hours = parseInt(hours, 10) + 12;
+  }
+
+  return `${hours}:${minutes}`;
+};
 
 const EmployeeSchedule = () => {
   const { data: salon, isLoading: salonIsLoading } = useSingleSalon();
@@ -75,7 +89,7 @@ const EmployeeSchedule = () => {
   const { data, isLoading, isError } = useGetAllTeamMemSche(x, y);
 
   const salonOpeningData = salon?.salon?.working_hours || [];
-  const shiftTime = useMemo(
+  const xx = useMemo(
     () =>
       selectedMember?.timeForServices?.map((x) => ({
         date: x.date,
@@ -85,22 +99,38 @@ const EmployeeSchedule = () => {
       })) ?? [],
     [selectedMember]
   );
+
+  const shiftTime = useMemo(
+    () =>
+      selectedMember?.timeForServices?.map((x) => {
+        if (x?.time_slots?.length > 0) {
+          const { startTime, endTime } = DateAndTime(x?.date, x?.time_slots);
+          const data = {
+            date: x.date,
+            shifts: [
+              {
+                start_time: convertTo24Hour(startTime),
+                end_time: convertTo24Hour(endTime),
+              },
+            ],
+            isClosed: x.isClosed,
+            isOnLeave: x.isOnLeave,
+          };
+          return data;
+        } else {
+          return {
+            date: x.date,
+            shifts: x.shifts,
+            isClosed: x.isClosed,
+            isOnLeave: x?.isOnLeave,
+          };
+        }
+      }) ?? [],
+    [selectedMember]
+  );
+
   // Filter function for 7-day range
   const salonDaysOpen = new Set(salonOpeningData.map((entry) => entry.day));
-  const convertTo24Hour = (time12h) => {
-    const [time, modifier] = time12h.split(" ");
-    let [hours, minutes] = time.split(":");
-
-    if (hours === "12") {
-      hours = "00";
-    }
-
-    if (modifier === "PM") {
-      hours = parseInt(hours, 10) + 12;
-    }
-
-    return `${hours}:${minutes}`;
-  };
 
   // Function to get opening time in 24-hour format
   const getOpeningTime = (day) => {
@@ -169,6 +199,7 @@ const EmployeeSchedule = () => {
       })) ?? [],
     [data]
   );
+
   // Set default member on data fetch
   // Set default or existing selected member on data fetch/update
   useEffect(() => {
@@ -226,9 +257,9 @@ const EmployeeSchedule = () => {
                 start_time:
                   name === "startTime"
                     ? value
-                    : getOpeningTime(selectedDay.day),
+                    : getOpeningTime(selectedDay?.day),
                 end_time:
-                  name === "endTime" ? value : getClosingTime(selectedDay.day),
+                  name === "endTime" ? value : getClosingTime(selectedDay?.day),
               },
             ],
           });
@@ -364,6 +395,7 @@ const EmployeeSchedule = () => {
                       <div className={styles.mainMapDiv}>
                         <div className={styles.EplyShiptcheck}>
                           <input
+                            disabled={!salonDaysOpen.has(item.day)}
                             checked={
                               selectedSlots.find((x) => x.day === item.day) ??
                               false
