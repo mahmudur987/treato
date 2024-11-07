@@ -7,6 +7,7 @@ import { fingernail } from "../../../assets/images/recommendImages";
 import Title from "../../Typography/Title/Title";
 import { useGetServices } from "../../../services/Services";
 import LoadSpinner from "../../LoadSpinner/LoadSpinner";
+import { Link } from "react-router-dom";
 
 export default function RecommendedSection() {
   const { data, isLoading } = useGetServices();
@@ -51,14 +52,18 @@ export default function RecommendedSection() {
             customDot={<CustomDot />}
           >
             {data?.data?.map((service, index) => (
-              <a key={index} href="#" className={styles.rmdItem}>
+              <Link
+                key={index}
+                to={`/salons?service=${service.serviceName}&lat=&lng=&location=`}
+                className={styles.rmdItem}
+              >
                 <img
                   loading="lazy"
                   src={service?.serviceImg?.public_url ?? fingernail}
                   alt={service.serviceName}
                 />
                 <h4>{service.serviceName}</h4>
-              </a>
+              </Link>
             ))}
           </Carousel>
         )}
