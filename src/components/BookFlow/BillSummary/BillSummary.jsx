@@ -110,7 +110,7 @@ export default function BillSummary({
         const payAbleAmount = formatNumber(x + y);
         setamountToPay(payAbleAmount.toLocaleString());
         dispatch(updateServiceTaxPrice(y));
-        setTotalServicesPrice(totalPrice.toLocaleString());
+        setTotalServicesPrice(x.toLocaleString());
         setTaxPrice(y);
         dispatch(updateAmount(payAbleAmount));
       } else {
@@ -173,7 +173,10 @@ export default function BillSummary({
         user_id: userDetails?._id,
         salons_id: id,
         service_id: serviceIDs,
-        final_amount: Number(totalServicesPrice),
+        final_amount:
+          typeof totalServicesPrice === "string"
+            ? Number(totalServicesPrice.replace(/,/g, ""))
+            : totalServicesPrice,
         choosenOfferId: selectedOffer?._id,
         time: selectedServiceSlot,
         servicetimetaken: selectedServices?.map((x) => x.service_time),
@@ -187,7 +190,7 @@ export default function BillSummary({
         // serviceDetails: selectedServices,
         noPreference: stepTwoDetails?.isNoPreference ?? false,
       };
-
+      console.log(billInfo);
       bookSalonAppointment(billInfo).then((res) => {
         let response = res?.res?.data;
 
@@ -216,7 +219,10 @@ export default function BillSummary({
       user_id: userDetails?._id,
       salons_id: id,
       service_id: serviceIDs,
-      final_amount: Number(totalServicesPrice),
+      final_amount:
+        typeof totalServicesPrice === "string"
+          ? Number(totalServicesPrice.replace(/,/g, ""))
+          : totalServicesPrice,
       choosenOfferId: selectedOffer?._id,
       time: selectedServiceSlot,
       servicetimetaken: selectedServices?.map((x) => x.service_time),
@@ -230,7 +236,7 @@ export default function BillSummary({
       // serviceDetails: selectedServices,
       noPreference: stepTwoDetails?.isNoPreference ?? false,
     };
-    // console.log(billInfo);
+    console.log(billInfo);
     bookSalonAppointment(billInfo).then((res) => {
       let response = res?.res?.data;
       if (response?.success) {

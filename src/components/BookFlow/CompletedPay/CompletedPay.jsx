@@ -14,6 +14,7 @@ import { getSingleSalonData } from "../../../services/salon";
 export default function CompletedPay() {
   const bookingDetails = useSelector((state) => state?.salonServices);
   const amount = useSelector((state) => state?.salonServices?.Amount);
+  const saveAmount = useSelector((state) => state?.salonServices?.offerAmount);
   const { id } = useParams();
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function CompletedPay() {
       return v.service_price;
     });
     let totalPrice = prices.reduce((a, b) => a + b, 0);
-    setItemtotal(totalPrice);
+    setItemtotal(totalPrice - saveAmount);
   }, [bookingDetails?.salonContent]);
 
   useEffect(() => {
@@ -122,9 +123,9 @@ export default function CompletedPay() {
         <div className={styles.payMainC}>
           Your appointment at <span>{salon?.salon_name}</span> was successfully
           booked.{" "}
-          <span onClick={handleAddToCalendar} className={styles.AddCalendar}>
+          {/* <span onClick={handleAddToCalendar} className={styles.AddCalendar}>
             Add to Calendar
-          </span>
+          </span> */}
         </div>
         <div className={styles.payMainD}>
           To reschedule or cancel, go to{" "}

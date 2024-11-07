@@ -176,6 +176,7 @@ const getTimeSlots = async (data) => {
     const res = await axiosInstance.post("/appointment/generateSloats", data, {
       headers,
     });
+
     return { res: res.data, err: null };
   } catch (error) {
     return { err: error, res: null };

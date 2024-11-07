@@ -86,7 +86,8 @@ const RescheduleAppointment = ({ data }) => {
   const genarateSlotsData = {
     salons_id: data.salonData[0]?._id,
     service_id: subcategoriesIds,
-    noPreference: true,
+    selectedStylistId: data?.stylistData[0]._id,
+    noPreference: data?.noPreference,
     dateforService: date,
   };
 
@@ -96,7 +97,12 @@ const RescheduleAppointment = ({ data }) => {
     isError,
     error,
   } = useTimeSlots(genarateSlotsData);
- useEffect(()=>{console.log(data)})
+  useEffect(() => {
+    if (slots?.res?.message === "Salon Closed") {
+      toast.info("Salon Closed");
+    }
+  }, [slots]);
+
   const handleTimeSlotClick = (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
   };
@@ -317,7 +323,8 @@ const RescheduleAppointment = ({ data }) => {
         <div className={styles.slotInfoWrapper}>
           <div className={styles.dateContainer}>
             <h2>
-            Available slots are shown based on salon and professional availability.
+              Available slots are shown based on salon and professional
+              availability.
             </h2>
             <h4>Date</h4>
             <div className={styles.service_timeMonth}>
@@ -353,7 +360,7 @@ const RescheduleAppointment = ({ data }) => {
                       <FormDateComponent
                         index={i}
                         updateActiveCard={updateActiveCard}
-                        actveCard={actveCard}
+                        activeCard={actveCard}
                         allCalendar={allCalendar}
                         setSelectedDate={setSelectedDate}
                         key={i}
@@ -368,7 +375,7 @@ const RescheduleAppointment = ({ data }) => {
           <div className={styles.startTime}>
             <h4>Start time</h4>
             <div className={styles.timeSlotsWrapper}>
-              {slots?.res?.data?.length > 0 ? (
+              {slots && slots?.res?.data?.length > 0 ? (
                 slots?.res?.data?.map((v, i) => {
                   return (
                     <Time
