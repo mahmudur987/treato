@@ -29,6 +29,7 @@ const StyleDetails = () => {
     service,
     setService,
     setSelectedServices,
+    selectedServices,
   } = useContext(addLookContext);
   const { data, isLoading, isError } = useGetPartnerServices();
 

@@ -75,16 +75,6 @@ const AddLook = () => {
       data.append("stylishListIds[]", id);
     });
 
-    console.log({
-      name: formData.name,
-      description: formData.description,
-      price: formData.price,
-      rating: formData.rating,
-      serviceCategoryID: category,
-      serviceSubCategoryId: selectedServices,
-      stylishListIds: selectedPeople,
-    });
-
     try {
       const headers = {
         token: localStorage.getItem("jwtToken"),

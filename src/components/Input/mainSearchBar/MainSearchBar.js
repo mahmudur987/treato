@@ -268,30 +268,50 @@ const MainSearchBar = ({ place }) => {
       toast.info("Please fill input fields to proceed. !");
     } else {
       console.log(locationInputValue, treatmentInputValue);
-  
+
       setTrt_DesktopModal(false);
       setTrt_MoboModal(false);
       setloc_DesktopModal(false);
       setloc_MoboModal(false);
-      document.body.style.overflow = "auto"; 
-  
+      document.body.style.overflow = "auto";
+
       if (value !== "" && locationInputValue !== "Current Location") {
-        getGeocode({ address: value }).then((results) => {
-          const { lat, lng } = getLatLng(results[0]);
-          setlocationLat(lat);
-          setlocationLng(lng);
-  
-          navigate(
-            `/salons?service=${treatmentInputValue}&lat=${lat ? lat : ""}&lng=${
-              lng ? lng : ""
-            }&location=${locationInputValue}`
-          );
-        }).catch((error) => {
-          console.error("Geocode was not successful for the following reason: ", error);
-        });
+        getGeocode({ address: value })
+          .then((results) => {
+            const { lat, lng } = getLatLng(results[0]);
+            setlocationLat(lat);
+            setlocationLng(lng);
+            let url = "/salons";
+
+            const queryParams = [];
+
+            if (treatmentInputValue) {
+              queryParams.push(`service=${treatmentInputValue}`);
+            }
+
+            if (lat && lng) {
+              queryParams.push(`lat=${lat}`, `lng=${lng}`);
+            }
+
+            if (locationInputValue) {
+              queryParams.push(`location=${locationInputValue}`);
+            }
+
+            // Join all query parameters with "&" and append to the base URL
+            if (queryParams.length > 0) {
+              url += `?${queryParams.join("&")}`;
+            }
+            navigate(url);
+          })
+          .catch((error) => {
+            console.error(
+              "Geocode was not successful for the following reason: ",
+              error
+            );
+          });
       } else {
         navigate(
-          `/salons?service=${treatmentInputValue}&lat=${locationLat}&lng=${locationLng}&location=${locationInputValue}`
+          `/salons?service=${treatmentInputValue}&lat=${""}&lng=${""}&location=${locationInputValue}`
         );
       }
     }
@@ -385,7 +405,8 @@ const MainSearchBar = ({ place }) => {
             />
           </div>
 
-          <img loading="lazy"
+          <img
+            loading="lazy"
             src={closeIcon}
             className={`${styles["close_trtBox"]} ${
               Trt_DesktopModal ? "" : styles["hidden"]
@@ -419,7 +440,8 @@ const MainSearchBar = ({ place }) => {
             onChange={winWidthMain > 767 ? handleInput : ""}
             disabled={!ready}
           />
-          <img loading="lazy"
+          <img
+            loading="lazy"
             className={`${styles["close_trtBox"]} ${
               loc_DesktopModal ? "" : styles["hidden"]
             }`}
