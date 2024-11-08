@@ -4,6 +4,9 @@ import WorkerComponent from "../WorkerComponent/WorkerComponent";
 import ServiceTime from "../ServiceTime/ServiceTime";
 import RadioInput from "../../Input/RadioInput/RadioInput";
 import { memo, useEffect, useRef } from "react";
+import { useGetAllSalonServiceStylist } from "../../../services/salon";
+import NoDataDisplay from "../../NodataToDisplay/NoDataDisplay";
+import { useSelector } from "react-redux";
 
 export default function WorkerDetail({
   SalonData,
@@ -14,6 +17,20 @@ export default function WorkerDetail({
   stepTwoDetails,
 }) {
   const noneLabelRef = useRef(null);
+  const salonServices = useSelector(
+    (state) => state.salonServices.salonContent
+  );
+  let ServiceIds = salonServices?.map((e) => {
+    return e?.service_id;
+  });
+  const { data, isLoading, isError, error } = useGetAllSalonServiceStylist({
+    services: ServiceIds,
+  });
+  const filteredStylistsId = data?.map((x) => x._id);
+  const filteredStylist = SalonData?.stylists?.filter((x) =>
+    filteredStylistsId.includes(x._id)
+  );
+
   useEffect(() => {
     // Click the label when the component mounts
     noneLabelRef.current.click();
@@ -44,18 +61,29 @@ export default function WorkerDetail({
           </div>
         </div>
       </label>
-      <div className={styles.worker_detailB}>
-        {SalonData?.stylists?.map((v, i) => {
-          return (
-            <WorkerComponent
-              workerData={v}
-              key={i}
-              index={i}
-              getWorkerData={getWorkerData}
-            />
-          );
-        })}
-      </div>
+      {!isLoading && !isError && data && data?.length > 0 && (
+        <div className={styles.worker_detailB}>
+          {filteredStylist?.map((v, i) => {
+            return (
+              <WorkerComponent
+                workerData={v}
+                key={i}
+                index={i}
+                getWorkerData={getWorkerData}
+              />
+            );
+          })}
+        </div>
+      )}
+      {!isLoading && !isError && data && data?.length === 0 && (
+        <div className={styles.worker_detailB}>
+          <NoDataDisplay
+            message={
+              "No stylists are currently available for the selected service(s). Please try choosing different services or check back later."
+            }
+          />
+        </div>
+      )}
       <div className={styles.worker_detailC}>
         <ServiceTime
           getWorkerData={getWorkerData}

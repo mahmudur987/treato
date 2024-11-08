@@ -145,3 +145,14 @@ export const UpdateSalon = async (data) => {
     return { res: null, err: error };
   }
 };
+
+export const useGetAllSalonServiceStylist = (data) => {
+  return useQuery({
+    queryKey: [],
+    queryFn: async () => {
+      const x = await axiosInstance.post("/stylist/service/stylist", data);
+      console.log(x);
+      return x.data;
+    },
+  });
+};
