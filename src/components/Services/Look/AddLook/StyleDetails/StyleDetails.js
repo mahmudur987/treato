@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import styles from "./StyleDetails.module.css";
 import { addLookContext } from "../../../../../pages/partnerPages/Look/AddALook/AddLook";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
@@ -58,6 +58,25 @@ const StyleDetails = () => {
     console.log(formData);
   };
 
+  const selectedServicePrice = useMemo(() => {
+    return (
+      (Array.isArray(service) &&
+        service.find((x) => x.subCategory_id === selectedServices)
+          ?.subcategory_price) ||
+      ""
+    );
+  }, [service, selectedServices]);
+
+  useEffect(() => {
+    if (selectedServicePrice) {
+      setFormData({
+        ...formData,
+        price: selectedServicePrice,
+      });
+    }
+  }, [selectedServicePrice]);
+
+  console.log(selectedServicePrice);
   return (
     <div className={styles.mainContainer}>
       <div className={styles.heading}>
@@ -147,6 +166,7 @@ const StyleDetails = () => {
               type="text"
               id="price"
               name="price"
+              readOnly
               value={formData.price}
               onChange={handleChange}
               className={styles.input}

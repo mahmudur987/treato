@@ -49,7 +49,6 @@ const AddLook = () => {
     const requiredFields = [
       { value: formData.name, message: "Add a name." },
       { value: formData.description, message: "Add a description." },
-      { value: formData.price, message: "Add a price." },
     ];
 
     for (const { value, message } of requiredFields) {

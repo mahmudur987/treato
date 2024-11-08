@@ -22,7 +22,7 @@ const EditLook = () => {
     name: "",
     description: "",
     price: "",
-    rating: "",
+    rating: 5,
   });
   const [selectedPeople, setSelectedPeople] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -65,11 +65,7 @@ const EditLook = () => {
       setLoading(false);
       return;
     }
-    if (!formData.rating) {
-      toast.error("Rating is required.");
-      setLoading(false);
-      return;
-    }
+
     if (!category) {
       toast.error("Service category is required.");
       setLoading(false);

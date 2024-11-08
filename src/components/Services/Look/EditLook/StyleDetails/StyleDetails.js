@@ -127,13 +127,14 @@ const StyleDetails = () => {
               type="text"
               id="price"
               name="price"
+              readOnly
               value={formData.price}
               onChange={handleChange}
               className={styles.input}
               placeholder="e.g. ₹699.00"
             />
           </div>
-          <div className={styles.formGroup}>
+          {/* <div className={styles.formGroup}>
             <label htmlFor="rating">Customer Rating</label>
             <input
               type="text"
@@ -144,7 +145,7 @@ const StyleDetails = () => {
               className={styles.input}
               placeholder="4.0"
             />
-          </div>
+          </div> */}
         </div>
       </form>
     </div>
