@@ -3,7 +3,7 @@ import userIco from "../../../assets/images/SalonDetail/userIco.svg";
 import WorkerComponent from "../WorkerComponent/WorkerComponent";
 import ServiceTime from "../ServiceTime/ServiceTime";
 import RadioInput from "../../Input/RadioInput/RadioInput";
-import { memo, useEffect, useRef } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import { useGetAllSalonServiceStylist } from "../../../services/salon";
 import NoDataDisplay from "../../NodataToDisplay/NoDataDisplay";
 import { useSelector } from "react-redux";
@@ -26,10 +26,13 @@ export default function WorkerDetail({
   const { data, isLoading, isError, error } = useGetAllSalonServiceStylist({
     services: ServiceIds,
   });
-  const filteredStylistsId = data?.map((x) => x._id);
-  const filteredStylist = SalonData?.stylists?.filter((x) =>
-    filteredStylistsId.includes(x._id)
-  );
+  const filteredStylistsId = useMemo(() => data?.map((x) => x._id), [data]);
+
+  const filteredStylist = useMemo(() => {
+    return SalonData?.stylists?.filter((x) =>
+      filteredStylistsId?.includes(x._id)
+    );
+  }, [SalonData, filteredStylistsId]);
 
   useEffect(() => {
     // Click the label when the component mounts
