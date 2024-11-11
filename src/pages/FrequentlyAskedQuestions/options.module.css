@@ -21,7 +21,7 @@
   top: 330px;
   left: 240px;
   width: 228px;
-  border: 1px solid #EBEDF0;
+  border: 1px solid #ebedf0;
   transform: rotate(-90deg);
 }
 
@@ -46,7 +46,7 @@
 }
 
 .selected {
-  color: #0D69D7;
+  color: #0d69d7;
 }
 
 .rightbox {
@@ -67,7 +67,6 @@
   font-weight: 600;
   font-family: Lato;
   line-height: 36px;
-
 }
 
 .questionbox {
@@ -78,10 +77,9 @@
   gap: 20px;
 }
 
-
 .horizon {
   width: 653px;
-  border-bottom: 1px solid #EBEDF0;
+  border-bottom: 1px solid #ebedf0;
 }
 
 .question {
@@ -110,7 +108,6 @@
 
 .downarrow {
   display: none;
-
 }
 
 .answer {
@@ -134,7 +131,6 @@
 .contactbox {
   display: flex;
   width: fit-content;
-
 }
 
 .contactus {
@@ -144,7 +140,7 @@
   font-weight: 600;
   font-family: Lato;
   line-height: 24px;
-  color: #2E3032;
+  color: #2e3032;
 }
 
 .linker {
@@ -153,7 +149,7 @@
   font-weight: 600;
   font-family: Lato;
   line-height: 24px;
-  color: #0D69D7;
+  color: #0d69d7;
   width: 80px;
   letter-spacing: 1%;
   cursor: pointer;
@@ -162,7 +158,14 @@
 .linker :active {
   transform: scale(0.95);
 }
-
+.iconContainer {
+  width: 25px;
+  height: 25px;
+}
+.iconContainer img {
+  width: 100%;
+  height: 100%;
+}
 @media screen and (max-width: 700px) {
   .header h3 {
     position: static;
@@ -206,14 +209,14 @@
   .rightbox p b {
     display: none;
   }
-.question{
-  padding: 0;
-  max-width: 90%;
-  align-items:normal;
-}
-.answer{
-  max-width: 90%;
-}
+  .question {
+    padding: 0;
+    max-width: 90%;
+    align-items: normal;
+  }
+  .answer {
+    max-width: 90%;
+  }
   .horizon {
     width: 342px;
   }
@@ -226,7 +229,6 @@
   svg {
     min-width: 16px;
     min-height: 16px;
-    color: #6D747A;
+    color: #6d747a;
   }
-
 }

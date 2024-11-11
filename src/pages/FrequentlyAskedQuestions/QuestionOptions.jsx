@@ -6,6 +6,7 @@ import { getFaqs } from "../../services/faqs";
 import { toast } from "react-toastify";
 import i from "../../assets/svgs/icon (36).svg";
 import j from "../../assets/svgs/icon (37).svg";
+import { downArrow } from "../../components/Select/ColorSelect/ColorSelect";
 function QuestionOptions() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -113,11 +114,14 @@ function QuestionOptions() {
                   onClick={() => toggleAccordion(index)}
                 >
                   <p>{faq.question}</p>
-                  {expandedIndex === index ? (
-                    <img src={i} alt="" />
-                  ) : (
-                    <img src={j} alt="" />
-                  )}
+                  <figure className={style.iconContainer}>
+                    {" "}
+                    {expandedIndex === index ? (
+                      <img src={i} alt="" />
+                    ) : (
+                      <img src={downArrow} alt="" />
+                    )}
+                  </figure>
                 </div>
                 <div
                   className={`${style.answer} ${
