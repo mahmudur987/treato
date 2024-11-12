@@ -26,7 +26,7 @@ const Treatments = ({
     <div className={styles["treatmentsSection"]}>
       <h3>Treatments</h3>
       <div className={styles["trt_results"]}>
-        {allServices?.length == 0 ? (
+        {allServices?.length === 0 ? (
           <div className={styles.notFound}>We didn't find a match</div>
         ) : (
           <>
@@ -36,7 +36,7 @@ const Treatments = ({
                 className={styles["trt_resultItem"]}
                 onClick={() => setinput(treatment.service_name)}
               >
-                <div>
+                <div className={styles.wrapper}>
                   <img loading="lazy" src={search_Blue} alt="Treatment" />
                 </div>
                 <p>{treatment.service_name}</p>

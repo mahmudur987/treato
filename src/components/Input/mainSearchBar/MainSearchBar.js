@@ -316,51 +316,7 @@ const MainSearchBar = ({ place }) => {
       }
     }
   };
-  // const handleSearch = () => {
-  //   if (locationInputValue === "" && treatmentInputValue === "") {
-  //     // Navigate to /salons with services and location as query parameters
-  //     toast.info("Please fill input fields to proceed. !");
-  //   } else {
-  //     console.log(locationInputValue, treatmentInputValue);
-  //     if (value !== "") {
-  //       //if we have value in location input
-  //       getGeocode({ address: value }).then((results) => {
-  //         const { lat, lng } = getLatLng(results[0]);
-  //         setlocationLat(lat);
-  //         setlocationLng(lng);
 
-  //         navigate(
-  //           `/salons?service=${treatmentInputValue}&lat=${lat ? lat : ""}&lng=${
-  //             lng ? lng : ""
-  //           }&location=${locationInputValue}`
-  //         );
-  //       });
-  //     } else {
-  //       //if we  dont have value in location input
-  //       navigate(
-  //         `/salons?service=${treatmentInputValue}&lat=${locationLat}&lng=${locationLng}&location=${locationInputValue}`
-  //       );
-  //     }
-  //   }
-  // };
-
-  //   useEffect(() => {
-  //     const handleWindowClick = () => {
-  //       console.log(value);
-  //       console.log(treatmentInputValue);
-  //       // Your condition goes here
-
-  //         handle_closeTrt_Modal();
-  // };
-
-  //     // Attach the event listener
-  //     window.addEventListener('mousedown', handleWindowClick);
-
-  //     // Detach the event listener when the component unmounts
-  //     return () => {
-  //       window.removeEventListener('mousedown', handleWindowClick);
-  //     };
-  //   }, [handle_closeTrt_Modal]);
   return (
     <>
       <div

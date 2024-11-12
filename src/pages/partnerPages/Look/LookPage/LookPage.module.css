@@ -41,6 +41,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-content: center;
   gap: 10px;
 }
 
@@ -60,7 +61,7 @@
   border: none;
   font-size: 25px;
 }
-.iconColor{
+.iconColor {
   color: white;
 }
 @media only screen and (max-width: 700px) {

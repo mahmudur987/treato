@@ -10,4 +10,8 @@
   .navbarInputWrapper {
     display: none;
   }
+  .close_trtBox {
+    display: none;
+    background-color: aqua;
+  }
 }
