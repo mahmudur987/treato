@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Completed.module.css";
-import AppointmentCard, {
-  MemoizedAppointmentCard,
-} from "../../Cards/AppointmentCard/AppointmentCard";
+import { MemoizedAppointmentCard } from "../../Cards/AppointmentCard/AppointmentCard";
 import { getCompletedAppointments } from "../../../services/Appointments";
 import { toast } from "react-toastify";
+import LoadSpinner from "../../LoadSpinner/LoadSpinner";
 const Completed = () => {
-  const [toggleoptions, settoggleoptions] = useState(false);
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const res = await getCompletedAppointments();
       if (res.res) {
         setData(res?.res?.data?.data);
@@ -20,7 +20,7 @@ const Completed = () => {
         });
       }
     };
-
+    setLoading(false);
     fetchData();
   }, []);
   // console.log(data);
@@ -33,6 +33,8 @@ const Completed = () => {
           cardType="Completed"
         />
       ))}
+
+      {loading && <LoadSpinner />}
     </div>
   );
 };

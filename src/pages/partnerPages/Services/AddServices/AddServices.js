@@ -109,7 +109,11 @@ const AddServices = () => {
 
   // for the ui
   const handleNextStep = () => {
-    setCurrentStep((prevStep) => (prevStep < 3 ? prevStep + 1 : prevStep));
+    if (currentStep === 2) {
+      return handleSubmit();
+    }
+
+    setCurrentStep((prevStep) => (prevStep < 2 ? prevStep + 1 : prevStep));
   };
   const handlePrevStep = () => {
     setCurrentStep((prevStep) => (prevStep > 1 ? prevStep - 1 : prevStep));
@@ -164,10 +168,10 @@ const AddServices = () => {
             className={styles.step}
             style={{ backgroundColor: `${currentStep >= 2 ? "blue" : "#ddd"}` }}
           ></div>
-          <div
+          {/* <div
             className={styles.step}
             style={{ backgroundColor: `${currentStep >= 3 ? "blue" : "#ddd"}` }}
-          ></div>
+          ></div> */}
         </div>
 
         {/* details */}

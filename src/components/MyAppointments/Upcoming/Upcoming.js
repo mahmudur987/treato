@@ -1,30 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Upcoming.module.css";
-import AppointmentCard, {
-  MemoizedAppointmentCard,
-} from "../../Cards/AppointmentCard/AppointmentCard";
-import {
-  getUpcomingAppointments,
-  useUpcomingApponments,
-} from "../../../services/Appointments";
+import { MemoizedAppointmentCard } from "../../Cards/AppointmentCard/AppointmentCard";
+import { useUpcomingApponments } from "../../../services/Appointments";
 import LoadSpinner from "../../LoadSpinner/LoadSpinner";
-import { toast } from "react-toastify";
+
+import ErrorComponent from "../../ErrorComponent/ErrorComponent";
 const Upcoming = () => {
   const { data, isLoading, isError, error } = useUpcomingApponments();
-  if (isLoading) {
-    return <LoadSpinner />;
-  }
-  if (isError) {
-    console.log(error);
-    return toast.error("Error Happen to fetch upcoming Appointments", {
-      toastId: 1,
-    });
-  }
 
   return (
     <>
-      <button ></button>
-      {data && (
+      {data && !isLoading && !isError && (
         <div className={styles.UpcomingWrapper}>
           {data?.res?.data?.data?.map((salon, index) => (
             <MemoizedAppointmentCard
@@ -33,6 +19,11 @@ const Upcoming = () => {
               cardType="Upcoming"
             />
           ))}
+
+          {isLoading && <LoadSpinner />}
+          {isError && (
+            <ErrorComponent message={error ? error.message : "Error"} />
+          )}
         </div>
       )}
     </>

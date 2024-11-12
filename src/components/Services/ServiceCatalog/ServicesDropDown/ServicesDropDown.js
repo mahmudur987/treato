@@ -81,7 +81,7 @@ const ServicesDropDown = ({ data }) => {
                         </p>
                       </div>
                       <Link
-                        to={`/service/editservice?servicetype=${data._id}&category=${category._id}&subcategory=${service._id}`}
+                        to={`/partner/dashboard/service/editservice?servicetype=${data._id}&category=${category._id}&subcategory=${service._id}`}
                       >
                         <button className={styles.editButton}>
                           <img src={icon3} alt="" />

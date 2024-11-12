@@ -5,8 +5,10 @@ import AppointmentCard, {
 } from "../../Cards/AppointmentCard/AppointmentCard";
 import { getCancelledAppointments } from "../../../services/Appointments";
 import { toast } from "react-toastify";
+import LoadSpinner from "../../LoadSpinner/LoadSpinner";
 const Cancelled = () => {
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const res = await getCancelledAppointments();
@@ -33,6 +35,7 @@ const Cancelled = () => {
           cardType="Cancelled"
         />
       ))}
+      {loading && <LoadSpinner />}
     </div>
   );
 };

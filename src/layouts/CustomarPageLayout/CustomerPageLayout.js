@@ -14,6 +14,7 @@ import {
 import LoadSpinner from "../../components/LoadSpinner/LoadSpinner.js";
 
 export default function CustomerPageLayout() {
+  const [mobileView, setMobileView] = useState(false);
   const showModal = useSelector((state) => state?.salonModal.showModal);
   const isMobileView = useSelector((state) => state.salonModal.isMobileView);
   const location = useLocation();
@@ -39,7 +40,14 @@ export default function CustomerPageLayout() {
   const { user } = useSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(true); // Start with loading state
   const dispatch = useDispatch();
+  useEffect(() => {
+    const handleResize = () => {
+      setMobileView(window.innerWidth <= 700);
+    };
 
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   useEffect(() => {
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
@@ -57,6 +65,9 @@ export default function CustomerPageLayout() {
       setIsLoading(false); // Set loading to false if no token is found
     }
   }, []);
+
+  console.log(mobileView);
+
   if (isLoading) {
     return <LoadSpinner />;
   }
@@ -76,6 +87,7 @@ export default function CustomerPageLayout() {
         {!isMyAppointmentsRoute && !isServicePage && !isSpecialPage && (
           <Footer />
         )}
+        {isMyAppointmentsRoute && mobileView && <Footer />}
       </div>
     );
   }

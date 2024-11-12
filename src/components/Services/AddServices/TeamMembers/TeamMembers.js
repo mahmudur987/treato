@@ -67,7 +67,6 @@ const CheckBoxComponent = ({ setTeamMember }) => {
     } else {
       setSelectedCheckboxes(filteredPeople.map((person) => person.id));
     }
-    console.log(filteredPeople);
   };
   useEffect(() => {
     setTeamMember(selectedCheckboxes);
