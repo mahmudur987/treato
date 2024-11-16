@@ -129,7 +129,7 @@ export default function SocialSettings({ user }) {
             </LoginSocialFacebook>
           </div>
         </div>
-        <div className={styles.social_options}>
+        {/* <div className={styles.social_options}>
           <div className={styles.social_opt_left}>
             <img
               loading="lazy"
@@ -152,7 +152,7 @@ export default function SocialSettings({ user }) {
                 : "Disconnect"}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
