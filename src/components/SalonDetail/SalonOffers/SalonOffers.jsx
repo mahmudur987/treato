@@ -34,7 +34,7 @@ export default function SalonOffers({
       {isFromModal ? (
         <div
           className={styles.salon_offersModal}
-          onClick={() => handleOfferClick(offerData)}
+          onClick={() => (handleOfferClick ? handleOfferClick(offerData) : "")}
         >
           <div className={styles.salon_offersModalA}>
             <div className={styles.salon_offersAB}>
@@ -62,7 +62,7 @@ export default function SalonOffers({
       ) : (
         <div
           className={styles.salon_offersAA}
-          onClick={() => handleOfferClick(offerData)}
+          onClick={() => (handleOfferClick ? handleOfferClick(offerData) : "")}
         >
           <div className={styles.salon_offersAB}>
             <img loading="lazy" src={discount_shape} alt="" />

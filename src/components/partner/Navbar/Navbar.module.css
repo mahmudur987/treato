@@ -22,10 +22,15 @@
   align-items: center;
   justify-content: center;
 }
-.siteName img,
+
 .siteName {
-  width: 93.429px;
-  height: 48px;
+  max-width: 100px;
+  width: 100%;
+  /* height: 48px; */
+}
+.siteName img {
+  width: 100%;
+  height: 100%;
 }
 .navMenu {
   max-width: 800px;

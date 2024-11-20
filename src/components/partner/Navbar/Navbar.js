@@ -53,7 +53,7 @@ const Navbar = () => {
       <header className={style.container}>
         <nav className={style.siteNamewrapper}>
           <Link to={"/"} className={style.siteName}>
-            <img loading="lazy" src={TreatoLogo} />
+            <img loading="lazy" src={TreatoLogo} alt="icons" />
           </Link>
         </nav>
 
@@ -125,65 +125,75 @@ const Navbar = () => {
             />
           </Link>
           <button onClick={() => setshow((pre) => !pre)}>
-            <img loading="lazy" className={style.humburger} src={menu} />
+            <img
+              loading="lazy"
+              className={style.humburger}
+              src={menu}
+              alt="icons"
+            />
           </button>
 
           {show && (
             <div className={style.mobileMenuContainer}>
               <div className={style.mobileMenhHEading}>
                 <Link to={"/"} className={style.siteName}>
-                  <img loading="lazy" src={TreatoLogo} />
+                  <img loading="lazy" src={TreatoLogo} alt="icons" />
                 </Link>
                 <button onClick={handleSetShow}>
-                  <img loading="lazy" src={cross} />
+                  <img loading="lazy" src={cross} alt="icons" />
                 </button>
               </div>
               <div className={style.mobileMenuItms}>
                 <div className={style.mobileMenuItem} onClick={handleSetShow}>
                   <Link to={"/partner/authchoice"}>
-                    <img loading="lazy" src={signin} />{" "}
+                    <img loading="lazy" src={signin} alt="icons" />{" "}
                     <span>Sign up / Sign-in</span>
                   </Link>
                   <button>
-                    <img loading="lazy" src={right} />
+                    <img loading="lazy" src={right} alt="icons" />
                   </button>
                 </div>
 
                 <div className={style.mobileMenuItem} onClick={handleSetShow}>
                   <Link to={"/"}>
-                    <img loading="lazy" src={user} /> <span>For Customers</span>
+                    <img loading="lazy" src={user} alt="icons" />{" "}
+                    <span>For Customers</span>
                   </Link>
                   <button>
-                    <img loading="lazy" src={right} />
+                    <img loading="lazy" src={right} alt="icons" />
                   </button>
                 </div>
                 <div className={style.mobileMenuItem} onClick={handleSetShow}>
                   <Link to={"#"}>
-                    <img loading="lazy" src={pricing} /> <span>Pricing</span>
+                    <img loading="lazy" src={pricing} alt="icons" />{" "}
+                    <span>Pricing</span>
                   </Link>
                   <button>
-                    <img loading="lazy" src={right} />
+                    <img loading="lazy" src={right} alt="icons" />
                   </button>
                 </div>
                 <div className={style.mobileMenuItem} onClick={handleSetShow}>
-                  <Link to={"/"}>
-                    <img loading="lazy" src={download} />{" "}
+                  <Link
+                    to={""}
+                    onClick={() => scrollToSection(navigate, "AppDownload")}
+                  >
+                    <img loading="lazy" src={download} alt="icons" />{" "}
                     <span>Download app</span>
                   </Link>
                   <button>
-                    <img loading="lazy" src={right} />
+                    <img loading="lazy" src={right} alt="icons" />
                   </button>
                 </div>
                 {userData.user.role === "partner" && (
                   <div className={style.mobileMenuItem} onClick={handleSetShow}>
                     {userData.user.role === "partner" && (
                       <Link to={"/partner/dashboard"}>
-                        <img loading="lazy" src={user} />
+                        <img loading="lazy" src={user} alt="icons" />
                         <span> Dashboard</span>
                       </Link>
                     )}
                     <button>
-                      <img loading="lazy" src={right} />
+                      <img loading="lazy" src={right} alt="icons" />
                     </button>
                   </div>
                 )}
