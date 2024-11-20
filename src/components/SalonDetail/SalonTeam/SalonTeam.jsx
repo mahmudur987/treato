@@ -1,18 +1,22 @@
-import styles from '../SalonMain/SalonMain.module.css'
-import starWhite from "../../../assets/images/SalonDetail/starWhite.svg"
+import styles from "../SalonMain/SalonMain.module.css";
+// import starWhite from "../../../assets/images/SalonDetail/starWhite.svg";
 
-export default function SalonTeam({stylistData}) {
-    return (
-        <div className={styles.salon_teamAA}>
-            <div className={styles.salon_teamAAA}>
-                <img loading="lazy" src={stylistData?.stylist_Img?.public_url} alt="stylist image" />
-            </div>
-            <div className={styles.salon_teamAAD}>
+export default function SalonTeam({ stylistData }) {
+  return (
+    <div className={styles.salon_teamAA}>
+      <div className={styles.salon_teamAAA}>
+        <img
+          loading="lazy"
+          src={stylistData?.stylist_Img?.public_url}
+          alt="stylist images"
+        />
+      </div>
+      {/* <div className={styles.salon_teamAAD}>
                 <img loading="lazy" src={starWhite} alt="star" />
                 {stylistData?.rating}
-            </div>
-            <div className={styles.salon_teamAAB}>{stylistData?.stylist_name}</div>
-            <div className={styles.salon_teamAAC}>{stylistData?.stylist_service[0]}</div>
-        </div>
-    )
+            </div> */}
+      <div className={styles.salon_teamAAB}>{stylistData?.stylist_name}</div>
+      <div className={styles.salon_teamAAC}>{stylistData?.stylist_service}</div>
+    </div>
+  );
 }

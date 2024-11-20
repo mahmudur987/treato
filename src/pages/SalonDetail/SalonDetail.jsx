@@ -100,7 +100,7 @@ export default function SalonDetail() {
                 <img
                   loading="lazy"
                   src={v.public_url}
-                  alt="salon image"
+                  alt="salon images"
                   key={i}
                 />
               );
