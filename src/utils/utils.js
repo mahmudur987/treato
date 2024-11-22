@@ -1,11 +1,13 @@
-import {
-  updateSalonContent,
-} from "../redux/slices/salons";
+import { updateSalonContent } from "../redux/slices/salons";
 import { getAllServices } from "../services/Services";
-import { getSalonListBySearchInput, getSalonListByServiceLocation, salon } from "../services/salon";
+import {
+  getSalonListBySearchInput,
+  getSalonListByServiceLocation,
+  salon,
+} from "../services/salon";
 
 // export const getFormattedDate = (argDate) => {
- 
+
 //   const date = new Date(argDate);
 //   if (argDate === undefined) return "-";
 //   let year = date.getFullYear();
@@ -23,8 +25,18 @@ import { getSalonListBySearchInput, getSalonListByServiceLocation, salon } from 
 // };
 export const getFormattedDate = (argDate) => {
   const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   const date = new Date(argDate);
@@ -46,18 +58,18 @@ export const getFormattedDate = (argDate) => {
   // let dateFormatted = `${year}-${monthIndex}-${dateNum} (${monthName})`;
   let dateFormatted = `${dateNum} ${monthName} ${year} `;
   return dateFormatted;
-}
+};
 
-export const handleInputChange=(e, setFunction)=> {
+export const handleInputChange = (e, setFunction) => {
   const inputValue = e.target.value;
-  const filteredValue = inputValue.replace(/[^A-Za-z]/g, ''); // Remove numeric characters
+  const filteredValue = inputValue.replace(/[^A-Za-z]/g, ""); // Remove numeric characters
 
   setFunction(filteredValue);
-}
+};
 
 const R = 6371; // Radius of the Earth in kilometers
 
- const calculateDistance = (lat1, lon1, lat2, lon2) => {
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const radLat1 = degToRad(lat1);
   const radLon1 = degToRad(lon1);
   const radLat2 = degToRad(lat2);
@@ -66,7 +78,9 @@ const R = 6371; // Radius of the Earth in kilometers
   const deltaLat = radLat2 - radLat1;
   const deltaLon = radLon2 - radLon1;
 
-  const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(radLat1) * Math.cos(radLat2) * Math.sin(deltaLon / 2) ** 2;
+  const a =
+    Math.sin(deltaLat / 2) ** 2 +
+    Math.cos(radLat1) * Math.cos(radLat2) * Math.sin(deltaLon / 2) ** 2;
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 };
@@ -76,125 +90,163 @@ const degToRad = (deg) => {
 export const displayDistance = (kilometers) => {
   if (kilometers < 1) {
     // Convert kilometers to meters (1 kilometer = 1000 meters)
-    return (kilometers * 1000)?.toFixed(0) + ' m';
+    return (kilometers * 1000)?.toFixed(0) + " m";
   } else {
-    return kilometers?.toFixed(0) + ' km';
+    return kilometers?.toFixed(0) + " km";
   }
 };
 
 // Define an async function to fetch and update the salons data
-export const fetchSalonsData = (userDetails,fetchType,serviceName,salonlocation) => async (dispatch) => {
-  try {
-    let result;
-    if(fetchType==="searchBase"){
-    result = await getSalonListBySearchInput(serviceName,salonlocation);
-    }
-    else{
-    result = await salon();
-    }
-    if (result.res) {
-      const { data } = result.res; // Destructure 'data' from 'result.res'
-      const { salons } = data; // Destructure 'salons' from 'data'
-      const userCoordinates = { lat: userDetails?.user?.latitude, lon: userDetails?.user?.longitude };
-
-      const ServicesResponse = await getAllServices();
-      let listServices = ServicesResponse?.res.data.data;
-      // Create a map of service IDs to their corresponding names
-      const serviceMap = {};
-      listServices.forEach((service) => {
-        serviceMap[service._id] = {
-          service_name: service.service_name,
-          price: service.price,
-          service_timing:service.service_timing // Add the price to the service
-        };
-      });
-
-      let allSalonsCoordinates=salons.map((e)=>{
-        let obj={lat:e.location.coordinates[0],lon:e.location.coordinates[1]}
-        return obj
-      })
-      const calculatedDistances = allSalonsCoordinates?.map((salon) => {
-        return calculateDistance(userCoordinates.lat, userCoordinates.lon, salon.lat, salon.lon);
-      });
-      salons.forEach((salon,i) => {
-        if(fetchType!=="searchBase"){
-          salon.services = salon.services.map((serviceId) => ({
-            _id: serviceId,
-            ...serviceMap[serviceId], // Provide a default value if service name is not found
-          }));
-        }
-        salon.distances=calculatedDistances[i]
-      });
-      // Dispatch the 'updateSalonContent' action with the fetched 'salons' data
-      if(fetchType!=="searchBase"){
-        dispatch(updateSalonContent(salons));
+export const fetchSalonsData =
+  (userDetails, fetchType, serviceName, salonlocation) => async (dispatch) => {
+    try {
+      let result;
+      if (fetchType === "searchBase") {
+        result = await getSalonListBySearchInput(serviceName, salonlocation);
+      } else {
+        result = await salon();
       }
-
-    }
-  } catch (error) {
-    // Handle any errors here
-    console.error("Error fetching salons:", error);
-  }
-};
-
-
-export const getfilterSalon = async(userDetails,fetchType,serviceName,salonlocation) =>  {
-    let result;
-    if(fetchType==="searchBase"){
-    result = await getSalonListBySearchInput(serviceName,salonlocation);
-    }
-
-    if (result.res) {
-      const { data } = result.res; // Destructure 'data' from 'result.res'
-      const { salons } = data; // Destructure 'salons' from 'data'
-      const userCoordinates = { lat: userDetails?.user?.latitude, lon: userDetails?.user?.longitude };
-      
-      const ServicesResponse = await getAllServices();
-      let listServices = ServicesResponse?.res.data.data;
-      // Create a map of service IDs to their corresponding names
-      const serviceMap = {};
-      listServices.forEach((service) => {
-        serviceMap[service._id] = {
-          service_name: service.service_name,
-          price: service.price,
-          service_timing:service.service_timing // Add the price to the service
+      if (result.res) {
+        const { data } = result.res; // Destructure 'data' from 'result.res'
+        const { salons } = data; // Destructure 'salons' from 'data'
+        const userCoordinates = {
+          lat: userDetails?.user?.latitude,
+          lon: userDetails?.user?.longitude,
         };
-      });
 
-      let allSalonsCoordinates=salons.map((e)=>{
-        let obj={lat:e.location.coordinates[0],lon:e.location.coordinates[1]}
-        return obj
-      })
-      const calculatedDistances = allSalonsCoordinates?.map((salon) => {
-        return calculateDistance(userCoordinates.lat, userCoordinates.lon, salon.lat, salon.lon);
-      });
-      salons.forEach((salon,i) => {
-        if(fetchType!=="searchBase"){
-          salon.services = salon.services.map((serviceId) => ({
-            _id: serviceId,
-            ...serviceMap[serviceId], // Provide a default value if service name is not found
-          }));
+        const ServicesResponse = await getAllServices();
+        let listServices = ServicesResponse?.res.data.data;
+        // Create a map of service IDs to their corresponding names
+        const serviceMap = {};
+        listServices.forEach((service) => {
+          serviceMap[service._id] = {
+            service_name: service.service_name,
+            price: service.price,
+            service_timing: service.service_timing, // Add the price to the service
+          };
+        });
+
+        let allSalonsCoordinates = salons.map((e) => {
+          let obj = {
+            lat: e.location.coordinates[0],
+            lon: e.location.coordinates[1],
+          };
+          return obj;
+        });
+        const calculatedDistances = allSalonsCoordinates?.map((salon) => {
+          return calculateDistance(
+            userCoordinates.lat,
+            userCoordinates.lon,
+            salon.lat,
+            salon.lon
+          );
+        });
+        salons.forEach((salon, i) => {
+          if (fetchType !== "searchBase") {
+            salon.services = salon.services.map((serviceId) => ({
+              _id: serviceId,
+              ...serviceMap[serviceId], // Provide a default value if service name is not found
+            }));
+          }
+          salon.distances = calculatedDistances[i];
+        });
+        // Dispatch the 'updateSalonContent' action with the fetched 'salons' data
+        if (fetchType !== "searchBase") {
+          dispatch(updateSalonContent(salons));
         }
-        salon.distances=calculatedDistances[i]
-      });
-      return salons
+      }
+    } catch (error) {
+      // Handle any errors here
+      console.error("Error fetching salons:", error);
     }
-};
+  };
 
-
-
-export const getfilterSalonByServiceLatLng = async(userDetails,fetchType,serviceName,salonlocation,locationLat,locationLng) =>  {
+export const getfilterSalon = async (
+  userDetails,
+  fetchType,
+  serviceName,
+  salonlocation
+) => {
   let result;
-  console.log("i am here")
-  if(fetchType==="searchBase"){
-  result = await getSalonListByServiceLocation(serviceName,locationLat,locationLng);
+  if (fetchType === "searchBase") {
+    result = await getSalonListBySearchInput(serviceName, salonlocation);
   }
 
   if (result.res) {
     const { data } = result.res; // Destructure 'data' from 'result.res'
     const { salons } = data; // Destructure 'salons' from 'data'
-    const userCoordinates = { lat: userDetails?.user?.latitude, lon: userDetails?.user?.longitude };
-    
+    const userCoordinates = {
+      lat: userDetails?.user?.latitude,
+      lon: userDetails?.user?.longitude,
+    };
+
+    const ServicesResponse = await getAllServices();
+    let listServices = ServicesResponse?.res.data.data;
+    // Create a map of service IDs to their corresponding names
+    const serviceMap = {};
+    listServices.forEach((service) => {
+      serviceMap[service._id] = {
+        service_name: service.service_name,
+        price: service.price,
+        service_timing: service.service_timing, // Add the price to the service
+      };
+    });
+
+    let allSalonsCoordinates = salons.map((e) => {
+      let obj = {
+        lat: e.location.coordinates[0],
+        lon: e.location.coordinates[1],
+      };
+      return obj;
+    });
+    const calculatedDistances = allSalonsCoordinates?.map((salon) => {
+      return calculateDistance(
+        userCoordinates.lat,
+        userCoordinates.lon,
+        salon.lat,
+        salon.lon
+      );
+    });
+    salons.forEach((salon, i) => {
+      if (fetchType !== "searchBase") {
+        salon.services = salon.services.map((serviceId) => ({
+          _id: serviceId,
+          ...serviceMap[serviceId], // Provide a default value if service name is not found
+        }));
+      }
+      salon.distances = calculatedDistances[i];
+    });
+    return salons;
+  }
+};
+
+export const getfilterSalonByServiceLatLng = async (
+  userDetails,
+  fetchType,
+  serviceName,
+  salonlocation,
+  locationLat,
+  locationLng
+) => {
+  let result;
+  console.log("i am here");
+  if (fetchType === "searchBase") {
+    result = await getSalonListByServiceLocation(
+      serviceName,
+      locationLat,
+      locationLng,
+      salonlocation
+    );
+  }
+
+  if (result.res) {
+    const { data } = result.res; // Destructure 'data' from 'result.res'
+    const { salons } = data; // Destructure 'salons' from 'data'
+    const userCoordinates = {
+      lat: userDetails?.user?.latitude,
+      lon: userDetails?.user?.longitude,
+    };
+
     const ServicesResponse = await getAllServices();
     let listServices = ServicesResponse?.res.data.data;
     // Create a map of service IDs to their corresponding names
@@ -203,30 +255,37 @@ export const getfilterSalonByServiceLatLng = async(userDetails,fetchType,service
       serviceMap[service._id] = {
         service_name: service.service_name,
         price: service.price,
-        service_timing:service.service_timing // Add the price to the service
+        service_timing: service.service_timing, // Add the price to the service
       };
     });
 
-    let allSalonsCoordinates=salons?.map((e)=>{
-      let obj={lat:e.location.coordinates[0],lon:e.location.coordinates[1]}
-      return obj
-    })
-    const calculatedDistances = allSalonsCoordinates?.map((salon) => {
-      return calculateDistance(userCoordinates.lat, userCoordinates.lon, salon.lat, salon.lon);
+    let allSalonsCoordinates = salons?.map((e) => {
+      let obj = {
+        lat: e.location.coordinates[0],
+        lon: e.location.coordinates[1],
+      };
+      return obj;
     });
-    salons?.forEach((salon,i) => {
-      if(fetchType!=="searchBase"){
+    const calculatedDistances = allSalonsCoordinates?.map((salon) => {
+      return calculateDistance(
+        userCoordinates.lat,
+        userCoordinates.lon,
+        salon.lat,
+        salon.lon
+      );
+    });
+    salons?.forEach((salon, i) => {
+      if (fetchType !== "searchBase") {
         salon.services = salon.services?.map((serviceId) => ({
           _id: serviceId,
           ...serviceMap[serviceId], // Provide a default value if service name is not found
         }));
       }
-      salon.distances=calculatedDistances[i]
+      salon.distances = calculatedDistances[i];
     });
-    return salons
+    return salons;
   }
 };
-
 
 export const calculateSalonDistance = (lat1, lon1, lat2, lon2) => {
   const radLat1 = degToRad(lat1);
@@ -237,14 +296,15 @@ export const calculateSalonDistance = (lat1, lon1, lat2, lon2) => {
   const deltaLat = radLat2 - radLat1;
   const deltaLon = radLon2 - radLon1;
 
-  const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(radLat1) * Math.cos(radLat2) * Math.sin(deltaLon / 2) ** 2;
+  const a =
+    Math.sin(deltaLat / 2) ** 2 +
+    Math.cos(radLat1) * Math.cos(radLat2) * Math.sin(deltaLon / 2) ** 2;
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 };
 
-
 export function convertToMonthYear(dateString) {
-  const options = { year: 'numeric', month: 'long' };
+  const options = { year: "numeric", month: "long" };
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', options);
+  return date.toLocaleDateString("en-US", options);
 }

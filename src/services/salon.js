@@ -24,12 +24,16 @@ export const getSalonListBySearchInput = async (serviceName, salonlocation) => {
 export const getSalonListByServiceLocation = async (
   serviceName,
   locationLat,
-  locationLng
+  locationLng,
+  salonlocation
 ) => {
   console.log("hello data");
   try {
     const res = await axiosInstance.get(
-      `salon/getSalonByLatLngService?service=${serviceName}&latitude=${locationLat}&longitude=${locationLng}`
+      `salon/getSalonByLatLngService?service=${serviceName}&latitude=${locationLat}&longitude=${locationLng}&locationText=${salonlocation.replace(
+        /\s+/g,
+        ""
+      )}`
     );
     return { res: res, err: null };
   } catch (error) {
