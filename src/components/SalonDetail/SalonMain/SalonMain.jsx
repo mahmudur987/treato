@@ -27,9 +27,8 @@ export default function SalonServices({
   } = useGetAllSalonReview(id);
 
   const [activeSalon, updateActiveSalon] = useState(1);
-  const [sameTimingDays, setSameTimingDays] = useState(null);
-  const [difTimingDays, setDifTimingDays] = useState(null);
 
+  const [groupedTimings, setGroupedTimings] = useState([]);
   const aboutRef = useRef(null);
   const servicesRef = useRef(null);
   const offersRef = useRef(null);
@@ -38,25 +37,65 @@ export default function SalonServices({
 
   useEffect(() => {
     const workingHours = SalonData?.working_hours;
-
-    const SameTimingDays = [];
-    const difTimingDays = [];
-    workingHours?.forEach((e, i) => {
-      if (
-        i === 0 ||
-        (e.opening_time ===
-          SameTimingDays[SameTimingDays.length - 1]?.opening_time &&
-          e.closing_time ===
-            SameTimingDays[SameTimingDays.length - 1]?.closing_time)
-      ) {
-        SameTimingDays.push({ ...e, i });
-      } else {
-        difTimingDays.push({ ...e, i });
+    const groupConsecutiveDays = (workingHours) => {
+      if (!workingHours || workingHours.length === 0) {
+        return []; // Return an empty array if no timings are provided
       }
-    });
 
-    setSameTimingDays(SameTimingDays);
-    setDifTimingDays(difTimingDays);
+      const daysOrder = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+
+      // Sort timings based on the day order
+      const sortedTimings = workingHours.sort(
+        (a, b) => daysOrder.indexOf(a.day) - daysOrder.indexOf(b.day)
+      );
+
+      if (sortedTimings.length === 0) {
+        return []; // Safeguard in case sortedTimings is empty
+      }
+
+      const grouped = [];
+      let currentGroup = {
+        days: [sortedTimings[0].day],
+        opening_time: sortedTimings[0].opening_time,
+        closing_time: sortedTimings[0].closing_time,
+      };
+
+      for (let i = 1; i < sortedTimings.length; i++) {
+        const current = sortedTimings[i];
+        const previousDayIndex = daysOrder.indexOf(sortedTimings[i - 1].day);
+        const currentDayIndex = daysOrder.indexOf(current.day);
+
+        // Check if timings are the same and days are consecutive
+        if (
+          current.opening_time === currentGroup.opening_time &&
+          current.closing_time === currentGroup.closing_time &&
+          currentDayIndex === previousDayIndex + 1
+        ) {
+          currentGroup.days.push(current.day);
+        } else {
+          grouped.push(currentGroup);
+          currentGroup = {
+            days: [current.day],
+            opening_time: current.opening_time,
+            closing_time: current.closing_time,
+          };
+        }
+      }
+
+      grouped.push(currentGroup); // Push the last group
+      return grouped;
+    };
+
+    const result = groupConsecutiveDays(workingHours);
+    setGroupedTimings(result);
   }, [SalonData]);
 
   const handleScrollToSection = (ref, index) => {
@@ -136,27 +175,24 @@ export default function SalonServices({
             </div>
             <div className={styles.salon_aboutB}>
               <div className={styles.salon_aboutBA}>Store timings</div>
-              {sameTimingDays?.length && (
+              {groupedTimings?.length > 0 && (
                 <div
                   className={`${styles.salon_aboutBC} ${styles.salonTimings}`}
                 >
-                  <span>
-                    {sameTimingDays[0]?.day} -{" "}
-                    {sameTimingDays[sameTimingDays?.length - 1].day}
-                  </span>{" "}
-                  : {sameTimingDays[0].opening_time} -{" "}
-                  {sameTimingDays[0].closing_time}
+                  <>
+                    {groupedTimings.map((group, index) => (
+                      <p key={index}>
+                        {group.days.length > 1
+                          ? `${group?.days[0]} - ${
+                              group?.days[group.days.length - 1]
+                            }`
+                          : group?.days[0]}{" "}
+                        : {group?.opening_time} - {group?.closing_time}
+                      </p>
+                    ))}
+                  </>
                 </div>
               )}
-              {difTimingDays?.length > 0 &&
-                difTimingDays.map((v, i) => (
-                  <div
-                    className={`${styles.salon_aboutBC} ${styles.salonTimings}`}
-                    key={i}
-                  >
-                    <span>{v.day}</span> : {v.opening_time} - {v.closing_time}
-                  </div>
-                ))}
             </div>
             <div className={styles.salon_aboutC}>
               <div className={styles.salon_aboutBA}>Location</div>

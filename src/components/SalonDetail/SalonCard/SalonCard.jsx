@@ -17,7 +17,8 @@ import { Link, useNavigate } from "react-router-dom";
 export default function SalonCard({ SalonData, salonId }) {
   const [showTiming, setShowTiming] = useState(false);
   const today = new Date().toISOString().split("T")[0];
-  let storeSchedule = SalonData?.working_hours;
+
+  const [nextOpeningDay, setNextOpeningDay] = useState(null);
   const [checkSalonOpen, setCheckSalonOpen] = useState(false);
   const { data: offer, isError, isLoading } = useGetAllSalonOffer();
   const { data: open } = useGetSalonOpen(salonId, today);
@@ -36,7 +37,7 @@ export default function SalonCard({ SalonData, salonId }) {
       }
     }, 100); // Timeout to ensure navigation completes
   };
-
+  let storeSchedule = SalonData?.working_hours;
   useEffect(() => {
     if (storeSchedule) {
       const checkIfOpen = () => {
@@ -44,42 +45,69 @@ export default function SalonCard({ SalonData, salonId }) {
         const currentDay = now.toLocaleString("en-US", { weekday: "long" });
         const currentTime = now.getHours() * 60 + now.getMinutes(); // Current time in minutes
 
+        // Helper function to convert time to minutes
+        const convertTimeToMinutes = (time) => {
+          const [hours, minutes] = time.split(":").map(Number);
+          return hours * 60 + minutes;
+        };
+
+        // Find today's schedule
         const todaySchedule = storeSchedule.find(
           (day) => day.day === currentDay
         );
 
+        let salonIsOpen = false;
+
         if (todaySchedule) {
           const openingTime = convertTimeToMinutes(todaySchedule.opening_time);
           const closingTime = convertTimeToMinutes(todaySchedule.closing_time);
-          console.log(closingTime);
+
           // Check if current time is within opening and closing times
-          if (currentTime >= openingTime && currentTime <= closingTime) {
-            setCheckSalonOpen(true);
-          } else {
-            setCheckSalonOpen(false);
+          salonIsOpen =
+            currentTime >= openingTime && currentTime <= closingTime;
+        }
+
+        setCheckSalonOpen(salonIsOpen);
+
+        if (!salonIsOpen) {
+          // Find the next opening day
+          const daysOrder = [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ];
+
+          const currentDayIndex = daysOrder.indexOf(currentDay);
+
+          // Look for the next opening day in a circular manner
+          let nextDay = null;
+          for (let i = 1; i <= 7; i++) {
+            const nextIndex = (currentDayIndex + i) % 7;
+            const nextDayName = daysOrder[nextIndex];
+            const nextDaySchedule = storeSchedule.find(
+              (day) => day.day === nextDayName
+            );
+
+            if (nextDaySchedule) {
+              nextDay = nextDaySchedule;
+              break;
+            }
           }
+
+          setNextOpeningDay(nextDay);
+        } else {
+          setNextOpeningDay(null);
         }
       };
 
-      // Convert time in "hh:mm AM/PM" to minutes
-      const convertTimeToMinutes = (timeString) => {
-        const [time, modifier] = timeString.split(" ");
-        let [hours, minutes] = time.split(":").map(Number);
-
-        if (modifier === "PM" && hours !== 12) hours += 12;
-        if (modifier === "AM" && hours === 12) hours = 0;
-
-        return hours * 60 + minutes;
-      };
-
       checkIfOpen();
-
-      const intervalId = setInterval(checkIfOpen, 60000);
-
-      return () => clearInterval(intervalId);
     }
   }, [storeSchedule]);
-
+  console.log(nextOpeningDay);
   const seeTiming = () => {
     setShowTiming(true);
   };
@@ -125,10 +153,11 @@ export default function SalonCard({ SalonData, salonId }) {
               </div>
             )}
             <img loading="lazy" src={ellipse} alt="" />
-            <div>
-              Opens {SalonData?.working_hours[0]?.opening_time}{" "}
-              {SalonData?.working_hours[0]?.day}
-            </div>
+            {nextOpeningDay && (
+              <div>
+                Opens {nextOpeningDay?.opening_time} {nextOpeningDay?.day}
+              </div>
+            )}
           </div>
           <div className={styles.salon_cardDB} onClick={seeTiming}>
             See timings
