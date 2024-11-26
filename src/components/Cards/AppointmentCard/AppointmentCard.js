@@ -14,7 +14,7 @@ import PrimaryButton from "../../Buttons/PrimaryButton/PrimaryButton";
 import SecondaryButton from "../../Buttons/SecondaryButton/SecondaryButton";
 import { openModal } from "../../../redux/slices/modal";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -125,9 +125,9 @@ const AppointmentCard = ({ salon, cardType }) => {
               />
               {toggleoptions && (
                 <div className={styles.options}>
-                  <a href="#" className={styles.helpOption}>
+                  <Link to={"/contactus"} className={styles.helpOption}>
                     Help
-                  </a>
+                  </Link>
                 </div>
               )}
             </div>
