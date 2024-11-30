@@ -19,7 +19,7 @@ const WriteReview = ({ data }) => {
   const [ratingError, setRatingError] = useState("");
   const [stylistratingError, setStylistRatingError] = useState("");
   const dispatch = useDispatch();
-  console.log(data);
+
   const handleStarClick = (value) => {
     setRating(value);
     setRatingError(""); // Clear rating error when the user selects a rating
@@ -71,14 +71,16 @@ const WriteReview = ({ data }) => {
 
       try {
         const res = await addReview(data._id, review);
-        console.log(res);
+        console.log(res.err.response.data.error);
 
         if (res.res) {
           dispatch(closeModal());
           toast.success("Your review has been posted successfully.");
         } else {
           toast.error(
-            "An error occurred while posting your review. Please try again."
+            res?.err?.response?.data?.error
+              ? res?.err?.response?.data?.error
+              : "An error occurred while posting your review. Please try again."
           );
         }
       } catch (error) {
