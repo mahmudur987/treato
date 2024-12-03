@@ -68,7 +68,8 @@ const AddMemberProfile = () => {
   const selectedServiceDetails = allServices?.filter((x) =>
     selectedServices.includes(x._id)
   );
-  console.log(selectedServices);
+  console.log(serviceStartDate);
+  console.log(serviceEndDate);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -91,7 +92,9 @@ const AddMemberProfile = () => {
     if (!serviceStartDate)
       return toast.error("Please select Service Start Date.");
     if (!serviceEndDate) return toast.error("Please Select Service End Date.");
-
+    if (new Date(serviceStartDate) > new Date(serviceEndDate)) {
+      return toast.error("Start date cannot be after the end date.");
+    }
     const formData = new FormData();
     formData.append("stylist_name", `${firstName.trim()} ${lastName.trim()}`);
     formData.append("stylist_service", serviceTitle.trim());

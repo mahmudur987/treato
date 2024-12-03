@@ -94,12 +94,11 @@ const EditTeamData = () => {
     setPhone(member?.data?.stylist_number);
     setAddress(member?.data?.stylist_address);
     setServiceTitle(member?.data?.stylist_service);
-    setServiceStartDate(member?.data?.created);
     setSelectedServices(member?.data.services);
     setServiceStartDate(member?.data?.Service_Start_Date);
     setServiceEndDate(member?.data?.Service_End_Date);
   }, [member]);
-
+  console.log(serviceStartDate);
   const lastDate = formatDate(serviceEndDate);
 
   const allUsedService = allServices?.filter((x) => {
@@ -208,6 +207,7 @@ const EditTeamData = () => {
   const theModalOpen = () => {
     setIsModalOpen((pre) => !pre);
   };
+
   return (
     <>
       <div className={styles.container}>
@@ -355,7 +355,7 @@ const EditTeamData = () => {
                       <div className={styles.labelText}>Service Start Date</div>
                       <Pick
                         ondateChange={(date) => setServiceStartDate(date)}
-                        date={member?.data?.created.slice(0, 10)}
+                        date={formatDate(serviceStartDate)}
                       />
                     </label>
                   </div>
@@ -364,7 +364,7 @@ const EditTeamData = () => {
                       <div className={styles.labelText}>Service End Date</div>
                       <Pick
                         ondateChange={(date) => setServiceEndDate(date)}
-                        date={member?.data?.last_date ?? ""}
+                        date={formatDate(serviceEndDate)}
                       />
                     </label>
                   </div>
