@@ -34,68 +34,76 @@ const RecentActivity = () => {
               (a, b) => new Date(b.dateforService) - new Date(a.dateforService)
             )
             .slice(0, 20)
-            .map((item, i) => (
-              <div className={styles.card}>
-                <div className={styles.cardLeft}>
-                  <div className={styles.date}>
-                    <p>
-                      {
-                        new Date(item?.start_date)
-                          .toLocaleDateString("en-US", options)
-                          .split(" ")[1]
-                      }
-                    </p>
-                    <span>
-                      {
-                        new Date(item?.start_date)
-                          .toLocaleDateString("en-US", options)
-                          .split(" ")[0]
-                      }
-                    </span>
-                  </div>
+            .map((item, i) => {
+              console.log(item);
 
-                  <div className={styles.contents}>
-                    <p className={styles.contentsP}>
-                      <span className={styles.appointmentDate}>
-                        {new Date(item?.dateforService).toLocaleDateString(
-                          "en-US",
-                          {
-                            weekday: "short",
-                            day: "numeric",
-                            month: "short",
-                          }
-                        )}
-                        {"  " + " "}
-                        {item.bookingTime}
-                      </span>{" "}
-                      <span className={styles.appointmentStatus}>
-                        {item.status}
+              return (
+                <div className={styles.card}>
+                  <div className={styles.cardLeft}>
+                    <div className={styles.date}>
+                      <p>
+                        {
+                          new Date(item?.start_date)
+                            .toLocaleDateString("en-US", options)
+                            .split(" ")[1]
+                        }
+                      </p>
+                      <span>
+                        {
+                          new Date(item?.start_date)
+                            .toLocaleDateString("en-US", options)
+                            .split(" ")[0]
+                        }
                       </span>
-                    </p>
-                    <p>
-                      <span className={styles.appointmentName}>
-                        {item?.serviceData?.service_name || "No Name"} (
-                        {item?.serviceData?.time_takenby_service})
-                      </span>
-                      {item.stylistData.map((x, y) => (
-                        <div className={styles.teamMember}>
-                          <img loading="lazy" src={x.stylist_Img?.public_url} alt="" />
-                          <span className={styles.appointmentFor}>
-                            {x.stylist_name}
-                          </span>
-                        </div>
-                      ))}
+                    </div>
+
+                    <div className={styles.contents}>
+                      <p className={styles.contentsP}>
+                        <span className={styles.appointmentDate}>
+                          {new Date(item?.dateforService).toLocaleDateString(
+                            "en-US",
+                            {
+                              weekday: "short",
+                              day: "numeric",
+                              month: "short",
+                            }
+                          )}
+                          {"  " + " "}
+                          {item.bookingTime}
+                        </span>{" "}
+                        <span className={styles.appointmentStatus}>
+                          {item.status}
+                        </span>
+                      </p>
+                      <p>
+                        <span className={styles.appointmentName}>
+                          {item?.serviceData?.service_name || "No Name"} (
+                          {item?.serviceData?.time_takenby_service})
+                        </span>
+                        {item.stylistData.map((x, y) => (
+                          <div className={styles.teamMember}>
+                            <img
+                              loading="lazy"
+                              src={x.stylist_Img?.public_url}
+                              alt=""
+                            />
+                            <span className={styles.appointmentFor}>
+                              {x.stylist_name}
+                            </span>
+                          </div>
+                        ))}
+                      </p>
+                    </div>
+                  </div>
+                  <div className={styles.cardRight}>
+                    <p className={styles.price}>₹{item.final_amount}</p>
+                    <p className={styles.paymentType}>
+                      {item.paymentMode || "Payment Mode"}
                     </p>
                   </div>
                 </div>
-                <div className={styles.cardRight}>
-                  <p className={styles.price}>₹{item.final_amount}</p>
-                  <p className={styles.paymentType}>
-                    {item.PaymentMode || "Payment Mode"}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
         {data && data.length === 0 && <NoDataDisplay />}
         {isLoading && <LoadSpinner />}
         {isError && (

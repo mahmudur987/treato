@@ -114,9 +114,10 @@ const EditTeamData = () => {
     const phoneAsNumber = Number(phone);
 
     const formData = new FormData();
-    const fullName = `${firstName || member?.data.stylist_name} ${
-      lastName || ""
-    }`.trim();
+    const fullName = `${firstName.replace(/\s+/g, "")} ${lastName.replace(
+      /\s+/g,
+      ""
+    )}`.trim();
 
     formData.append("stylist_name", fullName);
     formData.append("stylist_service", serviceTitle);

@@ -17,7 +17,7 @@ const BasicDetailsForm = ({
   const [selectCategory, setSelectCategory] = useState(category?.category_name);
   const [serviceName, setServiceName] = useState(subcategory?.service_name);
   const [duration, setDuration] = useState(subcategory?.time_takenby_service);
-  const [availableFor, setAvailableFor] = useState("Male");
+  const [availableFor, setAvailableFor] = useState(subcategory?.availableFor);
   const [description, setDescription] = useState("");
   const [tax, setTax] = useState("Included");
   const [price, setPrice] = useState(subcategory?.price);
@@ -68,7 +68,7 @@ const BasicDetailsForm = ({
   useEffect(() => {
     setBasicDetails(MemoizedData);
   }, [MemoizedData]);
-
+  console.log(subcategory);
   return (
     <form className={styles.form}>
       {/* service type */}
@@ -142,7 +142,7 @@ const BasicDetailsForm = ({
           <div className={styles.selectWrapper}>
             <CustomSelect
               options={AvailableFor}
-              value={availableFor}
+              value={availableFor ? availableFor : subcategory?.availableFor}
               onChange={setAvailableFor}
             />
             <span>

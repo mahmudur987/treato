@@ -74,6 +74,7 @@ const EditService = () => {
       oldStylist: alredySelected,
       newStylist: teamMember.map((people) => people.id),
       subCategoryData: {
+        availableFor: basicDetails?.availableFor,
         service_name: basicDetails.serviceName,
         price: Number(basicDetails.price),
         time_takenby_service: basicDetails.duration,

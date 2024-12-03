@@ -113,7 +113,7 @@ const Upcoming = () => {
                       item?.time?.slice(0, 5),
                       item.serviceData?.time_takenby_service
                     );
-                    // console.log(item);
+                    console.log(item);
                     return (
                       <tr key={i}>
                         <td className={styles.date_row}>

@@ -16,6 +16,7 @@ export default function BasicInputTeam(props) {
     checked,
     label,
     sty,
+    maxLength,
   } = props;
 
   return (
@@ -42,6 +43,7 @@ export default function BasicInputTeam(props) {
               onChange={onChange}
               placeholder={placeholder}
               className={sty}
+              maxLength={maxLength ? maxLength : ""}
             />
           </>
         ) : (
@@ -56,6 +58,7 @@ export default function BasicInputTeam(props) {
               onChange={onChange}
               placeholder={placeholder}
               className={stylesInp.input}
+              maxLength={maxLength ? maxLength : ""}
             />
           </>
         )}

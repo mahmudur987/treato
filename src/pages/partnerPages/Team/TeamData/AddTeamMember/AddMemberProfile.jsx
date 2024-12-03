@@ -222,6 +222,7 @@ const AddMemberProfile = () => {
                       <label htmlFor="">
                         <div className={styles.labelText}>First Name</div>
                         <BasicInputTeam
+                          maxLength={20}
                           required={true}
                           type="text"
                           name="firstName"
@@ -237,6 +238,7 @@ const AddMemberProfile = () => {
                       <label htmlFor="">
                         <div className={styles.labelText}>Last Name </div>
                         <BasicInputTeam
+                          maxLength={20}
                           type="text"
                           name="lastName"
                           value={lastName}
@@ -265,6 +267,7 @@ const AddMemberProfile = () => {
                     <label htmlFor="">
                       <div className={styles.labelText}>Address</div>
                       <BasicInputTeam
+                        maxLength={200}
                         type="textarea"
                         name="about"
                         value={address}
