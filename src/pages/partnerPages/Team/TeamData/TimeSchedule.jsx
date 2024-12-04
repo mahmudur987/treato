@@ -22,6 +22,8 @@ import {
   formatDateRange,
   formatStateDate,
 } from "./utils";
+import axiosInstance from "../../../../services/axios";
+import { toast } from "react-toastify";
 export const TimeScheContext = createContext();
 
 function getDateRange(startDate, endDate) {
@@ -49,6 +51,8 @@ function getDateRange(startDate, endDate) {
 // Usage
 
 const TimeSchedule = () => {
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(formatStateDate(new Date()));
   const [endDate, setEndDate] = useState(
@@ -122,6 +126,42 @@ const TimeSchedule = () => {
     setIsLeave(true);
   };
 
+  const handleDownloadCSV = async () => {
+    try {
+      setLoading(true);
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+
+      const { data } = await axiosInstance.post(
+        `stylist/generatecsv`,
+        {},
+        { headers }
+      );
+
+      if (data?.fileUrl) {
+        // Create a link element to trigger the download
+        const link = document.createElement("a");
+        link.href = data.fileUrl;
+        link.download = "schedules.csv"; // Set the filename for the downloaded file
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link); // Cleanup
+
+        // Show success toast
+        toast.success("CSV downloaded successfully!");
+      } else {
+        throw new Error("File URL not found in response.");
+      }
+    } catch (error) {
+      // Show error toast
+      toast.error("An error occurred while downloading the CSV.");
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const employeeSchedule = () => {
     navigate("/partner/dashboard/EmployeeSchedule");
   };
@@ -174,8 +214,8 @@ const TimeSchedule = () => {
           </div>
 
           <div className={sty.downloadButtonContainer}>
-            <button className={sty.dBtn}>
-              Download CSV
+            <button className={sty.dBtn} onClick={handleDownloadCSV}>
+              {loading ? "Loading.." : " Download CSV"}
               <img
                 loading="lazy"
                 src={downLondIcon}
