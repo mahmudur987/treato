@@ -16,41 +16,54 @@ const PartnerPageLayout = () => {
   const dispatch = useDispatch();
   const { newPartner } = useSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(false);
-  const userRole = localStorage.getItem("userRole");
+
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
-
+    const userRole = localStorage.getItem("userRole");
+    console.log(token);
+    console.log(userRole);
+    // Redirect to login if no token
     if (!token) {
       toast.error("Please log in to continue.");
       navigate("/partner");
       return;
     }
 
-    if (!userRole) {
+    // Redirect to dashboard if role is partner
+    if (userRole && userRole === "partner") {
+      if (!newPartner.isProfileComplete) {
+        navigate("/partner/dashboard/newSalonSetting");
+      } else if (location.pathname === "/partner") {
+        navigate("/partner/dashboard"); // Redirect to dashboard if accessing /partner
+      }
+    } else if (userRole && userRole !== "partner") {
+      toast.error("Please login as a partner.");
       navigate("/partner");
-      return;
     }
-    if (userRole && !newPartner.isProfileComplete) {
-      navigate("/partner/dashboard/newSalonSetting");
-    }
-  }, [navigate, newPartner.isProfileComplete, userRole]);
+  }, [navigate, newPartner.isProfileComplete, location.pathname]);
 
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
-    if (token && !userRole) {
+
+    if (token) {
       getUserProfile(token)
         .then((res) => {
-          const userDetails = res?.res?.data;
+          const userDetails = res?.res?.data?.data;
           console.log(userDetails);
           dispatch(updateIsLoggedIn(true));
           dispatch(updateUserDetails(userDetails));
-          if (userDetails?.data?.role === "partner") {
-            if (!userDetails.isProfileComplete) {
+          localStorage.setItem("userRole", userDetails.role);
+
+          // Redirect to dashboard if role is partner
+          if (userDetails.role === "partner") {
+            if (!newPartner.isProfileComplete) {
               navigate("/partner/dashboard/newSalonSetting");
-            } else {
-              localStorage.setItem("userRole", userDetails.role);
-              navigate("/partner/dashboard");
+            } else if (location.pathname === "/partner") {
+              navigate("/partner/dashboard"); // Redirect to dashboard if accessing /partner
             }
+          } else if (userDetails.role !== "partner") {
+            toast.error("Please login as a partner.");
+            navigate("/partner");
           }
         })
         .catch((err) => {
@@ -72,7 +85,7 @@ const PartnerPageLayout = () => {
 
   return (
     <main className={style.mainContainer}>
-      {!userRole ? (
+      {location.pathname === "/partner/dashboard/newSalonSetting" ? (
         <div className={style.container}>
           <Outlet />
         </div>

@@ -10,7 +10,8 @@ import VerifyOtp from "../../../components/_modals/VerifyOtp/VerifyOtp";
 import { sendNumberChangeOTP } from "../../../services/auth";
 import VerifyOtpOfPartner from "../../../components/_modals/Partner/VerifyOtp/VerifyOtp";
 import i from "../../../assets/svgs/icon (32).svg";
-
+import ProfilePicture from "../../../components/PartnerProfile/ProfilePicture/ProfilePicture";
+import placeholderImage from "../../../assets/placeholder.jpg";
 export const backTick = i;
 
 function validatePhoneNumber(phoneNumber) {
@@ -35,6 +36,9 @@ const PersonalDetails = () => {
   const dateInputRef = useRef(null);
   const [date, setDate] = useState("Oct 8, 2022");
   const [prevDate, setPrevDate] = useState(null);
+
+  const [image, setImage] = useState(null);
+
   const [firstName, setFirstName] = useState("First Name");
   const [LastName, setLastName] = useState("Last Name");
   const [Email, setEmail] = useState("Email");
@@ -125,6 +129,7 @@ const PersonalDetails = () => {
       await verifyOtp();
     } else {
       const formData = new FormData();
+      formData.append("avatar", image);
       formData.append("first_name", firstName);
       formData.append("last_name", LastName);
       formData.append("phone", PhoneNumber);
@@ -209,6 +214,17 @@ const PersonalDetails = () => {
           </Link>
           <h1>Personal Details</h1>
         </header>
+
+        <div>
+          <ProfilePicture
+            placeholderImage={
+              user?.avatar?.public_url
+                ? user?.avatar?.public_url
+                : placeholderImage
+            }
+            onImageSubmit={(data) => setImage(data)}
+          />
+        </div>
 
         <div className={styles.formHeader}>
           <h2>Basic Details</h2>
@@ -441,9 +457,8 @@ const PersonalDetails = () => {
                   active.firstName &&
                   active.lastName &&
                   active.email &&
-                  active.phone &&
-                  active.gender &&
-                  active.DOB
+                  active.DOB &&
+                  !image
                     ? "gray"
                     : ""
                 }`,
@@ -454,7 +469,8 @@ const PersonalDetails = () => {
                 active.email &&
                 active.phone &&
                 active.gender &&
-                active.DOB
+                active.DOB &&
+                !image
                   ? true
                   : false
               }
