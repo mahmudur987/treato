@@ -4,8 +4,6 @@ import RadioInput from "../../Input/RadioInput/RadioInput";
 import SalonStar from "../../SalonDetail/SalonStar/SalonStar";
 
 export default function WorkerComponent({ workerData, index, getWorkerData }) {
-  console.log(workerData);
-
   return (
     <label
       className={styles.worker_compA}

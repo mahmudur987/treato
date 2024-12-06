@@ -38,7 +38,7 @@ export default function WorkerDetail({
     // Click the label when the component mounts
     noneLabelRef.current.click();
   }, []);
-
+  console.log(data);
   return (
     <div className={styles.worker_detailMain}>
       <label htmlFor="none" onClick={getWorkerData} ref={noneLabelRef}>
