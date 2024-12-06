@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import calendarIcon from "../../../assets/images/TeamDetails/calenderImg.png";
 import sty from "./Pic.module.css";
 
-const Pick = ({ ondateChange, date }) => {
+const Pick = ({ ondateChange, date, minDate, maxDate }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const inputRef = useRef(null);
 
@@ -29,7 +29,16 @@ const Pick = ({ ondateChange, date }) => {
         popperPlacement="bottom-end"
         toggleCalendarOnIconClick
         showIcon
-        icon={<img loading="lazy" className={sty.calIcon} src={calendarIcon} alt="icon" />}
+        icon={
+          <img
+            loading="lazy"
+            className={sty.calIcon}
+            src={calendarIcon}
+            alt="icon"
+          />
+        }
+        minDate={minDate ? minDate : ""} // Minimum selectable date
+        maxDate={maxDate ? maxDate : ""} // Maximum selectable date
       />
     </div>
   );

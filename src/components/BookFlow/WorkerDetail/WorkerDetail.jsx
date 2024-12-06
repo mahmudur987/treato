@@ -70,6 +70,7 @@ export default function WorkerDetail({
             return (
               <WorkerComponent
                 workerData={v}
+                bookingAble={data}
                 key={i}
                 index={i}
                 getWorkerData={getWorkerData}

@@ -7,6 +7,7 @@ import copy from "../../../../../assets/images/TeamDetails/copy.png";
 import Pick from "../../../Date/Pic";
 import {
   useGetAllTeamMemSche,
+  useGetSingleMember,
   useGetSlots,
 } from "../../../../../services/Team";
 import { useCallback, useMemo } from "react";
@@ -94,16 +95,10 @@ const EmployeeSchedule = () => {
   } = useGetAllTeamMemSche(x, y);
 
   const salonOpeningData = salon?.salon?.working_hours || [];
-  const xx = useMemo(
-    () =>
-      selectedMember?.timeForServices?.map((x) => ({
-        date: x.date,
-        shifts: x.shifts,
-        isClosed: x.isClosed,
-        isOnLeave: x?.isOnLeave,
-      })) ?? [],
-    [selectedMember]
-  );
+
+  const { data: member } = useGetSingleMember(selectedMember?.id);
+  const serviceStartDate = member?.data?.Service_Start_Date;
+  const serviceEndDate = member?.data?.Service_End_Date;
 
   const shiftTime = useMemo(
     () =>
@@ -376,6 +371,8 @@ const EmployeeSchedule = () => {
                       date={x ? x : "DD/MM/YYYY"}
                       ondateChange={(data) => setStartDate(data)}
                       className={styles.customPickWidth}
+                      minDate={serviceStartDate}
+                      maxDate={serviceEndDate}
                     />
                   </label>
                 </div>
@@ -383,6 +380,8 @@ const EmployeeSchedule = () => {
                   <label htmlFor="">
                     <div className={styles.labelText}>Schedule End </div>
                     <Pick
+                      minDate={serviceStartDate}
+                      maxDate={serviceEndDate}
                       date={y ? y : "DD/MM/YYYY"}
                       ondateChange={(data) => setEndDate(data)}
                       className={styles.customPickWidth}

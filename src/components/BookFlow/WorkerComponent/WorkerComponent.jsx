@@ -3,7 +3,17 @@ import ellipse from "../../../assets/images/SalonDetail/Ellipse.svg";
 import RadioInput from "../../Input/RadioInput/RadioInput";
 import SalonStar from "../../SalonDetail/SalonStar/SalonStar";
 
-export default function WorkerComponent({ workerData, index, getWorkerData }) {
+export default function WorkerComponent({
+  workerData,
+  index,
+  getWorkerData,
+  bookingAble,
+}) {
+  const totalBookings = bookingAble.find(
+    (x) => x._id === workerData._id
+  )?.totalAppointments;
+  console.log(workerData?.rating);
+
   return (
     <label
       className={styles.worker_compA}
@@ -20,15 +30,15 @@ export default function WorkerComponent({ workerData, index, getWorkerData }) {
             <div className={styles.worker_prevBooked}>Previously booked</div>
           </div>
           <div className={styles.worker_compACB}>
-            <div className={styles.worker_compStar}>
+            {/* <div className={styles.worker_compStar}>
               <div>{workerData?.rating}</div>
               <SalonStar fill="#6D747A" />
               <div>({workerData?.reviews?.length})</div>
-            </div>
+            </div> */}
             <img loading="lazy" src={ellipse} alt="" />
             <div>{workerData?.stylist_service}</div>
             <img loading="lazy" src={ellipse} alt="" />
-            <div>251 bookings</div>
+            {totalBookings > 0 && <div>{totalBookings} bookings</div>}
           </div>
         </div>
       </div>
