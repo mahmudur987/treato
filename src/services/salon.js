@@ -154,7 +154,11 @@ export const useGetAllSalonServiceStylist = (data) => {
   return useQuery({
     queryKey: [],
     queryFn: async () => {
-      const x = await axiosInstance.post("/stylist/service/stylist", data);
+      const x = await axiosInstance.post("/stylist/service/stylist", data, {
+        headers: {
+          token: localStorage.getItem("jwtToken"),
+        },
+      });
       console.log(x);
       return x.data;
     },

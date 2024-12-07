@@ -12,7 +12,10 @@ export default function WorkerComponent({
   const totalBookings = bookingAble.find(
     (x) => x._id === workerData._id
   )?.totalAppointments;
-  console.log(workerData?.rating);
+
+  const isPreviouslyBooked = bookingAble.find(
+    (x) => x._id === workerData._id
+  )?.previouslyBooked;
 
   return (
     <label
@@ -27,7 +30,9 @@ export default function WorkerComponent({
             <div className={styles.worker_compACA}>
               {workerData?.stylist_name}
             </div>
-            <div className={styles.worker_prevBooked}>Previously booked</div>
+            {isPreviouslyBooked && (
+              <div className={styles.worker_prevBooked}>Previously booked</div>
+            )}
           </div>
           <div className={styles.worker_compACB}>
             {/* <div className={styles.worker_compStar}>

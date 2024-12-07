@@ -23,7 +23,7 @@ export default function WorkerDetail({
   let ServiceIds = salonServices?.map((e) => {
     return e?.service_id;
   });
-  const { data, isLoading, isError, error } = useGetAllSalonServiceStylist({
+  const { data, isLoading, isError } = useGetAllSalonServiceStylist({
     services: ServiceIds,
   });
   const filteredStylistsId = useMemo(() => data?.map((x) => x._id), [data]);
@@ -38,7 +38,7 @@ export default function WorkerDetail({
     // Click the label when the component mounts
     noneLabelRef.current.click();
   }, []);
-  console.log(data);
+  // console.log(data);
   return (
     <div className={styles.worker_detailMain}>
       <label htmlFor="none" onClick={getWorkerData} ref={noneLabelRef}>
