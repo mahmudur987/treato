@@ -6,10 +6,18 @@ import Cancelled from "../../components/MyAppointments/Cancelled/Cancelled";
 import { Link, NavLink, Route, Routes } from "react-router-dom";
 import Completed from "../../components/MyAppointments/Completed/Completed";
 import ModalManager from "../../components/_modals/ModalManager";
-import { useUpcomingApponments } from "../../services/Appointments";
+import {
+  useProgressAppointment,
+  useUpcomingApponments,
+} from "../../services/Appointments";
 import Progress from "../../components/MyAppointments/Progress/Progress";
 const MyAppointments = () => {
   const { data } = useUpcomingApponments();
+
+  const { data: x } = useProgressAppointment();
+  const progressAppointment = x?.data?.data;
+
+  console.log(progressAppointment);
   const count = data?.res?.data?.data.length;
   return (
     <div className={styles.MyAppointments}>
@@ -21,10 +29,12 @@ const MyAppointments = () => {
             Upcoming
             {count > 0 && <span className={styles.unSeenDot}></span>}
           </NavLink>
-          <NavLink to="/my-appointments/progress" exact>
-            <span className={styles.progress}>Progress</span>
-            {count > 0 && <span className={styles.unSeenDot}></span>}
-          </NavLink>
+          {progressAppointment?.length > 0 && (
+            <NavLink to="/my-appointments/progress" exact>
+              <span className={styles.progress}>Progress</span>
+              {count > 0 && <span className={styles.unSeenDot}></span>}
+            </NavLink>
+          )}
           <NavLink to="/my-appointments/completed" exact>
             Completed
           </NavLink>

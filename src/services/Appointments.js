@@ -305,3 +305,22 @@ export const AppointmentVerify = async (data) => {
     return { err: error, res: null };
   }
 };
+export const useProgressAppointment = () => {
+  return useQuery({
+    queryKey: [`appointment/progress_list`],
+    queryFn: async () => {
+      const jwtToken = localStorage.getItem("jwtToken");
+      const data = await axiosInstance.get(
+        `appointment/progress_list`,
+
+        {
+          headers: {
+            token: jwtToken,
+          },
+        }
+      );
+
+      return data;
+    },
+  });
+};
