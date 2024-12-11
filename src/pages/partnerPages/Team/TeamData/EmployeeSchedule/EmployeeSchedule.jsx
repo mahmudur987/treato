@@ -430,6 +430,9 @@ const EmployeeSchedule = () => {
                                 onChange={(e) => handleDaySelect(e, item)}
                               >
                                 <option value="">
+                                  {c?.salonIsOpen &&
+                                    c?.slots.length === 0 &&
+                                    "Error"}
                                   {c &&
                                     c?.slots.length > 0 &&
                                     c?.salonIsOpen &&
@@ -438,18 +441,18 @@ const EmployeeSchedule = () => {
                                   {c &&
                                     c?.slots.length === 0 &&
                                     c?.salonIsOpen &&
-                                    c.isOnLeave &&
+                                    c?.isOnLeave &&
                                     "Leave"}
                                   {c &&
                                     c?.slots.length === 0 &&
                                     c?.salonIsOpen &&
-                                    c.isClosed &&
+                                    c?.isClosed &&
                                     "Closed"}
                                   {c &&
                                     c?.slots.length === 0 &&
                                     c?.salonIsOpen &&
-                                    !c.isClosed &&
-                                    !c.isOnLeave &&
+                                    !c?.isClosed &&
+                                    !c?.isOnLeave &&
                                     "00:00"}
 
                                   {!c &&
@@ -463,7 +466,7 @@ const EmployeeSchedule = () => {
                                 {!SlotsIsLoading &&
                                   slots?.length > 0 &&
                                   slots?.map((x, i) => (
-                                    <option key={i} value={x.slot}>
+                                    <option key={i} value={x?.slot}>
                                       {x}{" "}
                                     </option>
                                   ))}
@@ -479,31 +482,34 @@ const EmployeeSchedule = () => {
                                 onChange={(e) => handleDaySelect(e, item)}
                               >
                                 <option value="">
+                                  {c?.salonIsOpen &&
+                                    c?.slots.length === 0 &&
+                                    "Error"}
                                   {c &&
-                                    c?.slots.length > 0 &&
+                                    c?.slots?.length > 0 &&
                                     c?.salonIsOpen &&
                                     c?.slots[0]?.end_time}
                                   {c &&
-                                    c?.slots.length > 0 &&
+                                    c?.slots?.length > 0 &&
                                     c?.salonIsOpen &&
                                     !c?.slots[0]?.end_time &&
                                     "00:00"}
                                   {c && !c?.salonIsOpen && "Closed"}
                                   {c &&
-                                    c?.slots.length === 0 &&
+                                    c?.slots?.length === 0 &&
                                     c?.salonIsOpen &&
-                                    c.isOnLeave &&
+                                    c?.isOnLeave &&
                                     "Leave"}
                                   {c &&
                                     c?.slots.length === 0 &&
                                     c?.salonIsOpen &&
-                                    !c.isClosed &&
-                                    !c.isOnLeave &&
+                                    !c?.isClosed &&
+                                    !c?.isOnLeave &&
                                     "00:00"}
                                   {c &&
                                     c?.slots.length === 0 &&
                                     c?.salonIsOpen &&
-                                    c.isClosed &&
+                                    c?.isClosed &&
                                     "Closed"}
 
                                   {!c &&
