@@ -27,7 +27,7 @@ const CheckBoxComponent = ({ setTeamMember }) => {
   const { pathname } = location;
   const queryParams = new URLSearchParams(location.search);
   const subcategory_id = queryParams.get("subcategory");
-  const { data, isLoading, isError, error } = useSingleSalon();
+  const { data, isLoading } = useSingleSalon();
   const allPeople = data.salon
     ? data?.salon?.stylists?.map((x) => {
         return {

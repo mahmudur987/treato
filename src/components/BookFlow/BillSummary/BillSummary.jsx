@@ -145,7 +145,7 @@ export default function BillSummary({
           let verificationData = { ...response, order };
           console.log(verificationData);
           AppointmentVerify({ ...response, order }).then((res) => {
-            console.log(res);
+            // console.log(res);
             if (res?.res?.data?.success) {
               setCompletedPay(true);
             }
