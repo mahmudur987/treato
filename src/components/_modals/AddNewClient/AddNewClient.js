@@ -53,12 +53,14 @@ const AddNewClient = ({
   };
 
   const handleSubmit = (e) => {
+    console.log(phone);
+
     e.preventDefault();
 
     if (!firstName) {
       return toast.error("Please enter your first name.");
     }
-    if (!phone) {
+    if (!phone || phone.length !== 10) {
       return toast.error("Please enter your phone number.");
     }
     if (!email) {
@@ -70,13 +72,12 @@ const AddNewClient = ({
       name: firstName + " " + lastName,
       email: email,
     };
-    console.log(data);
+
     setCustomerDetails(data);
     setSelectedClient(data);
     setClients([...clients, data]);
     onClose();
   };
-
   const handleCancel = () => {
     onClose();
   };
@@ -141,6 +142,7 @@ const AddNewClient = ({
                   type="number"
                   placeholder="phone number"
                   maxLength={10}
+                  minLength={10}
                   required
                 />
               </p>

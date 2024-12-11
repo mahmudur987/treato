@@ -63,10 +63,6 @@ const AddAppointment = () => {
     );
   }, [data?.salon?.stylists, filteredStylistsId]);
 
-  console.log(service_id);
-  console.log(stylists);
-  console.log(teamMembers);
-
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
   const [SelectedTeamMember, setSelectedTeamMember] = useState({});
