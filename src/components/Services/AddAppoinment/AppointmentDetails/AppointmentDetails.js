@@ -46,13 +46,12 @@ const AppointmentDetails = () => {
   );
   const [service, setService] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
-  const [time, setTime] = useState("09:00");
+  const [time, setTime] = useState("00:00");
   // const [comments, setcomments] = useState("");
   const [duration, setduration] = useState("");
   const [prevId, setPrevId] = useState("");
 
   const handleWrapperClick = () => {
-    console.log(55);
     dateInputRef.current.showPicker();
   };
   useEffect(() => {
@@ -112,9 +111,8 @@ const AppointmentDetails = () => {
 
   // console.log(generateSlotsData);
   const { data: slots, isLoading, error } = useTimeSlots(generateSlotsData);
-  const times = slots?.res?.data || ["09:00"];
-  // console.log(slots);
-  console.log(slots);
+  const times = slots?.res?.data || [];
+
   useEffect(() => {
     setTime(times.length > 0 ? times[0] : "");
     if (slots?.res?.message === "Salon Closed") {
@@ -343,11 +341,9 @@ const AppointmentDetails = () => {
               ]}
             />
           ) : (
-            <ErrorComponent message={teamError?.message} />
-          )}
-
-          {teamMembers?.length === 0 && (
-            <NoDataDisplay message={"No Team Members Available"} />
+            <p className={styles.noservice}>
+              No stylist available at selected service
+            </p>
           )}
         </div>
         {/* time */}
