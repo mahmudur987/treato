@@ -296,6 +296,7 @@ const AddMemberProfile = () => {
                       onChange={(e) =>
                         updateInputValues({ serviceTitle: e.target.value })
                       }
+                      maxLength={50}
                       placeholder="Hair Styling Specialist"
                     />
                   </label>
