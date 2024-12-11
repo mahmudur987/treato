@@ -39,7 +39,7 @@ const BasicDetailsForm = ({
         ?.mainCategories?.map((category) => category.category_name) || []
     );
   }, [salon?.services, selectedServiceType]);
-  const AvailableFor = ["Male", "Female", "Unknown"];
+  const AvailableFor = ["Male", "Female", "Everyone"];
   const TaxAndFees = ["included", "excluded"];
 
   const MemoizedData = useMemo(

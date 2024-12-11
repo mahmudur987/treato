@@ -1,12 +1,17 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import styles from "./TeamMember.module.css";
 import img1 from "../../../../assets/icons/services/a-1.webp";
 
-import { useGetTemMembers, useSingleSalon } from "../../../../services/salon";
+import {
+  salon,
+  useGetTemMembers,
+  useSingleSalon,
+} from "../../../../services/salon";
 import LoadSpinner from "../../../LoadSpinner/LoadSpinner";
 import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
 import { useGetAllTeamMembers, useGetSlots } from "../../../../services/Team";
+import NoDataDisplay from "../../../NodataToDisplay/NoDataDisplay";
 
 const TeamMembers = ({ mobile, currentStep, setTeamMember, setdays }) => {
   return (
@@ -27,62 +32,74 @@ const CheckBoxComponent = ({ setTeamMember }) => {
   const { pathname } = location;
   const queryParams = new URLSearchParams(location.search);
   const subcategory_id = queryParams.get("subcategory");
-  const { data, isLoading } = useSingleSalon();
-  const allPeople = data.salon
-    ? data?.salon?.stylists?.map((x) => {
-        return {
-          name: x.stylist_name,
-          avatar: x.stylist_Img.public_url,
-          id: x._id,
-          servicesIds: x.services,
-        };
-      })
-    : [{ name: "Person 1", avatar: img1, id: "25" }];
 
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState(() => {
-    const alredySelected = allPeople.find((people) =>
-      people.servicesIds.includes(subcategory_id)
+  const { data, isLoading, isError, error } = useSingleSalon();
+
+  // Memoizing the `allPeople` array to avoid recalculations on every render
+  const allPeople = useMemo(() => {
+    return (
+      data?.salon?.stylists?.map((x) => ({
+        name: x.stylist_name,
+        avatar: x.stylist_Img.public_url,
+        id: x._id,
+        servicesIds: x.services,
+      })) || []
     );
-    return alredySelected ? [alredySelected] : [];
-  });
+  }, [data]);
+
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const [filterValue, setFilterValue] = useState("");
 
-  const filteredPeople = allPeople.filter((person) =>
-    person.name.toLowerCase().includes(filterValue.toLowerCase())
-  );
-
-  const handleCheckboxChange = (person) => {
-    const isSelected = selectedCheckboxes.some(
-      (selectedPerson) => selectedPerson.id === person.id
+  // Memoizing the alreadySelected array
+  const alreadySelected = useMemo(() => {
+    return allPeople.filter((people) =>
+      people.servicesIds.includes(subcategory_id)
     );
+  }, [allPeople, subcategory_id]);
 
-    let updatedCheckboxes;
+  useEffect(() => {
+    if (alreadySelected.length > 0) {
+      setSelectedCheckboxes(alreadySelected);
+    }
+  }, [alreadySelected]);
 
-    if (isSelected) {
-      updatedCheckboxes = selectedCheckboxes.filter(
-        (selectedPerson) => selectedPerson.id !== person.id
+  // Memoizing the filteredPeople array
+  const filteredPeople = useMemo(() => {
+    return allPeople.filter((person) =>
+      person.name.toLowerCase().includes(filterValue.toLowerCase())
+    );
+  }, [allPeople, filterValue]);
+
+  // Using useCallback to memoize event handlers
+  const handleCheckboxChange = useCallback((person) => {
+    setSelectedCheckboxes((prevSelectedCheckboxes) => {
+      const isSelected = prevSelectedCheckboxes.some(
+        (selectedPerson) => selectedPerson.id === person.id
       );
-    } else {
-      updatedCheckboxes = [...selectedCheckboxes, person];
-    }
 
-    setSelectedCheckboxes(updatedCheckboxes);
-  };
+      if (isSelected) {
+        return prevSelectedCheckboxes.filter(
+          (selectedPerson) => selectedPerson.id !== person.id
+        );
+      } else {
+        return [...prevSelectedCheckboxes, person];
+      }
+    });
+  }, []);
 
-  const handleSelectAll = () => {
-    if (selectedCheckboxes.length === filteredPeople.length) {
-      setSelectedCheckboxes([]);
-    } else {
-      setSelectedCheckboxes(filteredPeople);
-    }
-  };
+  const handleSelectAll = useCallback(() => {
+    setSelectedCheckboxes((prevSelectedCheckboxes) => {
+      if (prevSelectedCheckboxes.length === filteredPeople.length) {
+        return [];
+      } else {
+        return filteredPeople;
+      }
+    });
+  }, [filteredPeople]);
 
   useEffect(() => {
     setTeamMember(selectedCheckboxes);
-  }, [selectedCheckboxes]);
-  if (isLoading) {
-    return <LoadSpinner />;
-  }
+  }, [selectedCheckboxes, setTeamMember]);
 
   return (
     <div className={styles.checkboxContainer}>
@@ -90,44 +107,51 @@ const CheckBoxComponent = ({ setTeamMember }) => {
         <h3>Assign Team Members</h3>
         <p>Select professionals who provide this service</p>
       </div>
-      <form className={styles.CheckBoxForm}>
-        {filteredPeople.length > 2 && (
-          <label className={styles.topLabel}>
-            <input
-              type="checkbox"
-              onChange={handleSelectAll}
-              checked={selectedCheckboxes.length === filteredPeople.length}
-            />
-            <span>Select All</span>
-          </label>
-        )}
-        {pathname !== "/partner/dashboard/service/editservice" && (
-          <input
-            type="text"
-            placeholder="Filter by name"
-            value={filterValue}
-            onChange={(e) => setFilterValue(e.target.value)}
-          />
-        )}
-        <div className={styles.peoples}>
-          {filteredPeople.map((person) => (
-            <label key={person.name} className={styles.people}>
+      {data && !isLoading && !isError && filteredPeople?.length > 0 && (
+        <form className={styles.CheckBoxForm}>
+          {filteredPeople.length > 2 && (
+            <label className={styles.topLabel}>
               <input
                 type="checkbox"
-                onChange={() => handleCheckboxChange(person)}
-                checked={selectedCheckboxes.some(
-                  (selectedPerson) => selectedPerson.id === person.id
-                )}
+                onChange={handleSelectAll}
+                checked={selectedCheckboxes.length === filteredPeople.length}
               />
-
-              <p>
-                <img loading="lazy" src={person.avatar ?? img1} alt="" />
-                <span>{person.name}</span>
-              </p>
+              <span>Select All</span>
             </label>
-          ))}
-        </div>
-      </form>
+          )}
+          {pathname !== "/partner/dashboard/service/editservice" && (
+            <input
+              type="text"
+              placeholder="Filter by name"
+              value={filterValue}
+              onChange={(e) => setFilterValue(e.target.value)}
+            />
+          )}
+          <div className={styles.peoples}>
+            {filteredPeople.map((person) => (
+              <label key={person.name} className={styles.people}>
+                <input
+                  type="checkbox"
+                  onChange={() => handleCheckboxChange(person)}
+                  checked={selectedCheckboxes.some(
+                    (selectedPerson) => selectedPerson.id === person.id
+                  )}
+                />
+
+                <p>
+                  <img loading="lazy" src={person.avatar ?? img1} alt="" />
+                  <span>{person.name}</span>
+                </p>
+              </label>
+            ))}
+          </div>
+        </form>
+      )}
+      {data && !isLoading && !isError && filteredPeople?.length === 0 && (
+        <NoDataDisplay />
+      )}
+
+      {isLoading && <LoadSpinner />}
     </div>
   );
 };

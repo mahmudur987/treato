@@ -124,6 +124,7 @@ const EditService = () => {
   const handleNavigate = () => {
     navigate("/partner/dashboard/service");
   };
+
   return (
     <main className={styles.mainContainer}>
       <Link to={"/partner/dashboard/service"} className={styles.backLink}>

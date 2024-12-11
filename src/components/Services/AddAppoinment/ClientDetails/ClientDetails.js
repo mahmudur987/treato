@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useMemo, useState } from "react";
 import styles from "./ClientDetails.module.css";
 import CustomSelect3 from "../../../Select/CustomeSelect3/CustomSelect3";
 import AddNewClient from "../../../_modals/AddNewClient/AddNewClient";
@@ -27,21 +27,24 @@ const ClientsDetails = () => {
   });
   const [clients, setClients] = useState([]);
 
-  useEffect(() => {
-    const searchResult = data?.data?.filter(
+  const searchResult = useMemo(() => {
+    return data?.data?.filter(
       (contact) =>
         contact?.name?.toLowerCase().includes(searchText?.toLowerCase()) ||
         contact?.phone?.includes(searchText) ||
         contact?.email?.toLowerCase().includes(searchText?.toLowerCase())
     );
-    setClients(searchResult);
+  }, [data, searchText]);
+
+  useEffect(() => {
+    setClients(searchResult?.length > 0 ? searchResult : []);
     setSelectedClient(
       searchResult?.length > 0 && !searchText ? searchResult[0] : ""
     );
     setCustomerDetails(
       searchResult?.length > 0 && !searchText ? searchResult[0] : ""
     );
-  }, [data, searchText]);
+  }, [searchResult, searchText]);
 
   const handleSelectClient = (value) => {
     setSelectedClient(value);

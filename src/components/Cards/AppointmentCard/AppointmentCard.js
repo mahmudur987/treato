@@ -78,12 +78,21 @@ const AppointmentCard = ({ salon, cardType }) => {
                 <h4 className={styles.name}>{x.salon_name}</h4>
                 <h5 className={styles.location}>{x.locationText}</h5>
                 <div className={styles.timing}>
-                  <img loading="lazy" src={clock} alt="clock" />
-                  <p>
-                    <span>{formatDate(salon?.start_date)}</span>
-                    <span>at</span>
-                    <span> {salon.bookingTime}</span>
-                  </p>
+                  {cardType === "progress" ? (
+                    <span className={styles.progress}>
+                      Service Ongoing . . .
+                    </span>
+                  ) : (
+                    <>
+                      <img loading="lazy" src={clock} alt="clock" />
+                      <p>
+                        <span>{formatDate(salon?.start_date)}</span>
+                        <span>at</span>
+                        <span> {salon.bookingTime}</span>
+                      </p>
+                    </>
+                  )}
+
                   <button
                     onClick={toggleDeatils}
                     className={styles.toggledetails}
@@ -232,7 +241,9 @@ const AppointmentCard = ({ salon, cardType }) => {
                 </div>
               </div>
               {/* booked on */}
-              {(cardType === "Completed" || cardType === "Upcoming") && (
+              {(cardType === "Completed" ||
+                cardType === "Upcoming" ||
+                cardType === "progress") && (
                 <div className={styles.others}>
                   <div className={styles.bookedOn}>
                     <h4 className={styles.title}>Booked on</h4>

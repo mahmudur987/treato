@@ -7,7 +7,10 @@ import AppointmentDetails, {
 import ClientsDetails, {
   MemoizedClientsDetails,
 } from "../../../../components/Services/AddAppoinment/ClientDetails/ClientDetails";
-import { useSingleSalon } from "../../../../services/salon";
+import {
+  useGetAllSalonServiceStylist,
+  useSingleSalon,
+} from "../../../../services/salon";
 import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
 import Loader from "../../../../components/LoadSpinner/Loader";
@@ -38,15 +41,27 @@ const AddAppointment = () => {
   const { service_id, time, dateforService, additionalComments } =
     servicesDetails || {};
   const { data, isLoading, isError, error } = useSingleSalon();
+
+  const { data: stylists } = useGetAllSalonServiceStylist({
+    services: service_id,
+  });
+
+  const filteredStylistsId = useMemo(
+    () => stylists?.map((x) => x._id),
+    [stylists]
+  );
+
   const teamMembers = useMemo(() => {
     return (
-      data?.salon?.stylists?.map((x) => ({
-        name: x.stylist_name,
-        imageUrl: x.stylist_Img.public_url,
-        id: x._id,
-      })) || []
+      data?.salon?.stylists
+        ?.filter((x) => filteredStylistsId?.includes(x._id))
+        .map((x) => ({
+          name: x.stylist_name,
+          imageUrl: x.stylist_Img.public_url,
+          id: x._id,
+        })) || []
     );
-  }, [data?.salon?.stylists]);
+  }, [data?.salon?.stylists, filteredStylistsId]);
 
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");

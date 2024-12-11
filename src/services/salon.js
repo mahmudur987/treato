@@ -152,10 +152,14 @@ export const UpdateSalon = async (data) => {
 
 export const useGetAllSalonServiceStylist = (data) => {
   return useQuery({
-    queryKey: [],
+    queryKey: [data, "/stylist/service/stylist"],
     queryFn: async () => {
-      const x = await axiosInstance.post("/stylist/service/stylist", data);
-      console.log(x);
+      const x = await axiosInstance.post("/stylist/service/stylist", data, {
+        headers: {
+          token: localStorage.getItem("jwtToken"),
+        },
+      });
+
       return x.data;
     },
   });

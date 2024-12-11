@@ -340,3 +340,24 @@
     font-size: var(--font-small);
   }
 }
+.progress {
+  animation: colorChange 2s infinite;
+}
+
+@keyframes colorChange {
+  0% {
+    color: red;
+  }
+  25% {
+    color: red;
+  }
+  50% {
+    color: black;
+  }
+  75% {
+    color: black;
+  }
+  100% {
+    color: blue;
+  }
+}

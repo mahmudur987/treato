@@ -6,7 +6,6 @@ import user, {
   resetUserDetails,
   updateIsLoggedIn,
 } from "../../../redux/slices/user";
-import mask from "../../../assets/images/NavbarImages/Mask.webp";
 import icon from "../../../assets/svgs/icon (1).svg";
 import { FaUserCircle } from "react-icons/fa";
 
@@ -22,6 +21,7 @@ const ServicePageNavbar = () => {
     dispatch(resetUserDetails({}));
     localStorage.removeItem("userData");
     localStorage.removeItem("jwtToken");
+    localStorage.removeItem("userRole");
     navigate("/partner");
   };
   useEffect(() => {
@@ -51,7 +51,7 @@ const ServicePageNavbar = () => {
                 onError={(e) => (e.target.src = mask)}
                 alt=""
               /> */}
-              <FaUserCircle className={styles.userImage}/>
+              <FaUserCircle className={styles.userImage} />
               <h3>{userData?.user?.first_name}</h3>
               <img src={downArrow} alt="" />
             </div>
@@ -62,7 +62,7 @@ const ServicePageNavbar = () => {
             onClick={() => setShowProfile((pre) => !pre)}
             className={styles.profileContainer}
           >
-            <FaUserCircle className={styles.userImages}/>
+            <FaUserCircle className={styles.userImages} />
             <h3>{userData?.user?.first_name}</h3>
             {userData.user.role === "partner" && (
               <Link to={"/partner/dashboard"}>Dashboard</Link>
