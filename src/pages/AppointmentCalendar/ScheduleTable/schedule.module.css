@@ -1,360 +1,348 @@
 .header {
-    width: 1268px;
-    height: auto;
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    overflow: auto;
+  width: 1268px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
 }
 
 .prev {
-    position: absolute;
-    left: 40px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
+  position: absolute;
+  left: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }
 
 .next {
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    position: absolute;
-    right: 10px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  position: absolute;
+  right: 10px;
 }
 
 .carousel {
-    height: fit-content;
-    width: auto;
-    display: flex;
-    align-items: baseline;
-    /* overflow: hidden; */
-    gap: 10px;
+  height: fit-content;
+  width: auto;
+  display: flex;
+  align-items: baseline;
+  /* overflow: hidden; */
+  gap: 10px;
 }
 
 .profileContainer {
-    width: fit-content;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .slides {
-    overflow: hidden;
-    border-left: 2px dashed #CED4DA;
-    border-right: 1px solid #ccc;
-    height: auto;
-    min-width: 160px;
-    max-width: max-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
+  overflow: hidden;
+  border-left: 2px dashed #ced4da;
+  border-right: 1px solid #ccc;
+  height: auto;
+  min-width: 160px;
+  max-width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .profileBox {
-    min-width: 160px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  min-width: 160px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .profileBox img {
-    width: 42px;
-    height: 24px;
-    border-radius: 50%;
+  width: 42px;
+  height: 24px;
+  border-radius: 50%;
 }
 
 .appointmentBox,
 .appointmentBox2 {
-    
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .appointmentBox2 {
-    min-height: 134px;
+  min-height: 134px;
 }
-.appointmentBox4{
-    padding-bottom: 2px;
-    max-height: 67px;
-    min-height: 67px;
+.appointmentBox4 {
+  padding-bottom: 2px;
+  max-height: 67px;
+  min-height: 67px;
 }
 .appointmentBox3 {
-    min-height: 134px;
-    transition: background-color 0.3s ease;
-    overflow: hidden;
-    color: #0D69D7;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  min-height: 134px;
+  transition: background-color 0.3s ease;
+  overflow: hidden;
+  color: #0d69d7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .addAppointment {
-    height: 24px;
-    width: 164px;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 18px;
-    background-color: #EDF2F7;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  height: 24px;
+  width: 164px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  background-color: #edf2f7;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .appointmentBox3:hover .addAppointment {
-    opacity: 1;
-    /* Show on hover */
+  opacity: 1;
+  /* Show on hover */
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .cBox {
-    min-width: 160px;
+  min-width: 160px;
 }
 
 .dBox {
-    min-width: 1228px;
+  min-width: 1228px;
 }
 
 .clientDetailsBox {
-    width: 96%;
-    height: 58px;
-    display: flex;
-    justify-content: space-between;
+  width: 96%;
+  height: 58px;
+  display: flex;
+  justify-content: space-between;
 }
 .appointmentBoxSmall .clientDetailsBox {
-    height: auto;
+  height: auto;
 }
 .clientDetailsBox div {
-    width: 107px;
-    height: 58px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+  width: 107px;
+  height: 58px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 .appointmentBoxSmall .clientDetailsBox div {
-    height: auto;
+  height: auto;
 }
 .timeDurations,
 .serviceNames,
 .clientNames {
-    font-size: 12px;
-    font-family: Lato;
-    font-weight: 400;
-    line-height: 18px;
+  font-size: 12px;
+  font-family: Lato;
+  font-weight: 400;
+  line-height: 18px;
 }
 
 .appointmentBoxSmall .timeDurations,
 .appointmentBoxSmall .serviceNames,
 .appointmentBoxSmall .clientNames {
-    font-size: 10px;
-    font-family: Lato;
-    font-weight: 400;
-    line-height: 12px;
+  font-size: 10px;
+  font-family: Lato;
+  font-weight: 400;
+  line-height: 12px;
 }
 
 .serviceNames,
 .clientNames {
-    color: #6D747A;
-    width: max-content;
+  color: #6d747a;
+  width: max-content;
 }
 
 .durationsBox {
-    margin-left: 50px;
-    margin-top: 48px;
-    min-width: 62px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    /* gap: 120px; */
-    background-color: #FFFFFF;
+  margin-left: 50px;
+  margin-top: 48px;
+  min-width: 62px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  /* gap: 120px; */
+  background-color: #ffffff;
 }
-.durationsBox p{
-    min-height: 134px;
-    background-color: #FFFFFF;
+.durationsBox p {
+  min-height: 134px;
+  background-color: #ffffff;
 }
 
 .grids {
-    margin-left: 62px;
-    margin-top: 46px;
-    position: inherit;
-    z-index: -10;
-    width: 1280px;
-    height: auto;
+  margin-left: 62px;
+  margin-top: 46px;
+  position: inherit;
+  z-index: -10;
+  width: 1280px;
+  height: auto;
 }
 
 .outerGrid {
-    border-top: 2px solid #CED4DA;
-    min-height: 67px;
-    min-width: 100%;
-    display: flex;
-    align-items: center;
+  border-top: 2px solid #ced4da;
+  min-height: 67px;
+  min-width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .outerGrid div {
-    min-height: 22.3px;
-    min-width: 100%;
-    border-top: 1px solid #CED4DA;
-    border-bottom: 1px solid #CED4DA;
+  min-height: 22.3px;
+  min-width: 100%;
+  border-top: 1px solid #ced4da;
+  border-bottom: 1px solid #ced4da;
 }
 
 .durationsBox p {
-
-    height: 24px;
-    width: 100%;
-    font-family: Lato;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 14px;
-    text-align: center;
+  height: 24px;
+  width: 100%;
+  font-family: Lato;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  text-align: center;
 }
-.threeDot{ 
-   
-    color: black;
-    font-weight: bolder;
-    width: 18px;
-    height: 16px;
+.threeDot {
+  color: black;
+  font-weight: bolder;
+  width: 18px;
+  height: 16px;
 }
 .dropdowncontent {
-
-    box-sizing: border-box;
-    position: absolute;
-    z-index: 999;
-    margin-left: 20px;
-    margin-top: 20px;
-    max-height: auto;
-    border-radius: 4px;
-    min-width: 204px;
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 999;
+  margin-left: 20px;
+  margin-top: 20px;
+  max-height: auto;
+  border-radius: 4px;
+  min-width: 204px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .appointmentBox {
-    position:absolute;
-    z-index: 5;
-    padding: 4px;
+  position: absolute;
+  z-index: 5;
+  padding: 4px;
 }
 .clientDetailsBox svg {
-    cursor: pointer;
-    font-weight: 600;
+  cursor: pointer;
+  font-weight: 600;
 }
 .dropBox {
-    margin-left: 70%;
+  margin-left: 70%;
 }
 
 .inputContainer {
-    max-width: 100%;
-    min-height: 48px;
-    padding: 13px 12px 13px 12px;
+  max-width: 100%;
+  min-height: 48px;
+  padding: 13px 12px 13px 12px;
 }
 
 .otpBox {
-
-    max-width: 100%;
-    min-height: 30px;
-    border-radius: 4px;
-    padding: 8px;
-    border: 1px solid #CED4DA;
+  max-width: 100%;
+  min-height: 30px;
+  border-radius: 4px;
+  padding: 8px;
+  border: 1px solid #ced4da;
 }
 
 .started,
 .editButton {
-    cursor: pointer;
-    max-width: 100%;
-    max-height: 48px;
-    padding: 13px 16px 13px 16px;
-    background-color: #FFFFFF;
-    font-size: 16px;
-    font-family: Lato;
-    font-weight: 400;
-    line-height: 24px;
+  cursor: pointer;
+  max-width: 100%;
+  max-height: 48px;
+  padding: 13px 16px 13px 16px;
+  background-color: #ffffff;
+  font-size: 16px;
+  font-family: Lato;
+  font-weight: 400;
+  line-height: 24px;
 }
-.disable{
-    max-width: 100%;
-    max-height: 48px;
-    padding: 13px 16px 13px 16px;
-    font-size: 16px;
-    font-family: Lato;
-    font-weight: 400;
-    line-height: 24px;
-    background-color: #EBEDF0;
-    color: #CED4DA;
-    cursor:not-allowed;
+.disable {
+  max-width: 100%;
+  max-height: 48px;
+  padding: 13px 16px 13px 16px;
+  font-size: 16px;
+  font-family: Lato;
+  font-weight: 400;
+  line-height: 24px;
+  background-color: #ebedf0;
+  color: #ced4da;
+  cursor: not-allowed;
 }
-
 
 .dropdowncontent .started:hover {
-    background-color: #EBEDF0;
+  background-color: #ebedf0;
 }
 
 .statusButton {
-    width: 75px;
-    height: 21px;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 10px;
-    font-weight: 500;
-    font-family: Lato;
-    line-height: 15px;
-
+  width: 75px;
+  height: 21px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 500;
+  font-family: Lato;
+  line-height: 15px;
 }
-.minheight{
-    min-height: 67px;
+.minheight {
+  min-height: 67px;
 }
-.noShow{
-    display: none;
+.noShow {
+  display: none;
 }
-.appointmentBox4.appointmentBoxSmall{
-    background-color: black;
+.appointmentBox4.appointmentBoxSmall {
+  background-color: black;
 }
 @media screen and (max-width: 700px) {
-    .header {
-        width: 100%;
-        height: auto;
-    }
+  .header {
+    width: 100%;
+    height: auto;
+  }
 
-    .durationsBox {
-        min-width: 36px;
-        gap: 84px;
-    }
+  .durationsBox {
+    min-width: 36px;
+    gap: 84px;
+  }
 
-    .durationsBox p {
-        min-height: 36px;
-        width: 36px;
-    }
+  .durationsBox p {
+    min-height: 36px;
+    width: 36px;
+  }
 
-    .grids {
-        margin-left: 40px;
-        width: 325px;
-    }
+  .grids {
+    margin-left: 40px;
+    width: 325px;
+  }
 
-    .prev {
-        left: 20px;
-    }
+  .prev {
+    left: 20px;
+  }
 
-    .profileBox {
-        min-width: 96px;
-    }
+  .profileBox {
+    min-width: 96px;
+  }
 
-    .profileBox img {
-        width: 16px;
-        height: 16px;
-    }
+  .profileBox img {
+    width: 16px;
+    height: 16px;
+  }
 
-    .slides {
-        min-width: 100px;
-    }
+  .slides {
+    min-width: 100px;
+  }
 
-    .dBox {
-        min-width: 308px;
-    }
+  .dBox {
+    min-width: 308px;
+  }
 }
-
-
