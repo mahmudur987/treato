@@ -6,6 +6,7 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
 import { toast } from "react-toastify";
+import axiosInstance from "../../../../../services/axios";
 const tableHeading = [
   {
     heading: "Txn ID.",
@@ -57,6 +58,7 @@ const AppointmentsTable = ({ data }) => {
       });
       let totalPrice = prices.reduce((a, b) => a + b, 0);
       const data = {
+        file: x?.fileurl,
         txnId: x?.transactionId ?? "N/A",
         date: x?.dateforService ?? "N/A",
         clientName: x?.clientName ?? "N/A",
@@ -90,12 +92,34 @@ const AppointmentsTable = ({ data }) => {
       setSelectedItems(allIds);
     }
   };
-  const handleDownload = () => {
-    // Log the event if necessary for tracking purposes
-    console.log("Download feature is currently under maintenance.");
+  const handleDownLoad = async (url, fileName = "downloaded-file.pdf") => {
+    try {
+      if (!url) throw new Error("File URL is missing.");
 
-    // Inform the user
-    toast.info("This feature is under maintenance. Please check back later.");
+      // Fetch the file data
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Failed to fetch the file.");
+
+      // Convert the response into a Blob
+      const blob = await response.blob();
+
+      // Create a link element with the Blob URL
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName; // Set the filename for the downloaded file
+
+      // Trigger the download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link); // Cleanup
+
+      // Show success toast
+      toast.success("PDF downloaded successfully!");
+    } catch (error) {
+      // Show error toast
+      toast.error("An error occurred while downloading the PDF.");
+      console.error("Error during download:", error);
+    }
   };
 
   if (data?.data?.length === 0) {
@@ -159,7 +183,10 @@ const AppointmentsTable = ({ data }) => {
                   <td>{x.status}</td>
                   <td>{x.amount}</td>
                   <td>{x.type}</td>
-                  <td className={sty.textSize} onClick={handleDownload}>
+                  <td
+                    className={sty.textSize}
+                    onClick={() => handleDownLoad(x.file)}
+                  >
                     <MdOutlineFileDownload />
                   </td>
                 </tr>

@@ -1,14 +1,17 @@
-import React, { memo, useContext, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useMemo, useState } from "react";
 import styles from "./FilterSection.module.css";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineFileDownload } from "react-icons/md";
 import CustomSelect4 from "../../../../Select/CustomeSelect4/CustomSelect4";
 import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
+import { toast } from "react-toastify";
+import axiosInstance from "../../../../../services/axios";
 const PaymentStatus = ["Upcoming", "Cancelled", "Completed", "Refunded", "All"];
 const PaymentMode = ["offline", "Online", "on-site", "All"];
 
 const FilterSection = ({ setBillQuery }) => {
   const { commonSearch, setTransactionId } = useContext(reportContext);
+  const [loading, setLoading] = useState(false);
   const [selectedPaymentStatus, setSelectedPaymentStatus] =
     useState("Payment Status");
   const [selectedPaymentMode, setSelectedPaymentMode] =
@@ -37,20 +40,58 @@ const FilterSection = ({ setBillQuery }) => {
     }
   };
 
-  let url = `${
-    selectedPaymentStatus !== "All" &&
-    selectedPaymentStatus !== "Payment Status"
-      ? `status=${selectedPaymentStatus.toLocaleLowerCase()}`
-      : ""
-  }${
-    selectedPaymentMode !== "All" && selectedPaymentMode !== "Payment Mode"
-      ? `&mode=${selectedPaymentMode.toLocaleLowerCase()}`
-      : ""
-  }${commonSearch || name ? `&name=${commonSearch || name}` : ""}`;
+  const billQuery = useMemo(() => {
+    return `${
+      selectedPaymentStatus !== "All" &&
+      selectedPaymentStatus !== "Payment Status"
+        ? `status=${selectedPaymentStatus.toLocaleLowerCase()}`
+        : ""
+    }${
+      selectedPaymentMode !== "All" && selectedPaymentMode !== "Payment Mode"
+        ? `&mode=${selectedPaymentMode.toLocaleLowerCase()}`
+        : ""
+    }${commonSearch || name ? `&name=${commonSearch || name}` : ""}`;
+  }, [selectedPaymentStatus, selectedPaymentMode, commonSearch, name]);
 
   useEffect(() => {
-    setBillQuery(url);
-  }, [url, setBillQuery]);
+    setBillQuery(billQuery);
+  }, [billQuery, setBillQuery]);
+
+  const handleDownLoad = async () => {
+    try {
+      setLoading(true);
+      const headers = {
+        token: localStorage.getItem("jwtToken"),
+      };
+
+      const { data } = await axiosInstance.post(
+        `reports/generateSalonBillingFile?${billQuery}`,
+        {},
+        { headers }
+      );
+
+      if (data?.fileUrl) {
+        // Create a link element to trigger the download
+        const link = document.createElement("a");
+        link.href = data.fileUrl;
+        link.download = "schedules.csv"; // Set the filename for the downloaded file
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link); // Cleanup
+
+        // Show success toast
+        toast.success("CSV downloaded successfully!");
+      } else {
+        throw new Error("File URL not found in response.");
+      }
+    } catch (error) {
+      // Show error toast
+      toast.error("An error occurred while downloading the CSV.");
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={styles.mainContainerWrapper}>
@@ -79,8 +120,8 @@ const FilterSection = ({ setBillQuery }) => {
             onChange={setSelectedPaymentMode}
             value={selectedPaymentMode ? selectedPaymentMode : "Payment Mode"}
           />
-          <div className={styles.btnWrapper}>
-            <button>Download</button>
+          <div className={styles.btnWrapper} onClick={handleDownLoad}>
+            <button>{loading ? "Loading" : "Download"}</button>
             <span>
               <MdOutlineFileDownload />
             </span>

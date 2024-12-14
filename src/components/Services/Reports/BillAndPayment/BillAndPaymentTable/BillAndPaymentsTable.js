@@ -78,7 +78,6 @@ const BillAndPaymentTable = ({ data }) => {
       return new Date(b.appointmentDate) - new Date(a.appointmentDate);
     })
     ?.map((x) => {
-      console.log(x);
       const y = {
         txnId: x?.transactionId ?? "No Transaction ID",
         date: x?.appointmentDate ?? "N/A",
@@ -115,7 +114,7 @@ const BillAndPaymentTable = ({ data }) => {
       setSelectedRows([...selectedRows, txnId]);
     }
   };
-  console.log(tableData);
+
   return (
     <>
       {data && (

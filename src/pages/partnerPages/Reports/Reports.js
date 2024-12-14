@@ -96,6 +96,7 @@ const Reports = () => {
           <section>
             <MemoizedFilterSection1
               setAppointmentsQuery={setAppointmentsQuery}
+              data={appointments}
             />
             {appointmentsIsLoading && <LoadSpinner />}
 
