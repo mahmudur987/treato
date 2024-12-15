@@ -1,12 +1,12 @@
-import React, { memo, useContext, useState } from "react";
-import topImg from "../../../../../assets/images/TeamDetails/Vector (1).png";
-import bottomImg from "../../../../../assets/images/TeamDetails/Vector.png";
+import React, { memo, useContext, useMemo } from "react";
+import PropTypes from "prop-types";
+
 import sty from "./AppointmentsTable.module.css";
 import { MdOutlineFileDownload } from "react-icons/md";
 import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
-import { toast } from "react-toastify";
-import axiosInstance from "../../../../../services/axios";
+
+import { Link } from "react-router-dom";
 const tableHeading = [
   {
     heading: "Txn ID.",
@@ -28,7 +28,7 @@ const tableHeading = [
   },
   {
     heading: "Service Amount ",
-  },
+  }
 
   {
     heading: "Type",
@@ -42,37 +42,41 @@ const AppointmentsTable = ({ data }) => {
   const { selectedItems, setSelectedItems, AtransactionId } =
     useContext(reportContext);
 
-  const tableData = data?.data
-    ?.filter((x) => {
-      if (AtransactionId) {
-        return x.transactionId === AtransactionId;
-      }
-      return x;
-    })
-    ?.sort((a, b) => {
+  const tableData = useMemo(() => {
+    if (!data?.data) return [];
+    let filteredData = data.data;
+    if (AtransactionId) {
+      filteredData = filteredData.filter(
+        (x) => x.transactionId === AtransactionId
+      );
+    }
+
+    filteredData.sort((a, b) => {
       return new Date(b.dateforService) - new Date(a.dateforService);
-    })
-    ?.map((x) => {
-      let prices = x?.services.map((v, i) => {
+    });
+
+    return filteredData.map((x) => {
+      let prices = x.services.map((v, i) => {
         return v.price;
       });
       let totalPrice = prices.reduce((a, b) => a + b, 0);
       const data = {
-        file: x?.fileurl,
-        txnId: x?.transactionId ?? "N/A",
-        date: x?.dateforService ?? "N/A",
-        clientName: x?.clientName ?? "N/A",
+        file: x.fileurl,
+        txnId: x.transactionId ?? "N/A",
+        date: x.dateforService ?? "N/A",
+        clientName: x.clientName ?? "N/A",
         services:
-          x?.services?.length > 0
-            ? x?.services.map((x) => x.service_name).join(", ")
+          x.services.length > 0
+            ? x.services.map((x) => x.service_name).join(", ")
             : "N/A",
-        Employee: x?.stylist,
-        status: x?.status ?? "N/A",
+        Employee: x.stylist,
+        status: x.status ?? "N/A",
         amount: totalPrice.toFixed(2) ?? "N/A",
-        type: x?.payment_mode ?? "N/A",
+        type: x.payment_mode ?? "N/A",
       };
       return data;
     });
+  }, [data, AtransactionId]);
 
   // Function to toggle selection of a single item
   const toggleSelection = (itemId) => {
@@ -92,39 +96,7 @@ const AppointmentsTable = ({ data }) => {
       setSelectedItems(allIds);
     }
   };
-  const handleDownLoad = async (url, fileName = "downloaded-file.pdf") => {
-    try {
-      if (!url) throw new Error("File URL is missing.");
 
-      // Fetch the file data
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Failed to fetch the file.");
-
-      // Convert the response into a Blob
-      const blob = await response.blob();
-
-      // Create a link element with the Blob URL
-      const link = document.createElement("a");
-      link.href = window.URL.createObjectURL(blob);
-      link.download = fileName; // Set the filename for the downloaded file
-
-      // Trigger the download
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link); // Cleanup
-
-      // Show success toast
-      toast.success("PDF downloaded successfully!");
-    } catch (error) {
-      // Show error toast
-      toast.error("An error occurred while downloading the PDF.");
-      console.error("Error during download:", error);
-    }
-  };
-
-  if (data?.data?.length === 0) {
-    return <NoDataDisplay />;
-  }
   return (
     <div className={sty.mainContainer}>
       <div className={sty.tableContainer}>
@@ -183,14 +155,15 @@ const AppointmentsTable = ({ data }) => {
                   <td>{x.status}</td>
                   <td>{x.amount}</td>
                   <td>{x.type}</td>
-                  <td
-                    className={sty.textSize}
-                    onClick={() => handleDownLoad(x.file)}
-                  >
-                    <MdOutlineFileDownload />
+                  <td className={sty.textSize}>
+                    <Link to={x.file} target="_blank">
+                      <MdOutlineFileDownload />
+                    </Link>
                   </td>
                 </tr>
               ))}
+
+            {data?.data?.length === 0 && <NoDataDisplay />}
           </tbody>
         </table>
       </div>
@@ -198,5 +171,10 @@ const AppointmentsTable = ({ data }) => {
   );
 };
 
+AppointmentsTable.propTypes = {
+  data: PropTypes.object.isRequired,
+};
+
 export default AppointmentsTable;
 export const MemoizedAppointmentsTable = memo(AppointmentsTable);
+

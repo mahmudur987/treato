@@ -21,52 +21,50 @@ import { Link } from "react-router-dom";
 export const reportContext = createContext({});
 
 const Reports = () => {
-  const [transactionId, setTransactionId] = useState("");
-  const [AtransactionId, setATransactionId] = useState("");
-  const [isSearch, setIsSearch] = useState(false);
-  const [commonSearch, setCommonSearch] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState("Appointments");
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedClients, setSelectedClients] = useState([]);
-  const [pageDetails, setPageDetails] = useState("Appointments");
-  const [appointmentQuery, setAppointmentsQuery] = useState("");
-  const [clientsQuery, setClientsQuery] = useState("");
-  const [billQuery, setBillQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+
   const {
     data: appointments,
-    isLoading: appointmentsIsLoading,
-    isError: appointmentsIsError,
+    isLoading: isAppointmentsLoading,
+    isError: isAppointmentsError,
     error: appointmentsError,
-  } = useAppointmentsReport(appointmentQuery);
+  } = useAppointmentsReport(searchTerm);
 
   const {
     data: clients,
-    isLoading: clientsIsLoading,
-    isError: clientsIsError,
+    isLoading: isClientsLoading,
+    isError: isClientsError,
     error: clientsError,
-  } = useClientsReport(clientsQuery);
-  const {
-    data: bill,
-    isLoading: billIsLoading,
-    isError: billIsError,
-    error: billError,
-  } = useBillingReport(billQuery);
+  } = useClientsReport(searchTerm);
 
-  const value = {
+  const {
+    data: billing,
+    isLoading: isBillingLoading,
+    isError: isBillingError,
+    error: billingError,
+  } = useBillingReport(searchTerm);
+
+  const contextValue = {
     selectedItems,
     setSelectedItems,
     selectedClients,
     setSelectedClients,
-    commonSearch,
-    setTransactionId,
-    transactionId,
-    AtransactionId,
-    setATransactionId,
+    searchTerm,
+    setSearchTerm,
+    isSearching,
+    setIsSearching,
   };
-  const handler = () => {
-    setIsSearch((pre) => !pre);
+
+  const handleSearchToggle = () => {
+    setIsSearching((prev) => !prev);
   };
+
   return (
-    <reportContext.Provider value={value}>
+    <reportContext.Provider value={contextValue}>
       <main className={styles.mainContainer}>
         <div className={styles.top}>
           <Link to={"/partner/dashboard"}>
@@ -74,76 +72,74 @@ const Reports = () => {
               <IoArrowBack />
             </span>
           </Link>
-          {!isSearch && <h3>Reports</h3>}
-          {isSearch && (
-            <input
-              className={styles.input}
-              type="text"
-              onChange={(e) => setCommonSearch(e.target.value)}
-            />
-          )}
-
-          <p onClick={handler}>
+          <h3>Reports</h3>
+          <input
+            className={styles.input}
+            type="text"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search"
+          />
+          <p onClick={handleSearchToggle}>
             <IoSearchOutline />
           </p>
         </div>
 
-        <ReportsPageHeader
-          pageDetails={pageDetails}
-          setPageDetails={setPageDetails}
-        />
-        {pageDetails === "Appointments" && (
+        <ReportsPageHeader page={page} setPage={setPage} />
+
+        {page === "Appointments" && (
           <section>
             <MemoizedFilterSection1
-              setAppointmentsQuery={setAppointmentsQuery}
+              setSearchTerm={setSearchTerm}
               data={appointments}
             />
-            {appointmentsIsLoading && <LoadSpinner />}
+            {isAppointmentsLoading && <LoadSpinner />}
 
             {appointments?.data?.length > 0 &&
-              !appointmentsIsLoading &&
-              !appointmentsIsError && (
+              !isAppointmentsLoading &&
+              !isAppointmentsError && (
                 <MemoizedAppointmentsTable data={appointments} />
               )}
             {appointments?.data?.length === 0 &&
-              !appointmentsIsLoading &&
-              !appointmentsIsError && <NoDataDisplay />}
+              !isAppointmentsLoading &&
+              !isAppointmentsError && <NoDataDisplay />}
 
-            {appointmentsIsError && (
-              <ErrorComponent message={appointmentsError.message ?? "Error"} />
+            {isAppointmentsError && (
+              <ErrorComponent message={appointmentsError?.message ?? "Error"} />
             )}
           </section>
         )}
-        {pageDetails === "Clients" && (
+        {page === "Clients" && (
           <section>
-            <MemoizedFilterSection2 setClientsQuery={setClientsQuery} />
-            {clientsIsLoading && <LoadSpinner />}
+            <MemoizedFilterSection2 setSearchTerm={setSearchTerm} />
+            {isClientsLoading && <LoadSpinner />}
+
             {clients?.data?.length > 0 &&
-              !clientsIsLoading &&
-              !clientsError && <MemoizedClientsTable data={clients} />}
+              !isClientsLoading &&
+              !isClientsError && <MemoizedClientsTable data={clients} />}
             {clients?.data?.length === 0 &&
-              !clientsIsLoading &&
-              !clientsError && <NoDataDisplay />}
-            {clientsIsError && (
-              <ErrorComponent message={clientsError.message ?? "Error"} />
+              !isClientsLoading &&
+              !isClientsError && <NoDataDisplay />}
+
+            {isClientsError && (
+              <ErrorComponent message={clientsError?.message ?? "Error"} />
             )}
           </section>
         )}
 
-        {pageDetails === "Billing & Payment" && (
+        {page === "Billing & Payment" && (
           <section>
-            <MemoizedFilterSection3 setBillQuery={setBillQuery} />
-            {billIsLoading && <LoadSpinner />}
+            <MemoizedFilterSection3 setSearchTerm={setSearchTerm} />
+            {isBillingLoading && <LoadSpinner />}
 
-            {billIsError && (
-              <ErrorComponent
-                message={billError ? billError?.message : "Error"}
-              />
+            {isBillingError && (
+              <ErrorComponent message={billingError?.message ?? "Error"} />
             )}
 
-            {!billIsError && !billIsLoading && bill?.data?.length > 0 && (
-              <MemoizedBillAndPaymentTable data={bill?.data} />
-            )}
+            {!isBillingError &&
+              !isBillingLoading &&
+              billing?.data?.length > 0 && (
+                <MemoizedBillAndPaymentTable data={billing?.data} />
+              )}
           </section>
         )}
       </main>

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import style from "./ServicePage.module.css";
 import LeftSideBar from "../../components/Services/LeftSideBar/LeftSideBar";
 import ServicePageNavbar from "../../components/Services/Navbar/ServicePageNavbar";
@@ -7,72 +7,69 @@ import BottomNav from "../../components/Services/BottomNav/BottomNav";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserProfile } from "../../services/auth";
-import LoadSpinner from "../../components/LoadSpinner/LoadSpinner";
+
 import { updateIsLoggedIn, updateUserDetails } from "../../redux/slices/user";
 
 const PartnerPageLayout = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
   const { newPartner } = useSelector((state) => state.user);
-  const [isLoading, setIsLoading] = useState(false);
-  const userRole = localStorage.getItem("userRole");
-  useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
 
-    if (!token) {
+  useEffect(() => {
+    const jwtToken = localStorage.getItem("jwtToken");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!jwtToken) {
       toast.error("Please log in to continue.");
       navigate("/partner");
       return;
     }
 
     if (!userRole) {
-      navigate("/partner");
-      return;
-    }
-    if (userRole && !newPartner.isProfileComplete) {
-      navigate("/partner/dashboard/newSalonSetting");
-    }
-  }, [navigate, newPartner.isProfileComplete, userRole]);
+      getUserProfile(jwtToken)
+        .then((response) => {
+          const userDetails = response?.res?.data;
+          if (!userDetails) {
+            console.error("Error fetching user profile:", response);
+            localStorage.removeItem("jwtToken");
+            return;
+          }
 
-  useEffect(() => {
-    const token = localStorage.getItem("jwtToken");
-    if (token && !userRole) {
-      getUserProfile(token)
-        .then((res) => {
-          const userDetails = res?.res?.data;
-          console.log(userDetails);
           dispatch(updateIsLoggedIn(true));
           dispatch(updateUserDetails(userDetails));
-          if (userDetails?.data?.role === "partner") {
-            if (!userDetails.isProfileComplete) {
-              navigate("/partner/dashboard/newSalonSetting");
-            } else {
-              localStorage.setItem("userRole", userDetails.role);
-              navigate("/partner/dashboard");
-            }
-          }
+          localStorage.setItem("userRole", userDetails.role);
+          handleNavigation(userDetails);
         })
-        .catch((err) => {
-          console.error(err);
+        .catch((error) => {
+          console.error("Error fetching user profile:", error);
           localStorage.removeItem("jwtToken");
-          localStorage.removeItem("userRole");
           toast.error("Session expired, please log in again.");
           navigate("/partner");
-        })
-        .finally(() => {
-          // setIsLoading(false);
         });
+    } else {
+      handleNavigation({
+        role: userRole,
+        isProfileComplete: newPartner?.isProfileComplete,
+      });
     }
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, newPartner?.isProfileComplete]);
 
-  if (isLoading) {
-    return <LoadSpinner />;
-  }
+  const handleNavigation = ({ role, isProfileComplete }) => {
+    if (role === "partner") {
+      if (!isProfileComplete) {
+        navigate("/partner/dashboard/newSalonSetting");
+      } else {
+        navigate("/partner/dashboard");
+      }
+    } else {
+      toast.error("Please login as a partner.");
+      navigate("/partner");
+    }
+  };
 
   return (
     <main className={style.mainContainer}>
-      {!userRole ? (
+      {!localStorage.getItem("userRole") ? (
         <div className={style.container}>
           <Outlet />
         </div>
