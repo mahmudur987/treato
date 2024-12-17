@@ -134,6 +134,10 @@ const VerifyOTP = (props) => {
 
                 toast("Welcome to Treato! Start exploring now!");
                 localStorage.removeItem("requiredRegisterData");
+                localStorage.setItem(
+                  "userRole",
+                  JSON.stringify(userDetails?.data?.role)
+                );
                 if (user?.data?.role === "partner") {
                   navigate("/partner/dashboard/personalDetails");
                 } else if (

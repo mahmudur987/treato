@@ -28,8 +28,7 @@ const tableHeading = [
   },
   {
     heading: "Service Amount ",
-  }
-
+  },
   {
     heading: "Type",
   },
@@ -177,4 +176,3 @@ AppointmentsTable.propTypes = {
 
 export default AppointmentsTable;
 export const MemoizedAppointmentsTable = memo(AppointmentsTable);
-

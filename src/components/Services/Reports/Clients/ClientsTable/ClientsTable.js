@@ -82,7 +82,7 @@ const ClientsTable = ({ data }) => {
     if (selectedClients.length === tableData.length) {
       setSelectedClients([]);
     } else {
-      const allIds = tableData.map((item) => item.txnId);
+      const allIds = tableData.map((item) => item.clientName);
       setSelectedClients(allIds);
     }
   };

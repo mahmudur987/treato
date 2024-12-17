@@ -14,7 +14,18 @@ const PartnerPageLayout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { newPartner } = useSelector((state) => state.user);
+  const handleNavigation = ({ role, isProfileComplete }) => {
+    console.log(role, isProfileComplete);
 
+    if (JSON.parse(role) === "partner") {
+      if (!isProfileComplete) {
+        navigate("/partner/dashboard/newSalonSetting");
+      }
+    } else {
+      toast.error("Please login as a partner.");
+      navigate("/partner");
+    }
+  };
   useEffect(() => {
     const jwtToken = localStorage.getItem("jwtToken");
     const userRole = localStorage.getItem("userRole");
@@ -26,19 +37,26 @@ const PartnerPageLayout = () => {
     }
 
     if (!userRole) {
+      console.log(55);
       getUserProfile(jwtToken)
         .then((response) => {
           const userDetails = response?.res?.data;
+
           if (!userDetails) {
             console.error("Error fetching user profile:", response);
             localStorage.removeItem("jwtToken");
             return;
           }
-
           dispatch(updateIsLoggedIn(true));
           dispatch(updateUserDetails(userDetails));
-          localStorage.setItem("userRole", userDetails.role);
-          handleNavigation(userDetails);
+          localStorage.setItem(
+            "userRole",
+            JSON.stringify(userDetails?.data?.role)
+          );
+          handleNavigation({
+            role: userDetails?.data?.role,
+            isProfileComplete: userDetails?.isProfileComplete,
+          });
         })
         .catch((error) => {
           console.error("Error fetching user profile:", error);
@@ -52,20 +70,14 @@ const PartnerPageLayout = () => {
         isProfileComplete: newPartner?.isProfileComplete,
       });
     }
-  }, [dispatch, navigate, newPartner?.isProfileComplete]);
 
-  const handleNavigation = ({ role, isProfileComplete }) => {
-    if (role === "partner") {
-      if (!isProfileComplete) {
-        navigate("/partner/dashboard/newSalonSetting");
-      } else {
-        navigate("/partner/dashboard");
-      }
-    } else {
-      toast.error("Please login as a partner.");
-      navigate("/partner");
-    }
-  };
+    getUserProfile(jwtToken)
+      .then((response) => {
+        const userDetails = response?.res?.data;
+        console.log(userDetails);
+      })
+      .catch((error) => {});
+  }, [dispatch, navigate, newPartner?.isProfileComplete]);
 
   return (
     <main className={style.mainContainer}>

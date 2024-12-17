@@ -25,6 +25,7 @@ const Reports = () => {
   const [page, setPage] = useState("Appointments");
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedClients, setSelectedClients] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
 
   const {
@@ -57,6 +58,8 @@ const Reports = () => {
     setSearchTerm,
     isSearching,
     setIsSearching,
+    selectedRows,
+    setSelectedRows,
   };
 
   const handleSearchToggle = () => {
@@ -84,12 +87,12 @@ const Reports = () => {
           </p>
         </div>
 
-        <ReportsPageHeader page={page} setPage={setPage} />
+        <ReportsPageHeader pageDetails={page} setPageDetails={setPage} />
 
         {page === "Appointments" && (
           <section>
             <MemoizedFilterSection1
-              setSearchTerm={setSearchTerm}
+              setAppointmentsQuery={setSearchTerm}
               data={appointments}
             />
             {isAppointmentsLoading && <LoadSpinner />}
@@ -110,7 +113,10 @@ const Reports = () => {
         )}
         {page === "Clients" && (
           <section>
-            <MemoizedFilterSection2 setSearchTerm={setSearchTerm} />
+            <MemoizedFilterSection2
+              setClientsQuery={setSearchTerm}
+              data={clients}
+            />
             {isClientsLoading && <LoadSpinner />}
 
             {clients?.data?.length > 0 &&
@@ -128,7 +134,10 @@ const Reports = () => {
 
         {page === "Billing & Payment" && (
           <section>
-            <MemoizedFilterSection3 setSearchTerm={setSearchTerm} />
+            <MemoizedFilterSection3
+              setBillQuery={setSearchTerm}
+              data={billing?.data}
+            />
             {isBillingLoading && <LoadSpinner />}
 
             {isBillingError && (

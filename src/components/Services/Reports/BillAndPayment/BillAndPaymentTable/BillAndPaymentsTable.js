@@ -62,8 +62,9 @@ const tableHeading = [
 const formatNumber = (num) =>
   !num || isNaN(num) ? "N/A" : parseFloat(num).toFixed(2);
 const BillAndPaymentTable = ({ data }) => {
-  const { transactionId } = useContext(reportContext);
-  const [selectedRows, setSelectedRows] = useState([]);
+  const { transactionId, selectedRows, setSelectedRows } =
+    useContext(reportContext);
+
   const [selectAll, setSelectAll] = useState(false);
 
   const tableData = data

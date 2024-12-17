@@ -120,6 +120,10 @@ const LoginPage = () => {
               // localStorage.setItem("userData", JSON.stringify(profileData));
               dispatch(updateIsLoggedIn(true));
               dispatch(updateUserDetails(profileData));
+              localStorage.setItem(
+                "userRole",
+                JSON.stringify(profileData?.data?.role)
+              );
 
               if (profileData?.data.role === "super") {
                 navigate("/admin");
@@ -187,6 +191,10 @@ const LoginPage = () => {
                 dispatch(updateIsLoggedIn(true));
                 dispatch(updateUserDetails(user));
                 toast("Welcome to Treato! Start exploring now!");
+                localStorage.setItem(
+                  "userRole",
+                  JSON.stringify(user?.data?.role)
+                );
                 if (
                   user?.data?.role === "partner" &&
                   !user?.isProfileComplete
