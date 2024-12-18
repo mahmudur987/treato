@@ -32,12 +32,13 @@ const FilterSection = ({ setAppointmentsQuery, data }) => {
   const handleInputChange = (e) => {
     const value = e.target.value;
     setSearchText(value);
-
+    console.log(value);
     // Regular expression to match a transaction ID pattern (adjust as needed)
     const transactionIdPattern = /\b\w{24}\b/; // Example: 16 alphanumeric characters
 
     // Extract transaction ID
     const transactionIdMatch = value.match(transactionIdPattern);
+    console.log(transactionIdMatch);
     if (transactionIdMatch) {
       setATransactionId(transactionIdMatch[0]);
 

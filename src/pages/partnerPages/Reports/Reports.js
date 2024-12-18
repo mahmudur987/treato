@@ -27,7 +27,8 @@ const Reports = () => {
   const [selectedClients, setSelectedClients] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-
+  const [AtransactionId, setATransactionId] = useState("");
+  const [transactionId, setTransactionId] = useState("");
   const {
     data: appointments,
     isLoading: isAppointmentsLoading,
@@ -48,7 +49,7 @@ const Reports = () => {
     isError: isBillingError,
     error: billingError,
   } = useBillingReport(searchTerm);
-
+  console.log(AtransactionId);
   const contextValue = {
     selectedItems,
     setSelectedItems,
@@ -60,6 +61,10 @@ const Reports = () => {
     setIsSearching,
     selectedRows,
     setSelectedRows,
+    AtransactionId,
+    setATransactionId,
+    transactionId,
+    setTransactionId,
   };
 
   const handleSearchToggle = () => {

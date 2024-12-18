@@ -77,6 +77,11 @@
   display: flex;
   padding: 0px;
 }
+.phone select {
+  width: 60px;
+  outline: none;
+  border: none;
+}
 .phone input {
   border: none;
   height: 45px;

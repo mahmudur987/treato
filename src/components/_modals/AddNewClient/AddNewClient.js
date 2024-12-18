@@ -2,13 +2,34 @@
 import React, { useContext, useState } from "react";
 import styles from "./AddNewClient.module.css";
 import CustomSelect from "../../Select/CustomeSelect";
-import en from "react-phone-number-input/locale/en";
+
 import downArrow from "../../../assets/svgs/icon (2).svg";
 import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
-import CountrySelect from "../../Countrycode/CountrySelect";
-import { getCountryCallingCode } from "react-phone-number-input";
+
 import { AddAppointmentContext } from "../../../pages/partnerPages/Services/AddAppoinment/AddAppoinment";
 import { toast } from "react-toastify";
+
+const dialCodes = [
+  "+91", // India
+  "+880", // United States and Canada
+  "+44", // United Kingdom
+  "+61", // Australia
+  "+49", // Germany
+  "+33", // France
+  "+81", // Japan
+  "+86", // China
+  "+55", // Brazil
+  "+27", // South Africa
+  "+7", // Russia
+  "+39", // Italy
+  "+34", // Spain
+  "+52", // Mexico
+  "+82", // South Korea
+  "+31", // Netherlands
+  "+46", // Sweden
+  "+41", // Switzerland
+  "+65", // Singapore
+];
 const AddNewClient = ({
   showModal,
   onClose,
@@ -21,7 +42,7 @@ const AddNewClient = ({
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("IN");
+  const [country, setCountry] = useState(dialCodes[0]);
   const [selectedOption, setSelectedOption] = useState("Male");
   const options = ["Male", "Female", "Other"];
 
@@ -53,7 +74,7 @@ const AddNewClient = ({
   };
 
   const handleSubmit = (e) => {
-    console.log(phone);
+    console.log(country);
 
     e.preventDefault();
 
@@ -68,7 +89,7 @@ const AddNewClient = ({
     }
 
     const data = {
-      phone: phone.length ? `+${getCountryCallingCode(country)}${phone}` : "",
+      phone: phone.length ? `+${country}${phone}` : "",
       name: firstName + " " + lastName,
       email: email,
     };
@@ -130,12 +151,13 @@ const AddNewClient = ({
             <div className={styles.formItems}>
               <label htmlFor="serviceType">phone</label>
               <p className={styles.phone}>
-                <CountrySelect
-                  labels={en}
-                  value={country}
-                  onChange={setCountry}
-                  phone={phone}
-                />
+                <select onChange={(e) => setCountry(e.target.value)}>
+                  {dialCodes.map((x, y) => (
+                    <option key={y} value={x}>
+                      {x}
+                    </option>
+                  ))}
+                </select>
                 <input
                   onChange={handlePhoneChange}
                   value={phone}
