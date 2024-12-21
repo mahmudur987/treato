@@ -2,42 +2,49 @@ import React, { useRef, useState, useEffect, memo } from "react";
 import styles from "./styles.module.css";
 import Salon, { MemoizedSalon } from "../../Cards/Salon/Salon";
 import { scrollright } from "../../../assets/images/icons";
-import { salon } from "../../../services/salon";
+import { salon, useGetAllSalonSList } from "../../../services/salon";
 import Title from "../../Typography/Title/Title";
 import { useSelector } from "react-redux";
+import NoDataDisplay from "../../NodataToDisplay/NoDataDisplay";
+import LoadSpinner from "../../LoadSpinner/LoadSpinner";
+import ErrorComponent from "../../ErrorComponent/ErrorComponent";
 
 const TopSalons = (props) => {
   const salonsState = useSelector((state) => state.salons);
   const userDetails = useSelector((state) => state.user);
   let [topSalonData, setTopSalonData] = useState([]);
+  const { data, isLoading, isError, error } = useGetAllSalonSList();
+
+  console.log(data?.salons);
 
   useEffect(() => {
-    if (props.heading === "Top-rated Hair Salons") {
-      let filterResult = [...salonsState?.salonContent].sort(
-        (a, b) => b.rating - a.rating
-      );
-      setTopSalonData(filterResult);
-    } else if (props?.heading === "Popular near you") {
-      let filterResult;
-      if (!userDetails?.user.isLocationAllow) {
-        filterResult = [...salonsState?.salonContent].sort(
-          (a, b) => b.rating - a.rating
-        );
-      } else {
-        filterResult = [...salonsState?.salonContent]
-          .filter((salon) => salon.distances < 400)
-          .sort((a, b) => {
-            const distanceA =
-              a.unit === "km" ? a.distances * 1000 : a.distances;
-            const distanceB =
-              b.unit === "km" ? b.distances * 1000 : b.distances;
-            return distanceA - distanceB;
-          })
-          .sort((a, b) => b.rating - a.rating);
-      }
+    if (data) {
+      let filterResult = [...data?.salons].sort((a, b) => b.rating - a.rating);
       setTopSalonData(filterResult);
     }
-  }, [salonsState, props, userDetails]);
+
+    // if (props.heading === "Top-rated Hair Salons") {
+    // } else if (props?.heading === "Popular near you") {
+    //   let filterResult;
+    //   if (!userDetails?.user.isLocationAllow) {
+    //     filterResult = [...salonsState?.salonContent].sort(
+    //       (a, b) => b.rating - a.rating
+    //     );
+    //   } else {
+    //     filterResult = [...salonsState?.salonContent]
+    //       .filter((salon) => salon.distances < 400)
+    //       .sort((a, b) => {
+    //         const distanceA =
+    //           a.unit === "km" ? a.distances * 1000 : a.distances;
+    //         const distanceB =
+    //           b.unit === "km" ? b.distances * 1000 : b.distances;
+    //         return distanceA - distanceB;
+    //       })
+    //       .sort((a, b) => b.rating - a.rating);
+    //   }
+    //   setTopSalonData(filterResult);
+    // }
+  }, [data]);
   const trSalonBoxRef = useRef(null);
 
   const handle_trScrollRight = () => {
@@ -120,7 +127,7 @@ const TopSalons = (props) => {
               />
             )}
             <div ref={carouselRef} className={styles["trWrapper"]}>
-              {topSalonData.length > 0 ? (
+              {data && !isLoading && !isError && topSalonData.length > 0 ? (
                 topSalonData.map((salon, index) => (
                   <MemoizedSalon
                     salonData={salon}
@@ -130,8 +137,17 @@ const TopSalons = (props) => {
                 ))
               ) : (
                 <p className={styles.notAvailable}>
-                  No salons available at the moment. Check back later!
+                  <NoDataDisplay
+                    message={
+                      "No salons available at the moment. Check back later!"
+                    }
+                  />
                 </p>
+              )}
+
+              {isLoading && <LoadSpinner />}
+              {isError && (
+                <ErrorComponent message={error ? error.message : "Error"} />
               )}
             </div>
 

@@ -164,3 +164,13 @@ export const useGetAllSalonServiceStylist = (data) => {
     },
   });
 };
+export const useGetAllSalonSList = (data) => {
+  return useQuery({
+    queryKey: ["/salon/getSalonsList"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get("/salon/getSalonsList");
+
+      return data;
+    },
+  });
+};
