@@ -127,16 +127,19 @@ const TopSalons = (props) => {
               />
             )}
             <div ref={carouselRef} className={styles["trWrapper"]}>
-              {data && !isLoading && !isError && topSalonData.length > 0 ? (
+              {data &&
+                !isLoading &&
+                !isError &&
+                topSalonData.length > 0 &&
                 topSalonData.map((salon, index) => (
                   <MemoizedSalon
                     salonData={salon}
                     place={"homePage"}
                     key={index}
                   />
-                ))
-              ) : (
-                <p className={styles.notAvailable}>
+                ))}
+              {data && !isLoading && !isError && topSalonData.length === 0 && (
+                <p>
                   <NoDataDisplay
                     message={
                       "No salons available at the moment. Check back later!"
