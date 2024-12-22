@@ -16,12 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetAllTeamMemSche } from "../../../../services/Team";
 import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
-import {
-  DateAndTime,
-  formatCustomDate,
-  formatDateRange,
-  formatStateDate,
-} from "./utils";
+import { DateAndTime, formatStateDate } from "./utils";
 import axiosInstance from "../../../../services/axios";
 import { toast } from "react-toastify";
 export const TimeScheContext = createContext();
@@ -162,8 +157,8 @@ const TimeSchedule = () => {
     }
   };
 
-  const employeeSchedule = () => {
-    navigate("/partner/dashboard/EmployeeSchedule");
+  const employeeSchedule = (id) => {
+    navigate(`/partner/dashboard/EmployeeSchedule/${id}`);
   };
 
   return (
@@ -314,7 +309,9 @@ const TimeSchedule = () => {
                                       isLeave={isLeave}
                                       isEdit={isEdit}
                                       handleShift={handleShift}
-                                      employeeSchedule={employeeSchedule}
+                                      employeeSchedule={() =>
+                                        employeeSchedule(item?.id)
+                                      }
                                       handleShiftFun={handleShiftFun}
                                       schedule={schedule}
                                       member={member}

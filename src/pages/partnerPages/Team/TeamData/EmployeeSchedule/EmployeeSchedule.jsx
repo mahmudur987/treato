@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EmployeeSchedule.module.css";
 import arrowLeft from "../../../../../assets/images/AccountSettings/arrow-left.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import plus from "../../../../../assets/images/TeamDetails/plus.png";
 import copy from "../../../../../assets/images/TeamDetails/copy.png";
 import Pick from "../../../Date/Pic";
@@ -72,8 +72,9 @@ const convertTo24Hour = (time12h) => {
 };
 
 const EmployeeSchedule = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/").pop();
   const { data: salon, isLoading: salonIsLoading, refetch } = useSingleSalon();
-
   // State declarations
   const [shiftTimesVisible, setShiftTimesVisible] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
@@ -176,10 +177,12 @@ const EmployeeSchedule = () => {
     },
     [shiftTime]
   );
-
+  console.log(selectedMember);
   useEffect(() => {
     if (x) {
       const weekData = filterWeekData(x);
+      // console.log(shiftTime, "weekData");
+
       setSelectedSlots((prevSlots) =>
         JSON.stringify(prevSlots) !== JSON.stringify(weekData)
           ? weekData
@@ -202,16 +205,19 @@ const EmployeeSchedule = () => {
 
   // Set default member on data fetch
   // Set default or existing selected member on data fetch/update
+
   useEffect(() => {
     if (teamMembers.length > 0) {
       // Keep the selected member at the same index if possible
+      const index = teamMembers.findIndex((item) => item.id === id);
+
       const indexToSelect =
-        selectedMemberIndex < teamMembers.length ? selectedMemberIndex : 0;
+        selectedMemberIndex !== 0 ? selectedMemberIndex : index;
       setSelectedMember(teamMembers[indexToSelect]);
     } else {
       setSelectedMember(null); // No members available
     }
-  }, [teamMembers, selectedMemberIndex]);
+  }, [teamMembers, selectedMemberIndex, id]);
 
   const { data: Slots, isLoading: SlotsIsLoading } = useGetSlots();
 
@@ -404,6 +410,7 @@ const EmployeeSchedule = () => {
                   const slots =
                     Slots?.slotsPerDay.find((x) => x.day === item.day)?.slots ||
                     [];
+                  console.log(selectedSlots, "selectedSlots");
 
                   return (
                     <div className={styles.mainMapDiv1} key={index}>

@@ -15,8 +15,6 @@ const PartnerPageLayout = () => {
   const dispatch = useDispatch();
   const { newPartner } = useSelector((state) => state.user);
   const handleNavigation = ({ role, isProfileComplete }) => {
-    console.log(role, isProfileComplete);
-
     if (JSON.parse(role) === "partner") {
       if (!isProfileComplete) {
         navigate("/partner/dashboard/newSalonSetting");
@@ -37,7 +35,6 @@ const PartnerPageLayout = () => {
     }
 
     if (!userRole) {
-      console.log(55);
       getUserProfile(jwtToken)
         .then((response) => {
           const userDetails = response?.res?.data;

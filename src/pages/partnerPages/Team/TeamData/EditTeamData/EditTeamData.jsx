@@ -35,7 +35,6 @@ const formatDate = (dateString) => {
 
 const EditTeamData = () => {
   const location = useLocation();
-
   const id = location.pathname.split("/").pop();
   const {
     data: member,
@@ -167,7 +166,7 @@ const EditTeamData = () => {
   };
 
   const employeeSchedule = () => {
-    navigate("/partner/dashboard/EmployeeSchedule");
+    navigate(`/partner/dashboard/EmployeeSchedule/${id}`);
   };
   const closeModal = () => {
     setIsModalOpen(false);

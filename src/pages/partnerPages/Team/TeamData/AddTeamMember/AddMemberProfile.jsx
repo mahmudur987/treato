@@ -150,7 +150,7 @@ const AddMemberProfile = () => {
   };
 
   const employeeSchedule = () => {
-    navigate("/partner/dashboard/EmployeeSchedule");
+    navigate("/partner/dashboard/EmployeeSchedule/new");
   };
   const closeModal = () => {
     setIsModalOpen(false);

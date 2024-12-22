@@ -421,7 +421,7 @@ function App() {
                   element={<EditTeamData />}
                 />
                 <Route
-                  path="/partner/dashboard/EmployeeSchedule"
+                  path="/partner/dashboard/EmployeeSchedule/:id"
                   element={<EmployeeSchedule />}
                 />
 
