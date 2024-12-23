@@ -143,6 +143,7 @@ const StyleDetails = () => {
             value={formData.name}
             onChange={handleChange}
             className={styles.input}
+            maxLength={50}
             placeholder="Burgundy curls wit &&h twilight blue extensions"
           />
         </div>
@@ -156,6 +157,7 @@ const StyleDetails = () => {
             onChange={handleChange}
             className={styles.textarea}
             placeholder="A brief description of the style."
+            maxLength={500}
           ></textarea>
         </div>
         <div className={styles.wrapper}>

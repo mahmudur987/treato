@@ -45,8 +45,8 @@ const AppointmentsTable = ({ data }) => {
     if (!data?.data) return [];
     let filteredData = data.data;
     if (AtransactionId) {
-      filteredData = filteredData.filter(
-        (x) => x.transactionId === AtransactionId
+      filteredData = filteredData.filter((x) =>
+        x.transactionId.toLowerCase().includes(AtransactionId.toLowerCase())
       );
     }
 
