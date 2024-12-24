@@ -4,6 +4,7 @@ import bottomImg from "../../../../../assets/images/TeamDetails/Vector.png";
 import sty from "./BillAndPaymentsTable.module.css";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
+import { toast } from "react-toastify";
 const tableHeading = [
   {
     heading: "Txn ID.",
@@ -93,10 +94,11 @@ const BillAndPaymentTable = ({ data }) => {
         paidOn: x?.paidOn ?? "",
         tax: x?.tax ?? "",
         comm: x?.comm ?? "",
+        file: x?.invoice ?? "",
       };
       return y;
     });
-
+  console.log("tableData", tableData);
   // Handle selecting/deselecting all rows
   const handleSelectAll = () => {
     if (!selectAll) {
@@ -176,7 +178,17 @@ const BillAndPaymentTable = ({ data }) => {
                     <td>{x.tax}</td>
                     <td>{x.comm}</td>
                     <td className={sty.textSize}>
-                      <MdOutlineFileDownload />
+                      <span
+                        onClick={() => {
+                          if (x.file && x.file !== "NA") {
+                            window.open(x.file, "_blank"); // Opens the URL in a new tab
+                          } else {
+                            toast.error("File Not Available");
+                          }
+                        }}
+                      >
+                        <MdOutlineFileDownload />
+                      </span>
                     </td>
                   </tr>
                 ))}

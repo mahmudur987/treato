@@ -6,7 +6,8 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import NoDataDisplay from "../../../../NodataToDisplay/NoDataDisplay";
 import { reportContext } from "../../../../../pages/partnerPages/Reports/Reports";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const tableHeading = [
   {
     heading: "Txn ID.",
@@ -40,7 +41,7 @@ const tableHeading = [
 const AppointmentsTable = ({ data }) => {
   const { selectedItems, setSelectedItems, AtransactionId } =
     useContext(reportContext);
-
+  const navigate = useNavigate();
   const tableData = useMemo(() => {
     if (!data?.data) return [];
     let filteredData = data.data;
@@ -155,9 +156,17 @@ const AppointmentsTable = ({ data }) => {
                   <td>{x.amount}</td>
                   <td>{x.type}</td>
                   <td className={sty.textSize}>
-                    <Link to={x.file} target="_blank">
+                    <span
+                      onClick={() => {
+                        if (x.file) {
+                          window.open(x.file, "_blank"); // Opens the URL in a new tab
+                        } else {
+                          toast.error("File Not Available");
+                        }
+                      }}
+                    >
                       <MdOutlineFileDownload />
-                    </Link>
+                    </span>
                   </td>
                 </tr>
               ))}
