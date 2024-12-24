@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense, useState } from "react";
+import React, { useEffect, Suspense, useState, useCallback } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateIsLoggedIn, updateUserDetails } from "./redux/slices/user";
@@ -213,60 +213,73 @@ function App() {
 
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user);
-  const [isLocationBlocked, setisLocationBlocked] = useState(false);
-  const [userGeolocationAvailable, setUserGeolocationAvailable] =
-    useState(true);
-  const [userLoc, setuserLoc] = useState({});
+  const [isLocationBlocked, setIsLocationBlocked] = useState(false);
+  const [isGeolocationAvailable, setIsGeolocationAvailable] = useState(true);
 
-  //Ask For Location Permission
-  const askForLocationPermission = () => {
+  // Ask for Location Permission
+  const askForLocationPermission = useCallback(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          // TODO: to add state,city  google map api key required
-          setuserLoc({ latitude, longitude });
+          // Update user details with the fetched location
+          console.log({ latitude, longitude, isLocationAllow: true });
           dispatch(
-            updateUserDetails({ latitude, longitude, isLocationAllow: true })
+            updateUserDetails({
+              data: { latitude, longitude, isLocationAllow: true },
+            })
           );
         },
         (error) => {
-          console.error("Error getting user's location:", error);
-          // if blocked setting default lat and lon of Delhi
+          console.error("Error getting user's location:", error.message);
+          // Fallback to a default location (Delhi)
           dispatch(
             updateUserDetails({
-              isLocationAllow: false,
-              latitude: 28.6139,
-              longitude: 77.209,
+              data: {
+                isLocationAllow: false,
+                latitude: 28.6139,
+                longitude: 77.209,
+              },
             })
           );
-          setUserGeolocationAvailable(false);
-          setisLocationBlocked(true);
+          setIsGeolocationAvailable(false);
+          setIsLocationBlocked(true);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0,
         }
       );
     } else {
       console.error("Geolocation not supported");
-      setUserGeolocationAvailable(false);
+      setIsGeolocationAvailable(false);
     }
-  };
-
+  }, [dispatch]);
+  console.log(userDetails);
+  // Notify user when location access is blocked
   useEffect(() => {
     if (isLocationBlocked) {
-      toast.info(`For a better experience, please allow location access.`);
+      toast.info("For a better experience, please allow location access.");
     }
   }, [isLocationBlocked]);
 
+  // Fetch location if not already available
   useEffect(() => {
-    if (!userDetails.latitude || !userDetails.longitude) {
+    if (!userDetails?.user?.latitude || !userDetails?.user?.longitude) {
+      console.log("askForLocationPermission");
       askForLocationPermission();
     }
-  }, [userDetails.latitude, userDetails.longitude]);
+  }, [
+    userDetails?.user?.latitude,
+    userDetails?.user?.longitude,
+    askForLocationPermission,
+  ]);
 
   useEffect(() => {
     let isTokenExist = localStorage.getItem("jwtToken");
     if (isTokenExist) {
       getUserProfile(isTokenExist).then((res) => {
-        console.log(res);
         if (res.res) {
           dispatch(updateIsLoggedIn(true));
           dispatch(updateUserDetails(res?.res?.data));

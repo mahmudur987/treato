@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect, memo } from "react";
 import styles from "./styles.module.css";
 import Salon, { MemoizedSalon } from "../../Cards/Salon/Salon";
-import { scrollright, user } from "../../../assets/images/icons";
+import { scrollright } from "../../../assets/images/icons";
 import {
-  salon,
   useGetAllNearSalonSList,
   useGetAllSalonSList,
 } from "../../../services/salon";
