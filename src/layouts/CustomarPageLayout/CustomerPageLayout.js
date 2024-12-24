@@ -66,8 +66,6 @@ export default function CustomerPageLayout() {
     }
   }, []);
 
-  console.log(mobileView);
-
   if (isLoading) {
     return <LoadSpinner />;
   }

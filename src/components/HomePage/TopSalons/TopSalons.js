@@ -1,8 +1,12 @@
 import React, { useRef, useState, useEffect, memo } from "react";
 import styles from "./styles.module.css";
 import Salon, { MemoizedSalon } from "../../Cards/Salon/Salon";
-import { scrollright } from "../../../assets/images/icons";
-import { salon, useGetAllSalonSList } from "../../../services/salon";
+import { scrollright, user } from "../../../assets/images/icons";
+import {
+  salon,
+  useGetAllNearSalonSList,
+  useGetAllSalonSList,
+} from "../../../services/salon";
 import Title from "../../Typography/Title/Title";
 import { useSelector } from "react-redux";
 import NoDataDisplay from "../../NodataToDisplay/NoDataDisplay";
@@ -14,8 +18,16 @@ const TopSalons = (props) => {
   const userDetails = useSelector((state) => state.user);
   let [topSalonData, setTopSalonData] = useState([]);
   const { data, isLoading, isError, error } = useGetAllSalonSList();
-
-  console.log(data?.salons);
+  const {
+    data: salonsData,
+    isLoading: salonsLoading,
+    isError: salonsIsError,
+    error: salonsError,
+  } = useGetAllNearSalonSList({
+    search: "",
+    lat: userDetails?.user?.latitude,
+    lng: userDetails?.user?.longitude,
+  });
 
   useEffect(() => {
     if (data) {
@@ -23,38 +35,13 @@ const TopSalons = (props) => {
       setTopSalonData(filterResult);
     }
 
-    // if (props.heading === "Top-rated Hair Salons") {
-    // } else if (props?.heading === "Popular near you") {
-    //   let filterResult;
-    //   if (!userDetails?.user.isLocationAllow) {
-    //     filterResult = [...salonsState?.salonContent].sort(
-    //       (a, b) => b.rating - a.rating
-    //     );
-    //   } else {
-    //     filterResult = [...salonsState?.salonContent]
-    //       .filter((salon) => salon.distances < 400)
-    //       .sort((a, b) => {
-    //         const distanceA =
-    //           a.unit === "km" ? a.distances * 1000 : a.distances;
-    //         const distanceB =
-    //           b.unit === "km" ? b.distances * 1000 : b.distances;
-    //         return distanceA - distanceB;
-    //       })
-    //       .sort((a, b) => b.rating - a.rating);
-    //   }
-    //   setTopSalonData(filterResult);
-    // }
-  }, [data]);
-  const trSalonBoxRef = useRef(null);
-
-  const handle_trScrollRight = () => {
-    if (trSalonBoxRef.current) {
-      trSalonBoxRef.current.scrollBy({
-        left: 350, // Adjust the value as needed
-        behavior: "smooth",
-      });
+    if (props.heading === "Top-rated Hair Salons") {
+    } else if (props?.heading === "Popular near you") {
+      if (salonsData) {
+        setTopSalonData(salonsData?.salons);
+      }
     }
-  };
+  }, [data, salonsData, props?.heading]);
 
   const carouselRef = useRef(null);
   // const [scrollPosition, setScrollPosition] = useState(0);
@@ -126,34 +113,77 @@ const TopSalons = (props) => {
                 className={styles.scroll_left}
               />
             )}
-            <div ref={carouselRef} className={styles["trWrapper"]}>
-              {data &&
-                !isLoading &&
-                !isError &&
-                topSalonData.length > 0 &&
-                topSalonData.map((salon, index) => (
-                  <MemoizedSalon
-                    salonData={salon}
-                    place={"homePage"}
-                    key={index}
-                  />
-                ))}
-              {data && !isLoading && !isError && topSalonData.length === 0 && (
-                <p>
-                  <NoDataDisplay
-                    message={
-                      "No salons available at the moment. Check back later!"
-                    }
-                  />
-                </p>
-              )}
+            {props.heading === "Top-rated Hair Salons" && (
+              <div ref={carouselRef} className={styles["trWrapper"]}>
+                {data &&
+                  !isLoading &&
+                  !isError &&
+                  topSalonData.length > 0 &&
+                  topSalonData.map((salon, index) => (
+                    <MemoizedSalon
+                      salonData={salon}
+                      place={"homePage"}
+                      key={index}
+                    />
+                  ))}
+                {data &&
+                  !isLoading &&
+                  !isError &&
+                  topSalonData.length === 0 && (
+                    <p>
+                      <NoDataDisplay
+                        message={
+                          "No salons available at the moment. Check back later!"
+                        }
+                      />
+                    </p>
+                  )}
 
-              {isLoading && <LoadSpinner />}
-              {isError && (
-                <ErrorComponent message={error ? error.message : "Error"} />
-              )}
-            </div>
+                {isLoading && <LoadSpinner />}
+                {isError && (
+                  <ErrorComponent message={error ? error.message : "Error"} />
+                )}
+              </div>
+            )}
+            {props.heading === "Popular near you" && (
+              <div ref={carouselRef} className={styles["trWrapper"]}>
+                {salonsData &&
+                  !salonsLoading &&
+                  !salonsIsError &&
+                  topSalonData.length > 0 &&
+                  topSalonData.map((salon, index) => (
+                    <MemoizedSalon
+                      salonData={salon}
+                      place={"homePage"}
+                      key={index}
+                    />
+                  ))}
+                {data &&
+                  !isLoading &&
+                  !isError &&
+                  topSalonData.length === 0 && (
+                    <p>
+                      <NoDataDisplay
+                        message={
+                          "No salons available at the moment. Check back later!"
+                        }
+                      />
+                    </p>
+                  )}
 
+                {props.heading === "Top-rated Hair Salons" && isLoading && (
+                  <LoadSpinner />
+                )}
+                {props.heading === "popular near you" && salonsLoading && (
+                  <LoadSpinner />
+                )}
+                {props.heading === "popular near you" && salonsIsError && (
+                  <ErrorComponent
+                    message={salonsError ? salonsError.message : "Error"}
+                  />
+                )}
+              </div>
+            )}
             {showRightArrow && (
               <img
                 loading="lazy"
