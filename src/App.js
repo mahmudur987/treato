@@ -237,8 +237,8 @@ function App() {
             updateUserDetails({
               data: {
                 isLocationAllow: false,
-                latitude: 28.6139,
-                longitude: 77.209,
+                latitude: null,
+                longitude: null,
               },
             })
           );
