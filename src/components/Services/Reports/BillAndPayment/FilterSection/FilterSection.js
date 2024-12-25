@@ -159,7 +159,7 @@ const FilterSection = ({ setBillQuery, data }) => {
       selectedPaymentMode !== "All" && selectedPaymentMode !== "Payment Mode"
         ? `&mode=${selectedPaymentMode.toLocaleLowerCase()}`
         : ""
-    }${commonSearch || name ? `&name=${commonSearch || name}` : ""}`;
+    }${commonSearch || name ? `&search=${commonSearch || name}` : ""}`;
   }, [selectedPaymentStatus, selectedPaymentMode, commonSearch, name]);
 
   useEffect(() => {
