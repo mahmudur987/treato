@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import style from "./ServicePage.module.css";
 import LeftSideBar from "../../components/Services/LeftSideBar/LeftSideBar";
@@ -14,16 +14,22 @@ const PartnerPageLayout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { newPartner } = useSelector((state) => state.user);
-  const handleNavigation = ({ role, isProfileComplete }) => {
-    if (JSON.parse(role) === "partner") {
-      if (!isProfileComplete) {
-        navigate("/partner/dashboard/newSalonSetting");
+  const handleNavigation = useCallback(
+    ({ role, isProfileComplete }) => {
+      console.log(role);
+      console.log(isProfileComplete);
+
+      if (JSON.parse(role) === "partner") {
+        if (!isProfileComplete) {
+          navigate("/partner/newSalonSetting");
+        }
+      } else {
+        toast.error("Please login as a partner.");
+        navigate("/partner");
       }
-    } else {
-      toast.error("Please login as a partner.");
-      navigate("/partner");
-    }
-  };
+    },
+    [navigate]
+  );
   useEffect(() => {
     const jwtToken = localStorage.getItem("jwtToken");
     const userRole = localStorage.getItem("userRole");
@@ -50,6 +56,7 @@ const PartnerPageLayout = () => {
             "userRole",
             JSON.stringify(userDetails?.data?.role)
           );
+          console.log(userDetails);
           handleNavigation({
             role: userDetails?.data?.role,
             isProfileComplete: userDetails?.isProfileComplete,
@@ -62,19 +69,17 @@ const PartnerPageLayout = () => {
           navigate("/partner");
         });
     } else {
-      handleNavigation({
+      console.log({
         role: userRole,
         isProfileComplete: newPartner?.isProfileComplete,
       });
-    }
 
-    getUserProfile(jwtToken)
-      .then((response) => {
-        const userDetails = response?.res?.data;
-        console.log(userDetails);
-      })
-      .catch((error) => {});
-  }, [dispatch, navigate, newPartner?.isProfileComplete]);
+      handleNavigation({
+        role: userRole,
+        isProfileComplete: true,
+      });
+    }
+  }, [dispatch, navigate, handleNavigation, newPartner?.isProfileComplete]);
 
   return (
     <main className={style.mainContainer}>

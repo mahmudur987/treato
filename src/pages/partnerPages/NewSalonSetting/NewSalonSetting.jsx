@@ -191,9 +191,9 @@ const NewSalonSetting = () => {
     setCurrentStep(step);
   };
 
-  if (loading) {
-    return <LoadSpinner />;
-  }
+  // if (loading) {
+  //   return <LoadSpinner />;
+  // }
 
   return (
     <>

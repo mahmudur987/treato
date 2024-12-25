@@ -109,8 +109,6 @@ const EmployeeSchedule = () => {
     }
   }, [member, memberIsLoading, memberIsError]);
 
-  console.log(startDate, endDate);
-
   const shiftTime = useMemo(
     () =>
       selectedMember?.timeForServices?.map((x) => {

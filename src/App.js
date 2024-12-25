@@ -364,13 +364,14 @@ function App() {
               <Route path="/partner/dashboard" element={<PartnerPageLayout />}>
                 <Route path="/partner/dashboard" element={<Dashboard />} />
                 <Route
-                  path="/partner/dashboard/appointment/calendar"
-                  element={<AppointmentCalendar />}
-                />
-                <Route
                   path="/partner/dashboard/newSalonSetting"
                   element={<NewSalonSetting />}
                 />
+                <Route
+                  path="/partner/dashboard/appointment/calendar"
+                  element={<AppointmentCalendar />}
+                />
+
                 <Route
                   path="/partner/dashboard/service"
                   element={<ServiceCatalog />}
