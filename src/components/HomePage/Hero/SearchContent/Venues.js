@@ -3,6 +3,7 @@ import styles from "../hero.module.css";
 import { Frame1 } from "../../../../assets/images/HeroSectionImages";
 import { useSelector } from "react-redux";
 import { useGetAllNearSalonSList } from "../../../../services/salon";
+import { Link } from "react-router-dom";
 
 const Venues = ({ inputValue }) => {
   const userDetails = useSelector((state) => state?.user?.user);
@@ -22,7 +23,11 @@ const Venues = ({ inputValue }) => {
           {data && !isLoading && !isError && venues.length > 0 && (
             <div className={styles["vn_results"]}>
               {venues.map((venue) => (
-                <div key={venue.id} className={styles["vn_resultItem"]}>
+                <Link
+                  key={venue.id}
+                  className={styles["vn_resultItem"]}
+                  to={venue ? `/salons/${venue._id}` : null}
+                >
                   <div className={styles["vn_itemImage"]}>
                     <img
                       height={48}
@@ -39,7 +44,7 @@ const Venues = ({ inputValue }) => {
                     <p>{venue.salon_name}</p>
                     <small>{venue.salons_address.slice(0, 20)}</small>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}
