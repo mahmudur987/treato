@@ -121,6 +121,8 @@ const TimeSchedule = () => {
     setIsLeave(true);
   };
 
+  console.log(startDate);
+
   const handleDownloadCSV = async () => {
     try {
       setLoading(true);
@@ -130,7 +132,7 @@ const TimeSchedule = () => {
 
       const { data } = await axiosInstance.post(
         `stylist/generatecsv`,
-        {},
+        { start_date: startDate, end_date: endDate },
         { headers }
       );
 
