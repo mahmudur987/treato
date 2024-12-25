@@ -13,7 +13,7 @@ import {
   arrowleft,
 } from "../../../assets/images/icons";
 import { getAllServices } from "../../../services/Services";
-import { salon } from "../../../services/salon";
+import { salon, useGetAllNearSalonSList } from "../../../services/salon";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -26,10 +26,6 @@ import SalonSearchLocationModal from "../../HomePage/Hero/Search_MoboModal/Salon
 import { useSelector } from "react-redux";
 
 const MainSearchBar = ({ place }) => {
-  // Short letter abbreviations used in few classNames
-  // trt: Treatment
-  // vn: Venues
-  // loc: Location
   const [locationInputValue, setLocationInputValue] = useState("");
   const [treatmentInputValue, setTreatmentInputValue] = useState("");
   const [Trt_DesktopModal, setTrt_DesktopModal] = useState(false);
@@ -43,11 +39,11 @@ const MainSearchBar = ({ place }) => {
   const [locationLat, setlocationLat] = useState("");
   const [locationLng, setlocationLng] = useState("");
   const [datanav, setDataNav] = useState();
-
   const userDetails = useSelector((state) => state?.user?.user);
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
+
   function reportWindowSize() {
     let winWidth = window.innerWidth;
     updateWinWidthMain(winWidth);
@@ -240,7 +236,6 @@ const MainSearchBar = ({ place }) => {
 
     setFilteredServiceData(filtered);
   };
-
   const handleLocationInput = (e) => {
     const inputValue = e.target.value;
     setLocationInputValue(inputValue);
@@ -358,6 +353,7 @@ const MainSearchBar = ({ place }) => {
               allServices={filteredServiceData}
               setTreatmentInputValue={setTreatmentInputValue}
               handle_close={handle_closeTrt_Modal}
+              inputValue={treatmentInputValue}
             />
           </div>
 
