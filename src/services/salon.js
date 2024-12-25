@@ -182,7 +182,6 @@ export const useGetAllNearSalonSList = (location) => {
       if (location.lat) url += `?latitude=${location.lat}`;
       if (location.lng) url += `&longitude=${location.lng}`;
       if (location.search) url += `&search=${location.search}`;
-      console.log(url);
       const { data } = await axiosInstance.get(url);
 
       return data;

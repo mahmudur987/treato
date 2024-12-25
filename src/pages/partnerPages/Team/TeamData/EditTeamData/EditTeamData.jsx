@@ -104,6 +104,7 @@ const EditTeamData = () => {
     if (selectedServices?.includes(x._id)) {
       return x;
     }
+    return null;
   });
 
   const handleSubmit = async (e) => {

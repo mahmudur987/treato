@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./EmployeeSchedule.module.css";
 import arrowLeft from "../../../../../assets/images/AccountSettings/arrow-left.svg";
 import { Link, useLocation } from "react-router-dom";
-import plus from "../../../../../assets/images/TeamDetails/plus.png";
-import copy from "../../../../../assets/images/TeamDetails/copy.png";
 import Pick from "../../../Date/Pic";
 import {
   useGetAllTeamMemSche,
@@ -76,7 +74,6 @@ const EmployeeSchedule = () => {
   const id = location.pathname.split("/").pop();
   const { data: salon, isLoading: salonIsLoading, refetch } = useSingleSalon();
   // State declarations
-  const [shiftTimesVisible, setShiftTimesVisible] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
   const [selectedMemberIndex, setSelectedMemberIndex] = useState(0);
   const [selectedSlots, setSelectedSlots] = useState([]);
@@ -97,9 +94,22 @@ const EmployeeSchedule = () => {
 
   const salonOpeningData = salon?.salon?.working_hours || [];
 
-  const { data: member } = useGetSingleMember(selectedMember?.id);
+  const {
+    data: member,
+    isLoading: memberIsLoading,
+    isError: memberIsError,
+  } = useGetSingleMember(selectedMember?.id);
   const serviceStartDate = member?.data?.Service_Start_Date;
   const serviceEndDate = member?.data?.Service_End_Date;
+
+  useEffect(() => {
+    if (member && !memberIsLoading && !memberIsError) {
+      setStartDate(member?.data?.Service_Start_Date);
+      setEndDate(member?.data?.Service_End_Date);
+    }
+  }, [member, memberIsLoading, memberIsError]);
+
+  console.log(startDate, endDate);
 
   const shiftTime = useMemo(
     () =>
@@ -177,7 +187,6 @@ const EmployeeSchedule = () => {
     },
     [shiftTime]
   );
-  console.log(selectedMember);
   useEffect(() => {
     if (x) {
       const weekData = filterWeekData(x);
@@ -410,8 +419,6 @@ const EmployeeSchedule = () => {
                   const slots =
                     Slots?.slotsPerDay.find((x) => x.day === item.day)?.slots ||
                     [];
-                  console.log(selectedSlots, "selectedSlots");
-
                   return (
                     <div className={styles.mainMapDiv1} key={index}>
                       <div className={styles.mainMapDiv}>
