@@ -13,7 +13,11 @@ export default function BasicInput({
   className,
   onChange,
 }) {
+  console.log(updateInputVal);
+
   function inputValue(e) {
+    console.log(e.target.value);
+
     if (updateInputVal) {
       let allValue = { ...inputVal };
       allValue[e.target.name] = e.target.value;

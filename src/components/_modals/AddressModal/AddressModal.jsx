@@ -9,8 +9,7 @@ import { useEffect } from "react";
 
 import { useSelector } from "react-redux";
 
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+import { GoogleMap, Marker } from "@react-google-maps/api";
 
 export default function AddressModal({
   setAddressModal,
@@ -60,6 +59,9 @@ export default function AddressModal({
   let updateAddress = (e) => {
     e.preventDefault();
     const userJWt = localStorage.getItem("jwtToken");
+
+    console.log(e.target);
+
     let house = e.target.house.value;
     let landmark = e.target.landmark.value;
     let address = {
@@ -185,7 +187,6 @@ export default function AddressModal({
     setUpdateSave(true);
   };
 
-  console.log(addressModal);
   const theupdateSave = () => {
     setUpdateSave(true);
   };
@@ -379,6 +380,9 @@ export default function AddressModal({
                       NAME={"house"}
                       required={true}
                       id={"house"}
+                      Type={"text"}
+                      VALUE={inputVal.house}
+                      updateInputVal={updateInputVal}
                     />
                   </label>
                 </div>
