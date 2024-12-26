@@ -132,7 +132,7 @@ export default function AccountSettings() {
     updateInputVal(data);
     setShowSave(false);
   };
-
+  console.log(inputVal);
   const submitForm = async (e) => {
     e.preventDefault();
     const userJWt = localStorage.getItem("jwtToken");

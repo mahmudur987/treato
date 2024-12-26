@@ -375,24 +375,36 @@ export default function AddressModal({
                 <div className={styles.addressD} onChange={theupdateSave}>
                   <label htmlFor="house">
                     <div className={styles.addressDA}>House/Flat Number*</div>
-                    <BasicInput
-                      PlaceHolder={"House or flat number"}
-                      NAME={"house"}
-                      required={true}
-                      id={"house"}
-                      Type={"text"}
-                      VALUE={inputVal.house}
-                      updateInputVal={updateInputVal}
+                    <input
+                      placeholder="House or flat number"
+                      name="house"
+                      required
+                      id="house"
+                      type="text"
+                      value={inputVal.house}
+                      onChange={(e) =>
+                        updateInputVal({ ...inputVal, house: e.target.value })
+                      }
+                      className={styles.basic_input}
                     />
                   </label>
                 </div>
                 <div className={styles.addressD}>
                   <label htmlFor="landmark" onChange={theupdateSave}>
                     <div className={styles.addressDA}>Landmark (optional)</div>
-                    <BasicInput
-                      PlaceHolder={"e.g. opp. AXN Center"}
-                      NAME={"landmark"}
-                      id={"landmark"}
+                    <input
+                      placeholder="e.g. opp. AXN Center"
+                      name="landmark"
+                      id="landmark"
+                      type="text"
+                      value={inputVal.landmark}
+                      onChange={(e) =>
+                        updateInputVal({
+                          ...inputVal,
+                          landmark: e.target.value,
+                        })
+                      }
+                      className={styles.basic_input}
                     />
                   </label>
                 </div>
