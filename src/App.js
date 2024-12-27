@@ -256,7 +256,7 @@ function App() {
       setIsGeolocationAvailable(false);
     }
   }, [dispatch]);
-  console.log(userDetails);
+
   // Notify user when location access is blocked
   useEffect(() => {
     if (isLocationBlocked) {

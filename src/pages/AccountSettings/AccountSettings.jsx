@@ -132,7 +132,7 @@ export default function AccountSettings() {
     updateInputVal(data);
     setShowSave(false);
   };
-  console.log(inputVal);
+
   const submitForm = async (e) => {
     e.preventDefault();
     const userJWt = localStorage.getItem("jwtToken");
@@ -151,8 +151,7 @@ export default function AccountSettings() {
       place: inputVal?.address?.place ?? "",
       address_type: inputVal?.address?.house_type ?? "",
     };
-    console.log(Data);
-    console.log(userData.phone);
+    console.log(inputVal);
     if (inputVal?.phone !== userData.phone) {
       localStorage.setItem("tempUserData", JSON.stringify(Data));
       await verifyOtp();
@@ -178,25 +177,39 @@ export default function AccountSettings() {
 
       updateUser(userJWt, formData)
         .then((res) => {
-          setShowSave(false);
-          let isTokenExist = localStorage.getItem("jwtToken");
-          if (isTokenExist) {
-            getUserProfile(isTokenExist)
-              .then((res) => {
-                dispatch(updateUserDetails(res?.res?.data));
-              })
-              .catch((err) => {
-                console.log(err);
-              });
+          console.log(res);
+          if (res.res) {
+            setShowSave(false);
+            let isTokenExist = localStorage.getItem("jwtToken");
+            if (isTokenExist) {
+              getUserProfile(isTokenExist)
+                .then((res) => {
+                  dispatch(updateUserDetails(res?.res?.data));
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+            const states = {
+              first_name: true,
+              last_name: true,
+              email: true,
+              phone: true,
+              dob: true,
+            };
+            updateInputState(states);
+          } else if (res.err) {
+            console.log(res.err);
+
+            if (
+              res.err ===
+              "TypeError: Cannot read properties of undefined (reading 'status')"
+            ) {
+              return toast.error("Upload a small size Image");
+            }
+
+            toast.error(res.err.message ?? "Something went wrong");
           }
-          const states = {
-            first_name: true,
-            last_name: true,
-            email: true,
-            phone: true,
-            dob: true,
-          };
-          updateInputState(states);
         })
         .catch((err) => {
           console.error(err);

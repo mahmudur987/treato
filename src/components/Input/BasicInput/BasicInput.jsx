@@ -1,62 +1,40 @@
 import styles from "./BasicInput.module.css";
 
 export default function BasicInput({
-  PlaceHolder,
-  Type,
-  VALUE,
-  DISABLED,
-  id,
-  NAME,
+  PlaceHolder = "",
+  Type = "text",
+  VALUE, // Optional
+  DISABLED = false,
+  id = "",
+  NAME = "",
   updateInputVal,
-  inputVal,
-  required,
-  className,
+  inputVal = {},
+  required = false,
+  className = "",
   onChange,
 }) {
-  function inputValue(e) {
-    console.log(e.target.value);
-
+  const inputValue = (e) => {
+    const { name, value } = e.target;
     if (updateInputVal) {
-      let allValue = { ...inputVal };
-      allValue[e.target.name] = e.target.value;
-      updateInputVal(allValue);
+      updateInputVal({ ...inputVal, [name]: value });
     }
-  }
+
+    if (onChange) {
+      onChange(e); // Call parent-provided onChange if available
+    }
+  };
+
   return (
-    <>
-      {VALUE ? (
-        <input
-          type={Type ? Type : ""}
-          placeholder={PlaceHolder ? PlaceHolder : ""}
-          className={
-            className
-              ? `${className} ${styles.basic_input}`
-              : styles.basic_input
-          }
-          value={VALUE ? VALUE : ""}
-          disabled={DISABLED ? DISABLED : false}
-          id={id ? id : ""}
-          name={NAME ? NAME : ""}
-          required={required ? required : false}
-          onChange={onChange ? onChange : inputValue}
-        />
-      ) : (
-        <input
-          type={Type ? Type : ""}
-          placeholder={PlaceHolder ? PlaceHolder : ""}
-          className={
-            className
-              ? `${className} ${styles.basic_input}`
-              : styles.basic_input
-          }
-          disabled={DISABLED ? DISABLED : false}
-          id={id ? id : ""}
-          name={NAME ? NAME : ""}
-          onChange={onChange ? onChange : null}
-          required={required ? required : false}
-          value={VALUE ? VALUE : ""}
-        />
-      )}
-    </>
+    <input
+      type={Type}
+      placeholder={PlaceHolder}
+      className={`${className} ${styles.basic_input}`}
+      {...(VALUE !== undefined ? { value: VALUE } : {})} // Use value only if provided
+      disabled={DISABLED}
+      id={id}
+      name={NAME}
+      required={required}
+      onChange={inputValue} // Always use inputValue as the handler
+    />
   );
 }

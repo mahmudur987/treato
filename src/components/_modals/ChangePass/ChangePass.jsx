@@ -37,38 +37,53 @@ export default function ChangePass({ setPassModal, updateMobileOpt }) {
 
     const userJWt = localStorage.getItem("jwtToken");
     if (
-      e.target.currentPass.value !== "" &&
-      e.target.newPass.value !== "" &&
-      e.target.rePass.value !== "" &&
-      e.target.newPass.value !== password
+      e.target.currentPass.value.trim().length === 0 ||
+      e.target.newPass.value.trim().length === 0 ||
+      e.target.rePass.value.trim().length === 0 ||
+      e.target.newPass.value !== e.target.rePass.value ||
+      e.target.newPass.value === password
     ) {
-      if (!password) {
-        toast("Please add 8 strong character !");
+      if (e.target.currentPass.value.trim().length === 0) {
+        toast.error("Current password is required.");
+      } else if (e.target.newPass.value.trim().length === 0) {
+        toast.error("New password is required.");
+      } else if (e.target.rePass.value.trim().length === 0) {
+        toast.error("Confirm password is required.");
+      } else if (e.target.newPass.value !== e.target.rePass.value) {
+        toast.error("Passwords do not match.");
+      } else if (e.target.newPass.value === password) {
+        toast.error("New password should not be same as old password.");
       }
-      console.log(password);
+      showError(true);
+    } else {
       let formData = {
         currentPassword: e.target.currentPass.value,
         newPassword: e.target.newPass.value,
       };
+      console.log(formData);
       updatePass(userJWt, formData)
         .then((res) => {
           console.log(res);
-          handleGeneratePassword();
-          setPassModal(false);
-          updateMobileOpt(-1);
+
+          if (res.res) {
+            toast.success("Your password has been successfully updated.");
+            handleGeneratePassword();
+            setPassModal(false);
+            updateMobileOpt(-1);
+          } else if (res.err) {
+            toast.error(res.err.response.data.error ?? "An error occurred.");
+          }
         })
         .catch((err) => {
-          console.log(err);
+          toast.error(err.err.response.data.error ?? "An error occurred.");
         });
       showError(false);
-    } else {
-      showError(true);
     }
   };
 
-  const closeModal=()=>{
-    setPassModal(false)
-  }
+  const closeModal = () => {
+    setPassModal(false);
+  };
   return (
     <>
       {/* <pre>{JSON.stringify(password + "HELLO", null, 2)}</pre> */}
@@ -77,7 +92,8 @@ export default function ChangePass({ setPassModal, updateMobileOpt }) {
           <div className={styles.passB}>
             <div className={styles.passBA}>Change Password</div>
             <div className={styles.passBB}>
-              <img loading="lazy"
+              <img
+                loading="lazy"
                 src={Grey_Close}
                 alt=""
                 onClick={closeModal}
@@ -90,7 +106,7 @@ export default function ChangePass({ setPassModal, updateMobileOpt }) {
                 <div className={styles.passCA}>Current password</div>
                 <div>
                   <BasicInput
-                    Type={"password"}
+                    Type={"text"}
                     id={"currentPass"}
                     PlaceHolder={"Enter your current password"}
                     NAME={"currentPass"}
@@ -103,7 +119,7 @@ export default function ChangePass({ setPassModal, updateMobileOpt }) {
                 <div className={styles.passCA}>New password</div>
                 <div>
                   <BasicInput
-                    Type={"password"}
+                    Type={"text"}
                     id={"newPass"}
                     PlaceHolder={"Enter the new password"}
                     NAME={"newPass"}
@@ -116,16 +132,16 @@ export default function ChangePass({ setPassModal, updateMobileOpt }) {
                 <div className={styles.passCA}>Confirm new password</div>
                 <div>
                   <BasicInput
-                    Type={"password"}
+                    Type={"text"}
                     id={"rePass"}
                     PlaceHolder={"Re-enter your new password"}
                     NAME={"rePass"}
                   />
                 </div>
               </label>
-              {error ? (
-                <div className={styles.passError}>Please Fill All Fields</div>
-              ) : null}
+              {/* {error ? (
+                <div className={styles.passError}>Please Fill All Fields perfectly</div>
+              ) : null} */}
             </div>
             <PrimaryButton children={"Update"} form="passChange" />
           </form>
