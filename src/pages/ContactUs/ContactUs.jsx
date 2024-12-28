@@ -18,12 +18,12 @@ function ContactUs() {
     phonenumber: "",
     isAcceptPrivacy: false,
   });
-  const { data, isLoading, isError } = useGetContactUs();
+  const { data } = useGetContactUs();
   const validatePhoneNumber = (phone) => {
     const phonePattern = /^\d{10}$/; // Adjust the regex pattern as needed
     return phonePattern.test(phone);
   };
-  console.log(data);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === "checkbox" ? checked : value;
@@ -106,6 +106,7 @@ function ContactUs() {
                   value={formData.first_name}
                   onChange={handleChange}
                   required
+                  maxLength={20}
                 />
               </div>
               <div className={style.lastname}>
@@ -117,6 +118,7 @@ function ContactUs() {
                   value={formData.last_name}
                   onChange={handleChange}
                   required
+                  maxLength={20}
                 />
               </div>
             </div>
@@ -141,6 +143,7 @@ function ContactUs() {
                   value={formData.phonenumber}
                   onChange={handleChange}
                   required
+                  maxLength={10}
                 />
                 {phoneNumberError && (
                   <p className={style.error}>{phoneNumberError}</p>
@@ -156,6 +159,7 @@ function ContactUs() {
                   value={formData.message}
                   onChange={handleChange}
                   required
+                  maxLength={300}
                 />
               </div>
               <div className={style.privacyPolicy}>

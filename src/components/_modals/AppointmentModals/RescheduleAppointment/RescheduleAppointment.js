@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styles from "./RescheduleAppointment.module.css";
 import rightIco from "../../../../assets/images/SalonDetail/chevron-right.svg";
 import PrimaryButton from "../../../Buttons/PrimaryButton/PrimaryButton";
@@ -83,20 +83,23 @@ const RescheduleAppointment = ({ data }) => {
     fetchData();
   }, []);
 
-  const genarateSlotsData = {
-    salons_id: data.salonData[0]?._id,
-    service_id: subcategoriesIds,
-    selectedStylistId: data?.stylistData[0]._id,
-    noPreference: data?.noPreference,
-    dateforService: date,
-  };
+  const generateSlotsData = useMemo(
+    () => ({
+      salons_id: data.salonData[0]?._id,
+      service_id: subcategoriesIds,
+      selectedStylistId: data?.noPreference ? "" : data?.workerData[0]?._id,
+      noPreference: data?.noPreference,
+      dateforService: date,
+    }),
+    [data, subcategoriesIds, date]
+  );
 
   const {
     data: slots,
     isLoading,
     isError,
     error,
-  } = useTimeSlots(genarateSlotsData);
+  } = useTimeSlots(generateSlotsData);
   useEffect(() => {
     if (slots?.res?.message === "Salon Closed") {
       toast.info("Salon Closed");
