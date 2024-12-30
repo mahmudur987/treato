@@ -212,15 +212,25 @@ const EmployeeSchedule = () => {
 
   // Set default member on data fetch
   // Set default or existing selected member on data fetch/update
-
+  console.log(selectedMemberIndex, "selectedMemberIndex");
+  console.log(teamMembers, "teamMembers");
   useEffect(() => {
     if (teamMembers.length > 0) {
-      // Keep the selected member at the same index if possible
-      const index = teamMembers.findIndex((item) => item.id === id);
+      // Find the index of the member with the matching ID
+      const idIndex = teamMembers.findIndex((item) => item.id === id);
 
+      // Use selectedMemberIndex if valid, otherwise fall back to idIndex
       const indexToSelect =
-        selectedMemberIndex !== 0 ? selectedMemberIndex : index;
-      setSelectedMember(teamMembers[indexToSelect]);
+        selectedMemberIndex >= 0 && selectedMemberIndex < teamMembers.length
+          ? selectedMemberIndex
+          : idIndex;
+
+      // Set the selected member if indexToSelect is valid
+      if (indexToSelect >= 0) {
+        setSelectedMember(teamMembers[indexToSelect]);
+      } else {
+        setSelectedMember(null); // Clear selection if no valid member
+      }
     } else {
       setSelectedMember(null); // No members available
     }
@@ -333,7 +343,7 @@ const EmployeeSchedule = () => {
       refetch();
       refetch1();
     }
-  }, [startDate, endDate, selectedMember, selectedSlots]);
+  }, [startDate, endDate, selectedMember, selectedSlots, refetch, refetch1]);
   // Show error message if shift times are unavailable
   const toggleShiftTimes = useCallback((index) => {
     toast.error("Shifting systems are not available right now");

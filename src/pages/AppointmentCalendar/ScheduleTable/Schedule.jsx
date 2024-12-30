@@ -14,7 +14,8 @@ import {
 // import { HiDotsVertical } from "react-icons/hi";
 import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 import { useRef } from "react";
-
+export const placeHolderImage =
+  "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 const ScheduleTable = ({ profiles, getdata, selectedFilter }) => {
   const [openMenus, setOpenMenus] = useState({});
   const [openMenuId, setOpenMenuId] = useState(null);
@@ -23,7 +24,7 @@ const ScheduleTable = ({ profiles, getdata, selectedFilter }) => {
   const [slotdurations, setSlotDurations] = useState([]);
   const [condition, setCondition] = useState(false);
   useEffect(() => console.log(profiles));
-  const headerRef = useRef()
+  const headerRef = useRef();
 
   const toastSetting = {
     position: "top-right",
@@ -319,26 +320,27 @@ const ScheduleTable = ({ profiles, getdata, selectedFilter }) => {
           ))}
       </div>
       <div className={style.header} ref={headerRef}>
-        {
-          selectedFilter === 'Everyone' &&
-        <button className={style.prev} onClick={nextProfile}>
-          &#10094;
-        </button>
-        }
+        {selectedFilter === "Everyone" && (
+          <button className={style.prev} onClick={nextProfile}>
+            &#10094;
+          </button>
+        )}
         <div className={style.carousel} id="header">
           {!profiles && <LoadSpinner />}
           {profiles &&
             profiles.map((profile, index) => {
+              console.log(profile);
+
               const slots = createSlotsForProfile(profile);
               return (
                 <div className={style.profileContainer} key={index}>
                   <div className={style.profileBox}>
                     <img
                       loading="lazy"
-                      src={profile.stylistImage?.public_url}
+                      src={profile.stylistImage?.public_url ?? placeHolderImage}
                       alt={profile.stylistName}
                     />
-                    <p>{profile.stylistName}</p>
+                    <p>{profile.stylistName ?? "No preference"}</p>
                   </div>
                   <div className={style.slides}>
                     {!slots && <LoadSpinner />}
@@ -383,7 +385,11 @@ const ScheduleTable = ({ profiles, getdata, selectedFilter }) => {
                                     key={serviceIndex}
                                     className={`${style.appointmentBox} ${
                                       condition ? style.dBox : style.cBox
-                                    } ${totalMinutes < 20 ? style.appointmentBoxSmall : ''}`}
+                                    } ${
+                                      totalMinutes < 20
+                                        ? style.appointmentBoxSmall
+                                        : ""
+                                    }`}
                                     style={{
                                       minHeight: `${totalHeight}px`,
                                       backgroundColor: `${service.color}`,
@@ -561,12 +567,11 @@ const ScheduleTable = ({ profiles, getdata, selectedFilter }) => {
               );
             })}
         </div>
-        {
-          selectedFilter === 'Everyone' &&
+        {selectedFilter === "Everyone" && (
           <button className={style.next} onClick={prevProfile}>
             &#10095;
           </button>
-        }
+        )}
       </div>
     </>
   );

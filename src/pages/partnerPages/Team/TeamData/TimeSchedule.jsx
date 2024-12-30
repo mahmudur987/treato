@@ -14,7 +14,6 @@ import TimeScheduleModal, {
 } from "../../../../components/_modals/AdminProfile/TimeScheduleModal/TimeScheduleModal";
 import { useNavigate } from "react-router-dom";
 import { useGetAllTeamMemSche } from "../../../../services/Team";
-import LoadSpinner from "../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../components/ErrorComponent/ErrorComponent";
 import { DateAndTime, formatStateDate } from "./utils";
 import axiosInstance from "../../../../services/axios";
