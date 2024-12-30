@@ -58,16 +58,10 @@ const ClientsTable = ({ data }) => {
       lastVisit: x?.lastVisit ?? "N/A",
       topService: x?.topService ?? "NID",
       spend: x?.totalAmount.toFixed(2) ?? "N/A",
+      file: x?.fileurl,
     };
     return data;
   });
-  const handleDownload = () => {
-    // Log the event if necessary for tracking purposes
-    console.log("Download feature is currently under maintenance.");
-
-    // Inform the user
-    toast.info("This feature is under maintenance. Please check back later.");
-  };
 
   const toggleSelection = (itemId) => {
     if (selectedClients.includes(itemId)) {
@@ -86,7 +80,46 @@ const ClientsTable = ({ data }) => {
       setSelectedClients(allIds);
     }
   };
+  console.log(tableData);
 
+  function downloadAsCSV(data) {
+    // Generate a unique file name
+    const uniqueName = `client_details_${Date.now()}.csv`;
+
+    // Extract data and convert to CSV
+    const { clientName, email, gender, age, lastVisit, topService, spend } =
+      data;
+    const csvRows = [
+      [
+        "Client Name",
+        "Email",
+        "Gender",
+        "Age",
+        "Last Visit",
+        "Top Service",
+        "Spend",
+      ], // Header row
+      [clientName, email, gender, age, lastVisit, topService, spend], // Data row
+    ];
+
+    // Convert rows to CSV format
+    const csvContent = csvRows
+      .map((row) => row.map((value) => `"${value}"`).join(","))
+      .join("\n");
+
+    // Create a Blob for the CSV content
+    const blob = new Blob([csvContent], { type: "text/csv" });
+
+    // Create a link element to download the file
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = uniqueName;
+
+    // Trigger the download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
   if (data?.data?.length === 0) {
     return <NoDataDisplay />;
   }
@@ -139,8 +172,19 @@ const ClientsTable = ({ data }) => {
                 <td>{x.lastVisit}</td>
                 <td>{x.topService}</td>
                 <td>{x.spend}</td>
-                <td className={sty.textSize} onClick={handleDownload}>
-                  <MdOutlineFileDownload />
+                <td
+                  className={sty.textSize}
+                  onClick={() => {
+                    if (x.file) {
+                      window.open(x.file, "_blank"); // Opens the URL in a new tab
+                    } else {
+                      downloadAsCSV(x);
+                    }
+                  }}
+                >
+                  <MdOutlineFileDownload
+                    style={{ cursor: "pointer", color: "#0D69D7" }}
+                  />
                 </td>
               </tr>
             ))}

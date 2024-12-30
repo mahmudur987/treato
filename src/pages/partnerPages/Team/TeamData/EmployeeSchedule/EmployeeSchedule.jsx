@@ -210,10 +210,6 @@ const EmployeeSchedule = () => {
     [data]
   );
 
-  // Set default member on data fetch
-  // Set default or existing selected member on data fetch/update
-  console.log(selectedMemberIndex, "selectedMemberIndex");
-  console.log(teamMembers, "teamMembers");
   useEffect(() => {
     if (teamMembers.length > 0) {
       // Find the index of the member with the matching ID

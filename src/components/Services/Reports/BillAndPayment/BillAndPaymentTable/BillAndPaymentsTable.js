@@ -187,7 +187,9 @@ const BillAndPaymentTable = ({ data }) => {
                           }
                         }}
                       >
-                        <MdOutlineFileDownload />
+                        <MdOutlineFileDownload
+                          style={{ cursor: "pointer", color: "#0D69D7" }}
+                        />
                       </span>
                     </td>
                   </tr>
