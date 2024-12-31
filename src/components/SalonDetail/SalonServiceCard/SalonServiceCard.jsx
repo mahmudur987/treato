@@ -38,7 +38,7 @@ export default function SalonServiceCard({
       );
 
       allServices = allServices.filter((v) => v.service_count > 0); // Remove services with count 0
-
+      console.log(allServices);
       dispatch(addService(allServices));
     } else {
       let services = {

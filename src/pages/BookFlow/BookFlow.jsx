@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import NoProfessional from "../../assets/images/icons/NoProfessional.svg";
 import BillSummary from "../../components/BookFlow/BillSummary/BillSummary";
 import CompletedPay from "../../components/BookFlow/CompletedPay/CompletedPay";
@@ -36,6 +36,8 @@ import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
 
 export default function BookFlow() {
   let navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const step = searchParams.get("step");
   let dispatch = useDispatch();
   let [activeBookFlowBA, updateActiveBookFlowBA] = useState(1);
   let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
@@ -74,7 +76,12 @@ export default function BookFlow() {
     });
     setserviceIDs(IDs);
   }, [serviceDetails?.salonContent]);
-
+  useEffect(() => {
+    if (Number(step) === 2) {
+      console.log(step);
+      updateActiveBookFlowBA(2);
+    }
+  }, [step]);
   useEffect(() => {
     if (stepTwoDetails?.timeData) {
       setselectedServiceSlot(
@@ -279,6 +286,8 @@ export default function BookFlow() {
   if (isError) {
     return <ErrorComponent />;
   }
+  console.log(activeBookFlowBA);
+  console.log(typeof step);
 
   return (
     <div className={styles.book_flowMain}>

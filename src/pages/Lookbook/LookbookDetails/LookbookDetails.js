@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./LookbookDetails.module.css";
-import { arrowleft } from "../../../assets/images/icons";
-import greyStar from "../../../assets/images/icons/greyStar.svg";
+
 import mask from "../../../assets/images/NavbarImages/Mask.webp";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -9,12 +8,14 @@ import { GetSingleLook } from "../../../services/GetSingleLook";
 import { GetLooks } from "../../../services/GetLooks";
 import { useDispatch, useSelector } from "react-redux";
 import { addService } from "../../../redux/slices/salonServices";
+import LoadSpinner from "../../../components/LoadSpinner/LoadSpinner";
 const LookbookDetails = () => {
   let [lookData, setLookData] = useState(null);
   let [allLookData, setAllLookData] = useState(null);
   let [salonData, setSalonData] = useState(null);
   let [serviceData, setServiceData] = useState(null);
   let [salonId, setSalonId] = useState(null);
+  let [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
   const salonServices = useSelector(
@@ -25,6 +26,7 @@ const LookbookDetails = () => {
   const handleGoBack = () => {
     window.history.back(); // This will navigate back to the previous page in the browser's history
   };
+
   useEffect(() => {
     let getLooks = async () => {
       const { res, err } = await GetSingleLook(id.id);
@@ -33,6 +35,7 @@ const LookbookDetails = () => {
         setSalonData(res?.data?.data[0].service[0]);
         setServiceData(res?.data?.data[0].serviceSubCategoryData);
       }
+      setLoading(false);
     };
     getLooks();
   }, []);
@@ -40,18 +43,16 @@ const LookbookDetails = () => {
   useEffect(() => {
     let getAllLooks = async () => {
       const { res, err } = await GetLooks();
-      console.log(res, "getAllLooks");
       if (res) {
         let data = res?.data?.data.filter((v) => v._id === lookData?._id);
         setSalonId(data[0]?.salon);
         setAllLookData(data);
-        console.log(data);
       }
     };
     getAllLooks();
   }, [lookData]);
-  console.log(lookData);
-  let handleNavigation = () => {
+
+  let handleNavigation = (step) => {
     let services = {
       salon_id: salonId,
       service_category: lookData?.service[0]?.service_name,
@@ -62,13 +63,31 @@ const LookbookDetails = () => {
       service_count: 1,
     };
     let allServices = [services];
-    dispatch(addService(allServices));
-    navigate(`/salons/${salonId}/book`);
+
+    if (step === 1) {
+      dispatch(addService(allServices));
+      navigate(`/salons/${salonId}/book?step=1`);
+    } else if (step === 2) {
+      dispatch(addService(allServices));
+      navigate(`/salons/${salonId}/book?step=2`);
+    } else if (step === 3) {
+      navigate(`/salons/${salonId}`);
+    }
   };
 
   return (
     <div className={styles.LookbookDetails}>
-      {lookData ? (
+      {loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            minHeight: "100vh",
+          }}
+        >
+          <LoadSpinner />
+        </div>
+      ) : lookData ? (
         <>
           <div className={styles.imageSection}>
             <h3>{lookData?.name}</h3>
@@ -86,7 +105,12 @@ const LookbookDetails = () => {
           <div className={styles.paymentContainer}>
             <div className={styles.paymentBox}>
               <div className={styles.salonInfo}>
-                <h3>{salonData?.service_name}</h3>
+                <h3
+                  onClick={() => handleNavigation(3)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {lookData?.salon?.salon_name}
+                </h3>
                 <span>{lookData?.locationText}</span>
               </div>
               <hr className={styles.line} />
@@ -106,7 +130,6 @@ const LookbookDetails = () => {
                 )}
               </div>
               <hr className={styles.line} />
-
               <div className={styles.stylistInfo}>
                 {lookData?.stylist?.map((v, i) => {
                   return (
@@ -137,13 +160,16 @@ const LookbookDetails = () => {
               </div>
               <hr className={styles.line} />
 
-              <button className={styles.addVenueBtn} onClick={handleNavigation}>
+              <button
+                className={styles.addVenueBtn}
+                onClick={() => handleNavigation(1)}
+              >
                 <span className={styles.plus}>+</span> Add another service from
                 this venue
               </button>
               <PrimaryButton
                 className={styles.bookNow}
-                onClick={handleNavigation}
+                onClick={() => handleNavigation(2)}
               >
                 Book now
               </PrimaryButton>

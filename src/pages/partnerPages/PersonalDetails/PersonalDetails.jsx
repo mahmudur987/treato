@@ -189,7 +189,7 @@ const PersonalDetails = () => {
     }));
     setPrevDate(newDate);
   };
-
+  console.log(active?.phone, "active");
   if (isLoading) {
     return (
       <>
@@ -457,6 +457,7 @@ const PersonalDetails = () => {
                   active.firstName &&
                   active.lastName &&
                   active.email &&
+                  active.phone &&
                   active.DOB &&
                   !image
                     ? "gray"
