@@ -310,8 +310,8 @@ const Lookbook = () => {
     // TODO: setting temporary location input value as "Mumbai, Maharashtra" for use who allowed location will be dynamic once we get google map api key
     let data;
     if (userDetails?.user?.isLocationAllow) {
-      setLocationInput("Mumbai, Maharashtra"); //desktop State
-      setLocationInputValue("Mumbai, Maharashtra"); //mobile State
+      setLocationInput(""); //desktop State
+      setLocationInputValue(""); //mobile State
       data = {
         categoryName: activeButton,
         location: "Mumbai, Maharashtra",

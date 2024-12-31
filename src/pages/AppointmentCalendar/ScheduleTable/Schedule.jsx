@@ -372,162 +372,137 @@ const ScheduleTable = ({ profiles, getdata, selectedFilter }) => {
                               );
                               return (
                                 <div
-                                  className={`${style.appointmentBox4} ${
-                                    condition ? style.dBox : style.cBox
-                                  }`}
-                                  style={
-                                    totalMinutes < 30
-                                      ? { minHeight: totalHeight }
-                                      : {}
-                                  }
+                                  key={serviceIndex}
+                                  style={{ padding: "10px" }}
                                 >
                                   <div
-                                    key={serviceIndex}
-                                    className={`${style.appointmentBox} ${
+                                    className={`${style.appointmentBox4} ${
                                       condition ? style.dBox : style.cBox
-                                    } ${
-                                      totalMinutes < 20
-                                        ? style.appointmentBoxSmall
-                                        : ""
                                     }`}
-                                    style={{
-                                      minHeight: `${totalHeight}px`,
-                                      backgroundColor: `${service.color}`,
-                                    }}
+                                    style={
+                                      totalMinutes < 30
+                                        ? { minHeight: totalHeight }
+                                        : {}
+                                    }
                                   >
-                                    <div className={style.clientDetailsBox}>
-                                      <div>
-                                        <p className={style.timeDurations}>
-                                          {service?.time_takenby_service} (
-                                          {service?.exactTime})
-                                        </p>
-                                        <p className={style.serviceNames}>
-                                          {service.service_name}
-                                        </p>
-
-                                        <p className={style.clientNames}>
-                                          {service?.clientName}
-                                        </p>
-                                      </div>
-                                      <HiDotsVertical
-                                        onClick={() =>
-                                          toggleMenu(service?.unique_id)
-                                        }
-                                        className={`${style.threeDot}`}
-                                      />
-                                    </div>
-                                    <button
-                                      className={style.statusButton}
+                                    <div
+                                      className={`${style.appointmentBox} ${
+                                        condition ? style.dBox : style.cBox
+                                      } ${
+                                        totalMinutes < 20
+                                          ? style.appointmentBoxSmall
+                                          : ""
+                                      }`}
                                       style={{
-                                        color: `${textcolor}`,
-                                        background: `${background}`,
-                                        display: `${
-                                          totalMinutes < 20 ? "" : ""
-                                        }`,
+                                        minHeight: `${totalHeight}px`,
+                                        backgroundColor: `${service.color}`,
                                       }}
                                     >
-                                      {service?.status}
-                                    </button>
-                                  </div>
-                                  {openMenuId === service.unique_id && (
-                                    <div
-                                      className={`${style.dropdowncontent} ${
-                                        condition
-                                          ? style.dropBox
-                                          : style.cropBox
-                                      }`}
-                                      key={service?.unique_id}
-                                    >
-                                      <div className={style.inputContainer}>
-                                        <input
-                                          className={style.otpBox}
-                                          type="number"
-                                          placeholder="OTP"
-                                          value={otp}
-                                          onChange={handleOtpChange}
+                                      <div className={style.clientDetailsBox}>
+                                        <div>
+                                          <p className={style.timeDurations}>
+                                            {service?.time_takenby_service} (
+                                            {service?.exactTime})
+                                          </p>
+                                          <p className={style.serviceNames}>
+                                            {service.service_name}
+                                          </p>
 
-                                          // onKeyDown={(e) =>
-                                          //   handleEnter(e, service.unique_id)
-                                          // }
+                                          <p className={style.clientNames}>
+                                            {service?.clientName}
+                                          </p>
+                                        </div>
+                                        <HiDotsVertical
+                                          onClick={() =>
+                                            toggleMenu(service?.unique_id)
+                                          }
+                                          className={`${style.threeDot}`}
                                         />
                                       </div>
+                                      <button
+                                        className={style.statusButton}
+                                        style={{
+                                          color: `${textcolor}`,
+                                          background: `${background}`,
+                                          display: `${
+                                            totalMinutes < 20 ? "" : ""
+                                          }`,
+                                        }}
+                                      >
+                                        {service?.status}
+                                      </button>
+                                    </div>
+                                    {openMenuId === service.unique_id && (
+                                      <div
+                                        className={`${style.dropdowncontent} ${
+                                          condition
+                                            ? style.dropBox
+                                            : style.cropBox
+                                        }`}
+                                        key={service?.unique_id}
+                                      >
+                                        <div className={style.inputContainer}>
+                                          <input
+                                            className={style.otpBox}
+                                            type="number"
+                                            placeholder="OTP"
+                                            value={otp}
+                                            onChange={handleOtpChange}
 
-                                      <div
-                                        className={`${
-                                          service?.status === "started"
-                                            ? style.disable
-                                            : style.started
-                                        }`}
-                                        onClick={() => {
-                                          if (service?.status !== "started") {
-                                            startAppointment(service?.appid);
-                                          }
-                                        }}
-                                      >
-                                        Started
-                                      </div>
-                                      <div
-                                        className={`${style.started} ${
-                                          service?.paymentMode.toLowerCase() ===
-                                          "online"
-                                            ? ""
-                                            : style.noShow
-                                        } ${
-                                          service?.status === "no-show"
-                                            ? style.disable
-                                            : style.started
-                                        }`}
-                                        onClick={() => {
-                                          if (service?.status !== "no-show") {
-                                            noShowAppointment(service?.appid);
-                                          }
-                                        }}
-                                      >
-                                        No-Show
-                                      </div>
-                                      {service?.paymentMode.toLowerCase() ===
-                                      "on-site" ? (
-                                        <>
-                                          {service?.status !== "completed" ? (
-                                            <div
-                                              className={`${style.started}  `}
-                                              onClick={() =>
-                                                onsiteCompleteAppointment(
-                                                  service?.appid
-                                                )
-                                              }
-                                            >
-                                              Completed
-                                            </div>
-                                          ) : (
-                                            <div
-                                              className={`${style.started} ${
-                                                otp ? "" : style.disable
-                                              } `}
-                                            >
-                                              Completed
-                                            </div>
-                                          )}
-                                        </>
-                                      ) : (
-                                        <>
-                                          {otp?.length > 3 &&
-                                          service?.status !== "completed" ? (
-                                            <>
+                                            // onKeyDown={(e) =>
+                                            //   handleEnter(e, service.unique_id)
+                                            // }
+                                          />
+                                        </div>
+
+                                        <div
+                                          className={`${
+                                            service?.status === "started"
+                                              ? style.disable
+                                              : style.started
+                                          }`}
+                                          onClick={() => {
+                                            if (service?.status !== "started") {
+                                              startAppointment(service?.appid);
+                                            }
+                                          }}
+                                        >
+                                          Started
+                                        </div>
+                                        <div
+                                          className={`${style.started} ${
+                                            service?.paymentMode.toLowerCase() ===
+                                            "online"
+                                              ? ""
+                                              : style.noShow
+                                          } ${
+                                            service?.status === "no-show"
+                                              ? style.disable
+                                              : style.started
+                                          }`}
+                                          onClick={() => {
+                                            if (service?.status !== "no-show") {
+                                              noShowAppointment(service?.appid);
+                                            }
+                                          }}
+                                        >
+                                          No-Show
+                                        </div>
+                                        {service?.paymentMode.toLowerCase() ===
+                                        "on-site" ? (
+                                          <>
+                                            {service?.status !== "completed" ? (
                                               <div
                                                 className={`${style.started}  `}
                                                 onClick={() =>
-                                                  completeApp(
-                                                    service?.appid,
-                                                    service?.otps
+                                                  onsiteCompleteAppointment(
+                                                    service?.appid
                                                   )
                                                 }
                                               >
                                                 Completed
                                               </div>
-                                            </>
-                                          ) : (
-                                            <>
+                                            ) : (
                                               <div
                                                 className={`${style.started} ${
                                                   otp ? "" : style.disable
@@ -535,27 +510,60 @@ const ScheduleTable = ({ profiles, getdata, selectedFilter }) => {
                                               >
                                                 Completed
                                               </div>
-                                            </>
-                                          )}
-                                        </>
-                                      )}
+                                            )}
+                                          </>
+                                        ) : (
+                                          <>
+                                            {otp?.length > 3 &&
+                                            service?.status !== "completed" ? (
+                                              <>
+                                                <div
+                                                  className={`${style.started}  `}
+                                                  onClick={() =>
+                                                    completeApp(
+                                                      service?.appid,
+                                                      service?.otps
+                                                    )
+                                                  }
+                                                >
+                                                  Completed
+                                                </div>
+                                              </>
+                                            ) : (
+                                              <>
+                                                <div
+                                                  className={`${
+                                                    style.started
+                                                  } ${
+                                                    otp ? "" : style.disable
+                                                  } `}
+                                                >
+                                                  Completed
+                                                </div>
+                                              </>
+                                            )}
+                                          </>
+                                        )}
 
-                                      <div
-                                        className={`${
-                                          service?.status === "cancelled"
-                                            ? style.disable
-                                            : style.started
-                                        }`}
-                                        onClick={() => {
-                                          if (service?.status !== "cancelled") {
-                                            cancelation(service?.appid);
-                                          }
-                                        }}
-                                      >
-                                        Cancel Appointment
+                                        <div
+                                          className={`${
+                                            service?.status === "cancelled"
+                                              ? style.disable
+                                              : style.started
+                                          }`}
+                                          onClick={() => {
+                                            if (
+                                              service?.status !== "cancelled"
+                                            ) {
+                                              cancelation(service?.appid);
+                                            }
+                                          }}
+                                        >
+                                          Cancel Appointment
+                                        </div>
                                       </div>
-                                    </div>
-                                  )}
+                                    )}
+                                  </div>
                                 </div>
                               );
                             }
