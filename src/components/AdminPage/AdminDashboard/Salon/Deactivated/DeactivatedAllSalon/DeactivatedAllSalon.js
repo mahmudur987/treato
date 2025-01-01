@@ -1,14 +1,14 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import styles from "./DeactivatedAllSalon.module.css";
 import { FaArrowRight } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+
 import axiosInstance from "../../../../../../services/axios";
 import { toast } from "react-toastify";
 
 const DeactivatedAllSalon = ({
   selectedSalon,
   setSelectedSalon,
-  pendingSalonData,
+  deactivatedSalonData,
   viewBy,
   refetch,
 }) => {
@@ -22,10 +22,10 @@ const DeactivatedAllSalon = ({
   };
 
   const selectAllSalon = () => {
-    if (selectedSalon.length === pendingSalonData.length) {
+    if (selectedSalon.length === deactivatedSalonData.length) {
       return setSelectedSalon([]);
     }
-    const allIds = pendingSalonData.map((salon) => salon.id);
+    const allIds = deactivatedSalonData.map((salon) => salon.id);
     setSelectedSalon(allIds);
   };
 
@@ -90,7 +90,7 @@ const DeactivatedAllSalon = ({
     <section className={styles.mainContainer}>
       {viewBy ? (
         <div className={styles.contents}>
-          {pendingSalonData?.map((salon) => (
+          {deactivatedSalonData?.map((salon) => (
             <div key={salon.id} className={styles.card}>
               <figure>
                 <img loading="lazy" src={salon.image} alt="" />
@@ -140,7 +140,9 @@ const DeactivatedAllSalon = ({
                     type="checkbox"
                     name=""
                     id=""
-                    checked={selectedSalon.length === pendingSalonData.length}
+                    checked={
+                      selectedSalon.length === deactivatedSalonData.length
+                    }
                   />
                 </td>
 
@@ -166,7 +168,7 @@ const DeactivatedAllSalon = ({
             </thead>
 
             <tbody className={styles.tbody}>
-              {pendingSalonData.map((salon) => {
+              {deactivatedSalonData.map((salon) => {
                 return (
                   <tr key={salon.id}>
                     <td>

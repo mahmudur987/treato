@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import SalonInDashBoard from "../../../../../layouts/Admin/SalonInDashboard/SalonInDashBoard";
 import styles from "./DeactivatedSalon.module.css";
 import FilterSection from "../../../../../components/AdminPage/AdminDashboard/Salon/Deactivated/FilterSection/FilterSection";
-import DeactivatedAllSalon, {
-  MemoizedDeactivatedAllSalon,
-} from "../../../../../components/AdminPage/AdminDashboard/Salon/Deactivated/DeactivatedAllSalon/DeactivatedAllSalon";
+import { MemoizedDeactivatedAllSalon } from "../../../../../components/AdminPage/AdminDashboard/Salon/Deactivated/DeactivatedAllSalon/DeactivatedAllSalon";
 import img from "../../../../../assets/images/SalonDetail/slide4.webp";
 import {
   getCities,
@@ -12,15 +10,11 @@ import {
 } from "../../../../../services/superAdmin/Dashboard";
 import LoadSpinner from "../../../../../components/LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../../components/ErrorComponent/ErrorComponent";
-import NoDataDisplay, {
-  MemoizedNoDataDisplay,
-} from "../../../../../components/NodataToDisplay/NoDataDisplay";
+import { MemoizedNoDataDisplay } from "../../../../../components/NodataToDisplay/NoDataDisplay";
 import { formatDate } from "../../AdminDashboard";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Pagination, {
-  MemoizedPagination,
-} from "../../../../../components/AdminPage/AdminDashboard/Dashboard/BillingHistory/pagination/Pagination";
+import { MemoizedPagination } from "../../../../../components/AdminPage/AdminDashboard/Dashboard/BillingHistory/pagination/Pagination";
 
 const DeactivatedSalon = () => {
   const [City, setCity] = useState(["City"]);
@@ -60,7 +54,7 @@ const DeactivatedSalon = () => {
     const endIndex = startIndex + Number(itemPerPage);
     return x?.slice(startIndex, endIndex);
   };
-  const pendingSalonData = getFilteredData(filteredData);
+  const deactivatedSalonData = getFilteredData(filteredData);
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -84,12 +78,12 @@ const DeactivatedSalon = () => {
     <SalonInDashBoard>
       <section className={styles.mainContainer}>
         <FilterSection
-          data={pendingSalonData}
+          data={deactivatedSalonData}
           value={value}
           viewBy={viewBy}
           setViewBy={setViewBy}
           selectedSalon={selectedSalon}
-          count={pendingSalonData ? pendingSalonData.length : 0}
+          count={deactivatedSalonData ? deactivatedSalonData.length : 0}
           refetch={refetch}
           setSelectedSalon={setSelectedSalon}
         />
@@ -104,7 +98,7 @@ const DeactivatedSalon = () => {
             refetch={refetch}
             selectedSalon={selectedSalon}
             setSelectedSalon={setSelectedSalon}
-            pendingSalonData={pendingSalonData}
+            deactivatedSalonData={deactivatedSalonData}
             viewBy={viewBy}
           />
         )}

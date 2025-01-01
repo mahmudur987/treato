@@ -22,35 +22,68 @@ const FilterSection = ({
     console.log(selectedSalon);
 
     if (selectedSalon.length === 0) {
-      return toast.error("Please select at least one salon to reactivate.");
-    }
+      const deactivatedSalonsId = data.map((salon) => salon.id);
+      let confirm = window.confirm(
+        "Are you sure you want to reactivate all the selected salons?"
+      );
 
-    try {
-      const Data = {
-        salon_ids: selectedSalon, // Assuming you're reactivating multiple salons
-      };
-      const headers = {
-        token: localStorage.getItem("jwtToken"),
-      };
+      if (confirm) {
+        try {
+          const Data = {
+            salon_ids: deactivatedSalonsId, // Assuming you're reactivating multiple salons
+          };
+          const headers = {
+            token: localStorage.getItem("jwtToken"),
+          };
 
-      const { data } = await axiosInstance.patch(
-        "super/salonreactivate",
-        Data,
-        {
-          headers,
+          const { data } = await axiosInstance.patch(
+            "super/salonreactivate",
+            Data,
+            {
+              headers,
+            }
+          );
+
+          if (data) {
+            toast.success("Salons reactivated successfully!");
+            setSelectedSalon([]); // Clear the selection
+            refetch(); // Refresh data
+          }
+        } catch (error) {
+          console.error(error);
+          toast.error(
+            error?.message || "An error occurred while reactivating salons."
+          );
         }
-      );
-
-      if (data) {
-        toast.success("Salons reactivated successfully!");
-        setSelectedSalon([]); // Clear the selection
-        refetch(); // Refresh data
       }
-    } catch (error) {
-      console.error(error);
-      toast.error(
-        error?.message || "An error occurred while reactivating salons."
-      );
+    } else {
+      try {
+        const Data = {
+          salon_ids: selectedSalon, // Assuming you're reactivating multiple salons
+        };
+        const headers = {
+          token: localStorage.getItem("jwtToken"),
+        };
+
+        const { data } = await axiosInstance.patch(
+          "super/salonreactivate",
+          Data,
+          {
+            headers,
+          }
+        );
+
+        if (data) {
+          toast.success("Salons reactivated successfully!");
+          setSelectedSalon([]); // Clear the selection
+          refetch(); // Refresh data
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error(
+          error?.message || "An error occurred while reactivating salons."
+        );
+      }
     }
   };
   const handleDeleteAll = async () => {
@@ -87,9 +120,9 @@ const FilterSection = ({
     }
   };
 
-  const theview =()=>{
-    setViewBy((pre) => !pre)
-  }
+  const theview = () => {
+    setViewBy((pre) => !pre);
+  };
 
   return (
     <div className={styles.mainContainer}>

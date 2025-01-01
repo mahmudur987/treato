@@ -491,7 +491,7 @@ function App() {
               {/* contact us page  */}
               <Route path="/contactus" element={<ContactUsLayout />} />
 
-              {/* admin dashboard */}
+              {/* Super admin dashboard */}
 
               <Route path="/admin" element={<AdminPageLayout />}>
                 <Route path="/admin" element={<AdminDashboard />} />

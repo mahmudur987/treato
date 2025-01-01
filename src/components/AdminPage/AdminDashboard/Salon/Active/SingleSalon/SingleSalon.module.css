@@ -4,6 +4,7 @@
   max-width: 354px;
   width: 100%;
   min-height: 329px;
+  height: 100%;
   border: 1px solid #ced4da;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -64,18 +65,16 @@
   letter-spacing: 0.01em;
   text-align: left;
 }
-<<<<<<< HEAD
-.rating{
+<<<<<<< HEAD .rating {
   font-weight: 600;
 }
-.fastar{
+.fastar {
   font-size: 12px;
 }
-=======
-.fastars{
+======= .fastars {
   font-size: 12px;
 }
-.textWeight{
+.textWeight {
   font-weight: 600;
 }
 >>>>>>> ce38b711bd760f981f708715a08664c182061538
