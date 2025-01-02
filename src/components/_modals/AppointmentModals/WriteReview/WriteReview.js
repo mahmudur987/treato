@@ -69,23 +69,16 @@ const WriteReview = ({ data }) => {
         description: textareaValue,
       };
 
-      try {
-        const res = await addReview(data._id, review);
-        console.log(res.err.response.data.error);
+      const res = await addReview(data._id, review);
 
-        if (res.res) {
-          dispatch(closeModal());
-          toast.success("Your review has been posted successfully.");
-        } else {
-          toast.error(
-            res?.err?.response?.data?.error
-              ? res?.err?.response?.data?.error
-              : "An error occurred while posting your review. Please try again."
-          );
-        }
-      } catch (error) {
+      if (res.res) {
+        dispatch(closeModal());
+        toast.success("Your review has been posted successfully.");
+      } else {
         toast.error(
-          "A network error occurred. Please check your connection and try again."
+          res?.err?.response?.data?.error
+            ? res?.err?.response?.data?.error
+            : "An error occurred while posting your review. Please try again."
         );
       }
     }

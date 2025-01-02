@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CommissionHistory.module.css";
 import FilterSection from "./FilterSection/FilterSection";
-import Pagination, { MemoizedPagination1 } from "./pagination/Pagination";
+import { MemoizedPagination1 } from "./pagination/Pagination";
 import LoadSpinner from "../../../../LoadSpinner/LoadSpinner";
 import ErrorComponent from "../../../../ErrorComponent/ErrorComponent";
 import { generatePastMonths } from "../../Salon/SingleSalonDetails/Bookings/BookingsPart";
-import NoDataDisplay, {
-  MemoizedNoDataDisplay,
-} from "../../../../NodataToDisplay/NoDataDisplay";
-import CommissionHistoryTable, {
-  MemoizedCommissionHistoryTable,
-} from "./CommissionHistoryTable/CommissionHistoryTable";
+import { MemoizedNoDataDisplay } from "../../../../NodataToDisplay/NoDataDisplay";
+import { MemoizedCommissionHistoryTable } from "./CommissionHistoryTable/CommissionHistoryTable";
 import { useCommissionHistory } from "../../../../../services/superAdmin/Commission";
 
 const CommissionHistory = () => {
