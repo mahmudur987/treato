@@ -50,7 +50,9 @@ const Menu = ({ setShowBtnMenu, data, category }) => {
     <>
       <div className={styles.menuItems}>
         <p>
-          <Link to={"/partner/dashboard/service/addservice"}>
+          <Link
+            to={`/partner/dashboard/service/addservice?service_id=${service_id}&category_id=${category_id}`}
+          >
             Add a new service
           </Link>
         </p>

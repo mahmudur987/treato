@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./LookbookDetails.module.css";
-
-import mask from "../../../assets/images/NavbarImages/Mask.webp";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton/PrimaryButton";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { GetSingleLook } from "../../../services/GetSingleLook";

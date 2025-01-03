@@ -16,9 +16,6 @@ const PartnerPageLayout = () => {
   const { newPartner } = useSelector((state) => state.user);
   const handleNavigation = useCallback(
     ({ role, isProfileComplete }) => {
-      console.log(role);
-      console.log(isProfileComplete);
-
       if (JSON.parse(role) === "partner") {
         if (!isProfileComplete) {
           navigate("/partner/newSalonSetting");
@@ -56,23 +53,22 @@ const PartnerPageLayout = () => {
             "userRole",
             JSON.stringify(userDetails?.data?.role)
           );
-          console.log(userDetails);
+
           handleNavigation({
             role: userDetails?.data?.role,
             isProfileComplete: userDetails?.isProfileComplete,
           });
         })
         .catch((error) => {
-          console.error("Error fetching user profile:", error);
           localStorage.removeItem("jwtToken");
           toast.error("Session expired, please log in again.");
           navigate("/partner");
         });
     } else {
-      console.log({
-        role: userRole,
-        isProfileComplete: newPartner?.isProfileComplete,
-      });
+      // console.log({
+      //   role: userRole,
+      //   isProfileComplete: newPartner?.isProfileComplete,
+      // });
 
       handleNavigation({
         role: userRole,

@@ -3,7 +3,12 @@ import styles from "./BasicDetailForm.module.css";
 import CustomSelect from "../../../Select/CustomeSelect";
 import { downArrow } from "../../../Select/ColorSelect/ColorSelect";
 import plus from "../../../../assets/svgs/icon (16).svg";
+import { useSearchParams } from "react-router-dom";
 const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
+  const [searchParams] = useSearchParams();
+  const serviceTypeId = searchParams.get("service_id");
+  const categoryId = searchParams.get("category_id");
+
   const [showCategoryOption, setshowCategoryOption] = useState(false);
   const [selectedServiceType, setSelectedServiceType] = useState("");
   const [selectCategory, setSelectCategory] = useState(null);
@@ -69,16 +74,27 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
   useEffect(() => {
     setBasicDetails(data);
   }, [data, setBasicDetails]);
+  const index = serviceType.findIndex((x) => x.id === serviceTypeId);
 
   useEffect(() => {
     if (serviceType.length > 0) {
-      setSelectedServiceType(serviceType[0]);
+      if (index !== -1) {
+        setSelectedServiceType(serviceType[index]);
+      } else if (serviceType.length > 0) {
+        setSelectedServiceType(serviceType[0]);
+      }
     }
-  }, [serviceType]);
+  }, [serviceType, index]);
 
   useEffect(() => {
+    console.log(categories);
     if (categories.length > 0) {
-      setSelectCategory(categories[0]);
+      const index = categories.findIndex((x) => x === categoryId);
+      if (index !== -1) {
+        setSelectCategory(categories[index]);
+      } else if (categories.length > 0) {
+        setSelectCategory(categories[0]);
+      }
     }
   }, [categories]);
   useEffect(() => {
@@ -102,6 +118,9 @@ const BasicDetailsForm = ({ salon, setBasicDetails, submit }) => {
               setSelectedServiceType(serviceType[e.target.value])
             }
           >
+            <option value={selectedServiceType?.name}>
+              {selectedServiceType?.name}
+            </option>
             {serviceType.map((x, y) => (
               <option key={y} value={y}>
                 {x?.name}
