@@ -70,7 +70,6 @@ const WriteReview = ({ data }) => {
       };
 
       const res = await addReview(data._id, review);
-
       if (res.res) {
         dispatch(closeModal());
         toast.success("Your review has been posted successfully.");

@@ -119,10 +119,29 @@ const MainSearchBar = ({ place }) => {
     handle_openloc_Modal();
   };
 
-  const handleSelectCurrentLocation = () => {
-    setLocationInputValue("Current Location");
-    setValue("Current Location");
-    clearSuggestions();
+  const handleSelectCurrentLocation = async () => {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${userDetails.latitude},${userDetails.longitude}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch address");
+      }
+
+      const data = await response.json();
+      console.log(data);
+      if (data.results && data.results.length > 0) {
+        setLocationInputValue(data?.results[0]?.formatted_address);
+        setValue(data?.results[0]?.formatted_address);
+        clearSuggestions();
+      } else {
+        throw new Error("No address found for the given coordinates");
+      }
+    } catch (error) {
+      console.error("Error fetching address:", error.message);
+    }
+
     setlocationLat(userDetails?.latitude);
     setlocationLng(userDetails?.longitude);
     setloc_DesktopModal(false);
@@ -303,6 +322,22 @@ const MainSearchBar = ({ place }) => {
               "Geocode was not successful for the following reason: ",
               error
             );
+            let url = "/salons";
+            const queryParams = [];
+
+            if (treatmentInputValue) {
+              queryParams.push(`service=${treatmentInputValue}`);
+            }
+
+            if (locationInputValue) {
+              queryParams.push(`location=${locationInputValue}`);
+            }
+
+            // Join all query parameters with "&" and append to the base URL
+            if (queryParams.length > 0) {
+              url += `?${queryParams.join("&")}`;
+            }
+            navigate(url);
           });
       } else {
         navigate(
@@ -382,9 +417,7 @@ const MainSearchBar = ({ place }) => {
               winWidthMain > 767 ? "Search by location" : "Current location"
             }
             onClick={() => {
-              if (winWidthMain < 767) {
-                handle_openloc_Modal();
-              }
+              handle_openloc_Modal();
             }}
             // value={locationInputValue}
             // onChange={handleLocationInput}
@@ -418,20 +451,18 @@ const MainSearchBar = ({ place }) => {
               loc_DesktopModal ? "" : styles["hidden"]
             }`}
           >
-            {status === "OK" && (
-              <ul className={styles.locationUl}>
-                {userDetails?.isLocationAllow && (
-                  <li
-                    className={`${styles.locationList} ${styles.CurrentLocation}`}
-                    onClick={handleSelectCurrentLocation}
-                  >
-                    <img loading="lazy" src={mapPinBlue} alt="pinIcon"></img>
-                    Current Location
-                  </li>
-                )}
-                <>{renderSuggestions()}</>
-              </ul>
-            )}
+            <ul className={styles.locationUl}>
+              {userDetails?.isLocationAllow && (
+                <li
+                  className={`${styles.locationList} ${styles.CurrentLocation}`}
+                  onClick={handleSelectCurrentLocation}
+                >
+                  <img loading="lazy" src={mapPinBlue} alt="pinIcon"></img>
+                  Current Location
+                </li>
+              )}
+              <>{renderSuggestions()}</>
+            </ul>
           </div>
         </div>
 

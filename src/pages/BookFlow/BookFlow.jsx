@@ -132,6 +132,8 @@ export default function BookFlow() {
   };
 
   let getWorkerData = (e, year) => {
+    console.log(e.target);
+
     let oldData = { ...stepTwoDetails };
     let ServiceIds = salonServices?.map((e) => {
       return e?.service_id;
@@ -170,7 +172,7 @@ export default function BookFlow() {
         // console.log("from selected Stylist", requiredData);
         getAvailableSlots(requiredData).then((res) => {
           setavailableSlots(res?.res?.data?.data);
-          console.log("available slotsssssss", res?.res?.data?.data);
+
           dispatch(updateServiceDate(requiredData?.dateforService));
         });
       }
@@ -185,7 +187,6 @@ export default function BookFlow() {
       if (stepTwoDetails?.workerData !== null) {
         let requiredData;
         if (oldData.isNoPreference) {
-          console.log("--date NoPReferene----");
           requiredData = {
             salons_id: id,
             noPreference: oldData.isNoPreference,
@@ -193,7 +194,6 @@ export default function BookFlow() {
             dateforService: convertDate(e.target.value, year),
           };
         } else {
-          console.log("--date PReferene----");
           requiredData = {
             salons_id: id,
             service_id: ServiceIds,
@@ -203,7 +203,7 @@ export default function BookFlow() {
         }
         getAvailableSlots(requiredData).then((res) => {
           setavailableSlots(res?.res?.data?.data);
-          console.log("available slotsssssss", res?.res?.data?.message);
+
           if (res?.res?.data?.message === "Salon Closed")
             toast.info("Salon Closed");
           dispatch(updateServiceDate(requiredData?.dateforService));
@@ -214,7 +214,7 @@ export default function BookFlow() {
     setStepTwoDetails(oldData);
   };
   //function to handle mobile view online razorpay payment
-
+  console.log("stepTwoDetails", stepTwoDetails);
   const handlePayment = async () => {
     try {
       let billInfo = {
@@ -286,8 +286,6 @@ export default function BookFlow() {
   if (isError) {
     return <ErrorComponent />;
   }
-  console.log(activeBookFlowBA);
-  console.log(typeof step);
 
   return (
     <div className={styles.book_flowMain}>
@@ -386,6 +384,7 @@ export default function BookFlow() {
                 getWorkerData={getWorkerData}
                 availableSlots={availableSlots}
                 stepTwoDetails={stepTwoDetails}
+                setStepTwoDetails={setStepTwoDetails}
               />
             ) : activeBookFlowBA === 3 ? (
               <MemoizeVisitorsDetails />

@@ -90,7 +90,6 @@ const Lookbook = () => {
       getLookbooksByLocations(data).then((res) => {
         let response = res?.res?.data?.data;
         setallLookbook(response);
-        console.log(response);
       });
     }
     setActiveButton(categoryName);
@@ -325,8 +324,6 @@ const Lookbook = () => {
     getLookbooksByLocations(data).then((res) => {
       let response = res?.res?.data?.data;
       setallLookbook(response);
-      console.log(data);
-      console.log(response);
     });
   }, [userDetails?.user]);
 

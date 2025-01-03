@@ -190,7 +190,6 @@ export const useTimeSlots = (data) => {
 };
 
 export const getAvailableSlots = async (data) => {
-  console.log(data);
   const jwtToken = localStorage.getItem("jwtToken");
   try {
     const res = await axiosInstance.post(`/appointment/generateSloats`, data, {
@@ -199,7 +198,6 @@ export const getAvailableSlots = async (data) => {
       },
     });
 
-    console.log("slots response", res);
     return { res: res, err: null };
   } catch (error) {
     return { err: error, res: null };

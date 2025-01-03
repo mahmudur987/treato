@@ -69,7 +69,7 @@
   line-height: 150%; /* 24px */
   letter-spacing: 0.16px;
 }
-.salonInfo > h3{
+.salonInfo > h3 {
   margin-bottom: 16px;
 }
 .serviceName small {
@@ -90,7 +90,7 @@
   font-family: "Lato";
   gap: 8px;
 }
-.plus{
+.plus {
   font-size: 22px;
   margin-right: 12px;
 }
@@ -102,7 +102,12 @@
   color: var(--primary-color);
   font-size: 1rem;
 }
+.stylistImageWrapper {
+  margin-left: -10px;
+  /* To make the images round */
+}
 .stylistImage {
+  height: 24px;
   width: 24px; /* Adjust the width as needed */
   border-radius: 50%; /* To make the images round */
 }
@@ -126,27 +131,27 @@
   background-color: var(--Grey-40);
   border: none;
 }
-.backBtn{
+.backBtn {
   cursor: pointer;
 }
 @media only screen and (max-width: 768px) {
-.LookbookDetails{
+  .LookbookDetails {
     grid-template-columns: 1fr;
     padding: 1rem;
-}
-.LookbookDetails h3{
+  }
+  .LookbookDetails h3 {
     font-size: 24px;
-}
-.paymentContainer{
+  }
+  .paymentContainer {
     margin-top: 1rem;
-}
-.rating{
+  }
+  .rating {
     font-size: 14px;
-}
-.paymentBox{
+  }
+  .paymentBox {
     width: 100%;
     border: none;
     padding: 0rem;
     margin-bottom: 5rem;
-}
+  }
 }

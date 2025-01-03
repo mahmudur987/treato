@@ -52,7 +52,6 @@ export default function FindLocationModal({
     // Update the keyword of the input element
     setValue(e.target.value);
   };
-
   const handleCurrentLocation = async () => {
     try {
       const response = await fetch(
@@ -64,7 +63,7 @@ export default function FindLocationModal({
       }
 
       const data = await response.json();
-
+      console.log(data);
       if (data.results && data.results.length > 0) {
         setuserAddressText(data?.results[0]?.formatted_address);
         clearSuggestions();
@@ -120,21 +119,27 @@ export default function FindLocationModal({
     lat: 0, // Default to 0
     lng: 0, // Default to 0
   };
-const setLocation = () =>{
-  setLocationValue(" ")
-}
+  const setLocation = () => {
+    setLocationValue(" ");
+  };
   return (
     <div className={styles.locationMain}>
       <div className={styles.locationBack}>
         <div className={styles.locationA}>
           <div className={styles.locationAA}>Find your location</div>
-          <img loading="lazy" src={DarkCross} alt="close" onClick={closeModal} />
+          <img
+            loading="lazy"
+            src={DarkCross}
+            alt="close"
+            onClick={closeModal}
+          />
         </div>
         <div className={styles.locationB}>
           <img loading="lazy" src={smallMapPin} alt="mapPin" />
 
           <BasicInput Type={"text"} onChange={handleInput} VALUE={value} />
-          <img loading="lazy"
+          <img
+            loading="lazy"
             src={smallCross}
             alt="smallCross"
             onClick={setLocation}

@@ -37,7 +37,7 @@ export default function PhoneInput({
     const numberWithoutCountryCode = phoneNumber.replace(country, "");
     const isNumeric = /^\d+$/.test(numberWithoutCountryCode);
     const isValidLength =
-      numberWithoutCountryCode.length <= countryPhoneLengths[country];
+      numberWithoutCountryCode.length === countryPhoneLengths[country];
 
     if (!isNumeric) {
       return "The phone number should contain only digits.";
@@ -81,7 +81,7 @@ export default function PhoneInput({
         </select>
         <div className={styles.phone_inputBorder}></div>
         <input
-          type={Type ? Type : "text"}
+          type={Type ? Type : "tel"}
           placeholder={PlaceHolder ? PlaceHolder : ""}
           className={styles.phone_input}
           value={VALUE ? VALUE.replace(country, "") : ""}

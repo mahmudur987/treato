@@ -7,15 +7,21 @@ import { memo, useEffect, useMemo, useRef } from "react";
 import { useGetAllSalonServiceStylist } from "../../../services/salon";
 import NoDataDisplay from "../../NodataToDisplay/NoDataDisplay";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 export default function WorkerDetail({
   SalonData,
   getWorkerData,
   availableSlots,
-  updateItemCounter,
-  itemCounter,
   stepTwoDetails,
+  setStepTwoDetails,
 }) {
+  const location = useLocation();
+
+  // Parse query string
+  const queryParams = new URLSearchParams(location.search);
+  const stylist = queryParams.get("stylist");
+
   const noneLabelRef = useRef(null);
   const salonServices = useSelector(
     (state) => state.salonServices.salonContent
@@ -33,6 +39,16 @@ export default function WorkerDetail({
       filteredStylistsId?.includes(x._id)
     );
   }, [SalonData, filteredStylistsId]);
+
+  useEffect(() => {
+    let selectedStylist = filteredStylist?.find((x) => x._id === stylist);
+    console.log(selectedStylist, "filteredStylist");
+
+    setStepTwoDetails((prev) => ({
+      ...prev,
+      workerData: [selectedStylist],
+    }));
+  }, [stylist, filteredStylist, setStepTwoDetails, getWorkerData]);
 
   useEffect(() => {
     // Click the label when the component mounts
@@ -69,6 +85,7 @@ export default function WorkerDetail({
           {filteredStylist?.map((v, i) => {
             return (
               <WorkerComponent
+                checked={stepTwoDetails?.workerData?.[0]?._id === v._id}
                 workerData={v}
                 bookingAble={data}
                 key={i}

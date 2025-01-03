@@ -104,7 +104,15 @@ function ContactUs() {
                   name="first_name"
                   placeholder="First name"
                   value={formData.first_name}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    const onlyText = /^[a-zA-Z\s]*$/;
+                    if (onlyText.test(value)) {
+                      handleChange(e);
+                    } else {
+                      e.target.value = value.replace(/[^a-zA-Z\s]/g, "");
+                    }
+                  }}
                   required
                   maxLength={20}
                 />
@@ -116,7 +124,15 @@ function ContactUs() {
                   name="last_name"
                   placeholder="Last name"
                   value={formData.last_name}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    const onlyText = /^[a-zA-Z\s]*$/;
+                    if (onlyText.test(value)) {
+                      handleChange(e);
+                    } else {
+                      e.target.value = value.replace(/[^a-zA-Z\s]/g, "");
+                    }
+                  }}
                   required
                   maxLength={20}
                 />

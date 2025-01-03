@@ -4,6 +4,7 @@ import RadioInput from "../../Input/RadioInput/RadioInput";
 import SalonStar from "../../SalonDetail/SalonStar/SalonStar";
 
 export default function WorkerComponent({
+  checked,
   workerData,
   index,
   getWorkerData,
@@ -49,6 +50,7 @@ export default function WorkerComponent({
       </div>
       <div className={styles.worker_compAB}>
         <RadioInput
+          checked={checked ? checked : false}
           Type={"radio"}
           NAME={"preference"}
           id={`worker${index}`}

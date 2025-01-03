@@ -23,9 +23,6 @@ const LookbookDetails = () => {
   );
   const id = useParams();
   let navigate = useNavigate();
-  const handleGoBack = () => {
-    window.history.back(); // This will navigate back to the previous page in the browser's history
-  };
 
   useEffect(() => {
     let getLooks = async () => {
@@ -42,17 +39,19 @@ const LookbookDetails = () => {
 
   useEffect(() => {
     let getAllLooks = async () => {
+      setLoading(true);
       const { res, err } = await GetLooks();
       if (res) {
         let data = res?.data?.data.filter((v) => v._id === lookData?._id);
         setSalonId(data[0]?.salon);
         setAllLookData(data);
+        setLoading(false);
       }
     };
     getAllLooks();
   }, [lookData]);
 
-  let handleNavigation = (step) => {
+  let handleNavigation = (step, stylistID) => {
     let services = {
       salon_id: salonId,
       service_category: lookData?.service[0]?.service_name,
@@ -72,6 +71,9 @@ const LookbookDetails = () => {
       navigate(`/salons/${salonId}/book?step=2`);
     } else if (step === 3) {
       navigate(`/salons/${salonId}`);
+    } else if (step === 4) {
+      dispatch(addService(allServices));
+      navigate(`/salons/${salonId}/book?step=2&stylist=${stylistID}`);
     }
   };
 
@@ -131,28 +133,34 @@ const LookbookDetails = () => {
               </div>
               <hr className={styles.line} />
               <div className={styles.stylistInfo}>
-                {lookData?.stylist?.map((v, i) => {
+                {lookData?.stylists?.slice(0, 3).map((v, i) => {
                   return (
-                    <img
-                      loading="lazy"
-                      src={mask}
-                      alt="stylistImage"
-                      className={styles.stylistImage}
-                    />
+                    <figure className={styles.stylistImageWrapper}>
+                      <img
+                        loading="lazy"
+                        src={v?.stylist_Img?.public_url}
+                        alt="stylistImage"
+                        className={styles.stylistImage}
+                      />
+                    </figure>
                   );
                 })}
-                {lookData?.stylist?.length > 0 && lookData?.stylist[0] ? (
-                  <>
-                    <span> by </span> {lookData?.stylist[0]?.stylist_name} +{" "}
-                    {lookData?.stylist.length - 1}
-                  </>
-                ) : null}
+                {lookData.stylists.slice(0, 1).map((v, i) => {
+                  return (
+                    <>
+                      <span> by </span> {v.stylist_name}
+                    </>
+                  );
+                })}
+                {lookData?.stylists.length > 1 && (
+                  <>+ {lookData?.stylists.length - 1} </>
+                )}
                 {salonId ? (
                   <>
                     <span> at </span>
                     <Link to={`/salons/${salonId}`}>
                       <span className={styles.salonName}>
-                        {serviceData?.service_name}
+                        {lookData?.salon?.salon_name}
                       </span>
                     </Link>
                   </>
@@ -169,7 +177,13 @@ const LookbookDetails = () => {
               </button>
               <PrimaryButton
                 className={styles.bookNow}
-                onClick={() => handleNavigation(2)}
+                onClick={() => {
+                  if (lookData?.stylists?.length > 0) {
+                    handleNavigation(4, lookData?.stylists[0]?._id);
+                  } else {
+                    handleNavigation(2);
+                  }
+                }}
               >
                 Book now
               </PrimaryButton>
