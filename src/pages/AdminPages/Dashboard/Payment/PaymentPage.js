@@ -36,7 +36,7 @@ const PaymentPage = () => {
   console.log(data);
   useEffect(() => {
     if (data) {
-      setCount(600);
+      setCount(data?.totalCount);
     }
   }, [data]);
 

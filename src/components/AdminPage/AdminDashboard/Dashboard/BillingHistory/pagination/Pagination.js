@@ -75,6 +75,7 @@ const Pagination = ({
                   backgroundColor: `${
                     pageIndex === pageNumber ? "rgba(0, 0, 0, 0.2)" : ""
                   }`,
+                  cursor: "pointer",
                 }}
                 onClick={() => setPageNumber(pageIndex)}
               >
