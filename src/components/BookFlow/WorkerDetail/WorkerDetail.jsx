@@ -41,14 +41,18 @@ export default function WorkerDetail({
   }, [SalonData, filteredStylistsId]);
 
   useEffect(() => {
-    let selectedStylist = filteredStylist?.find((x) => x._id === stylist);
-    console.log(selectedStylist, "filteredStylist");
+    if (stylist) {
+      let selectedStylist = filteredStylist?.find((x) => x._id === stylist);
+      console.log(selectedStylist, "filteredStylist");
 
-    setStepTwoDetails((prev) => ({
-      ...prev,
-      workerData: [selectedStylist],
-    }));
-  }, [stylist, filteredStylist, setStepTwoDetails, getWorkerData]);
+      if (selectedStylist) {
+        setStepTwoDetails((prev) => ({
+          ...prev,
+          workerData: [selectedStylist],
+        }));
+      }
+    }
+  }, [stylist, filteredStylist, setStepTwoDetails]);
 
   useEffect(() => {
     // Click the label when the component mounts

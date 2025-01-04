@@ -12,6 +12,8 @@ const FilterSection = ({ value }) => {
     setSelectedPaymentStatus,
     PaymentMode,
     PaymentStatus,
+    searchText,
+    setSearchText,
   } = value;
   return (
     <div className={styles.mainContainerWrapper}>
@@ -24,6 +26,8 @@ const FilterSection = ({ value }) => {
           </label>
           <input
             id="search"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value.trim())}
             type="text"
             placeholder="Search by name or transaction ID"
             className={styles.input}

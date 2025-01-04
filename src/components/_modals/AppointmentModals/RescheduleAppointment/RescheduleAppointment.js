@@ -83,17 +83,32 @@ const RescheduleAppointment = ({ data }) => {
     fetchData();
   }, []);
 
-  const generateSlotsData = useMemo(
-    () => ({
-      salons_id: data.salonData[0]?._id,
-      service_id: subcategoriesIds,
-      selectedStylistId: data?.noPreference ? "" : data?.workerData[0]?._id,
-      noPreference: data?.noPreference,
-      dateforService: date,
-    }),
-    [data, subcategoriesIds, date]
-  );
+  // const generateSlotsData = useMemo(
+  //   () => ({
+  //     salons_id: data.salonData[0]?._id || "",
+  //     service_id: subcategoriesIds,
+  //     selectedStylistId: data?.noPreference ? "" : data?.workerData[0]?._id,
+  //     noPreference: data?.noPreference,
+  //     dateforService: date,
+  //   }),
+  //   [data, subcategoriesIds, date]
+  // );
+  const generateSlotsData = useMemo(() => {
+    const salonId = data?.salonData?.[0]?._id || "";
+    const stylistId = data?.noPreference
+      ? ""
+      : data?.stylistData?.[0]?._id || "";
 
+    return {
+      salons_id: salonId,
+      service_id: subcategoriesIds,
+      selectedStylistId: stylistId,
+      noPreference: data?.noPreference || false,
+      dateforService: date || "",
+    };
+  }, [data, subcategoriesIds, date]);
+
+  console.log(data, "data");
   const {
     data: slots,
     isLoading,

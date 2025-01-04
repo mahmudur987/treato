@@ -223,7 +223,7 @@ function App() {
         (position) => {
           const { latitude, longitude } = position.coords;
           // Update user details with the fetched location
-          console.log({ latitude, longitude, isLocationAllow: true });
+          // console.log({ latitude, longitude, isLocationAllow: true });
           dispatch(
             updateUserDetails({
               data: { latitude, longitude, isLocationAllow: true },
@@ -267,7 +267,7 @@ function App() {
   // Fetch location if not already available
   useEffect(() => {
     if (!userDetails?.user?.latitude || !userDetails?.user?.longitude) {
-      console.log("askForLocationPermission");
+      // console.log("askForLocationPermission");
       askForLocationPermission();
     }
   }, [

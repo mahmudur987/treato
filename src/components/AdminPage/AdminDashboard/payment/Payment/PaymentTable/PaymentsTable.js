@@ -1,8 +1,7 @@
 import React from "react";
-import topImg from "../../../../../../assets/images/TeamDetails/Vector (1).png";
-import bottomImg from "../../../../../../assets/images/TeamDetails/Vector.png";
+
 import sty from "./PaymentsTable.module.css";
-import { MdOutlineFileDownload } from "react-icons/md";
+
 const tableHeading = [
   {
     heading: "Txn ID.",
@@ -36,22 +35,25 @@ const tableHeading = [
     heading: "Comm.",
   },
 ];
-const PaymentTable = () => {
-  const tableData = [
-    {
-      txnId: "213541",
-      date: "24 Dec,2023",
-      clientName: "Mahmud",
-      salon_name: "Gitanjali salon",
-      amount: "₹1,199",
-      status: "Paid",
-      Mode: "online",
-      paidOn: "24 Dec 2023",
-      tax: "₹199",
-      comm: "₹1",
-    },
-  ];
+const PaymentTable = ({ data, selectedData, setSelectedData }) => {
+  const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      setSelectedData(data.map((x) => x));
+    } else {
+      setSelectedData([]);
+    }
+  };
 
+  const handleSelectSingle = (id) => {
+    if (selectedData.includes(id)) {
+      setSelectedData(
+        selectedData.filter((x) => x?.transactionId !== id?.transactionId)
+      );
+    } else {
+      setSelectedData([...selectedData, id]);
+    }
+  };
+  console.log(selectedData);
   return (
     <div className={sty.mainContainer}>
       <div className={sty.tableContainer}>
@@ -60,13 +62,18 @@ const PaymentTable = () => {
             <tr>
               <td>
                 <div className={sty.checkbox}>
-                  <input type="checkbox" id="" />
+                  <input
+                    type="checkbox"
+                    id="selectAll"
+                    onChange={handleSelectAll}
+                    checked={selectedData.length === data.length}
+                  />
                 </div>
               </td>
               {tableHeading.map((item, i) => (
                 <td key={i}>
                   <div className={sty.headingRow}>
-                    <span className={sty.headingSpan} >{item.heading}</span>
+                    <span className={sty.headingSpan}>{item.heading}</span>
                     <div
                       style={{
                         display: "flex",
@@ -82,28 +89,48 @@ const PaymentTable = () => {
             </tr>
           </thead>
           <tbody className={sty.tbody}>
-            {tableData.map((x) => (
-              <tr style={{ borderBottom: "1px solid #ebedf0" }}>
-                <td>
-                  <div className={sty.checkbox}>
-                    <input type="checkbox" id="" />
-                  </div>
-                </td>
-                <td>{x.txnId}</td>
-                <td>{x.date}</td>
-                <td>{x.clientName}</td>
-                <td>{x.salon_name}</td>
-                <td>{x.amount}</td>
-                <td>{x.status}</td>
-                <td>{x.Mode}</td>
-                <td>{x.paidOn}</td>
-                <td>{x.tax}</td>
-                <td>{x.comm}</td>
-                {/* <td style={{ fontSize: "18px" }}>
-                  <MdOutlineFileDownload />
-                </td> */}
-              </tr>
-            ))}
+            {data.slice(0, 25).map((x) => {
+              const {
+                dateforService,
+                commissionAmount,
+                salonName,
+                clientName,
+                transactionId,
+                status,
+                payment_mode,
+                amount,
+                taxAmount,
+                paidOn,
+              } = x;
+
+              return (
+                <tr style={{ borderBottom: "1px solid #ebedf0" }}>
+                  <td>
+                    <div className={sty.checkbox}>
+                      <input
+                        type="checkbox"
+                        id={transactionId}
+                        onChange={() => handleSelectSingle(x)}
+                        checked={selectedData.includes(x)}
+                      />
+                    </div>
+                  </td>
+                  <td>{transactionId}</td>
+                  <td>{dateforService}</td>
+                  <td>{clientName}</td>
+                  <td>{salonName}</td>
+                  <td>{amount}</td>
+                  <td>{status}</td>
+                  <td>{payment_mode}</td>
+                  <td>{paidOn}</td>
+                  <td>{taxAmount}</td>
+                  <td>{commissionAmount}</td>
+                  {/* <td style={{ fontSize: "18px" }}>
+  <MdOutlineFileDownload />
+</td> */}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
