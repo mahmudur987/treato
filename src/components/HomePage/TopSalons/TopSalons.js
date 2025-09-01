@@ -1,60 +1,105 @@
 import React, { useRef, useState, useEffect, memo } from "react";
 import styles from "./styles.module.css";
-import Salon, { MemoizedSalon } from "../../Cards/Salon/Salon";
+import Salon from "../../Cards/Salon/Salon";
 import { scrollright } from "../../../assets/images/icons";
-import {
-  useGetAllNearSalonSList,
-  useGetAllSalonSList,
-} from "../../../services/salon";
 import Title from "../../Typography/Title/Title";
-import { useSelector } from "react-redux";
-import NoDataDisplay from "../../NodataToDisplay/NoDataDisplay";
-import LoadSpinner from "../../LoadSpinner/LoadSpinner";
-import ErrorComponent from "../../ErrorComponent/ErrorComponent";
+import img1 from "../../../assets/images/LookbookImages/Lookbook1.webp";
+import img2 from "../../../assets/images/LookbookImages/Lookbook2.webp";
+import img3 from "../../../assets/images/LookbookImages/Lookbook3.webp";
+import img4 from "../../../assets/images/LookbookImages/Lookbook4.webp";
+import img5 from "../../../assets/images/LookbookImages/Lookbook5.webp";
+import img6 from "../../../assets/images/LookbookImages/Lookbook6.webp";
 
-const TopSalons = (props) => {
-  const salonsState = useSelector((state) => state.salons);
-  const userDetails = useSelector((state) => state.user);
-  let [topSalonData, setTopSalonData] = useState([]);
-  const { data, isLoading, isError, error } = useGetAllSalonSList();
-  const {
-    data: salonsData,
-    isLoading: salonsLoading,
-    isError: salonsIsError,
-    error: salonsError,
-  } = useGetAllNearSalonSList({
-    search: "",
-    lat: userDetails?.user?.latitude,
-    lng: userDetails?.user?.longitude,
-  });
+// ✅ Dummy static salons data
 
-  useEffect(() => {
-    if (data) {
-      let filterResult = [...data?.salons].sort((a, b) => b.rating - a.rating);
-      setTopSalonData(filterResult);
-    }
+const dummySalons = [
+  {
+    _id: "1",
+    salon_name: "Luxury Hair Studio",
+    rating: 4.8,
+    total_rating: 120,
+    distances: 1.2,
+    location_details: { location: "Delhi" },
+    salon_Img: [{ public_url: img1, isPrimary: true }],
+    services: [
+      { service_name: "Haircut", service_timing: "45 mins", price: 500 },
+      { service_name: "Hair Color", service_timing: "60 mins", price: 1200 },
+    ],
+  },
+  {
+    _id: "2",
+    salon_name: "Elegant Spa & Salon",
+    rating: 4.5,
+    total_rating: 90,
+    distances: 2.5,
+    location_details: { location: "Mumbai" },
+    salon_Img: [{ public_url: img2, isPrimary: true }],
+    services: [
+      { service_name: "Facial", service_timing: "50 mins", price: 700 },
+      { service_name: "Manicure", service_timing: "30 mins", price: 400 },
+    ],
+  },
+  {
+    _id: "3",
+    salon_name: "Urban Cuts",
+    rating: 4.2,
+    total_rating: 70,
+    distances: 0.9,
+    location_details: { location: "Bangalore" },
+    salon_Img: [{ public_url: img3, isPrimary: true }],
+    services: [
+      { service_name: "Pedicure", service_timing: "30 mins", price: 350 },
+      { service_name: "Massage", service_timing: "60 mins", price: 1000 },
+    ],
+  },
+  {
+    _id: "3",
+    salon_name: "Urban Cuts",
+    rating: 4.2,
+    total_rating: 70,
+    distances: 0.9,
+    location_details: { location: "Bangalore" },
+    salon_Img: [{ public_url: img3, isPrimary: true }],
+    services: [
+      { service_name: "Pedicure", service_timing: "30 mins", price: 350 },
+      { service_name: "Massage", service_timing: "60 mins", price: 1000 },
+    ],
+  },
+  {
+    _id: "3",
+    salon_name: "Urban Cuts",
+    rating: 4.2,
+    total_rating: 70,
+    distances: 0.9,
+    location_details: { location: "Bangalore" },
+    salon_Img: [{ public_url: img3, isPrimary: true }],
+    services: [
+      { service_name: "Pedicure", service_timing: "30 mins", price: 350 },
+      { service_name: "Massage", service_timing: "60 mins", price: 1000 },
+    ],
+  },
+  {
+    _id: "3",
+    salon_name: "Urban Cuts",
+    rating: 4.2,
+    total_rating: 70,
+    distances: 0.9,
+    location_details: { location: "Bangalore" },
+    salon_Img: [{ public_url: img3, isPrimary: true }],
+    services: [
+      { service_name: "Pedicure", service_timing: "30 mins", price: 350 },
+      { service_name: "Massage", service_timing: "60 mins", price: 1000 },
+    ],
+  },
+];
 
-    if (props.heading === "Top-rated Hair Salons") {
-    } else if (props?.heading === "Popular near you") {
-      if (salonsData) {
-        setTopSalonData(salonsData?.salons);
-      }
-    }
-  }, [data, salonsData, props?.heading]);
-
-  const carouselRef = useRef(null);
-  // const [scrollPosition, setScrollPosition] = useState(0);
+const TopSalons = ({ heading }) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
-
-  const isRmdContentOverflowing = topSalonData ? topSalonData.length > 4 : null;
-
-  const screenWidth = window.innerWidth;
-  const hideRightArrow = screenWidth > 1200 && !isRmdContentOverflowing;
+  const carouselRef = useRef(null);
 
   const handleScroll = () => {
     const scrollLeft = carouselRef.current.scrollLeft;
-
     setShowLeftArrow(scrollLeft > 0);
     setShowRightArrow(
       scrollLeft <
@@ -62,140 +107,52 @@ const TopSalons = (props) => {
     );
   };
 
-  const scrollLeft = () => {
-    carouselRef?.current.scrollBy({ left: -200, behavior: "smooth" });
-  };
+  const scrollLeft = () =>
+    carouselRef.current.scrollBy({ left: -200, behavior: "smooth" });
+  const scrollRight = () =>
+    carouselRef.current.scrollBy({ left: 200, behavior: "smooth" });
 
-  const scrollRight = () => {
-    carouselRef?.current.scrollBy({ left: 200, behavior: "smooth" });
-  };
   useEffect(() => {
-    carouselRef?.current.addEventListener("scroll", handleScroll);
-    handleScroll(); // Call handleScroll initially to set initial arrow visibility
+    carouselRef.current.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => {
-      carouselRef?.current?.removeEventListener("scroll", handleScroll);
+      carouselRef.current.removeEventListener("scroll", handleScroll);
     };
-  }, [topSalonData, userDetails]);
-  let [winWidthMain, updateWinWidthMain] = useState(window.innerWidth);
-  function reportWindowSize() {
-    let winWidth = window.innerWidth;
-    updateWinWidthMain(winWidth);
-  }
-  window.onresize = reportWindowSize;
+  }, []);
+
   return (
-    <>
-      <section className={styles["container"]}>
-        <div className={styles["top-ratedSalons"]}>
-          <div className={styles["trHeadWrapper"]}>
-            {winWidthMain <= 768 ? (
-              <div className={styles["trMobHeading"]}>
-                <h3>{props.heading}</h3>
-                <img
-                  loading="lazy"
-                  src={scrollright}
-                  className={styles.mobScrollRight}
-                  alt="salon images"
-                />
-              </div>
-            ) : (
-              <Title>{props.heading}</Title>
-            )}
-          </div>
-
-          <div>
-            {showLeftArrow && (
-              <img
-                loading="lazy"
-                src={scrollright}
-                onClick={scrollLeft}
-                alt="scrollleft"
-                className={styles.scroll_left}
-              />
-            )}
-            {props.heading === "Top-rated Hair Salons" && (
-              <div ref={carouselRef} className={styles["trWrapper"]}>
-                {data &&
-                  !isLoading &&
-                  !isError &&
-                  topSalonData.length > 0 &&
-                  topSalonData.map((salon, index) => (
-                    <MemoizedSalon
-                      salonData={salon}
-                      place={"homePage"}
-                      key={index}
-                    />
-                  ))}
-                {data &&
-                  !isLoading &&
-                  !isError &&
-                  topSalonData.length === 0 && (
-                    <p>
-                      <NoDataDisplay
-                        message={
-                          "No salons available at the moment. Check back later!"
-                        }
-                      />
-                    </p>
-                  )}
-
-                {isLoading && <LoadSpinner />}
-                {isError && (
-                  <ErrorComponent message={error ? error.message : "Error"} />
-                )}
-              </div>
-            )}
-            {props.heading === "Popular near you" && (
-              <div ref={carouselRef} className={styles["trWrapper"]}>
-                {salonsData &&
-                  !salonsLoading &&
-                  !salonsIsError &&
-                  topSalonData.length > 0 &&
-                  topSalonData.map((salon, index) => (
-                    <MemoizedSalon
-                      salonData={salon}
-                      place={"homePage"}
-                      key={index}
-                    />
-                  ))}
-                {data &&
-                  !isLoading &&
-                  !isError &&
-                  topSalonData.length === 0 && (
-                    <p>
-                      <NoDataDisplay
-                        message={
-                          "No salons available at the moment. Check back later!"
-                        }
-                      />
-                    </p>
-                  )}
-
-                {props.heading === "Top-rated Hair Salons" && isLoading && (
-                  <LoadSpinner />
-                )}
-                {props.heading === "popular near you" && salonsLoading && (
-                  <LoadSpinner />
-                )}
-                {props.heading === "popular near you" && salonsIsError && (
-                  <ErrorComponent
-                    message={salonsError ? salonsError.message : "Error"}
-                  />
-                )}
-              </div>
-            )}
-            {showRightArrow && (
-              <img
-                loading="lazy"
-                src={scrollright}
-                onClick={scrollRight}
-                alt="scrollRight"
-                className={styles.scroll_right}
-              />
-            )}
-          </div>
+    <section className={styles.container}>
+      <div className={styles.topRatedSalons}>
+        <div className={styles.trHeadWrapper}>
+          <Title>{heading}</Title>
         </div>
-      </section>
-    </>
+        <div>
+          {showLeftArrow && (
+            <img
+              src={scrollright}
+              onClick={scrollLeft}
+              alt="scrollLeft"
+              className={styles.scroll_left}
+            />
+          )}
+
+          <div ref={carouselRef} className={styles.trWrapper}>
+            {dummySalons.map((salon) => (
+              <Salon key={salon._id} salonData={salon} place="homePage" />
+            ))}
+          </div>
+
+          {showRightArrow && (
+            <img
+              src={scrollright}
+              onClick={scrollRight}
+              alt="scrollRight"
+              className={styles.scroll_right}
+            />
+          )}
+        </div>
+      </div>
+    </section>
   );
 };
 

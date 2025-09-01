@@ -1,16 +1,22 @@
-import React, { useState, useEffect, memo } from "react";
-// import styles"./Slider.module.css";
+import React, { memo } from "react";
 import styles from "./styles.module.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { fingernail } from "../../../assets/images/recommendImages";
 import Title from "../../Typography/Title/Title";
-import { useGetServices } from "../../../services/Services";
-import LoadSpinner from "../../LoadSpinner/LoadSpinner";
 import { Link } from "react-router-dom";
 
-export default function RecommendedSection() {
-  const { data, isLoading } = useGetServices();
+const RecommendedSection = () => {
+  // ✅ Dummy static services (replace with backend later)
+  const services = [
+    { serviceName: "Haircut", serviceImg: { public_url: fingernail } },
+    { serviceName: "Manicure", serviceImg: { public_url: fingernail } },
+    { serviceName: "Pedicure", serviceImg: { public_url: fingernail } },
+    { serviceName: "Massage", serviceImg: { public_url: fingernail } },
+    { serviceName: "Facial", serviceImg: { public_url: fingernail } },
+    { serviceName: "Makeup", serviceImg: { public_url: fingernail } },
+  ];
+
   const responsive = {
     superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 7 },
     desktop: { breakpoint: { max: 3000, min: 1024 }, items: 5 },
@@ -18,60 +24,59 @@ export default function RecommendedSection() {
     mobile: { breakpoint: { max: 464, min: 0 }, items: 3 },
   };
 
-  const CustomDot = ({ onMove, index, onClick, active }) => {
-    return (
-      <button
-        className={`${styles.carouselDot} ${active ? styles.dotActive : ""}`}
-        onClick={onClick}
-      ></button>
-    );
-  };
-  const CustomRight = ({ onClick }) => (
-    <button className={styles.rightArrow} onClick={onClick}></button>
+  const CustomDot = ({ onClick, active }) => (
+    <button
+      className={`${styles.carouselDot} ${active ? styles.dotActive : ""}`}
+      onClick={onClick}
+    />
   );
+
+  const CustomRight = ({ onClick }) => (
+    <button className={styles.rightArrow} onClick={onClick} />
+  );
+
   const CustomLeft = ({ onClick }) => (
-    <button className={styles.leftArrow} onClick={onClick}></button>
+    <button className={styles.leftArrow} onClick={onClick} />
   );
 
   return (
     <section id="recommended" className={styles.container}>
       <div className={styles.recommended}>
         <Title>Recommended for you</Title>
-        {data && !isLoading && (
-          <Carousel
-            responsive={responsive}
-            customRightArrow={<CustomRight />}
-            customLeftArrow={<CustomLeft />}
-            showDots={true}
-            removeArrowOnDeviceType={["mobile"]}
-            dotListClass={styles["custom-dot-list-style"]}
-            className={styles.rmdWrapper}
-            draggable={false}
-            swipeable={false}
-            renderDotsOutside
-            customDot={<CustomDot />}
-          >
-            {data?.data?.map((service, index) => (
-              <Link
-                key={index}
-                to={`/salons?service=${service.serviceName}&lat=&lng=&location=`}
-                className={styles.rmdItem}
-              >
-                <img
-                  loading="lazy"
-                  src={service?.serviceImg?.public_url ?? fingernail}
-                  alt={service.serviceName}
-                />
-                <h4>{service.serviceName}</h4>
-              </Link>
-            ))}
-          </Carousel>
-        )}
 
-        {isLoading && <LoadSpinner />}
+        <Carousel
+          responsive={responsive}
+          customRightArrow={<CustomRight />}
+          customLeftArrow={<CustomLeft />}
+          showDots
+          removeArrowOnDeviceType={["mobile"]}
+          dotListClass={styles["custom-dot-list-style"]}
+          className={styles.rmdWrapper}
+          draggable={false}
+          swipeable={false}
+          renderDotsOutside
+          customDot={<CustomDot />}
+        >
+          {services.map((service, index) => (
+            <Link
+              key={index}
+              to={`/salons?service=${service.serviceName}`}
+              className={styles.rmdItem}
+            >
+              <img
+                loading="lazy"
+                src={service.serviceImg.public_url}
+                alt={service.serviceName}
+              />
+              <h4>{service.serviceName}</h4>
+            </Link>
+          ))}
+        </Carousel>
       </div>
     </section>
   );
-}
+};
 
 export const MemoizedRecommendedSection = memo(RecommendedSection);
+
+export default RecommendedSection;
