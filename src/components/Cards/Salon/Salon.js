@@ -23,6 +23,7 @@ const Salon = ({ salonData, place }) => {
       className={`${styles.card} ${
         place === "homePage" ? styles.card_Home : ""
       }`}
+      style={{ margin: "0 auto" }}
     >
       <Link to={`/salons/${salonData._id}`}>
         <img

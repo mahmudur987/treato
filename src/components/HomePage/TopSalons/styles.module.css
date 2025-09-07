@@ -73,6 +73,8 @@
 .scrollRight {
   height: 36px;
   cursor: pointer;
+  background-color: aqua;
+  margin: 20px;
 }
 
 /* top-rated hair salons css */
@@ -120,7 +122,7 @@
   top: 50%;
   left: 1%;
 }
-.scroll_right{
+.scroll_right {
   position: absolute;
   top: 50%;
   right: 1%;
@@ -134,25 +136,25 @@
   font-family: "Lato";
   margin: 2rem auto;
   font-weight: bolder;
-  height:4vh;
+  height: 4vh;
 }
 @media only screen and (max-width: 770px) {
   .container {
     padding: 2rem 1rem;
     padding-top: 0rem;
   }
-  .top-ratedSalons{
+  .top-ratedSalons {
     margin-top: 0rem;
   }
   .rmdHeading {
     font-size: var(--fonts-large);
   }
-  .trHeading{
+  .trHeading {
     font-size: 18px;
     font-weight: 600;
     font-family: "Lato", sans-serif;
   }
-  .trWrapper{
+  .trWrapper {
     margin-top: 1rem;
   }
   .rmdWrapper {
@@ -161,7 +163,7 @@
     flex-wrap: wrap;
     height: 240px;
   }
-  .mobScrollRight{
+  .mobScrollRight {
     padding: 4px;
     height: 24px;
     width: 24px;
@@ -185,7 +187,9 @@
     font-size: var(--font-small);
     font-weight: 100;
   }
-  .scrollRight,.scroll_left,.scroll_right {
+  .scrollRight,
+  .scroll_left,
+  .scroll_right {
     display: none !important;
   }
   .trScrollRight {
@@ -200,7 +204,7 @@
     height: 24px;
     width: 24px;
   }
-  .trMobHeading{
+  .trMobHeading {
     font-size: 18px;
     font-weight: 600;
     display: flex;

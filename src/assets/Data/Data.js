@@ -1,3 +1,5 @@
+import { blogImages } from "../images/HomeLatestBlogs";
+
 export const links = [
   {
     to: "/partner/dashboard",
@@ -274,5 +276,57 @@ export const sidebarLink = [
       </svg>
     ),
     text: "Account Settings",
+  },
+];
+
+// src/mock/blogs.js
+export const dummyBlogs = [
+  {
+    _id: "1",
+    blog_title: "5 Tips for Healthy Hair",
+    blog_description:
+      "Discover simple tips and tricks to maintain your hair's natural shine and strength.",
+    writer_name: "Jane Doe",
+    blog_Img: { public_url: blogImages.blogImg1 },
+  },
+  {
+    _id: "2",
+    blog_title: "Latest Hair Trends in 2025",
+    blog_description:
+      "Stay ahead with the latest hair trends and styles this year.",
+    writer_name: "John Smith",
+    blog_Img: { public_url: blogImages.blogImg2 },
+  },
+  // {
+  //   _id: "3",
+  //   blog_title: "DIY Hair Treatments at Home",
+  //   blog_description:
+  //     "Learn how to pamper your hair with easy home treatments.",
+  //   writer_name: "Emily Johnson",
+  //   blog_Img: { public_url: blogImages.blogImg3 },
+  // },
+  // {
+  //   _id: "4",
+  //   blog_title: "The Ultimate Hair Care Routine",
+  //   blog_description:
+  //     "Discover the perfect hair care routine to nourish and protect your hair.",
+  //   writer_name: "Michael Brown",
+  //   blog_Img: { public_url: blogImages.blogImg4 },
+  // },
+  {
+    _id: "5",
+    blog_title: "Best Hair Products for Dry Hair",
+    blog_description:
+      "Discover the best hair products for dry hair and how to use them effectively.",
+    writer_name: "Sophia Davis",
+    blog_Img: { public_url: blogImages.blogImg1 },
+  },
+  {
+    _id: "6",
+    blog_title: "The Ultimate Hair Care Routine",
+    blog_description:
+      "Discover the perfect hair care routine to nourish and protect your hair.",
+    writer_name: "Michael Brown",
+    blog_Img: { public_url: blogImages.blogImg6 },
   },
 ];

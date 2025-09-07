@@ -2,19 +2,28 @@ import React, { memo } from "react";
 import styles from "./styles.module.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { fingernail } from "../../../assets/images/recommendImages";
+import {
+  fingernail,
+  Makeup,
+  hair,
+  hairRemoval,
+  skincare,
+  massage,
+  spa,
+} from "../../../assets/images/recommendImages";
 import Title from "../../Typography/Title/Title";
 import { Link } from "react-router-dom";
 
 const RecommendedSection = () => {
   // ✅ Dummy static services (replace with backend later)
   const services = [
-    { serviceName: "Haircut", serviceImg: { public_url: fingernail } },
+    { serviceName: "Haircut", serviceImg: { public_url: hair } },
     { serviceName: "Manicure", serviceImg: { public_url: fingernail } },
-    { serviceName: "Pedicure", serviceImg: { public_url: fingernail } },
-    { serviceName: "Massage", serviceImg: { public_url: fingernail } },
-    { serviceName: "Facial", serviceImg: { public_url: fingernail } },
-    { serviceName: "Makeup", serviceImg: { public_url: fingernail } },
+    { serviceName: "Hair Color", serviceImg: { public_url: Makeup } },
+    { serviceName: "Facial", serviceImg: { public_url: skincare } },
+    { serviceName: "Pedicure", serviceImg: { public_url: hairRemoval } },
+    { serviceName: "Massage", serviceImg: { public_url: massage } },
+    { serviceName: "Spa", serviceImg: { public_url: spa } },
   ];
 
   const responsive = {
